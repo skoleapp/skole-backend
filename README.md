@@ -1,3 +1,1 @@
-# skole-backend
-
-Repository for the backend
+# Skole Backend

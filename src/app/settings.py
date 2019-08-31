@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework.authtoken",
     "imagekit",
-    "core"
+    "core",
 ]
 
 MIDDLEWARE = [
@@ -146,3 +146,5 @@ REST_FRAMEWORK = {
     "PAGE_SIZE": 100,
     'TEST_REQUEST_DEFAULT_FORMAT': 'json',
 }
+
+AUTH_USER_MODEL = "core.User"

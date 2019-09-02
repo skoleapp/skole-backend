@@ -5,10 +5,8 @@ from django.db import models
 
 class UserManager(BaseUserManager):
     def create_user(self, email: str, username: str, password: str) -> 'User':
-        user = self.model(
-            email=self.normalize_email(email),
-            username=username,
-        )
+        user = self.model(email=self.normalize_email(email),
+                          username=username)
 
         user.is_staff = False
         user.is_superuser = False
@@ -19,9 +17,7 @@ class UserManager(BaseUserManager):
         return user
 
     def create_superuser(self, username: str, password: str) -> 'User':
-        user = self.model(
-            username=username,
-        )
+        user = self.model(username=username)
 
         user.is_staff = True
         user.is_superuser = True
@@ -52,17 +48,18 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    bio = models.TextField(max_length=2000, null=True)
-    email = models.EmailField(unique=True)
-    points = models.IntegerField(default=0)
-    title = models.CharField(max_length=100, null=True)
     username = models.CharField(max_length=30, unique=True)
+    email = models.EmailField(unique=True)
+    title = models.CharField(max_length=100, null=True, blank=True)
+    bio = models.TextField(max_length=2000, null=True, blank=True)
+    points = models.IntegerField(default=0)
     is_staff = models.BooleanField(default=False)
+    created_at = models.DateField(auto_now=True)
 
     objects = UserManager()
 
     USERNAME_FIELD = "username"
 
-    def __str__(self):
+    def __str__(self) -> models.CharField:
         return self.username
 

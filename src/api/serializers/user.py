@@ -35,3 +35,7 @@ class UserDetailSerializer(UserSerializer):
             'bio',
             'points',
         ]    
+
+
+    def update(self, instance: "User", validated_data: dict) -> "User":
+        return get_user_model().objects.update_user(instance, **validated_data)

@@ -13,5 +13,5 @@ class RegisterSerializer(UserSerializer):
         ]
 
 
-    def create(self, validated_data):
+    def create(self, validated_data: dict) -> "User":
         return get_user_model().objects.create_user(**validated_data)

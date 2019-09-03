@@ -9,7 +9,7 @@ class AuthTokenSerializer(serializers.Serializer):
         trim_whitespace=False
     )
 
-    def validate(self, attrs):
+    def validate(self, attrs: dict) -> dict:
         username_or_password = attrs.get('username_or_password')
         password = attrs.get('password')
 
@@ -56,7 +56,7 @@ class PasswordSerializer(serializers.Serializer):
             "confirm_password"
         ]
 
-    def validate(self, data):
+    def validate(self, data: dict) -> dict:
         if data["password"] != data["confirm_password"]:
             raise serializers.ValidationError("Passwords do not match.")
 

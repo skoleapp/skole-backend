@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
-from rest_framework import permissions, status, viewsets
+from django.db.models.query import QuerySet
+from rest_framework import permissions, request, serializers, status, viewsets
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -14,7 +15,7 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = get_user_model().objects.all()
     search_fields = ["username"]
 
-    def get_serializer_class(self):
+    def get_serializer_class(self) -> serializers.BaseSerializer:
         if self.action in ["retrieve", "update", "delete"]:
             return UserDetailSerializer
 
@@ -28,7 +29,7 @@ class UserViewSet(viewsets.ModelViewSet):
             return self.serializer_class
 
     
-    def get_permissions(self):
+    def get_permissions(self) -> dict:
         if self.action in [
             'list',
             'create'
@@ -46,9 +47,33 @@ class UserViewSet(viewsets.ModelViewSet):
     
         return [permission() for permission in permission_classes]
 
+
+    def get_queryset(self) -> QuerySet:
+        if self.action == "list":
+            """
+            Allow superuser to view all users.
+            Otherwise show only current user.
+            """
+
+            if self.request.user.is_superuser:
+                return self.queryset
+            
+            else:
+                return self.queryset.filter(pk=self.request.user.pk)
+
+        elif self.action in [
+            "vendor_profile",
+            "set_profile_image",
+            "set_languages"
+        ]:
+            return self.queryset.filter(is_vendor=True)
+        
+        else:
+            return self.queryset
+
     
     @action(detail=False, methods=["POST"], url_path="register")
-    def register(self, request):
+    def register(self, request: request) -> Response:
         serializer = self.get_serializer(data=request.data)
         
         if serializer.is_valid():
@@ -67,7 +92,7 @@ class UserViewSet(viewsets.ModelViewSet):
 
 
     @action(detail=False, methods=["POST"], url_path="login")
-    def login(self, request):
+    def login(self, request: request) -> Response:
         serializer = self.get_serializer(
             data=request.data,
             context={'request': request}

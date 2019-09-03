@@ -1,6 +1,8 @@
+import datetime
+
 from django.db import models
 
-from .school import University
+from .school import School
 
 
 class Faculty(models.Model):
@@ -8,7 +10,10 @@ class Faculty(models.Model):
     For example "Faculty of Science and Engineering".
     """
     name = models.CharField(max_length=100)
-    university = models.ForeignKey(University, on_delete=models.CASCADE)
-    updated_at = models.DateTimeField(auto_now=True)
-    created_at = models.DateTimeField(auto_now_add=True)
+    university = models.ForeignKey(School, on_delete=models.CASCADE)
+    modified = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self) -> str:
+        return f"{self.name}"
 

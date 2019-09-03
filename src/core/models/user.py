@@ -1,3 +1,5 @@
+import datetime
+
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
@@ -5,8 +7,10 @@ from django.db import models
 
 class UserManager(BaseUserManager):
     def create_user(self, email: str, username: str, password: str) -> 'User':
-        user = self.model(email=self.normalize_email(email),
-                          username=username)
+        user = self.model(
+            email=self.normalize_email(email),
+            username=username
+        )
 
         user.is_staff = False
         user.is_superuser = False
@@ -55,8 +59,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     bio = models.TextField(max_length=2000, null=True, blank=True)
     points = models.IntegerField(default=0)
     is_staff = models.BooleanField(default=False)
-    updated_at = models.DateTimeField(auto_now=True)
-    created_at = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True)
 
     objects = UserManager()
 

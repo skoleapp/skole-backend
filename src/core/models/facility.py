@@ -1,3 +1,5 @@
+import datetime
+
 from django.db import models
 
 from .faculty import Faculty
@@ -9,6 +11,8 @@ class Facility(models.Model):
     """
     name = models.CharField(max_length=100)
     faculty = models.ForeignKey(Faculty, on_delete=models.CASCADE)
-    updated_at = models.DateTimeField(auto_now=True)
-    created_at = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self) -> str:
+        return f"{self.name}"

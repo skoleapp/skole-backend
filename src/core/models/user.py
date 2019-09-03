@@ -48,18 +48,20 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
+    """Models one user on the platform."""
     username = models.CharField(max_length=30, unique=True)
     email = models.EmailField(unique=True)
     title = models.CharField(max_length=100, null=True, blank=True)
     bio = models.TextField(max_length=2000, null=True, blank=True)
     points = models.IntegerField(default=0)
     is_staff = models.BooleanField(default=False)
-    created_at = models.DateField(auto_now=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     objects = UserManager()
 
     USERNAME_FIELD = "username"
 
-    def __str__(self) -> models.CharField:
-        return self.username
+    def __str__(self) -> str:
+        return f"{self.username}"
 

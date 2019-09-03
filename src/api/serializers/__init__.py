@@ -1,1 +1,3 @@
-from .user_serializer import UserDetailSerializer, UserSerializer
+from .auth import AuthTokenSerializer, PasswordSerializer
+from .register import RegisterSerializer
+from .user import UserDetailSerializer, UserSerializer

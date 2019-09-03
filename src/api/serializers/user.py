@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
-from .password_serializer import PasswordSerializer
+from .auth import PasswordSerializer
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -35,9 +35,3 @@ class UserDetailSerializer(UserSerializer):
             'bio',
             'points',
         ]    
-
-
-    def update(self, instance, validated_data):
-        get_user_model().objects.update_user(instance, **validated_data)
-
-        return instance

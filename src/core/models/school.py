@@ -2,10 +2,12 @@ from django.db import models
 
 
 class School(models.Model):
+    """Abstract base class for all schools."""
     city = models.CharField(max_length=100)
     country = models.CharField(max_length=100)
     name = models.CharField(max_length=100)
-    created_at = models.DateField(auto_now=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         abstract = True

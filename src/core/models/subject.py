@@ -11,7 +11,8 @@ class Subject(models.Model):
     faculty = models.ManyToManyField(Faculty)
     name = models.CharField(max_length=100)
     school = models.ManyToManyField(School)
-    created_at = models.DateField(auto_now=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self) -> str:
         return f"{self.name}, {self.school.name}"

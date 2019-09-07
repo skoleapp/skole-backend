@@ -16,8 +16,8 @@ class UserManager(BaseUserManager):
         user.is_superuser = False
 
         user.set_password(password)
-        user.save(using=self._db)
 
+        user.save()
         return user
 
     def create_superuser(self, username: str, password: str) -> 'User':
@@ -27,27 +27,14 @@ class UserManager(BaseUserManager):
         user.is_superuser = True
 
         user.set_password(password)
-        user.save(using=self._db)
-
-        return user
-
-    @staticmethod
-    def update_user(user: 'User', bio: str, email: str, title: str, username: str) -> 'User':
-        """Update the user, used with PUT calls."""
-        user.bio = bio
-        user.email = email
-        user.title = title
-        user.username = username
 
         user.save()
-
         return user
 
     @staticmethod
     def set_password(user: 'User', password: str) -> 'User':
         user.set_password(password)
         user.save()
-
         return user
 
 

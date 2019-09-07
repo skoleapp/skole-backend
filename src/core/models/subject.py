@@ -1,5 +1,3 @@
-import datetime
-
 from django.db import models
 
 from .faculty import Faculty

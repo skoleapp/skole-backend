@@ -13,7 +13,7 @@ from core.utils import UNIVERSITY
 
 @pytest.fixture
 def user(db):
-    user = User.objects.create(
+    user = User.objects.create_user(
         email="testmail@gmail.com",
         username="testuser",
         password="testpass",

@@ -14,7 +14,7 @@ class UserManager(BaseUserManager):
         user.is_superuser = False
 
         user.set_password(password)
-        user.save(using=self._db)
+        user.save()
 
         return user
 
@@ -27,7 +27,7 @@ class UserManager(BaseUserManager):
         user.is_superuser = True
 
         user.set_password(password)
-        user.save(using=self._db)
+        user.save()
 
         return user
 
@@ -65,4 +65,3 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.username
-

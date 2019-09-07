@@ -11,3 +11,4 @@ OLD_PASSWORD_NOT_CORRECT_MESSAGE = "Old password is not correct."
 
 # API success messages
 PASSWORD_SET_SUCCESSFULLY_MESSAGE = "Password set successfully."
+LANGUAGE_SET_SUCCESSFULLY_MESSAGE = "Language set successfully."

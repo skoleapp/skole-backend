@@ -2,18 +2,19 @@ from typing import List
 
 from django.contrib.auth import get_user_model
 from django.db.models.query import QuerySet
-from rest_framework import permissions, request, status, viewsets
+from rest_framework import permissions, status, viewsets
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import action
 from rest_framework.permissions import BasePermission
+from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.serializers import BaseSerializer
 
 from ..permissions import IsAnonymous, IsSelfOrAdminReadOnly, ReadOnly
 from ..serializers import (AuthTokenSerializer, RegisterSerializer,
                            SetPasswordSerializer, UserDetailSerializer,
-                           UserSerializer)
-from ..utils import PASSWORD_SET_SUCCESSFULLY_MESSAGE
+                           UserSerializer, LanguageSerializer)
+from ..utils import PASSWORD_SET_SUCCESSFULLY_MESSAGE, LANGUAGE_SET_SUCCESSFULLY_MESSAGE
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -33,6 +34,9 @@ class UserViewSet(viewsets.ModelViewSet):
 
         elif self.action == "set_password":
             return SetPasswordSerializer
+
+        elif self.action == "set-language":
+            return LanguageSerializer
 
         else:
             return self.serializer_class
@@ -75,7 +79,7 @@ class UserViewSet(viewsets.ModelViewSet):
         return super().get_object()
 
     @action(detail=False, methods=["POST"], url_path="register")
-    def register(self, request: request) -> Response:
+    def register(self, request: Request) -> Response:
         serializer = self.get_serializer(data=request.data)
 
         if serializer.is_valid():
@@ -87,7 +91,7 @@ class UserViewSet(viewsets.ModelViewSet):
             return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
 
     @action(detail=False, methods=["POST"], url_path="login")
-    def login(self, request: request) -> Response:
+    def login(self, request: Request) -> Response:
         serializer = self.get_serializer(data=request.data, context={"request": request})
 
         serializer.is_valid(raise_exception=True)
@@ -96,15 +100,27 @@ class UserViewSet(viewsets.ModelViewSet):
         return Response({"token": token.key})
 
     @action(detail=False, methods=["POST"], url_path="set-password")
-    def set_password(self, request: request) -> Response:
+    def set_password(self, request: Request) -> Response:
         serializer = self.get_serializer(data=request.data)
 
         if serializer.is_valid():
             get_user_model().objects.set_password(
                 user=request.user,
-                password=request.data["password"]
+                password=serializer.data,
             )
-
             return Response(PASSWORD_SET_SUCCESSFULLY_MESSAGE, status.HTTP_200_OK)
+
+        return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
+
+    @action(detail=False, methods=["POST"], url_path="set-language")
+    def set_language(self, request: Request) -> Response:
+        serializer = self.get_serializer(data=request.data)
+
+        if serializer.is_valid():
+            get_user_model().objects.set_language(
+                user=request.user,
+                language=serializer.data,
+            )
+            return Response(LANGUAGE_SET_SUCCESSFULLY_MESSAGE, status.HTTP_200_OK)
 
         return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)

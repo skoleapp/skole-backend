@@ -10,12 +10,10 @@ from rest_framework.response import Response
 from rest_framework.serializers import BaseSerializer
 
 from ..permissions import IsAnonymous, IsSelfOrAdminReadOnly, ReadOnly
-from ..serializers import (
-    AuthTokenSerializer,
-    RegisterSerializer,
-    UserDetailSerializer,
-    UserSerializer,
-)
+from ..serializers import (AuthTokenSerializer, RegisterSerializer,
+                           SetPasswordSerializer, UserDetailSerializer,
+                           UserSerializer)
+from ..utils import PASSWORD_SET_SUCCESSFULLY_MESSAGE
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -33,6 +31,9 @@ class UserViewSet(viewsets.ModelViewSet):
         elif self.action == "login":
             return AuthTokenSerializer
 
+        elif self.action == "set_password":
+            return SetPasswordSerializer
+
         else:
             return self.serializer_class
 
@@ -42,6 +43,9 @@ class UserViewSet(viewsets.ModelViewSet):
 
         elif self.action in {"register", "login"}:
             permission_classes = [IsAnonymous]
+        
+        elif self.action == "set_password":
+            permission_classes = [permissions.IsAuthenticated]
 
         else:
             permission_classes = [IsSelfOrAdminReadOnly]
@@ -90,3 +94,17 @@ class UserViewSet(viewsets.ModelViewSet):
         user = serializer.validated_data["user"]
         token, created = Token.objects.get_or_create(user=user)
         return Response({"token": token.key})
+
+    @action(detail=False, methods=["POST"], url_path="set-password")
+    def set_password(self, request: request) -> Response:
+        serializer = self.get_serializer(data=request.data)
+
+        if serializer.is_valid():
+            get_user_model().objects.set_password(
+                user=request.user,
+                password=request.data["password"]
+            )
+
+            return Response(PASSWORD_SET_SUCCESSFULLY_MESSAGE, status.HTTP_200_OK)
+
+        return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)

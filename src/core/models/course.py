@@ -11,8 +11,8 @@ class Course(models.Model):
     code = models.CharField(max_length=30, null=True, blank=True)
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
     school = models.ForeignKey(School, on_delete=models.CASCADE)
-    points = models.IntegerField(default=0)
     creator = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)  # TODO: custom deletor, which marks the user as some anonymous user
+    points = models.IntegerField(default=0)
     modified = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 

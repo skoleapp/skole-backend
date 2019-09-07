@@ -18,4 +18,4 @@ class Resource(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self) -> str:
-        return f"{self.title} by {self.creator.name}"
+        return f"'{self.title}' by {self.creator.username}"

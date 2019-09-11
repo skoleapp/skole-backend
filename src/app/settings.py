@@ -154,5 +154,3 @@ AUTH_USER_MODEL = "core.User"
 CORS_ORIGIN_WHITELIST = [
     "http://localhost:3000",
 ]
-
-APPEND_SLASH = False

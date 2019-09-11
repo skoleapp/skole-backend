@@ -15,12 +15,12 @@ def test_create_superuser(db):
 
 def test_set_password(db, user):
     new_pass = "new pass"
-    user = User.objects.change_password(user, new_pass)
+    user = User.objects.set_password(user, new_pass)
     assert user.check_password(new_pass)
 
 
 def test_set_language(db, user):
     assert user.language == ENGLISH
-    User.objects.change_language(user, FINNISH)
+    User.objects.set_language(user, FINNISH)
     assert user.language == FINNISH
 

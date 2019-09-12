@@ -12,7 +12,7 @@ from rest_framework.serializers import BaseSerializer
 
 from ..permissions import IsAnonymous, IsSelfOrAdminReadOnly, ReadOnly
 from ..serializers import (AuthTokenSerializer, RegisterSerializer,
-                           SetPasswordSerializer, UserDetailSerializer,
+                           ChangePasswordSerializer, UserDetailSerializer,
                            UserSerializer, LanguageSerializer)
 from ..utils import PASSWORD_SET_SUCCESSFULLY_MESSAGE, LANGUAGE_SET_SUCCESSFULLY_MESSAGE
 
@@ -32,10 +32,10 @@ class UserViewSet(viewsets.ModelViewSet):
         elif self.action == "login":
             return AuthTokenSerializer
 
-        elif self.action == "set_password":
-            return SetPasswordSerializer
+        elif self.action == "change_password":
+            return ChangePasswordSerializer
 
-        elif self.action == "set-language":
+        elif self.action == "change_language":
             return LanguageSerializer
 
         else:
@@ -48,7 +48,7 @@ class UserViewSet(viewsets.ModelViewSet):
         elif self.action in {"register", "login"}:
             permission_classes = [IsAnonymous]
         
-        elif self.action == "set_password":
+        elif self.action == "change_password":
             permission_classes = [permissions.IsAuthenticated]
 
         else:
@@ -59,16 +59,10 @@ class UserViewSet(viewsets.ModelViewSet):
     def get_queryset(self) -> QuerySet:
         """Allow superuser to view all users."""
         if self.action == "list":
-
             if self.request.user.is_superuser:
                 return self.queryset
-
             else:
                 return self.queryset.none()
-
-        elif self.action in {"vendor_profile", "set_profile_image", "set_languages"}:
-            return self.queryset.filter(is_vendor=True)
-
         else:
             return self.queryset
 
@@ -99,27 +93,26 @@ class UserViewSet(viewsets.ModelViewSet):
         token, created = Token.objects.get_or_create(user=user)
         return Response({"token": token.key})
 
-    @action(detail=False, methods=["POST"], url_path="set-password")
-    def set_password(self, request: Request) -> Response:
+    @action(detail=False, methods=["POST"], url_path="change-password")
+    def change_password(self, request: Request) -> Response:
         serializer = self.get_serializer(data=request.data)
-
         if serializer.is_valid():
             get_user_model().objects.set_password(
                 user=request.user,
-                password=serializer.data,
+                password=request.data["password"],
             )
             return Response(PASSWORD_SET_SUCCESSFULLY_MESSAGE, status.HTTP_200_OK)
 
         return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
 
     @action(detail=False, methods=["POST"], url_path="set-language")
-    def set_language(self, request: Request) -> Response:
+    def change_language(self, request: Request) -> Response:
         serializer = self.get_serializer(data=request.data)
 
         if serializer.is_valid():
-            get_user_model().objects.set_language(
+            get_user_model().objects.change_language(
                 user=request.user,
-                language=serializer.data,
+                language=serializer.data["language"],
             )
             return Response(LANGUAGE_SET_SUCCESSFULLY_MESSAGE, status.HTTP_200_OK)
 

@@ -1,16 +1,16 @@
+from datetime import datetime, timedelta, timezone
+
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
+from rest_framework.authtoken.models import Token
 
-from core.utils import LANGUAGES, ENGLISH
+from core.utils import ENGLISH, LANGUAGES
 
 
 class UserManager(BaseUserManager):
-    def create_user(self, email: str, username: str, password: str) -> 'User':
-        user = self.model(
-            email=self.normalize_email(email),
-            username=username
-        )
+    def create_user(self, email: str, username: str, password: str) -> "User":
+        user = self.model(email=self.normalize_email(email), username=username)
 
         user.is_staff = False
         user.is_superuser = False
@@ -20,7 +20,7 @@ class UserManager(BaseUserManager):
         user.save()
         return user
 
-    def create_superuser(self, username: str, password: str) -> 'User':
+    def create_superuser(self, username: str, password: str) -> "User":
         user = self.model(username=username)
 
         user.is_staff = True
@@ -32,20 +32,33 @@ class UserManager(BaseUserManager):
         return user
 
     @staticmethod
-    def set_password(user: 'User', password: str) -> 'User':
+    def set_password(user: "User", password: str) -> "User":
         user.set_password(password)
         user.save()
         return user
 
     @staticmethod
-    def set_language(user: 'User', language: str) -> 'User':
+    def set_language(user: "User", language: str) -> "User":
         user.language = language
         user.save()
         return user
 
+    @staticmethod
+    def refresh_token(user: "User", token: Token) -> Token:
+        utc_now = datetime.now(timezone.utc)
+        if token.created < utc_now - timedelta(hours=24):
+            token.delete()
+            refresh_token = Token.objects.create(user=user)
+            refresh_token.created = datetime.utcnow()
+            refresh_token.save()
+            return refresh_token
+
+        return token
+
 
 class User(AbstractBaseUser, PermissionsMixin):
     """Models one user on the platform."""
+
     username = models.CharField(max_length=30, unique=True)
     email = models.EmailField(unique=True)
     title = models.CharField(max_length=100, null=True, blank=True)

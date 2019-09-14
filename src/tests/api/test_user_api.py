@@ -34,6 +34,15 @@ class PublicUserAPITests(APITestCase):
 
 
 class PrivateUserAPITests(APITestCase):
+    def test_refresh_token_success(self):
+        pass
+
+    def test_refresh_token_invalid_token(self):
+        pass
+
+    def test_refresh_token_token_does_not_exist(self):
+        pass
+
     def test_user_me_links_to_own_profile(self):
         pass
 

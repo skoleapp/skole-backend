@@ -12,11 +12,18 @@ from rest_framework.serializers import BaseSerializer
 
 from ..permissions import IsAnonymous, IsSelfOrAdminReadOnly, ReadOnly
 from ..serializers import (
-    AuthTokenSerializer, ChangePasswordSerializer, LanguageSerializer,
-    RegisterSerializer, UserDetailSerializer, UserSerializer)
+    AuthTokenSerializer,
+    ChangePasswordSerializer,
+    LanguageSerializer,
+    RegisterSerializer,
+    UserDetailSerializer,
+    UserSerializer,
+)
 from ..utils import (
-    AUTHENTICATION_FAILED_MESSAGE, LANGUAGE_SET_SUCCESSFULLY_MESSAGE,
-    PASSWORD_SET_SUCCESSFULLY_MESSAGE)
+    AUTHENTICATION_FAILED_MESSAGE,
+    LANGUAGE_SET_SUCCESSFULLY_MESSAGE,
+    PASSWORD_SET_SUCCESSFULLY_MESSAGE,
+)
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -81,10 +88,10 @@ class UserViewSet(viewsets.ModelViewSet):
         if serializer.is_valid():
             serializer.save()
 
-            return Response(serializer.data, status.HTTP_200_OK)
+            return Response({"data": serializer.data, "status": status.HTTP_201_CREATED})
 
         else:
-            return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
+            return Response({"error": serializer.errors, "status": status.HTTP_400_BAD_REQUEST})
 
     @action(detail=False, methods=["POST"], url_path="login")
     def login(self, request: Request) -> Response:
@@ -96,10 +103,9 @@ class UserViewSet(viewsets.ModelViewSet):
             if not created:
                 token = get_user_model().objects.refresh_token(user=user, token=token)
 
-            return Response({"token": token.key})
+            return Response({"token": token.key, "status": status.HTTP_200_OK})
 
-        print(serializer.errors)
-        return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
+        return Response({"error": serializer.errors, "status": status.HTTP_400_BAD_REQUEST})
 
     @action(detail=False, methods=["GET"], url_path="refresh-token")
     def refresh_token(self, request: Request) -> Response:
@@ -108,9 +114,11 @@ class UserViewSet(viewsets.ModelViewSet):
             refresh_token = get_user_model().objects.refresh_token(user=request.user, token=token)
 
         except token.DoesNotExist:
-            return Response(AUTHENTICATION_FAILED_MESSAGE, status.HTTP_401_UNAUTHORIZED)
+            return Response(
+                {"error": AUTHENTICATION_FAILED_MESSAGE, "status": status.HTTP_401_UNAUTHORIZED}
+            )
 
-        return Response({"refresh_token": refresh_token.key})
+        return Response({"refresh_token": refresh_token.key, "status": status.HTTP_200_OK})
 
     @action(detail=False, methods=["POST"], url_path="change-password")
     def change_password(self, request: Request) -> Response:
@@ -119,9 +127,11 @@ class UserViewSet(viewsets.ModelViewSet):
             get_user_model().objects.set_password(
                 user=request.user, password=request.data["password"]
             )
-            return Response(PASSWORD_SET_SUCCESSFULLY_MESSAGE, status.HTTP_200_OK)
+            return Response(
+                {"data": PASSWORD_SET_SUCCESSFULLY_MESSAGE, "status": status.HTTP_200_OK}
+            )
 
-        return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
+        return Response({"error": serializer.errors, "status": status.HTTP_400_BAD_REQUEST})
 
     @action(detail=False, methods=["POST"], url_path="set-language")
     def change_language(self, request: Request) -> Response:
@@ -131,6 +141,8 @@ class UserViewSet(viewsets.ModelViewSet):
             get_user_model().objects.change_language(
                 user=request.user, language=serializer.data["language"]
             )
-            return Response(LANGUAGE_SET_SUCCESSFULLY_MESSAGE, status.HTTP_200_OK)
+            return Response(
+                {"data": LANGUAGE_SET_SUCCESSFULLY_MESSAGE, "status": status.HTTP_200_OK}
+            )
 
-        return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
+        return Response({"error": serializer.errors, "data": status.HTTP_400_BAD_REQUEST})

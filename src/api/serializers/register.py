@@ -14,4 +14,5 @@ class RegisterSerializer(UserSerializer):
         fields = ["email", "username", "password"]
 
     def create(self, validated_data: JsonDict) -> User:
-        return get_user_model().objects.create_user(**validated_data)
+        password = validated_data.pop("password")["password"]
+        return get_user_model().objects.create_user(**validated_data, password=password)

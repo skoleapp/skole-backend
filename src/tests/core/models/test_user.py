@@ -1,5 +1,7 @@
+from rest_framework.authtoken.models import Token
+
 from core.models import User
-from core.utils import FINNISH, ENGLISH
+from core.utils import ENGLISH, FINNISH
 
 
 def test_str(user):
@@ -24,3 +26,8 @@ def test_set_language(db, user):
     User.objects.set_language(user, FINNISH)
     assert user.language == FINNISH
 
+
+def test_refresh_token(db, user):
+    token = Token.objects.create(user=user)
+    refresh_token = User.objects.refresh_token(user=user, token=token)
+    assert token != refresh_token

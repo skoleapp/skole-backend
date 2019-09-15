@@ -11,10 +11,19 @@ from rest_framework.response import Response
 from rest_framework.serializers import BaseSerializer
 
 from ..permissions import IsAnonymous, IsSelfOrAdminReadOnly, ReadOnly
-from ..serializers import (AuthTokenSerializer, RegisterSerializer,
-                           ChangePasswordSerializer, UserDetailSerializer,
-                           UserSerializer, LanguageSerializer)
-from ..utils import PASSWORD_SET_SUCCESSFULLY_MESSAGE, LANGUAGE_SET_SUCCESSFULLY_MESSAGE
+from ..serializers import (
+    AuthTokenSerializer,
+    ChangePasswordSerializer,
+    LanguageSerializer,
+    RegisterSerializer,
+    UserDetailSerializer,
+    UserSerializer,
+)
+from ..utils import (
+    AUTHENTICATION_FAILED_MESSAGE,
+    LANGUAGE_SET_SUCCESSFULLY_MESSAGE,
+    PASSWORD_SET_SUCCESSFULLY_MESSAGE,
+)
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -47,8 +56,8 @@ class UserViewSet(viewsets.ModelViewSet):
 
         elif self.action in {"register", "login"}:
             permission_classes = [IsAnonymous]
-        
-        elif self.action == "change_password":
+
+        elif self.action in {"change_password", "refresh_token"}:
             permission_classes = [permissions.IsAuthenticated]
 
         else:
@@ -79,31 +88,50 @@ class UserViewSet(viewsets.ModelViewSet):
         if serializer.is_valid():
             serializer.save()
 
-            return Response(serializer.data, status.HTTP_200_OK)
+            return Response({"data": serializer.data, "status": status.HTTP_201_CREATED})
 
         else:
-            return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
+            return Response({"error": serializer.errors, "status": status.HTTP_400_BAD_REQUEST})
 
     @action(detail=False, methods=["POST"], url_path="login")
     def login(self, request: Request) -> Response:
         serializer = self.get_serializer(data=request.data, context={"request": request})
+        if serializer.is_valid():
+            user = serializer.validated_data["user"]
+            token, created = Token.objects.get_or_create(user=user)
 
-        serializer.is_valid(raise_exception=True)
-        user = serializer.validated_data["user"]
-        token, created = Token.objects.get_or_create(user=user)
-        return Response({"token": token.key})
+            if not created:
+                token = get_user_model().objects.refresh_token(user=user, token=token)
+
+            return Response({"token": token.key, "status": status.HTTP_200_OK})
+
+        return Response({"error": serializer.errors, "status": status.HTTP_400_BAD_REQUEST})
+
+    @action(detail=False, methods=["GET"], url_path="refresh-token")
+    def refresh_token(self, request: Request) -> Response:
+        try:
+            token = Token.objects.get(user=request.user)
+            refresh_token = get_user_model().objects.refresh_token(user=request.user, token=token)
+
+        except token.DoesNotExist:
+            return Response(
+                {"error": AUTHENTICATION_FAILED_MESSAGE, "status": status.HTTP_401_UNAUTHORIZED}
+            )
+
+        return Response({"refresh_token": refresh_token.key, "status": status.HTTP_200_OK})
 
     @action(detail=False, methods=["POST"], url_path="change-password")
     def change_password(self, request: Request) -> Response:
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
             get_user_model().objects.set_password(
-                user=request.user,
-                password=request.data["password"],
+                user=request.user, password=request.data["password"]
             )
-            return Response(PASSWORD_SET_SUCCESSFULLY_MESSAGE, status.HTTP_200_OK)
+            return Response(
+                {"data": PASSWORD_SET_SUCCESSFULLY_MESSAGE, "status": status.HTTP_200_OK}
+            )
 
-        return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
+        return Response({"error": serializer.errors, "status": status.HTTP_400_BAD_REQUEST})
 
     @action(detail=False, methods=["POST"], url_path="set-language")
     def change_language(self, request: Request) -> Response:
@@ -111,9 +139,10 @@ class UserViewSet(viewsets.ModelViewSet):
 
         if serializer.is_valid():
             get_user_model().objects.change_language(
-                user=request.user,
-                language=serializer.data["language"],
+                user=request.user, language=serializer.data["language"]
             )
-            return Response(LANGUAGE_SET_SUCCESSFULLY_MESSAGE, status.HTTP_200_OK)
+            return Response(
+                {"data": LANGUAGE_SET_SUCCESSFULLY_MESSAGE, "status": status.HTTP_200_OK}
+            )
 
-        return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
+        return Response({"error": serializer.errors, "data": status.HTTP_400_BAD_REQUEST})

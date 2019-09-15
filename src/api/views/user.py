@@ -12,18 +12,11 @@ from rest_framework.serializers import BaseSerializer
 
 from ..permissions import IsAnonymous, IsSelfOrAdminReadOnly, ReadOnly
 from ..serializers import (
-    AuthTokenSerializer,
-    ChangePasswordSerializer,
-    LanguageSerializer,
-    RegisterSerializer,
-    UserDetailSerializer,
-    UserSerializer,
-)
+    AuthTokenSerializer, ChangePasswordSerializer, LanguageSerializer,
+    RegisterSerializer, UserDetailSerializer, UserSerializer)
 from ..utils import (
-    AUTHENTICATION_FAILED_MESSAGE,
-    LANGUAGE_SET_SUCCESSFULLY_MESSAGE,
-    PASSWORD_SET_SUCCESSFULLY_MESSAGE,
-)
+    AUTHENTICATION_FAILED_MESSAGE, LANGUAGE_SET_SUCCESSFULLY_MESSAGE,
+    PASSWORD_SET_SUCCESSFULLY_MESSAGE)
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -96,14 +89,17 @@ class UserViewSet(viewsets.ModelViewSet):
     @action(detail=False, methods=["POST"], url_path="login")
     def login(self, request: Request) -> Response:
         serializer = self.get_serializer(data=request.data, context={"request": request})
-        serializer.is_valid(raise_exception=True)
-        user = serializer.validated_data["user"]
-        token, created = Token.objects.get_or_create(user=user)
+        if serializer.is_valid():
+            user = serializer.validated_data["user"]
+            token, created = Token.objects.get_or_create(user=user)
 
-        if not created:
-            token = get_user_model().objects.refresh_token(user=user, token=token)
+            if not created:
+                token = get_user_model().objects.refresh_token(user=user, token=token)
 
-        return Response({"token": token.key})
+            return Response({"token": token.key})
+
+        print(serializer.errors)
+        return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
 
     @action(detail=False, methods=["GET"], url_path="refresh-token")
     def refresh_token(self, request: Request) -> Response:

@@ -117,7 +117,7 @@ class UserViewSet(viewsets.ModelViewSet):
             token = Token.objects.get(user=request.user)
             refresh_token = get_user_model().objects.refresh_token(user=request.user, token=token)
 
-        except token.DoesNotExist:
+        except Token.DoesNotExist:
             return Response(
                 data={"error": AUTHENTICATION_FAILED_MESSAGE}, status=status.HTTP_401_UNAUTHORIZED
             )
@@ -142,7 +142,7 @@ class UserViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(data=request.data)
 
         if serializer.is_valid():
-            get_user_model().objects.change_language(
+            get_user_model().objects.set_language(
                 user=request.user, language=serializer.data["language"]
             )
             return Response(

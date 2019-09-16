@@ -13,7 +13,7 @@ def user_detail_api_url(user_id):
     return reverse("user-detail", args=[user_id])
 
 
-def sample_user_payload(**params):
+def sample_user_register_payload(**params):
     defaults = {
         "email": "test@test.com",
         "username": "testuser",
@@ -27,14 +27,13 @@ def sample_user_payload(**params):
     return defaults
 
 
-def sample_user(**params):
+def sample_user_patch_payload(**params):
     defaults = {
-        "email": "test@test.com",
-        "first_name": "test",
-        "last_name": "test",
-        "is_vendor": False,
-        "password": "password"
+        "username": "newusername",
+        "email": "newemail@mail.com",
+        "title": "Nice Title for the User",
+        "bio": "Same text for the bio.",
     }
 
     defaults.update(params)
-    return get_user_model().objects.create_user(**defaults)
+    return defaults

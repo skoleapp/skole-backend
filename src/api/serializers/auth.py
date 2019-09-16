@@ -1,15 +1,17 @@
-
 from typing import Dict
 
-from core.models import User
 from django.contrib.auth import authenticate, get_user_model
 from rest_framework import serializers
 
+from core.models import User
 from core.utils import JsonDict
-from ..utils import (OLD_PASSWORD_NOT_CORRECT_MESSAGE,
-                     PASSWORDS_DO_NOT_MATCH_MESSAGE,
-                     UNABLE_TO_AUTHENTICATE_MESSAGE,
-                     USER_DOES_NOT_EXIST_MESSAGE)
+
+from ..utils import (
+    OLD_PASSWORD_NOT_CORRECT_MESSAGE,
+    PASSWORDS_DO_NOT_MATCH_MESSAGE,
+    UNABLE_TO_AUTHENTICATE_MESSAGE,
+    USER_DOES_NOT_EXIST_MESSAGE,
+)
 
 
 class AuthTokenSerializer(serializers.Serializer):
@@ -81,4 +83,3 @@ class ChangePasswordSerializer(PasswordSerializer):
             raise serializers.ValidationError(PASSWORDS_DO_NOT_MATCH_MESSAGE)
 
         return data
-

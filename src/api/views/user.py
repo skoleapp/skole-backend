@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Any, Union
 
 from django.contrib.auth import get_user_model
 from django.db.models.query import QuerySet
@@ -32,7 +32,7 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = get_user_model().objects.all()
     search_fields = ["username"]
 
-    def get_serializer_class(self) -> BaseSerializer:
+    def get_serializer_class(self) -> Union[BaseSerializer, Any]:
         if self.action in {"retrieve", "update", "delete"}:
             return UserDetailSerializer
 
@@ -137,7 +137,7 @@ class UserViewSet(viewsets.ModelViewSet):
 
         return Response(data={"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
-    @action(detail=False, methods=["POST"], url_path="set-language")
+    @action(detail=False, methods=["POST"], url_path="change-language")
     def change_language(self, request: Request) -> Response:
         serializer = self.get_serializer(data=request.data)
 

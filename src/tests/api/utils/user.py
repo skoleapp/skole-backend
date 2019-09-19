@@ -1,6 +1,8 @@
 from django.contrib.auth import get_user_model
 from rest_framework.reverse import reverse
 
+from core.utils import SWEDISH
+
 USER_LIST_API_URL = reverse("user-list")
 USER_ME_API_URL = reverse("user-detail", args=["me"])
 CHANGE_PASSWORD_API_URL = reverse("user-change-password")
@@ -28,10 +30,21 @@ def sample_user_register_payload(**params):
 
 def sample_user_patch_payload(**params):
     defaults = {
+        "title": "Nice Title for the User",
+        "bio": "Same text for the bio.",
+    }
+
+    defaults.update(params)
+    return defaults
+
+
+def sample_user_put_payload(**params):
+    defaults = {
         "username": "newusername",
         "email": "newemail@mail.com",
         "title": "Nice Title for the User",
         "bio": "Same text for the bio.",
+        "language": SWEDISH,
     }
 
     defaults.update(params)

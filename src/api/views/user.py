@@ -11,6 +11,7 @@ from rest_framework.response import Response
 from rest_framework.serializers import BaseSerializer
 from rest_framework import mixins
 
+from api.serializers import UserPrivateDetailSerializer
 from ..permissions import IsAnonymous, IsOwnerOrReadOnly
 from ..serializers import (
     AuthTokenSerializer,
@@ -27,19 +28,18 @@ from ..utils import (
 )
 
 
-class UserViewSet(viewsets.GenericViewSet,
-                  mixins.ListModelMixin,
-                  mixins.RetrieveModelMixin,
-                  mixins.UpdateModelMixin,
-                  mixins.DestroyModelMixin):
+class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     queryset = get_user_model().objects.all()
     search_fields = ["username"]
     permission_classes = (IsOwnerOrReadOnly,)
 
     def get_serializer_class(self) -> Union[BaseSerializer, Any]:
-        if self.action == {"retrieve", "update", "delete"}:
-            pass
+        if self.action in {"retrieve", "partial_update", "update", "delete"}:
+            if self.get_object().pk == self.request.user.pk:
+                return UserPrivateDetailSerializer
+            else:
+                return UserPublicDetailSerializer
 
         elif self.action == "register":
             return RegisterSerializer
@@ -57,7 +57,7 @@ class UserViewSet(viewsets.GenericViewSet,
         if self.action == "list":
             permission_classes = (permissions.AllowAny,)
 
-        elif self.action in {"retrieve", "update", "destroy"}:
+        elif self.action in {"retrieve", "partial_update", "update", "destroy"}:
             permission_classes = (IsOwnerOrReadOnly,)
 
         elif self.action in {"register", "login"}:
@@ -67,7 +67,7 @@ class UserViewSet(viewsets.GenericViewSet,
             permission_classes = (permissions.IsAuthenticated,)
 
         else:
-            return self.permission_classes
+            permission_classes = self.permission_classes
 
         return tuple(permission() for permission in permission_classes)
 

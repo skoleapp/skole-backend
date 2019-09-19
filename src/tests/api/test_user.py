@@ -13,7 +13,7 @@ from .utils.user import (
     sample_user_register_payload,
     sample_user_patch_payload,
     user_detail_api_url,
-    sample_user)
+    sample_user, sample_user_put_payload)
 
 
 class PublicUserAPITests(APITestCase):
@@ -103,7 +103,6 @@ class PublicUserAPITests(APITestCase):
         user = get_user_model().objects.create_user(**sample_user_register_payload())
 
         # get the profile of that user
-        # FIXME: gives 403 unauthorized even though it shouldn't
         res = self.client.get(user_detail_api_url(user.id))
         assert res.status_code == status.HTTP_200_OK
         assert res.data["username"] == "testuser"
@@ -161,18 +160,29 @@ class PrivateUserAPITests(APITestCase):
         # test that the data returned to the response is correct
         res = self.client.patch(user_detail_api_url(user_id="me"), payload)
         assert res.status_code == 200
-        assert res.data["username"] == "newusername"
-        assert res.data["email"] == "newemail@mail.com"
         assert res.data["title"] == "Nice Title for the User"
         assert res.data["bio"] == "Same text for the bio."
 
         # test that the data also changed in the profile
         res = self.client.get(user_detail_api_url(user_id="me"))
-        assert res.data["username"] == "newusername"
+        assert res.data["title"] == "Nice Title for the User"
+        assert res.data["bio"] == "Same text for the bio."
 
     def test_user_profile_own_put(self):
-        # TODO
-        pass
+        payload = sample_user_put_payload()
+
+        # test that the data returned to the response is correct
+        res = self.client.put(user_detail_api_url(user_id="me"), payload)
+        assert res.status_code == 200
+        assert res.data["username"] == "newusername"
+        assert res.data["email"] == "newemail@mail.com"
+        assert res.data["title"] == "Nice Title for the User"
+        assert res.data["bio"] == "Same text for the bio."
+        assert res.data["language"] == SWEDISH
+
+        # test that the data also changed in the profile
+        res = self.client.get(user_detail_api_url(user_id="me"))
+        assert res.data["username"] == "newusername"
 
     def test_user_profile_own_delete(self):
         res = self.client.delete(user_detail_api_url(user_id="me"))
@@ -183,13 +193,12 @@ class PrivateUserAPITests(APITestCase):
         assert res.status_code == status.HTTP_404_NOT_FOUND
 
     def test_user_profile_other_patch(self):
-        payload = sample_user_patch_payload()
-        res = self.client.patch(user_detail_api_url(user_id=self.user2.id), payload)
+        res = self.client.patch(user_detail_api_url(user_id=self.user2.id), {})
         assert res.status_code == status.HTTP_403_FORBIDDEN
 
     def test_user_profile_other_put(self):
-        # TODO
-        pass
+        res = self.client.put(user_detail_api_url(user_id=self.user2.id), {})
+        assert res.status_code == status.HTTP_403_FORBIDDEN
 
     def test_user_profile_other_delete(self):
         res = self.client.delete(user_detail_api_url(user_id=self.user2.id))

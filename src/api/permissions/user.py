@@ -18,11 +18,9 @@ class IsAnonymous(BasePermission):
 class IsOwnerOrReadOnly(BasePermission):
     message = NOT_OWNER_MESSAGE
 
-    def has_object_permission(self, request: Request, view: ModelViewSet, obj: 'User') -> bool:
+    def has_object_permission(self, request: Request, view: ModelViewSet, obj: User) -> bool:
         if request.method in SAFE_METHODS:
             return True
         else:
             return obj.pk == request.user.pk
 
-    def has_permission(self, request: Request, view: ModelViewSet) -> bool:
-        return request.method in SAFE_METHODS

@@ -18,9 +18,6 @@ class UserPublicDetailSerializer(serializers.ModelSerializer):
         fields = ("id", "username", "title", "bio", "points")
         read_only_fields = ("id", "points")
 
-    def update(self, instance: User, validated_data: JsonDict) -> User:
-        return get_user_model().objects.update_user(instance, **validated_data)
-
 
 class UserPrivateDetailSerializer(UserPublicDetailSerializer):
     class Meta(UserPublicDetailSerializer.Meta):

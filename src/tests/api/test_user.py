@@ -14,7 +14,7 @@ from .utils.user import (
     sample_user_register_payload,
     sample_user_patch_payload,
     user_detail_api_url,
-)
+    sample_user)
 
 
 class PublicUserAPITests(APITestCase):
@@ -118,12 +118,10 @@ class PublicUserAPITests(APITestCase):
 
 class PrivateUserAPITests(APITestCase):
     def setUp(self):
-        self.user = get_user_model().objects.create_user(**sample_user_register_payload())
-        self.user2 = get_user_model().objects.create_user(
-            **sample_user_register_payload(
-                username="othertestuser",
-                email="othertest@test.com",
-            )
+        self.user = sample_user()
+        self.user2 = sample_user(
+            username="othertestuser",
+            email="othertest@test.com",
         )
         self.client.force_authenticate(user=self.user)
 
@@ -194,7 +192,6 @@ class PrivateUserAPITests(APITestCase):
             "password": "new pass",
             "confirm_password": "new pass",
         }
-        # FIXME: complains that the old password was incorrect
         res = self.client.post(CHANGE_PASSWORD_API_URL, payload)
         assert res.status_code == status.HTTP_200_OK
 

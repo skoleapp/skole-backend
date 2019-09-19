@@ -37,3 +37,14 @@ def sample_user_patch_payload(**params):
 
     defaults.update(params)
     return defaults
+
+
+def sample_user(**params):
+    defaults = {
+        "email": "test@test.com",
+        "username": "testuser",
+        "password": "password",
+    }
+    defaults.update(params)
+    user = get_user_model().objects.create_user(**defaults)
+    return user

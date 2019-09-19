@@ -5,7 +5,6 @@ from rest_framework.test import APITestCase
 from api.utils import LANGUAGE_SET_SUCCESSFULLY_MESSAGE, USER_REGISTERED_SUCCESSFULLY_MESSAGE
 from core.utils import ENGLISH, SWEDISH
 from .utils.user import (
-    CHANGE_LANGUAGE_API_URL,
     CHANGE_PASSWORD_API_URL,
     LOGIN_API_URL,
     REGISTER_API_URL,
@@ -115,6 +114,16 @@ class PublicUserAPITests(APITestCase):
         res = self.client.get(USER_ME_API_URL)
         assert res.status_code == status.HTTP_404_NOT_FOUND
 
+    def test_user_list(self):
+        # register one user
+        user = get_user_model().objects.create_user(**sample_user_register_payload())
+
+        # check that the user comes as a result for user list
+        res = self.client.get(USER_LIST_API_URL)
+        assert res.status_code == status.HTTP_200_OK
+        assert len(res.data["results"]) == 1
+        assert res.data["results"][0]["username"] == "testuser"
+
 
 class PrivateUserAPITests(APITestCase):
     def setUp(self):
@@ -197,40 +206,4 @@ class PrivateUserAPITests(APITestCase):
 
     def test_change_password_error(self):
         pass
-
-    def test_change_language_success(self):
-        payload = {
-            "language": SWEDISH,
-        }
-        res = self.client.post(CHANGE_LANGUAGE_API_URL, payload)
-        assert res.status_code == status.HTTP_200_OK
-        assert res.data["message"] == LANGUAGE_SET_SUCCESSFULLY_MESSAGE
-        assert self.user.language == SWEDISH
-
-    def test_change_language_error(self):
-        payload = {
-            "language": "INVALIDLANG",
-        }
-        res = self.client.post(CHANGE_LANGUAGE_API_URL, payload)
-        assert res.status_code == status.HTTP_400_BAD_REQUEST
-
-        # test that the user's language didn't change
-        assert self.user.language == ENGLISH
-
-    def test_user_list_superuser(self):
-        superuser = get_user_model().objects.create_superuser(
-            username="superuser", password={"password": "password", "confirm_password": "password"}
-        )
-        self.client.force_authenticate(user=superuser)
-        res = self.client.get(USER_LIST_API_URL)
-        assert res.status_code == status.HTTP_200_OK
-        assert res.data["results"][0]["username"] == "testuser"
-        assert res.data["results"][1]["username"] == "othertestuser"
-
-    def test_user_list_not_superuser(self):
-        # FIXME: gives 200 code, even though it shouldn't
-        res = self.client.get(USER_LIST_API_URL)
-        assert res.status_code == status.HTTP_403_FORBIDDEN
-        assert "error" in res.data
-        assert len(res.data) == 1
 

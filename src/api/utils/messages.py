@@ -2,6 +2,7 @@
 NOT_ANONYMOUS_MESSAGE = "This action is not allowed for authenticated users!"
 READ_ONLY_MESSAGE = "Write operations are not allowed for this resource!"
 NOT_OWNER_MESSAGE = "You are not owner of this resource!"
+NOT_ADMIN_MESSAGE = "Admin permissions required"
 
 # Serializer error messages
 UNABLE_TO_AUTHENTICATE_MESSAGE = "Unable to authenticate with provided credentials."

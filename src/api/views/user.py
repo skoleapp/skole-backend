@@ -1,4 +1,4 @@
-from typing import List, Any, Union
+from typing import List, Any, Union, Tuple
 
 from django.contrib.auth import get_user_model
 from django.db.models.query import QuerySet
@@ -9,14 +9,14 @@ from rest_framework.permissions import BasePermission
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.serializers import BaseSerializer
+from rest_framework import mixins
 
-from ..permissions import IsAnonymous, IsSelfOrAdminReadOnly, ReadOnly
+from ..permissions import IsAnonymous, IsOwnerOrReadOnly
 from ..serializers import (
     AuthTokenSerializer,
     ChangePasswordSerializer,
-    LanguageSerializer,
     RegisterSerializer,
-    UserDetailSerializer,
+    UserPublicDetailSerializer,
     UserSerializer,
 )
 from ..utils import (
@@ -27,14 +27,19 @@ from ..utils import (
 )
 
 
-class UserViewSet(viewsets.ModelViewSet):
+class UserViewSet(viewsets.GenericViewSet,
+                  mixins.ListModelMixin,
+                  mixins.RetrieveModelMixin,
+                  mixins.UpdateModelMixin,
+                  mixins.DestroyModelMixin):
     serializer_class = UserSerializer
     queryset = get_user_model().objects.all()
     search_fields = ["username"]
+    permission_classes = (IsOwnerOrReadOnly,)
 
     def get_serializer_class(self) -> Union[BaseSerializer, Any]:
-        if self.action in {"retrieve", "update", "delete"}:
-            return UserDetailSerializer
+        if self.action == {"retrieve", "update", "delete"}:
+            pass
 
         elif self.action == "register":
             return RegisterSerializer
@@ -45,41 +50,30 @@ class UserViewSet(viewsets.ModelViewSet):
         elif self.action == "change_password":
             return ChangePasswordSerializer
 
-        elif self.action == "change_language":
-            return LanguageSerializer
-
         else:
             return self.serializer_class
 
-    def get_permissions(self) -> List[BasePermission]:
-        if self.action in {"list", "create"}:
-            permission_classes = [permissions.IsAuthenticated, ReadOnly]
+    def get_permissions(self) -> Tuple:
+        if self.action == "list":
+            permission_classes = (permissions.AllowAny,)
+
+        elif self.action in {"retrieve", "update", "destroy"}:
+            permission_classes = (IsOwnerOrReadOnly,)
 
         elif self.action in {"register", "login"}:
-            permission_classes = [IsAnonymous]
+            permission_classes = (IsAnonymous,)
 
         elif self.action in {"change_password", "refresh_token"}:
-            permission_classes = [permissions.IsAuthenticated]
+            permission_classes = (permissions.IsAuthenticated,)
 
         else:
-            permission_classes = [IsSelfOrAdminReadOnly]
+            return self.permission_classes
 
-        return [permission() for permission in permission_classes]
-
-    def get_queryset(self) -> QuerySet:
-        """Allow superuser to view all users."""
-        if self.action == "list":
-            if self.request.user.is_superuser:
-                return self.queryset
-            else:
-                return self.queryset.none()
-        else:
-            return self.queryset
+        return tuple(permission() for permission in permission_classes)
 
     def get_object(self):
         if self.kwargs.get("pk", None) == "me":
             self.kwargs["pk"] = self.request.user.pk
-
         return super().get_object()
 
     @action(detail=False, methods=["POST"], url_path="register")
@@ -137,16 +131,3 @@ class UserViewSet(viewsets.ModelViewSet):
 
         return Response(data={"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
-    @action(detail=False, methods=["POST"], url_path="change-language")
-    def change_language(self, request: Request) -> Response:
-        serializer = self.get_serializer(data=request.data)
-
-        if serializer.is_valid():
-            get_user_model().objects.set_language(
-                user=request.user, language=serializer.data["language"]
-            )
-            return Response(
-                data={"message": LANGUAGE_SET_SUCCESSFULLY_MESSAGE}, status=status.HTTP_200_OK
-            )
-
-        return Response(data={"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)

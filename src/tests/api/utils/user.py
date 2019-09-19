@@ -3,7 +3,6 @@ from rest_framework.reverse import reverse
 
 USER_LIST_API_URL = reverse("user-list")
 USER_ME_API_URL = reverse("user-detail", args=["me"])
-CHANGE_LANGUAGE_API_URL = reverse("user-change-language")
 CHANGE_PASSWORD_API_URL = reverse("user-change-password")
 LOGIN_API_URL = reverse("user-login")
 REGISTER_API_URL = reverse("user-register")

@@ -1,3 +1,6 @@
+import datetime
+
+from freezegun import freeze_time
 from rest_framework.authtoken.models import Token
 
 from core.models import User
@@ -29,5 +32,21 @@ def test_set_language(db, user):
 
 def test_refresh_token(db, user):
     token = Token.objects.create(user=user)
+    orig_key = token.key
     refresh_token = User.objects.refresh_token(user=user, token=token)
-    assert token != refresh_token
+    assert orig_key == refresh_token.key
+    assert token.key is not None
+
+    current = datetime.datetime.utcnow() + datetime.timedelta(hours=23)
+    time_string = datetime.datetime.strftime(current, "%Y-%m-%d %H:%M:%S")
+    with freeze_time(time_string):
+        refresh_token = User.objects.refresh_token(user=user, token=token)
+        assert orig_key == refresh_token.key
+        assert token.key is not None
+
+    current = datetime.datetime.utcnow() + datetime.timedelta(hours=25)
+    time_string = datetime.datetime.strftime(current, "%Y-%m-%d %H:%M:%S")
+    with freeze_time(time_string):
+        refresh_token = User.objects.refresh_token(user=user, token=token)
+        assert orig_key != refresh_token.key
+        assert token.key is None

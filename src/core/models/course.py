@@ -22,4 +22,3 @@ class Course(models.Model):
         # One space in between if both `code` and `name` are non-empty strings,
         # otherwise no need to have a space in between.
         return f"{code}{' ' * bool(code and name)}{name}"
-

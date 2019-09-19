@@ -1,11 +1,9 @@
-from django.contrib.auth import get_user_model
-from rest_framework.request import Request
 from rest_framework.permissions import SAFE_METHODS, BasePermission
+from rest_framework.request import Request
 from rest_framework.viewsets import ModelViewSet
 
-from api.utils import NOT_ADMIN_MESSAGE
 from core.models import User
-from ..utils import NOT_ANONYMOUS_MESSAGE, NOT_OWNER_MESSAGE, READ_ONLY_MESSAGE
+from ..utils import NOT_ANONYMOUS_MESSAGE, NOT_OWNER_MESSAGE
 
 
 class IsAnonymous(BasePermission):
@@ -23,4 +21,3 @@ class IsOwnerOrReadOnly(BasePermission):
             return True
         else:
             return obj.pk == request.user.pk
-

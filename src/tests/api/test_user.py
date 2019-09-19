@@ -2,8 +2,8 @@ from django.contrib.auth import get_user_model
 from rest_framework import status
 from rest_framework.test import APITestCase
 
-from api.utils import LANGUAGE_SET_SUCCESSFULLY_MESSAGE, USER_REGISTERED_SUCCESSFULLY_MESSAGE
-from core.utils import ENGLISH, SWEDISH
+from api.utils import USER_REGISTERED_SUCCESSFULLY_MESSAGE
+from core.utils import SWEDISH
 from .utils.user import (
     CHANGE_PASSWORD_API_URL,
     LOGIN_API_URL,
@@ -215,4 +215,3 @@ class PrivateUserAPITests(APITestCase):
 
     def test_change_password_error(self):
         pass
-

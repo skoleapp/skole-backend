@@ -47,8 +47,6 @@ class UserManager(BaseUserManager):
     def refresh_token(user: 'User', token: Token) -> Token:
         utc_now = datetime.utcnow()
         if token.created.replace(tzinfo=None) < utc_now - timedelta(hours=24):
-            print(token.created.replace(tzinfo=None))
-            print(utc_now - timedelta(hours=24))
             token.delete()
             refresh_token = Token.objects.create(user=user)
             refresh_token.created = datetime.utcnow()

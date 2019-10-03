@@ -5,17 +5,17 @@ from rest_framework import serializers
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
-        fields = ("id", "username", "title", "bio", "points")
+        fields = ("id", "username", "title", "bio", "points", "created")
         read_only_fields = fields
 
 
 class UserPublicDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
-        fields = ("id", "username", "title", "bio", "points")
+        fields = ("id", "username", "title", "bio", "points", "created")
         read_only_fields = ("id", "points")
 
 
 class UserPrivateDetailSerializer(UserPublicDetailSerializer):
     class Meta(UserPublicDetailSerializer.Meta):
-        fields = ("id", "email", "username", "title", "bio", "points", "language")
+        fields = ("id", "email", "username", "title", "bio", "points", "language", "created")

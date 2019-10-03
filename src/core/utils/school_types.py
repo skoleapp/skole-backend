@@ -3,7 +3,7 @@ UNIVERSITY_OF_APPLIED_SCIENCES = "UNIVERSITY_OF_APPLIED_SCIENCES"
 HIGH_SCHOOL = "HIGH_SCHOOL"
 
 SCHOOL_TYPES = (
-    (UNIVERSITY, "university"),
-    (UNIVERSITY_OF_APPLIED_SCIENCES, "university of applied sciences"),
-    (UNIVERSITY, "high school"),
+    (UNIVERSITY, "University"),
+    (UNIVERSITY_OF_APPLIED_SCIENCES, "University of Applied Sciences"),
+    (HIGH_SCHOOL, "High School"),
 )

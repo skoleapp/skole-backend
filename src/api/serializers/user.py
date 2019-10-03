@@ -1,8 +1,5 @@
-from core.models import User
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
-
-from core.utils import JsonDict
 
 
 class UserSerializer(serializers.ModelSerializer):

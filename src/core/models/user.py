@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta
 
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
@@ -32,21 +32,21 @@ class UserManager(BaseUserManager):
         return user
 
     @staticmethod
-    def set_password(user: "User", password: str) -> "User":
+    def set_password(user: 'User', password: str) -> "User":
         user.set_password(password)
         user.save()
         return user
 
     @staticmethod
-    def set_language(user: "User", language: str) -> "User":
+    def set_language(user: 'User', language: str) -> "User":
         user.language = language
         user.save()
         return user
 
     @staticmethod
-    def refresh_token(user: "User", token: Token) -> Token:
-        utc_now = datetime.now(timezone.utc)
-        if token.created < utc_now - timedelta(hours=24):
+    def refresh_token(user: 'User', token: Token) -> Token:
+        utc_now = datetime.utcnow()
+        if token.created.replace(tzinfo=None) < utc_now - timedelta(hours=24):
             token.delete()
             refresh_token = Token.objects.create(user=user)
             refresh_token.created = datetime.utcnow()

@@ -1,4 +1,5 @@
 from django.db import models
+
 from ..utils import SCHOOL_TYPES
 
 
@@ -13,4 +14,3 @@ class School(models.Model):
 
     def __str__(self) -> str:
         return f"{self.name}"
-

@@ -1,15 +1,12 @@
-from typing import List, Any, Union, Tuple
+from typing import Any, Union, Tuple
 
 from django.contrib.auth import get_user_model
-from django.db.models.query import QuerySet
 from rest_framework import permissions, status, viewsets
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import action
-from rest_framework.permissions import BasePermission
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.serializers import BaseSerializer
-from rest_framework import mixins
 
 from api.serializers import UserPrivateDetailSerializer
 from ..permissions import IsAnonymous, IsOwnerOrReadOnly
@@ -22,7 +19,6 @@ from ..serializers import (
 )
 from ..utils import (
     AUTHENTICATION_FAILED_MESSAGE,
-    LANGUAGE_SET_SUCCESSFULLY_MESSAGE,
     PASSWORD_SET_SUCCESSFULLY_MESSAGE,
     USER_REGISTERED_SUCCESSFULLY_MESSAGE,
 )
@@ -130,4 +126,3 @@ class UserViewSet(viewsets.ModelViewSet):
             )
 
         return Response(data={"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
-

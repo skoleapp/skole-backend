@@ -1,5 +1,18 @@
+from rest_framework.reverse import reverse
+
 from core.models import School
 from core.utils import UNIVERSITY
+
+SCHOOL_LIST_API_URL = reverse("school-list")
+
+
+def school_detail_api_url(school_id):
+    return reverse("school-detail", args=[school_id])
+
+
+def school_list_filter_api_url(school_type):
+    school_type = school_type.lower().replace("_", "-")  # to kebab-case
+    reverse("school-list", kwargs={"school_type": school_type})
 
 
 def sample_school(**params):

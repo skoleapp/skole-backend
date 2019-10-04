@@ -4,7 +4,7 @@ from rest_framework.test import APITestCase
 
 from api.utils import USER_REGISTERED_SUCCESSFULLY_MESSAGE
 from core.utils import SWEDISH
-from .utils.user import (
+from tests.api.utils.user import (
     CHANGE_PASSWORD_API_URL,
     LOGIN_API_URL,
     REGISTER_API_URL,
@@ -13,7 +13,9 @@ from .utils.user import (
     sample_user_register_payload,
     sample_user_patch_payload,
     user_detail_api_url,
-    sample_user, sample_user_put_payload)
+    sample_user,
+    sample_user_put_payload,
+)
 
 
 class PublicUserAPITests(APITestCase):

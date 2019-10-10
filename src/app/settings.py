@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "freezegun",
     "corsheaders",
     "core",
+    "graphene_django",
 ]
 
 MIDDLEWARE = [
@@ -148,3 +149,7 @@ AUTH_USER_MODEL = "core.User"
 CORS_ORIGIN_WHITELIST = [
     "http://localhost:3000",
 ]
+
+GRAPHENE = {
+    "SCHEMA": "api.schemas.schema.schema",
+}

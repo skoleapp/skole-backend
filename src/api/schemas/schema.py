@@ -1,10 +1,14 @@
 import graphene
 
-import api.schemas.user_type
+import api.schemas.user
 
 
-class Query(api.schemas.user_type.Query, graphene.ObjectType):
+class Query(api.schemas.user.Query):
     pass
 
 
-schema = graphene.Schema(query=Query)
+class Mutation(api.schemas.user.Mutation):
+    pass
+
+
+schema = graphene.Schema(query=Query, mutation=Mutation)

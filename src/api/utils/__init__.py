@@ -12,3 +12,5 @@ from .messages import (
     USER_DOES_NOT_EXIST_MESSAGE,
     USER_REGISTERED_SUCCESSFULLY_MESSAGE,
 )
+
+from .helpers import get_requested_fields

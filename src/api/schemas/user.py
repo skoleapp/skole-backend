@@ -1,35 +1,23 @@
 import graphene
+import graphql_jwt
 from django import forms
 from graphene_django.forms.mutation import DjangoFormMutation
 from django.contrib.auth import get_user_model
 from graphene_django import DjangoObjectType
 
 
-class UserTypePublic(DjangoObjectType):
+class UserNodePublic(DjangoObjectType):
     class Meta:
         model = get_user_model()
+        interfaces = (graphene.Node,)
         fields = ("id", "username", "title", "bio", "points", "created")
 
 
-class UserTypePrivate(DjangoObjectType):
+class UserNodePrivate(DjangoObjectType):
     class Meta:
         model = get_user_model()
+        interfaces = (graphene.Node,)
         fields = ("id", "username", "title", "bio", "points", "created", "email", "language")
-
-
-class Query(graphene.ObjectType):
-    all_users = graphene.List(UserTypePublic)
-    user = graphene.Field(UserTypePublic, id=graphene.Int())
-    user_me = graphene.Field(UserTypePrivate)
-
-    def resolve_all_users(self, info, **kwargs):
-        return get_user_model().objects.all()
-
-    def resolve_user(self, info, id):
-        return get_user_model().objects.get(pk=id)
-
-    def resolve_user_me(self, info):
-        return get_user_model().objects.get(pk=info.context.user.id)
 
 
 class RegisterForm(forms.ModelForm):
@@ -41,7 +29,7 @@ class RegisterForm(forms.ModelForm):
 
 
 class RegisterMutation(DjangoFormMutation):
-    user = graphene.Field(UserTypePrivate)
+    user = graphene.Field(UserNodePrivate)
 
     class Meta:
         form_class = RegisterForm
@@ -56,5 +44,24 @@ class RegisterMutation(DjangoFormMutation):
         return RegisterMutation(user=user)
 
 
+class Query(graphene.ObjectType):
+    user = graphene.Node.Field(UserNodePublic)
+    user_list = graphene.List(UserNodePublic)
+    user_me = graphene.Field(UserNodePrivate)
+
+    def resolve_user_list(self, info):
+        return get_user_model().objects.all()
+
+    def resolve_user_me(self, info):
+        return get_user_model().objects.get(pk=info.context.user.id)
+
+
 class Mutation(graphene.ObjectType):
     register = RegisterMutation.Field()
+    login = graphql_jwt.ObtainJSONWebToken.Field()
+    verify_token = graphql_jwt.Verify.Field()
+    refresh_token = graphql_jwt.Refresh.Field()
+
+# TODO: delete user
+# TODO: update user
+# TODO: change password

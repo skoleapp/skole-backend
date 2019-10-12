@@ -1,17 +1,10 @@
 from django.contrib.auth import get_user_model
-from rest_framework.reverse import reverse
+from graphene_django.utils.testing import GraphQLTestCase
 
+
+from api.schemas.schema import schema
 from core.utils import SWEDISH
 
-USER_LIST_API_URL = reverse("user-list")
-USER_ME_API_URL = reverse("user-detail", args=["me"])
-CHANGE_PASSWORD_API_URL = reverse("user-change-password")
-LOGIN_API_URL = reverse("user-login")
-REGISTER_API_URL = reverse("user-register")
-
-
-def user_detail_api_url(user_id):
-    return reverse("user-detail", args=[user_id])
 
 
 def sample_user_register_payload(**params):
@@ -60,3 +53,26 @@ def sample_user(**params):
     defaults.update(params)
     user = get_user_model().objects.create_user(**defaults)
     return user
+
+
+def sample_register_op_name_input_data(**params):
+    input_data = {"email": "test@test.com", "username": "testuser", "password": "password"}
+
+    if params is not None:
+        input_data.update(**params)
+
+    return "register", input_data
+
+
+sample_register_mutation =\
+    """
+    mutation register($input: RegisterMutationInput!) {
+     register(input: $input) {
+       user {
+         id
+         username
+         email
+       }
+     }
+    }
+    """

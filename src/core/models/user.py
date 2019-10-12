@@ -3,7 +3,6 @@ from datetime import datetime, timedelta
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
-from rest_framework.authtoken.models import Token
 
 from core.utils import ENGLISH, LANGUAGES
 
@@ -43,18 +42,6 @@ class UserManager(BaseUserManager):
         user.save()
         return user
 
-    @staticmethod
-    def refresh_token(user: 'User', token: Token) -> Token:
-        utc_now = datetime.utcnow()
-        if token.created.replace(tzinfo=None) < utc_now - timedelta(hours=24):
-            token.delete()
-            refresh_token = Token.objects.create(user=user)
-            refresh_token.created = datetime.utcnow()
-            refresh_token.save()
-            return refresh_token
-
-        return token
-
 
 class User(AbstractBaseUser, PermissionsMixin):
     """Models one user on the platform."""
@@ -71,7 +58,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     objects = UserManager()
 
-    USERNAME_FIELD = "username"
+    USERNAME_FIELD = "email"
 
     def __str__(self) -> str:
         return f"{self.username}"

@@ -1,9 +1,10 @@
 import graphene
 
+import api.schemas.school
 import api.schemas.user
 
 
-class Query(api.schemas.user.Query):
+class Query(api.schemas.user.Query, api.schemas.school.Query):
     pass
 
 

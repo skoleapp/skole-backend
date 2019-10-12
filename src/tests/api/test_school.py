@@ -1,5 +1,3 @@
-from rest_framework import status
-from rest_framework.test import APITestCase
 
 from api.utils import READ_ONLY_MESSAGE
 from core.utils import HIGH_SCHOOL, UNIVERSITY, UNIVERSITY_OF_APPLIED_SCIENCES

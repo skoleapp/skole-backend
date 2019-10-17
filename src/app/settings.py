@@ -130,8 +130,13 @@ STATIC_ROOT = "static"
 AUTH_USER_MODEL = "core.User"
 
 CORS_ORIGIN_WHITELIST = [
-    "http://localhost:3000",
+    'http://localhost:3000',
+    'https://localhost:3000',
+    'http://127.0.0.1:3000',
+    'https://127.0.0.1:3000',
 ]
+
+CORS_ALLOW_CREDENTIALS = True
 
 GRAPHENE = {
     "SCHEMA": "api.schemas.schema.schema",
@@ -149,3 +154,5 @@ GRAPHQL_JWT = {
     "JWT_VERIFY_EXPIRATION": True,
     "JWT_EXPIRATION_DELTA": datetime.timedelta(hours=24)
 }
+
+PASSWORD_MIN_LENGTH = 6

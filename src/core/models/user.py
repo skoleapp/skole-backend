@@ -19,15 +19,13 @@ class UserManager(BaseUserManager):
         user.save()
         return user
 
-    def create_superuser(self, username: str, password: str) -> "User":
-        user = self.model(username=username)
-
+    def create_superuser(self, email: str, username: str, password: str) -> "User":
+        user = self.model(email=email, username=username)
         user.is_staff = True
         user.is_superuser = True
-
         user.set_password(password)
-
         user.save()
+
         return user
 
     @staticmethod
@@ -59,6 +57,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
 
     USERNAME_FIELD = "email"
+    REQUIRED_FIELDS = ["username"]
 
     def __str__(self) -> str:
         return f"{self.username}"

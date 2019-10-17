@@ -1,4 +1,4 @@
-from ..utils import INCORRECT_OLD_PASSWORD
+from ..utils import INCORRECT_OLD_PASSWORD, USER_DELETED_MESSAGE
 from django.conf import settings
 from django import forms
 from django.contrib.auth import get_user_model
@@ -59,6 +59,15 @@ class ChangePasswordMutation(DjangoFormMutation):
         else:
             raise ValueError(INCORRECT_OLD_PASSWORD)
 
+
+class DeleteUserMutation(graphene.Mutation):
+    message = graphene.String()
+
+    @login_required
+    def mutate(self, info):
+        get_user_model().objects.get(pk=info.context.user.id).delete()
+        return DeleteUserMutation(message=USER_DELETED_MESSAGE)
+
 class Query(graphene.ObjectType):
     user_list = graphene.List(UserTypePublic)
     user = graphene.Field(UserTypePublic, id=graphene.Int())
@@ -82,6 +91,7 @@ class Mutation(graphene.ObjectType):
     verify_token = graphql_jwt.Verify.Field()
     refresh_token = graphql_jwt.Refresh.Field()
     change_password = ChangePasswordMutation.Field()
+    delete_user = DeleteUserMutation.Field()
 
 
 # TODO: delete user

@@ -1,1 +1,1 @@
-from .messages import INCORRECT_OLD_PASSWORD
+from .messages import INCORRECT_OLD_PASSWORD, USER_DELETED_MESSAGE

@@ -8,18 +8,16 @@ from graphene_django.forms.mutation import DjangoFormMutation
 import graphql_jwt
 from graphql_extensions.auth.decorators import login_required
 
-
 class UserTypePublic(DjangoObjectType):
     class Meta:
         model = get_user_model()
-        fields = ("id", "slug", "username", "title", "bio", "points", "created")
+        fields = ("id", "username", "title", "bio", "points", "created")
 
 
 class UserTypePrivate(DjangoObjectType):
     class Meta:
         model = get_user_model()
-        fields = ("id", "slug", "username", "title", "bio", "points", "created", "email", "language")
-
+        fields = ("id", "username", "title", "bio", "points", "created", "email", "language")
 
 class RegisterForm(forms.ModelForm):
     password = forms.CharField(min_length=settings.PASSWORD_MIN_LENGTH)
@@ -27,6 +25,7 @@ class RegisterForm(forms.ModelForm):
     class Meta:
         model = get_user_model()
         fields = ("username", "email", "password")
+        write_only_fields = ("username", "email", "password")
 
 
 class ChangePasswordForm(forms.Form):
@@ -57,7 +56,6 @@ class ChangePasswordMutation(DjangoFormMutation):
         
         if user.check_password(form.cleaned_data["old_password"]):
             get_user_model().objects.set_password(user, form.cleaned_data["new_password"])
-            return ChangePasswordMutation()
         else:
             raise ValueError(INCORRECT_OLD_PASSWORD)
 
@@ -88,4 +86,3 @@ class Mutation(graphene.ObjectType):
 
 # TODO: delete user
 # TODO: update user
-# TODO: change password

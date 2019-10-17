@@ -1,27 +1,26 @@
 import graphene
 from graphene_django import DjangoObjectType
 from graphene_django.filter import DjangoFilterConnectionField
-
+from graphql_relay import to_global_id
 from core.models import School
 
 
-class SchoolNode(DjangoObjectType):
+class SchoolType(DjangoObjectType):
     school_type = graphene.String()
-
+    
     class Meta:
         model = School
-        interfaces = (graphene.Node,)
-        filter_fields = {
-            "school_type": ("icontains",),
-            "name": ("icontains",),
-            "city": ("icontains",),
-            "country": ("icontains",),
-        }
 
     def resolve_school_type(self, info):
         return self.get_school_type_display()
 
 
 class Query(graphene.ObjectType):
-    school = graphene.Node.Field(SchoolNode)
-    school_list = DjangoFilterConnectionField(SchoolNode)
+    school_list = graphene.List(SchoolType)
+    school = graphene.Field(SchoolType, id=graphene.Int())
+
+    def resolve_school_list(self, info):
+        return School.objects.all()
+
+    def resolve_school(self, info, id):
+        return School.objects.get(pk=id)

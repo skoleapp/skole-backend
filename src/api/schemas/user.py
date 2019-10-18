@@ -98,8 +98,8 @@ class Query(graphene.ObjectType):
 class Mutation(graphene.ObjectType):
     register = RegisterMutation.Field()
     login = ObtainJSONWebToken.Field()
-    verify_token = graphql_jwt.Verify.Field()
-    refresh_token = graphql_jwt.Refresh.Field()
+    # verify_token = graphql_jwt.Verify.Field()
+    # refresh_token = graphql_jwt.Refresh.Field()
     change_password = ChangePasswordMutation.Field()
     delete_user = DeleteUserMutation.Field()
 

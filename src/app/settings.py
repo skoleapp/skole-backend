@@ -151,7 +151,7 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 GRAPHQL_JWT = {
-    "JWT_VERIFY_EXPIRATION": True,
+    "JWT_VERIFY_EXPIRATION": False,
     "JWT_EXPIRATION_DELTA": datetime.timedelta(hours=24)
 }
 

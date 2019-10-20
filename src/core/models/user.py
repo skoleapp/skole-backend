@@ -29,14 +29,16 @@ class UserManager(BaseUserManager):
         return user
 
     @staticmethod
-    def set_password(user: 'User', password: str) -> "User":
-        user.set_password(password)
+    def update_user(user: 'User', **kwargs) -> 'User':
+        for key, value in kwargs.items():
+            setattr(user, key, value)
+        
         user.save()
         return user
 
     @staticmethod
-    def set_language(user: 'User', language: str) -> "User":
-        user.language = language
+    def set_password(user: 'User', password: str) -> "User":
+        user.set_password(password)
         user.save()
         return user
 

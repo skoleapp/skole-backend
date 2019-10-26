@@ -1,11 +1,12 @@
-import json
-
 from graphene_django.utils.testing import GraphQLTestCase
 
 from api.schemas.schema import schema
+from api.utils import USER_REGISTERED_MESSAGE
 from tests.api.utils.user import (
-    sample_register_op_name_input_data,
-    sample_register_mutation,
+    login_user,
+    query_user,
+    query_user_list,
+    register_one_user,
 )
 
 
@@ -13,65 +14,76 @@ class PublicUserAPITests(GraphQLTestCase):
     GRAPHQL_SCHEMA = schema
 
     def test_register_success(self):
-        op_name, input_data = sample_register_op_name_input_data()
-        res = self.query(
-            sample_register_mutation,
-            op_name=op_name,
-            input_data=input_data
-        )
-        content = json.loads(res.content)
-        self.assertResponseNoErrors(res)
-        user = content["data"]["register"]["user"]
-        assert "id" in user
-        assert user["email"] == "test@test.com"
-        assert user["username"] == "testuser"
+        content = register_one_user(self)
+        assert content["data"]["register"]["errors"] is None
+        assert content["data"]["register"]["message"] == USER_REGISTERED_MESSAGE
 
     def test_register_error(self):
         # bad email
+        content = register_one_user(self, email="badmail.com")
+        message = content["data"]["register"]["errors"][0]["messages"][0]
+        assert message == "Enter a valid email address."
 
         # too short password
-
-        # password != confirm_password
-        pass
+        content = register_one_user(self, password="short")
+        message = content["data"]["register"]["errors"][0]["messages"][0]
+        assert "Ensure this value has at least" in message
 
     def test_register_email_not_unique(self):
+        register_one_user(self)
         # email already in use
-        pass
+        content = register_one_user(self, username="unique")
+        message = content["data"]["register"]["errors"][0]["messages"][0]
+        assert message == "User with this Email already exists."
 
     def test_register_username_not_unique(self):
+        register_one_user(self)
         # username already in use
-        pass
+        content = register_one_user(self, email="unique@email.com")
+        message = content["data"]["register"]["errors"][0]["messages"][0]
+        assert message == "User with this Username already exists."
 
     def test_login_success(self):
-        # register one user
-
-        # log in with that user
-        pass
+        register_one_user(self)
+        # log in with the registered user
+        content = login_user(self)
+        assert "token" in content["data"]["login"]
+        assert content["data"]["login"]["user"]["email"] == "test@test.com"
 
     def test_login_error(self):
-        # register one user
-
-        # invalid username
+        register_one_user(self)
 
         # invalid email
+        content = login_user(self, email="wrong@email.com")
+        message = content["errors"][0]["message"]
+        assert message == "Please, enter valid credentials"
 
         # invalid password
-        pass
+        content = login_user(self, password="wrongpass")
+        message = content["errors"][0]["message"]
+        assert message == "Please, enter valid credentials"
 
     def test_user_profile(self):
-        # register one user
+        register_one_user(self)
 
-        # get the profile of that user
-        pass
-
-    def test_user_me(self):
-        pass
+        content = query_user_list(self)
+        id_ = content["data"]["userList"][0]["id"]
+        # get the profile of the registered user
+        content = query_user(self, id=id_)
+        assert content["data"]["user"]["id"] == id_
+        assert content["data"]["user"]["username"] == "testuser"
 
     def test_user_list(self):
-        # register one user
+        register_one_user(self)
+        register_one_user(self, email="test2@test.com", username="testuser2")
+        register_one_user(self, email="test3@test.com", username="testuser3")
 
-        # check that the user comes as a result for user list
-        pass
+        # check that the register users come as a result for the user list
+        content = query_user_list(self)
+        assert len(content["data"]["userList"]) == 3
+        assert content["data"]["userList"][0]["username"] == "testuser"
+        assert content["data"]["userList"][1]["username"] == "testuser2"
+        assert content["data"]["userList"][2]["username"] == "testuser3"
 
 
 class PrivateUserAPITests(GraphQLTestCase):
@@ -87,6 +99,9 @@ class PrivateUserAPITests(GraphQLTestCase):
     def tearDown(self):
         # self.user.delete()
         # self.user2.delete()
+        pass
+
+    def test_user_me(self):
         pass
 
     def test_user_me_links_to_own_profile(self):

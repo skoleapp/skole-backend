@@ -1,5 +1,3 @@
-
-from api.utils import READ_ONLY_MESSAGE
 from core.utils import HIGH_SCHOOL, UNIVERSITY, UNIVERSITY_OF_APPLIED_SCIENCES
 from tests.api.utils.school import (
     SCHOOL_LIST_API_URL,

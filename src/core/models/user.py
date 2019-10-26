@@ -1,5 +1,3 @@
-from datetime import datetime, timedelta
-
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
@@ -32,7 +30,7 @@ class UserManager(BaseUserManager):
     def update_user(user: 'User', **kwargs) -> 'User':
         for key, value in kwargs.items():
             setattr(user, key, value)
-        
+
         user.save()
         return user
 

@@ -1,10 +1,6 @@
 from django.contrib.auth import get_user_model
-from graphene_django.utils.testing import GraphQLTestCase
 
-
-from api.schemas.schema import schema
 from core.utils import SWEDISH
-
 
 
 def sample_user_register_payload(**params):
@@ -64,7 +60,7 @@ def sample_register_op_name_input_data(**params):
     return "register", input_data
 
 
-sample_register_mutation =\
+sample_register_mutation = \
     """
     mutation register($input: RegisterMutationInput!) {
      register(input: $input) {

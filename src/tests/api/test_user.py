@@ -1,11 +1,8 @@
 import json
 
 from graphene_django.utils.testing import GraphQLTestCase
-from django.contrib.auth import get_user_model
 
 from api.schemas.schema import schema
-from core.utils import SWEDISH
-
 from tests.api.utils.user import (
     sample_register_op_name_input_data,
     sample_register_mutation,
@@ -47,7 +44,6 @@ class PublicUserAPITests(GraphQLTestCase):
 
     def test_login_success(self):
         # register one user
-
 
         # log in with that user
         pass

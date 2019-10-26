@@ -5,4 +5,3 @@ from core.models import School
 
 admin.site.register(get_user_model())
 admin.site.register(School)
-

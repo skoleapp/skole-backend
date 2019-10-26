@@ -1,4 +1,3 @@
-
 from core.models import School
 from core.utils import UNIVERSITY
 

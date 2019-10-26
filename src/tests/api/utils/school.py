@@ -1,4 +1,3 @@
-from rest_framework.reverse import reverse
 
 from core.models import School
 from core.utils import UNIVERSITY

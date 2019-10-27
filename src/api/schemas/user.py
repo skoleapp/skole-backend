@@ -13,13 +13,13 @@ from ..utils import INCORRECT_OLD_PASSWORD, USER_DELETED_MESSAGE, USER_REGISTERE
 class UserTypePublic(DjangoObjectType):
     class Meta:
         model = get_user_model()
-        fields = ("id", "username", "title", "bio", "avatar", "points", "created")
+        fields = ("id", "username", "title", "bio", "avatar", "avatar_thumbnail", "points", "created")
 
 
 class UserTypePrivate(DjangoObjectType):
     class Meta:
         model = get_user_model()
-        fields = ("id", "username", "title", "bio", "avatar", "points", "created", "email", "language")
+        fields = ("id", "username", "title", "bio", "avatar", "avatar_thumbnail", "points", "created", "email", "language")
 
 
 class RegisterForm(forms.ModelForm):

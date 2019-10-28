@@ -124,8 +124,8 @@ USE_TZ = True
 STATIC_URL = "/static/"
 MEDIA_URL = "/var/media/"
 
-MEDIA_ROOT = "var/media"
 STATIC_ROOT = "static"
+MEDIA_ROOT = "var/media"
 
 AUTH_USER_MODEL = "core.User"
 

@@ -13,11 +13,24 @@ from ..utils import INCORRECT_OLD_PASSWORD, USER_DELETED_MESSAGE, USER_REGISTERE
 class UserTypeRegister(ObjectType):
     class Meta:
         fields = ("message",)
-
+    
     message = graphene.String()
 
     def resolve_message(self, info):
         return USER_REGISTERED_MESSAGE
+
+
+class UserTypePublic(DjangoObjectType):
+    class Meta:
+        model = get_user_model()
+        fields = ("id", "username", "title", "bio", "avatar", "avatar_thumbnail", "points", "created")
+
+
+class UserTypePrivate(DjangoObjectType):
+    class Meta:
+        model = get_user_model()
+        fields = ("id", "username", "title", "bio", "avatar", "avatar_thumbnail", "points", "created", "email", "language")
+
 
 class UserTypePublic(DjangoObjectType):
     class Meta:
@@ -28,7 +41,7 @@ class UserTypePublic(DjangoObjectType):
 class UserTypePrivate(DjangoObjectType):
     class Meta:
         model = get_user_model()
-        fields = ("id", "username", "title", "bio", "points", "created", "email", "language")
+        fields = ("username", "email", "title", "bio", "avatar", "language")
 
 
 class RegisterMutation(DjangoModelFormMutation):
@@ -86,6 +99,7 @@ class UpdateUserMutation(DjangoFormMutation):
     @classmethod
     @login_required
     def perform_mutate(cls, form, info):
+        files = info.context.FILES
         user = info.context.user
         get_user_model().objects.update_user(user, **form.cleaned_data)
         return cls(user=user)

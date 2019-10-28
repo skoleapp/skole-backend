@@ -1,4 +1,4 @@
-from src.api.utils.messages import EMAIL_TAKEN_MESSAGE, USERNAME_TAKEN_MESSAGE
+from ..utils import EMAIL_TAKEN_MESSAGE, USERNAME_TAKEN_MESSAGE
 from django import forms
 from django.contrib.auth import get_user_model
 from django.conf import settings

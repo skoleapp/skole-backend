@@ -1,4 +1,4 @@
-from ..utils import EMAIL_TAKEN_MESSAGE, USERNAME_TAKEN_MESSAGE
+from ..utils import EMAIL_TAKEN_MESSAGE, USERNAME_TAKEN_MESSAGE, INCORRECT_OLD_PASSWORD
 from django import forms
 from django.contrib.auth import get_user_model
 from django.conf import settings
@@ -30,6 +30,14 @@ class UpdateUserForm(forms.ModelForm):
         return username
 
 
-class ChangePasswordForm(forms.Form):
+class ChangePasswordForm(forms.ModelForm):
     old_password = forms.CharField()
     new_password = forms.CharField(min_length=settings.PASSWORD_MIN_LENGTH)
+
+    class Meta:
+        model = get_user_model()
+        fields = ("old_password", "new_password")
+
+    def clean_old_password(self):
+        if not self.instance.check_password(self.cleaned_data["old_password"]):
+            raise forms.ValidationError(INCORRECT_OLD_PASSWORD)

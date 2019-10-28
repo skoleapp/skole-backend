@@ -4,11 +4,21 @@ from django import forms
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from graphene_django import DjangoObjectType
-from graphene_django.forms.mutation import DjangoFormMutation
+from graphene_django.forms.mutation import DjangoFormMutation, DjangoModelFormMutation
 from graphql_extensions.auth.decorators import login_required
 
 from ..utils import INCORRECT_OLD_PASSWORD, USER_DELETED_MESSAGE, USER_REGISTERED_MESSAGE, USERNAME_TAKEN_MESSAGE, EMAIL_TAKEN_MESSAGE
 
+
+class UserTypeRegister(DjangoObjectType):
+    class Meta:
+        model = get_user_model()
+        fields = ("message",)
+
+    message = graphene.String()
+
+    def resolve_message(self, info):
+        return USER_REGISTERED_MESSAGE
 
 class UserTypePublic(DjangoObjectType):
     class Meta:
@@ -53,21 +63,20 @@ class ChangePasswordForm(forms.Form):
     new_password = forms.CharField(min_length=settings.PASSWORD_MIN_LENGTH)
 
 
-class RegisterMutation(DjangoFormMutation):
-    message = graphene.String()
-
+class RegisterMutation(DjangoModelFormMutation):
+    user = graphene.Field(UserTypeRegister)
     class Meta:
         form_class = RegisterForm
 
     @classmethod
     def perform_mutate(cls, form, info):
-        get_user_model().objects.create_user(
+        user = get_user_model().objects.create_user(
             email=form.cleaned_data["email"],
             username=form.cleaned_data["username"],
             password=form.cleaned_data["password"],
         )
-        return cls(message=USER_REGISTERED_MESSAGE)
 
+        return cls(user=user)
 
 class ChangePasswordMutation(DjangoFormMutation):
     class Meta:

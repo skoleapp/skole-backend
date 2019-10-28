@@ -1,12 +1,12 @@
 from ..forms import RegisterForm, ChangePasswordForm, UpdateUserForm
 import graphene
-import graphql_jwt
+from graphql_jwt import JSONWebTokenMutation
 from django.contrib.auth import get_user_model
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoFormMutation, DjangoModelFormMutation
 from graphql_extensions.auth.decorators import login_required
-
-from ..utils import INCORRECT_OLD_PASSWORD, USER_DELETED_MESSAGE, USER_REGISTERED_MESSAGE, PASSWORD_SET_MESSAGE
+from graphene_django.types import ErrorType
+from ..utils import USER_DELETED_MESSAGE, USER_REGISTERED_MESSAGE, PASSWORD_SET_MESSAGE
 
 
 class UserTypeRegister(DjangoObjectType):
@@ -59,6 +59,15 @@ class RegisterMutation(DjangoModelFormMutation):
 
         return cls(user=user)
 
+
+class LoginMutation(JSONWebTokenMutation):
+    user = graphene.Field(UserTypePrivate)
+
+    @classmethod
+    def resolve(cls, root, info, **kwargs):
+        return cls(user=info.context.user)
+
+
 class ChangePasswordMutation(DjangoModelFormMutation):
     user = graphene.Field(UserTypeChangePassword)
 
@@ -105,14 +114,6 @@ class UpdateUserMutation(DjangoFormMutation):
         user = info.context.user
         get_user_model().objects.update_user(user, **form.cleaned_data)
         return cls(user=user)
-
-
-class LoginMutation(graphql_jwt.JSONWebTokenMutation):
-    user = graphene.Field(UserTypePrivate)
-
-    @classmethod
-    def resolve(cls, root, info, **kwargs):
-        return cls(user=info.context.user)
 
 
 class Query(graphene.ObjectType):

@@ -13,13 +13,13 @@ from ..utils import INCORRECT_OLD_PASSWORD, USER_DELETED_MESSAGE, USER_REGISTERE
 class UserTypePublic(DjangoObjectType):
     class Meta:
         model = get_user_model()
-        fields = ("id", "username", "title", "bio", "points", "created")
+        fields = ("id", "username", "title", "bio", "avatar", "avatar_thumbnail", "points", "created")
 
 
 class UserTypePrivate(DjangoObjectType):
     class Meta:
         model = get_user_model()
-        fields = ("id", "username", "title", "bio", "points", "created", "email", "language")
+        fields = ("id", "username", "title", "bio", "avatar", "avatar_thumbnail", "points", "created", "email", "language")
 
 
 class RegisterForm(forms.ModelForm):
@@ -33,16 +33,16 @@ class RegisterForm(forms.ModelForm):
 class UpdateUserForm(forms.ModelForm):
     class Meta:
         model = get_user_model()
-        fields = ("username", "email", "title", "bio", "language")
+        fields = ("username", "email", "title", "bio", "avatar", "language")
 
     def clean_email(self):
-        email = self.cleaned_data['email']
+        email = self.cleaned_data["email"]
         if get_user_model().objects.exclude(pk=self.instance.pk).filter(email__iexact=email):
             raise forms.ValidationError(EMAIL_TAKEN_MESSAGE)
         return email
 
     def clean_username(self):
-        username = self.cleaned_data['username']
+        username = self.cleaned_data["username"]
         if get_user_model().objects.exclude(pk=self.instance.pk).filter(username__exact=username):
             raise forms.ValidationError(USERNAME_TAKEN_MESSAGE)
         return username
@@ -108,6 +108,7 @@ class UpdateUserMutation(DjangoFormMutation):
     @classmethod
     @login_required
     def perform_mutate(cls, form, info):
+        files = info.context.FILES
         user = info.context.user
         get_user_model().objects.update_user(user, **form.cleaned_data)
         return cls(user=user)

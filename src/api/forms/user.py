@@ -15,7 +15,7 @@ class RegisterForm(forms.ModelForm):
 class UpdateUserForm(forms.ModelForm):
     class Meta:
         model = get_user_model()
-        fields = ("username", "email", "title", "bio", "language")
+        fields = ("username", "email", "title", "bio", "avatar", "language")
 
     def clean_email(self):
         email = self.cleaned_data['email']

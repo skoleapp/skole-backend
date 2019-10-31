@@ -66,7 +66,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
     title = models.CharField(max_length=100, null=True, blank=True)
     bio = models.TextField(max_length=2000, null=True, blank=True)
-    avatar = models.ImageField(upload_to="uploads/avatars", null=True)
+    avatar = models.ImageField(upload_to="uploads/avatars", null=True, blank=True)
     avatar_thumbnail = ImageSpecField(source="avatar",
                                       processors=[ResizeToFill(100, 100)],
                                       format="JPEG",

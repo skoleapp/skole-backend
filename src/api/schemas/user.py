@@ -3,21 +3,15 @@ import graphene
 from graphql_jwt import JSONWebTokenMutation
 from django.contrib.auth import get_user_model
 from graphene_django import DjangoObjectType
-from graphene_django.forms.mutation import DjangoFormMutation, DjangoModelFormMutation
+from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphql_extensions.auth.decorators import login_required
-from graphene_django.types import ErrorType
-from ..utils import USER_DELETED_MESSAGE, USER_REGISTERED_MESSAGE, PASSWORD_SET_MESSAGE
+from ..utils import USER_DELETED_MESSAGE
 
 
 class UserTypeRegister(DjangoObjectType):
     class Meta:
         model = get_user_model()
-        fields = ("id", "message", "created")
-    
-    message = graphene.String()
-
-    def resolve_message(self, info):
-        return USER_REGISTERED_MESSAGE
+        fields = ("id", "created")
 
 
 class UserTypePublic(DjangoObjectType):
@@ -27,20 +21,20 @@ class UserTypePublic(DjangoObjectType):
 
 
 class UserTypePrivate(DjangoObjectType):
+    language = graphene.String()
+
     class Meta:
         model = get_user_model()
         fields = ("id", "username", "title", "bio", "avatar", "avatar_thumbnail", "points", "created", "email", "language")
+
+    def resolve_language(self, info):
+        return self.get_language_display()
 
 
 class UserTypeChangePassword(DjangoObjectType):
     class Meta:
         model = get_user_model()
-        fields = ("id", "message", "modified")
-    
-    message = graphene.String()
-
-    def resolve_message(self, info):
-        return PASSWORD_SET_MESSAGE
+        fields = ("id", "modified")
 
 
 class RegisterMutation(DjangoModelFormMutation):
@@ -95,7 +89,7 @@ class DeleteUserMutation(graphene.Mutation):
         return DeleteUserMutation(message=USER_DELETED_MESSAGE)
 
 
-class UpdateUserMutation(DjangoFormMutation):
+class UpdateUserMutation(DjangoModelFormMutation):
     user = graphene.Field(UserTypePrivate)
 
     class Meta:

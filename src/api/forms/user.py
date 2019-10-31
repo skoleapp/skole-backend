@@ -18,13 +18,13 @@ class UpdateUserForm(forms.ModelForm):
         fields = ("username", "email", "title", "bio", "avatar", "language")
 
     def clean_email(self):
-        email = self.cleaned_data['email']
+        email = self.cleaned_data["email"]
         if get_user_model().objects.exclude(pk=self.instance.pk).filter(email__iexact=email):
             raise forms.ValidationError(EMAIL_TAKEN_MESSAGE)
         return email
 
     def clean_username(self):
-        username = self.cleaned_data['username']
+        username = self.cleaned_data["username"]
         if get_user_model().objects.exclude(pk=self.instance.pk).filter(username__exact=username):
             raise forms.ValidationError(USERNAME_TAKEN_MESSAGE)
         return username

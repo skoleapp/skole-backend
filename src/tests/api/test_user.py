@@ -1,142 +1,186 @@
+from django.test import RequestFactory
+from graphene.test import Client
 from graphene_django.utils.testing import GraphQLTestCase
 
 from api.schemas.schema import schema
-from api.utils import USER_REGISTERED_MESSAGE
+from api.utils import USER_DELETED_MESSAGE
+from core.utils import SWEDISH
+
 from tests.api.utils.user import (
-    login_user,
+    create_sample_user,
+    mutate_change_password,
+    mutate_login_user,
+    mutate_register_one_user,
+    mutate_user_delete,
+    mutate_update_user,
     query_user,
     query_user_list,
-    register_one_user,
+    query_user_me,
 )
 
 
 class PublicUserAPITests(GraphQLTestCase):
     GRAPHQL_SCHEMA = schema
 
+    def setUp(self):
+        self.client = Client(schema)
+
+    def tearDown(self):
+        del self.client
+
     def test_register_success(self):
-        content = register_one_user(self)
-        assert content["data"]["register"]["errors"] is None
-        assert content["data"]["register"]["message"] == USER_REGISTERED_MESSAGE
+        res = mutate_register_one_user(self)
+        cont = res["data"]["register"]
+        assert cont["errors"] is None
+        assert cont["user"] is not None
 
     def test_register_error(self):
         # bad email
-        content = register_one_user(self, email="badmail.com")
-        message = content["data"]["register"]["errors"][0]["messages"][0]
+        res = mutate_register_one_user(self, email="badmail.com")
+        cont = res["data"]["register"]
+        message = cont["errors"][0]["messages"][0]
         assert message == "Enter a valid email address."
 
         # too short password
-        content = register_one_user(self, password="short")
-        message = content["data"]["register"]["errors"][0]["messages"][0]
+        res = mutate_register_one_user(self, password="short")
+        cont = res["data"]["register"]
+        message = cont["errors"][0]["messages"][0]
         assert "Ensure this value has at least" in message
 
     def test_register_email_not_unique(self):
-        register_one_user(self)
+        mutate_register_one_user(self)
         # email already in use
-        content = register_one_user(self, username="unique")
-        message = content["data"]["register"]["errors"][0]["messages"][0]
+        res = mutate_register_one_user(self, username="unique")
+        cont = res["data"]["register"]
+        message = cont["errors"][0]["messages"][0]
         assert message == "User with this Email already exists."
 
     def test_register_username_not_unique(self):
-        register_one_user(self)
+        mutate_register_one_user(self)
         # username already in use
-        content = register_one_user(self, email="unique@email.com")
-        message = content["data"]["register"]["errors"][0]["messages"][0]
+        res = mutate_register_one_user(self, email="unique@email.com")
+        cont = res["data"]["register"]
+        message = cont["errors"][0]["messages"][0]
         assert message == "User with this Username already exists."
 
     def test_login_success(self):
-        register_one_user(self)
+        mutate_register_one_user(self)
         # log in with the registered user
-        content = login_user(self)
-        assert "token" in content["data"]["login"]
-        assert content["data"]["login"]["user"]["email"] == "test@test.com"
+        res = mutate_login_user(self)
+        assert "token" in res["data"]["login"]
+        assert res["data"]["login"]["user"]["email"] == "test@test.com"
 
     def test_login_error(self):
-        register_one_user(self)
+        mutate_register_one_user(self)
 
         # invalid email
-        content = login_user(self, email="wrong@email.com")
-        message = content["errors"][0]["message"]
+        res = mutate_login_user(self, email="wrong@email.com")
+        message = res["errors"][0]["message"]
         assert message == "Please, enter valid credentials"
 
         # invalid password
-        content = login_user(self, password="wrongpass")
-        message = content["errors"][0]["message"]
+        res = mutate_login_user(self, password="wrongpass")
+        message = res["errors"][0]["message"]
         assert message == "Please, enter valid credentials"
 
     def test_user_profile(self):
-        register_one_user(self)
+        mutate_register_one_user(self)
 
-        content = query_user_list(self)
-        id_ = content["data"]["userList"][0]["id"]
-        # get the profile of the registered user
-        content = query_user(self, id=id_)
-        assert content["data"]["user"]["id"] == id_
-        assert content["data"]["user"]["username"] == "testuser"
+        # Get the id of the first user, so we can use it to query
+        res = query_user_list(self)
+        id_ = res["data"]["userList"][0]["id"]
+
+        # Get the profile with that id
+        res = query_user(self, id=id_)
+        cont = res["data"]["user"]
+        assert cont["id"] == id_
+        assert cont["username"] == "testuser"
 
     def test_user_list(self):
-        register_one_user(self)
-        register_one_user(self, email="test2@test.com", username="testuser2")
-        register_one_user(self, email="test3@test.com", username="testuser3")
+        mutate_register_one_user(self)
+        mutate_register_one_user(self, email="test2@test.com", username="testuser2")
+        mutate_register_one_user(self, email="test3@test.com", username="testuser3")
 
         # check that the register users come as a result for the user list
-        content = query_user_list(self)
-        assert len(content["data"]["userList"]) == 3
-        assert content["data"]["userList"][0]["username"] == "testuser"
-        assert content["data"]["userList"][1]["username"] == "testuser2"
-        assert content["data"]["userList"][2]["username"] == "testuser3"
+        res = query_user_list(self)
+        cont = res["data"]["userList"]
+        assert len(cont) == 3
+        assert cont[0]["username"] == "testuser"
+        assert cont[1]["username"] == "testuser2"
+        assert cont[2]["username"] == "testuser3"
 
 
 class PrivateUserAPITests(GraphQLTestCase):
+    GRAPHQL_SCHEMA = schema
+
     def setUp(self):
-        # self.user = sample_user()
-        # self.user2 = sample_user(
-        #     username="othertestuser",
-        #     email="othertest@test.com",
-        # )
-        # self.client.force_authenticate(user=self.user)
-        pass
+        self.user = create_sample_user()
+        self.user2 = create_sample_user(
+            username="testuser2",
+            email="test2@test.com",
+        )
+
+        self.client = Client(schema)
+        self.client.user = self.user
+
+        # Add the user to the req
+        self.req = RequestFactory().get("/")
+        self.req.user = self.user
 
     def tearDown(self):
-        # self.user.delete()
-        # self.user2.delete()
-        pass
+        try:
+            self.user.delete()
+        except AssertionError:
+            # user deleted in test
+            pass
+        self.user2.delete()
+        del self.client
+        del self.req
 
     def test_user_me(self):
+        res = query_user_me(self)
+        cont = res["data"]["userMe"]
+        assert cont["username"] == "testuser"
+        assert cont["email"] == "test@test.com"
+        assert cont["language"] == "English"
+
+    def test_update_user(self):
+        new_mail = "newmail@email.com"
+        new_language = SWEDISH
+        res = mutate_update_user(self, email=new_mail, language=new_language)
+        cont = res["data"]["updateUser"]
+        assert cont["errors"] is None
+        assert cont["user"]["email"] == new_mail
+        assert cont["user"]["language"] == "Swedish"
+
+    def test_update_user_error(self):
+        res = mutate_update_user(self, language="badlang")
+        cont = res["data"]["updateUser"]
+        assert "valid choice" in cont["errors"][0]["messages"][0]
+        assert cont["user"] is None
+
+    def test_update_user_avatar(self):
+        # TODO: implement
         pass
 
-    def test_user_me_links_to_own_profile(self):
-        pass
+    def test_user_delete(self):
+        # delete the logged in user
+        res = mutate_user_delete(self)
+        cont = res["data"]["deleteUser"]
+        assert cont["message"] == USER_DELETED_MESSAGE
 
-    def test_user_profile_own_get(self):
-        pass
-
-    def test_user_profile_own_patch(self):
-        # test that the data returned to the response is correct
-
-        # test that the data also changed in the profile
-        pass
-
-    def test_user_profile_own_put(self):
-        # test that the data returned to the response is correct
-
-        # test that the data also changed in the profile
-        pass
-
-    def test_user_profile_own_delete(self):
         # test that the profile cannot be found anymore
-        pass
-
-    def test_user_profile_other_patch(self):
-        pass
-
-    def test_user_profile_other_put(self):
-        pass
-
-    def test_user_profile_other_delete(self):
-        pass
+        res = query_user(self, id=1)
+        assert res["data"]["user"] is None
 
     def test_change_password_success(self):
-        pass
+        res = mutate_change_password(self)
+        cont = res["data"]["changePassword"]
+        assert cont["errors"] is None
+        assert cont["user"]["id"] is not None
+        assert cont["user"]["modified"] is not None
 
     def test_change_password_error(self):
-        pass
+        res = mutate_change_password(self, oldPassword="badpass")
+        cont = res["data"]["changePassword"]
+        assert cont["errors"][0]["messages"][0] == "Incorrect old password."

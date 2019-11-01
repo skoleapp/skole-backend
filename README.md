@@ -1,13 +1,9 @@
 # Skole Backend
 
-## Requirements
+### Requirements
+- [Docker](https://www.docker.com/)
+- [Node](https://nodejs.org/en/)
+- [Yarn](https://yarnpkg.com/lang/en/)
 
--   [Docker](https://www.docker.com/)
-
-## Instructions
-
--   To build docker image and running project in localhost:8000, run:
-
-```console
-$ docker-compose up
-```
+### Setting up dev environment
+More detailed scripts available in package.json file, to start development environment, simply run: `yarn start`

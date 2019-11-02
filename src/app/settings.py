@@ -14,7 +14,6 @@ import datetime
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-from typing import List
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -23,11 +22,17 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get("SECRET_KEY")
+if SECRET_KEY is None:
+    raise AssertionError("Setup env variable `SECRET_KEY`")
 
 # SECURITY WARNING: don"t run with debug turned on in production!
 DEBUG = int(os.environ.get("DEBUG", default=0))
 
-ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
+django_allowed_hosts = os.environ.get("DJANGO_ALLOWED_HOSTS")
+if django_allowed_hosts is None:
+    raise AssertionError("Setup env variable `DJANGO_ALLOWED_HOSTS`")
+else:
+    ALLOWED_HOSTS = django_allowed_hosts.split()
 
 # Application definition
 

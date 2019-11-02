@@ -1,7 +1,7 @@
 import datetime
 
-from pytest import fixture
 from django.core.files.uploadedfile import SimpleUploadedFile
+from pytest import fixture
 
 from core.models import (
     Comment,

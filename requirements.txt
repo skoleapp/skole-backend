@@ -6,7 +6,6 @@ django-graphql-extensions>=0.0.6,<0.1.0
 django-graphql-jwt>=0.2.2,<0.3.0
 django-imagekit>=4.0.2,<4.1.0
 django-imagekit>=4.0.2,<4.1.0
-freezegun>=0.3.12,<0.4
 graphene-django>=2.6.0,<2.7.0
 psycopg2>=2.8.2,<2.9.0
 pytest-cov>=2.7.1,<2.8.0

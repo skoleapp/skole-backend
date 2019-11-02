@@ -1,11 +1,13 @@
 import json
 
 from django.contrib.auth import get_user_model
+from graphene_django.utils import GraphQLTestCase
 
-from core.utils import ENGLISH
+from core.models import User
+from core.utils import ENGLISH, JsonDict
 
 
-def create_sample_user(**params):
+def create_sample_user(**params: str) -> User:
     defaults = {
         "email": "test@test.com",
         "username": "testuser",
@@ -16,7 +18,7 @@ def create_sample_user(**params):
     return user
 
 
-def mutate_register_one_user(test_cls_instance, **params):
+def mutate_register_one_user(test_cls: GraphQLTestCase, **params: str) -> JsonDict:
     input_data = {"email": "test@test.com", "username": "testuser", "password": "password"}
 
     if params is not None:
@@ -37,13 +39,13 @@ def mutate_register_one_user(test_cls_instance, **params):
         }
         """
 
-    return test_cls_instance.client.execute(
+    return test_cls.client.execute(
         mutation,
         variables={"input": input_data},
     )
 
 
-def mutate_login_user(test_cls_instance, **params):
+def mutate_login_user(test_cls: GraphQLTestCase, **params: str) -> JsonDict:
     variables = {"email": "test@test.com", "password": "password"}
 
     if params is not None:
@@ -69,7 +71,7 @@ def mutate_login_user(test_cls_instance, **params):
         """
 
     # graphql_jwt somehow doesn't work with client.execute(), so we need to use query().
-    res = test_cls_instance.query(
+    res = test_cls.query(
         mutation,
         variables=variables,
         op_name="login"
@@ -77,11 +79,8 @@ def mutate_login_user(test_cls_instance, **params):
     return json.loads(res.content)
 
 
-def query_user(test_cls_instance, **params):
-    variables = {"id": 1}
-
-    if params is not None:
-        variables.update(**params)
+def query_user(test_cls: GraphQLTestCase, id_: int=1) -> JsonDict:
+    variables = {"id": id_}
 
     query = \
         """
@@ -97,13 +96,13 @@ def query_user(test_cls_instance, **params):
         }
         """
 
-    return test_cls_instance.client.execute(
+    return test_cls.client.execute(
         query,
         variables=variables,
     )
 
 
-def query_user_list(test_cls_instance):
+def query_user_list(test_cls: GraphQLTestCase) -> JsonDict:
     query = \
         """
         query {
@@ -118,12 +117,12 @@ def query_user_list(test_cls_instance):
         }
         """
 
-    return test_cls_instance.client.execute(
+    return test_cls.client.execute(
         query,
     )
 
 
-def mutate_update_user(test_cls_instance, **params):
+def mutate_update_user(test_cls: GraphQLTestCase, **params: str) -> JsonDict:
     input_data = {
         "username": "testuser",
         "email": "test@test.com",
@@ -157,14 +156,14 @@ def mutate_update_user(test_cls_instance, **params):
         }
         """
 
-    return test_cls_instance.client.execute(
+    return test_cls.client.execute(
         mutation,
         variables={"input": input_data},
-        context_value=test_cls_instance.req,
+        context_value=test_cls.req,
     )
 
 
-def query_user_me(test_cls_instance):
+def query_user_me(test_cls: GraphQLTestCase) -> JsonDict:
     query = \
         """
         query {
@@ -180,13 +179,13 @@ def query_user_me(test_cls_instance):
           }
         }
         """
-    return test_cls_instance.client.execute(
+    return test_cls.client.execute(
         query,
-        context_value=test_cls_instance.req,
+        context_value=test_cls.req,
     )
 
 
-def mutate_change_password(test_cls_instance, **params):
+def mutate_change_password(test_cls: GraphQLTestCase, **params: str) -> JsonDict:
     input_data = {
         "oldPassword": "password",
         "newPassword": "newpassword",
@@ -210,14 +209,14 @@ def mutate_change_password(test_cls_instance, **params):
         }
         """
 
-    return test_cls_instance.client.execute(
+    return test_cls.client.execute(
         mutation,
         variables={"input": input_data},
-        context_value=test_cls_instance.req,
+        context_value=test_cls.req,
     )
 
 
-def mutate_user_delete(test_cls_instance):
+def mutate_user_delete(test_cls: GraphQLTestCase) -> JsonDict:
     mutation = \
         """
         mutation {
@@ -226,7 +225,7 @@ def mutate_user_delete(test_cls_instance):
           }
         }
         """
-    return test_cls_instance.client.execute(
+    return test_cls.client.execute(
         mutation,
-        context_value=test_cls_instance.req,
+        context_value=test_cls.req,
     )

@@ -1,3 +1,9 @@
+from typing import List, Any
+
+from graphql import ResolveInfo
+
+from core.models import User
+from core.utils import JsonDict
 from ..forms import RegisterForm, ChangePasswordForm, UpdateUserForm
 import graphene
 from graphql_jwt import JSONWebTokenMutation
@@ -27,7 +33,7 @@ class UserTypePrivate(DjangoObjectType):
         model = get_user_model()
         fields = ("id", "username", "title", "bio", "avatar", "avatar_thumbnail", "points", "created", "email", "language")
 
-    def resolve_language(self, info):
+    def resolve_language(self, info: ResolveInfo) -> str:
         return self.get_language_display()
 
 
@@ -44,7 +50,7 @@ class RegisterMutation(DjangoModelFormMutation):
         form_class = RegisterForm
 
     @classmethod
-    def perform_mutate(cls, form, info):
+    def perform_mutate(cls, form: RegisterForm, info: ResolveInfo) -> 'RegisterMutation':
         user = get_user_model().objects.create_user(
             email=form.cleaned_data["email"],
             username=form.cleaned_data["username"],
@@ -58,7 +64,7 @@ class LoginMutation(JSONWebTokenMutation):
     user = graphene.Field(UserTypePrivate)
 
     @classmethod
-    def resolve(cls, root, info, **kwargs):
+    def resolve(cls, root: Any, info: ResolveInfo, **kwargs: Any) -> 'LoginMutation':
         return cls(user=info.context.user)
 
 
@@ -69,14 +75,12 @@ class ChangePasswordMutation(DjangoModelFormMutation):
         form_class = ChangePasswordForm
 
     @classmethod
-    def get_form_kwargs(cls, root, info, **input):
-        kwargs = {"data": input}
-        kwargs["instance"] = info.context.user
-        return kwargs
+    def get_form_kwargs(cls, root: Any, info: ResolveInfo, **input: JsonDict) -> JsonDict:
+        return {"data": input, "instance": info.context.user}
 
     @classmethod
     @login_required
-    def perform_mutate(cls, form, info):
+    def perform_mutate(cls, form: ChangePasswordForm, info: ResolveInfo) -> 'ChangePasswordMutation':
         return cls(user=info.context.user)
 
 
@@ -84,7 +88,7 @@ class DeleteUserMutation(graphene.Mutation):
     message = graphene.String()
 
     @login_required
-    def mutate(self, info):
+    def mutate(self, info: ResolveInfo) -> 'DeleteUserMutation':
         info.context.user.delete()
         return DeleteUserMutation(message=USER_DELETED_MESSAGE)
 
@@ -96,14 +100,12 @@ class UpdateUserMutation(DjangoModelFormMutation):
         form_class = UpdateUserForm
 
     @classmethod
-    def get_form_kwargs(cls, root, info, **input):
-        kwargs = {"data": input}
-        kwargs["instance"] = info.context.user
-        return kwargs
+    def get_form_kwargs(cls, root: Any, info: ResolveInfo, **input: JsonDict) -> JsonDict:
+        return {"data": input, "instance": info.context.user}
 
     @classmethod
     @login_required
-    def perform_mutate(cls, form, info):
+    def perform_mutate(cls, form: UpdateUserForm, info: ResolveInfo) -> 'UpdateUserMutation':
         files = info.context.FILES
         user = info.context.user
         get_user_model().objects.update_user(user, **form.cleaned_data)
@@ -115,14 +117,14 @@ class Query(graphene.ObjectType):
     user = graphene.Field(UserTypePublic, id=graphene.Int())
     user_me = graphene.Field(UserTypePrivate)
 
-    def resolve_user_list(self, info):
+    def resolve_user_list(self, info: ResolveInfo) -> List[User]:
         return get_user_model().objects.all()
 
-    def resolve_user(self, info, id):
+    def resolve_user(self, info: ResolveInfo, id: int) -> User:
         return get_user_model().objects.get(pk=id)
 
     @login_required
-    def resolve_user_me(self, info):
+    def resolve_user_me(self, info: ResolveInfo) -> User:
         return info.context.user
 
 

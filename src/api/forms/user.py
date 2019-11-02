@@ -17,13 +17,13 @@ class UpdateUserForm(forms.ModelForm):
         model = get_user_model()
         fields = ("username", "email", "title", "bio", "avatar", "language")
 
-    def clean_email(self):
+    def clean_email(self) -> str:
         email = self.cleaned_data["email"]
         if get_user_model().objects.exclude(pk=self.instance.pk).filter(email__iexact=email):
             raise forms.ValidationError(EMAIL_TAKEN_MESSAGE)
         return email
 
-    def clean_username(self):
+    def clean_username(self) -> str:
         username = self.cleaned_data["username"]
         if get_user_model().objects.exclude(pk=self.instance.pk).filter(username__exact=username):
             raise forms.ValidationError(USERNAME_TAKEN_MESSAGE)
@@ -38,6 +38,6 @@ class ChangePasswordForm(forms.ModelForm):
         model = get_user_model()
         fields = ("old_password", "new_password")
 
-    def clean_old_password(self):
+    def clean_old_password(self) -> None:
         if not self.instance.check_password(self.cleaned_data["old_password"]):
             raise forms.ValidationError(INCORRECT_OLD_PASSWORD)

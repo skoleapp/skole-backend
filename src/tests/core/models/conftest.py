@@ -1,18 +1,22 @@
 import datetime
 
-import pytest
+from pytest import fixture
 from django.core.files.uploadedfile import SimpleUploadedFile
 
 from core.models import (
-    User, School, Comment, Course,
-    Subject, Faculty, Facility, Resource
+    Comment,
+    Course,
+    Resource,
+    School,
+    Subject,
+    User,
 )
 from core.utils import EXAM
 from core.utils import UNIVERSITY
 
 
-@pytest.fixture
-def user(db):
+@fixture
+def user(db: fixture) -> User:
     user = User.objects.create_user(
         email="testmail@gmail.com",
         username="testuser",
@@ -21,8 +25,8 @@ def user(db):
     return user
 
 
-@pytest.fixture
-def school(db):
+@fixture
+def school(db: fixture) -> School:
     school = School.objects.create(
         school_type=UNIVERSITY,
         name="University of Test",
@@ -32,36 +36,17 @@ def school(db):
     return school
 
 
-@pytest.fixture
-def faculty(school):
-    faculty = Faculty.objects.create(
-        name="Test faculty",
-        university=school,
-    )
-    return faculty
-
-
-@pytest.fixture
-def facility(faculty):
-    facility = Facility.objects.create(
-        name="Test facility",
-        faculty=faculty,
-    )
-    return facility
-
-
-@pytest.fixture
-def subject(user, faculty, school):
+@fixture
+def subject(user: fixture, school: fixture) -> Subject:
     subject = Subject.objects.create(
         name="Test subject",
     )
-    subject.faculty.add(faculty)
     subject.school.add(school)
     return subject
 
 
-@pytest.fixture
-def course(user, school, subject):
+@fixture
+def course(user: fixture, school: fixture, subject: fixture) -> Course:
     course = Course.objects.create(
         name="Test course",
         code="TEST0001",
@@ -72,8 +57,8 @@ def course(user, school, subject):
     return course
 
 
-@pytest.fixture
-def resource(user, course):
+@fixture
+def resource(user: fixture, course: fixture) -> Resource:
     resource = Resource.objects.create(
         resource_type=EXAM,
         title="Test exam",
@@ -85,8 +70,8 @@ def resource(user, course):
     return resource
 
 
-@pytest.fixture
-def comment(user, resource):
+@fixture
+def comment(user: fixture, resource: fixture) -> Comment:
     comment = Comment.objects.create(
         text="This is a test comment",
         attachment=None,

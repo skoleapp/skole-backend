@@ -13,7 +13,6 @@ RUN apk del .tmp-build-deps
 
 RUN mkdir /app
 WORKDIR /app
-COPY ./src /app
 
 RUN mkdir -p /var/static
 RUN mkdir -p /var/media

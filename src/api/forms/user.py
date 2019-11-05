@@ -4,7 +4,7 @@ from core.utils import JsonDict
 from django.contrib.auth import authenticate
 from django.contrib.auth import get_user_model
 
-from ..utils import EMAIL_TAKEN_MESSAGE, USERNAME_TAKEN_MESSAGE, INCORRECT_OLD_PASSWORD, UNABLE_TO_AUTHENTICATE_MESSAGE, USER_DOES_NOT_EXIST_MESSAGE
+from ..utils import EMAIL_TAKEN_MESSAGE, USERNAME_TAKEN_MESSAGE, INCORRECT_OLD_PASSWORD, UNABLE_TO_AUTHENTICATE_MESSAGE
 
 
 class RegisterForm(forms.ModelForm):
@@ -36,15 +36,13 @@ class LoginForm(forms.ModelForm):
             user = authenticate(username=user.email, password=password)
 
             if not user:
-                msg = UNABLE_TO_AUTHENTICATE_MESSAGE
-                raise forms.ValidationError(msg, code="authentication")
+                raise forms.ValidationError(UNABLE_TO_AUTHENTICATE_MESSAGE, code="authentication")
 
             self.cleaned_data["user"] = user
             return self.cleaned_data
 
         except get_user_model().DoesNotExist:
-            msg = USER_DOES_NOT_EXIST_MESSAGE
-            raise forms.ValidationError(msg, code="authentication")
+            raise forms.ValidationError(UNABLE_TO_AUTHENTICATE_MESSAGE, code="authentication")
 
 
 class UpdateUserForm(forms.ModelForm):

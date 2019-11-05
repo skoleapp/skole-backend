@@ -1,48 +1,13 @@
 import json
 
 from django.contrib.auth import get_user_model
+from graphene_django.utils import GraphQLTestCase
 
-from core.utils import SWEDISH
-
-
-def sample_user_register_payload(**params):
-    defaults = {
-        "email": "test@test.com",
-        "username": "testuser",
-        "password": {
-            "password": "password",
-            "confirm_password": "password",
-        }
-    }
-
-    defaults.update(params)
-    return defaults
+from core.models import User
+from core.utils import ENGLISH, JsonDict
 
 
-def sample_user_patch_payload(**params):
-    defaults = {
-        "title": "Nice Title for the User",
-        "bio": "Same text for the bio.",
-    }
-
-    defaults.update(params)
-    return defaults
-
-
-def sample_user_put_payload(**params):
-    defaults = {
-        "username": "newusername",
-        "email": "newemail@mail.com",
-        "title": "Nice Title for the User",
-        "bio": "Same text for the bio.",
-        "language": SWEDISH,
-    }
-
-    defaults.update(params)
-    return defaults
-
-
-def sample_user(**params):
+def create_sample_user(**params: str) -> User:
     defaults = {
         "email": "test@test.com",
         "username": "testuser",
@@ -53,8 +18,7 @@ def sample_user(**params):
     return user
 
 
-def register_one_user(test_cls_instance, **params):
-    op_name = "register"
+def mutate_register_one_user(test_cls: GraphQLTestCase, **params: str) -> JsonDict:
     input_data = {"email": "test@test.com", "username": "testuser", "password": "password"}
 
     if params is not None:
@@ -63,25 +27,25 @@ def register_one_user(test_cls_instance, **params):
     mutation = \
         """
         mutation register($input: RegisterMutationInput!) {
-         register(input: $input) {
-           errors {
-             messages
-           }
-           message
-         }
+          register(input: $input) {
+            errors {
+              messages
+            }
+            user {
+              id
+              created
+            }
+          }
         }
         """
 
-    res = test_cls_instance.query(
+    return test_cls.client.execute(
         mutation,
-        op_name=op_name,
-        input_data=input_data
+        variables={"input": input_data},
     )
-    return json.loads(res.content)
 
 
-def login_user(test_cls_instance, **params):
-    op_name = "login"
+def mutate_login_user(test_cls: GraphQLTestCase, **params: str) -> JsonDict:
     variables = {"email": "test@test.com", "password": "password"}
 
     if params is not None:
@@ -90,29 +54,33 @@ def login_user(test_cls_instance, **params):
     mutation = \
         """
         mutation login($email: String!, $password: String!) {
-         login(email: $email, password: $password) {
-           token
-           user {
-             email
-           }
-         }
+          login(email: $email, password: $password) {
+            token
+            user {
+              id
+              username
+              email
+              title
+              bio
+              avatar
+              points
+              language
+            }
+          }
         }
         """
 
-    res = test_cls_instance.query(
+    # graphql_jwt somehow doesn't work with client.execute(), so we need to use query().
+    res = test_cls.query(
         mutation,
-        op_name=op_name,
         variables=variables,
+        op_name="login"
     )
     return json.loads(res.content)
 
 
-def query_user(test_cls_instance, **params):
-    op_name = "user"
-    variables = {"id": 1}
-
-    if params is not None:
-        variables.update(**params)
+def query_user(test_cls: GraphQLTestCase, id_: int = 1) -> JsonDict:
+    variables = {"id": id_}
 
     query = \
         """
@@ -120,21 +88,21 @@ def query_user(test_cls_instance, **params):
          user(id: $id) {
            id
            username
+           title
+           bio
+           avatar
+           points
          }
         }
         """
 
-    res = test_cls_instance.query(
+    return test_cls.client.execute(
         query,
-        op_name=op_name,
         variables=variables,
     )
-    return json.loads(res.content)
 
 
-def query_user_list(test_cls_instance):
-    op_name = "user"
-
+def query_user_list(test_cls: GraphQLTestCase) -> JsonDict:
     query = \
         """
         query {
@@ -149,8 +117,115 @@ def query_user_list(test_cls_instance):
         }
         """
 
-    res = test_cls_instance.query(
+    return test_cls.client.execute(
         query,
-        op_name=op_name,
     )
-    return json.loads(res.content)
+
+
+def mutate_update_user(test_cls: GraphQLTestCase, **params: str) -> JsonDict:
+    input_data = {
+        "username": "testuser",
+        "email": "test@test.com",
+        "title": "",
+        "bio": "",
+        "avatar": "",
+        "language": ENGLISH,
+    }
+
+    if params is not None:
+        input_data.update(**params)
+
+    mutation = \
+        """
+        mutation updateUser($input: UpdateUserMutationInput!) {
+          updateUser(input: $input) {
+            errors {
+              messages
+            }
+            user {
+              id
+              username
+              email
+              title
+              bio
+              avatar
+              points
+              language
+            }
+          }
+        }
+        """
+
+    return test_cls.client.execute(
+        mutation,
+        variables={"input": input_data},
+        context_value=test_cls.req,
+    )
+
+
+def query_user_me(test_cls: GraphQLTestCase) -> JsonDict:
+    query = \
+        """
+        query {
+          userMe {
+            id
+            username
+            email
+            title
+            bio
+            avatar
+            points
+            language
+          }
+        }
+        """
+    return test_cls.client.execute(
+        query,
+        context_value=test_cls.req,
+    )
+
+
+def mutate_change_password(test_cls: GraphQLTestCase, **params: str) -> JsonDict:
+    input_data = {
+        "oldPassword": "password",
+        "newPassword": "newpassword",
+    }
+
+    if params is not None:
+        input_data.update(**params)
+
+    mutation = \
+        """
+        mutation changePassword($input: ChangePasswordMutationInput!) {
+          changePassword(input: $input) {
+            errors {
+              messages
+            }
+            user {
+              id
+              modified
+            }
+          }
+        }
+        """
+
+    return test_cls.client.execute(
+        mutation,
+        variables={"input": input_data},
+        context_value=test_cls.req,
+    )
+
+
+def mutate_user_delete(test_cls: GraphQLTestCase) -> JsonDict:
+    mutation = \
+        """
+        mutation {
+          deleteUser {
+            message
+          }
+        }
+        """
+    return test_cls.client.execute(
+        mutation,
+        context_value=test_cls.req,
+    )

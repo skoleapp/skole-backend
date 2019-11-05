@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, Any
 
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
@@ -31,7 +31,7 @@ class UserManager(BaseUserManager):
         user.save()
         return user
 
-    def update_user(self, user: 'User', **kwargs) -> 'User':
+    def update_user(self, user: 'User', **kwargs: Any) -> 'User':
         for key, value in kwargs.items():
             if key == "avatar":
                 self.set_avatar(user, value)
@@ -49,7 +49,7 @@ class UserManager(BaseUserManager):
         return user
 
     @staticmethod
-    def set_avatar(user: 'User', avatar: Optional[str]):
+    def set_avatar(user: 'User', avatar: Optional[str]) -> 'User':
         if not avatar:
             user.avatar = DEFAULT_AVATAR
         else:

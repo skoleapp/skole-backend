@@ -1,20 +1,10 @@
 from core.models import School
 from core.utils import UNIVERSITY
 
-SCHOOL_LIST_API_URL = reverse("school-list")
 
-
-def school_detail_api_url(school_id):
-    return reverse("school-detail", args=[school_id])
-
-
-def school_list_filter_api_url(school_type):
-    return f"/api/school/?school_type={school_type}/"
-
-
-def sample_school(**params):
+def sample_school(**params: str) -> None:
     if "school_type" in params:
-        school_type = params["school_type"].lower().replace("_", " ")
+        school_type = params["school_type"]
     else:
         school_type = UNIVERSITY
 

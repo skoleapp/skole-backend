@@ -1,4 +1,7 @@
-def test_str(course):
+from pytest import fixture
+
+
+def test_str(course: fixture) -> None:
     assert str(course) == "TEST0001 Test course"
 
     course.code = None

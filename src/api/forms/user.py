@@ -3,7 +3,9 @@ from django.conf import settings
 from core.utils import JsonDict
 from django.contrib.auth import authenticate
 from django.contrib.auth import get_user_model
+
 from ..utils import EMAIL_TAKEN_MESSAGE, USERNAME_TAKEN_MESSAGE, INCORRECT_OLD_PASSWORD
+
 
 class RegisterForm(forms.ModelForm):
     password = forms.CharField(min_length=settings.PASSWORD_MIN_LENGTH)

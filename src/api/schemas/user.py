@@ -1,13 +1,13 @@
 from graphql_jwt.decorators import token_auth
 from ..forms import RegisterForm, ChangePasswordForm, UpdateUserForm, LoginForm
 from typing import List, Any
+
 import graphene
 from django.contrib.auth import get_user_model
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphql import ResolveInfo
 from graphql_extensions.auth.decorators import login_required
-from graphql_jwt import JSONWebTokenMutation
 
 from core.models import User
 from core.utils import JsonDict

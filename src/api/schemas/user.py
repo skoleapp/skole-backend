@@ -70,7 +70,7 @@ class LoginMutation(DjangoModelFormMutation):
         form_class = LoginForm
 
     @classmethod
-    def mutate_and_get_payload(cls, root: Any, info: ResolveInfo, **input) -> 'LoginMutation':
+    def mutate_and_get_payload(cls, root: Any, info: ResolveInfo, **input: JsonDict) -> 'LoginMutation':
         form = cls.get_form(root, info, **input)
 
         if form.is_valid():
@@ -83,7 +83,7 @@ class LoginMutation(DjangoModelFormMutation):
 
     @classmethod
     @token_auth
-    def perform_mutate(cls, root: Any, info: ResolveInfo, user: 'User', **kwargs) -> 'LoginMutation':
+    def perform_mutate(cls, root: Any, info: ResolveInfo, user: 'User', **kwargs: JsonDict) -> 'LoginMutation':
         return cls(user=user)
 
 

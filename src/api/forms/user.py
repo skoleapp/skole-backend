@@ -40,6 +40,7 @@ class LoginForm(forms.ModelForm):
                 raise forms.ValidationError(msg, code="authentication")
 
             self.cleaned_data["user"] = user
+            return self.cleaned_data
 
         except get_user_model().DoesNotExist:
             msg = USER_DOES_NOT_EXIST_MESSAGE

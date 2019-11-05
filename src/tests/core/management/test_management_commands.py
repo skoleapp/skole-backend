@@ -1,3 +1,4 @@
+from typing import Any
 from unittest.mock import patch
 
 import pytest
@@ -8,14 +9,14 @@ from django.db.utils import OperationalError
 @pytest.mark.django_db
 @pytest.mark.management
 class CommandTests:
-    def test_wait_for_db_ready(self):
+    def test_wait_for_db_ready(self) -> None:
         with patch("django.db.utils.ConnectionHandler.__getitem__") as gi:
             gi.return_value = True
             call_command("wait_for_db")
             assert gi.call_count == 1
 
     @patch("time.sleep", return_value=True)
-    def test_wait_for_db(self, ts):
+    def test_wait_for_db(self, ts: Any) -> None:
         with patch("django.db.utils.ConnectionHandler.__getitem__") as gi:
             gi.side_effect = [OperationalError] * 5 + [True]
             call_command("wait_for_db")

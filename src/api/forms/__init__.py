@@ -1,1 +1,1 @@
-from .user import RegisterForm, UpdateUserForm, ChangePasswordForm
+from .user import RegisterForm, UpdateUserForm, ChangePasswordForm, LoginForm

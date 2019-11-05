@@ -1,4 +1,5 @@
-from ..forms import RegisterForm, ChangePasswordForm, UpdateUserForm
+from graphql_jwt.decorators import token_auth
+from ..forms import RegisterForm, ChangePasswordForm, UpdateUserForm, LoginForm
 import graphene
 from graphql_jwt import JSONWebTokenMutation
 from django.contrib.auth import get_user_model
@@ -60,12 +61,29 @@ class RegisterMutation(DjangoModelFormMutation):
         return cls(user=user)
 
 
-class LoginMutation(JSONWebTokenMutation):
+class LoginMutation(DjangoFormMutation):
+    token = graphene.String()
     user = graphene.Field(UserTypePrivate)
 
+    class Meta:
+        form_class = LoginForm
+
     @classmethod
-    def resolve(cls, root, info, **kwargs):
-        return cls(user=info.context.user)
+    def mutate_and_get_payload(cls, root, info, **input):
+        form = cls.get_form(root, info, **input)
+
+        if form.is_valid():
+            password = form.cleaned_data["password"]
+            user = form.cleaned_data["user"]
+            return cls.perform_mutate(root=root, info=info, password=password, user=user, email=user.email)
+        else:
+            errors = ErrorType.from_errors(form.errors)
+            return cls(errors=errors)
+
+    @classmethod
+    @token_auth
+    def perform_mutate(cls, root, info, user, **kwargs):
+        return cls(user=user)
 
 
 class ChangePasswordMutation(DjangoModelFormMutation):
@@ -135,8 +153,6 @@ class Query(graphene.ObjectType):
 class Mutation(graphene.ObjectType):
     register = RegisterMutation.Field()
     login = LoginMutation.Field()
-    # verify_token = graphql_jwt.Verify.Field()
-    # refresh_token = graphql_jwt.Refresh.Field()
     update_user = UpdateUserMutation.Field()
     change_password = ChangePasswordMutation.Field()
     delete_user = DeleteUserMutation.Field()

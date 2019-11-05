@@ -3,6 +3,7 @@ from ..forms import RegisterForm, ChangePasswordForm, UpdateUserForm, LoginForm
 from typing import List, Any
 
 import graphene
+from graphene_django.types import ErrorType
 from django.contrib.auth import get_user_model
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
@@ -61,7 +62,7 @@ class RegisterMutation(DjangoModelFormMutation):
         return cls(user=user)
 
 
-class LoginMutation(DjangoFormMutation):
+class LoginMutation(DjangoModelFormMutation):
     token = graphene.String()
     user = graphene.Field(UserTypePrivate)
 

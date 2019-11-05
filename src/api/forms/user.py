@@ -15,7 +15,7 @@ class RegisterForm(forms.ModelForm):
         fields = ("username", "email", "password")
 
 
-class LoginForm(forms.Form):
+class LoginForm(forms.ModelForm):
     username_or_email = forms.CharField()
     password = forms.CharField()
 

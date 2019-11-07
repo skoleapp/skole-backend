@@ -1,0 +1,249 @@
+- model: core.User
+  pk: 1
+  fields:
+    username: "root"
+    email: "root@root.com"
+    password: "root"
+    title: null
+    bio: null
+    avatar: "default_avatar.jpg"
+    language: "ENGLISH"
+    points: 0
+    is_staff: true
+    is_superuser: true
+    modified: "2019-01-01 12:00:00.000000+00:00"
+    created: "2019-01-01 12:00:00.000000+00:00"
+- model: core.User
+  pk: 2
+  fields:
+    username: "testuser2"
+    email: "test2@test.com"
+    password: "password"
+    title: null
+    bio: null
+    avatar: "default_avatar.jpg"
+    language: "ENGLISH"
+    points: 0
+    is_staff: false
+    is_superuser: false
+    modified: "2019-01-01 12:00:00.000000+00:00"
+    created: "2019-01-01 12:00:00.000000+00:00"
+- model: core.User
+  pk: 3
+  fields:
+    username: "testuser3"
+    email: "test3@test.com"
+    password: "password"
+    title: null
+    bio: null
+    avatar: "default_avatar.jpg"
+    language: "ENGLISH"
+    points: 0
+    is_staff: false
+    is_superuser: false
+    modified: "2019-01-01 12:00:00.000000+00:00"
+    created: "2019-01-01 12:00:00.000000+00:00"
+- model: core.User
+  pk: 4
+  fields:
+    username: "testuser4"
+    email: "test4@test.com"
+    password: "password"
+    title: null
+    bio: null
+    avatar: "default_avatar.jpg"
+    language: "ENGLISH"
+    points: 0
+    is_staff: false
+    is_superuser: false
+    modified: "2019-01-01 12:00:00.000000+00:00"
+    created: "2019-01-01 12:00:00.000000+00:00"
+- model: core.User
+  pk: 5
+  fields:
+    username: "testuser5"
+    email: "test5@test.com"
+    password: "password"
+    title: null
+    bio: null
+    avatar: "default_avatar.jpg"
+    language: "FINNISH"
+    points: 0
+    is_staff: false
+    is_superuser: false
+    modified: "2019-01-01 12:00:00.000000+00:00"
+    created: "2019-01-01 12:00:00.000000+00:00"
+- model: core.User
+  pk: 6
+  fields:
+    username: "testuser6"
+    email: "test6@test.com"
+    password: "password"
+    title: null
+    bio: null
+    avatar: "default_avatar.jpg"
+    language: "SWEDISH"
+    points: 0
+    is_staff: false
+    is_superuser: false
+    modified: "2019-01-01 12:00:00.000000+00:00"
+    created: "2019-01-01 12:00:00.000000+00:00"
+
+
+- model: core.School
+  pk: 1
+  fields:
+    school_type: "UNIVERSITY"
+    name: "University of Turku"
+    city: "Turku"
+    country: "Finland"
+    modified: "2019-01-01 12:00:00.000000+00:00"
+    created: "2019-01-01 12:00:00.000000+00:00"
+- model: core.School
+  pk: 2
+  fields:
+    school_type: "UNIVERSITY"
+    name: "Aalto University"
+    city: "Espoo"
+    country: "Finland"
+    modified: "2019-01-01 12:00:00.000000+00:00"
+    created: "2019-01-01 12:00:00.000000+00:00"
+- model: core.School
+  pk: 3
+  fields:
+    school_type: "UNIVERSITY"
+    name: "University of Tampere"
+    city: "Tampere"
+    country: "Finland"
+    modified: "2019-01-01 12:00:00.000000+00:00"
+    created: "2019-01-01 12:00:00.000000+00:00"
+- model: core.School
+  pk: 4
+  fields:
+    school_type: "UNIVERSITY_OF_APPLIED_SCIENCES"
+    name: "Turku University of Applied Sciences"
+    city: "Turku"
+    country: "Finland"
+    modified: "2019-01-01 12:00:00.000000+00:00"
+    created: "2019-01-01 12:00:00.000000+00:00"
+- model: core.School
+  pk: 5
+  fields:
+    school_type: "UNIVERSITY_OF_APPLIED_SCIENCES"
+    name: "Metropolia University of Applied Sciences"
+    city: "Helsinki"
+    country: "Finland"
+    modified: "2019-01-01 12:00:00.000000+00:00"
+    created: "2019-01-01 12:00:00.000000+00:00"
+- model: core.School
+  pk: 6
+  fields:
+    school_type: "HIGH_SCHOOL"
+    name: "Raision lukio"
+    city: "Raisio"
+    country: "Finland"
+    modified: "2019-01-01 12:00:00.000000+00:00"
+    created: "2019-01-01 12:00:00.000000+00:00"
+
+
+- model: core.Subject
+  pk: 1
+  fields:
+    name: "Computer Engineering"
+    schools: [1, 2, 3]
+    modified: "2019-01-01 12:00:00.000000+00:00"
+    created: "2019-01-01 12:00:00.000000+00:00"
+- model: core.Subject
+  pk: 2
+  fields:
+    name: "Computer Science"
+    schools: [1, 2, 3]
+    modified: "2019-01-01 12:00:00.000000+00:00"
+    created: "2019-01-01 12:00:00.000000+00:00"
+- model: core.Subject
+  pk: 3
+  fields:
+    name: "Chemistry"
+    schools: [1, 3, 6]
+    modified: "2019-01-01 12:00:00.000000+00:00"
+    created: "2019-01-01 12:00:00.000000+00:00"
+- model: core.Subject
+  pk: 4
+  fields:
+    name: "Economy"
+    schools: [1, 3, 4, 5]
+    modified: "2019-01-01 12:00:00.000000+00:00"
+    created: "2019-01-01 12:00:00.000000+00:00"
+
+
+- model: core.Course
+  pk: 1
+  fields:
+    name: "Test Engineering Course 1"
+    code: "TEST0001"
+    subject: 1
+    school: 1
+    creator: 2
+    points: 0
+    modified: "2019-01-01 12:00:00.000000+00:00"
+    created: "2019-01-01 12:00:00.000000+00:00"
+- model: core.Course
+  pk: 2
+  fields:
+    name: "Test Engineering Course 2"
+    code: "TEST0002"
+    subject: 1
+    school: 1
+    creator: 2
+    points: 0
+    modified: "2019-01-01 12:00:00.000000+00:00"
+    created: "2019-01-01 12:00:00.000000+00:00"
+- model: core.Course
+  pk: 3
+  fields:
+    name: "Test Engineering Course 3"
+    code: "TEST0003"
+    subject: 1
+    school: 1
+    creator: 2
+    points: 0
+    modified: "2019-01-01 12:00:00.000000+00:00"
+    created: "2019-01-01 12:00:00.000000+00:00"
+
+
+- model: core.Resource
+  pk: 1
+  fields:
+    resource_type: "EXAM"
+    title: "Sample exam 1"
+    file: "media/uploads/resources/sample_resource_1.jpg"
+    date: "2012-12-12"
+    course: 1
+    creator: 2
+    points: 0
+    modified: "2019-01-01 12:00:00.000000+00:00"
+    created: "2019-01-01 12:00:00.000000+00:00"
+- model: core.Resource
+  pk: 2
+  fields:
+    resource_type: "EXAM"
+    title: "Sample exam 2"
+    file: "media/uploads/resources/sample_resource_2.jpg"
+    date: "2012-12-12"
+    course: 1
+    creator: 2
+    points: 0
+    modified: "2019-01-01 12:00:00.000000+00:00"
+    created: "2019-01-01 12:00:00.000000+00:00"
+- model: core.Resource
+  pk: 3
+  fields:
+    resource_type: "EXERCISE"
+    title: "Sample exercise"
+    file: "media/uploads/resources/sample_resource_3.jpg"
+    date: "2012-12-12"
+    course: 1
+    creator: 2
+    points: 0
+    modified: "2019-01-01 12:00:00.000000+00:00"
+    created: "2019-01-01 12:00:00.000000+00:00"

@@ -34,7 +34,7 @@ class UserTypePrivate(DjangoObjectType):
 
     class Meta:
         model = get_user_model()
-        fields = ("id", "username", "title", "bio", "avatar", "avatar_thumbnail", "points", "created", "email", "language")
+        fields = ("id", "username", "title", "bio", "avatar", "avatar_thumbnail", "points", "created", "email", "language", "schools")
 
     def resolve_language(self, info: ResolveInfo) -> str:
         return self.get_language_display()

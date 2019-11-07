@@ -7,7 +7,7 @@ from .user import User
 
 class Course(models.Model):
     """Models one course."""
-    name = models.CharField(max_length=200, null=True, blank=True)
+    name = models.CharField(max_length=200)
     code = models.CharField(max_length=30, null=True, blank=True)
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name="courses")
     school = models.ForeignKey(School, on_delete=models.CASCADE, related_name="courses")

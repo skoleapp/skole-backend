@@ -137,10 +137,10 @@ class Query(graphene.ObjectType):
     user_me = graphene.Field(UserTypePrivate)
 
     def resolve_user_list(self, info: ResolveInfo) -> List[User]:
-        return get_user_model().objects.all()
+        return get_user_model().objects.filter(is_superuser=False)
 
     def resolve_user(self, info: ResolveInfo, id: int) -> User:
-        return get_user_model().objects.get(pk=id)
+        return get_user_model().objects.filter(is_superuser=False).get(pk=id)
 
     @login_required
     def resolve_user_me(self, info: ResolveInfo) -> User:

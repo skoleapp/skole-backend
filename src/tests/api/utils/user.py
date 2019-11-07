@@ -105,7 +105,7 @@ def query_user_list(test_cls: GraphQLTestCase) -> JsonDict:
     )
 
 
-def query_user(test_cls: GraphQLTestCase, id_: int=1) -> JsonDict:
+def query_user(test_cls: GraphQLTestCase, id_: int = 1) -> JsonDict:
     variables = {"id": id_}
 
     query = \

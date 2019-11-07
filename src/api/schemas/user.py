@@ -1,18 +1,17 @@
-from graphql_jwt.decorators import token_auth
-from mypy.types import JsonDict
-
-from ..forms import RegisterForm, ChangePasswordForm, UpdateUserForm, LoginForm
 from typing import List, Any
 
 import graphene
-from graphene_django.types import ErrorType
 from django.contrib.auth import get_user_model
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
+from graphene_django.types import ErrorType
 from graphql import ResolveInfo
 from graphql_extensions.auth.decorators import login_required
+from graphql_jwt.decorators import token_auth
+from mypy.types import JsonDict
 
 from app.models import User
+from ..forms import LoginForm
 from ..forms import RegisterForm, ChangePasswordForm, UpdateUserForm
 from ..utils import USER_DELETED_MESSAGE
 

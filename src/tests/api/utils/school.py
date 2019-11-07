@@ -41,7 +41,8 @@ def query_school_list(test_cls: GraphQLTestCase) -> JsonDict:
         query,
     )
 
-def query_school(test_cls: GraphQLTestCase, id_: int=1) -> JsonDict:
+
+def query_school(test_cls: GraphQLTestCase, id_: int = 1) -> JsonDict:
     variables = {"id": id_}
 
     query = \

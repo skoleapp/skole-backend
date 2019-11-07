@@ -92,7 +92,7 @@ class PublicUserAPITests(GraphQLTestCase):
         cont = res["data"]["login"]
         assert cont["errors"][0]["messages"][0] == UNABLE_TO_AUTHENTICATE_MESSAGE
 
-    def test_user_profile(self) -> None:
+    def test_user_detail(self) -> None:
         mutate_register_one_user(self)
 
         # Get the id of the first user, so we can use it to query
@@ -104,6 +104,12 @@ class PublicUserAPITests(GraphQLTestCase):
         cont = res["data"]["user"]
         assert cont["id"] == id_
         assert cont["username"] == "testuser"
+
+        # ID not found
+        res = query_user(self, 999)
+        cont = res["data"]["user"]
+        assert cont is None
+        assert "does not exist" in res["errors"][0]["message"]
 
     def test_user_list(self) -> None:
         mutate_register_one_user(self)
@@ -123,22 +129,24 @@ class PrivateUserAPITests(GraphQLTestCase):
     GRAPHQL_SCHEMA = schema
 
     def setUp(self) -> None:
-        self.user = create_sample_user()
+        self.user1 = create_sample_user()
         self.user2 = create_sample_user(
             username="testuser2",
             email="test2@test.com",
         )
 
         self.client = Client(schema)
-        self.client.user = self.user
+
+        # Authenticate the user
+        self.client.user = self.user1
 
         # Add the user to the req
         self.req = RequestFactory().get("/")
-        self.req.user = self.user
+        self.req.user = self.user1
 
     def tearDown(self) -> None:
         try:
-            self.user.delete()
+            self.user1.delete()
         except AssertionError:
             # user deleted in test
             pass

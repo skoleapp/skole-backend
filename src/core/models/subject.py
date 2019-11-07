@@ -8,7 +8,7 @@ class Subject(models.Model):
     For example "computer engineering".
     """
     name = models.CharField(max_length=100)
-    school = models.ManyToManyField(School)
+    schools = models.ManyToManyField(School, related_name="subjects")
     modified = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 

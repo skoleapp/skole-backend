@@ -41,7 +41,7 @@ def subject(user: fixture, school: fixture) -> Subject:
     subject = Subject.objects.create(
         name="Test subject",
     )
-    subject.school.add(school)
+    subject.schools.add(school)
     return subject
 
 

@@ -3,7 +3,7 @@ import datetime
 from django.core.files.uploadedfile import SimpleUploadedFile
 from pytest import fixture
 
-from core.models import (
+from app.models import (
     ResourceComment,
     Course,
     Resource,
@@ -11,8 +11,8 @@ from core.models import (
     Subject,
     User,
 )
-from core.utils import EXAM
-from core.utils import UNIVERSITY
+from app.utils import EXAM
+from app.utils import UNIVERSITY
 
 
 @fixture

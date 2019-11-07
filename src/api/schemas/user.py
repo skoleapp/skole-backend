@@ -12,7 +12,7 @@ from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphql import ResolveInfo
 from graphql_extensions.auth.decorators import login_required
 
-from core.models import User
+from app.models import User
 from ..forms import RegisterForm, ChangePasswordForm, UpdateUserForm
 from ..utils import USER_DELETED_MESSAGE
 

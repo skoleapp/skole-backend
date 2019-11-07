@@ -6,7 +6,7 @@ from graphql import ResolveInfo
 
 from api.schemas.user import UserTypePublic
 from api.types.resource import ResourceType
-from core.models import Course
+from app.models import Course
 
 
 class CourseType(DjangoObjectType):

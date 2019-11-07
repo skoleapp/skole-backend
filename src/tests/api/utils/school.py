@@ -1,8 +1,8 @@
 from graphene_django.utils import GraphQLTestCase
 from mypy.types import JsonDict
 
-from core.models import School
-from core.utils import UNIVERSITY
+from app.models import School
+from app.utils import UNIVERSITY
 
 
 def create_sample_school(**params: str) -> School:

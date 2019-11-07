@@ -2,7 +2,7 @@ import graphene
 from graphene_django import DjangoObjectType
 
 from api.schemas.user import UserTypePublic
-from core.models import Resource
+from app.models import Resource
 
 
 class ResourceType(DjangoObjectType):

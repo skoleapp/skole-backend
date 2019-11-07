@@ -1,6 +1,6 @@
 from graphene_django import DjangoObjectType
 
-from core.models import ResourceComment
+from app.models import ResourceComment
 
 
 class ResourceCommentType(DjangoObjectType):

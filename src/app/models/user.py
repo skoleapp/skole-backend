@@ -6,7 +6,7 @@ from django.db import models
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
 
-from core.utils import ENGLISH, LANGUAGES, DEFAULT_AVATAR
+from app.utils import ENGLISH, LANGUAGES, DEFAULT_AVATAR
 
 
 class UserManager(BaseUserManager):

@@ -1,6 +1,6 @@
 from pytest import fixture
 
-from core.models import User
+from app.models import User
 
 
 def test_str(user: fixture) -> None:

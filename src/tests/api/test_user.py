@@ -4,7 +4,7 @@ from graphene_django.utils.testing import GraphQLTestCase
 
 from api.schemas.schema import schema
 from api.utils import USER_DELETED_MESSAGE, UNABLE_TO_AUTHENTICATE_MESSAGE
-from core.utils import SWEDISH
+from app.utils import SWEDISH
 from tests.api.utils.user import (
     create_sample_user,
     mutate_change_password,

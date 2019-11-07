@@ -7,7 +7,7 @@ class ResourceComment(models.Model):
     """Models one comment posted on a resource."""
     text = models.TextField(max_length=10000)
     attachment = models.FileField(upload_to="uploads/comment_attachments", null=True)
-    resource = models.ForeignKey("core.Resource", on_delete=models.CASCADE, related_name="resource_comments")
+    resource = models.ForeignKey("app.Resource", on_delete=models.CASCADE, related_name="resource_comments")
 
     creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_comments")
 

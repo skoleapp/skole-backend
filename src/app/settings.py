@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "graphene_django",
     "imagekit",
-    "core",
+    "app",
 ]
 
 MIDDLEWARE = [
@@ -130,12 +130,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = "/static/"
-MEDIA_URL = "/var/media/"
+MEDIA_URL = "/media/"
 
-STATIC_ROOT = "static"
-MEDIA_ROOT = "var/media"
+STATIC_ROOT = "src/static"
+MEDIA_ROOT = "src/media"
 
-AUTH_USER_MODEL = "core.User"
+AUTH_USER_MODEL = "app.User"
 
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',

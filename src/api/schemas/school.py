@@ -4,7 +4,7 @@ import graphene
 from graphene_django import DjangoObjectType
 from graphql import ResolveInfo
 
-from core.models import School
+from app.models import School
 
 
 class SchoolType(DjangoObjectType):

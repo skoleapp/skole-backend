@@ -2,9 +2,10 @@ import json
 
 from django.contrib.auth import get_user_model
 from graphene_django.utils import GraphQLTestCase
+from mypy.types import JsonDict
 
 from core.models import User
-from core.utils import ENGLISH, JsonDict
+from core.utils import ENGLISH
 
 
 def create_sample_user(**params: str) -> User:
@@ -84,7 +85,27 @@ def mutate_login_user(test_cls: GraphQLTestCase, **params: str) -> JsonDict:
     return json.loads(res.content)
 
 
-def query_user(test_cls: GraphQLTestCase, id_: int = 1) -> JsonDict:
+def query_user_list(test_cls: GraphQLTestCase) -> JsonDict:
+    query = \
+        """
+        query {
+          userList {
+            id
+            username
+            title
+            bio
+            avatar
+            points
+          }
+        }
+        """
+
+    return test_cls.client.execute(
+        query,
+    )
+
+
+def query_user(test_cls: GraphQLTestCase, id_: int=1) -> JsonDict:
     variables = {"id": id_}
 
     query = \
@@ -104,26 +125,6 @@ def query_user(test_cls: GraphQLTestCase, id_: int = 1) -> JsonDict:
     return test_cls.client.execute(
         query,
         variables=variables,
-    )
-
-
-def query_user_list(test_cls: GraphQLTestCase) -> JsonDict:
-    query = \
-        """
-        query {
-          userList {
-            id
-            username
-            title
-            bio
-            avatar
-            points
-          }
-        }
-        """
-
-    return test_cls.client.execute(
-        query,
     )
 
 

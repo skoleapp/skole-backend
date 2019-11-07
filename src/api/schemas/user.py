@@ -1,4 +1,6 @@
 from graphql_jwt.decorators import token_auth
+from mypy.types import JsonDict
+
 from ..forms import RegisterForm, ChangePasswordForm, UpdateUserForm, LoginForm
 from typing import List, Any
 
@@ -11,7 +13,6 @@ from graphql import ResolveInfo
 from graphql_extensions.auth.decorators import login_required
 
 from core.models import User
-from core.utils import JsonDict
 from ..forms import RegisterForm, ChangePasswordForm, UpdateUserForm
 from ..utils import USER_DELETED_MESSAGE
 
@@ -137,10 +138,10 @@ class Query(graphene.ObjectType):
     user_me = graphene.Field(UserTypePrivate)
 
     def resolve_user_list(self, info: ResolveInfo) -> List[User]:
-        return get_user_model().objects.all()
+        return get_user_model().objects.filter(is_superuser=False)
 
     def resolve_user(self, info: ResolveInfo, id: int) -> User:
-        return get_user_model().objects.get(pk=id)
+        return get_user_model().objects.filter(is_superuser=False).get(pk=id)
 
     @login_required
     def resolve_user_me(self, info: ResolveInfo) -> User:

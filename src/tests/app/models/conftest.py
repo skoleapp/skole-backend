@@ -62,11 +62,11 @@ def resource(user: fixture, course: fixture) -> Resource:
     resource = Resource.objects.create(
         resource_type=EXAM,
         title="Test exam",
-        file=SimpleUploadedFile("test_exam.txt", b"file contents"),
         date=datetime.date(2019, 1, 1),
         course=course,
         creator=user,
     )
+    resource.file = SimpleUploadedFile("test_exam.txt", b"file contents"),
     return resource
 
 

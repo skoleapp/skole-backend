@@ -72,8 +72,12 @@ class User(AbstractBaseUser, PermissionsMixin):
                                       format="JPEG",
                                       options={"quality": 60})
     language = models.CharField(choices=LANGUAGES, default=ENGLISH, max_length=7)
-    points = models.IntegerField(default=0)
+    # On purpose no related name, so it cannot be queried that way
+    schools = models.ManyToManyField('School')
+
     is_staff = models.BooleanField(default=False)
+
+    points = models.IntegerField(default=0)
     modified = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 

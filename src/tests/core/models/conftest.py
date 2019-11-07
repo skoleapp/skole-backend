@@ -4,7 +4,7 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from pytest import fixture
 
 from core.models import (
-    Comment,
+    ResourceComment,
     Course,
     Resource,
     School,
@@ -71,8 +71,8 @@ def resource(user: fixture, course: fixture) -> Resource:
 
 
 @fixture
-def comment(user: fixture, resource: fixture) -> Comment:
-    comment = Comment.objects.create(
+def comment(user: fixture, resource: fixture) -> ResourceComment:
+    comment = ResourceComment.objects.create(
         text="This is a test comment",
         attachment=None,
         resource=resource,

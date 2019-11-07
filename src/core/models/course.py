@@ -9,9 +9,11 @@ class Course(models.Model):
     """Models one course."""
     name = models.CharField(max_length=200, null=True, blank=True)
     code = models.CharField(max_length=30, null=True, blank=True)
-    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
-    school = models.ForeignKey(School, on_delete=models.CASCADE)
-    creator = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)  # TODO: custom deletor, which marks the user as some anonymous user
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name="courses")
+    school = models.ForeignKey(School, on_delete=models.CASCADE, related_name="courses")
+    # TODO: custom deletor, which marks the user as some anonymous user
+    creator = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name="created_courses")
+
     points = models.IntegerField(default=0)
     modified = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)

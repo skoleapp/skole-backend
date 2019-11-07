@@ -1,8 +1,8 @@
 from django import forms
 from django.conf import settings
-from core.utils import JsonDict
 from django.contrib.auth import authenticate
 from django.contrib.auth import get_user_model
+from mypy.types import JsonDict
 
 from ..utils import EMAIL_TAKEN_MESSAGE, USERNAME_TAKEN_MESSAGE, INCORRECT_OLD_PASSWORD, UNABLE_TO_AUTHENTICATE_MESSAGE
 

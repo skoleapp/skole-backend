@@ -19,4 +19,5 @@ class Mutation(api.schemas.user.Mutation):
     pass
 
 
+# noinspection PyTypeChecker
 schema = graphene.Schema(query=Query, mutation=Mutation)

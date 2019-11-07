@@ -3,7 +3,7 @@ from graphene.test import Client
 from graphene_django.utils.testing import GraphQLTestCase
 
 from api.schemas.schema import schema
-from api.utils import USER_DELETED_MESSAGE
+from api.utils import USER_DELETED_MESSAGE, UNABLE_TO_AUTHENTICATE_MESSAGE
 from core.utils import SWEDISH
 from tests.api.utils.user import (
     create_sample_user,
@@ -64,23 +64,33 @@ class PublicUserAPITests(GraphQLTestCase):
 
     def test_login_success(self) -> None:
         mutate_register_one_user(self)
-        # log in with the registered user
+
+        # login with the email of the registered user
         res = mutate_login_user(self)
-        assert "token" in res["data"]["login"]
-        assert res["data"]["login"]["user"]["email"] == "test@test.com"
+        cont = res["data"]["login"]
+        assert "token" in cont
+        assert cont["user"]["email"] == "test@test.com"
+        assert cont["user"]["username"] == "testuser"
+
+        # login with username
+        res = mutate_login_user(self, usernameOrEmail="testuser")
+        cont = res["data"]["login"]
+        assert "token" in cont
+        assert cont["user"]["email"] == "test@test.com"
+        assert cont["user"]["username"] == "testuser"
 
     def test_login_error(self) -> None:
         mutate_register_one_user(self)
 
         # invalid email
-        res = mutate_login_user(self, email="wrong@email.com")
-        message = res["errors"][0]["message"]
-        assert message == "Please, enter valid credentials"
+        res = mutate_login_user(self, usernameOrEmail="wrong@email.com")
+        cont = res["data"]["login"]
+        assert cont["errors"][0]["messages"][0] == UNABLE_TO_AUTHENTICATE_MESSAGE
 
         # invalid password
         res = mutate_login_user(self, password="wrongpass")
-        message = res["errors"][0]["message"]
-        assert message == "Please, enter valid credentials"
+        cont = res["data"]["login"]
+        assert cont["errors"][0]["messages"][0] == UNABLE_TO_AUTHENTICATE_MESSAGE
 
     def test_user_profile(self) -> None:
         mutate_register_one_user(self)

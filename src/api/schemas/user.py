@@ -1,12 +1,14 @@
+from graphql_jwt.decorators import token_auth
+from ..forms import RegisterForm, ChangePasswordForm, UpdateUserForm, LoginForm
 from typing import List, Any
 
 import graphene
+from graphene_django.types import ErrorType
 from django.contrib.auth import get_user_model
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphql import ResolveInfo
 from graphql_extensions.auth.decorators import login_required
-from graphql_jwt import JSONWebTokenMutation
 
 from core.models import User
 from core.utils import JsonDict
@@ -60,12 +62,29 @@ class RegisterMutation(DjangoModelFormMutation):
         return cls(user=user)
 
 
-class LoginMutation(JSONWebTokenMutation):
+class LoginMutation(DjangoModelFormMutation):
+    token = graphene.String()
     user = graphene.Field(UserTypePrivate)
 
+    class Meta:
+        form_class = LoginForm
+
     @classmethod
-    def resolve(cls, root: Any, info: ResolveInfo, **kwargs: Any) -> 'LoginMutation':
-        return cls(user=info.context.user)
+    def mutate_and_get_payload(cls, root: Any, info: ResolveInfo, **input: JsonDict) -> 'LoginMutation':
+        form = cls.get_form(root, info, **input)
+
+        if form.is_valid():
+            password = form.cleaned_data["password"]
+            user = form.cleaned_data["user"]
+            return cls.perform_mutate(root=root, info=info, password=password, user=user, email=user.email)
+        else:
+            errors = ErrorType.from_errors(form.errors)
+            return cls(errors=errors)
+
+    @classmethod
+    @token_auth
+    def perform_mutate(cls, root: Any, info: ResolveInfo, user: 'User', **kwargs: JsonDict) -> 'LoginMutation':
+        return cls(user=user)
 
 
 class ChangePasswordMutation(DjangoModelFormMutation):
@@ -131,8 +150,6 @@ class Query(graphene.ObjectType):
 class Mutation(graphene.ObjectType):
     register = RegisterMutation.Field()
     login = LoginMutation.Field()
-    # verify_token = graphql_jwt.Verify.Field()
-    # refresh_token = graphql_jwt.Refresh.Field()
     update_user = UpdateUserMutation.Field()
     change_password = ChangePasswordMutation.Field()
     delete_user = DeleteUserMutation.Field()

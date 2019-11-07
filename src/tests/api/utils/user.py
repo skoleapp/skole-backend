@@ -29,6 +29,7 @@ def mutate_register_one_user(test_cls: GraphQLTestCase, **params: str) -> JsonDi
         mutation register($input: RegisterMutationInput!) {
           register(input: $input) {
             errors {
+              field
               messages
             }
             user {
@@ -46,15 +47,19 @@ def mutate_register_one_user(test_cls: GraphQLTestCase, **params: str) -> JsonDi
 
 
 def mutate_login_user(test_cls: GraphQLTestCase, **params: str) -> JsonDict:
-    variables = {"email": "test@test.com", "password": "password"}
+    input_data = {"usernameOrEmail": "test@test.com", "password": "password"}
 
     if params is not None:
-        variables.update(**params)
+        input_data.update(**params)
 
     mutation = \
         """
-        mutation login($email: String!, $password: String!) {
-          login(email: $email, password: $password) {
+          mutation login($input: LoginMutationInput!) {
+          login(input: $input) {
+            errors {
+              field
+              messages
+            }
             token
             user {
               id
@@ -73,7 +78,7 @@ def mutate_login_user(test_cls: GraphQLTestCase, **params: str) -> JsonDict:
     # graphql_jwt somehow doesn't work with client.execute(), so we need to use query().
     res = test_cls.query(
         mutation,
-        variables=variables,
+        input_data=input_data,
         op_name="login"
     )
     return json.loads(res.content)
@@ -140,6 +145,7 @@ def mutate_update_user(test_cls: GraphQLTestCase, **params: str) -> JsonDict:
         mutation updateUser($input: UpdateUserMutationInput!) {
           updateUser(input: $input) {
             errors {
+              field
               messages
             }
             user {
@@ -199,6 +205,7 @@ def mutate_change_password(test_cls: GraphQLTestCase, **params: str) -> JsonDict
         mutation changePassword($input: ChangePasswordMutationInput!) {
           changePassword(input: $input) {
             errors {
+              field
               messages
             }
             user {

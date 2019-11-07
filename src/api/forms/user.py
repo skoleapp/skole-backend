@@ -1,8 +1,10 @@
 from django import forms
 from django.conf import settings
+from core.utils import JsonDict
+from django.contrib.auth import authenticate
 from django.contrib.auth import get_user_model
 
-from ..utils import EMAIL_TAKEN_MESSAGE, USERNAME_TAKEN_MESSAGE, INCORRECT_OLD_PASSWORD
+from ..utils import EMAIL_TAKEN_MESSAGE, USERNAME_TAKEN_MESSAGE, INCORRECT_OLD_PASSWORD, UNABLE_TO_AUTHENTICATE_MESSAGE
 
 
 class RegisterForm(forms.ModelForm):
@@ -11,6 +13,36 @@ class RegisterForm(forms.ModelForm):
     class Meta:
         model = get_user_model()
         fields = ("username", "email", "password")
+
+
+class LoginForm(forms.ModelForm):
+    username_or_email = forms.CharField()
+    password = forms.CharField()
+
+    class Meta:
+        model = get_user_model()
+        fields = ("username_or_email", "password")
+
+    def clean(self) -> JsonDict:
+        username_or_email = self.cleaned_data.get("username_or_email")
+        password = self.cleaned_data.get("password")
+
+        if "@" in username_or_email:
+            kwargs = {"email": username_or_email}
+        else:
+            kwargs = {"username": username_or_email}
+        try:
+            user = get_user_model().objects.get(**kwargs)
+            user = authenticate(username=user.email, password=password)
+
+            if not user:
+                raise forms.ValidationError(UNABLE_TO_AUTHENTICATE_MESSAGE, code="authentication")
+
+            self.cleaned_data["user"] = user
+            return self.cleaned_data
+
+        except get_user_model().DoesNotExist:
+            raise forms.ValidationError(UNABLE_TO_AUTHENTICATE_MESSAGE, code="authentication")
 
 
 class UpdateUserForm(forms.ModelForm):

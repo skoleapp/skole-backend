@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.messages",
     "django.contrib.sessions",
-    "django.contrib.staticfiles",
     "django_filters",
     "corsheaders",
     "graphene_django",
@@ -132,8 +131,8 @@ USE_TZ = True
 STATIC_URL = "/static/"
 MEDIA_URL = "/media/"
 
-STATIC_ROOT = "src/static"
-MEDIA_ROOT = "src/media"
+STATIC_ROOT = "static"
+MEDIA_ROOT = "media"
 
 AUTH_USER_MODEL = "app.User"
 

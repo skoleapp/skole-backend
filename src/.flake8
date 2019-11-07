@@ -1,9 +1,0 @@
-[flake8]
-exclude =
-  migrations,
-  __pycache__,
-  manage.py,
-  settings.py
-  core/models.py
-  core/serializers.py
-  core/views.py

@@ -20,12 +20,12 @@ COPY mypy.ini .
 COPY pytest.ini .
 COPY .coveragerc .
 
-RUN mkdir -p /var/static
-RUN mkdir -p /var/media
+RUN mkdir -p /static
+RUN mkdir -p /media
 
 RUN adduser -D user
-RUN chown -R user:user /var/
-RUN chmod -R 755 /var
+RUN chown -R user:user /static/ /media/
+RUN chmod -R 755 /static/ /media/
 USER user
 
 WORKDIR /app/src

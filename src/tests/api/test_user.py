@@ -13,7 +13,7 @@ from tests.api.utils.user import (
     mutate_user_delete,
     mutate_update_user,
     query_user,
-    query_user_list,
+    query_users,
     query_user_me,
 )
 
@@ -96,8 +96,8 @@ class PublicUserAPITests(GraphQLTestCase):
         mutate_register_one_user(self)
 
         # Get the id of the first user, so we can use it to query
-        res = query_user_list(self)
-        id_ = res["data"]["userList"][0]["id"]
+        res = query_users(self)
+        id_ = res["data"]["users"][0]["id"]
 
         # Get the profile with that id
         res = query_user(self, id_=id_)
@@ -111,14 +111,14 @@ class PublicUserAPITests(GraphQLTestCase):
         assert cont is None
         assert "does not exist" in res["errors"][0]["message"]
 
-    def test_user_list(self) -> None:
+    def test_users(self) -> None:
         mutate_register_one_user(self)
         mutate_register_one_user(self, email="test2@test.com", username="testuser2")
         mutate_register_one_user(self, email="test3@test.com", username="testuser3")
 
-        # check that the register users come as a result for the user list
-        res = query_user_list(self)
-        cont = res["data"]["userList"]
+        # check that the register users come as a result for the users
+        res = query_users(self)
+        cont = res["data"]["users"]
         assert len(cont) == 3
         assert cont[0]["username"] == "testuser"
         assert cont[1]["username"] == "testuser2"

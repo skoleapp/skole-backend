@@ -23,11 +23,11 @@ def create_sample_school(**params: str) -> School:
     return school
 
 
-def query_school_list(test_cls: GraphQLTestCase) -> JsonDict:
+def query_schools(test_cls: GraphQLTestCase) -> JsonDict:
     query = \
         """
         query {
-          schoolList {
+          schools {
             id
             name
             schoolType

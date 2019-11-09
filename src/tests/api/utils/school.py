@@ -1,8 +1,8 @@
 from graphene_django.utils import GraphQLTestCase
 from mypy.types import JsonDict
 
-from core.models import School
-from core.utils import UNIVERSITY
+from app.models import School
+from app.utils import UNIVERSITY
 
 
 def create_sample_school(**params: str) -> School:
@@ -41,7 +41,8 @@ def query_school_list(test_cls: GraphQLTestCase) -> JsonDict:
         query,
     )
 
-def query_school(test_cls: GraphQLTestCase, id_: int=1) -> JsonDict:
+
+def query_school(test_cls: GraphQLTestCase, id_: int = 1) -> JsonDict:
     variables = {"id": id_}
 
     query = \

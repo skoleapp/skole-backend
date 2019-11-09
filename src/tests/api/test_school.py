@@ -1,14 +1,13 @@
-from django.test import RequestFactory
 from graphene.test import Client
 from graphene_django.utils.testing import GraphQLTestCase
 
 from api.schemas.schema import schema
-
 from tests.api.utils.school import (
     create_sample_school,
     query_school,
     query_school_list,
 )
+
 
 class SchoolAPITests(GraphQLTestCase):
     GRAPHQL_SCHEMA = schema
@@ -44,4 +43,3 @@ class SchoolAPITests(GraphQLTestCase):
         cont = res["data"]["school"]
         assert cont is None
         assert "does not exist" in res["errors"][0]["message"]
-

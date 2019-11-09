@@ -4,7 +4,7 @@ import graphene
 from graphene_django import DjangoObjectType
 from graphql import ResolveInfo
 
-from core.models import School
+from app.models import School
 
 
 class SchoolType(DjangoObjectType):
@@ -12,7 +12,7 @@ class SchoolType(DjangoObjectType):
 
     class Meta:
         model = School
-        fields = ("id", "school_type", "name", "city", "country")
+        fields = ("id", "school_type", "name", "city", "country", "subjects")
 
     def resolve_school_type(self, info: ResolveInfo) -> str:
         return self.get_school_type_display()

@@ -7,7 +7,7 @@ from api.schemas.schema import schema
 from tests.api.utils.school import (
     create_sample_school,
     query_school,
-    query_school_list,
+    query_schools,
 )
 
 class SchoolAPITests(GraphQLTestCase):
@@ -25,9 +25,9 @@ class SchoolAPITests(GraphQLTestCase):
         self.school3.delete()
         del self.client
 
-    def test_school_list(self) -> None:
-        res = query_school_list(self)
-        cont = res["data"]["schoolList"]
+    def test_schools(self) -> None:
+        res = query_schools(self)
+        cont = res["data"]["schools"]
         assert len(cont) == 3
         assert cont[0]["name"] == self.school1.name
         assert cont[1]["name"] == self.school2.name

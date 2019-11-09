@@ -85,11 +85,11 @@ def mutate_login_user(test_cls: GraphQLTestCase, **params: str) -> JsonDict:
     return json.loads(res.content)
 
 
-def query_user_list(test_cls: GraphQLTestCase) -> JsonDict:
+def query_users(test_cls: GraphQLTestCase) -> JsonDict:
     query = \
         """
         query {
-          userList {
+          users {
             id
             username
             title

@@ -134,7 +134,7 @@ class UpdateUserMutation(DjangoModelFormMutation):
 
 class Query(graphene.ObjectType):
     user_list = graphene.List(UserTypePublic)
-    user = graphene.Field(UserTypePublic, id=graphene.Int())
+    user = graphene.Field(UserTypePublic, id=graphene.Int(required=True))
     user_me = graphene.Field(UserTypePrivate)
 
     def resolve_user_list(self, info: ResolveInfo) -> List[User]:

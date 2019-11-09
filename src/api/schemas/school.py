@@ -20,7 +20,7 @@ class SchoolType(DjangoObjectType):
 
 class Query(graphene.ObjectType):
     school_list = graphene.List(SchoolType)
-    school = graphene.Field(SchoolType, id=graphene.Int())
+    school = graphene.Field(SchoolType, id=graphene.Int(required=True))
 
     def resolve_school_list(self, info: ResolveInfo) -> List[School]:
         return School.objects.all()

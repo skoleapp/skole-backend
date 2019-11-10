@@ -128,7 +128,7 @@ class UpdateUserMutation(DjangoModelFormMutation):
         data = form.cleaned_data
         files = info.context.FILES
 
-        if files and files["1"]:
+        if "1" in files:
             data["avatar"] = files["1"] # Overwrite form value with actual image.
 
         user = info.context.user

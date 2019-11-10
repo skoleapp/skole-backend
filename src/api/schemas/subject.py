@@ -10,7 +10,7 @@ from app.models import Subject
 class SubjectType(DjangoObjectType):
     class Meta:
         model = Subject
-        fields = ("id", "name", "schools")
+        fields = ("id", "name")
 
 
 class Query(graphene.ObjectType):

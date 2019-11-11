@@ -2,11 +2,14 @@ from typing import List
 
 import graphene
 from graphene_django import DjangoObjectType
+from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphql import ResolveInfo
+from graphql_extensions.auth.decorators import login_required
 
 from api.schemas.user import UserTypePublic
 from api.types.resource import ResourceType
 from app.models import Course
+from api.forms import CreateCourseForm
 
 
 class CourseType(DjangoObjectType):
@@ -15,7 +18,20 @@ class CourseType(DjangoObjectType):
 
     class Meta:
         model = Course
-        fields = ("id", "name", "code", "subject", "school", "creator", "modified", "created", "resources")
+        fields = ("id", "name", "code", "subject", "school", "creator", "points", "modified", "created", "resources")
+
+
+class CreateCourseMutation(DjangoModelFormMutation):
+    course = graphene.Field(CourseType)
+
+    class Meta:
+        form_class = CreateCourseForm
+
+    @classmethod
+    @login_required
+    def perform_mutate(cls, form: CreateCourseForm, info: ResolveInfo) -> 'CreateCourseMutation':
+        course = Course.objects.create(creator=info.context.user, **form.cleaned_data)
+        return cls(course=course)
 
 
 class Query(graphene.ObjectType):
@@ -30,3 +46,7 @@ class Query(graphene.ObjectType):
 
     def resolve_course(self, info: ResolveInfo, id: int) -> Course:
         return Course.objects.get(pk=id)
+
+
+class Mutation(graphene.ObjectType):
+    create_course = CreateCourseMutation.Field()

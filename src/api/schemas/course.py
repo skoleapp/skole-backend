@@ -4,7 +4,6 @@ import graphene
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphql import ResolveInfo
-from graphql_extensions.auth.decorators import login_required
 
 from api.schemas.user import UserTypePublic
 from api.types.resource import ResourceType
@@ -28,9 +27,12 @@ class CreateCourseMutation(DjangoModelFormMutation):
         form_class = CreateCourseForm
 
     @classmethod
-    @login_required
     def perform_mutate(cls, form: CreateCourseForm, info: ResolveInfo) -> 'CreateCourseMutation':
-        course = Course.objects.create(creator=info.context.user, **form.cleaned_data)
+        user = info.context.user
+        if user.is_anonymous:
+            user = None
+
+        course = Course.objects.create(creator=user, **form.cleaned_data)
         return cls(course=course)
 
 

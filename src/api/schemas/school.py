@@ -3,12 +3,13 @@ from typing import List
 import graphene
 from graphene_django import DjangoObjectType
 from graphql import ResolveInfo
-
+from api.schemas.subject import SubjectType
 from app.models import School
 
 
 class SchoolType(DjangoObjectType):
     school_type = graphene.String()
+    subjects = graphene.List(SubjectType)
 
     class Meta:
         model = School
@@ -16,6 +17,9 @@ class SchoolType(DjangoObjectType):
 
     def resolve_school_type(self, info: ResolveInfo) -> str:
         return self.get_school_type_display()
+
+    def resolve_subjects(self, info: ResolveInfo) -> str:
+        return self.subjects.all()
 
 
 class Query(graphene.ObjectType):

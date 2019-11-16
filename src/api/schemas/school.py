@@ -15,6 +15,9 @@ class SchoolType(DjangoObjectType):
         model = School
         fields = ("id", "school_type", "name", "city", "country")
 
+    def resolve_school_type(self, info: ResolveInfo) -> str:
+        return self.get_school_type_display()
+
 
 class Query(graphene.ObjectType):
     schools = graphene.List(

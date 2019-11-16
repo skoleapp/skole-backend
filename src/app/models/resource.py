@@ -1,13 +1,13 @@
 from django.db import models
 
-from .course import Course
-from .user import User
-from ..utils import RESOURCE_TYPES
+from app.models.course import Course
+from app.models.user import User
+from app.models.resource_type import ResourceType
 
 
 class Resource(models.Model):
     """Models one user uploaded resource."""
-    resource_type = models.CharField(choices=RESOURCE_TYPES, max_length=10)
+    resource_type = models.ForeignKey(ResourceType, on_delete=models.PROTECT)
     title = models.CharField(max_length=100)
     file = models.FileField(upload_to="uploads/resources")
     date = models.DateField(null=True, blank=True)  # The creator can specify when the resource is dated.

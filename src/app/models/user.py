@@ -6,7 +6,8 @@ from django.db import models
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
 
-from app.utils import ENGLISH, LANGUAGES, DEFAULT_AVATAR
+from app.utils.user import DEFAULT_AVATAR
+from app.models.language import Language
 
 
 class UserManager(BaseUserManager):
@@ -71,7 +72,7 @@ class User(AbstractBaseUser, PermissionsMixin):
                                       processors=[ResizeToFill(100, 100)],
                                       format="JPEG",
                                       options={"quality": 60})
-    language = models.CharField(choices=LANGUAGES, default=ENGLISH, max_length=7)
+    language = models.ForeignKey(Language, on_delete=models.PROTECT)
     # On purpose no related name, so it cannot be queried that way
     schools = models.ManyToManyField('School')
 

@@ -1,18 +1,15 @@
 from django.db import models
 
-from ..utils import SCHOOL_TYPES
+from app.models.city import City
+from app.models.school_type import SchoolType
 
 
 class School(models.Model):
     """Models one school on the platform."""
 
-    school_type = models.CharField(choices=SCHOOL_TYPES, max_length=30)
+    school_type = models.ForeignKey(SchoolType, on_delete=models.PROTECT, related_name="schools")
     name = models.CharField(max_length=100)
-    city = models.CharField(max_length=100)
-    country = models.CharField(max_length=100)
-
-    modified = models.DateTimeField(auto_now=True)
-    created = models.DateTimeField(auto_now_add=True)
+    city = models.ForeignKey(City, on_delete=models.PROTECT, related_name="schools")
 
     def __str__(self) -> str:
         return f"{self.name}"

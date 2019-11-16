@@ -14,6 +14,7 @@ import datetime
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+from app.models.user import User
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -135,7 +136,7 @@ MEDIA_URL = "/media/"
 STATICFILES_DIRS = ["static"]
 MEDIA_ROOT = "media"
 
-AUTH_USER_MODEL = "app.User"
+AUTH_USER_MODEL = User
 
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',

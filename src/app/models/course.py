@@ -1,12 +1,13 @@
 from django.db import models
 
-from .school import School
-from .subject import Subject
-from .user import User
+from app.models.school import School
+from app.models.subject import Subject
+from app.models.user import User
 
 
 class Course(models.Model):
     """Models one course."""
+
     name = models.CharField(max_length=200)
     code = models.CharField(max_length=30, null=True, blank=True)
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name="courses")
@@ -15,6 +16,7 @@ class Course(models.Model):
     creator = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name="created_courses")
 
     points = models.IntegerField(default=0)
+
     modified = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 

@@ -49,6 +49,7 @@ class CustomGraphQLView(GraphQLView):
 
         return {}
 
+
 def place_files_in_operations(operations, files_map, files):
     # operations: dict or list
     # files_map: {filename: [path, path, ...]}
@@ -68,6 +69,7 @@ def _place_files_in_operations(ops, fmap, fobjs):
         ops = _place_file_in_operations(ops, path, fobjs[fkey])
     return ops
 
+
 def _place_file_in_operations(ops, path, obj):
 
     if len(path) == 0:
@@ -84,6 +86,7 @@ def _place_file_in_operations(ops, path, obj):
         return _insert_in_dict(ops, key, sub)
 
     raise TypeError('Expected ops to be list or dict')
+
 
 def _insert_in_dict(dct, key, val):
     return {**dct, key: val}

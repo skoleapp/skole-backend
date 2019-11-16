@@ -47,8 +47,8 @@ def query_school(test_cls: GraphQLTestCase, id_: int = 1) -> JsonDict:
 
     query = \
         """
-        query school($id: Int!) {
-         school(id: $id) {
+        query school($schoolId: Int!) {
+         school(id: $schoolId) {
            id
            name
            schoolType

@@ -11,9 +11,9 @@ from graphql_jwt.decorators import token_auth
 from mypy.types import JsonDict
 
 from app.models import User
-from ..forms import LoginForm
-from ..forms import RegisterForm, ChangePasswordForm, UpdateUserForm
-from ..utils import USER_DELETED_MESSAGE
+from api.forms import LoginForm
+from api.forms import RegisterForm, ChangePasswordForm, UpdateUserForm
+from api.utils import USER_DELETED_MESSAGE
 
 
 class UserTypeRegister(DjangoObjectType):
@@ -129,7 +129,7 @@ class UpdateUserMutation(DjangoModelFormMutation):
         files = info.context.FILES
 
         if "1" in files:
-            data["avatar"] = files["1"] # Overwrite form value with actual image.
+            data["avatar"] = files["1"]  # Overwrite form value with actual image.
 
         user = info.context.user
         get_user_model().objects.update_user(user, **data)

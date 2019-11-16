@@ -10,10 +10,9 @@ from graphql_extensions.auth.decorators import login_required
 from graphql_jwt.decorators import token_auth
 from mypy.types import JsonDict
 
-from app.models import User
-from api.forms import LoginForm
-from api.forms import RegisterForm, ChangePasswordForm, UpdateUserForm
-from api.utils import USER_DELETED_MESSAGE
+from app.models.user import User
+from api.forms.user import LoginForm, RegisterForm, ChangePasswordForm, UpdateUserForm
+from api.utils.messages import USER_DELETED_MESSAGE
 
 
 class UserTypeRegister(DjangoObjectType):
@@ -83,7 +82,7 @@ class LoginMutation(DjangoModelFormMutation):
 
     @classmethod
     @token_auth
-    def perform_mutate(cls, root: Any, info: ResolveInfo, user: 'User', **kwargs: JsonDict) -> 'LoginMutation':
+    def perform_mutate(cls, root: Any, info: ResolveInfo, user: User, **kwargs: JsonDict) -> 'LoginMutation':
         return cls(user=user)
 
 

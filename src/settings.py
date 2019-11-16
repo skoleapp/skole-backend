@@ -14,17 +14,17 @@ import datetime
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-from app.models.user import User
-
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("SECRET_KEY")
-if SECRET_KEY is None:
+secret_key = os.environ.get("SECRET_KEY")
+if secret_key is None:
     raise AssertionError("Setup env variable `SECRET_KEY`")
+else:
+    SECRET_KEY = secret_key
 
 # SECURITY WARNING: don"t run with debug turned on in production!
 DEBUG = int(os.environ.get("DEBUG", default=0))
@@ -136,7 +136,7 @@ MEDIA_URL = "/media/"
 STATICFILES_DIRS = ["static"]
 MEDIA_ROOT = "media"
 
-AUTH_USER_MODEL = User
+AUTH_USER_MODEL = "app.User"
 
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',

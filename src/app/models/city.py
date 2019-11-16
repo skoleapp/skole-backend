@@ -1,6 +1,6 @@
 from django.db import models
 
-from app.models.country import Country
+from .country import Country
 
 
 class City(models.Model):

@@ -7,7 +7,7 @@ from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
 
 from app.utils.user import DEFAULT_AVATAR
-from app.models.language import Language
+from .language import Language
 
 
 class UserManager(BaseUserManager):

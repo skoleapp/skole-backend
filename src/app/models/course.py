@@ -1,8 +1,8 @@
 from django.db import models
 
-from app.models.school import School
-from app.models.subject import Subject
-from app.models.user import User
+from .school import School
+from .subject import Subject
+from .user import User
 
 
 class Course(models.Model):

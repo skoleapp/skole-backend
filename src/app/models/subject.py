@@ -1,6 +1,6 @@
 from django.db import models
 
-from app.models.school import School
+from .school import School
 
 
 class Subject(models.Model):

@@ -8,6 +8,11 @@ from app.models.resource import Resource
 from app.models.school import School
 from app.models.subject import Subject
 from app.models.user import User
+from app.models.language import Language
+
+
+@fixture
+def language(db: fixture) -> Language:
 
 
 @fixture

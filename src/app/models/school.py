@@ -1,7 +1,7 @@
 from django.db import models
 
-from app.models.city import City
-from app.models.school_type import SchoolType
+from .city import City
+from .school_type import SchoolType
 
 
 class School(models.Model):

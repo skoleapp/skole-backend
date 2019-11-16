@@ -4,7 +4,7 @@ import graphene
 from graphene_django import DjangoObjectType
 from graphql import ResolveInfo
 
-from app.models import Subject
+from app.models.subject import Subject
 
 
 class SubjectType(DjangoObjectType):

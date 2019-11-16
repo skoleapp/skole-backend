@@ -12,6 +12,5 @@ urlpatterns = [
 ]
 
 if settings.DEBUG:
-    # Just for being explicit, these wouldn't and shouldn't work in production mode anyways.
+    # Static files are handled with the staticfiles app.
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

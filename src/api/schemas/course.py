@@ -7,8 +7,8 @@ from graphql import ResolveInfo
 from graphql_extensions.auth.decorators import login_required
 
 from api.schemas.user import UserTypePublic
-from api.types.resource import ResourceType
-from app.models import Course
+from api.schemas.resource import ResourceType
+from app.models import Course, Resource
 from api.forms import CreateCourseForm
 
 
@@ -19,6 +19,9 @@ class CourseType(DjangoObjectType):
     class Meta:
         model = Course
         fields = ("id", "name", "code", "subject", "school", "creator", "points", "modified", "created", "resources")
+
+    def resolve_resources(self, info: ResolveInfo) -> List[Resource]:
+        return self.resources.all()
 
 
 class CreateCourseMutation(DjangoModelFormMutation):

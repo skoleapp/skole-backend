@@ -11,6 +11,7 @@ class Query(
     api.schemas.school.Query,
     api.schemas.subject.Query,
     api.schemas.user.Query,
+    api.schemas.resource.Query,
 ):
     pass
 

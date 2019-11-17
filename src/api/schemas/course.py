@@ -35,12 +35,30 @@ class CreateCourseMutation(DjangoModelFormMutation):
 
 
 class Query(graphene.ObjectType):
-    courses = graphene.List(CourseType, subject_id=graphene.Int(), school_id=graphene.Int())
+    courses = graphene.List(
+        CourseType,
+        course_name=graphene.String(),
+        course_code=graphene.String(),
+        subject_id=graphene.Int(),
+        school_id=graphene.Int()
+    )
+
     course = graphene.Field(CourseType, id=graphene.Int())
 
-    def resolve_courses(self, info: ResolveInfo, subject_id: int = None, school_id: int = None) -> List[Course]:
+    def resolve_courses(
+        self,
+        info: ResolveInfo,
+        course_name: str = None,
+        course_code: str = None,
+        subject_id: int = None,
+        school_id: int = None
+    ) -> List[Course]:
         courses = Course.objects.all()
 
+        if course_name is not None:
+            courses = courses.filter(name__icontains=course_name)
+        if course_code is not None:
+            courses = courses.filter(code__icontains=course_code)
         if subject_id is not None:
             courses = courses.filter(subject__pk=subject_id)
         if school_id is not None:

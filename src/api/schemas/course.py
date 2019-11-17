@@ -43,7 +43,7 @@ class Query(graphene.ObjectType):
         school_id=graphene.Int()
     )
 
-    course = graphene.Field(CourseType, id=graphene.Int())
+    course = graphene.Field(CourseType, course_id=graphene.Int())
 
     def resolve_courses(
         self,
@@ -66,8 +66,8 @@ class Query(graphene.ObjectType):
 
         return courses
 
-    def resolve_course(self, info: ResolveInfo, id: int) -> Course:
-        return Course.objects.get(pk=id)
+    def resolve_course(self, info: ResolveInfo, course_id: int) -> Course:
+        return Course.objects.get(pk=course_id)
 
 
 class Mutation(graphene.ObjectType):

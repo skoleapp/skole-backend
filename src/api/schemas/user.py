@@ -138,14 +138,14 @@ class UpdateUserMutation(DjangoModelFormMutation):
 
 class Query(graphene.ObjectType):
     users = graphene.List(UserTypePublic)
-    user = graphene.Field(UserTypePublic, id=graphene.Int(required=True))
+    user = graphene.Field(UserTypePublic, user_id=graphene.Int(required=True))
     user_me = graphene.Field(UserTypePrivate)
 
     def resolve_users(self, info: ResolveInfo) -> List[User]:
         return get_user_model().objects.filter(is_superuser=False)
 
-    def resolve_user(self, info: ResolveInfo, id: int) -> User:
-        return get_user_model().objects.filter(is_superuser=False).get(pk=id)
+    def resolve_user(self, info: ResolveInfo, user_id: int) -> User:
+        return get_user_model().objects.filter(is_superuser=False).get(pk=user_id)
 
     @login_required
     def resolve_user_me(self, info: ResolveInfo) -> User:

@@ -7,8 +7,8 @@ from graphql import ResolveInfo
 from graphql_extensions.auth.decorators import login_required
 
 from api.schemas.user import UserTypePublic
-from api.types.resource import ResourceType
-from app.models import Course
+from api.schemas.resource import ResourceType
+from app.models import Course, Resource
 from api.forms import CreateCourseForm
 
 
@@ -19,6 +19,9 @@ class CourseType(DjangoObjectType):
     class Meta:
         model = Course
         fields = ("id", "name", "code", "subject", "school", "creator", "points", "modified", "created", "resources")
+
+    def resolve_resources(self, info: ResolveInfo) -> List[Resource]:
+        return self.resources.all()
 
 
 class CreateCourseMutation(DjangoModelFormMutation):
@@ -35,12 +38,30 @@ class CreateCourseMutation(DjangoModelFormMutation):
 
 
 class Query(graphene.ObjectType):
-    courses = graphene.List(CourseType, subject_id=graphene.Int(), school_id=graphene.Int())
-    course = graphene.Field(CourseType, id=graphene.Int())
+    courses = graphene.List(
+        CourseType,
+        course_name=graphene.String(),
+        course_code=graphene.String(),
+        subject_id=graphene.Int(),
+        school_id=graphene.Int()
+    )
 
-    def resolve_courses(self, info: ResolveInfo, subject_id: int = None, school_id: int = None) -> List[Course]:
+    course = graphene.Field(CourseType, course_id=graphene.Int())
+
+    def resolve_courses(
+        self,
+        info: ResolveInfo,
+        course_name: str = None,
+        course_code: str = None,
+        subject_id: int = None,
+        school_id: int = None
+    ) -> List[Course]:
         courses = Course.objects.all()
 
+        if course_name is not None:
+            courses = courses.filter(name__icontains=course_name)
+        if course_code is not None:
+            courses = courses.filter(code__icontains=course_code)
         if subject_id is not None:
             courses = courses.filter(subject__pk=subject_id)
         if school_id is not None:
@@ -48,8 +69,8 @@ class Query(graphene.ObjectType):
 
         return courses
 
-    def resolve_course(self, info: ResolveInfo, id: int) -> Course:
-        return Course.objects.get(pk=id)
+    def resolve_course(self, info: ResolveInfo, course_id: int) -> Course:
+        return Course.objects.get(pk=course_id)
 
 
 class Mutation(graphene.ObjectType):

@@ -300,60 +300,60 @@
 
 
 - model: app.CourseCommentThread
+  pk: 1
+  fields:
+    course: 1
+- model: app.CourseCommentThread
   pk: 2
   fields:
     course: 1
-#- model: app.CourseCommentThread
-#  pk: 2
-#  fields:
-#    course: 1
-#- model: app.CourseCommentThread
-#  pk: 3
-#  fields:
-#    course: 1
-#
-#
-#- model: app.ResourceCommentThread
-#  pk: 1
-#  fields:
-#    resource: 1
-#- model: app.ResourceCommentThread
-#  pk: 2
-#  fields:
-#    resource: 1
-#- model: app.ResourceCommentThread
-#  pk: 3
-#  fields:
-#    resource: 1
-#
-#
-#- model: app.ResourceComment
-#  pk: 1
-#  fields:
-#    text: "Starting comment for the thread on a resource."
-#    attachment: null
-#    resource_comment_thread: 1
-#    creator: 2
-#    points: 0
-#    modified: "2019-01-01 12:00:00.000000+00:00"
-#    created: "2019-01-01 12:00:00.000000+00:00"
-#- model: app.ResourceComment
-#  pk: 2
-#  fields:
-#    text: "Second comment of the thread."
-#    attachment: null
-#    resource_comment_thread: 1
-#    creator: 3
-#    points: 0
-#    modified: "2019-01-01 12:00:00.000000+00:00"
-#    created: "2019-01-01 12:00:00.000000+00:00"
-#- model: app.ResourceComment
-#  pk: 3
-#  fields:
-#    text: "Third comment of the thread."
-#    attachment: null
-#    resource_comment_thread: 1
-#    creator: 2
-#    points: 0
-#    modified: "2019-01-01 12:00:00.000000+00:00"
-#    created: "2019-01-01 12:00:00.000000+00:00"
+- model: app.CourseCommentThread
+  pk: 3
+  fields:
+    course: 1
+
+
+- model: app.ResourceCommentThread
+  pk: 1
+  fields:
+    resource: 1
+- model: app.ResourceCommentThread
+  pk: 2
+  fields:
+    resource: 1
+- model: app.ResourceCommentThread
+  pk: 3
+  fields:
+    resource: 1
+
+
+- model: app.ResourceComment
+  pk: 1
+  fields:
+    text: "Starting comment for the thread on a resource."
+    attachment: null
+    comment_thread: 1
+    creator: 2
+    points: 0
+    modified: "2019-01-01 12:00:00.000000+00:00"
+    created: "2019-01-01 12:00:00.000000+00:00"
+- model: app.ResourceComment
+  pk: 2
+  fields:
+    text: "Second comment of the thread."
+    attachment: null
+    comment_thread: 1
+    creator: 3
+    points: 0
+    modified: "2019-01-01 12:00:00.000000+00:00"
+    created: "2019-01-01 12:00:00.000000+00:00"
+- model: app.ResourceComment
+  pk: 3
+  fields:
+    text: "Third comment of the thread."
+    attachment: null
+    comment_thread: 1
+    creator: 2
+    points: 0
+    modified: "2019-01-01 12:00:00.000000+00:00"
+    created: "2019-01-01 12:00:00.000000+00:00"

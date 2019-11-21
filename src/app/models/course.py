@@ -15,7 +15,8 @@ class Course(models.Model):
     # TODO: custom deletor, which marks the user as some anonymous user
     creator = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name="created_courses")
 
-    points = models.IntegerField(default=0)
+    upvotes = models.IntegerField(default=0)
+    downvotes = models.IntegerField(default=0)
 
     modified = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)

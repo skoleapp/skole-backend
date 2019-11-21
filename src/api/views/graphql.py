@@ -1,3 +1,4 @@
+# https://stackoverflow.com/questions/57812673/how-to-upload-files-in-graphql-using-graphene-file-upload-with-apollo-upload-cli/58059674#58059674
 from django.http.response import HttpResponseBadRequest
 from graphene_django.views import GraphQLView, HttpError
 import json

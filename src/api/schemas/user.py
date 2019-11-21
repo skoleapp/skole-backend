@@ -13,6 +13,7 @@ from mypy.types import JsonDict
 from app.models.user import User
 from api.forms.user import LoginForm, RegisterForm, ChangePasswordForm, UpdateUserForm
 from api.utils.messages import USER_DELETED_MESSAGE
+from api.utils.points import get_points_of_user
 
 
 class UserTypeRegister(DjangoObjectType):
@@ -22,20 +23,25 @@ class UserTypeRegister(DjangoObjectType):
 
 
 class UserTypePublic(DjangoObjectType):
+    points = graphene.Int()
+
     class Meta:
         model = get_user_model()
         fields = ("id", "username", "title", "bio", "avatar", "avatar_thumbnail", "points", "created")
 
+    def resolve_points(self, info: ResolveInfo) -> int:
+        return get_points_of_user(self)
+
 
 class UserTypePrivate(DjangoObjectType):
-    language = graphene.String()
+    points = graphene.Int()
 
     class Meta:
         model = get_user_model()
-        fields = ("id", "username", "title", "bio", "avatar", "avatar_thumbnail", "points", "created", "email", "language", "schools")
+        fields = ("id", "username", "title", "bio", "avatar", "avatar_thumbnail", "points", "created", "email", "schools")
 
-    def resolve_language(self, info: ResolveInfo) -> str:
-        return self.get_language_display()
+    def resolve_points(self, info: ResolveInfo) -> int:
+        return get_points_of_user(self)
 
 
 class UserTypeChangePassword(DjangoObjectType):

@@ -10,7 +10,8 @@ class Comment(models.Model):
     text = models.TextField(max_length=10000)
     attachment = models.FileField(upload_to="uploads/comment_attachments", null=True)
 
-    points = models.IntegerField(default=0)
+    upvotes = models.IntegerField(default=0)
+    downvotes = models.IntegerField(default=0)
 
     modified = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)

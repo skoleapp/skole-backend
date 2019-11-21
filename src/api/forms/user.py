@@ -48,7 +48,7 @@ class LoginForm(forms.ModelForm):
 class UpdateUserForm(forms.ModelForm):
     class Meta:
         model = get_user_model()
-        fields = ("username", "email", "title", "bio", "avatar", "language")
+        fields = ("username", "email", "title", "bio", "avatar")
 
     def clean_email(self) -> str:
         email = self.cleaned_data["email"]

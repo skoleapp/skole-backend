@@ -1,17 +1,3 @@
-- model: app.Language
-  pk: 1
-  fields:
-    name: "English"
-- model: app.Language
-  pk: 2
-  fields:
-    name: "Finnish"
-- model: app.Language
-  pk: 3
-  fields:
-    name: "Swedish"
-
-
 - model: app.User
   pk: 1
   fields:
@@ -21,8 +7,6 @@
     title: null
     bio: null
     avatar: "default_avatar.jpg"
-    language: 1
-    points: 0
     is_superuser: true
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
@@ -35,8 +19,6 @@
     title: null
     bio: null
     avatar: "default_avatar.jpg"
-    language: 1
-    points: 0
     is_staff: false
     is_superuser: false
     modified: "2019-01-01 12:00:00.000000+00:00"
@@ -50,8 +32,6 @@
     title: null
     bio: null
     avatar: "default_avatar.jpg"
-    language: 1
-    points: 0
     is_staff: false
     is_superuser: false
     modified: "2019-01-01 12:00:00.000000+00:00"
@@ -65,8 +45,6 @@
     title: null
     bio: null
     avatar: "default_avatar.jpg"
-    language: 1
-    points: 0
     is_staff: false
     is_superuser: false
     modified: "2019-01-01 12:00:00.000000+00:00"
@@ -80,8 +58,6 @@
     title: null
     bio: null
     avatar: "default_avatar.jpg"
-    language: 2
-    points: 0
     is_staff: false
     is_superuser: false
     modified: "2019-01-01 12:00:00.000000+00:00"
@@ -95,8 +71,6 @@
     title: null
     bio: null
     avatar: "default_avatar.jpg"
-    language: 3
-    points: 0
     is_staff: false
     is_superuser: false
     modified: "2019-01-01 12:00:00.000000+00:00"

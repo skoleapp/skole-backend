@@ -7,7 +7,6 @@ from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
 
 from app.utils.user import DEFAULT_AVATAR
-from .language import Language
 
 
 class UserManager(BaseUserManager):
@@ -72,13 +71,11 @@ class User(AbstractBaseUser, PermissionsMixin):
                                       processors=[ResizeToFill(100, 100)],
                                       format="JPEG",
                                       options={"quality": 60})
-    language = models.ForeignKey(Language, on_delete=models.PROTECT)
     # On purpose no related name, so it cannot be queried that way
     schools = models.ManyToManyField('School')
 
     is_staff = models.BooleanField(default=False)
 
-    points = models.IntegerField(default=0)
     modified = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 

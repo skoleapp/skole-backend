@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 
 import graphene
 from graphene_django import DjangoObjectType
@@ -38,10 +38,10 @@ class Query(graphene.ObjectType):
         school_city: str = None,
         school_country: str = None,
     ) -> List[School]:
-        schools =  School.objects.all()
+        schools = School.objects.all()
 
         if school_type is not None:
-            schools = schools.filter(school_type=school_type.replace(" ", "_").upper()) # Convert to upper snake case.
+            schools = schools.filter(school_type=school_type.replace(" ", "_").upper())  # Convert to upper snake case.
         if school_name is not None:
             schools = schools.filter(name__icontains=school_name)
         if school_city is not None:
@@ -51,7 +51,7 @@ class Query(graphene.ObjectType):
         
         return schools
 
-    def resolve_school(self, info: ResolveInfo, school_id: int = None) -> School:
+    def resolve_school(self, info: ResolveInfo, school_id: int = None) -> Optional[School]:
         if school_id is not None:
             return School.objects.get(pk=school_id)
         else:

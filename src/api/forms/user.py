@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth import get_user_model
 from mypy.types import JsonDict
 
-from ..utils import EMAIL_TAKEN_MESSAGE, USERNAME_TAKEN_MESSAGE, INCORRECT_OLD_PASSWORD, UNABLE_TO_AUTHENTICATE_MESSAGE
+from api.utils.messages import EMAIL_TAKEN_MESSAGE, USERNAME_TAKEN_MESSAGE, INCORRECT_OLD_PASSWORD, UNABLE_TO_AUTHENTICATE_MESSAGE
 
 
 class RegisterForm(forms.ModelForm):
@@ -48,7 +48,7 @@ class LoginForm(forms.ModelForm):
 class UpdateUserForm(forms.ModelForm):
     class Meta:
         model = get_user_model()
-        fields = ("username", "email", "title", "bio", "avatar", "language")
+        fields = ("username", "email", "title", "bio", "avatar")
 
     def clean_email(self) -> str:
         email = self.cleaned_data["email"]

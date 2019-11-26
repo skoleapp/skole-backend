@@ -48,7 +48,7 @@ class LoginForm(forms.ModelForm):
 class UpdateUserForm(forms.ModelForm):
     class Meta:
         model = get_user_model()
-        fields = ("username", "email", "title", "bio", "avatar", "language")
+        fields = ("username", "email", "title", "bio", "avatar")
 
     def clean_email(self) -> str:
         email = self.cleaned_data["email"]
@@ -72,5 +72,22 @@ class ChangePasswordForm(forms.ModelForm):
         fields = ("old_password", "new_password")
 
     def clean_old_password(self) -> None:
-        if not self.instance.check_password(self.cleaned_data["old_password"]):
+        old_password = self.cleaned_data["old_password"]
+        if not self.instance.check_password(old_password):
             raise forms.ValidationError(INCORRECT_OLD_PASSWORD)
+    
+        return old_password
+
+
+class DeleteUserForm(forms.ModelForm):
+    class Meta:
+        model = get_user_model()
+        fields = ("password",)
+
+    def clean_password(self) -> None:
+        password = self.cleaned_data["password"]
+        
+        if not self.instance.check_password(password):
+            raise forms.ValidationError("Incorrect password!")
+
+        return password

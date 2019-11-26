@@ -12,7 +12,7 @@ from mypy.types import JsonDict
 
 from app.models import User
 from ..forms import LoginForm
-from ..forms import RegisterForm, ChangePasswordForm, UpdateUserForm
+from ..forms import RegisterForm, ChangePasswordForm, UpdateUserForm, DeleteUserForm
 from ..utils import USER_DELETED_MESSAGE
 
 
@@ -29,14 +29,9 @@ class UserTypePublic(DjangoObjectType):
 
 
 class UserTypePrivate(DjangoObjectType):
-    language = graphene.String()
-
     class Meta:
         model = get_user_model()
-        fields = ("id", "username", "title", "bio", "avatar", "avatar_thumbnail", "points", "created", "email", "language", "schools")
-
-    def resolve_language(self, info: ResolveInfo) -> str:
-        return self.get_language_display()
+        fields = ("id", "username", "title", "bio", "avatar", "avatar_thumbnail", "points", "created", "email", "schools")
 
 
 class UserTypeChangePassword(DjangoObjectType):
@@ -103,13 +98,22 @@ class ChangePasswordMutation(DjangoModelFormMutation):
         return cls(user=info.context.user)
 
 
-class DeleteUserMutation(graphene.Mutation):
+class DeleteUserMutation(DjangoModelFormMutation):
+    user = graphene.Field(UserTypePrivate)
     message = graphene.String()
 
+    class Meta:
+        form_class = DeleteUserForm
+
+    @classmethod
+    def get_form_kwargs(cls, root: Any, info: ResolveInfo, **input: JsonDict) -> JsonDict:
+        return {"data": input, "instance": info.context.user}
+
+    @classmethod
     @login_required
-    def mutate(self, info: ResolveInfo) -> 'DeleteUserMutation':
+    def perform_mutate(cls, form: DeleteUserForm, info: ResolveInfo) -> 'DeleteUserMutation':
         info.context.user.delete()
-        return DeleteUserMutation(message=USER_DELETED_MESSAGE)
+        return cls(message=USER_DELETED_MESSAGE)
 
 
 class UpdateUserMutation(DjangoModelFormMutation):

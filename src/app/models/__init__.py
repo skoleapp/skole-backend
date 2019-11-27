@@ -10,5 +10,5 @@ from .school import School
 from .school_type import SchoolType
 from .subject import Subject
 from .user import User
-from .vote_holder import VoteHolder
 from .vote import Vote
+from .vote_holder import VoteHolder

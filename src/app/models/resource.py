@@ -1,8 +1,8 @@
 from django.db import models
 
 from .course import Course
-from .user import User
 from .resource_type import ResourceType
+from .user import User
 from .vote_holder import VoteHolder
 
 

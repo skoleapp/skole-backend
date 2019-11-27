@@ -5,5 +5,3 @@ VOTE_STATUS = (
     (UPVOTE, "upvote"),
     (DOWNVOTE, "downvote"),
 )
-
-

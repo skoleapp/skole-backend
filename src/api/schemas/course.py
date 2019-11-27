@@ -6,11 +6,11 @@ from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphql import ResolveInfo
 from graphql_extensions.auth.decorators import login_required
 
-from api.schemas.user import UserTypePublic
-from api.schemas.resource import ResourceType
-from app.models import Course, Resource
 from api.forms.course import CreateCourseForm
+from api.schemas.resource import ResourceType
+from api.schemas.user import UserTypePublic
 from api.utils.points import POINTS_COURSE_UPVOTED, POINTS_COURSE_DOWNVOTED
+from app.models import Course, Resource
 
 
 class CourseType(DjangoObjectType):
@@ -56,12 +56,12 @@ class Query(graphene.ObjectType):
     course = graphene.Field(CourseType, course_id=graphene.Int())
 
     def resolve_courses(
-        self,
-        info: ResolveInfo,
-        course_name: Optional[str] = None,
-        course_code: Optional[str] = None,
-        subject_id: Optional[int] = None,
-        school_id: Optional[int] = None
+            self,
+            info: ResolveInfo,
+            course_name: Optional[str] = None,
+            course_code: Optional[str] = None,
+            subject_id: Optional[int] = None,
+            school_id: Optional[int] = None
     ) -> List[Course]:
         courses = Course.objects.all()
 

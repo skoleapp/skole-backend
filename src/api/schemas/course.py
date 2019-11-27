@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 
 import graphene
 from graphene_django import DjangoObjectType
@@ -9,7 +9,8 @@ from graphql_extensions.auth.decorators import login_required
 from api.schemas.user import UserTypePublic
 from api.schemas.resource import ResourceType
 from app.models import Course, Resource
-from api.forms import CreateCourseForm
+from api.forms.course import CreateCourseForm
+from api.utils.points import POINTS_COURSE_UPVOTED, POINTS_COURSE_DOWNVOTED
 
 
 class CourseType(DjangoObjectType):
@@ -22,6 +23,12 @@ class CourseType(DjangoObjectType):
 
     def resolve_resources(self, info: ResolveInfo) -> List[Resource]:
         return self.resources.all()
+
+    def resolve_points(self, info: ResolveInfo) -> int:
+        points = 0
+        points += self.upvotes * POINTS_COURSE_UPVOTED
+        points += self.downvotes * POINTS_COURSE_DOWNVOTED
+        return points
 
 
 class CreateCourseMutation(DjangoModelFormMutation):
@@ -51,10 +58,10 @@ class Query(graphene.ObjectType):
     def resolve_courses(
         self,
         info: ResolveInfo,
-        course_name: str = None,
-        course_code: str = None,
-        subject_id: int = None,
-        school_id: int = None
+        course_name: Optional[str] = None,
+        course_code: Optional[str] = None,
+        subject_id: Optional[int] = None,
+        school_id: Optional[int] = None
     ) -> List[Course]:
         courses = Course.objects.all()
 

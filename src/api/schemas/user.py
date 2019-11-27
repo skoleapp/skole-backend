@@ -10,10 +10,10 @@ from graphql_extensions.auth.decorators import login_required
 from graphql_jwt.decorators import token_auth
 from mypy.types import JsonDict
 
-from app.models import User
-from ..forms import LoginForm
-from ..forms import RegisterForm, ChangePasswordForm, UpdateUserForm, DeleteUserForm
-from ..utils import USER_DELETED_MESSAGE
+from app.models.user import User
+from api.forms.user import LoginForm, RegisterForm, ChangePasswordForm, UpdateUserForm
+from api.utils.messages import USER_DELETED_MESSAGE
+from api.utils.points import get_points_of_user
 
 
 class UserTypeRegister(DjangoObjectType):
@@ -24,18 +24,26 @@ class UserTypeRegister(DjangoObjectType):
 
 class UserTypePublic(DjangoObjectType):
     avatar_thumbnail = graphene.String()
+    points = graphene.Int()
 
     class Meta:
         model = get_user_model()
         fields = ("id", "username", "title", "bio", "avatar", "avatar_thumbnail", "points", "created")
 
+    def resolve_points(self, info: ResolveInfo) -> int:
+        return get_points_of_user(self)
+
 
 class UserTypePrivate(DjangoObjectType):
     avatar_thumbnail = graphene.String()
+    points = graphene.Int()
 
     class Meta:
         model = get_user_model()
         fields = ("id", "username", "title", "bio", "avatar", "avatar_thumbnail", "points", "created", "email", "schools")
+
+    def resolve_points(self, info: ResolveInfo) -> int:
+        return get_points_of_user(self)
 
 
 class UserTypeChangePassword(DjangoObjectType):
@@ -82,7 +90,7 @@ class LoginMutation(DjangoModelFormMutation):
 
     @classmethod
     @token_auth
-    def perform_mutate(cls, root: Any, info: ResolveInfo, user: 'User', **kwargs: JsonDict) -> 'LoginMutation':
+    def perform_mutate(cls, root: Any, info: ResolveInfo, user: User, **kwargs: JsonDict) -> 'LoginMutation':
         return cls(user=user)
 
 
@@ -137,7 +145,7 @@ class UpdateUserMutation(DjangoModelFormMutation):
         files = info.context.FILES
 
         if "1" in files:
-            data["avatar"] = files["1"] # Overwrite form value with actual image.
+            data["avatar"] = files["1"]  # Overwrite form value with actual image.
 
         user = info.context.user
         get_user_model().objects.update_user(user, **data)

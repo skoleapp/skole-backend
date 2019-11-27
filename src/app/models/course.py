@@ -7,6 +7,7 @@ from .user import User
 
 class Course(models.Model):
     """Models one course."""
+
     name = models.CharField(max_length=200)
     code = models.CharField(max_length=30, null=True, blank=True)
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name="courses")
@@ -14,7 +15,9 @@ class Course(models.Model):
     # TODO: custom deletor, which marks the user as some anonymous user
     creator = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name="created_courses")
 
-    points = models.IntegerField(default=0)
+    upvotes = models.IntegerField(default=0)
+    downvotes = models.IntegerField(default=0)
+
     modified = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 

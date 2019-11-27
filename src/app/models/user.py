@@ -9,6 +9,7 @@ from imagekit.processors import ResizeToFill
 from app.utils import DEFAULT_AVATAR
 
 
+
 class UserManager(BaseUserManager):
     def create_user(self, email: str, username: str, password: str) -> 'User':
         user = self.model(email=self.normalize_email(email), username=username)
@@ -76,7 +77,6 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     is_staff = models.BooleanField(default=False)
 
-    points = models.IntegerField(default=0)
     modified = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 

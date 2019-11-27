@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth import get_user_model
 from mypy.types import JsonDict
 
-from api.utils.messages import EMAIL_TAKEN_MESSAGE, USERNAME_TAKEN_MESSAGE, INCORRECT_OLD_PASSWORD, UNABLE_TO_AUTHENTICATE_MESSAGE
+from api.utils.messages import EMAIL_TAKEN_MESSAGE, USERNAME_TAKEN_MESSAGE, INCORRECT_OLD_PASSWORD, UNABLE_TO_AUTHENTICATE_MESSAGE, INCORRECT_PASSWORD
 
 
 class RegisterForm(forms.ModelForm):
@@ -72,5 +72,22 @@ class ChangePasswordForm(forms.ModelForm):
         fields = ("old_password", "new_password")
 
     def clean_old_password(self) -> None:
-        if not self.instance.check_password(self.cleaned_data["old_password"]):
+        old_password = self.cleaned_data["old_password"]
+        if not self.instance.check_password(old_password):
             raise forms.ValidationError(INCORRECT_OLD_PASSWORD)
+    
+        return old_password
+
+
+class DeleteUserForm(forms.ModelForm):
+    class Meta:
+        model = get_user_model()
+        fields = ("password",)
+
+    def clean_password(self) -> None:
+        password = self.cleaned_data["password"]
+        
+        if not self.instance.check_password(password):
+            raise forms.ValidationError(INCORRECT_PASSWORD)
+
+        return password

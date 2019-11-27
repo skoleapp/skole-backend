@@ -186,40 +186,31 @@
 
 - model: app.VoteHolder
   pk: 1
-  fields:
-    temp: ""
+  fields: {}
 - model: app.VoteHolder
   pk: 2
-  fields:
-    temp: ""
+  fields: {}
 - model: app.VoteHolder
   pk: 3
-  fields:
-    temp: ""
+  fields: {}
 - model: app.VoteHolder
   pk: 4
-  fields:
-    temp: ""
+  fields: {}
 - model: app.VoteHolder
   pk: 5
-  fields:
-    temp: ""
+  fields: {}
 - model: app.VoteHolder
   pk: 6
-  fields:
-    temp: ""
+  fields: {}
 - model: app.VoteHolder
   pk: 7
-  fields:
-    temp: ""
+  fields: {}
 - model: app.VoteHolder
   pk: 8
-  fields:
-    temp: ""
+  fields: {}
 - model: app.VoteHolder
   pk: 9
-  fields:
-    temp: ""
+  fields: {}
 
 
 - model: app.Vote
@@ -244,28 +235,22 @@
 
 - model: app.CommentThread
   pk: 1
-  fields:
-    temp: ""
+  fields: {}
 - model: app.CommentThread
   pk: 2
-  fields:
-    temp: ""
+  fields: {}
 - model: app.CommentThread
   pk: 3
-  fields:
-    temp: ""
+  fields: {}
 - model: app.CommentThread
   pk: 4
-  fields:
-    temp: ""
+  fields: {}
 - model: app.CommentThread
   pk: 5
-  fields:
-    temp: ""
+  fields: {}
 - model: app.CommentThread
   pk: 6
-  fields:
-    temp: ""
+  fields: {}
 
 
 - model: app.Comment

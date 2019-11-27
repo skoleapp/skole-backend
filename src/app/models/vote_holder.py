@@ -2,4 +2,5 @@ from django.db import models
 
 
 class VoteHolder(models.Model):
-    temp = models.CharField(max_length=1)
+    """Used to link Votes to other models."""
+    pass

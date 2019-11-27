@@ -3,6 +3,7 @@ from django.db import models
 from .course import Course
 from .user import User
 from .resource_type import ResourceType
+from .vote_holder import VoteHolder
 
 
 class Resource(models.Model):
@@ -17,8 +18,7 @@ class Resource(models.Model):
     # TODO: custom deletor, which marks the user as some anonymous user
     creator = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name="created_resources")
 
-    upvotes = models.IntegerField(default=0)
-    downvotes = models.IntegerField(default=0)
+    vote_holder = models.OneToOneField(VoteHolder, on_delete=models.CASCADE, related_name="resource")
 
     modified = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)

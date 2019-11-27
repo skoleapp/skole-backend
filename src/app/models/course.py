@@ -4,6 +4,7 @@ from app.models import CommentThread
 from .school import School
 from .subject import Subject
 from .user import User
+from .vote_holder import VoteHolder
 
 
 class Course(models.Model):
@@ -17,8 +18,7 @@ class Course(models.Model):
     creator = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name="created_courses")
     comment_thread = models.OneToOneField(CommentThread, on_delete=models.CASCADE)
 
-    upvotes = models.IntegerField(default=0)
-    downvotes = models.IntegerField(default=0)
+    vote_holder = models.OneToOneField(VoteHolder, on_delete=models.CASCADE, related_name="course")
 
     modified = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)

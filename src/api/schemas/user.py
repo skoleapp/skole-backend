@@ -23,12 +23,16 @@ class UserTypeRegister(DjangoObjectType):
 
 
 class UserTypePublic(DjangoObjectType):
+    avatar_thumbnail = graphene.String()
+
     class Meta:
         model = get_user_model()
         fields = ("id", "username", "title", "bio", "avatar", "avatar_thumbnail", "points", "created")
 
 
 class UserTypePrivate(DjangoObjectType):
+    avatar_thumbnail = graphene.String()
+
     class Meta:
         model = get_user_model()
         fields = ("id", "username", "title", "bio", "avatar", "avatar_thumbnail", "points", "created", "email", "schools")

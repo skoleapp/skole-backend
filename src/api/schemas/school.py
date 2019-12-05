@@ -10,13 +10,15 @@ from app.models import School
 class SchoolType(DjangoObjectType):
     school_type = graphene.String()
     subjects = graphene.List(SubjectType)
+    city = graphene.String()
+    country = graphene.String()
 
     class Meta:
         model = School
         fields = ("id", "school_type", "name", "city", "country")
 
-    def resolve_school_type(self, info: ResolveInfo) -> str:
-        return self.get_school_type_display()
+    def resolve_country(self, info: ResolveInfo) -> str:
+        return self.city.country
 
 
 class Query(graphene.ObjectType):

@@ -4,6 +4,8 @@ import api.schemas.course
 import api.schemas.school
 import api.schemas.subject
 import api.schemas.user
+import api.schemas.resource
+import api.schemas.resource_type
 
 
 class Query(
@@ -12,6 +14,7 @@ class Query(
     api.schemas.subject.Query,
     api.schemas.user.Query,
     api.schemas.resource.Query,
+    api.schemas.resource_type.Query
 ):
     pass
 

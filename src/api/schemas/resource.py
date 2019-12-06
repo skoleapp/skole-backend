@@ -3,7 +3,7 @@ from graphene_django import DjangoObjectType
 from graphql import ResolveInfo
 
 from api.schemas.user import UserTypePublic
-from api.utils.points import get_points_of_resource
+from api.utils.points import get_points_for_resource
 from app.models import Resource
 
 
@@ -17,7 +17,7 @@ class ResourceType(DjangoObjectType):
         fields = ("id", "resource_type", "title", "file", "date", "creator", "points", "modified", "created")
 
         def resolve_points(self, info: ResolveInfo) -> int:
-            return get_points_of_resource(self)
+            return get_points_for_resource(self)
 
 
 class Query(graphene.ObjectType):

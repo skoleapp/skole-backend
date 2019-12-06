@@ -14,7 +14,7 @@ def aggregate(model: Any, field_name: str, multiplier: int) -> int:
     return model.aggregate(points=Coalesce(models.Sum(field_name), 0))["points"] * multiplier
 
 
-def get_points_of_user(user: User) -> int:
+def get_points_for_user(user: User) -> int:
     """Return all the summed up points of the user's created items."""
     points = 0
 
@@ -26,10 +26,10 @@ def get_points_of_user(user: User) -> int:
 
     return points
 
-def get_points_of_resource(resource: Resource) -> int:
+def get_points_for_resource(resource: Resource) -> int:
     """Return resource's points."""
     return aggregate(resource.votes, "status", POINTS_RESOURCE_MULTIPLIER)
 
-def get_points_of_course(course: Course) -> int:
+def get_points_for_course(course: Course) -> int:
     """Return course's points."""
     return aggregate(course.votes, "status", POINTS_COURSE_MULTIPLIER)

@@ -9,7 +9,7 @@ from graphql_extensions.auth.decorators import login_required
 from api.forms.course import CreateCourseForm
 from api.schemas.resource import ResourceType
 from api.schemas.user import UserTypePublic
-from api.utils.points import get_points_of_course
+from api.utils.points import get_points_for_course
 from app.models import Course, Resource
 
 
@@ -26,7 +26,7 @@ class CourseType(DjangoObjectType):
         return self.resources.all()
 
     def resolve_points(self, info: ResolveInfo) -> int:
-        return get_points_of_course(self)
+        return get_points_for_course(self)
 
 
 class CreateCourseMutation(DjangoModelFormMutation):

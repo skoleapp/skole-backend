@@ -3,23 +3,21 @@ from graphene_django import DjangoObjectType
 from graphql import ResolveInfo
 
 from api.schemas.user import UserTypePublic
-from api.utils.points import POINTS_RESOURCE_UPVOTED, POINTS_RESOURCE_DOWNVOTED
+from api.utils.points import get_points_of_resource
 from app.models import Resource
 
 
 class ResourceType(DjangoObjectType):
     points = graphene.Int()
     creator = graphene.Field(UserTypePublic)
+    resource_type = graphene.String()
 
     class Meta:
         model = Resource
-        fields = ("id", "resource_type", "title", "file", "date", "course", "creator", "points", "modified", "created")
+        fields = ("id", "resource_type", "title", "file", "date", "creator", "points", "modified", "created")
 
         def resolve_points(self, info: ResolveInfo) -> int:
-            points = 0
-            points += self.upvotes * POINTS_RESOURCE_UPVOTED
-            points += self.downvotes * POINTS_RESOURCE_DOWNVOTED
-            return points
+            return get_points_of_resource(self)
 
 
 class Query(graphene.ObjectType):

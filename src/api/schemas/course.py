@@ -9,13 +9,14 @@ from graphql_extensions.auth.decorators import login_required
 from api.forms.course import CreateCourseForm
 from api.schemas.resource import ResourceType
 from api.schemas.user import UserTypePublic
-from api.utils.points import POINTS_COURSE_UPVOTED, POINTS_COURSE_DOWNVOTED
+from api.utils.points import get_points_of_course
 from app.models import Course, Resource
 
 
 class CourseType(DjangoObjectType):
     creator = graphene.Field(UserTypePublic)
     resources = graphene.List(ResourceType)
+    points = graphene.Int()
 
     class Meta:
         model = Course
@@ -25,10 +26,7 @@ class CourseType(DjangoObjectType):
         return self.resources.all()
 
     def resolve_points(self, info: ResolveInfo) -> int:
-        points = 0
-        points += self.upvotes * POINTS_COURSE_UPVOTED
-        points += self.downvotes * POINTS_COURSE_DOWNVOTED
-        return points
+        return get_points_of_course(self)
 
 
 class CreateCourseMutation(DjangoModelFormMutation):

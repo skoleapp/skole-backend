@@ -2,7 +2,6 @@ from django.db import models
 
 from .comment_thread import CommentThread
 from .user import User
-from .vote_holder import VoteHolder
 
 
 class Comment(models.Model):
@@ -12,8 +11,6 @@ class Comment(models.Model):
     attachment = models.FileField(upload_to="uploads/comment_attachments", null=True)
     creator = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name="comments")
     comment_thread = models.ForeignKey(CommentThread, on_delete=models.CASCADE, related_name="comments")
-
-    vote_holder = models.OneToOneField(VoteHolder, on_delete=models.CASCADE, related_name="comment")
 
     modified = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)

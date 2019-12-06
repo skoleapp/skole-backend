@@ -11,4 +11,3 @@ from .school_type import SchoolType
 from .subject import Subject
 from .user import User
 from .vote import Vote
-from .vote_holder import VoteHolder

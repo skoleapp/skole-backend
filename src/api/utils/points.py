@@ -5,7 +5,6 @@ from django.db.models.functions import Coalesce
 
 from app.models import User
 
-
 POINTS_RESOURCE_UPVOTED = 10
 POINTS_RESOURCE_DOWNVOTED = -10
 POINTS_COURSE_UPVOTED = 5

@@ -1,11 +1,10 @@
-from api.schemas.user import UserTypePublic
-
 import graphene
 from graphene_django import DjangoObjectType
 from graphql import ResolveInfo
 
-from app.models import Resource
+from api.schemas.user import UserTypePublic
 from api.utils.points import POINTS_RESOURCE_UPVOTED, POINTS_RESOURCE_DOWNVOTED
+from app.models import Resource
 
 
 class ResourceType(DjangoObjectType):

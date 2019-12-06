@@ -1,5 +1,6 @@
 from django.db import models
 
+from app.models import CommentThread
 from .school import School
 from .subject import Subject
 from .user import User
@@ -14,9 +15,7 @@ class Course(models.Model):
     school = models.ForeignKey(School, on_delete=models.CASCADE, related_name="courses")
     # TODO: custom deletor, which marks the user as some anonymous user
     creator = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name="created_courses")
-
-    upvotes = models.IntegerField(default=0)
-    downvotes = models.IntegerField(default=0)
+    comment_thread = models.OneToOneField(CommentThread, on_delete=models.CASCADE)
 
     modified = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)

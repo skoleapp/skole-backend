@@ -75,7 +75,7 @@ class ChangePasswordForm(forms.ModelForm):
         old_password = self.cleaned_data["old_password"]
         if not self.instance.check_password(old_password):
             raise forms.ValidationError(INCORRECT_OLD_PASSWORD)
-    
+
         return old_password
 
 
@@ -86,7 +86,7 @@ class DeleteUserForm(forms.ModelForm):
 
     def clean_password(self) -> None:
         password = self.cleaned_data["password"]
-        
+
         if not self.instance.check_password(password):
             raise forms.ValidationError(INCORRECT_PASSWORD)
 

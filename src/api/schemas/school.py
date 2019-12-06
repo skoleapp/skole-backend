@@ -3,6 +3,7 @@ from typing import List, Optional
 import graphene
 from graphene_django import DjangoObjectType
 from graphql import ResolveInfo
+
 from api.schemas.subject import SubjectType
 from app.models import School
 
@@ -10,13 +11,15 @@ from app.models import School
 class SchoolType(DjangoObjectType):
     school_type = graphene.String()
     subjects = graphene.List(SubjectType)
+    city = graphene.String()
+    country = graphene.String()
 
     class Meta:
         model = School
         fields = ("id", "school_type", "name", "city", "country")
 
-    def resolve_school_type(self, info: ResolveInfo) -> str:
-        return self.get_school_type_display()
+    def resolve_country(self, info: ResolveInfo) -> str:
+        return self.city.country
 
 
 class Query(graphene.ObjectType):
@@ -27,16 +30,16 @@ class Query(graphene.ObjectType):
         school_city=graphene.String(),
         school_country=graphene.String(),
     )
-    
+
     school = graphene.Field(SchoolType, school_id=graphene.Int())
 
     def resolve_schools(
-        self,
-        info: ResolveInfo,
-        school_type: str = None,
-        school_name: str = None,
-        school_city: str = None,
-        school_country: str = None,
+            self,
+            info: ResolveInfo,
+            school_type: str = None,
+            school_name: str = None,
+            school_city: str = None,
+            school_country: str = None,
     ) -> List[School]:
         schools = School.objects.all()
 
@@ -48,7 +51,7 @@ class Query(graphene.ObjectType):
             schools = schools.filter(city__iexact=school_city)
         if school_country is not None:
             schools = schools.filter(country__iexact=school_country)
-        
+
         return schools
 
     def resolve_school(self, info: ResolveInfo, school_id: int = None) -> Optional[School]:

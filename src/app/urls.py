@@ -2,9 +2,9 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 from django.views.decorators.csrf import csrf_exempt
-from api.views import CustomGraphQLView
 
 import settings
+from api.views import CustomGraphQLView
 
 urlpatterns = [
     path("admin/", admin.site.urls),

@@ -10,10 +10,10 @@ from graphql_extensions.auth.decorators import login_required
 from graphql_jwt.decorators import token_auth
 from mypy.types import JsonDict
 
-from app.models.user import User
 from api.forms.user import LoginForm, RegisterForm, ChangePasswordForm, UpdateUserForm, DeleteUserForm
 from api.utils.messages import USER_DELETED_MESSAGE
 from api.utils.points import get_points_of_user
+from app.models.user import User
 
 
 class UserTypeRegister(DjangoObjectType):

@@ -1,7 +1,8 @@
 # https://stackoverflow.com/questions/57812673/how-to-upload-files-in-graphql-using-graphene-file-upload-with-apollo-upload-cli/58059674#58059674
+import json
+
 from django.http.response import HttpResponseBadRequest
 from graphene_django.views import GraphQLView, HttpError
-import json
 
 
 class CustomGraphQLView(GraphQLView):
@@ -24,7 +25,7 @@ class CustomGraphQLView(GraphQLView):
                         "Batch requests should receive a list, but received {}."
                     ).format(repr(request_json))
                     assert (
-                        len(request_json) > 0
+                            len(request_json) > 0
                     ), "Received an empty list in the batch request."
                 else:
                     assert isinstance(
@@ -72,7 +73,6 @@ def _place_files_in_operations(ops, fmap, fobjs):
 
 
 def _place_file_in_operations(ops, path, obj):
-
     if len(path) == 0:
         return obj
 
@@ -94,4 +94,4 @@ def _insert_in_dict(dct, key, val):
 
 
 def _insert_in_list(lst, key, val):
-    return [*lst[:key], val, *lst[key+1:]]
+    return [*lst[:key], val, *lst[key + 1:]]

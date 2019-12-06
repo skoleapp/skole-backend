@@ -214,8 +214,6 @@
     creator: 2
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-  
-  
 
 
 - model: app.ResourceType

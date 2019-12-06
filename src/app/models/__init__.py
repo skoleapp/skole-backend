@@ -1,6 +1,5 @@
 from .city import City
 from .comment import Comment
-from .comment_thread import CommentThread
 from .country import Country
 from .course import Course
 from .resource import Resource

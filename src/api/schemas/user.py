@@ -153,12 +153,19 @@ class UpdateUserMutation(DjangoModelFormMutation):
 
 
 class Query(graphene.ObjectType):
-    users = graphene.List(UserTypePublic)
+    leaderboard = graphene.List(UserTypePublic)
     user = graphene.Field(UserTypePublic, user_id=graphene.Int(required=True))
     user_me = graphene.Field(UserTypePrivate)
 
-    def resolve_users(self, info: ResolveInfo) -> List[User]:
-        return get_user_model().objects.filter(is_superuser=False)
+    def resolve_leaderboard(self, info: ResolveInfo) -> List[User]:
+        """
+        Return 100 users with the most points. Need to handle the sorting
+        with Python since the ORM has no idea about the point resolvers.
+        """
+        return sorted(
+            get_user_model().objects.filter(is_superuser=False),
+            key = lambda u: get_points_of_user(u), reverse=True
+        )[:100]
 
     def resolve_user(self, info: ResolveInfo, user_id: int) -> User:
         return get_user_model().objects.filter(is_superuser=False).get(pk=user_id)

@@ -164,7 +164,7 @@ class Query(graphene.ObjectType):
         """
         return sorted(
             get_user_model().objects.filter(is_superuser=False),
-            key = lambda u: get_points_of_user(u), reverse=True
+            key = lambda u: get_points_for_user(u), reverse=True
         )[:100]
 
     def resolve_user(self, info: ResolveInfo, user_id: int) -> User:

@@ -16,8 +16,8 @@ class ResourceType(DjangoObjectType):
         model = Resource
         fields = ("id", "resource_type", "title", "file", "date", "creator", "points", "modified", "created")
 
-        def resolve_points(self, info: ResolveInfo) -> int:
-            return get_points_for_resource(self)
+    def resolve_points(self, info: ResolveInfo) -> int:
+        return get_points_for_resource(self)
 
 
 class Query(graphene.ObjectType):

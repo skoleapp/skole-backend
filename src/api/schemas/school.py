@@ -44,13 +44,13 @@ class Query(graphene.ObjectType):
         schools = School.objects.all()
 
         if school_type is not None:
-            schools = schools.filter(school_type=school_type.replace(" ", "_").upper())  # Convert to upper snake case.
+            schools = schools.filter(school_type__name=school_type)
         if school_name is not None:
             schools = schools.filter(name__icontains=school_name)
         if school_city is not None:
-            schools = schools.filter(city__iexact=school_city)
+            schools = schools.filter(city__name__iexact=school_city)
         if school_country is not None:
-            schools = schools.filter(country__iexact=school_country)
+            schools = schools.filter(city__country__name__iexact=school_country)
 
         return schools
 

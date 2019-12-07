@@ -12,7 +12,7 @@ from mypy.types import JsonDict
 
 from api.forms.user import LoginForm, RegisterForm, ChangePasswordForm, UpdateUserForm, DeleteUserForm
 from api.utils.messages import USER_DELETED_MESSAGE
-from api.utils.points import get_points_of_user
+from api.utils.points import get_points_for_user
 from app.models.user import User
 
 
@@ -31,7 +31,7 @@ class UserTypePublic(DjangoObjectType):
         fields = ("id", "username", "title", "bio", "avatar", "avatar_thumbnail", "points", "created")
 
     def resolve_points(self, info: ResolveInfo) -> int:
-        return get_points_of_user(self)
+        return get_points_for_user(self)
 
 
 class UserTypePrivate(DjangoObjectType):
@@ -43,7 +43,7 @@ class UserTypePrivate(DjangoObjectType):
         fields = ("id", "username", "title", "bio", "avatar", "avatar_thumbnail", "points", "created", "email", "schools")
 
     def resolve_points(self, info: ResolveInfo) -> int:
-        return get_points_of_user(self)
+        return get_points_for_user(self)
 
 
 class UserTypeChangePassword(DjangoObjectType):

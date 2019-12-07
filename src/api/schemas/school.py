@@ -13,13 +13,21 @@ class SchoolType(DjangoObjectType):
     school_type = graphene.String()
     city = graphene.String()
     country = graphene.String()
+    subject_count = graphene.Int()
+    course_count = graphene.Int()
 
     class Meta:
         model = School
-        fields = ("id", "school_type", "name", "city", "subjects", "courses")
+        fields = ("id", "school_type", "name", "city")
 
     def resolve_country(self, info: ResolveInfo) -> Country:
         return self.city.country
+
+    def resolve_subject_count(self, info: ResolveInfo) -> int:
+        return self.subjects.count()
+
+    def resolve_course_count(self, info: ResolveInfo) -> int:
+        return self.courses.count()
 
 
 class Query(graphene.ObjectType):

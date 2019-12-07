@@ -8,14 +8,18 @@ from api.schemas.course import CourseType
 
 
 class SubjectType(DjangoObjectType):
-    courses = graphene.List(CourseType)
+    school_count = graphene.Int()
+    course_count = graphene.Int()
 
     class Meta:
         model = Subject
-        fields = ("id", "name", "schools")
+        fields = ("id", "name")
 
-    def resolve_courses(self, info: ResolveInfo) -> List[Course]:
-        return self.schools.courses.all()
+    def resolve_school_count(self, info: ResolveInfo) -> int:
+        return self.schools.count()
+
+    def resolve_course_count(self, info: ResolveInfo) -> int:
+        return self.courses.count()
 
 
 class Query(graphene.ObjectType):

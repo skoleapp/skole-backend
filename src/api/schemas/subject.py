@@ -5,7 +5,6 @@ from graphene_django import DjangoObjectType
 from graphql import ResolveInfo
 from app.models import Subject, Course
 from api.schemas.course import CourseType
-from django.db.models import Count
 
 
 class SubjectType(DjangoObjectType):

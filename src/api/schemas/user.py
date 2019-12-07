@@ -17,12 +17,13 @@ from app.models.user import User
 
 
 class UserType(DjangoObjectType):
+    email = graphene.String()
     avatar_thumbnail = graphene.String()
     points = graphene.Int()
 
     class Meta:
         model = get_user_model()
-        fields = ("id", "username", "email", "title", "bio", "avatar", "avatar_thumbnail", "points", "created")
+        fields = ("id", "username", "title", "bio", "avatar", "avatar_thumbnail", "points", "created")
 
     def resolve_email(self, info: ResolveInfo) -> Optional[str]:
         """
@@ -34,7 +35,7 @@ class UserType(DjangoObjectType):
         if not user.is_anonymous and user.email == self.email:
             return self.email
         else:
-            return ""
+            return None
 
     def resolve_points(self, info: ResolveInfo) -> int:
         return get_points_for_user(self)

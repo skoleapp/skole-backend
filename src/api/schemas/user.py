@@ -13,17 +13,30 @@ from mypy.types import JsonDict
 from api.forms.user import LoginForm, RegisterForm, ChangePasswordForm, UpdateUserForm, DeleteUserForm
 from api.utils.messages import USER_DELETED_MESSAGE
 from api.utils.points import get_points_for_user
-from app.models.user import User
+from app.models import User, Course, Resource
 
 
 class UserType(DjangoObjectType):
     email = graphene.String()
     avatar_thumbnail = graphene.String()
     points = graphene.Int()
+    course_count = graphene.Int()
+    resource_count = graphene.Int()
 
     class Meta:
         model = get_user_model()
-        fields = ("id", "username", "title", "bio", "avatar", "avatar_thumbnail", "points", "created")
+        fields = (
+            "id",
+            "username",
+            "title",
+            "bio",
+            "avatar",
+            "avatar_thumbnail",
+            "points",
+            "created",
+            "created_courses",
+            "created_resources"
+        )
 
     def resolve_email(self, info: ResolveInfo) -> Optional[str]:
         """
@@ -39,6 +52,12 @@ class UserType(DjangoObjectType):
 
     def resolve_points(self, info: ResolveInfo) -> int:
         return get_points_for_user(self)
+
+    def resolve_course_count(self, info: ResolveInfo) -> int:
+        return self.created_courses.count()
+
+    def resolve_resource_count(self, info: ResolveInfo) -> int:
+        return self.created_resources.count()
 
 
 class RegisterMutation(DjangoModelFormMutation):

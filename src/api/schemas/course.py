@@ -14,6 +14,7 @@ from app.models import Course, Resource
 
 class CourseType(DjangoObjectType):
     points = graphene.Int()
+    resource_count = graphene.Int()
 
     class Meta:
         model = Course
@@ -21,6 +22,9 @@ class CourseType(DjangoObjectType):
 
     def resolve_points(self, info: ResolveInfo) -> int:
         return get_points_for_course(self)
+
+    def resolve_resource_count(self, info: ResolveInfo) -> int:
+        return self.resources.count()
 
 
 class CreateCourseMutation(DjangoModelFormMutation):

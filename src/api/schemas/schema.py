@@ -7,6 +7,7 @@ import api.schemas.subject
 import api.schemas.user
 import api.schemas.resource
 import api.schemas.resource_type
+import api.schemas.contact
 
 
 class Query(
@@ -24,6 +25,7 @@ class Query(
 class Mutation(
     api.schemas.user.Mutation,
     api.schemas.course.Mutation,
+    api.schemas.contact.Mutation,
 ):
     pass
 

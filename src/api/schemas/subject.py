@@ -3,13 +3,19 @@ from typing import List, Optional
 import graphene
 from graphene_django import DjangoObjectType
 from graphql import ResolveInfo
-from app.models import Subject
+from app.models import Subject, Course
+from api.schemas.course import CourseType
 
 
 class SubjectType(DjangoObjectType):
+    courses = graphene.List(CourseType)
+
     class Meta:
         model = Subject
         fields = ("id", "name", "schools")
+
+    def resolve_courses(self, info: ResolveInfo) -> List[Course]:
+        return self.schools.courses.all()
 
 
 class Query(graphene.ObjectType):

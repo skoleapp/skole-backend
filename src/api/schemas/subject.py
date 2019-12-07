@@ -19,7 +19,7 @@ class SubjectType(DjangoObjectType):
         return self.schools.count()
 
     def resolve_course_count(self, info: ResolveInfo) -> int:
-        return Course.objects.filter(subject__pk=self.pk).count()
+        return self.courses.count()
 
 
 class Query(graphene.ObjectType):

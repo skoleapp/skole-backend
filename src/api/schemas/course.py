@@ -8,13 +8,11 @@ from graphql_extensions.auth.decorators import login_required
 
 from api.forms.course import CreateCourseForm
 from api.schemas.resource import ResourceType
-from api.schemas.user import UserTypePublic
 from api.utils.points import get_points_for_course
 from app.models import Course, Resource
 
 
 class CourseType(DjangoObjectType):
-    creator = graphene.Field(UserTypePublic)
     points = graphene.Int()
 
     class Meta:

@@ -2,14 +2,12 @@ import graphene
 from graphene_django import DjangoObjectType
 from graphql import ResolveInfo
 
-from api.schemas.user import UserTypePublic
 from api.utils.points import get_points_for_resource
 from app.models import Resource
 
 
 class ResourceType(DjangoObjectType):
     resource_type = graphene.String()
-    creator = graphene.Field(UserTypePublic)
     points = graphene.Int()
 
     class Meta:

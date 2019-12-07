@@ -1,4 +1,4 @@
-from typing import List, Any
+from typing import List, Any, Optional
 
 import graphene
 from django.contrib.auth import get_user_model
@@ -16,45 +16,31 @@ from api.utils.points import get_points_for_user
 from app.models.user import User
 
 
-class UserTypeRegister(DjangoObjectType):
-    class Meta:
-        model = get_user_model()
-        fields = ("id", "created")
-
-
-class UserTypePublic(DjangoObjectType):
+class UserType(DjangoObjectType):
     avatar_thumbnail = graphene.String()
     points = graphene.Int()
 
     class Meta:
         model = get_user_model()
-        fields = ("id", "username", "title", "bio", "avatar", "avatar_thumbnail", "points", "created")
+        fields = ("id", "username", "email", "title", "bio", "avatar", "avatar_thumbnail", "points", "created")
+
+    def resolve_email(self, info: ResolveInfo) -> Optional[str]:
+        """
+        Return email only if authenticated and querying
+        through userMe query or user query with own ID. 
+        """
+        user = info.context.user
+
+        if not user.is_anonymous and user.email == self.email:
+            return self.email
+        else:
+            return ""
 
     def resolve_points(self, info: ResolveInfo) -> int:
         return get_points_for_user(self)
-
-
-class UserTypePrivate(DjangoObjectType):
-    avatar_thumbnail = graphene.String()
-    points = graphene.Int()
-
-    class Meta:
-        model = get_user_model()
-        fields = ("id", "username", "title", "bio", "avatar", "avatar_thumbnail", "points", "created", "email", "schools")
-
-    def resolve_points(self, info: ResolveInfo) -> int:
-        return get_points_for_user(self)
-
-
-class UserTypeChangePassword(DjangoObjectType):
-    class Meta:
-        model = get_user_model()
-        fields = ("id", "modified")
 
 
 class RegisterMutation(DjangoModelFormMutation):
-    user = graphene.Field(UserTypeRegister)
-
     class Meta:
         form_class = RegisterForm
 
@@ -71,7 +57,6 @@ class RegisterMutation(DjangoModelFormMutation):
 
 class LoginMutation(DjangoModelFormMutation):
     token = graphene.String()
-    user = graphene.Field(UserTypePrivate)
 
     class Meta:
         form_class = LoginForm
@@ -95,8 +80,6 @@ class LoginMutation(DjangoModelFormMutation):
 
 
 class ChangePasswordMutation(DjangoModelFormMutation):
-    user = graphene.Field(UserTypeChangePassword)
-
     class Meta:
         form_class = ChangePasswordForm
 
@@ -111,7 +94,6 @@ class ChangePasswordMutation(DjangoModelFormMutation):
 
 
 class DeleteUserMutation(DjangoModelFormMutation):
-    user = graphene.Field(UserTypePrivate)
     message = graphene.String()
 
     class Meta:
@@ -129,8 +111,6 @@ class DeleteUserMutation(DjangoModelFormMutation):
 
 
 class UpdateUserMutation(DjangoModelFormMutation):
-    user = graphene.Field(UserTypePrivate)
-
     class Meta:
         form_class = UpdateUserForm
 
@@ -153,9 +133,9 @@ class UpdateUserMutation(DjangoModelFormMutation):
 
 
 class Query(graphene.ObjectType):
-    leaderboard = graphene.List(UserTypePublic)
-    user = graphene.Field(UserTypePublic, user_id=graphene.Int(required=True))
-    user_me = graphene.Field(UserTypePrivate)
+    leaderboard = graphene.List(UserType)
+    user = graphene.Field(UserType, user_id=graphene.Int(required=True))
+    user_me = graphene.Field(UserType)
 
     def resolve_leaderboard(self, info: ResolveInfo) -> List[User]:
         """

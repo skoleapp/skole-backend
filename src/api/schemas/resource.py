@@ -8,9 +8,9 @@ from app.models import Resource
 
 
 class ResourceType(DjangoObjectType):
-    points = graphene.Int()
-    creator = graphene.Field(UserTypePublic)
     resource_type = graphene.String()
+    creator = graphene.Field(UserTypePublic)
+    points = graphene.Int()
 
     class Meta:
         model = Resource

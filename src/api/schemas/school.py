@@ -6,28 +6,20 @@ from graphql import ResolveInfo
 
 from api.schemas.subject import SubjectType
 from api.schemas.course import CourseType
-from app.models import School
+from app.models import School, Country, Course, Subject
 
 
 class SchoolType(DjangoObjectType):
     school_type = graphene.String()
     city = graphene.String()
     country = graphene.String()
-    subjects = graphene.List(SubjectType)
-    courses = graphene.List(CourseType)
 
     class Meta:
         model = School
-        fields = ("id", "school_type", "name", "city", "country")
+        fields = ("id", "school_type", "name", "city", "subjects", "courses")
 
-    def resolve_country(self, info: ResolveInfo) -> str:
+    def resolve_country(self, info: ResolveInfo) -> Country:
         return self.city.country
-
-    def resolve_subjects(self, info: ResolveInfo) -> str:
-        return self.subjects.all()
-
-    def resolve_courses(self, info: ResolveInfo) -> str:
-        return self.courses.all()
 
 
 class Query(graphene.ObjectType):
@@ -62,7 +54,7 @@ class Query(graphene.ObjectType):
 
         return schools
 
-    def resolve_school(self, info: ResolveInfo, school_id: int = None) -> Optional[School]:
+    def resolve_school(self, info: ResolveInfo, school_id: Optional[int] = None) -> Optional[School]:
         if school_id is not None:
             return School.objects.get(pk=school_id)
         else:

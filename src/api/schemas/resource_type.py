@@ -8,7 +8,7 @@ from typing import List
 class ResourceTypeObjectType(DjangoObjectType):
     class Meta:
         model = ResourceType
-        fields = ("name",)
+        fields = ("id", "name")
 
 
 class Query(graphene.ObjectType):

@@ -8,22 +8,16 @@ from graphql_extensions.auth.decorators import login_required
 
 from api.forms.course import CreateCourseForm
 from api.schemas.resource import ResourceType
-from api.schemas.user import UserTypePublic
 from api.utils.points import get_points_for_course
 from app.models import Course, Resource
 
 
 class CourseType(DjangoObjectType):
-    creator = graphene.Field(UserTypePublic)
-    resources = graphene.List(ResourceType)
     points = graphene.Int()
 
     class Meta:
         model = Course
-        fields = ("id", "name", "code", "subject", "school", "creator", "points", "modified", "created", "resources")
-
-    def resolve_resources(self, info: ResolveInfo) -> List[Resource]:
-        return self.resources.all()
+        fields = ("id", "name", "code", "subject", "school", "creator", "modified", "created", "resources")
 
     def resolve_points(self, info: ResolveInfo) -> int:
         return get_points_for_course(self)

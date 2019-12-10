@@ -1,8 +1,10 @@
+from typing import List
+
 import graphene
 from graphene_django import DjangoObjectType
 from graphql import ResolveInfo
+
 from app.models import ResourceType
-from typing import List
 
 
 class ResourceTypeObjectType(DjangoObjectType):

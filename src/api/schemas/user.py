@@ -14,7 +14,7 @@ import settings
 from api.forms.user import LoginForm, RegisterForm, ChangePasswordForm, UpdateUserForm, DeleteUserForm
 from api.utils.messages import USER_DELETED_MESSAGE
 from api.utils.points import get_points_for_user
-from app.models import User, Course, Resource
+from app.models import User
 from app.utils.user import DEFAULT_AVATAR, DEFAULT_AVATAR_THUMBNAIL
 
 
@@ -177,12 +177,11 @@ class Query(graphene.ObjectType):
         """
         return sorted(
             get_user_model().objects.filter(is_superuser=False),
-            key = lambda u: get_points_for_user(u), reverse=True
+            key=lambda u: get_points_for_user(u), reverse=True
         )[:100]
 
     def resolve_user(self, info: ResolveInfo, user_id: int) -> User:
         return get_user_model().objects.filter(is_superuser=False).get(pk=user_id)
-
 
     @login_required
     def resolve_user_me(self, info: ResolveInfo) -> User:

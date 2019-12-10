@@ -3,8 +3,8 @@ from typing import List, Optional
 import graphene
 from graphene_django import DjangoObjectType
 from graphql import ResolveInfo
-from app.models import Subject, Course
-from api.schemas.course import CourseType
+
+from app.models import Subject
 
 
 class SubjectType(DjangoObjectType):

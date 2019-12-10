@@ -49,7 +49,7 @@ class UpvoteCourseMutation(graphene.Mutation):
     def mutate(self, info: ResolveInfo, course_id: int) -> 'UpvoteCourseMutation':
         course = Course.objects.get(pk=course_id)
         try:
-            vote = course.votes.get(pk=info.context.user.id)
+            vote = course.votes.get(creator=info.context.user)
             if vote.status == UPVOTE:
                 return UpvoteCourseMutation(course=course)
             else:

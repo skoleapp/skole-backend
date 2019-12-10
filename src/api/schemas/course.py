@@ -8,7 +8,8 @@ from graphql_extensions.auth.decorators import login_required
 
 from api.forms.course import CreateCourseForm
 from api.utils.points import get_points_for_course
-from app.models import Course
+from app.models import Course, Vote
+from app.utils.vote import UPVOTE
 
 
 class CourseType(DjangoObjectType):
@@ -37,6 +38,31 @@ class CreateCourseMutation(DjangoModelFormMutation):
     def perform_mutate(cls, form: CreateCourseForm, info: ResolveInfo) -> 'CreateCourseMutation':
         course = Course.objects.create(creator=info.context.user, **form.cleaned_data)
         return cls(course=course)
+
+
+class UpvoteCourseMutation(graphene.Mutation):
+    class Arguments:
+        course_id = graphene.Int()
+    course = graphene.Field(CourseType)
+
+    @login_required
+    def mutate(self, info: ResolveInfo, course_id: int) -> 'UpvoteCourseMutation':
+        course = Course.objects.get(pk=course_id)
+        try:
+            vote = course.votes.get(pk=info.context.user.id)
+            if vote.status == UPVOTE:
+                return UpvoteCourseMutation(course=course)
+            else:
+                vote.delete()
+        except Vote.DoesNotExist:
+            pass
+
+        Vote.objects.create_vote(
+            creator=info.context.user,
+            status=UPVOTE,
+            target=course,
+        )
+        return UpvoteCourseMutation(course=course)
 
 
 class Query(graphene.ObjectType):
@@ -77,3 +103,4 @@ class Query(graphene.ObjectType):
 
 class Mutation(graphene.ObjectType):
     create_course = CreateCourseMutation.Field()
+    upvote_course = UpvoteCourseMutation.Field()

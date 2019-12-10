@@ -3,7 +3,7 @@
   fields:
     username: "root"
     email: "root@root.com"
-    password: "root"
+    password: "pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4="
     title: null
     bio: null
     avatar: null
@@ -15,7 +15,7 @@
   fields:
     username: "testuser2"
     email: "test2@test.com"
-    password: "password"
+    password: "pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4="
     title: null
     bio: null
     avatar: "uploads/avatars/user_image.jpg"
@@ -28,7 +28,7 @@
   fields:
     username: "testuser3"
     email: "test3@test.com"
-    password: "password"
+    password: "pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4="
     title: null
     bio: null
     avatar: null
@@ -41,7 +41,7 @@
   fields:
     username: "testuser4"
     email: "test4@test.com"
-    password: "password"
+    password: "pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4="
     title: null
     bio: null
     avatar: null
@@ -54,7 +54,7 @@
   fields:
     username: "testuser5"
     email: "test5@test.com"
-    password: "password"
+    password: "pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4="
     title: null
     bio: null
     avatar: null
@@ -67,7 +67,7 @@
   fields:
     username: "testuser6"
     email: "test6@test.com"
-    password: "password"
+    password: "pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4="
     title: null
     bio: null
     avatar: null

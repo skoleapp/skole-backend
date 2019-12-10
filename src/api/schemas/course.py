@@ -7,9 +7,8 @@ from graphql import ResolveInfo
 from graphql_extensions.auth.decorators import login_required
 
 from api.forms.course import CreateCourseForm
-from api.schemas.resource import ResourceType
 from api.utils.points import get_points_for_course
-from app.models import Course, Resource
+from app.models import Course
 
 
 class CourseType(DjangoObjectType):

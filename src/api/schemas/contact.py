@@ -1,12 +1,13 @@
-import graphene
-from graphene_django.forms.mutation import DjangoFormMutation
-from api.forms.contact import ContactForm
-from graphql import ResolveInfo
-from django.core.mail import send_mail
 import os
-from api.utils.messages import MESSAGE_SENT_SUCCESS_MESSAGE, MESSAGE_SENT_ERROR_MESSAGE
 from smtplib import SMTPException
 
+import graphene
+from django.core.mail import send_mail
+from graphene_django.forms.mutation import DjangoFormMutation
+from graphql import ResolveInfo
+
+from api.forms.contact import ContactForm
+from api.utils.messages import MESSAGE_SENT_SUCCESS_MESSAGE, MESSAGE_SENT_ERROR_MESSAGE
 
 
 class ContactMutation(DjangoFormMutation):
@@ -35,8 +36,7 @@ class ContactMutation(DjangoFormMutation):
             """
             This error will show among the general errors in the frontend form.
             """
-            return cls(errors=[{ "field": "__all__", "messages": [MESSAGE_SENT_ERROR_MESSAGE] }])
-
+            return cls(errors=[{"field": "__all__", "messages": [MESSAGE_SENT_ERROR_MESSAGE]}])
 
 
 class Mutation(graphene.ObjectType):

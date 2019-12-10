@@ -1,13 +1,13 @@
 import graphene
 
+import api.schemas.contact
 import api.schemas.course
+import api.schemas.resource
+import api.schemas.resource_type
 import api.schemas.school
 import api.schemas.school_type
 import api.schemas.subject
 import api.schemas.user
-import api.schemas.resource
-import api.schemas.resource_type
-import api.schemas.contact
 
 
 class Query(

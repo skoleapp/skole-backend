@@ -10,14 +10,17 @@ from graphql_extensions.auth.decorators import login_required
 from graphql_jwt.decorators import token_auth
 from mypy.types import JsonDict
 
+import settings
 from api.forms.user import LoginForm, RegisterForm, ChangePasswordForm, UpdateUserForm, DeleteUserForm
 from api.utils.messages import USER_DELETED_MESSAGE
 from api.utils.points import get_points_for_user
 from app.models import User, Course, Resource
+from app.utils.user import DEFAULT_AVATAR, DEFAULT_AVATAR_THUMBNAIL
 
 
 class UserType(DjangoObjectType):
     email = graphene.String()
+    avatar = graphene.String()
     avatar_thumbnail = graphene.String()
     points = graphene.Int()
     course_count = graphene.Int()
@@ -31,8 +34,6 @@ class UserType(DjangoObjectType):
             "title",
             "bio",
             "avatar",
-            "avatar_thumbnail",
-            "points",
             "created",
             "created_courses",
             "created_resources"
@@ -58,6 +59,18 @@ class UserType(DjangoObjectType):
 
     def resolve_resource_count(self, info: ResolveInfo) -> int:
         return self.created_resources.count()
+
+    def resolve_avatar(self, info: ResolveInfo) -> str:
+        if not self.avatar:
+            return DEFAULT_AVATAR
+        else:
+            return f"{settings.MEDIA_ROOT}/{self.avatar}"
+
+    def resolve_avatar_thumbnail(self, info: ResolveInfo) -> str:
+        if not self.avatar_thumbnail:
+            return DEFAULT_AVATAR_THUMBNAIL
+        else:
+            return f"{settings.MEDIA_ROOT}/{self.avatar_thumbnail}"
 
 
 class RegisterMutation(DjangoModelFormMutation):
@@ -169,6 +182,7 @@ class Query(graphene.ObjectType):
 
     def resolve_user(self, info: ResolveInfo, user_id: int) -> User:
         return get_user_model().objects.filter(is_superuser=False).get(pk=user_id)
+
 
     @login_required
     def resolve_user_me(self, info: ResolveInfo) -> User:

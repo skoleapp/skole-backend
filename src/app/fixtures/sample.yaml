@@ -6,7 +6,7 @@
     password: "root"
     title: null
     bio: null
-    avatar: "default_avatar.jpg"
+    avatar: null
     is_superuser: true
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
@@ -18,7 +18,7 @@
     password: "password"
     title: null
     bio: null
-    avatar: "default_avatar.jpg"
+    avatar: "uploads/avatars/user_image.jpg"
     is_staff: false
     is_superuser: false
     modified: "2019-01-01 12:00:00.000000+00:00"
@@ -31,7 +31,7 @@
     password: "password"
     title: null
     bio: null
-    avatar: "default_avatar.jpg"
+    avatar: null
     is_staff: false
     is_superuser: false
     modified: "2019-01-01 12:00:00.000000+00:00"
@@ -44,7 +44,7 @@
     password: "password"
     title: null
     bio: null
-    avatar: "default_avatar.jpg"
+    avatar: null
     is_staff: false
     is_superuser: false
     modified: "2019-01-01 12:00:00.000000+00:00"
@@ -57,7 +57,7 @@
     password: "password"
     title: null
     bio: null
-    avatar: "default_avatar.jpg"
+    avatar: null
     is_staff: false
     is_superuser: false
     modified: "2019-01-01 12:00:00.000000+00:00"
@@ -70,7 +70,7 @@
     password: "password"
     title: null
     bio: null
-    avatar: "default_avatar.jpg"
+    avatar: null
     is_staff: false
     is_superuser: false
     modified: "2019-01-01 12:00:00.000000+00:00"

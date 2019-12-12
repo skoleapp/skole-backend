@@ -23,9 +23,10 @@ class Query(
 
 
 class Mutation(
-    api.schemas.user.Mutation,
-    api.schemas.course.Mutation,
     api.schemas.contact.Mutation,
+    api.schemas.course.Mutation,
+    api.schemas.resource.Mutation,
+    api.schemas.user.Mutation,
 ):
     pass
 

@@ -44,16 +44,14 @@ class UpvoteCourseMutation(AbstractUpvoteMutation):
     class Input:
         course_id = graphene.Int()
 
-    _target_type = CourseType
-    course = graphene.Field(_target_type)
+    course = graphene.Field(CourseType)
 
 
 class DownvoteCourseMutation(AbstractDownvoteMutation):
     class Input:
         course_id = graphene.Int()
 
-    _target_type = CourseType
-    course = graphene.Field(_target_type)
+    course = graphene.Field(CourseType)
 
 
 class Query(graphene.ObjectType):

@@ -11,18 +11,18 @@ class _AbstractVoteMutation(graphene.Mutation):
     """Base class for both of the abstract vote mutations,
     this should not be subclassed elsewhere.
     """
-    _target_type: models.Model
     _vote_status: int
 
     @classmethod
     @login_required
     def mutate(cls, _, info: ResolveInfo, **kwargs) -> '_AbstractVoteMutation':
-        if len(kwargs) != 1 or not list(kwargs.keys())[0].endswith("_id"):
-            raise AssertionError("This should take exactly one `foo_id` kwarg.")
+        target_object_type = list(cls._meta.fields.values())[0]._type
+        target_model = target_object_type._meta.model
 
-        target_id = list(kwargs.values())[0]
+        id_field = f"{list(cls._meta.fields.keys())[0]}_id"
+        target_id = kwargs.get(id_field, None)
 
-        target = cls._target_type._meta.model.objects.get(pk=target_id)
+        target = target_model.objects.get(pk=target_id)
         try:
             vote = target.votes.get(creator=info.context.user)
             if vote.status == cls._vote_status:

@@ -41,21 +41,19 @@ class CreateCourseMutation(DjangoModelFormMutation):
 
 
 class UpvoteCourseMutation(AbstractUpvoteMutation):
-    _target_model = Course
-
     class Input:
         course_id = graphene.Int()
 
     course = graphene.Field(CourseType)
+    _target_model = CourseType._meta.model
 
 
 class DownvoteCourseMutation(AbstractDownvoteMutation):
-    _target_model = Course
-
     class Input:
         course_id = graphene.Int()
 
     course = graphene.Field(CourseType)
+    _target_model = CourseType._meta.model
 
 
 class Query(graphene.ObjectType):

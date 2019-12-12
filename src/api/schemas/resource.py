@@ -20,21 +20,19 @@ class ResourceType(DjangoObjectType):
 
 
 class UpvoteResourceMutation(AbstractUpvoteMutation):
-    _target_model = Resource
-
     class Input:
         resource_id = graphene.Int()
 
     resource = graphene.Field(ResourceType)
+    _target_model = ResourceType._meta.model
 
 
 class DownvoteResourceMutation(AbstractDownvoteMutation):
-    _target_model = Resource
-
     class Input:
         resource_id = graphene.Int()
 
     resource = graphene.Field(ResourceType)
+    _target_model = ResourceType._meta.model
 
 
 class Query(graphene.ObjectType):

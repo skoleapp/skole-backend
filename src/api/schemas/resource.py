@@ -23,16 +23,14 @@ class UpvoteResourceMutation(AbstractUpvoteMutation):
     class Input:
         resource_id = graphene.Int()
 
-    _target_type = ResourceType
-    resource = graphene.Field(_target_type)
+    resource = graphene.Field(ResourceType)
 
 
 class DownvoteResourceMutation(AbstractDownvoteMutation):
     class Input:
         resource_id = graphene.Int()
 
-    _target_type = ResourceType
-    resource = graphene.Field(_target_type)
+    resource = graphene.Field(ResourceType)
 
 
 class Query(graphene.ObjectType):

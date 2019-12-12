@@ -1,9 +1,9 @@
-from typing import Any
+from typing import Any, Union
 
 from django.db import models
 from django.db.models.functions import Coalesce
 
-from app.models import User, Resource, Course
+from app.models import User, Resource, Course, Comment
 
 POINTS_RESOURCE_MULTIPLIER = 10
 POINTS_COURSE_MULTIPLIER = 5
@@ -28,11 +28,5 @@ def get_points_for_user(user: User) -> int:
     return points
 
 
-def get_points_for_resource(resource: Resource) -> int:
-    """Return resource's points."""
-    return aggregate(resource.votes, "status", POINTS_RESOURCE_MULTIPLIER)
-
-
-def get_points_for_course(course: Course) -> int:
-    """Return course's points."""
-    return aggregate(course.votes, "status", POINTS_COURSE_MULTIPLIER)
+def get_points_for_target(target: Union[Comment, Course, Resource], multiplier: int) -> int:
+    return aggregate(target.votes, "status", multiplier)

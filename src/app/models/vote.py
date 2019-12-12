@@ -29,14 +29,17 @@ class VoteManager(models.Manager):
 
 
 class Vote(models.Model):
+    creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name="votes")
+    status = models.IntegerField(choices=VOTE_STATUS)
+
     comment = models.ForeignKey(Comment, on_delete=models.CASCADE, null=True, related_name="votes")
     course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True, related_name="votes")
     resource = models.ForeignKey(Resource, on_delete=models.CASCADE, null=True, related_name="votes")
-
-    status = models.IntegerField(choices=VOTE_STATUS)
-    creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name="votes")
 
     objects = VoteManager()
 
     class Meta:
         unique_together = ("comment", "course", "resource", "creator")
+
+    def __str__(self) -> str:
+        return f"{self.get_status_display()}, {self.creator.username}"

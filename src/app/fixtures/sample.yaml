@@ -221,18 +221,22 @@
   pk: 1
   fields:
     name: "Exam"
+    has_parts: true
 - model: app.ResourceType
   pk: 2
   fields:
     name: "Exercise"
+    has_parts: false
 - model: app.ResourceType
   pk: 3
   fields:
     name: "Note"
+    has_parts: false
 - model: app.ResourceType
   pk: 4
   fields:
     name: "Other"
+    has_parts: false
 
 
 - model: app.Resource

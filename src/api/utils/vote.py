@@ -16,6 +16,9 @@ class _AbstractVoteMutation(graphene.Mutation):
     @classmethod
     @login_required
     def mutate(cls, _, info: ResolveInfo, **kwargs) -> '_AbstractVoteMutation':
+        if len(cls._meta.fields) != 1:
+            raise AssertionError("Expected derived class to have exactly one graphene field.")
+
         target_object_type = list(cls._meta.fields.values())[0]._type
         target_model = target_object_type._meta.model
 

@@ -7,9 +7,9 @@ from graphql import ResolveInfo
 from graphql_extensions.auth.decorators import login_required
 
 from api.forms.course import CreateCourseForm
-from api.schemas.resource import ResourceType
 from api.utils.points import get_points_for_course
-from app.models import Course, Resource
+from api.utils.vote import AbstractDownvoteMutation, AbstractUpvoteMutation
+from app.models import Course
 
 
 class CourseType(DjangoObjectType):
@@ -38,6 +38,20 @@ class CreateCourseMutation(DjangoModelFormMutation):
     def perform_mutate(cls, form: CreateCourseForm, info: ResolveInfo) -> 'CreateCourseMutation':
         course = Course.objects.create(creator=info.context.user, **form.cleaned_data)
         return cls(course=course)
+
+
+class UpvoteCourseMutation(AbstractUpvoteMutation):
+    class Input:
+        course_id = graphene.Int()
+
+    course = graphene.Field(CourseType)
+
+
+class DownvoteCourseMutation(AbstractDownvoteMutation):
+    class Input:
+        course_id = graphene.Int()
+
+    course = graphene.Field(CourseType)
 
 
 class Query(graphene.ObjectType):
@@ -78,3 +92,5 @@ class Query(graphene.ObjectType):
 
 class Mutation(graphene.ObjectType):
     create_course = CreateCourseMutation.Field()
+    upvote_course = UpvoteCourseMutation.Field()
+    downvote_course = DownvoteCourseMutation.Field()

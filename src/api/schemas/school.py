@@ -4,9 +4,7 @@ import graphene
 from graphene_django import DjangoObjectType
 from graphql import ResolveInfo
 
-from api.schemas.subject import SubjectType
-from api.schemas.course import CourseType
-from app.models import School, Country, Course, Subject
+from app.models import School, Country
 
 
 class SchoolType(DjangoObjectType):

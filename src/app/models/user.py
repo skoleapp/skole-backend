@@ -71,8 +71,6 @@ class User(AbstractBaseUser, PermissionsMixin):
                                       processors=[ResizeToFill(100, 100)],
                                       format="JPEG",
                                       options={"quality": 60})
-    # On purpose no related name, so it cannot be queried that way
-    schools = models.ManyToManyField('School')
 
     is_staff = models.BooleanField(default=False)
 

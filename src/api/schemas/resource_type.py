@@ -1,14 +1,16 @@
+from typing import List
+
 import graphene
 from graphene_django import DjangoObjectType
 from graphql import ResolveInfo
+
 from app.models import ResourceType
-from typing import List
 
 
 class ResourceTypeObjectType(DjangoObjectType):
     class Meta:
         model = ResourceType
-        fields = ("id", "name")
+        fields = ("id", "name", "has_parts")
 
 
 class Query(graphene.ObjectType):

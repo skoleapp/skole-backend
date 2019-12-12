@@ -3,6 +3,7 @@ from graphene_django import DjangoObjectType
 from graphql import ResolveInfo
 
 from api.utils.points import get_points_for_resource
+from api.utils.vote import AbstractUpvoteMutation, AbstractDownvoteMutation
 from app.models import Resource
 
 
@@ -18,8 +19,27 @@ class ResourceType(DjangoObjectType):
         return get_points_for_resource(self)
 
 
+class UpvoteResourceMutation(AbstractUpvoteMutation):
+    class Input:
+        resource_id = graphene.Int()
+
+    resource = graphene.Field(ResourceType)
+
+
+class DownvoteResourceMutation(AbstractDownvoteMutation):
+    class Input:
+        resource_id = graphene.Int()
+
+    resource = graphene.Field(ResourceType)
+
+
 class Query(graphene.ObjectType):
     resource = graphene.Field(ResourceType, resource_id=graphene.Int(required=True))
 
     def resolve_resource(self, info: ResolveInfo, resource_id: str) -> Resource:
         return Resource.objects.get(pk=resource_id)
+
+
+class Mutation(graphene.ObjectType):
+    upvote_resource = UpvoteResourceMutation.Field()
+    downvote_resource = DownvoteResourceMutation.Field()

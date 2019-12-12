@@ -3,10 +3,11 @@
   fields:
     username: "root"
     email: "root@root.com"
-    password: "root"
+    password: "pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4="
     title: null
     bio: null
-    avatar: "default_avatar.jpg"
+    avatar: null
+    is_staff: true
     is_superuser: true
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
@@ -15,10 +16,10 @@
   fields:
     username: "testuser2"
     email: "test2@test.com"
-    password: "password"
+    password: "pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4="
     title: null
     bio: null
-    avatar: "default_avatar.jpg"
+    avatar: "uploads/avatars/user_image.jpg"
     is_staff: false
     is_superuser: false
     modified: "2019-01-01 12:00:00.000000+00:00"
@@ -28,10 +29,10 @@
   fields:
     username: "testuser3"
     email: "test3@test.com"
-    password: "password"
+    password: "pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4="
     title: null
     bio: null
-    avatar: "default_avatar.jpg"
+    avatar: null
     is_staff: false
     is_superuser: false
     modified: "2019-01-01 12:00:00.000000+00:00"
@@ -41,10 +42,10 @@
   fields:
     username: "testuser4"
     email: "test4@test.com"
-    password: "password"
+    password: "pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4="
     title: null
     bio: null
-    avatar: "default_avatar.jpg"
+    avatar: null
     is_staff: false
     is_superuser: false
     modified: "2019-01-01 12:00:00.000000+00:00"
@@ -54,10 +55,10 @@
   fields:
     username: "testuser5"
     email: "test5@test.com"
-    password: "password"
+    password: "pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4="
     title: null
     bio: null
-    avatar: "default_avatar.jpg"
+    avatar: null
     is_staff: false
     is_superuser: false
     modified: "2019-01-01 12:00:00.000000+00:00"
@@ -67,10 +68,10 @@
   fields:
     username: "testuser6"
     email: "test6@test.com"
-    password: "password"
+    password: "pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4="
     title: null
     bio: null
-    avatar: "default_avatar.jpg"
+    avatar: null
     is_staff: false
     is_superuser: false
     modified: "2019-01-01 12:00:00.000000+00:00"
@@ -220,18 +221,22 @@
   pk: 1
   fields:
     name: "Exam"
+    has_parts: true
 - model: app.ResourceType
   pk: 2
   fields:
     name: "Exercise"
+    has_parts: false
 - model: app.ResourceType
   pk: 3
   fields:
     name: "Note"
+    has_parts: false
 - model: app.ResourceType
   pk: 4
   fields:
     name: "Other"
+    has_parts: false
 
 
 - model: app.Resource

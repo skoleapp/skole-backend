@@ -1,7 +1,7 @@
 import graphene
 from django.db import models
 from graphql import ResolveInfo
-from graphql_extensions.auth.decorators import login_required
+from graphql_jwt.decorators import login_required
 
 from app.models import Vote
 from app.utils.vote import DOWNVOTE, UPVOTE
@@ -46,14 +46,14 @@ class _AbstractVoteMutation(graphene.Mutation):
 
 class AbstractUpvoteMutation(_AbstractVoteMutation):
     """Base class for all downvote mutations.
-    Users of this class still have to remember to override the value of _target_type.
+    This can be subclassed in any schema that needs a upvote mutation.
     """
     _vote_status = UPVOTE
 
 
 class AbstractDownvoteMutation(_AbstractVoteMutation):
     """Base class for all upvote mutations.
-    Users of this class still have to remember to override the value of _target_type.
+    This can be subclassed in any schema that needs a downvote mutation.
     """
     _vote_status = DOWNVOTE
 

@@ -4,14 +4,15 @@ import graphene
 from graphene_django import DjangoObjectType
 from graphql import ResolveInfo
 
+from api.types.resource_part import ResourcePartType
+from api.utils.points import get_points_for_target, POINTS_COURSE_COMMENT_MULTIPLIER, POINTS_RESOURCE_COMMENT_MULTIPLIER
 from api.utils.vote import AbstractUpvoteMutation, AbstractDownvoteMutation
 from app.models import Comment
-from api.utils.points import get_points_for_target, POINTS_COURSE_COMMENT_MULTIPLIER, POINTS_RESOURCE_COMMENT_MULTIPLIER
-
 
 
 class CommentType(DjangoObjectType):
     points = graphene.Int()
+    resource_part = graphene.Field(ResourcePartType)
 
     class Meta:
         model = Comment
@@ -25,7 +26,7 @@ class CommentType(DjangoObjectType):
             return get_points_for_target(self, POINTS_RESOURCE_COMMENT_MULTIPLIER)
         if self.resource_part is not None:
             return get_points_for_target(self, POINTS_RESOURCE_COMMENT_MULTIPLIER)
-        raise AssertionError("All foreign keys of Comment were null.")
+        raise AssertionError("All foreign keys of the Comment were null.")
 
 
 class UpvoteCommentMutation(AbstractUpvoteMutation):

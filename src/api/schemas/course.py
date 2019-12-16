@@ -4,7 +4,7 @@ import graphene
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphql import ResolveInfo
-from graphql_extensions.auth.decorators import login_required
+from graphql_jwt.decorators import login_required
 
 from api.forms.course import CreateCourseForm
 from api.utils.points import get_points_for_target, POINTS_COURSE_MULTIPLIER

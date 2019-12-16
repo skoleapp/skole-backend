@@ -6,8 +6,7 @@ from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphene_django.types import ErrorType
 from graphql import ResolveInfo
-from graphql_extensions.auth.decorators import login_required
-from graphql_jwt.decorators import token_auth
+from graphql_jwt.decorators import login_required, token_auth
 from mypy.types import JsonDict
 
 import settings

@@ -2,8 +2,11 @@ from typing import Optional, List
 
 import graphene
 from graphene_django import DjangoObjectType
+from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphql import ResolveInfo
+from graphql_jwt.decorators import login_required
 
+from api.forms.comment import CreateCommentForm
 from api.types.resource_part import ResourcePartType
 from api.utils.points import get_points_for_target, POINTS_COURSE_COMMENT_MULTIPLIER, POINTS_RESOURCE_COMMENT_MULTIPLIER
 from api.utils.vote import AbstractUpvoteMutation, AbstractDownvoteMutation
@@ -29,6 +32,19 @@ class CommentType(DjangoObjectType):
         raise AssertionError("All foreign keys of the Comment were null.")
 
 
+class CreateCommentMutation(DjangoModelFormMutation):
+    course = graphene.Field(CommentType)
+
+    class Meta:
+        form_class = CreateCommentForm
+
+    @classmethod
+    @login_required
+    def perform_mutate(cls, form: CreateCommentForm, info: ResolveInfo) -> 'CreateCommentMutation':
+        comment = Comment.objects.create_comment(creator=info.context.user, **form.cleaned_data)
+        return cls(comment=comment)
+
+
 class UpvoteCommentMutation(AbstractUpvoteMutation):
     class Input:
         comment_id = graphene.Int()
@@ -52,7 +68,8 @@ class Query(graphene.ObjectType):
     )
     comment = graphene.Field(CommentType, comment_id=graphene.Int())
 
-    def resolve_comments(self, info: ResolveInfo, course_id: Optional[int] = None,
+    def resolve_comments(self, info: ResolveInfo,
+                         course_id: Optional[int] = None,
                          resource_id: Optional[int] = None,
                          resource_part_id: Optional[int] = None) -> List[Comment]:
 
@@ -74,3 +91,4 @@ class Query(graphene.ObjectType):
 class Mutation(graphene.ObjectType):
     upvote_comment = UpvoteCommentMutation.Field()
     downvote_comment = DownvoteCommentMutation.Field()
+    create_comment = CreateCommentMutation.Field()

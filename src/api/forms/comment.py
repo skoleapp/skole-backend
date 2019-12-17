@@ -12,11 +12,11 @@ class CreateCommentForm(forms.ModelForm):
 
     def clean(self) -> JsonDict:
         """Ensure that any created comment has exactly one foreign key it targets."""
-        course_id = self.cleaned_data.pop("course", None)
-        resource_id = self.cleaned_data.pop("resource", None)
-        resource_part_id = self.cleaned_data.pop("resource_part", None)
+        course = self.cleaned_data.pop("course", None)
+        resource = self.cleaned_data.pop("resource", None)
+        resource_part = self.cleaned_data.pop("resource_part", None)
 
-        target = [n for n in (course_id, resource_id, resource_part_id) if n is not None]
+        target = [n for n in (course, resource, resource_part) if n is not None]
         if len(target) != 1:
             raise forms.ValidationError(INCORRECT_TARGET_FOR_COMMENT_MESSAGE)
 

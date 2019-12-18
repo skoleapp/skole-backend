@@ -6,7 +6,7 @@ from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphql import ResolveInfo
 from graphql_jwt.decorators import login_required
 
-from api.forms.comment import CreateCommentForm
+from api.forms.comment import CreateCommentForm, UpdateCommentForm
 from api.types.resource_part import ResourcePartType
 from api.utils.points import get_points_for_target, POINTS_COURSE_COMMENT_MULTIPLIER, POINTS_RESOURCE_COMMENT_MULTIPLIER
 from api.utils.vote import AbstractUpvoteMutation, AbstractDownvoteMutation
@@ -33,7 +33,7 @@ class CommentType(DjangoObjectType):
 
 
 class CreateCommentMutation(DjangoModelFormMutation):
-    course = graphene.Field(CommentType)
+    comment = graphene.Field(CommentType)
 
     class Meta:
         form_class = CreateCommentForm
@@ -42,6 +42,24 @@ class CreateCommentMutation(DjangoModelFormMutation):
     @login_required
     def perform_mutate(cls, form: CreateCommentForm, info: ResolveInfo) -> 'CreateCommentMutation':
         comment = Comment.objects.create_comment(creator=info.context.user, **form.cleaned_data)
+        return cls(comment=comment)
+
+
+class UpdateCommentMutation(DjangoModelFormMutation):
+    comment = graphene.Field(CommentType)
+
+    class Meta:
+        form_class = UpdateCommentForm
+
+    @classmethod
+    @login_required
+    def perform_mutate(cls, form: UpdateCommentForm, info: ResolveInfo) -> 'UpdateCommentMutation':
+        # FIXME: raises graphql.error.located_error.GraphQLLocatedError instead of a nice user error
+        comment = Comment.objects.get(pk=form.cleaned_data["comment_id"])
+
+        comment.text = form.cleaned_data["text"]
+        comment.attachment = form.cleaned_data["attachment"]
+        comment.save()
         return cls(comment=comment)
 
 
@@ -92,3 +110,4 @@ class Mutation(graphene.ObjectType):
     upvote_comment = UpvoteCommentMutation.Field()
     downvote_comment = DownvoteCommentMutation.Field()
     create_comment = CreateCommentMutation.Field()
+    update_comment = UpdateCommentMutation.Field()

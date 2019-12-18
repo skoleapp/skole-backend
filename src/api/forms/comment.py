@@ -22,3 +22,11 @@ class CreateCommentForm(forms.ModelForm):
 
         self.cleaned_data["target"] = target[0]
         return self.cleaned_data
+
+
+class UpdateCommentForm(forms.ModelForm):
+    comment_id = forms.IntegerField()
+
+    class Meta:
+        model = Comment
+        fields = ("text", "attachment", "comment_id")

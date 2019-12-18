@@ -41,6 +41,9 @@ class CreateCommentMutation(DjangoModelFormMutation):
     @classmethod
     @login_required
     def perform_mutate(cls, form: CreateCommentForm, info: ResolveInfo) -> 'CreateCommentMutation':
+        if file := info.context.FILES.get("1"):
+            form.cleaned_data["attachment"] = file
+
         comment = Comment.objects.create_comment(creator=info.context.user, **form.cleaned_data)
         return cls(comment=comment)
 
@@ -56,6 +59,9 @@ class UpdateCommentMutation(DjangoModelFormMutation):
     def perform_mutate(cls, form: UpdateCommentForm, info: ResolveInfo) -> 'UpdateCommentMutation':
         # FIXME: raises graphql.error.located_error.GraphQLLocatedError instead of a nice user error
         comment = Comment.objects.get(pk=form.cleaned_data["comment_id"])
+
+        if file := info.context.FILES.get("1"):
+            form.cleaned_data["attachment"] = file
 
         comment.text = form.cleaned_data["text"]
         comment.attachment = form.cleaned_data["attachment"]

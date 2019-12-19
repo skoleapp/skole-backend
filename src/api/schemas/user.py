@@ -154,7 +154,7 @@ class UpdateUserMutation(DjangoModelFormMutation):
     @login_required
     def perform_mutate(cls, form: UpdateUserForm, info: ResolveInfo) -> 'UpdateUserMutation':
         if file := info.context.FILES.get("1"):
-            form.cleaned_data["attachment"] = file
+            form.cleaned_data["avatar"] = file
 
         user = info.context.user
         get_user_model().objects.update_user(user, **form.cleaned_data)

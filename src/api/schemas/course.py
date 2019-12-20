@@ -59,24 +59,38 @@ class Query(graphene.ObjectType):
         CourseType,
         course_name=graphene.String(),
         course_code=graphene.String(),
-        subject_id=graphene.Int(),
-        school_id=graphene.Int()
+        subject_name=graphene.String(),
+        school_name=graphene.String(),
+        school_type=graphene.String(),
+        country_name=graphene.String(),
+        city_name=graphene.String(),
     )
     course = graphene.Field(CourseType, course_id=graphene.Int())
 
-    def resolve_courses(self, info: ResolveInfo, course_name: Optional[str] = None,
-                        course_code: Optional[str] = None, subject_id: Optional[int] = None,
-                        school_id: Optional[int] = None) -> List[Course]:
+    def resolve_courses(self, info: ResolveInfo,
+                        course_name: Optional[str] = None,
+                        course_code: Optional[str] = None,
+                        subject_name: Optional[str] = None,
+                        school_name: Optional[str] = None,
+                        school_type: Optional[int] = None,
+                        country_name: Optional[str] = None,
+                        city_name: Optional[str] = None) -> List[Course]:
         courses = Course.objects.all()
 
         if course_name is not None:
             courses = courses.filter(name__icontains=course_name)
         if course_code is not None:
             courses = courses.filter(code__icontains=course_code)
-        if subject_id is not None:
-            courses = courses.filter(subject__pk=subject_id)
-        if school_id is not None:
-            courses = courses.filter(school__pk=school_id)
+        if subject_name is not None:
+            courses = courses.filter(subject__name__icontains=subject_name)
+        if school_name is not None:
+            courses = courses.filter(school__name__icontains=school_name)
+        if school_type is not None:
+            courses = courses.filter(school__school_type__name__iexact=school_type)
+        if country_name is not None:
+            courses = courses.filter(school__city__country__name__iexact=country_name)
+        if city_name is not None:
+            courses = courses.filter(school__city__name__iexact=city_name)
 
         return courses
 

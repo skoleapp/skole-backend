@@ -50,11 +50,7 @@ class UserManager(BaseUserManager):
 
     @staticmethod
     def set_avatar(user: 'User', avatar: Optional[str]) -> 'User':
-        if not avatar:
-            user.avatar = DEFAULT_AVATAR
-        else:
-            user.avatar = avatar
-
+        user.avatar = avatar
         user.save()
         return user
 

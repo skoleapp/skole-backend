@@ -61,13 +61,13 @@ class UserType(DjangoObjectType):
 
     def resolve_avatar(self, info: ResolveInfo) -> str:
         if not self.avatar:
-            return DEFAULT_AVATAR
+            return settings.STATIC_URL + DEFAULT_AVATAR
         else:
             return f"{settings.MEDIA_ROOT}/{self.avatar}"
 
     def resolve_avatar_thumbnail(self, info: ResolveInfo) -> str:
         if not self.avatar_thumbnail:
-            return DEFAULT_AVATAR_THUMBNAIL
+            return settings.STATIC_URL + DEFAULT_AVATAR_THUMBNAIL
         else:
             return f"{settings.MEDIA_ROOT}/{self.avatar_thumbnail}"
 
@@ -155,7 +155,9 @@ class UpdateUserMutation(DjangoModelFormMutation):
     def perform_mutate(cls, form: UpdateUserForm, info: ResolveInfo) -> 'UpdateUserMutation':
         if file := info.context.FILES.get("1"):
             form.cleaned_data["avatar"] = file
-
+        else:
+            form.cleaned_data["avatar"] = None
+    
         user = info.context.user
         get_user_model().objects.update_user(user, **form.cleaned_data)
         return cls(user=user)

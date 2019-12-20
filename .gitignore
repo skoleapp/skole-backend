@@ -135,6 +135,7 @@ dmypy.json
 
 # Static content
 src/media/uploads
+src/media/CACHE
 
 # VSCode
 .vscode

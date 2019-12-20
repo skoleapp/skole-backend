@@ -16,7 +16,7 @@ class SchoolType(DjangoObjectType):
 
     class Meta:
         model = School
-        fields = ("id", "name", "city")
+        fields = ("id", "name")
 
     def resolve_country(self, info: ResolveInfo) -> Country:
         return self.city.country

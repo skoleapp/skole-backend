@@ -33,7 +33,7 @@ class Query(graphene.ObjectType):
     school = graphene.Field(SchoolType, school_id=graphene.Int())
 
     def resolve_schools(self, info: ResolveInfo) -> List[School]:
-        return School.objects.all()
+        return School.objects.order_by("name")
 
     def resolve_school(self, info: ResolveInfo, school_id: int) -> School:
         return School.objects.get(pk=school_id)

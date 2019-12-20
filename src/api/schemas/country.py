@@ -15,4 +15,4 @@ class Query(graphene.ObjectType):
     countries = graphene.List(CountryType)
 
     def resolve_countries(self, info: ResolveInfo) -> List[Country]:
-        return Country.objects.all()
+        return Country.objects.order_by("name")

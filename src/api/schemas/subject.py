@@ -17,4 +17,4 @@ class Query(graphene.ObjectType):
     subjects = graphene.List(SubjectType)
 
     def resolve_subjects(self, info: ResolveInfo) -> List[Subject]:
-        return Subject.objects.all()
+        return Subject.objects.order_by("name")

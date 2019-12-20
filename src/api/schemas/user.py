@@ -6,8 +6,7 @@ from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphene_django.types import ErrorType
 from graphql import ResolveInfo
-from graphql_extensions.auth.decorators import login_required
-from graphql_jwt.decorators import token_auth
+from graphql_jwt.decorators import login_required, token_auth
 from mypy.types import JsonDict
 
 import settings
@@ -154,31 +153,23 @@ class UpdateUserMutation(DjangoModelFormMutation):
     @classmethod
     @login_required
     def perform_mutate(cls, form: UpdateUserForm, info: ResolveInfo) -> 'UpdateUserMutation':
-        data = form.cleaned_data
-        files = info.context.FILES
-
-        if "1" in files:
-            data["avatar"] = files["1"]  # Overwrite form value with actual image.
+        if file := info.context.FILES.get("1"):
+            form.cleaned_data["avatar"] = file
 
         user = info.context.user
-        get_user_model().objects.update_user(user, **data)
+        get_user_model().objects.update_user(user, **form.cleaned_data)
         return cls(user=user)
 
 
 class Query(graphene.ObjectType):
-    leaderboard = graphene.List(UserType)
+    users = graphene.List(UserType)
     user = graphene.Field(UserType, user_id=graphene.Int(required=True))
     user_me = graphene.Field(UserType)
 
-    def resolve_leaderboard(self, info: ResolveInfo) -> List[User]:
-        """
-        Return 100 users with the most points. Need to handle the sorting
-        with Python since the ORM has no idea about the point resolvers.
-        """
-        return sorted(
-            get_user_model().objects.filter(is_superuser=False),
-            key=lambda u: get_points_for_user(u), reverse=True
-        )[:100]
+    def resolve_users(self, info: ResolveInfo) -> List[User]:
+        # TODO: add some sorting options for the frontend to use,
+        #  so that api caller can sort by points or by oldest user etc.
+        return get_user_model().objects.filter(is_superuser=False)
 
     def resolve_user(self, info: ResolveInfo, user_id: int) -> User:
         return get_user_model().objects.filter(is_superuser=False).get(pk=user_id)

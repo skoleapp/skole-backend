@@ -2,7 +2,7 @@ import graphene
 from graphene_django import DjangoObjectType
 from graphql import ResolveInfo
 
-from api.utils.points import get_points_for_resource
+from api.utils.points import get_points_for_target, POINTS_RESOURCE_MULTIPLIER
 from api.utils.vote import AbstractUpvoteMutation, AbstractDownvoteMutation
 from app.models import Resource
 
@@ -13,10 +13,10 @@ class ResourceType(DjangoObjectType):
 
     class Meta:
         model = Resource
-        fields = ("id", "resource_type", "title", "file", "date", "creator", "points", "modified", "created")
+        fields = ("id", "resource_type", "title", "file", "date", "creator", "points", "resource_part", "modified", "created")
 
     def resolve_points(self, info: ResolveInfo) -> int:
-        return get_points_for_resource(self)
+        return get_points_for_target(self, POINTS_RESOURCE_MULTIPLIER)
 
 
 class UpvoteResourceMutation(AbstractUpvoteMutation):

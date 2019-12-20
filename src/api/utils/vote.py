@@ -1,7 +1,7 @@
 import graphene
 from django.db import models
 from graphql import ResolveInfo
-from graphql_extensions.auth.decorators import login_required
+from graphql_jwt.decorators import login_required
 
 from app.models import Vote
 from app.utils.vote import DOWNVOTE, UPVOTE
@@ -15,15 +15,16 @@ class _AbstractVoteMutation(graphene.Mutation):
 
     @classmethod
     @login_required
-    def mutate(cls, _, info: ResolveInfo, **kwargs) -> '_AbstractVoteMutation':
-        if len(cls._meta.fields) != 1:
-            raise AssertionError("Expected derived class to have exactly one graphene field.")
+    def mutate(cls, _, info: ResolveInfo, **kwargs: int) -> '_AbstractVoteMutation':
+        if len(cls._meta.fields) != 1 or len(cls._meta.arguments) != 1 or len(kwargs) != 1:
+            raise AssertionError(
+                "Expected derived mutation to have exactly one graphene field and taking exactly one argument.")
 
-        target_object_type = list(cls._meta.fields.values())[0]._type
-        target_model = target_object_type._meta.model
+        # Get the model we are mutating, e.g. Course
+        target_model = next(iter(cls._meta.fields.values()))._type._meta.model
 
-        id_field = f"{list(cls._meta.fields.keys())[0]}_id"
-        target_id = kwargs.get(id_field, None)
+        # Get the value of the passed kwarg, e.g. the value of `course_id`
+        _, target_id = kwargs.popitem()
 
         target = target_model.objects.get(pk=target_id)
         try:
@@ -45,14 +46,14 @@ class _AbstractVoteMutation(graphene.Mutation):
 
 class AbstractUpvoteMutation(_AbstractVoteMutation):
     """Base class for all downvote mutations.
-    Users of this class still have to remember to override the value of _target_type.
+    This can be subclassed in any schema that needs a upvote mutation.
     """
     _vote_status = UPVOTE
 
 
 class AbstractDownvoteMutation(_AbstractVoteMutation):
     """Base class for all upvote mutations.
-    Users of this class still have to remember to override the value of _target_type.
+    This can be subclassed in any schema that needs a downvote mutation.
     """
     _vote_status = DOWNVOTE
 

@@ -4,10 +4,10 @@ import graphene
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphql import ResolveInfo
-from graphql_extensions.auth.decorators import login_required
+from graphql_jwt.decorators import login_required
 
 from api.forms.course import CreateCourseForm
-from api.utils.points import get_points_for_course
+from api.utils.points import get_points_for_target, POINTS_COURSE_MULTIPLIER
 from api.utils.vote import AbstractDownvoteMutation, AbstractUpvoteMutation
 from app.models import Course
 
@@ -21,7 +21,7 @@ class CourseType(DjangoObjectType):
         fields = ("id", "name", "code", "subject", "school", "creator", "modified", "created", "resources")
 
     def resolve_points(self, info: ResolveInfo) -> int:
-        return get_points_for_course(self)
+        return get_points_for_target(self, POINTS_COURSE_MULTIPLIER)
 
     def resolve_resource_count(self, info: ResolveInfo) -> int:
         return self.resources.count()
@@ -62,17 +62,11 @@ class Query(graphene.ObjectType):
         subject_id=graphene.Int(),
         school_id=graphene.Int()
     )
-
     course = graphene.Field(CourseType, course_id=graphene.Int())
 
-    def resolve_courses(
-            self,
-            info: ResolveInfo,
-            course_name: Optional[str] = None,
-            course_code: Optional[str] = None,
-            subject_id: Optional[int] = None,
-            school_id: Optional[int] = None
-    ) -> List[Course]:
+    def resolve_courses(self, info: ResolveInfo, course_name: Optional[str] = None,
+                        course_code: Optional[str] = None, subject_id: Optional[int] = None,
+                        school_id: Optional[int] = None) -> List[Course]:
         courses = Course.objects.all()
 
         if course_name is not None:

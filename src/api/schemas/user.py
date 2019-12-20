@@ -10,7 +10,7 @@ from graphql_jwt.decorators import login_required, token_auth
 from mypy.types import JsonDict
 
 import settings
-from api.forms.user import LoginForm, RegisterForm, ChangePasswordForm, UpdateUserForm, DeleteUserForm
+from api.forms.user import SignUpForm, SignInForm, ChangePasswordForm, UpdateUserForm, DeleteUserForm
 from api.utils.messages import USER_DELETED_MESSAGE
 from api.utils.points import get_points_for_user
 from app.models import User
@@ -72,12 +72,12 @@ class UserType(DjangoObjectType):
             return f"{settings.MEDIA_ROOT}/{self.avatar_thumbnail}"
 
 
-class RegisterMutation(DjangoModelFormMutation):
+class SignUpMutation(DjangoModelFormMutation):
     class Meta:
-        form_class = RegisterForm
+        form_class = SignUpForm
 
     @classmethod
-    def perform_mutate(cls, form: RegisterForm, info: ResolveInfo) -> 'RegisterMutation':
+    def perform_mutate(cls, form: SignUpForm, info: ResolveInfo) -> 'SignUpForm':
         user = get_user_model().objects.create_user(
             email=form.cleaned_data["email"],
             username=form.cleaned_data["username"],
@@ -87,14 +87,14 @@ class RegisterMutation(DjangoModelFormMutation):
         return cls(user=user)
 
 
-class LoginMutation(DjangoModelFormMutation):
+class SignInMutation(DjangoModelFormMutation):
     token = graphene.String()
 
     class Meta:
-        form_class = LoginForm
+        form_class = SignInForm
 
     @classmethod
-    def mutate_and_get_payload(cls, root: Any, info: ResolveInfo, **input: JsonDict) -> 'LoginMutation':
+    def mutate_and_get_payload(cls, root: Any, info: ResolveInfo, **input: JsonDict) -> 'SignInMutation':
         form = cls.get_form(root, info, **input)
 
         if form.is_valid():
@@ -107,7 +107,7 @@ class LoginMutation(DjangoModelFormMutation):
 
     @classmethod
     @token_auth
-    def perform_mutate(cls, root: Any, info: ResolveInfo, user: User, **kwargs: JsonDict) -> 'LoginMutation':
+    def perform_mutate(cls, form: SignInForm, info: ResolveInfo, user: User, **kwargs: JsonDict) -> 'SignInMutation':
         return cls(user=user)
 
 
@@ -180,8 +180,8 @@ class Query(graphene.ObjectType):
 
 
 class Mutation(graphene.ObjectType):
-    register = RegisterMutation.Field()
-    login = LoginMutation.Field()
+    sign_up = SignUpMutation.Field()
+    sign_in = SignInMutation.Field()
     update_user = UpdateUserMutation.Field()
     change_password = ChangePasswordMutation.Field()
     delete_user = DeleteUserMutation.Field()

@@ -14,7 +14,7 @@ class UserManager(BaseUserManager):
         user.is_staff = False
         user.is_superuser = False
 
-        self.set_avatar(user, None)
+        user.avatar = None
         user.set_password(password)
 
         user.save()
@@ -31,10 +31,7 @@ class UserManager(BaseUserManager):
 
     def update_user(self, user: 'User', **kwargs: Any) -> 'User':
         for key, value in kwargs.items():
-            if key == "avatar":
-                self.set_avatar(user, value)
-            else:
-                setattr(user, key, value)
+            setattr(user, key, value)
 
         user.save()
         return user
@@ -43,12 +40,6 @@ class UserManager(BaseUserManager):
     def set_password(user: 'User', password: str) -> 'User':
         user.set_password(password)
 
-        user.save()
-        return user
-
-    @staticmethod
-    def set_avatar(user: 'User', avatar: Optional[str]) -> 'User':
-        user.avatar = avatar
         user.save()
         return user
 

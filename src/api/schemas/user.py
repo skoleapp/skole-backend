@@ -14,7 +14,6 @@ from api.forms.user import SignUpForm, SignInForm, ChangePasswordForm, UpdateUse
 from api.utils.messages import USER_DELETED_MESSAGE
 from api.utils.points import get_points_for_user
 from app.models import User
-from app.utils.user import DEFAULT_AVATAR, DEFAULT_AVATAR_THUMBNAIL
 
 
 class UserType(DjangoObjectType):
@@ -61,15 +60,15 @@ class UserType(DjangoObjectType):
 
     def resolve_avatar(self, info: ResolveInfo) -> str:
         if not self.avatar:
-            return settings.STATIC_URL + DEFAULT_AVATAR
+            return settings.STATIC_URL + "default_avatar.jpg"
         else:
-            return f"{settings.MEDIA_ROOT}/{self.avatar}"
+            return settings.MEDIA_URL + str(self.avatar)
 
     def resolve_avatar_thumbnail(self, info: ResolveInfo) -> str:
         if not self.avatar_thumbnail:
-            return settings.STATIC_URL + DEFAULT_AVATAR_THUMBNAIL
+            return settings.STATIC_URL + "default_avatar_thumbnail.jpg"
         else:
-            return f"{settings.MEDIA_ROOT}/{self.avatar_thumbnail}"
+            return settings.MEDIA_URL + str(self.avatar_thumbnail)
 
 
 class SignUpMutation(DjangoModelFormMutation):

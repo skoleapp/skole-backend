@@ -6,8 +6,6 @@ from django.db import models
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
 
-from app.utils.user import DEFAULT_AVATAR
-
 
 class UserManager(BaseUserManager):
     def create_user(self, email: str, username: str, password: str) -> 'User':

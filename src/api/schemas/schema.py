@@ -9,6 +9,8 @@ import api.schemas.school
 import api.schemas.school_type
 import api.schemas.subject
 import api.schemas.user
+import api.schemas.country
+import api.schemas.city
 
 
 class Query(
@@ -20,6 +22,8 @@ class Query(
     api.schemas.school_type.Query,
     api.schemas.subject.Query,
     api.schemas.user.Query,
+    api.schemas.country.Query,
+    api.schemas.city.Query
 ):
     pass
 

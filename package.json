@@ -1,0 +1,17 @@
+{
+  "name": "skole-monorepo",
+  "version": "1.0.0",
+  "license": "ISC",
+  "author": "Skole Team",
+  "scripts": {
+    "preinstall": "pip install --upgrade pip",
+    "install": "pip install -r requirements.txt",
+    "make-migrations": "python src/manage.py makemigrations",
+    "clear-migrations": "find src/ -path '*/migrations/*.py' -not -name '__init__.py' -delete && find . -path '*/migrations/*.pyc'  -delete",
+    "migrate": "python src/manage.py migrate",
+    "create-superuser": "python src/manage.py createsuperuser",
+    "import-sample-data": "python src/manage.py loaddata sample.yaml",
+    "test": "pytest src",
+    "type-check": "mypy src"
+  }
+}

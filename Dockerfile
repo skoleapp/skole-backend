@@ -1,4 +1,4 @@
-FROM python:3.8.0-alpine
+FROM nikolaik/python-nodejs:python3.8-nodejs13-alpine
 
 ENV PYTHONUNBUFFERED 1
 ENV PYTHONDONTWRITEBYTECODE 1
@@ -10,9 +10,9 @@ RUN apk add --update --no-cache postgresql-client jpeg-dev
 RUN apk add --update --no-cache --virtual .tmp-build-deps \
   gcc libc-dev linux-headers postgresql-dev musl-dev zlib zlib-dev
 
+COPY package.json .
 COPY requirements.txt .
-RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
+RUN yarn install
 
 RUN apk del .tmp-build-deps
 

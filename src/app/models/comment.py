@@ -29,7 +29,7 @@ class CommentManager(models.Manager):
 
 
 class Comment(models.Model):
-    """Models one comment, posted on a comment thread."""
+    """Models one comment posted on a comment thread."""
 
     creator = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name="comments")
     text = models.TextField(max_length=10000)

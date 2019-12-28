@@ -7,7 +7,6 @@ from graphql import ResolveInfo
 from graphql_jwt.decorators import login_required
 
 from api.forms.comment import CreateCommentForm, UpdateCommentForm
-from api.types.resource_part import ResourcePartType
 from api.utils.points import get_points_for_target, POINTS_COURSE_COMMENT_MULTIPLIER, POINTS_RESOURCE_COMMENT_MULTIPLIER
 from api.utils.vote import AbstractUpvoteMutation, AbstractDownvoteMutation
 from app.models import Comment
@@ -15,7 +14,6 @@ from app.models import Comment
 
 class CommentType(DjangoObjectType):
     points = graphene.Int()
-    resource_part = graphene.Field(ResourcePartType)
 
     class Meta:
         model = Comment

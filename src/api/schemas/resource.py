@@ -4,7 +4,13 @@ from graphql import ResolveInfo
 
 from api.utils.points import get_points_for_target, POINTS_RESOURCE_MULTIPLIER
 from api.utils.vote import AbstractUpvoteMutation, AbstractDownvoteMutation
-from app.models import Resource
+from app.models import Resource, ResourcePart
+
+
+class ResourcePartType(DjangoObjectType):
+    class Meta:
+        model = ResourcePart
+        fields = ("id", "title", "file", "text", "file")
 
 
 class ResourceType(DjangoObjectType):
@@ -13,7 +19,7 @@ class ResourceType(DjangoObjectType):
 
     class Meta:
         model = Resource
-        fields = ("id", "resource_type", "title", "file", "date", "creator", "points", "resource_part", "modified", "created")
+        fields = ("id", "resource_type", "resource_parts", "title", "file", "date", "creator", "points", "resource_part", "modified", "created")
 
     def resolve_points(self, info: ResolveInfo) -> int:
         return get_points_for_target(self, POINTS_RESOURCE_MULTIPLIER)

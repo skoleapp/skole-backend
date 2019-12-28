@@ -274,18 +274,43 @@
     created: "2019-01-01 12:00:00.000000+00:00"
 
 
+- model: app.ResourcePartType
+  pk: 1
+  fields:
+    name: "Exercise"
+- model: app.ResourcePartType
+  pk: 2
+  fields:
+    name: "Note Part"
+
+
 - model: app.ResourcePart
   pk: 1
   fields:
     resource: 1
+    resource_part_type: 1
+    title: "Multiple Choice"
+    exercise_number: 1
+    file: "media/uploads/resource_parts/sample_resource_part_1.jpg"
+    text: "Sample assignment 1"
 - model: app.ResourcePart
-  pk: 1
+  pk: 2
   fields:
     resource: 1
+    resource_part_type: 1
+    title: "Concept Explanation"
+    exercise_number: 1
+    file: "media/uploads/resource_parts/sample_resource_part_2.jpg"
+    text: "Sample assignment 2"
 - model: app.ResourcePart
-  pk: 1
+  pk: 3
   fields:
     resource: 1
+    resource_part_type: 1
+    title: "Essay"
+    exercise_number: 1
+    file: "media/uploads/resource_parts/sample_resource_part_3.jpg"
+    text: "Sample assignment 3"
 
 
 - model: app.Comment

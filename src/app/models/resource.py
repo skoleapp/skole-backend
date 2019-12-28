@@ -1,12 +1,22 @@
 from django.db import models
 
 from .course import Course
-from .resource_type import ResourceType
 from .user import User
 
 
+class ResourceType(models.Model):
+    """Models one type of resource, e.g. an exam or a note."""
+
+    name = models.CharField(max_length=100, unique=True)
+    has_parts = models.BooleanField()
+
+    def __str__(self) -> str:
+        return f"{self.name}"
+
+
 class Resource(models.Model):
-    """Models one user uploaded resource."""
+    """Models one user-uploaded resource."""
+
     resource_type = models.ForeignKey(ResourceType, on_delete=models.PROTECT)
     title = models.CharField(max_length=100)
     file = models.FileField(upload_to="uploads/resources")

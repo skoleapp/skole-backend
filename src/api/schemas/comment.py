@@ -17,16 +17,19 @@ class CommentType(DjangoObjectType):
 
     class Meta:
         model = Comment
-        fields = ("id", "creator", "text", "attachment", "course",
-                  "resource", "resource_part", "modified", "created")
+        fields = ("id", "creator", "text", "attachment", "course", "resource",
+                  "comment", "resource_part", "modified", "created")
 
     def resolve_points(self, info: ResolveInfo) -> int:
         if self.course is not None:
             return get_points_for_target(self, POINTS_COURSE_COMMENT_MULTIPLIER)
-        if self.resource is not None:
+        elif self.resource is not None:
             return get_points_for_target(self, POINTS_RESOURCE_COMMENT_MULTIPLIER)
-        if self.resource_part is not None:
+        elif self.resource_part is not None:
             return get_points_for_target(self, POINTS_RESOURCE_COMMENT_MULTIPLIER)
+        elif self.comment is not None:
+            return self.resolve_points(self.comment, info)
+
         raise AssertionError("All foreign keys of the Comment were null.")
 
 

@@ -57,6 +57,10 @@ class UploadResourceMutation(DjangoModelFormMutation):
     @classmethod
     @login_required
     def perform_mutate(cls, form: UploadResourceForm, info: ResolveInfo) -> 'UploadResourceMutation':
+        """Replace the form files with the actual files from the context. The resource manager
+        will then take care of automatically creating resource parts based on the files.
+        """
+
         form.cleaned_data.pop("files")
         resource = Resource.objects.create_resource(**form.cleaned_data, files=info.context.FILES)
         return cls(resource=resource)

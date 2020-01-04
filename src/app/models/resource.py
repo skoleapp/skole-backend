@@ -24,7 +24,7 @@ class ResourcePart(models.Model):
 
     resource = models.ForeignKey("Resource", on_delete=models.CASCADE, related_name="resource_parts")
     resource_part_type = models.ForeignKey(ResourcePartType, on_delete=models.PROTECT, null=True)
-    title = models.CharField(max_length=100, null=True)
+    title = models.CharField(max_length=100)
    
     # TODO: Allow exercise numbers such as "4. b)" etc. maybe via char field or a separate field for sub exercise number?
     exercise_number = models.IntegerField(null=True)
@@ -49,7 +49,9 @@ class ResourceManager(models.Manager):
 
         for file in files:
             """Automatically create resource parts based on amount of files provided."""
-            resource_part = ResourcePart.objects.create(resource=resource, file=file)
+
+            title = f"File {file}" # File 1, File 2...
+            resource_part = ResourcePart.objects.create(resource=resource, title=title, file=file)
             resource_part.save()
 
         return resource

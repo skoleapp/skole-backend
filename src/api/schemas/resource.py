@@ -30,7 +30,7 @@ class ResourceType(DjangoObjectType):
 
     class Meta:
         model = Resource
-        fields = ("id", "resource_type", "resource_parts", "title", "file", "date", "creator", "points", "resource_part", "modified", "created")
+        fields = ("id", "resource_type", "resource_parts", "title", "date", "creator", "points", "resource_part", "modified", "created")
 
     def resolve_points(self, info: ResolveInfo) -> int:
         return get_points_for_target(self, POINTS_RESOURCE_MULTIPLIER)
@@ -77,8 +77,8 @@ class Query(graphene.ObjectType):
             """Return 'None' instead of throwing a GraphQL Error."""
             return None
 
-    def resolve_resource_types(self, info: ResolveInfo) -> List[ResourceType]:
-        return ResourceType.objects.all()
+    def resolve_resource_types(self, info: ResolveInfo) -> List[ResourceTypeModel]:
+        return ResourceTypeModel.objects.all()
 
 
 class Mutation(graphene.ObjectType):

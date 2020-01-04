@@ -53,9 +53,9 @@ class Query(graphene.ObjectType):
             """Return 'None' instead of throwing a GraphQL Error."""
             return None
 
-    def resolve_school_type(self, info: ResolveInfo, school_type_id: Optional[int] = None) -> SchoolType:
+    def resolve_school_type(self, info: ResolveInfo, school_type_id: Optional[int] = None) -> SchoolTypeModel:
         try:
-            return SchoolType.objects.get(pk=school_type_id)
-        except SchoolType.DoesNotExist:
+            return SchoolTypeModel.objects.get(pk=school_type_id)
+        except SchoolTypeModel.DoesNotExist:
             """Return 'None' instead of throwing a GraphQL Error."""
             return None

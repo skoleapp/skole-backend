@@ -7,8 +7,8 @@ from graphql_jwt.decorators import login_required
 from api.forms.resource import UploadResourceForm
 from api.utils.points import get_points_for_target, POINTS_RESOURCE_MULTIPLIER
 from api.utils.vote import AbstractUpvoteMutation, AbstractDownvoteMutation
-from app.models import Resource, ResourcePart
-from typing import Any
+from app.models import Resource, ResourceType as ResourceTypeModel, ResourcePart
+from typing import Any, List
 from mypy.types import JsonDict
 
 
@@ -16,6 +16,12 @@ class ResourcePartType(DjangoObjectType):
     class Meta:
         model = ResourcePart
         fields = ("id", "title", "file", "text", "file")
+
+
+class ResourceTypeObjectType(DjangoObjectType):
+    class Meta:
+        model = ResourceTypeModel
+        fields = ("id", "name", "has_parts")
 
 
 class ResourceType(DjangoObjectType):
@@ -58,9 +64,13 @@ class UploadResourceMutation(DjangoModelFormMutation):
 
 class Query(graphene.ObjectType):
     resource = graphene.Field(ResourceType, resource_id=graphene.Int(required=True))
+    resource_types = graphene.List(ResourceTypeObjectType)
 
     def resolve_resource(self, info: ResolveInfo, resource_id: str) -> Resource:
         return Resource.objects.get(pk=resource_id)
+
+    def resolve_resource_types(self, info: ResolveInfo) -> List[ResourceType]:
+        return ResourceType.objects.all()
 
 
 class Mutation(graphene.ObjectType):

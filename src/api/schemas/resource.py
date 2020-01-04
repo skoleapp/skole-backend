@@ -67,7 +67,11 @@ class Query(graphene.ObjectType):
     resource_types = graphene.List(ResourceTypeObjectType)
 
     def resolve_resource(self, info: ResolveInfo, resource_id: str) -> Resource:
-        return Resource.objects.get(pk=resource_id)
+        try:
+            return Resource.objects.get(pk=resource_id)
+        except Resource.DoesNotExist:
+            """Return 'None' instead of throwing a GraphQL Error."""
+            return None
 
     def resolve_resource_types(self, info: ResolveInfo) -> List[ResourceType]:
         return ResourceType.objects.all()

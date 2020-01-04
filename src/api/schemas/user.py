@@ -173,7 +173,11 @@ class Query(graphene.ObjectType):
         return get_user_model().objects.filter(is_superuser=False)
 
     def resolve_user(self, info: ResolveInfo, user_id: int) -> User:
-        return get_user_model().objects.filter(is_superuser=False).get(pk=user_id)
+        try:
+            return get_user_model().objects.filter(is_superuser=False).get(pk=user_id)
+        except get_user_model().DoesNotExist:
+            """Return 'None' instead of throwing a GraphQL Error."""
+            return None
 
     @login_required
     def resolve_user_me(self, info: ResolveInfo) -> User:

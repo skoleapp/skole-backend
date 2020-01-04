@@ -110,7 +110,11 @@ class Query(graphene.ObjectType):
         return comments
 
     def resolve_comment(self, info: ResolveInfo, comment_id: int) -> Comment:
-        return Comment.objects.get(pk=comment_id)
+        try:
+            return Comment.objects.get(pk=comment_id)
+        except Comment.DoesNotExist:
+            """Return 'None' instead of throwing a GraphQL Error."""
+            return None
 
 
 class Mutation(graphene.ObjectType):

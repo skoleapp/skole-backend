@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 
 import graphene
 from graphene_django import DjangoObjectType
@@ -15,6 +15,14 @@ class SchoolTypeObjectType(DjangoObjectType):
 
 class Query(graphene.ObjectType):
     school_types = graphene.List(SchoolTypeObjectType)
+    school_type = graphene.Field(SchoolTypeObjectType, school_type_id=graphene.Int())
 
     def resolve_school_types(self, info: ResolveInfo) -> List[SchoolType]:
         return SchoolType.objects.all()
+
+    def resolve_school_type(self, info: ResolveInfo, school_type_id: Optional[int] = None) -> SchoolType:
+        try:
+            return SchoolType.objects.get(pk=school_type_id)
+        except SchoolType.DoesNotExist:
+            """Return 'None' instead of throwing a GraphQL Error."""
+            return None

@@ -35,5 +35,9 @@ class Query(graphene.ObjectType):
     def resolve_schools(self, info: ResolveInfo) -> List[School]:
         return School.objects.order_by("name")
 
-    def resolve_school(self, info: ResolveInfo, school_id: int) -> School:
-        return School.objects.get(pk=school_id)
+    def resolve_school(self, info: ResolveInfo, school_id: Optional[int] = None) -> School:
+        try:
+            return School.objects.get(pk=school_id)
+        except School.DoesNotExist:
+            """Return 'None' instead of throwing a GraphQL Error."""
+            return None

@@ -66,7 +66,7 @@ class Resource(models.Model):
     # TODO: set to current date in the manager if not specified
     date = models.DateField(null=True)
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="resources")
-    # TODO: custom deletor, which marks the user as some anonymous user
+    downloads = models.PositiveIntegerField(default=0, null=True)
     creator = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name="created_resources")
 
     modified = models.DateTimeField(auto_now=True)

@@ -32,7 +32,7 @@ class ResourceType(DjangoObjectType):
 
     class Meta:
         model = Resource
-        fields = ("id", "resource_parts", "title", "date", "course", "creator", "modified", "created")
+        fields = ("id", "resource_parts", "title", "date", "course", "downloads", "creator", "modified", "created")
 
     def resolve_points(self, info: ResolveInfo) -> int:
         return get_points_for_target(self, POINTS_RESOURCE_MULTIPLIER)

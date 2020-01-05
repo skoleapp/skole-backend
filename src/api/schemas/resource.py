@@ -4,6 +4,7 @@ from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphql import ResolveInfo
 from graphql_jwt.decorators import login_required
 
+from api.schemas.school import SchoolType
 from api.forms.resource import UploadResourceForm
 from api.utils.points import get_points_for_target, POINTS_RESOURCE_MULTIPLIER
 from api.utils.vote import AbstractUpvoteMutation, AbstractDownvoteMutation
@@ -27,7 +28,7 @@ class ResourceTypeObjectType(DjangoObjectType):
 class ResourceType(DjangoObjectType):
     resource_type = graphene.String()
     points = graphene.Int()
-    school = graphene.String()
+    school = graphene.Field(SchoolType)
 
     class Meta:
         model = Resource
@@ -35,9 +36,6 @@ class ResourceType(DjangoObjectType):
 
     def resolve_points(self, info: ResolveInfo) -> int:
         return get_points_for_target(self, POINTS_RESOURCE_MULTIPLIER)
-
-    def resolve_school(self, info: ResolveInfo) -> str:
-        return f"{self.course.school.name}"
 
 
 class UpvoteResourceMutation(AbstractUpvoteMutation):

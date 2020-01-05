@@ -37,6 +37,9 @@ class ResourceType(DjangoObjectType):
     def resolve_points(self, info: ResolveInfo) -> int:
         return get_points_for_target(self, POINTS_RESOURCE_MULTIPLIER)
 
+    def resolve_school(self, info: ResolveInfo) -> str:
+        return self.course.school
+
 
 class UpvoteResourceMutation(AbstractUpvoteMutation):
     class Input:

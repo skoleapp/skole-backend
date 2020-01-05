@@ -297,7 +297,7 @@
     resource_part_type: 1
     title: "Concept Explanation"
     exercise_number: 1
-    file: "media/uploads/resource_parts/sample_resource_part_2.jpg"
+    file: "media/uploads/resource_parts/sample_resource_part_2.png"
     text: "Sample assignment 2"
 - model: app.ResourcePart
   pk: 3
@@ -306,7 +306,7 @@
     resource_part_type: 1
     title: "Essay"
     exercise_number: 1
-    file: "media/uploads/resource_parts/sample_resource_part_3.jpg"
+    file: "media/uploads/resource_parts/sample_resource_part_3.png"
     text: "Sample assignment 3"
 
 

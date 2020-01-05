@@ -27,13 +27,17 @@ class ResourceTypeObjectType(DjangoObjectType):
 class ResourceType(DjangoObjectType):
     resource_type = graphene.String()
     points = graphene.Int()
+    school = graphene.String()
 
     class Meta:
         model = Resource
-        fields = ("id", "resource_type", "resource_parts", "title", "date", "creator", "points", "resource_part", "modified", "created")
+        fields = ("id", "resource_parts", "title", "date", "course", "creator", "modified", "created")
 
     def resolve_points(self, info: ResolveInfo) -> int:
         return get_points_for_target(self, POINTS_RESOURCE_MULTIPLIER)
+
+    def resolve_school(self, info: ResolveInfo) -> str:
+        return f"{self.course.school.name}"
 
 
 class UpvoteResourceMutation(AbstractUpvoteMutation):

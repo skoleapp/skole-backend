@@ -1,5 +1,6 @@
-from app.models import Resource
 from django import forms
+
+from app.models import Resource
 
 
 class UploadResourceForm(forms.ModelForm):

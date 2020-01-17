@@ -1,10 +1,11 @@
 from typing import Any
 
 import graphene
-from app.models import Vote
-from app.utils.vote import DOWNVOTE, UPVOTE
 from graphql import ResolveInfo
 from graphql_jwt.decorators import login_required
+
+from app.models import Vote
+from app.utils.vote import DOWNVOTE, UPVOTE
 
 
 class _AbstractVoteMutation(graphene.Mutation):

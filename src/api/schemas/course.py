@@ -1,14 +1,15 @@
 from typing import List, Optional
 
 import graphene
-from api.forms.course import CreateCourseForm
-from api.utils.points import POINTS_COURSE_MULTIPLIER, get_points_for_target
-from api.utils.vote import AbstractDownvoteMutation, AbstractUpvoteMutation
-from app.models import Course
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphql import ResolveInfo
 from graphql_jwt.decorators import login_required
+
+from api.forms.course import CreateCourseForm
+from api.utils.points import POINTS_COURSE_MULTIPLIER, get_points_for_target
+from api.utils.vote import AbstractDownvoteMutation, AbstractUpvoteMutation
+from app.models import Course
 
 
 class CourseObjectType(DjangoObjectType):

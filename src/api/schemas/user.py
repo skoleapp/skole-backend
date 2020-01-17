@@ -1,8 +1,14 @@
 from typing import Any, List, Optional
 
+import graphene
+from django.contrib.auth import get_user_model
+from graphene_django import DjangoObjectType
+from graphene_django.forms.mutation import DjangoModelFormMutation
+from graphene_django.types import ErrorType
+from graphql import ResolveInfo
+from graphql_jwt.decorators import login_required, token_auth
 from mypy.types import JsonDict
 
-import graphene
 from api.forms.user import (
     ChangePasswordForm,
     DeleteUserForm,
@@ -13,12 +19,6 @@ from api.forms.user import (
 from api.utils.messages import USER_DELETED_MESSAGE
 from api.utils.points import get_points_for_user
 from app.models import User
-from django.contrib.auth import get_user_model
-from graphene_django import DjangoObjectType
-from graphene_django.forms.mutation import DjangoModelFormMutation
-from graphene_django.types import ErrorType
-from graphql import ResolveInfo
-from graphql_jwt.decorators import login_required, token_auth
 
 
 class UserObjectType(DjangoObjectType):

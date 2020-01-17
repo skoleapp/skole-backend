@@ -1,9 +1,10 @@
 from typing import List, Optional
 
 import graphene
-from app.models import Country
 from graphene_django import DjangoObjectType
 from graphql import ResolveInfo
+
+from app.models import Country
 
 
 class CountryObjectType(DjangoObjectType):

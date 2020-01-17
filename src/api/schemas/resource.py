@@ -1,16 +1,17 @@
 from typing import List, Optional
 
 import graphene
+from graphene_django import DjangoObjectType
+from graphene_django.forms.mutation import DjangoModelFormMutation
+from graphql import ResolveInfo
+from graphql_jwt.decorators import login_required
+
 from api.forms.resource import UploadResourceForm
 from api.schemas.school import SchoolObjectType
 from api.utils.points import POINTS_RESOURCE_MULTIPLIER, get_points_for_target
 from api.utils.vote import AbstractDownvoteMutation, AbstractUpvoteMutation
 from app.models import Resource, ResourcePart
 from app.models import ResourceType as ResourceTypeModel
-from graphene_django import DjangoObjectType
-from graphene_django.forms.mutation import DjangoModelFormMutation
-from graphql import ResolveInfo
-from graphql_jwt.decorators import login_required
 
 
 class ResourcePartObjectType(DjangoObjectType):

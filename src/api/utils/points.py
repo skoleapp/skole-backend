@@ -1,8 +1,9 @@
 from typing import Any, Union
 
-from app.models import Comment, Course, Resource, User
 from django.db import models
 from django.db.models.functions import Coalesce
+
+from app.models import Comment, Course, Resource, User
 
 POINTS_RESOURCE_MULTIPLIER = 10
 POINTS_COURSE_MULTIPLIER = 5

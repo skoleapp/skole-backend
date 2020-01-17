@@ -1,6 +1,5 @@
-from mypy.types import JsonDict
-
 from graphene_django.utils import GraphQLTestCase
+from mypy.types import JsonDict
 
 
 def query_schools(test_cls: GraphQLTestCase) -> JsonDict:

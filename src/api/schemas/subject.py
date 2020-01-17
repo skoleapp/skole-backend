@@ -1,9 +1,10 @@
 from typing import List, Optional
 
 import graphene
-from app.models import Subject
 from graphene_django import DjangoObjectType
 from graphql import ResolveInfo
+
+from app.models import Subject
 
 
 class SubjectObjectType(DjangoObjectType):

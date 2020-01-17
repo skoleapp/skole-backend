@@ -1,6 +1,11 @@
 from typing import List, Optional
 
 import graphene
+from graphene_django import DjangoObjectType
+from graphene_django.forms.mutation import DjangoModelFormMutation
+from graphql import ResolveInfo
+from graphql_jwt.decorators import login_required
+
 from api.forms.comment import CreateCommentForm, UpdateCommentForm
 from api.utils.points import (
     POINTS_COURSE_COMMENT_MULTIPLIER,
@@ -9,10 +14,6 @@ from api.utils.points import (
 )
 from api.utils.vote import AbstractDownvoteMutation, AbstractUpvoteMutation
 from app.models import Comment
-from graphene_django import DjangoObjectType
-from graphene_django.forms.mutation import DjangoModelFormMutation
-from graphql import ResolveInfo
-from graphql_jwt.decorators import login_required
 
 
 class CommentObjectType(DjangoObjectType):

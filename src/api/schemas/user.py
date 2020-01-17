@@ -60,15 +60,15 @@ class UserType(DjangoObjectType):
 
     def resolve_avatar(self, info: ResolveInfo) -> str:
         if not self.avatar:
-            return settings.STATIC_URL + "default_avatar.jpg"
+            return "static/default_avatar.jpg"
         else:
-            return settings.MEDIA_URL + str(self.avatar)
+            return f"media/{self.avatar}"
 
     def resolve_avatar_thumbnail(self, info: ResolveInfo) -> str:
         if not self.avatar_thumbnail:
-            return settings.STATIC_URL + "default_avatar_thumbnail.jpg"
+            return "static/default_avatar_thumbnail.jpg"
         else:
-            return settings.MEDIA_URL + str(self.avatar_thumbnail)
+            return f"media/{self.avatar_thumbnail}"
 
 
 class SignUpMutation(DjangoModelFormMutation):
@@ -173,7 +173,11 @@ class Query(graphene.ObjectType):
         return get_user_model().objects.filter(is_superuser=False)
 
     def resolve_user(self, info: ResolveInfo, user_id: int) -> User:
-        return get_user_model().objects.filter(is_superuser=False).get(pk=user_id)
+        try:
+            return get_user_model().objects.filter(is_superuser=False).get(pk=user_id)
+        except get_user_model().DoesNotExist:
+            """Return 'None' instead of throwing a GraphQL Error."""
+            return None
 
     @login_required
     def resolve_user_me(self, info: ResolveInfo) -> User:

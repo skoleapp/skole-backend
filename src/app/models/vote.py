@@ -29,6 +29,8 @@ class VoteManager(models.Manager):
 
 
 class Vote(models.Model):
+    """Models one vote on either comment, course or resource."""
+
     creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name="votes")
     status = models.IntegerField(choices=VOTE_STATUS)
 

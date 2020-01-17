@@ -244,7 +244,6 @@
   fields:
     resource_type: 1
     title: "Sample exam 1"
-    file: "media/uploads/resources/sample_resource_1.jpg"
     date: "2012-12-12"
     course: 1
     creator: 2
@@ -255,7 +254,6 @@
   fields:
     resource_type: 1
     title: "Sample exam 2"
-    file: "media/uploads/resources/sample_resource_2.jpg"
     date: "2012-12-12"
     course: 1
     creator: 2
@@ -266,7 +264,6 @@
   fields:
     resource_type: 2
     title: "Sample exercise"
-    file: "media/uploads/resources/sample_resource_3.jpg"
     date: "2012-12-12"
     course: 1
     creator: 2
@@ -274,18 +271,43 @@
     created: "2019-01-01 12:00:00.000000+00:00"
 
 
+- model: app.ResourcePartType
+  pk: 1
+  fields:
+    name: "Exercise"
+- model: app.ResourcePartType
+  pk: 2
+  fields:
+    name: "Note Part"
+
+
 - model: app.ResourcePart
   pk: 1
   fields:
     resource: 1
+    resource_part_type: 1
+    title: "Multiple Choice"
+    exercise_number: 1
+    file: "media/uploads/resource_parts/sample_resource_part_1.jpg"
+    text: "Sample assignment 1"
 - model: app.ResourcePart
-  pk: 1
+  pk: 2
   fields:
     resource: 1
+    resource_part_type: 1
+    title: "Concept Explanation"
+    exercise_number: 1
+    file: "media/uploads/resource_parts/sample_resource_part_2.png"
+    text: "Sample assignment 2"
 - model: app.ResourcePart
-  pk: 1
+  pk: 3
   fields:
     resource: 1
+    resource_part_type: 1
+    title: "Essay"
+    exercise_number: 1
+    file: "media/uploads/resource_parts/sample_resource_part_3.png"
+    text: "Sample assignment 3"
 
 
 - model: app.Comment

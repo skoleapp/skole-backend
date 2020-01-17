@@ -1,13 +1,19 @@
 from django import forms
 from django.conf import settings
-from django.contrib.auth import authenticate
-from django.contrib.auth import get_user_model
+from django.contrib.auth import authenticate, get_user_model
 from mypy.types import JsonDict
 
-from api.utils.messages import EMAIL_TAKEN_MESSAGE, USERNAME_TAKEN_MESSAGE, INCORRECT_OLD_PASSWORD_MESSAGE, UNABLE_TO_AUTHENTICATE_MESSAGE, INCORRECT_PASSWORD_MESSAGE
+from api.utils.messages import (EMAIL_TAKEN_MESSAGE,
+                                INCORRECT_OLD_PASSWORD_MESSAGE,
+                                INCORRECT_PASSWORD_MESSAGE,
+                                UNABLE_TO_AUTHENTICATE_MESSAGE,
+                                USERNAME_TAKEN_MESSAGE, email_error_messages,
+                                username_error_messages)
 
 
 class SignUpForm(forms.ModelForm):
+    username = forms.CharField(error_messages=username_error_messages)
+    email = forms.EmailField(error_messages=email_error_messages)
     password = forms.CharField(min_length=settings.PASSWORD_MIN_LENGTH)
 
     class Meta:
@@ -46,6 +52,9 @@ class SignInForm(forms.ModelForm):
 
 
 class UpdateUserForm(forms.ModelForm):
+    username = forms.CharField(error_messages=username_error_messages)
+    email = forms.EmailField(error_messages=email_error_messages)
+
     class Meta:
         model = get_user_model()
         fields = ("username", "email", "title", "bio", "avatar")

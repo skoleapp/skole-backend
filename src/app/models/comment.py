@@ -3,20 +3,21 @@ from typing import Union
 from django.db import models
 
 from .course import Course
-from .resource import Resource
-from .resource_part import ResourcePart
+from .resource import Resource, ResourcePart
 from .user import User
 
 
 class CommentManager(models.Manager):
     def create_comment(self, creator: User, text: str, attachment: str,
-                       target: Union[Course, Resource, ResourcePart]) -> 'Comment':
+                       target: Union[Course, Resource, ResourcePart, 'Comment']) -> 'Comment':
         if isinstance(target, Course):
             comment = self.model(course=target)
         elif isinstance(target, Resource):
             comment = self.model(resource=target)
         elif isinstance(target, ResourcePart):
             comment = self.model(resource_part=target)
+        elif isinstance(target, 'Comment'):
+            comment = self.model(comment=target)
         else:
             raise TypeError(f"Invalid target type for Comment: {type(target)}")
 
@@ -29,7 +30,7 @@ class CommentManager(models.Manager):
 
 
 class Comment(models.Model):
-    """Models one comment, posted on a comment thread."""
+    """Models one comment posted on a comment thread."""
 
     creator = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name="comments")
     text = models.TextField(max_length=10000)

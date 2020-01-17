@@ -6,15 +6,15 @@ from graphene_django import DjangoObjectType
 from graphql import ResolveInfo
 
 
-class CountryType(DjangoObjectType):
+class CountryObjectType(DjangoObjectType):
     class Meta:
         model = Country
         fields = ("id", "name")
 
 
 class Query(graphene.ObjectType):
-    countries = graphene.List(CountryType)
-    country = graphene.Field(CountryType, country_id=graphene.Int())
+    countries = graphene.List(CountryObjectType)
+    country = graphene.Field(CountryObjectType, country_id=graphene.Int())
 
     def resolve_countries(self, info: ResolveInfo) -> List[Country]:
         return Country.objects.order_by("name")

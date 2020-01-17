@@ -6,15 +6,15 @@ from graphene_django import DjangoObjectType
 from graphql import ResolveInfo
 
 
-class CityType(DjangoObjectType):
+class CityObjectType(DjangoObjectType):
     class Meta:
         model = City
         fields = ("id", "name")
 
 
 class Query(graphene.ObjectType):
-    cities = graphene.List(CityType)
-    city = graphene.Field(CityType, city_id=graphene.Int())
+    cities = graphene.List(CityObjectType)
+    city = graphene.Field(CityObjectType, city_id=graphene.Int())
 
     def resolve_cities(self, info: ResolveInfo) -> List[City]:
         return City.objects.order_by("name")

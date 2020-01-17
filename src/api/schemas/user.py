@@ -21,7 +21,7 @@ from graphql import ResolveInfo
 from graphql_jwt.decorators import login_required, token_auth
 
 
-class UserType(DjangoObjectType):
+class UserObjectType(DjangoObjectType):
     email = graphene.String()
     avatar = graphene.String()
     avatar_thumbnail = graphene.String()
@@ -186,9 +186,9 @@ class UpdateUserMutation(DjangoModelFormMutation):
 
 
 class Query(graphene.ObjectType):
-    users = graphene.List(UserType)
-    user = graphene.Field(UserType, user_id=graphene.Int(required=True))
-    user_me = graphene.Field(UserType)
+    users = graphene.List(UserObjectType)
+    user = graphene.Field(UserObjectType, user_id=graphene.Int(required=True))
+    user_me = graphene.Field(UserObjectType)
 
     def resolve_users(self, info: ResolveInfo) -> List[User]:
         # TODO: add some sorting options for the frontend to use,

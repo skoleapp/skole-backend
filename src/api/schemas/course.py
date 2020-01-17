@@ -11,7 +11,7 @@ from graphql import ResolveInfo
 from graphql_jwt.decorators import login_required
 
 
-class CourseType(DjangoObjectType):
+class CourseObjectType(DjangoObjectType):
     points = graphene.Int()
     resource_count = graphene.Int()
 
@@ -37,7 +37,7 @@ class CourseType(DjangoObjectType):
 
 
 class CreateCourseMutation(DjangoModelFormMutation):
-    course = graphene.Field(CourseType)
+    course = graphene.Field(CourseObjectType)
 
     class Meta:
         form_class = CreateCourseForm
@@ -55,19 +55,19 @@ class UpvoteCourseMutation(AbstractUpvoteMutation):
     class Arguments:
         course_id = graphene.Int()
 
-    course = graphene.Field(CourseType)
+    course = graphene.Field(CourseObjectType)
 
 
 class DownvoteCourseMutation(AbstractDownvoteMutation):
     class Arguments:
         course_id = graphene.Int()
 
-    course = graphene.Field(CourseType)
+    course = graphene.Field(CourseObjectType)
 
 
 class Query(graphene.ObjectType):
     courses = graphene.List(
-        CourseType,
+        CourseObjectType,
         course_name=graphene.String(),
         course_code=graphene.String(),
         subject_id=graphene.Int(),
@@ -77,7 +77,7 @@ class Query(graphene.ObjectType):
         city_id=graphene.Int(),
     )
 
-    course = graphene.Field(CourseType, course_id=graphene.Int())
+    course = graphene.Field(CourseObjectType, course_id=graphene.Int())
 
     def resolve_courses(
         self,

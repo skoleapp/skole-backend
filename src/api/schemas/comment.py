@@ -15,7 +15,7 @@ from graphql import ResolveInfo
 from graphql_jwt.decorators import login_required
 
 
-class CommentType(DjangoObjectType):
+class CommentObjectType(DjangoObjectType):
     points = graphene.Int()
 
     class Meta:
@@ -48,7 +48,7 @@ class CommentType(DjangoObjectType):
 
 
 class CreateCommentMutation(DjangoModelFormMutation):
-    comment = graphene.Field(CommentType)
+    comment = graphene.Field(CommentObjectType)
 
     class Meta:
         form_class = CreateCommentForm
@@ -68,7 +68,7 @@ class CreateCommentMutation(DjangoModelFormMutation):
 
 
 class UpdateCommentMutation(DjangoModelFormMutation):
-    comment = graphene.Field(CommentType)
+    comment = graphene.Field(CommentObjectType)
 
     class Meta:
         form_class = UpdateCommentForm
@@ -94,24 +94,24 @@ class UpvoteCommentMutation(AbstractUpvoteMutation):
     class Arguments:
         comment_id = graphene.Int()
 
-    comment = graphene.Field(CommentType)
+    comment = graphene.Field(CommentObjectType)
 
 
 class DownvoteCommentMutation(AbstractDownvoteMutation):
     class Arguments:
         comment_id = graphene.Int()
 
-    comment = graphene.Field(CommentType)
+    comment = graphene.Field(CommentObjectType)
 
 
 class Query(graphene.ObjectType):
     comments = graphene.List(
-        CommentType,
+        CommentObjectType,
         course_id=graphene.String(),
         resource_id=graphene.Int(),
         resource_part_id=graphene.Int(),
     )
-    comment = graphene.Field(CommentType, comment_id=graphene.Int())
+    comment = graphene.Field(CommentObjectType, comment_id=graphene.Int())
 
     def resolve_comments(
         self,

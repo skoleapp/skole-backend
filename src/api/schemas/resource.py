@@ -2,7 +2,7 @@ from typing import List, Optional
 
 import graphene
 from api.forms.resource import UploadResourceForm
-from api.schemas.school import SchoolType
+from api.schemas.school import SchoolObjectType
 from api.utils.points import POINTS_RESOURCE_MULTIPLIER, get_points_for_target
 from api.utils.vote import AbstractDownvoteMutation, AbstractUpvoteMutation
 from app.models import Resource, ResourcePart
@@ -13,7 +13,7 @@ from graphql import ResolveInfo
 from graphql_jwt.decorators import login_required
 
 
-class ResourcePartType(DjangoObjectType):
+class ResourcePartObjectType(DjangoObjectType):
     class Meta:
         model = ResourcePart
         fields = ("id", "title", "file", "text", "file")
@@ -25,10 +25,10 @@ class ResourceTypeObjectType(DjangoObjectType):
         fields = ("id", "name", "has_parts")
 
 
-class ResourceType(DjangoObjectType):
+class ResourceObjectType(DjangoObjectType):
     resource_type = graphene.String()
     points = graphene.Int()
-    school = graphene.Field(SchoolType)
+    school = graphene.Field(SchoolObjectType)
 
     class Meta:
         model = Resource
@@ -55,14 +55,14 @@ class UpvoteResourceMutation(AbstractUpvoteMutation):
     class Arguments:
         resource_id = graphene.Int()
 
-    resource = graphene.Field(ResourceType)
+    resource = graphene.Field(ResourceObjectType)
 
 
 class DownvoteResourceMutation(AbstractDownvoteMutation):
     class Arguments:
         resource_id = graphene.Int()
 
-    resource = graphene.Field(ResourceType)
+    resource = graphene.Field(ResourceObjectType)
 
 
 class UploadResourceMutation(DjangoModelFormMutation):
@@ -86,7 +86,7 @@ class UploadResourceMutation(DjangoModelFormMutation):
 
 
 class Query(graphene.ObjectType):
-    resource = graphene.Field(ResourceType, resource_id=graphene.Int(required=True))
+    resource = graphene.Field(ResourceObjectType, resource_id=graphene.Int(required=True))
     resource_types = graphene.List(ResourceTypeObjectType)
 
     def resolve_resource(

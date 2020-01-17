@@ -91,14 +91,14 @@ class UpdateCommentMutation(DjangoModelFormMutation):
 
 
 class UpvoteCommentMutation(AbstractUpvoteMutation):
-    class Input:
+    class Arguments:
         comment_id = graphene.Int()
 
     comment = graphene.Field(CommentType)
 
 
 class DownvoteCommentMutation(AbstractDownvoteMutation):
-    class Input:
+    class Arguments:
         comment_id = graphene.Int()
 
     comment = graphene.Field(CommentType)

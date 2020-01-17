@@ -52,14 +52,14 @@ class ResourceType(DjangoObjectType):
 
 
 class UpvoteResourceMutation(AbstractUpvoteMutation):
-    class Input:
+    class Arguments:
         resource_id = graphene.Int()
 
     resource = graphene.Field(ResourceType)
 
 
 class DownvoteResourceMutation(AbstractDownvoteMutation):
-    class Input:
+    class Arguments:
         resource_id = graphene.Int()
 
     resource = graphene.Field(ResourceType)

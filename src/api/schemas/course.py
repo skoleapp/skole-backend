@@ -52,14 +52,14 @@ class CreateCourseMutation(DjangoModelFormMutation):
 
 
 class UpvoteCourseMutation(AbstractUpvoteMutation):
-    class Input:
+    class Arguments:
         course_id = graphene.Int()
 
     course = graphene.Field(CourseType)
 
 
 class DownvoteCourseMutation(AbstractDownvoteMutation):
-    class Input:
+    class Arguments:
         course_id = graphene.Int()
 
     course = graphene.Field(CourseType)

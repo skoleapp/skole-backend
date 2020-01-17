@@ -86,7 +86,9 @@ class UploadResourceMutation(DjangoModelFormMutation):
 
 
 class Query(graphene.ObjectType):
-    resource = graphene.Field(ResourceObjectType, resource_id=graphene.Int(required=True))
+    resource = graphene.Field(
+        ResourceObjectType, resource_id=graphene.Int(required=True)
+    )
     resource_types = graphene.List(ResourceTypeObjectType)
 
     def resolve_resource(

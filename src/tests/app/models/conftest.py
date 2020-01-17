@@ -30,7 +30,7 @@ def school(db: fixture) -> School:
 
 @fixture
 def subject(user: fixture, school: fixture) -> Subject:
-    subject = Subject.objects.create(name="Test subject",)
+    subject = Subject.objects.create(name="Test subject")
     subject.schools.add(school)
     return subject
 
@@ -56,7 +56,7 @@ def resource(user: fixture, course: fixture) -> Resource:
         course=course,
         creator=user,
     )
-    resource.file = (SimpleUploadedFile("test_exam.txt", b"file contents"),)
+    resource.file = SimpleUploadedFile("test_exam.txt", b"file contents")
     return resource
 
 

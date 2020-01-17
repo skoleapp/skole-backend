@@ -1,7 +1,12 @@
 from api.schemas.schema import schema
 from graphene.test import Client
 from graphene_django.utils.testing import GraphQLTestCase
-from tests.api.utils.school import query_school, query_schools, query_school_type, query_school_types
+from tests.api.utils.school import (
+    query_school,
+    query_school_type,
+    query_school_types,
+    query_schools,
+)
 
 
 class SchoolAPITests(GraphQLTestCase):
@@ -55,9 +60,11 @@ class SchoolAPITests(GraphQLTestCase):
         res = query_school_types(self)
         school_types = res["data"]["schoolTypes"]
         for school_type in school_types:
-            assert school_type == query_school_type(self, school_type["id"])["data"]["schoolType"]
+            assert (
+                school_type
+                == query_school_type(self, school_type["id"])["data"]["schoolType"]
+            )
 
         # Test that returns None when ID not found.
         res = query_school_type(self, 999)
         assert res["data"]["schoolType"] is None
-

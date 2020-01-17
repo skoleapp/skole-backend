@@ -1,8 +1,7 @@
 from typing import List, Optional
 
 import graphene
-from app.models import Country, School
-from app.models import SchoolType
+from app.models import Country, School, SchoolType
 from graphene_django import DjangoObjectType
 from graphql import ResolveInfo
 

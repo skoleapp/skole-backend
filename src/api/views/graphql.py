@@ -25,7 +25,7 @@ class CustomGraphQLView(GraphQLView):
                         "Batch requests should receive a list, but received {}."
                     ).format(repr(request_json))
                     assert (
-                            len(request_json) > 0
+                        len(request_json) > 0
                     ), "Received an empty list in the batch request."
                 else:
                     assert isinstance(
@@ -38,11 +38,10 @@ class CustomGraphQLView(GraphQLView):
                 raise HttpError(HttpResponseBadRequest("POST body sent invalid JSON."))
 
         # Added for graphql file uploads.
-        elif content_type == 'multipart/form-data':
-            operations = json.loads(request.POST['operations'])
-            files_map = json.loads(request.POST['map'])
-            return place_files_in_operations(
-                operations, files_map, request.FILES)
+        elif content_type == "multipart/form-data":
+            operations = json.loads(request.POST["operations"])
+            files_map = json.loads(request.POST["map"])
+            return place_files_in_operations(operations, files_map, request.FILES)
 
         elif content_type in [
             "application/x-www-form-urlencoded",
@@ -60,7 +59,7 @@ def place_files_in_operations(operations, files_map, files):
     fmap = []
     for key, values in files_map.items():
         for val in values:
-            path = val.split('.')
+            path = val.split(".")
             fmap.append((path, key))
 
     return _place_files_in_operations(operations, fmap, files)
@@ -86,7 +85,7 @@ def _place_file_in_operations(ops, path, obj):
         sub = _place_file_in_operations(ops[key], path[1:], obj)
         return _insert_in_dict(ops, key, sub)
 
-    raise TypeError('Expected ops to be list or dict')
+    raise TypeError("Expected ops to be list or dict")
 
 
 def _insert_in_dict(dct, key, val):
@@ -94,4 +93,4 @@ def _insert_in_dict(dct, key, val):
 
 
 def _insert_in_list(lst, key, val):
-    return [*lst[:key], val, *lst[key + 1:]]
+    return [*lst[:key], val, *lst[key + 1 :]]

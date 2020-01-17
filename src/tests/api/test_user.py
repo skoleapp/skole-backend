@@ -130,10 +130,7 @@ class PrivateUserAPITests(GraphQLTestCase):
 
     def setUp(self) -> None:
         self.user1 = create_sample_user()
-        self.user2 = create_sample_user(
-            username="testuser2",
-            email="test2@test.com",
-        )
+        self.user2 = create_sample_user(username="testuser2", email="test2@test.com",)
 
         self.client = Client(schema)
 

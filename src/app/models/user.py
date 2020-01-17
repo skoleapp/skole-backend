@@ -8,7 +8,7 @@ from imagekit.processors import ResizeToFill
 
 
 class UserManager(BaseUserManager):
-    def create_user(self, email: str, username: str, password: str) -> 'User':
+    def create_user(self, email: str, username: str, password: str) -> "User":
         user = self.model(email=self.normalize_email(email), username=username)
 
         user.is_staff = False
@@ -20,7 +20,7 @@ class UserManager(BaseUserManager):
         user.save()
         return user
 
-    def create_superuser(self, email: str, username: str, password: str) -> 'User':
+    def create_superuser(self, email: str, username: str, password: str) -> "User":
         user = self.model(email=email, username=username)
         user.is_staff = True
         user.is_superuser = True
@@ -29,7 +29,7 @@ class UserManager(BaseUserManager):
         user.save()
         return user
 
-    def update_user(self, user: 'User', **kwargs: Any) -> 'User':
+    def update_user(self, user: "User", **kwargs: Any) -> "User":
         for key, value in kwargs.items():
             setattr(user, key, value)
 
@@ -37,7 +37,7 @@ class UserManager(BaseUserManager):
         return user
 
     @staticmethod
-    def set_password(user: 'User', password: str) -> 'User':
+    def set_password(user: "User", password: str) -> "User":
         user.set_password(password)
 
         user.save()
@@ -52,10 +52,12 @@ class User(AbstractBaseUser, PermissionsMixin):
     title = models.CharField(max_length=100, null=True, blank=True)
     bio = models.TextField(max_length=2000, null=True, blank=True)
     avatar = models.ImageField(upload_to="uploads/avatars", null=True, blank=True)
-    avatar_thumbnail = ImageSpecField(source="avatar",
-                                      processors=[ResizeToFill(100, 100)],
-                                      format="JPEG",
-                                      options={"quality": 60})
+    avatar_thumbnail = ImageSpecField(
+        source="avatar",
+        processors=[ResizeToFill(100, 100)],
+        format="JPEG",
+        options={"quality": 60},
+    )
 
     is_staff = models.BooleanField(default=False)
 

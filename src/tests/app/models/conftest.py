@@ -13,9 +13,7 @@ from app.models.user import User
 @fixture
 def user(db: fixture) -> User:
     user = User.objects.create_user(
-        email="testmail@gmail.com",
-        username="testuser",
-        password="testpass",
+        email="testmail@gmail.com", username="testuser", password="testpass",
     )
     return user
 
@@ -33,9 +31,7 @@ def school(db: fixture) -> School:
 
 @fixture
 def subject(user: fixture, school: fixture) -> Subject:
-    subject = Subject.objects.create(
-        name="Test subject",
-    )
+    subject = Subject.objects.create(name="Test subject",)
     subject.schools.add(school)
     return subject
 
@@ -61,16 +57,13 @@ def resource(user: fixture, course: fixture) -> Resource:
         course=course,
         creator=user,
     )
-    resource.file = SimpleUploadedFile("test_exam.txt", b"file contents"),
+    resource.file = (SimpleUploadedFile("test_exam.txt", b"file contents"),)
     return resource
 
 
 @fixture
 def comment(user: fixture, resource: fixture) -> ResourceComment:
     comment = ResourceComment.objects.create(
-        text="This is a test comment",
-        attachment=None,
-        resource=resource,
-        creator=user,
+        text="This is a test comment", attachment=None, resource=resource, creator=user,
     )
     return comment

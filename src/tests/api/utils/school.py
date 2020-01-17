@@ -23,8 +23,7 @@ def create_sample_school(**params: str) -> School:
 
 
 def query_schools(test_cls: GraphQLTestCase) -> JsonDict:
-    query = \
-        """
+    query = """
         query {
           schools {
             id
@@ -36,16 +35,13 @@ def query_schools(test_cls: GraphQLTestCase) -> JsonDict:
         }
         """
 
-    return test_cls.client.execute(
-        query,
-    )
+    return test_cls.client.execute(query,)
 
 
 def query_school(test_cls: GraphQLTestCase, id_: int = 1) -> JsonDict:
     variables = {"id": id_}
 
-    query = \
-        """
+    query = """
         query school($schoolId: Int!) {
          school(id: $schoolId) {
            id
@@ -57,7 +53,4 @@ def query_school(test_cls: GraphQLTestCase, id_: int = 1) -> JsonDict:
         }
         """
 
-    return test_cls.client.execute(
-        query,
-        variables=variables,
-    )
+    return test_cls.client.execute(query, variables=variables,)

@@ -19,7 +19,7 @@ class Query(
     api.schemas.subject.Query,
     api.schemas.user.Query,
     api.schemas.country.Query,
-    api.schemas.city.Query
+    api.schemas.city.Query,
 ):
     pass
 

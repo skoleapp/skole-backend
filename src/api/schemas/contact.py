@@ -17,7 +17,7 @@ class ContactMutation(DjangoFormMutation):
         form_class = ContactForm
 
     @classmethod
-    def perform_mutate(cls, form: ContactForm, info: ResolveInfo) -> 'ContactMutation':
+    def perform_mutate(cls, form: ContactForm, info: ResolveInfo) -> "ContactMutation":
         """
         TODO: Set up email settings: https://docs.djangoproject.com/en/2.2/topics/email/.
         """
@@ -36,7 +36,9 @@ class ContactMutation(DjangoFormMutation):
             """
             This error will show among the general errors in the frontend form.
             """
-            return cls(errors=[{"field": "__all__", "messages": [MESSAGE_SENT_ERROR_MESSAGE]}])
+            return cls(
+                errors=[{"field": "__all__", "messages": [MESSAGE_SENT_ERROR_MESSAGE]}]
+            )
 
 
 class Mutation(graphene.ObjectType):

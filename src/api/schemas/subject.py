@@ -20,7 +20,9 @@ class Query(graphene.ObjectType):
     def resolve_subjects(self, info: ResolveInfo) -> List[Subject]:
         return Subject.objects.order_by("name")
 
-    def resolve_subject(self, info: ResolveInfo, subject_id: Optional[int] = None) -> Subject:
+    def resolve_subject(
+        self, info: ResolveInfo, subject_id: Optional[int] = None
+    ) -> Subject:
         try:
             return Subject.objects.get(pk=subject_id)
         except Subject.DoesNotExist:

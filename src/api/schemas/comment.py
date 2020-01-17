@@ -7,7 +7,11 @@ from graphql import ResolveInfo
 from graphql_jwt.decorators import login_required
 
 from api.forms.comment import CreateCommentForm, UpdateCommentForm
-from api.utils.points import get_points_for_target, POINTS_COURSE_COMMENT_MULTIPLIER, POINTS_RESOURCE_COMMENT_MULTIPLIER
+from api.utils.points import (
+    get_points_for_target,
+    POINTS_COURSE_COMMENT_MULTIPLIER,
+    POINTS_RESOURCE_COMMENT_MULTIPLIER,
+)
 from api.utils.vote import AbstractUpvoteMutation, AbstractDownvoteMutation
 from app.models import Comment
 
@@ -17,8 +21,18 @@ class CommentType(DjangoObjectType):
 
     class Meta:
         model = Comment
-        fields = ("id", "creator", "text", "attachment", "course", "resource",
-                  "comment", "resource_part", "modified", "created")
+        fields = (
+            "id",
+            "creator",
+            "text",
+            "attachment",
+            "course",
+            "resource",
+            "comment",
+            "resource_part",
+            "modified",
+            "created",
+        )
 
     def resolve_points(self, info: ResolveInfo) -> int:
         if self.course is not None:
@@ -41,11 +55,15 @@ class CreateCommentMutation(DjangoModelFormMutation):
 
     @classmethod
     @login_required
-    def perform_mutate(cls, form: CreateCommentForm, info: ResolveInfo) -> 'CreateCommentMutation':
+    def perform_mutate(
+        cls, form: CreateCommentForm, info: ResolveInfo
+    ) -> "CreateCommentMutation":
         if file := info.context.FILES.get("1"):
             form.cleaned_data["attachment"] = file
 
-        comment = Comment.objects.create_comment(creator=info.context.user, **form.cleaned_data)
+        comment = Comment.objects.create_comment(
+            creator=info.context.user, **form.cleaned_data
+        )
         return cls(comment=comment)
 
 
@@ -57,7 +75,9 @@ class UpdateCommentMutation(DjangoModelFormMutation):
 
     @classmethod
     @login_required
-    def perform_mutate(cls, form: UpdateCommentForm, info: ResolveInfo) -> 'UpdateCommentMutation':
+    def perform_mutate(
+        cls, form: UpdateCommentForm, info: ResolveInfo
+    ) -> "UpdateCommentMutation":
         # FIXME: raises graphql.error.located_error.GraphQLLocatedError instead of a nice user error
         comment = Comment.objects.get(pk=form.cleaned_data["comment_id"])
 
@@ -93,10 +113,13 @@ class Query(graphene.ObjectType):
     )
     comment = graphene.Field(CommentType, comment_id=graphene.Int())
 
-    def resolve_comments(self, info: ResolveInfo,
-                         course_id: Optional[int] = None,
-                         resource_id: Optional[int] = None,
-                         resource_part_id: Optional[int] = None) -> List[Comment]:
+    def resolve_comments(
+        self,
+        info: ResolveInfo,
+        course_id: Optional[int] = None,
+        resource_id: Optional[int] = None,
+        resource_part_id: Optional[int] = None,
+    ) -> List[Comment]:
 
         comments = Comment.objects.all()
 

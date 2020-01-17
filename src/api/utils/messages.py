@@ -8,10 +8,8 @@ MESSAGE_SENT_SUCCESS_MESSAGE = "MESSAGE_SENT_SUCCESS_MESSAGE"
 UNABLE_TO_AUTHENTICATE_MESSAGE = "UNABLE_TO_AUTHENTICATE_MESSAGE"
 USER_DELETED_MESSAGE = "USER_DELETED_MESSAGE"
 
-username_error_messages = {
-    "unique": USERNAME_TAKEN_MESSAGE
-}
+username_error_messages = {"unique": USERNAME_TAKEN_MESSAGE}
 
-email_error_messages={
+email_error_messages = {
     "unique": EMAIL_TAKEN_MESSAGE,
 }

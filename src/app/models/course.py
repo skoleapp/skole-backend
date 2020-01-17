@@ -10,10 +10,14 @@ class Course(models.Model):
 
     name = models.CharField(max_length=200)
     code = models.CharField(max_length=30, null=True, blank=True)
-    subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name="courses")
+    subject = models.ForeignKey(
+        Subject, on_delete=models.CASCADE, related_name="courses"
+    )
     school = models.ForeignKey(School, on_delete=models.CASCADE, related_name="courses")
     # TODO: custom deletor, which marks the user as some anonymous user
-    creator = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name="created_courses")
+    creator = models.ForeignKey(
+        User, on_delete=models.SET_NULL, null=True, related_name="created_courses"
+    )
 
     modified = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)

@@ -12,7 +12,10 @@ POINTS_COURSE_COMMENT_MULTIPLIER = 1
 
 
 def aggregate(model: Any, field_name: str, multiplier: int) -> int:
-    return model.aggregate(points=Coalesce(models.Sum(field_name), 0))["points"] * multiplier
+    return (
+        model.aggregate(points=Coalesce(models.Sum(field_name), 0))["points"]
+        * multiplier
+    )
 
 
 def get_points_for_user(user: User) -> int:
@@ -20,13 +23,29 @@ def get_points_for_user(user: User) -> int:
     points = 0
 
     points += aggregate(user.created_courses, "votes__status", POINTS_COURSE_MULTIPLIER)
-    points += aggregate(user.created_resources, "votes__status", POINTS_RESOURCE_MULTIPLIER)
-    points += aggregate(user.comments, "course__comments__votes__status", POINTS_COURSE_COMMENT_MULTIPLIER)
-    points += aggregate(user.comments, "resource__comments__votes__status", POINTS_RESOURCE_COMMENT_MULTIPLIER)
-    points += aggregate(user.comments, "resource_part__comments__votes__status", POINTS_RESOURCE_COMMENT_MULTIPLIER)
+    points += aggregate(
+        user.created_resources, "votes__status", POINTS_RESOURCE_MULTIPLIER
+    )
+    points += aggregate(
+        user.comments,
+        "course__comments__votes__status",
+        POINTS_COURSE_COMMENT_MULTIPLIER,
+    )
+    points += aggregate(
+        user.comments,
+        "resource__comments__votes__status",
+        POINTS_RESOURCE_COMMENT_MULTIPLIER,
+    )
+    points += aggregate(
+        user.comments,
+        "resource_part__comments__votes__status",
+        POINTS_RESOURCE_COMMENT_MULTIPLIER,
+    )
 
     return points
 
 
-def get_points_for_target(target: Union[Comment, Course, Resource], multiplier: int) -> int:
+def get_points_for_target(
+    target: Union[Comment, Course, Resource], multiplier: int
+) -> int:
     return aggregate(target.votes, "status", multiplier)

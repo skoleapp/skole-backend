@@ -28,5 +28,3 @@ RUN adduser -D user
 RUN chown -R user:user /static/ /media/
 RUN chmod -R 755 /static/ /media/
 USER user
-
-WORKDIR /app/src

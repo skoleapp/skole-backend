@@ -1,6 +1,3 @@
-from django import forms
-from django.conf import settings
-from django.contrib.auth import authenticate, get_user_model
 from mypy.types import JsonDict
 
 from api.utils.messages import (
@@ -12,6 +9,9 @@ from api.utils.messages import (
     email_error_messages,
     username_error_messages,
 )
+from django import forms
+from django.conf import settings
+from django.contrib.auth import authenticate, get_user_model
 
 
 class SignUpForm(forms.ModelForm):

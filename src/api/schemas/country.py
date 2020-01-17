@@ -1,8 +1,9 @@
 from typing import List, Optional
+
 import graphene
+from app.models import Country
 from graphene_django import DjangoObjectType
 from graphql import ResolveInfo
-from app.models import Country
 
 
 class CountryType(DjangoObjectType):
@@ -20,9 +21,9 @@ class Query(graphene.ObjectType):
 
     def resolve_country(
         self, info: ResolveInfo, country_id: Optional[int] = None
-    ) -> Country:
+    ) -> Optional[Country]:
         try:
             return Country.objects.get(pk=country_id)
         except Country.DoesNotExist:
-            """Return 'None' instead of throwing a GraphQL Error."""
+            # Return 'None' instead of throwing a GraphQL Error.
             return None

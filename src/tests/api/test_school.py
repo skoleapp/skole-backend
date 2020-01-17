@@ -1,12 +1,7 @@
+from api.schemas.schema import schema
 from graphene.test import Client
 from graphene_django.utils.testing import GraphQLTestCase
-
-from api.schemas.schema import schema
-from tests.api.utils.school import (
-    create_sample_school,
-    query_school,
-    query_schools,
-)
+from tests.api.utils.school import create_sample_school, query_school, query_schools
 
 
 class SchoolAPITests(GraphQLTestCase):

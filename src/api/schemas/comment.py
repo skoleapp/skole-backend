@@ -1,19 +1,18 @@
-from typing import Optional, List
+from typing import List, Optional
 
 import graphene
+from api.forms.comment import CreateCommentForm, UpdateCommentForm
+from api.utils.points import (
+    POINTS_COURSE_COMMENT_MULTIPLIER,
+    POINTS_RESOURCE_COMMENT_MULTIPLIER,
+    get_points_for_target,
+)
+from api.utils.vote import AbstractDownvoteMutation, AbstractUpvoteMutation
+from app.models import Comment
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphql import ResolveInfo
 from graphql_jwt.decorators import login_required
-
-from api.forms.comment import CreateCommentForm, UpdateCommentForm
-from api.utils.points import (
-    get_points_for_target,
-    POINTS_COURSE_COMMENT_MULTIPLIER,
-    POINTS_RESOURCE_COMMENT_MULTIPLIER,
-)
-from api.utils.vote import AbstractUpvoteMutation, AbstractDownvoteMutation
-from app.models import Comment
 
 
 class CommentType(DjangoObjectType):
@@ -37,12 +36,13 @@ class CommentType(DjangoObjectType):
     def resolve_points(self, info: ResolveInfo) -> int:
         if self.course is not None:
             return get_points_for_target(self, POINTS_COURSE_COMMENT_MULTIPLIER)
-        elif self.resource is not None:
+        if self.resource is not None:
             return get_points_for_target(self, POINTS_RESOURCE_COMMENT_MULTIPLIER)
-        elif self.resource_part is not None:
+        if self.resource_part is not None:
             return get_points_for_target(self, POINTS_RESOURCE_COMMENT_MULTIPLIER)
-        elif self.comment is not None:
-            return self.resolve_points(self.comment, info)
+        if self.comment is not None:
+            # FIXME: probably doesn't work.
+            return self.comment.resolve_points(info)
 
         raise AssertionError("All foreign keys of the Comment were null.")
 
@@ -132,11 +132,11 @@ class Query(graphene.ObjectType):
 
         return comments
 
-    def resolve_comment(self, info: ResolveInfo, comment_id: int) -> Comment:
+    def resolve_comment(self, info: ResolveInfo, comment_id: int) -> Optional[Comment]:
         try:
             return Comment.objects.get(pk=comment_id)
         except Comment.DoesNotExist:
-            """Return 'None' instead of throwing a GraphQL Error."""
+            # Return None instead of throwing a GraphQL Error.
             return None
 
 

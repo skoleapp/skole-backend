@@ -1,17 +1,16 @@
-from django.contrib import admin
-from django.contrib.auth import get_user_model
-
 from app.models import (
     City,
     Country,
     Course,
     Resource,
-    ResourceType,
     ResourcePart,
     ResourcePartType,
+    ResourceType,
     School,
     SchoolType,
 )
+from django.contrib import admin
+from django.contrib.auth import get_user_model
 
 admin.site.register(City)
 admin.site.register(Country)

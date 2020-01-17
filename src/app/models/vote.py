@@ -1,8 +1,8 @@
 from typing import Union
 
+from app.utils.vote import VOTE_STATUS
 from django.db import models
 
-from app.utils.vote import VOTE_STATUS
 from .comment import Comment
 from .course import Course
 from .resource import Resource

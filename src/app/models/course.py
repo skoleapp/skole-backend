@@ -14,7 +14,6 @@ class Course(models.Model):
         Subject, on_delete=models.CASCADE, related_name="courses"
     )
     school = models.ForeignKey(School, on_delete=models.CASCADE, related_name="courses")
-    # TODO: custom deletor, which marks the user as some anonymous user
     creator = models.ForeignKey(
         User, on_delete=models.SET_NULL, null=True, related_name="created_courses"
     )

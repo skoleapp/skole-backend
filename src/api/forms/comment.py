@@ -1,8 +1,8 @@
-from django import forms
 from mypy.types import JsonDict
 
 from api.utils.messages import INCORRECT_TARGET_FOR_COMMENT_MESSAGE
 from app.models import Comment
+from django import forms
 
 
 class CreateCommentForm(forms.ModelForm):

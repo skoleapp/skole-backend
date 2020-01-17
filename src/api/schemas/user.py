@@ -1,25 +1,24 @@
-from typing import List, Any, Optional
+from typing import Any, List, Optional
+
+from mypy.types import JsonDict
 
 import graphene
+from api.forms.user import (
+    ChangePasswordForm,
+    DeleteUserForm,
+    SignInForm,
+    SignUpForm,
+    UpdateUserForm,
+)
+from api.utils.messages import USER_DELETED_MESSAGE
+from api.utils.points import get_points_for_user
+from app.models import User
 from django.contrib.auth import get_user_model
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphene_django.types import ErrorType
 from graphql import ResolveInfo
 from graphql_jwt.decorators import login_required, token_auth
-from mypy.types import JsonDict
-
-import settings
-from api.forms.user import (
-    SignUpForm,
-    SignInForm,
-    ChangePasswordForm,
-    UpdateUserForm,
-    DeleteUserForm,
-)
-from api.utils.messages import USER_DELETED_MESSAGE
-from api.utils.points import get_points_for_user
-from app.models import User
 
 
 class UserType(DjangoObjectType):
@@ -196,11 +195,11 @@ class Query(graphene.ObjectType):
         #  so that api caller can sort by points or by oldest user etc.
         return get_user_model().objects.filter(is_superuser=False)
 
-    def resolve_user(self, info: ResolveInfo, user_id: int) -> User:
+    def resolve_user(self, info: ResolveInfo, user_id: int) -> Optional[User]:
         try:
             return get_user_model().objects.filter(is_superuser=False).get(pk=user_id)
         except get_user_model().DoesNotExist:
-            """Return 'None' instead of throwing a GraphQL Error."""
+            # Return None instead of throwing a GraphQL Error.
             return None
 
     @login_required

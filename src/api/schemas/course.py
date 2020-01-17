@@ -1,15 +1,14 @@
 from typing import List, Optional
 
 import graphene
+from api.forms.course import CreateCourseForm
+from api.utils.points import POINTS_COURSE_MULTIPLIER, get_points_for_target
+from api.utils.vote import AbstractDownvoteMutation, AbstractUpvoteMutation
+from app.models import Course
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphql import ResolveInfo
 from graphql_jwt.decorators import login_required
-
-from api.forms.course import CreateCourseForm
-from api.utils.points import get_points_for_target, POINTS_COURSE_MULTIPLIER
-from api.utils.vote import AbstractDownvoteMutation, AbstractUpvoteMutation
-from app.models import Course
 
 
 class CourseType(DjangoObjectType):
@@ -85,11 +84,11 @@ class Query(graphene.ObjectType):
         info: ResolveInfo,
         course_name: Optional[str] = None,
         course_code: Optional[str] = None,
-        subject_id: Optional[id] = None,
-        school_id: Optional[id] = None,
-        school_type_id: Optional[id] = None,
-        country_id: Optional[id] = None,
-        city_id: Optional[id] = None,
+        subject_id: Optional[int] = None,
+        school_id: Optional[int] = None,
+        school_type_id: Optional[int] = None,
+        country_id: Optional[int] = None,
+        city_id: Optional[int] = None,
     ) -> List[Course]:
         """Filter courses based on the query parameters."""
 
@@ -114,11 +113,11 @@ class Query(graphene.ObjectType):
 
     def resolve_course(
         self, info: ResolveInfo, course_id: Optional[int] = None
-    ) -> Course:
+    ) -> Optional[Course]:
         try:
             return Course.objects.get(pk=course_id)
         except Course.DoesNotExist:
-            """Return 'None' instead of throwing a GraphQL Error."""
+            # Return None instead of throwing a GraphQL Error.
             return None
 
 

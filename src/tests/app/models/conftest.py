@@ -1,13 +1,12 @@
 import datetime
 
-from django.core.files.uploadedfile import SimpleUploadedFile
-from pytest import fixture
-
 from app.models.course import Course
 from app.models.resource import Resource
 from app.models.school import School
 from app.models.subject import Subject
 from app.models.user import User
+from django.core.files.uploadedfile import SimpleUploadedFile
+from pytest import fixture
 
 
 @fixture

@@ -1,10 +1,10 @@
-import graphene
-from django.db import models
-from graphql import ResolveInfo
-from graphql_jwt.decorators import login_required
+from typing import Any
 
+import graphene
 from app.models import Vote
 from app.utils.vote import DOWNVOTE, UPVOTE
+from graphql import ResolveInfo
+from graphql_jwt.decorators import login_required
 
 
 class _AbstractVoteMutation(graphene.Mutation):
@@ -16,7 +16,9 @@ class _AbstractVoteMutation(graphene.Mutation):
 
     @classmethod
     @login_required
-    def mutate(cls, _, info: ResolveInfo, **kwargs: int) -> "_AbstractVoteMutation":
+    def mutate(
+        cls, _: Any, info: ResolveInfo, **kwargs: int
+    ) -> "_AbstractVoteMutation":
         if (
             len(cls._meta.fields) != 1
             or len(cls._meta.arguments) != 1

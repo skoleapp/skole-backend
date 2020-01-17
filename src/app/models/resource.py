@@ -1,8 +1,9 @@
+from typing import Any
+
 from django.db import models
 
 from .course import Course
 from .user import User
-from typing import Any
 
 
 class ResourcePartType(models.Model):
@@ -47,7 +48,7 @@ class ResourceType(models.Model):
 
 class ResourceManager(models.Manager):
     def create_resource(
-        self, resource_type: ResourceType, title: str, course: Course, files: [Any]
+        self, resource_type: ResourceType, title: str, course: Course, files: Any
     ) -> "Resource":
         resource = self.model(resource_type=resource_type, title=title, course=course)
         resource.save()

@@ -21,7 +21,7 @@ class CommentManager(models.Manager):
             comment = self.model(resource=target)
         elif isinstance(target, ResourcePart):
             comment = self.model(resource_part=target)
-        elif isinstance(target, "Comment"):
+        elif isinstance(target, Comment):
             comment = self.model(comment=target)
         else:
             raise TypeError(f"Invalid target type for Comment: {type(target)}")

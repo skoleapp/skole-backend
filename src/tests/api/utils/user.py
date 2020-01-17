@@ -1,10 +1,10 @@
 import json
 
-from django.contrib.auth import get_user_model
-from graphene_django.utils import GraphQLTestCase
 from mypy.types import JsonDict
 
 from app.models.user import User
+from django.contrib.auth import get_user_model
+from graphene_django.utils import GraphQLTestCase
 
 
 def create_sample_user(**params: str) -> User:

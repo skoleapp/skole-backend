@@ -19,6 +19,7 @@ RUN apk del .tmp-build-deps
 COPY mypy.ini .
 COPY pytest.ini .
 COPY .coveragerc .
+COPY .isort.cfg .
 
 RUN mkdir -p /static
 RUN mkdir -p /media

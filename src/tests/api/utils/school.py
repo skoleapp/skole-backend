@@ -1,25 +1,6 @@
 from mypy.types import JsonDict
 
-from app.models.school import School
 from graphene_django.utils import GraphQLTestCase
-
-
-def create_sample_school(**params: str) -> School:
-    if "school_type" in params:
-        school_type = params["school_type"]
-    else:
-        school_type = UNIVERSITY
-
-    defaults = {
-        "school_type": school_type,
-        "name": f"Test {school_type}",
-        "city": "Turku",
-        "country": "Finland",
-    }
-
-    defaults.update(params)
-    school = School.objects.create(**defaults)
-    return school
 
 
 def query_schools(test_cls: GraphQLTestCase) -> JsonDict:
@@ -31,25 +12,33 @@ def query_schools(test_cls: GraphQLTestCase) -> JsonDict:
             schoolType
             city
             country
+            subjectCount
+            courseCount
           }
         }
         """
 
-    return test_cls.client.execute(query,)
+    return test_cls.client.execute(query)
 
 
-def query_school(test_cls: GraphQLTestCase, id_: int = 1) -> JsonDict:
-    variables = {"id": id_}
+def query_school(test_cls: GraphQLTestCase, school_id: int = 1) -> JsonDict:
+    variables = {"schoolId": school_id}
 
     query = """
         query school($schoolId: Int!) {
-         school(id: $schoolId) {
-           id
-           name
-           schoolType
-           city
-           country
-         }
+          school(schoolId: $schoolId) {
+            id
+            name
+            schoolType
+            city
+            country
+            subjectCount
+            courseCount
+          }
+        }
+        """
+
+    return test_cls.client.execute(query, variables=variables)
         }
         """
 

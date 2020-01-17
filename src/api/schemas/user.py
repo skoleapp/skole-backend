@@ -1,19 +1,24 @@
-from typing import List, Any, Optional
+from typing import Any, List, Optional
+
+from mypy.types import JsonDict
 
 import graphene
+from api.forms.user import (
+    ChangePasswordForm,
+    DeleteUserForm,
+    SignInForm,
+    SignUpForm,
+    UpdateUserForm,
+)
+from api.utils.messages import USER_DELETED_MESSAGE
+from api.utils.points import get_points_for_user
+from app.models import User
 from django.contrib.auth import get_user_model
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphene_django.types import ErrorType
 from graphql import ResolveInfo
 from graphql_jwt.decorators import login_required, token_auth
-from mypy.types import JsonDict
-
-import settings
-from api.forms.user import SignUpForm, SignInForm, ChangePasswordForm, UpdateUserForm, DeleteUserForm
-from api.utils.messages import USER_DELETED_MESSAGE
-from api.utils.points import get_points_for_user
-from app.models import User
 
 
 class UserType(DjangoObjectType):
@@ -34,7 +39,7 @@ class UserType(DjangoObjectType):
             "avatar",
             "created",
             "created_courses",
-            "created_resources"
+            "created_resources",
         )
 
     def resolve_email(self, info: ResolveInfo) -> Optional[str]:
@@ -76,7 +81,7 @@ class SignUpMutation(DjangoModelFormMutation):
         form_class = SignUpForm
 
     @classmethod
-    def perform_mutate(cls, form: SignUpForm, info: ResolveInfo) -> 'SignUpForm':
+    def perform_mutate(cls, form: SignUpForm, info: ResolveInfo) -> "SignUpForm":
         user = get_user_model().objects.create_user(
             email=form.cleaned_data["email"],
             username=form.cleaned_data["username"],
@@ -93,20 +98,26 @@ class SignInMutation(DjangoModelFormMutation):
         form_class = SignInForm
 
     @classmethod
-    def mutate_and_get_payload(cls, root: Any, info: ResolveInfo, **input: JsonDict) -> 'SignInMutation':
+    def mutate_and_get_payload(
+        cls, root: Any, info: ResolveInfo, **input: JsonDict
+    ) -> "SignInMutation":
         form = cls.get_form(root, info, **input)
 
         if form.is_valid():
             password = form.cleaned_data["password"]
             user = form.cleaned_data["user"]
-            return cls.perform_mutate(root=root, info=info, password=password, user=user, email=user.email)
+            return cls.perform_mutate(
+                root=root, info=info, password=password, user=user, email=user.email
+            )
         else:
             errors = ErrorType.from_errors(form.errors)
             return cls(errors=errors)
 
     @classmethod
     @token_auth
-    def perform_mutate(cls, form: SignInForm, info: ResolveInfo, user: User, **kwargs: JsonDict) -> 'SignInMutation':
+    def perform_mutate(
+        cls, form: SignInForm, info: ResolveInfo, user: User, **kwargs: JsonDict
+    ) -> "SignInMutation":
         return cls(user=user)
 
 
@@ -115,12 +126,16 @@ class ChangePasswordMutation(DjangoModelFormMutation):
         form_class = ChangePasswordForm
 
     @classmethod
-    def get_form_kwargs(cls, root: Any, info: ResolveInfo, **input: JsonDict) -> JsonDict:
+    def get_form_kwargs(
+        cls, root: Any, info: ResolveInfo, **input: JsonDict
+    ) -> JsonDict:
         return {"data": input, "instance": info.context.user}
 
     @classmethod
     @login_required
-    def perform_mutate(cls, form: ChangePasswordForm, info: ResolveInfo) -> 'ChangePasswordMutation':
+    def perform_mutate(
+        cls, form: ChangePasswordForm, info: ResolveInfo
+    ) -> "ChangePasswordMutation":
         return cls(user=info.context.user)
 
 
@@ -131,12 +146,16 @@ class DeleteUserMutation(DjangoModelFormMutation):
         form_class = DeleteUserForm
 
     @classmethod
-    def get_form_kwargs(cls, root: Any, info: ResolveInfo, **input: JsonDict) -> JsonDict:
+    def get_form_kwargs(
+        cls, root: Any, info: ResolveInfo, **input: JsonDict
+    ) -> JsonDict:
         return {"data": input, "instance": info.context.user}
 
     @classmethod
     @login_required
-    def perform_mutate(cls, form: DeleteUserForm, info: ResolveInfo) -> 'DeleteUserMutation':
+    def perform_mutate(
+        cls, form: DeleteUserForm, info: ResolveInfo
+    ) -> "DeleteUserMutation":
         info.context.user.delete()
         return cls(message=USER_DELETED_MESSAGE)
 
@@ -146,17 +165,21 @@ class UpdateUserMutation(DjangoModelFormMutation):
         form_class = UpdateUserForm
 
     @classmethod
-    def get_form_kwargs(cls, root: Any, info: ResolveInfo, **input: JsonDict) -> JsonDict:
+    def get_form_kwargs(
+        cls, root: Any, info: ResolveInfo, **input: JsonDict
+    ) -> JsonDict:
         return {"data": input, "instance": info.context.user}
 
     @classmethod
     @login_required
-    def perform_mutate(cls, form: UpdateUserForm, info: ResolveInfo) -> 'UpdateUserMutation':
+    def perform_mutate(
+        cls, form: UpdateUserForm, info: ResolveInfo
+    ) -> "UpdateUserMutation":
         if file := info.context.FILES.get("1"):
             form.cleaned_data["avatar"] = file
         else:
             form.cleaned_data["avatar"] = None
-    
+
         user = info.context.user
         get_user_model().objects.update_user(user, **form.cleaned_data)
         return cls(user=user)
@@ -172,11 +195,11 @@ class Query(graphene.ObjectType):
         #  so that api caller can sort by points or by oldest user etc.
         return get_user_model().objects.filter(is_superuser=False)
 
-    def resolve_user(self, info: ResolveInfo, user_id: int) -> User:
+    def resolve_user(self, info: ResolveInfo, user_id: int) -> Optional[User]:
         try:
             return get_user_model().objects.filter(is_superuser=False).get(pk=user_id)
         except get_user_model().DoesNotExist:
-            """Return 'None' instead of throwing a GraphQL Error."""
+            # Return None instead of throwing a GraphQL Error.
             return None
 
     @login_required

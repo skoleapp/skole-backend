@@ -7,7 +7,9 @@ def test_str(user: fixture) -> None:
 
 
 def test_create_superuser(db: fixture) -> None:
-    user = get_user_model().objects.create_superuser(email="root@root.com", username="root", password="root")
+    user = get_user_model().objects.create_superuser(
+        email="root@root.com", username="root", password="root"
+    )
     assert user.is_superuser
     assert user.is_staff
     assert str(user) == "root"

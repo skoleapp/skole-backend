@@ -1,20 +1,19 @@
+from api.schemas.schema import schema
+from api.utils import UNABLE_TO_AUTHENTICATE_MESSAGE, USER_DELETED_MESSAGE
+from app.utils import SWEDISH
 from django.test import RequestFactory
 from graphene.test import Client
 from graphene_django.utils.testing import GraphQLTestCase
-
-from api.schemas.schema import schema
-from api.utils import USER_DELETED_MESSAGE, UNABLE_TO_AUTHENTICATE_MESSAGE
-from app.utils import SWEDISH
 from tests.api.utils.user import (
     create_sample_user,
     mutate_change_password,
     mutate_login_user,
     mutate_register_one_user,
-    mutate_user_delete,
     mutate_update_user,
+    mutate_user_delete,
     query_user,
-    query_users,
     query_user_me,
+    query_users,
 )
 
 
@@ -130,10 +129,7 @@ class PrivateUserAPITests(GraphQLTestCase):
 
     def setUp(self) -> None:
         self.user1 = create_sample_user()
-        self.user2 = create_sample_user(
-            username="testuser2",
-            email="test2@test.com",
-        )
+        self.user2 = create_sample_user(username="testuser2", email="test2@test.com",)
 
         self.client = Client(schema)
 

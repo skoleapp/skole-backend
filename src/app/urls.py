@@ -1,10 +1,9 @@
+import settings
+from api.views import CustomGraphQLView
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 from django.views.decorators.csrf import csrf_exempt
-
-import settings
-from api.views import CustomGraphQLView
 
 urlpatterns = [
     path("admin/", admin.site.urls),

@@ -1,14 +1,13 @@
-import graphene
-
+import api.schemas.city
 import api.schemas.comment
 import api.schemas.contact
+import api.schemas.country
 import api.schemas.course
 import api.schemas.resource
 import api.schemas.school
 import api.schemas.subject
 import api.schemas.user
-import api.schemas.country
-import api.schemas.city
+import graphene
 
 
 class Query(
@@ -19,7 +18,7 @@ class Query(
     api.schemas.subject.Query,
     api.schemas.user.Query,
     api.schemas.country.Query,
-    api.schemas.city.Query
+    api.schemas.city.Query,
 ):
     pass
 

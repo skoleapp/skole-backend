@@ -1,14 +1,17 @@
+from mypy.types import JsonDict
+
+from api.utils.messages import (
+    EMAIL_TAKEN_MESSAGE,
+    INCORRECT_OLD_PASSWORD_MESSAGE,
+    INCORRECT_PASSWORD_MESSAGE,
+    UNABLE_TO_AUTHENTICATE_MESSAGE,
+    USERNAME_TAKEN_MESSAGE,
+    email_error_messages,
+    username_error_messages,
+)
 from django import forms
 from django.conf import settings
 from django.contrib.auth import authenticate, get_user_model
-from mypy.types import JsonDict
-
-from api.utils.messages import (EMAIL_TAKEN_MESSAGE,
-                                INCORRECT_OLD_PASSWORD_MESSAGE,
-                                INCORRECT_PASSWORD_MESSAGE,
-                                UNABLE_TO_AUTHENTICATE_MESSAGE,
-                                USERNAME_TAKEN_MESSAGE, email_error_messages,
-                                username_error_messages)
 
 
 class SignUpForm(forms.ModelForm):
@@ -42,13 +45,17 @@ class SignInForm(forms.ModelForm):
             user = authenticate(username=user.email, password=password)
 
             if not user:
-                raise forms.ValidationError(UNABLE_TO_AUTHENTICATE_MESSAGE, code="authentication")
+                raise forms.ValidationError(
+                    UNABLE_TO_AUTHENTICATE_MESSAGE, code="authentication"
+                )
 
             self.cleaned_data["user"] = user
             return self.cleaned_data
 
         except get_user_model().DoesNotExist:
-            raise forms.ValidationError(UNABLE_TO_AUTHENTICATE_MESSAGE, code="authentication")
+            raise forms.ValidationError(
+                UNABLE_TO_AUTHENTICATE_MESSAGE, code="authentication"
+            )
 
 
 class UpdateUserForm(forms.ModelForm):
@@ -61,13 +68,21 @@ class UpdateUserForm(forms.ModelForm):
 
     def clean_email(self) -> str:
         email = self.cleaned_data["email"]
-        if get_user_model().objects.exclude(pk=self.instance.pk).filter(email__iexact=email):
+        if (
+            get_user_model()
+            .objects.exclude(pk=self.instance.pk)
+            .filter(email__iexact=email)
+        ):
             raise forms.ValidationError(EMAIL_TAKEN_MESSAGE)
         return email
 
     def clean_username(self) -> str:
         username = self.cleaned_data["username"]
-        if get_user_model().objects.exclude(pk=self.instance.pk).filter(username__exact=username):
+        if (
+            get_user_model()
+            .objects.exclude(pk=self.instance.pk)
+            .filter(username__exact=username)
+        ):
             raise forms.ValidationError(USERNAME_TAKEN_MESSAGE)
         return username
 

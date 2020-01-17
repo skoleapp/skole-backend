@@ -1,10 +1,10 @@
 from typing import List, Optional
 
 import graphene
+from app.models import Country, School
+from app.models import SchoolType as SchoolTypeModel
 from graphene_django import DjangoObjectType
 from graphql import ResolveInfo
-
-from app.models import School, SchoolType as SchoolTypeModel, Country
 
 
 class SchoolType(DjangoObjectType):
@@ -46,16 +46,20 @@ class Query(graphene.ObjectType):
     def resolve_school_types(self, info: ResolveInfo) -> List[SchoolType]:
         return SchoolType.objects.all()
 
-    def resolve_school(self, info: ResolveInfo, school_id: Optional[int] = None) -> School:
+    def resolve_school(
+        self, info: ResolveInfo, school_id: Optional[int] = None
+    ) -> Optional[School]:
         try:
             return School.objects.get(pk=school_id)
         except School.DoesNotExist:
-            """Return 'None' instead of throwing a GraphQL Error."""
+            # Return None instead of throwing a GraphQL Error.
             return None
 
-    def resolve_school_type(self, info: ResolveInfo, school_type_id: Optional[int] = None) -> SchoolTypeModel:
+    def resolve_school_type(
+        self, info: ResolveInfo, school_type_id: Optional[int] = None
+    ) -> Optional[SchoolTypeModel]:
         try:
             return SchoolTypeModel.objects.get(pk=school_type_id)
         except SchoolTypeModel.DoesNotExist:
-            """Return 'None' instead of throwing a GraphQL Error."""
+            # Return None instead of throwing a GraphQL Error.
             return None

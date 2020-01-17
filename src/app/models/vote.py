@@ -1,8 +1,8 @@
 from typing import Union
 
+from app.utils.vote import VOTE_STATUS
 from django.db import models
 
-from app.utils.vote import VOTE_STATUS
 from .comment import Comment
 from .course import Course
 from .resource import Resource
@@ -10,8 +10,9 @@ from .user import User
 
 
 class VoteManager(models.Manager):
-    def create_vote(self, creator: User, status: int,
-                    target: Union[Comment, Course, Resource]) -> 'Vote':
+    def create_vote(
+        self, creator: User, status: int, target: Union[Comment, Course, Resource]
+    ) -> "Vote":
         if isinstance(target, Comment):
             vote = self.model(comment=target)
         elif isinstance(target, Course):
@@ -34,9 +35,15 @@ class Vote(models.Model):
     creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name="votes")
     status = models.IntegerField(choices=VOTE_STATUS)
 
-    comment = models.ForeignKey(Comment, on_delete=models.CASCADE, null=True, related_name="votes")
-    course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True, related_name="votes")
-    resource = models.ForeignKey(Resource, on_delete=models.CASCADE, null=True, related_name="votes")
+    comment = models.ForeignKey(
+        Comment, on_delete=models.CASCADE, null=True, related_name="votes"
+    )
+    course = models.ForeignKey(
+        Course, on_delete=models.CASCADE, null=True, related_name="votes"
+    )
+    resource = models.ForeignKey(
+        Resource, on_delete=models.CASCADE, null=True, related_name="votes"
+    )
 
     objects = VoteManager()
 

@@ -15,7 +15,9 @@ class SchoolType(models.Model):
 class School(models.Model):
     """Models one school on the platform."""
 
-    school_type = models.ForeignKey(SchoolType, on_delete=models.PROTECT, related_name="schools")
+    school_type = models.ForeignKey(
+        SchoolType, on_delete=models.PROTECT, related_name="schools"
+    )
     name = models.CharField(max_length=100)
     city = models.ForeignKey(City, on_delete=models.PROTECT, related_name="schools")
 

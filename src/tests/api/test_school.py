@@ -42,3 +42,22 @@ class SchoolAPITests(GraphQLTestCase):
         # Test that returns None when ID not found.
         res = query_school(self, 999)
         assert res["data"]["school"] is None
+
+    def test_query_school_types(self) -> None:
+        res = query_school_types(self)
+        school_types = res["data"]["schoolTypes"]
+        assert len(school_types) == 3
+        assert school_types[0]["id"] == "1"
+        assert school_types[0]["name"] == "University"
+
+    def test_query_school_type(self) -> None:
+        # Test that every SchoolType from the list can be queried with its own id.
+        res = query_school_types(self)
+        school_types = res["data"]["schoolTypes"]
+        for school_type in school_types:
+            assert school_type == query_school_type(self, school_type["id"])["data"]["schoolType"]
+
+        # Test that returns None when ID not found.
+        res = query_school_type(self, 999)
+        assert res["data"]["schoolType"] is None
+

@@ -1,6 +1,11 @@
 from typing import List, Optional
 
 import graphene
+from graphene_django import DjangoObjectType
+from graphene_django.forms.mutation import DjangoModelFormMutation
+from graphql import ResolveInfo
+from graphql_jwt.decorators import login_required
+
 from api.forms.comment import CreateCommentForm, UpdateCommentForm
 from api.utils.points import (
     POINTS_COURSE_COMMENT_MULTIPLIER,
@@ -9,13 +14,9 @@ from api.utils.points import (
 )
 from api.utils.vote import AbstractDownvoteMutation, AbstractUpvoteMutation
 from app.models import Comment
-from graphene_django import DjangoObjectType
-from graphene_django.forms.mutation import DjangoModelFormMutation
-from graphql import ResolveInfo
-from graphql_jwt.decorators import login_required
 
 
-class CommentType(DjangoObjectType):
+class CommentObjectType(DjangoObjectType):
     points = graphene.Int()
 
     class Meta:
@@ -48,7 +49,7 @@ class CommentType(DjangoObjectType):
 
 
 class CreateCommentMutation(DjangoModelFormMutation):
-    comment = graphene.Field(CommentType)
+    comment = graphene.Field(CommentObjectType)
 
     class Meta:
         form_class = CreateCommentForm
@@ -68,7 +69,7 @@ class CreateCommentMutation(DjangoModelFormMutation):
 
 
 class UpdateCommentMutation(DjangoModelFormMutation):
-    comment = graphene.Field(CommentType)
+    comment = graphene.Field(CommentObjectType)
 
     class Meta:
         form_class = UpdateCommentForm
@@ -91,27 +92,27 @@ class UpdateCommentMutation(DjangoModelFormMutation):
 
 
 class UpvoteCommentMutation(AbstractUpvoteMutation):
-    class Input:
+    class Arguments:
         comment_id = graphene.Int()
 
-    comment = graphene.Field(CommentType)
+    comment = graphene.Field(CommentObjectType)
 
 
 class DownvoteCommentMutation(AbstractDownvoteMutation):
-    class Input:
+    class Arguments:
         comment_id = graphene.Int()
 
-    comment = graphene.Field(CommentType)
+    comment = graphene.Field(CommentObjectType)
 
 
 class Query(graphene.ObjectType):
     comments = graphene.List(
-        CommentType,
+        CommentObjectType,
         course_id=graphene.String(),
         resource_id=graphene.Int(),
         resource_part_id=graphene.Int(),
     )
-    comment = graphene.Field(CommentType, comment_id=graphene.Int())
+    comment = graphene.Field(CommentObjectType, comment_id=graphene.Int())
 
     def resolve_comments(
         self,

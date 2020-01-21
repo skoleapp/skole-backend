@@ -1,13 +1,13 @@
 from typing import List, Optional
 
 import graphene
-from app.models import Country, School
-from app.models import SchoolType as SchoolTypeModel
 from graphene_django import DjangoObjectType
 from graphql import ResolveInfo
 
+from app.models import Country, School, SchoolType
 
-class SchoolType(DjangoObjectType):
+
+class SchoolObjectType(DjangoObjectType):
     school_type = graphene.String()
     city = graphene.String()
     country = graphene.String()
@@ -30,20 +30,20 @@ class SchoolType(DjangoObjectType):
 
 class SchoolTypeObjectType(DjangoObjectType):
     class Meta:
-        model = SchoolTypeModel
+        model = SchoolType
         fields = ("id", "name")
 
 
 class Query(graphene.ObjectType):
-    schools = graphene.List(SchoolType)
+    schools = graphene.List(SchoolObjectType)
     school_types = graphene.List(SchoolTypeObjectType)
-    school = graphene.Field(SchoolType, school_id=graphene.Int())
+    school = graphene.Field(SchoolObjectType, school_id=graphene.Int())
     school_type = graphene.Field(SchoolTypeObjectType, school_type_id=graphene.Int())
 
     def resolve_schools(self, info: ResolveInfo) -> List[School]:
         return School.objects.order_by("name")
 
-    def resolve_school_types(self, info: ResolveInfo) -> List[SchoolType]:
+    def resolve_school_types(self, info: ResolveInfo) -> List[SchoolObjectType]:
         return SchoolType.objects.all()
 
     def resolve_school(
@@ -57,9 +57,9 @@ class Query(graphene.ObjectType):
 
     def resolve_school_type(
         self, info: ResolveInfo, school_type_id: Optional[int] = None
-    ) -> Optional[SchoolTypeModel]:
+    ) -> Optional[SchoolType]:
         try:
-            return SchoolTypeModel.objects.get(pk=school_type_id)
-        except SchoolTypeModel.DoesNotExist:
+            return SchoolType.objects.get(pk=school_type_id)
+        except SchoolType.DoesNotExist:
             # Return None instead of throwing a GraphQL Error.
             return None

@@ -19,6 +19,7 @@ RUN apk del .tmp-build-deps
 COPY mypy.ini .
 COPY pytest.ini .
 COPY .coveragerc .
+COPY .isort.cfg .
 
 RUN mkdir -p /static
 RUN mkdir -p /media
@@ -27,5 +28,3 @@ RUN adduser -D user
 RUN chown -R user:user /static/ /media/
 RUN chmod -R 755 /static/ /media/
 USER user
-
-WORKDIR /app/src

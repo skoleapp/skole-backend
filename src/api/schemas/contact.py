@@ -2,11 +2,12 @@ import os
 from smtplib import SMTPException
 
 import graphene
-from api.forms.contact import ContactForm
-from api.utils.messages import MESSAGE_SENT_ERROR_MESSAGE, MESSAGE_SENT_SUCCESS_MESSAGE
 from django.core.mail import send_mail
 from graphene_django.forms.mutation import DjangoFormMutation
 from graphql import ResolveInfo
+
+from api.forms.contact import ContactForm
+from api.utils.messages import MESSAGE_SENT_ERROR_MESSAGE, MESSAGE_SENT_SUCCESS_MESSAGE
 
 
 class ContactMutation(DjangoFormMutation):

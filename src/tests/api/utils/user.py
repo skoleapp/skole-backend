@@ -1,10 +1,10 @@
 import json
 
+from django.contrib.auth import get_user_model
+from graphene_django.utils import GraphQLTestCase
 from mypy.types import JsonDict
 
 from app.models.user import User
-from django.contrib.auth import get_user_model
-from graphene_django.utils import GraphQLTestCase
 
 
 def create_sample_user(**params: str) -> User:
@@ -43,7 +43,7 @@ def mutate_register_one_user(test_cls: GraphQLTestCase, **params: str) -> JsonDi
         }
         """
 
-    return test_cls.client.execute(mutation, variables={"input": input_data},)
+    return test_cls.client.execute(mutation, variables={"input": input_data})
 
 
 def mutate_login_user(test_cls: GraphQLTestCase, **params: str) -> JsonDict:
@@ -93,7 +93,7 @@ def query_users(test_cls: GraphQLTestCase) -> JsonDict:
         }
         """
 
-    return test_cls.client.execute(query,)
+    return test_cls.client.execute(query)
 
 
 def query_user(test_cls: GraphQLTestCase, id_: int = 1) -> JsonDict:
@@ -112,7 +112,7 @@ def query_user(test_cls: GraphQLTestCase, id_: int = 1) -> JsonDict:
         }
         """
 
-    return test_cls.client.execute(query, variables=variables,)
+    return test_cls.client.execute(query, variables=variables)
 
 
 def mutate_update_user(test_cls: GraphQLTestCase, **params: str) -> JsonDict:
@@ -169,7 +169,7 @@ def query_user_me(test_cls: GraphQLTestCase) -> JsonDict:
           }
         }
         """
-    return test_cls.client.execute(query, context_value=test_cls.req,)
+    return test_cls.client.execute(query, context_value=test_cls.req)
 
 
 def mutate_change_password(test_cls: GraphQLTestCase, **params: str) -> JsonDict:
@@ -209,4 +209,4 @@ def mutate_user_delete(test_cls: GraphQLTestCase) -> JsonDict:
           }
         }
         """
-    return test_cls.client.execute(mutation, context_value=test_cls.req,)
+    return test_cls.client.execute(mutation, context_value=test_cls.req)

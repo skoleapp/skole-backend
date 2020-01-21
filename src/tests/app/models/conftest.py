@@ -1,12 +1,13 @@
 import datetime
 
+from django.core.files.uploadedfile import SimpleUploadedFile
+from pytest import fixture
+
 from app.models.course import Course
 from app.models.resource import Resource
 from app.models.school import School
 from app.models.subject import Subject
 from app.models.user import User
-from django.core.files.uploadedfile import SimpleUploadedFile
-from pytest import fixture
 
 
 @fixture
@@ -30,7 +31,7 @@ def school(db: fixture) -> School:
 
 @fixture
 def subject(user: fixture, school: fixture) -> Subject:
-    subject = Subject.objects.create(name="Test subject",)
+    subject = Subject.objects.create(name="Test subject")
     subject.schools.add(school)
     return subject
 
@@ -56,7 +57,7 @@ def resource(user: fixture, course: fixture) -> Resource:
         course=course,
         creator=user,
     )
-    resource.file = (SimpleUploadedFile("test_exam.txt", b"file contents"),)
+    resource.file = SimpleUploadedFile("test_exam.txt", b"file contents")
     return resource
 
 

@@ -25,6 +25,6 @@ RUN mkdir -p /static
 RUN mkdir -p /media
 
 RUN adduser -D user
-RUN chown -R user:user /static/ /media/
-RUN chmod -R 755 /static/ /media/
+RUN chown -R user:user /static /media /app
+RUN chmod -R 755 /static /media /app
 USER user

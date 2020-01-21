@@ -1,3 +1,4 @@
+"""
 from django.contrib.auth import get_user_model
 from pytest import fixture
 
@@ -19,3 +20,4 @@ def test_set_password(db: fixture, user: fixture) -> None:
     new_pass = "new pass"
     user = get_user_model().objects.set_password(user, new_pass)
     assert user.check_password(new_pass)
+"""

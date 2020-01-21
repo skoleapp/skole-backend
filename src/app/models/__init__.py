@@ -2,8 +2,12 @@ from .city import City
 from .comment import Comment
 from .country import Country
 from .course import Course
-from .resource import Resource, ResourcePart, ResourcePartType, ResourceType
-from .school import School, SchoolType
+from .resource import Resource
+from .resource_part import ResourcePart
+from .resource_part_type import ResourcePartType
+from .resource_type import ResourceType
+from .school import School
+from .school_type import SchoolType
 from .subject import Subject
 from .user import User
 from .vote import Vote

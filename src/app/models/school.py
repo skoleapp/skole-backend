@@ -1,15 +1,7 @@
 from django.db import models
 
 from .city import City
-
-
-class SchoolType(models.Model):
-    """Models one type of school, e.g. University of High School."""
-
-    name = models.CharField(max_length=100)
-
-    def __str__(self) -> str:
-        return f"{self.name}"
+from .school_type import SchoolType
 
 
 class School(models.Model):

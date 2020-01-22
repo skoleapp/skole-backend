@@ -1,9 +1,60 @@
+import re
+
+import pytest
+from django.core.files.uploadedfile import SimpleUploadedFile
 from pytest import fixture
 
+from app.models import Comment, Course, Resource, ResourcePart, User
 
-def test_str(comment: fixture) -> None:
-    comment.text = "Please help me with this"
-    assert str(comment) == "testuser: Please help me with ..."
 
-    comment.text = "Please help me"
-    assert str(comment) == "testuser: Please help me"
+def test_str(db: fixture) -> None:
+    comment1 = Comment.objects.get(pk=1)
+    assert str(comment1) == "testuser2: Starting comment for..."
+
+    comment2 = Comment.objects.get(pk=2)
+    assert str(comment2) == "testuser3: Second comment of th..."
+
+
+def test_manager_create_ok(db: fixture, temp_media: fixture) -> None:
+    user = User.objects.get(pk=2)
+    text = "A comment."
+    attachment = SimpleUploadedFile("test_notes.txt", b"file contents")
+
+    target_course = Course.objects.get(pk=1)
+    target_resource = Resource.objects.get(pk=1)
+    target_resource_part = ResourcePart.objects.get(pk=1)
+    target_comment = Comment.objects.get(pk=1)
+
+    for target in (
+        target_course,
+        target_resource,
+        target_resource_part,
+        target_comment,
+    ):
+        comment = Comment.objects.create_comment(
+            creator=user, text=text, attachment=attachment, target=target
+        )
+
+        assert comment.creator == user
+        assert comment.text == text
+
+        # Filenames after the first created comment will have a random glob to make them unique.
+        assert re.match(
+            r"^uploads/comment_attachments/test_notes\w*\.txt$", comment.attachment.name
+        )
+
+        # Check that only one foreign key reference is active.
+        for attr in ("course", "resource", "resource_part", "comment"):
+            if target.__class__.__name__.lower() == attr.replace("_", ""):
+                assert getattr(comment, attr) == target
+            else:
+                assert getattr(comment, attr) is None
+
+
+def test_manager_create_bad_target(db: fixture) -> None:
+    user = User.objects.get(pk=2)
+    bad_target = user
+    with pytest.raises(TypeError):
+        comment4 = Comment.objects.create_comment(
+            creator=user, text="foo", attachment=None, target=bad_target
+        )

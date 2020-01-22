@@ -1,69 +1,31 @@
-import datetime
+import shutil
+import tempfile
+from typing import Generator
 
-from django.core.files.uploadedfile import SimpleUploadedFile
+from django.conf import settings
+from django.core.management import call_command
 from pytest import fixture
 
-from app.models.course import Course
-from app.models.resource import Resource
-from app.models.school import School
-from app.models.subject import Subject
-from app.models.user import User
+
+@fixture(scope="session")
+def django_db_setup(django_db_setup: fixture, django_db_blocker: fixture) -> None:
+    with django_db_blocker.unblock():
+        call_command("loaddata", "sample.yaml")
 
 
 @fixture
-def user(db: fixture) -> User:
-    user = User.objects.create_user(
-        email="testmail@gmail.com", username="testuser", password="testpass",
-    )
-    return user
-
-
-@fixture
-def school(db: fixture) -> School:
-    school = School.objects.create(
-        school_type=UNIVERSITY,
-        name="University of Test",
-        city="Test city",
-        country="Test country",
-    )
-    return school
-
-
-@fixture
-def subject(user: fixture, school: fixture) -> Subject:
-    subject = Subject.objects.create(name="Test subject")
-    subject.schools.add(school)
-    return subject
-
-
-@fixture
-def course(user: fixture, school: fixture, subject: fixture) -> Course:
-    course = Course.objects.create(
-        name="Test course",
-        code="TEST0001",
-        subject=subject,
-        school=school,
-        creator=user,
-    )
-    return course
-
-
-@fixture
-def resource(user: fixture, course: fixture) -> Resource:
-    resource = Resource.objects.create(
-        resource_type=EXAM,
-        title="Test exam",
-        date=datetime.date(2019, 1, 1),
-        course=course,
-        creator=user,
-    )
-    resource.file = SimpleUploadedFile("test_exam.txt", b"file contents")
-    return resource
-
-
-@fixture
-def comment(user: fixture, resource: fixture) -> ResourceComment:
-    comment = ResourceComment.objects.create(
-        text="This is a test comment", attachment=None, resource=resource, creator=user,
-    )
-    return comment
+def temp_media() -> Generator[None, None, None]:
+    """Use this fixture to make all created media be temporary.
+    Reference: https://www.caktusgroup.com/blog/2013/06/26/media-root-and-django-tests/
+    """
+    settings._original_media_root = settings.MEDIA_ROOT
+    settings._original_file_storage = settings.DEFAULT_FILE_STORAGE
+    _temp_media = tempfile.mkdtemp()
+    settings.MEDIA_ROOT = _temp_media
+    settings.DEFAULT_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
+    yield
+    shutil.rmtree(_temp_media, ignore_errors=True)
+    settings.MEDIA_ROOT = settings._original_media_root
+    del settings._original_media_root
+    settings.DEFAULT_FILE_STORAGE = settings._original_file_storage
+    del settings._original_file_storage

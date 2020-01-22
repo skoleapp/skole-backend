@@ -1,3 +1,4 @@
+"""
 from django.test import RequestFactory
 from graphene.test import Client
 from graphene_django.utils.testing import GraphQLTestCase
@@ -198,3 +199,4 @@ class PrivateUserAPITests(GraphQLTestCase):
         res = mutate_change_password(self, oldPassword="badpass")
         cont = res["data"]["changePassword"]
         assert cont["errors"][0]["messages"][0] == "Incorrect old password."
+"""

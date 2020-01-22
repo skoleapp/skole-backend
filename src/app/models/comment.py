@@ -1,5 +1,6 @@
-from typing import Union
+from typing import Optional, Union
 
+from django.core.files.uploadedfile import UploadedFile
 from django.db import models
 
 from .course import Course
@@ -12,7 +13,7 @@ class CommentManager(models.Manager):
         self,
         creator: User,
         text: str,
-        attachment: str,
+        attachment: Optional[UploadedFile],
         target: Union[Course, Resource, ResourcePart, "Comment"],
     ) -> "Comment":
         if isinstance(target, Course):
@@ -57,6 +58,13 @@ class Comment(models.Model):
     )
     resource_part = models.ForeignKey(
         ResourcePart,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="comments",
+    )
+    comment = models.ForeignKey(
+        "Comment",
         on_delete=models.CASCADE,
         null=True,
         blank=True,

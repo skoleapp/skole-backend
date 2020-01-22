@@ -122,7 +122,7 @@ def mutate_update_user(test_cls: GraphQLTestCase, **params: str) -> JsonDict:
         "title": "",
         "bio": "",
         "avatar": "",
-        "language": ENGLISH,
+        "language": "English",
     }
 
     if params is not None:

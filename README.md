@@ -8,4 +8,4 @@
 - To create superuser, run `yarn create-superuser`.
 - To import sample data, run `yarn import-sample-data`.
 - To run tests, run `yarn test`.
-- To run type-checks (outside container), run `yarn type-check`.
+- To run linting, type-checks etc., run `yarn lint`.

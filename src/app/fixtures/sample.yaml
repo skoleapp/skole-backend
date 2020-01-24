@@ -409,9 +409,9 @@
     message: "Hi!\nThis is a test message."
 
 - model: app.Contact
-  pk: 1
+  pk: 2
   fields:
     contact_type: 1
     email: null
     user: 2
-    message: "message from a logged in user."
+    message: "Message from a logged in user."

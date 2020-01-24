@@ -1,0 +1,20 @@
+- model: app.City
+  pk: 1
+  fields:
+    name: "Turku"
+    country: 1
+- model: app.City
+  pk: 2
+  fields:
+    name: "Tampere"
+    country: 1
+- model: app.City
+  pk: 3
+  fields:
+    name: "Espoo"
+    country: 1
+- model: app.City
+  pk: 4
+  fields:
+    name: "Helsinki"
+    country: 1

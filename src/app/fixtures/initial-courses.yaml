@@ -1,0 +1,10 @@
+- model: app.Course
+  pk: 1
+  fields:
+    name: "Test Engineering Course 3"
+    code: "TEST0003"
+    subject: 1
+    school: 1
+    creator: null
+    modified: "2019-01-01 12:00:00.000000+00:00"
+    created: "2019-01-01 12:00:00.000000+00:00"

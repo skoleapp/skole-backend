@@ -389,15 +389,15 @@
 - model: app.ContactType
   pk: 2
   fields:
-    name: "Request school"
+    name: "Request School"
 - model: app.ContactType
   pk: 3
   fields:
-    name: "Request subject"
+    name: "Request Subject"
 - model: app.ContactType
   pk: 4
   fields:
-    name: "Business inquiry"
+    name: "Business Inquiry"
 
 
 - model: app.Contact

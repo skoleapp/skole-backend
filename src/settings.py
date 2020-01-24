@@ -156,3 +156,5 @@ GRAPHQL_JWT = {
 }
 
 PASSWORD_MIN_LENGTH = 6
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"

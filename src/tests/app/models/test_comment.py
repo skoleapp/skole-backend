@@ -32,10 +32,10 @@ def test_manager_create_ok(db: fixture, temp_media: fixture) -> None:
         target_comment,
     ):
         comment = Comment.objects.create_comment(
-            creator=user, text=text, attachment=attachment, target=target
+            user=user, text=text, attachment=attachment, target=target
         )
 
-        assert comment.creator == user
+        assert comment.user == user
         assert comment.text == text
 
         # Filenames after the first created comment will have a random glob to make them unique.
@@ -56,5 +56,5 @@ def test_manager_create_bad_target(db: fixture) -> None:
     bad_target = user
     with pytest.raises(TypeError):
         comment4 = Comment.objects.create_comment(
-            creator=user, text="foo", attachment=None, target=bad_target
+            user=user, text="foo", attachment=None, target=bad_target
         )

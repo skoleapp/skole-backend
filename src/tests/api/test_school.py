@@ -22,26 +22,23 @@ class SchoolAPITests(GraphQLTestCase):
 
     def test_query_schools(self) -> None:
         res = query_schools(self)
+        assert "errors" not in res
         schools = res["data"]["schools"]
         assert len(schools) == 6
         assert schools[0]["id"] == "2"
         assert schools[0]["name"] == "Aalto University"
         assert schools[0]["schoolType"] == "University"
         assert schools[0]["city"] == "Espoo"
-        assert schools[0]["country"] == "Finland"
-        assert schools[0]["subjectCount"] == 2
-        assert schools[0]["courseCount"] == 0
         assert schools[5]["id"] == "1"
         assert schools[5]["name"] == "University of Turku"
         assert schools[5]["schoolType"] == "University"
         assert schools[5]["city"] == "Turku"
-        assert schools[5]["country"] == "Finland"
-        assert schools[5]["subjectCount"] == 4
-        assert schools[5]["courseCount"] == 3
 
     def test_query_school(self) -> None:
         # Test that every School from the list can be queried with its own id.
-        schools = query_schools(self)["data"]["schools"]
+        res = query_schools(self)
+        assert "errors" not in res
+        schools = res["data"]["schools"]
         for school in schools:
             assert school == query_school(self, school["id"])["data"]["school"]
 
@@ -51,6 +48,7 @@ class SchoolAPITests(GraphQLTestCase):
 
     def test_query_school_types(self) -> None:
         res = query_school_types(self)
+        assert "errors" not in res
         school_types = res["data"]["schoolTypes"]
         assert len(school_types) == 3
         assert school_types[0]["id"] == "1"
@@ -59,6 +57,7 @@ class SchoolAPITests(GraphQLTestCase):
     def test_query_school_type(self) -> None:
         # Test that every SchoolType from the list can be queried with its own id.
         res = query_school_types(self)
+        assert "errors" not in res
         school_types = res["data"]["schoolTypes"]
         for school_type in school_types:
             assert (

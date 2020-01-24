@@ -38,3 +38,58 @@
   fields:
     name: "Oulu"
     country: 1
+- model: app.City
+  pk: 9
+  fields:
+    name: "Rovaniemi"
+    country: 1
+- model: app.City
+  pk: 10
+  fields:
+    name: "Lappeenranta"
+    country: 1
+- model: app.City
+  pk: 11
+  fields:
+    name: "Joensuu"
+    country: 1
+- model: app.City
+  pk: 12
+  fields:
+    name: "Maarianhamina"
+    country: 1
+- model: app.City
+  pk: 13
+  fields:
+    name: "Kokkola"
+    country: 1
+- model: app.City
+  pk: 14
+  fields:
+    name: "Hämeenlinna"
+    country: 1
+- model: app.City
+  pk: 15
+  fields:
+    name: "Kouvola"
+    country: 1
+- model: app.City
+  pk: 16
+  fields:
+    name: "Kajaani"
+    country: 1
+- model: app.City
+  pk: 17
+  fields:
+    name: "Lahti"
+    country: 1
+- model: app.City
+  pk: 18
+  fields:
+    name: "Kuopio"
+    country: 1
+- model: app.City
+  pk: 19
+  fields:
+    name: "Seinäjoki"
+    country: 1

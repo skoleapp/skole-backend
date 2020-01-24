@@ -10,9 +10,16 @@ from .user import User
 
 class ResourceManager(models.Manager):
     def create_resource(
-        self, resource_type: ResourceType, title: str, course: Course, files: Any
+        self,
+        resource_type: ResourceType,
+        title: str,
+        course: Course,
+        files: Any,
+        user: User,
     ) -> "Resource":
-        resource = self.model(resource_type=resource_type, title=title, course=course)
+        resource = self.model(
+            resource_type=resource_type, title=title, course=course, user=user
+        )
         resource.save()
 
         for file in files:

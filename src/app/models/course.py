@@ -14,8 +14,8 @@ class Course(models.Model):
         Subject, on_delete=models.CASCADE, related_name="courses"
     )
     school = models.ForeignKey(School, on_delete=models.CASCADE, related_name="courses")
-    creator = models.ForeignKey(
-        User, on_delete=models.SET_NULL, null=True, related_name="created_courses"
+    user = models.ForeignKey(
+        User, on_delete=models.SET_NULL, null=True, related_name="created_courses",
     )
 
     modified = models.DateTimeField(auto_now=True)

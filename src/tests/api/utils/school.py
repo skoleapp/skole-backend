@@ -10,9 +10,6 @@ def query_schools(test_cls: GraphQLTestCase) -> JsonDict:
             name
             schoolType
             city
-            country
-            subjectCount
-            courseCount
           }
         }
         """
@@ -30,9 +27,6 @@ def query_school(test_cls: GraphQLTestCase, school_id: int = 1) -> JsonDict:
             name
             schoolType
             city
-            country
-            subjectCount
-            courseCount
           }
         }
         """

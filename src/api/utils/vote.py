@@ -37,7 +37,7 @@ class _AbstractVoteMutation(graphene.Mutation):
 
         target = target_model.objects.get(pk=target_id)
         try:
-            vote = target.votes.get(creator=info.context.user)
+            vote = target.votes.get(user=info.context.user)
             if vote.status == cls._vote_status:
                 return cls(target)
             else:
@@ -46,7 +46,7 @@ class _AbstractVoteMutation(graphene.Mutation):
             pass
 
         Vote.objects.create_vote(
-            creator=info.context.user, status=cls._vote_status, target=target,
+            user=info.context.user, status=cls._vote_status, target=target,
         )
         return cls(target)
 

@@ -167,22 +167,18 @@
   pk: 1
   fields:
     name: "Computer Engineering"
-    schools: [1, 2, 3]
 - model: app.Subject
   pk: 2
   fields:
     name: "Computer Science"
-    schools: [1, 2, 3]
 - model: app.Subject
   pk: 3
   fields:
     name: "Chemistry"
-    schools: [1, 3, 6]
 - model: app.Subject
   pk: 4
   fields:
     name: "Economy"
-    schools: [1, 3, 4, 5]
 
 
 - model: app.Course
@@ -192,7 +188,7 @@
     code: "TEST0001"
     subject: 1
     school: 1
-    creator: 2
+    user: 2
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
 - model: app.Course
@@ -202,7 +198,7 @@
     code: "TEST0002"
     subject: 1
     school: 1
-    creator: 2
+    user: 2
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
 - model: app.Course
@@ -212,7 +208,7 @@
     code: "TEST0003"
     subject: 1
     school: 1
-    creator: 2
+    user: 2
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
 
@@ -246,7 +242,7 @@
     title: "Sample exam 1"
     date: "2012-12-12"
     course: 1
-    creator: 2
+    user: 2
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
 - model: app.Resource
@@ -256,7 +252,7 @@
     title: "Sample exam 2"
     date: "2012-12-12"
     course: 1
-    creator: 2
+    user: 2
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
 - model: app.Resource
@@ -266,7 +262,7 @@
     title: "Sample exercise"
     date: "2012-12-12"
     course: 1
-    creator: 2
+    user: 2
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
 
@@ -318,7 +314,8 @@
     resource: 1
     resource_part: null
     course: null
-    creator: 2
+    comment: null
+    user: 2
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
 - model: app.Comment
@@ -329,7 +326,8 @@
     resource: 1
     resource_part: null
     course: null
-    creator: 3
+    comment: null
+    user: 3
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
 - model: app.Comment
@@ -340,7 +338,20 @@
     resource: 1
     resource_part: null
     course: null
-    creator: 2
+    comment: null
+    user: 2
+    modified: "2019-01-01 12:00:00.000000+00:00"
+    created: "2019-01-01 12:00:00.000000+00:00"
+- model: app.Comment
+  pk: 4
+  fields:
+    text: "Comment to a course"
+    attachment: null
+    resource: null
+    resource_part: null
+    course: 1
+    comment: null
+    user: 2
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
 
@@ -352,7 +363,7 @@
     course: null
     resource: null
     status: 1
-    creator: 2
+    user: 2
 - model: app.Vote
   pk: 3
   fields:
@@ -360,7 +371,7 @@
     course: null
     resource: null
     status: 1
-    creator: 3
+    user: 3
 - model: app.Vote
   pk: 4
   fields:
@@ -368,4 +379,39 @@
     course: null
     resource: null
     status: -1
-    creator: 4
+    user: 4
+
+
+- model: app.ContactType
+  pk: 1
+  fields:
+    name: "Feedback"
+- model: app.ContactType
+  pk: 2
+  fields:
+    name: "Request School"
+- model: app.ContactType
+  pk: 3
+  fields:
+    name: "Request Subject"
+- model: app.ContactType
+  pk: 4
+  fields:
+    name: "Business Inquiry"
+
+
+- model: app.Contact
+  pk: 1
+  fields:
+    contact_type: 1
+    email: "testfeedback@test.com"
+    user: null
+    message: "Hi!\nThis is a test message."
+
+- model: app.Contact
+  pk: 2
+  fields:
+    contact_type: 1
+    email: null
+    user: 2
+    message: "Message from a logged in user."

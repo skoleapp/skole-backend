@@ -24,10 +24,11 @@ class CourseObjectType(DjangoObjectType):
             "code",
             "subject",
             "school",
-            "creator",
+            "user",
             "modified",
             "created",
             "resources",
+            "comments",
         )
 
     def resolve_points(self, info: ResolveInfo) -> int:
@@ -48,7 +49,7 @@ class CreateCourseMutation(DjangoModelFormMutation):
     def perform_mutate(
         cls, form: CreateCourseForm, info: ResolveInfo
     ) -> "CreateCourseMutation":
-        course = Course.objects.create(creator=info.context.user, **form.cleaned_data)
+        course = Course.objects.create(user=info.context.user, **form.cleaned_data)
         return cls(course=course)
 
 

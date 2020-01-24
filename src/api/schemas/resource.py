@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import Optional
 
 import graphene
 from graphene_django import DjangoObjectType
@@ -10,20 +10,7 @@ from api.forms.resource import UploadResourceForm
 from api.schemas.school import SchoolObjectType
 from api.utils.points import POINTS_RESOURCE_MULTIPLIER, get_points_for_target
 from api.utils.vote import AbstractDownvoteMutation, AbstractUpvoteMutation
-from app.models import Resource, ResourcePart
-from app.models import ResourceType as ResourceTypeModel
-
-
-class ResourcePartObjectType(DjangoObjectType):
-    class Meta:
-        model = ResourcePart
-        fields = ("id", "title", "file", "text", "file")
-
-
-class ResourceTypeObjectType(DjangoObjectType):
-    class Meta:
-        model = ResourceTypeModel
-        fields = ("id", "name", "has_parts")
+from app.models import Resource
 
 
 class ResourceObjectType(DjangoObjectType):
@@ -40,9 +27,10 @@ class ResourceObjectType(DjangoObjectType):
             "date",
             "course",
             "downloads",
-            "creator",
+            "user",
             "modified",
             "created",
+            "comments",
         )
 
     def resolve_points(self, info: ResolveInfo) -> int:
@@ -81,7 +69,7 @@ class UploadResourceMutation(DjangoModelFormMutation):
 
         form.cleaned_data.pop("files")
         resource = Resource.objects.create_resource(
-            **form.cleaned_data, files=info.context.FILES  # type: ignore
+            **form.cleaned_data, files=info.context.FILES, user=info.context.user  # type: ignore
         )
         return cls(resource=resource)
 
@@ -90,7 +78,6 @@ class Query(graphene.ObjectType):
     resource = graphene.Field(
         ResourceObjectType, resource_id=graphene.Int(required=True)
     )
-    resource_types = graphene.List(ResourceTypeObjectType)
 
     def resolve_resource(
         self, info: ResolveInfo, resource_id: str
@@ -100,9 +87,6 @@ class Query(graphene.ObjectType):
         except Resource.DoesNotExist:
             # Return None instead of throwing a GraphQL Error.
             return None
-
-    def resolve_resource_types(self, info: ResolveInfo) -> List[ResourceTypeModel]:
-        return ResourceTypeModel.objects.all()
 
 
 class Mutation(graphene.ObjectType):

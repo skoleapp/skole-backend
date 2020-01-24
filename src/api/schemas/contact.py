@@ -8,6 +8,7 @@ from graphql import ResolveInfo
 
 from api.forms.contact import ContactForm
 from api.utils.messages import MESSAGE_SENT_ERROR_MESSAGE, MESSAGE_SENT_SUCCESS_MESSAGE
+from app.models import Contact
 
 
 class ContactMutation(DjangoFormMutation):
@@ -18,15 +19,25 @@ class ContactMutation(DjangoFormMutation):
 
     @classmethod
     def perform_mutate(cls, form: ContactForm, info: ResolveInfo) -> "ContactMutation":
-        """
-        TODO: Set up email settings: https://docs.djangoproject.com/en/2.2/topics/email/.
-        """
+        contact_type = form.cleaned_data["contact_type"]
+        message = form.cleaned_data["message"]
+
+        if user := info.context.user:
+            user_or_email = user
+            email = user.email
+        else:
+            email = form.cleaned_data["email"]
+            user_or_email = email
+
+        Contact.objects.create_contact(
+            contact_type=contact_type, message=message, user_or_email=user_or_email
+        )
 
         try:
             send_mail(
-                subject=form.cleaned_data["contact_type"],
-                message=form.cleaned_data["message"],
-                from_email=form.cleaned_data["email"],
+                subject=contact_type,
+                message=message,
+                from_email=email,
                 recipient_list=[os.environ.get("SKOLE_INFO_EMAIL")],
                 fail_silently=False,
             )

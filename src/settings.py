@@ -26,7 +26,7 @@ if secret_key is None:
 else:
     SECRET_KEY = secret_key
 
-# SECURITY WARNING: don"t run with debug turned on in production!
+# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = int(os.environ.get("DEBUG", default=0))
 
 django_allowed_hosts = os.environ.get("DJANGO_ALLOWED_HOSTS")
@@ -156,3 +156,5 @@ GRAPHQL_JWT = {
 }
 
 PASSWORD_MIN_LENGTH = 6
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"

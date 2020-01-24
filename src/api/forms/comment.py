@@ -8,15 +8,26 @@ from app.models import Comment
 class CreateCommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = ("text", "attachment", "course", "resource", "resource_part")
+        fields = (
+            "text",
+            "attachment",
+            "course",
+            "resource",
+            "resource_part",
+            "comment",
+        )
 
     def clean(self) -> JsonDict:
         """Ensure that any created comment has exactly one foreign key it targets."""
         course = self.cleaned_data.pop("course", None)
         resource = self.cleaned_data.pop("resource", None)
         resource_part = self.cleaned_data.pop("resource_part", None)
+        comment = self.cleaned_data.pop("comment", None)
 
-        target = [n for n in (course, resource, resource_part) if n is not None]
+        # Ensure that the comment is linked to only one target.
+        target = [
+            n for n in (course, resource, resource_part, comment) if n is not None
+        ]
         if len(target) != 1:
             raise forms.ValidationError(INCORRECT_TARGET_FOR_COMMENT_MESSAGE)
 

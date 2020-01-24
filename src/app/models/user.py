@@ -31,6 +31,9 @@ class UserManager(BaseUserManager):
 
     def update_user(self, user: "User", **kwargs: Any) -> "User":
         for key, value in kwargs.items():
+            if key in {"bio", "title"} and value == "":
+                # Avoid having empty strings in the db.
+                value = None
             setattr(user, key, value)
 
         user.save()

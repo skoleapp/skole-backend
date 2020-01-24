@@ -17,6 +17,11 @@
   fields:
     name: "Turku"
     country: 1
+- model: app.City
+  pk: 2
+  fields:
+    name: "Tampere"
+    country: 1
 
 - model: app.School
   pk: 1
@@ -54,3 +59,21 @@
     school_type: 2
     name: "Humak University of Applied Sciences"
     city: 1
+- model: app.School
+  pk: 7
+  fields:
+    school_type: 1
+    name: "Tampere University"
+    city: 2
+- model: app.School
+  pk: 8
+  fields:
+    school_type: 2
+    name: "Tampere University of Applied Sciences"
+    city: 2
+- model: app.School
+  pk: 9
+  fields:
+    school_type: 2
+    name: "Police University College"
+    city: 2

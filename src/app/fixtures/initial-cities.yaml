@@ -33,3 +33,8 @@
   fields:
     name: "Jysäskylä"
     country: 1
+- model: app.City
+  pk: 8
+  fields:
+    name: "Oulu"
+    country: 1

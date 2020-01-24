@@ -139,6 +139,18 @@
 - model: app.School
   pk: 24
   fields:
-    school_type: 1
+    school_type: 2
     name: "JAMK University of Applied Sciences"
     city: 7
+- model: app.School
+  pk: 25
+  fields:
+    school_type: 1
+    name: "University of Oulu"
+    city: 8
+- model: app.School
+  pk: 26
+  fields:
+    school_type: 2
+    name: "Oulu University of Applied Sciences"
+    city: 8

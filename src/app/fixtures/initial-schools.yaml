@@ -80,47 +80,65 @@
   pk: 14
   fields:
     school_type: 1
-    name: "Sibelius Academy"
+    name: "University of the Arts Helsinki"
     city: 4
 - model: app.School
   pk: 15
-  fields:
-    school_type: 1
-    name: "Theatre Academy"
-    city: 4
-- model: app.School
-  pk: 16
-  fields:
-    school_type: 1
-    name: "Academy of Fine Arts"
-    city: 4
-- model: app.School
-  pk: 17
   fields:
     school_type: 2
     name: "Haaga-Helia University of Applied Sciences"
     city: 4
 - model: app.School
-  pk: 18
+  pk: 16
   fields:
     school_type: 1
     name: "Hanken School of Economics"
     city: 4
 - model: app.School
-  pk: 19
+  pk: 17
   fields:
     school_type: 1
     name: "Maanpuolustuskorkeakoulu"
     city: 4
 - model: app.School
-  pk: 20
+  pk: 18
   fields:
     school_type: 2
     name: "Arcada University of Applied Sciences"
     city: 4
 - model: app.School
-  pk: 21
+  pk: 19
   fields:
     school_type: 1
     name: "HELBUS Helsinki School of Business"
     city: 4
+- model: app.School
+  pk: 20
+  fields:
+    school_type: 2
+    name: "Satakunta University of Applied Sciences"
+    city: 5
+- model: app.School
+  pk: 21
+  fields:
+    school_type: 1
+    name: "University of Vaasa"
+    city: 6
+- model: app.School
+  pk: 22
+  fields:
+    school_type: 2
+    name: "Vaasa University of Applied Sciences"
+    city: 6
+- model: app.School
+  pk: 23
+  fields:
+    school_type: 1
+    name: "University of Jysäskylä"
+    city: 7
+- model: app.School
+  pk: 24
+  fields:
+    school_type: 1
+    name: "JAMK University of Applied Sciences"
+    city: 7

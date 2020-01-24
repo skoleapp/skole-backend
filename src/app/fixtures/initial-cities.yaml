@@ -18,3 +18,18 @@
   fields:
     name: "Helsinki"
     country: 1
+- model: app.City
+  pk: 5
+  fields:
+    name: "Pori"
+    country: 1
+- model: app.City
+  pk: 6
+  fields:
+    name: "Vaasa"
+    country: 1
+- model: app.City
+  pk: 7
+  fields:
+    name: "Jysäskylä"
+    country: 1

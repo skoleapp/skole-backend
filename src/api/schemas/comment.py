@@ -7,6 +7,7 @@ from graphql import ResolveInfo
 from graphql_jwt.decorators import login_required
 
 from api.forms.comment import CreateCommentForm, UpdateCommentForm
+from api.schemas.resource_part import ResourcePartObjectType
 from api.utils.points import (
     POINTS_COURSE_COMMENT_MULTIPLIER,
     POINTS_RESOURCE_COMMENT_MULTIPLIER,
@@ -18,6 +19,7 @@ from app.models import Comment
 
 class CommentObjectType(DjangoObjectType):
     points = graphene.Int()
+    resource_part = graphene.Field(ResourcePartObjectType)
 
     class Meta:
         model = Comment
@@ -28,8 +30,8 @@ class CommentObjectType(DjangoObjectType):
             "attachment",
             "course",
             "resource",
-            "comment",
             "resource_part",
+            "comment",
             "modified",
             "created",
         )
@@ -106,32 +108,7 @@ class DownvoteCommentMutation(AbstractDownvoteMutation):
 
 
 class Query(graphene.ObjectType):
-    comments = graphene.List(
-        CommentObjectType,
-        course_id=graphene.String(),
-        resource_id=graphene.Int(),
-        resource_part_id=graphene.Int(),
-    )
     comment = graphene.Field(CommentObjectType, comment_id=graphene.Int())
-
-    def resolve_comments(
-        self,
-        info: ResolveInfo,
-        course_id: Optional[int] = None,
-        resource_id: Optional[int] = None,
-        resource_part_id: Optional[int] = None,
-    ) -> List[Comment]:
-
-        comments = Comment.objects.all()
-
-        if course_id is not None:
-            comments = comments.filter(course__pk=course_id)
-        if resource_id is not None:
-            comments = comments.filter(resource__pk=resource_id)
-        if resource_part_id is not None:
-            comments = comments.filter(resource_part__pk=resource_part_id)
-
-        return comments
 
     def resolve_comment(self, info: ResolveInfo, comment_id: int) -> Optional[Comment]:
         try:

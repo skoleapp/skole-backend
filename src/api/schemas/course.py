@@ -28,6 +28,7 @@ class CourseObjectType(DjangoObjectType):
             "modified",
             "created",
             "resources",
+            "comments",
         )
 
     def resolve_points(self, info: ResolveInfo) -> int:

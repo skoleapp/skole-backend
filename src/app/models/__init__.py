@@ -1,5 +1,7 @@
 from .city import City
 from .comment import Comment
+from .contact import Contact
+from .contact_type import ContactType
 from .country import Country
 from .course import Course
 from .resource import Resource

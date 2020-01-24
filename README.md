@@ -7,5 +7,5 @@
 - To migrate db, run: `yarn migrate`.
 - To create superuser, run `yarn create-superuser`.
 - To import sample data, run `yarn import-sample-data`.
-- To run tests, run `yarn test`.
-- To run linting, type-checks etc., run `yarn lint`.
+- To run tests and type checks, run `yarn test`.
+- To run linting, run `yarn lint`.

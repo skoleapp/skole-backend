@@ -11,7 +11,7 @@
     "migrate": "python src/manage.py migrate",
     "create-superuser": "python src/manage.py createsuperuser",
     "import-sample-data": "python src/manage.py loaddata sample.yaml",
-    "test": "pytest --cov-report html --cov=src src/tests/",
-    "lint": "autoflake -ir --remove-all-unused-imports --exclude __init__.py src && isort -rc src && black --exclude migrations/* src && mypy src"
+    "test": "pytest --cov-report html --cov=src src/tests/ && mypy src",
+    "lint": "autoflake -ir --remove-all-unused-imports --exclude __init__.py src && isort -rc src && black --exclude migrations/* src"
   }
 }

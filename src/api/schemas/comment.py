@@ -23,7 +23,7 @@ class CommentObjectType(DjangoObjectType):
         model = Comment
         fields = (
             "id",
-            "creator",
+            "user",
             "text",
             "attachment",
             "course",
@@ -63,7 +63,7 @@ class CreateCommentMutation(DjangoModelFormMutation):
             form.cleaned_data["attachment"] = file
 
         comment = Comment.objects.create_comment(
-            creator=info.context.user, **form.cleaned_data
+            user=info.context.user, **form.cleaned_data
         )
         return cls(comment=comment)
 

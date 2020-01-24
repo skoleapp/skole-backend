@@ -39,15 +39,15 @@ class Resource(models.Model):
 
     resource_type = models.ForeignKey(ResourceType, on_delete=models.PROTECT)
     title = models.CharField(max_length=100)
-    # The creator can specify when the resource is dated.
+    # The user can specify when the resource is dated.
     # TODO: set to current date in the manager if not specified
     date = models.DateField(null=True)
     course = models.ForeignKey(
         Course, on_delete=models.CASCADE, related_name="resources"
     )
     downloads = models.PositiveIntegerField(default=0, null=True)
-    creator = models.ForeignKey(
-        User, on_delete=models.SET_NULL, null=True, related_name="created_resources"
+    user = models.ForeignKey(
+        User, on_delete=models.SET_NULL, null=True, related_name="created_resources",
     )
 
     modified = models.DateTimeField(auto_now=True)
@@ -56,4 +56,4 @@ class Resource(models.Model):
     objects = ResourceManager()
 
     def __str__(self) -> str:
-        return f"'{self.title}' by {self.creator.username}"
+        return f"'{self.title}' by {self.user.username}"

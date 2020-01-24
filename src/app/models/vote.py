@@ -12,7 +12,7 @@ from .user import User
 
 class VoteManager(models.Manager):
     def create_vote(
-        self, creator: User, status: int, target: Union[Comment, Course, Resource]
+        self, user: User, status: int, target: Union[Comment, Course, Resource]
     ) -> "Vote":
         if isinstance(target, Comment):
             vote = self.model(comment=target)
@@ -23,7 +23,7 @@ class VoteManager(models.Manager):
         else:
             raise TypeError(f"Invalid target type for Vote: {type(target)}")
 
-        vote.creator = creator
+        vote.user = user
         vote.status = status
 
         vote.save()
@@ -33,7 +33,7 @@ class VoteManager(models.Manager):
 class Vote(models.Model):
     """Models one vote on either comment, course or resource."""
 
-    creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name="votes")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="votes")
     status = models.IntegerField(choices=VOTE_STATUS)
 
     comment = models.ForeignKey(
@@ -49,7 +49,7 @@ class Vote(models.Model):
     objects = VoteManager()
 
     class Meta:
-        unique_together = ("comment", "course", "resource", "creator")
+        unique_together = ("comment", "course", "resource", "user")
 
     def __str__(self) -> str:
-        return f"{self.get_status_display()}, {self.creator.username}"
+        return f"{self.get_status_display()}, {self.user.username}"

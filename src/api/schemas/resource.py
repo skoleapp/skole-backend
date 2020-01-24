@@ -27,7 +27,7 @@ class ResourceObjectType(DjangoObjectType):
             "date",
             "course",
             "downloads",
-            "creator",
+            "user",
             "modified",
             "created",
             "comments",

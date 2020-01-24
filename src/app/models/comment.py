@@ -11,7 +11,7 @@ from .user import User
 class CommentManager(models.Manager):
     def create_comment(
         self,
-        creator: User,
+        user: User,
         text: str,
         attachment: Optional[UploadedFile],
         target: Union[Course, Resource, ResourcePart, "Comment"],
@@ -27,7 +27,7 @@ class CommentManager(models.Manager):
         else:
             raise TypeError(f"Invalid target type for Comment: {type(target)}")
 
-        comment.creator = creator
+        comment.user = user
         comment.text = text
         comment.attachment = attachment
 
@@ -38,8 +38,8 @@ class CommentManager(models.Manager):
 class Comment(models.Model):
     """Models one comment posted on a comment thread."""
 
-    creator = models.ForeignKey(
-        User, on_delete=models.SET_NULL, null=True, related_name="comments"
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, null=True, related_name="comments"
     )
     text = models.TextField(max_length=10000)
     attachment = models.FileField(
@@ -78,6 +78,6 @@ class Comment(models.Model):
 
     def __str__(self) -> str:
         if len(self.text) > 20:
-            return f"{self.creator.username}: {self.text[:20]}..."
+            return f"{self.user.username}: {self.text[:20]}..."
         else:
-            return f"{self.creator.username}: {self.text}"
+            return f"{self.user.username}: {self.text}"

@@ -11,7 +11,7 @@ class Course(models.Model):
     name = models.CharField(max_length=200)
     code = models.CharField(max_length=30, null=True, blank=True)
     subject = models.ForeignKey(
-        Subject, on_delete=models.CASCADE, related_name="courses"
+        Subject, on_delete=models.CASCADE, related_name="courses", null=True, blank=True
     )
     school = models.ForeignKey(School, on_delete=models.CASCADE, related_name="courses")
     user = models.ForeignKey(

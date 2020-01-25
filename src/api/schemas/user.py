@@ -181,12 +181,15 @@ class UpdateUserMutation(DjangoModelFormMutation):
     def perform_mutate(
         cls, form: UpdateUserForm, info: ResolveInfo
     ) -> "UpdateUserMutation":
-        if file := info.context.FILES.get("1"):
-            form.cleaned_data["avatar"] = file
-        else:
-            form.cleaned_data["avatar"] = None
-
         user = info.context.user
+
+        # Don't allow changing avatar to anything but a File or ""
+        if form.cleaned_data["avatar"] != "":
+            if file := info.context.FILES.get("1"):
+                form.cleaned_data["avatar"] = file
+            else:
+                form.cleaned_data["avatar"] = user.avatar
+
         get_user_model().objects.update_user(user, **form.cleaned_data)
         return cls(user=user)
 

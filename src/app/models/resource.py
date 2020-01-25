@@ -51,8 +51,8 @@ class Resource(models.Model):
 
     resource_type = models.ForeignKey(ResourceType, on_delete=models.PROTECT)
     title = models.CharField(max_length=100)
+
     # The user can specify when the resource is dated.
-    # TODO: set to current date in the manager if not specified
     date = models.DateField(null=True)
     course = models.ForeignKey(
         Course, on_delete=models.CASCADE, related_name="resources"

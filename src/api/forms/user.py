@@ -1,6 +1,7 @@
 from django import forms
 from django.conf import settings
 from django.contrib.auth import authenticate, get_user_model
+from django.core.files.uploadedfile import UploadedFile
 from mypy.types import JsonDict
 
 from api.utils.messages import (
@@ -61,6 +62,7 @@ class SignInForm(forms.ModelForm):
 class UpdateUserForm(forms.ModelForm):
     username = forms.CharField(error_messages=username_error_messages)
     email = forms.EmailField(error_messages=email_error_messages)
+    avatar = forms.CharField(required=False)
 
     class Meta:
         model = get_user_model()

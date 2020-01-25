@@ -86,18 +86,18 @@ class UpdateCommentMutation(DjangoModelFormMutation):
     ) -> "UpdateCommentMutation":
 
         try:
-            comment = Comment.objects.get(pk=form.cleaned_data["comment_id"])
+            comment = Comment.objects.get(pk=form.cleaned_data.pop("comment_id"))
         except Comment.DoesNotExist as e:
-            return cls(
-                errors=[{"field": "commentId", "messages": [str(e)]}]
-            )
+            return cls(errors=[{"field": "commentId", "messages": [str(e)]}])
 
-        if file := info.context.FILES.get("1"):
-            form.cleaned_data["attachment"] = file
+        # Don't allow changing attachment to anything but a File or ""
+        if form.cleaned_data["attachment"] != "":
+            if file := info.context.FILES.get("1"):
+                form.cleaned_data["attachment"] = file
+            else:
+                form.cleaned_data["attachment"] = comment.attachment
 
-        comment.text = form.cleaned_data["text"]
-        comment.attachment = form.cleaned_data["attachment"]
-        comment.save()
+        Comment.objects.update_comment(comment, **form.cleaned_data)
         return cls(comment=comment)
 
 

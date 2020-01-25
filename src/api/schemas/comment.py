@@ -20,6 +20,7 @@ from app.models import Comment
 class CommentObjectType(DjangoObjectType):
     points = graphene.Int()
     resource_part = graphene.Field(ResourcePartObjectType)
+    reply_count = graphene.Int()
 
     class Meta:
         model = Comment
@@ -33,6 +34,7 @@ class CommentObjectType(DjangoObjectType):
             "resource_part",
             "comment",
             "reply_comments",
+            "reply_count",
             "modified",
             "created",
         )

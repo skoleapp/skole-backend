@@ -2,6 +2,7 @@ from typing import Optional, Union
 
 from django.core.files.uploadedfile import UploadedFile
 from django.db import models
+from django.db.models.query import QuerySet
 
 from .course import Course
 from .resource import Resource, ResourcePart
@@ -33,6 +34,10 @@ class CommentManager(models.Manager):
 
         comment.save()
         return comment
+
+    def get_queryset(self) -> QuerySet:
+        qs = super().get_queryset()
+        return qs.annotate(reply_count=models.Count('reply_comments'))
 
 
 class Comment(models.Model):

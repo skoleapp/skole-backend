@@ -32,6 +32,7 @@ class CommentObjectType(DjangoObjectType):
             "resource",
             "resource_part",
             "comment",
+            "reply_comments",
             "modified",
             "created",
         )

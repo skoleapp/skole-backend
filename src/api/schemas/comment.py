@@ -84,8 +84,13 @@ class UpdateCommentMutation(DjangoModelFormMutation):
     def perform_mutate(
         cls, form: UpdateCommentForm, info: ResolveInfo
     ) -> "UpdateCommentMutation":
-        # FIXME: raises graphql.error.located_error.GraphQLLocatedError instead of a nice user error
-        comment = Comment.objects.get(pk=form.cleaned_data["comment_id"])
+
+        try:
+            comment = Comment.objects.get(pk=form.cleaned_data["comment_id"])
+        except Comment.DoesNotExist as e:
+            return cls(
+                errors=[{"field": "commentId", "messages": [str(e)]}]
+            )
 
         if file := info.context.FILES.get("1"):
             form.cleaned_data["attachment"] = file

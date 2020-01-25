@@ -126,8 +126,8 @@ USE_TZ = True
 STATIC_URL = "/static/"
 MEDIA_URL = "/media/"
 
-STATICFILES_DIRS = ["static"]
-MEDIA_ROOT = "media"
+STATICFILES_DIRS = ["src/static"]
+MEDIA_ROOT = "src/media"
 
 AUTH_USER_MODEL = "app.User"
 

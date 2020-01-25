@@ -35,7 +35,7 @@ class ResourceManager(models.Manager):
         resource.save()
 
         for file in files:
-            """Automatically create resource parts based on amount of files provided."""
+            # Automatically create resource parts based on amount of files provided.
 
             title = f"File {file}"  # File 1, File 2...
             resource_part = ResourcePart.objects.create(
@@ -43,6 +43,14 @@ class ResourceManager(models.Manager):
             )
             resource_part.save()
 
+        return resource
+
+    def update_resource(self, resource: "Resource", resource_type: ResourceType, title: str, date: datetime) -> "Resource":
+        resource.resource_type = resource_type
+        resource.title = title
+        resource.date = date
+
+        resource.save()
         return resource
 
 

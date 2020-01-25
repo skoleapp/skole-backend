@@ -6,7 +6,7 @@ from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphql import ResolveInfo
 from graphql_jwt.decorators import login_required
 
-from api.forms.resource import UploadResourceForm
+from api.forms.resource import UpdateResourceForm, UploadResourceForm
 from api.schemas.school import SchoolObjectType
 from api.utils.points import POINTS_RESOURCE_MULTIPLIER, get_points_for_target
 from api.utils.vote import AbstractDownvoteMutation, AbstractUpvoteMutation
@@ -74,6 +74,25 @@ class UploadResourceMutation(DjangoModelFormMutation):
         return cls(resource=resource)
 
 
+class UpdateResourceMutation(DjangoModelFormMutation):
+    class Meta:
+        form_class = UpdateResourceForm
+
+    @classmethod
+    @login_required
+    def perform_mutate(
+        cls, form: UpdateResourceForm, info: ResolveInfo
+    ) -> "UpdateResourceMutation":
+
+        try:
+            resource = Resource.objects.get(pk=form.cleaned_data.pop("resource_id"))
+        except Resource.DoesNotExist as e:
+            return cls(errors=[{"field": "resourceId", "messages": [str(e)]}])
+
+        Resource.objects.update_resource(resource, **form.cleaned_data)
+        return cls(resource=resource)
+
+
 class Query(graphene.ObjectType):
     resource = graphene.Field(
         ResourceObjectType, resource_id=graphene.Int(required=True)
@@ -93,3 +112,4 @@ class Mutation(graphene.ObjectType):
     upvote_resource = UpvoteResourceMutation.Field()
     downvote_resource = DownvoteResourceMutation.Field()
     upload_resource = UploadResourceMutation.Field()
+    update_resource = UpdateResourceMutation.Field()

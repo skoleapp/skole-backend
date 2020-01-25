@@ -4,78 +4,78 @@
     username: "root"
     email: "root@root.com"
     password: "pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4="
-    title: null
-    bio: null
-    avatar: null
+    title: ""
+    bio: ""
+    avatar: ""
     is_staff: true
     is_superuser: true
-    modified: "2019-01-01 12:00:00.000000+00:00"
-    created: "2019-01-01 12:00:00.000000+00:00"
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
 - model: app.User
   pk: 2
   fields:
     username: "testuser2"
     email: "test2@test.com"
     password: "pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4="
-    title: null
-    bio: null
+    title: ""
+    bio: ""
     avatar: "uploads/avatars/user_image.jpg"
     is_staff: false
     is_superuser: false
-    modified: "2019-01-01 12:00:00.000000+00:00"
-    created: "2019-01-01 12:00:00.000000+00:00"
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
 - model: app.User
   pk: 3
   fields:
     username: "testuser3"
     email: "test3@test.com"
     password: "pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4="
-    title: null
-    bio: null
-    avatar: null
+    title: ""
+    bio: ""
+    avatar: ""
     is_staff: false
     is_superuser: false
-    modified: "2019-01-01 12:00:00.000000+00:00"
-    created: "2019-01-01 12:00:00.000000+00:00"
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
 - model: app.User
   pk: 4
   fields:
     username: "testuser4"
     email: "test4@test.com"
     password: "pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4="
-    title: null
-    bio: null
-    avatar: null
+    title: ""
+    bio: ""
+    avatar: ""
     is_staff: false
     is_superuser: false
-    modified: "2019-01-01 12:00:00.000000+00:00"
-    created: "2019-01-01 12:00:00.000000+00:00"
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
 - model: app.User
   pk: 5
   fields:
     username: "testuser5"
     email: "test5@test.com"
     password: "pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4="
-    title: null
-    bio: null
-    avatar: null
+    title: ""
+    bio: ""
+    avatar: ""
     is_staff: false
     is_superuser: false
-    modified: "2019-01-01 12:00:00.000000+00:00"
-    created: "2019-01-01 12:00:00.000000+00:00"
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
 - model: app.User
   pk: 6
   fields:
     username: "testuser6"
     email: "test6@test.com"
     password: "pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4="
-    title: null
-    bio: null
-    avatar: null
+    title: ""
+    bio: ""
+    avatar: ""
     is_staff: false
     is_superuser: false
-    modified: "2019-01-01 12:00:00.000000+00:00"
-    created: "2019-01-01 12:00:00.000000+00:00"
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
 
 
 - model: app.Country
@@ -189,8 +189,8 @@
     subject: 1
     school: 1
     user: 2
-    modified: "2019-01-01 12:00:00.000000+00:00"
-    created: "2019-01-01 12:00:00.000000+00:00"
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
 - model: app.Course
   pk: 2
   fields:
@@ -199,8 +199,8 @@
     subject: 1
     school: 1
     user: 2
-    modified: "2019-01-01 12:00:00.000000+00:00"
-    created: "2019-01-01 12:00:00.000000+00:00"
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
 - model: app.Course
   pk: 3
   fields:
@@ -209,8 +209,8 @@
     subject: 1
     school: 1
     user: 2
-    modified: "2019-01-01 12:00:00.000000+00:00"
-    created: "2019-01-01 12:00:00.000000+00:00"
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
 
 
 - model: app.ResourceType
@@ -243,8 +243,8 @@
     date: "2012-12-12"
     course: 1
     user: 2
-    modified: "2019-01-01 12:00:00.000000+00:00"
-    created: "2019-01-01 12:00:00.000000+00:00"
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
 - model: app.Resource
   pk: 2
   fields:
@@ -253,8 +253,8 @@
     date: "2012-12-12"
     course: 1
     user: 2
-    modified: "2019-01-01 12:00:00.000000+00:00"
-    created: "2019-01-01 12:00:00.000000+00:00"
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
 - model: app.Resource
   pk: 3
   fields:
@@ -263,8 +263,8 @@
     date: "2012-12-12"
     course: 1
     user: 2
-    modified: "2019-01-01 12:00:00.000000+00:00"
-    created: "2019-01-01 12:00:00.000000+00:00"
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
 
 
 - model: app.ResourcePartType
@@ -310,74 +310,266 @@
   pk: 1
   fields:
     text: "Starting comment for the thread on a resource."
-    attachment: null
+    attachment: "media/uploads/comment_attachments/test_file.txt"
     resource: 1
     resource_part: null
     course: null
     comment: null
     user: 2
-    modified: "2019-01-01 12:00:00.000000+00:00"
-    created: "2019-01-01 12:00:00.000000+00:00"
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
 - model: app.Comment
   pk: 2
   fields:
     text: "Second comment of the thread."
-    attachment: null
+    attachment: ""
     resource: 1
     resource_part: null
     course: null
     comment: null
     user: 3
-    modified: "2019-01-01 12:00:00.000000+00:00"
-    created: "2019-01-01 12:00:00.000000+00:00"
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
 - model: app.Comment
   pk: 3
   fields:
     text: "Third comment of the thread."
-    attachment: null
+    attachment: ""
     resource: 1
     resource_part: null
     course: null
     comment: null
     user: 2
-    modified: "2019-01-01 12:00:00.000000+00:00"
-    created: "2019-01-01 12:00:00.000000+00:00"
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
 - model: app.Comment
   pk: 4
   fields:
-    text: "Comment to a course"
-    attachment: null
+    text: "Comment 1 to a course"
+    attachment: ""
     resource: null
     resource_part: null
     course: 1
     comment: null
     user: 2
-    modified: "2019-01-01 12:00:00.000000+00:00"
-    created: "2019-01-01 12:00:00.000000+00:00"
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
 - model: app.Comment
   pk: 5
   fields:
-    text: "First reply to a comment."
-    attachment: null
+    text: "Comment 2 to a course"
+    attachment: ""
     resource: null
     resource_part: null
-    course: null
-    comment: 4
+    course: 1
+    comment: null
     user: 2
-    modified: "2019-01-01 12:00:00.000000+00:00"
-    created: "2019-01-01 12:00:00.000000+00:00"
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
 - model: app.Comment
   pk: 6
   fields:
-    text: "Second reply to a comment."
-    attachment: null
+    text: "Comment 3 to a course"
+    attachment: ""
+    resource: null
+    resource_part: null
+    course: 1
+    comment: null
+    user: 2
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
+- model: app.Comment
+  pk: 7
+  fields:
+    text: "Comment 4 to a course"
+    attachment: ""
+    resource: null
+    resource_part: null
+    course: 1
+    comment: null
+    user: 2
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
+- model: app.Comment
+  pk: 8
+  fields:
+    text: "Comment 5 to a course"
+    attachment: ""
+    resource: null
+    resource_part: null
+    course: 1
+    comment: null
+    user: 2
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
+- model: app.Comment
+  pk: 9
+  fields:
+    text: "Comment 6 to a course"
+    attachment: ""
+    resource: null
+    resource_part: null
+    course: 1
+    comment: null
+    user: 2
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
+- model: app.Comment
+  pk: 10
+  fields:
+    text: "Comment 7 to a course"
+    attachment: ""
+    resource: null
+    resource_part: null
+    course: 1
+    comment: null
+    user: 2
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
+- model: app.Comment
+  pk: 11
+  fields:
+    text: "Comment 8 to a course"
+    attachment: ""
+    resource: null
+    resource_part: null
+    course: 1
+    comment: null
+    user: 2
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
+- model: app.Comment
+  pk: 12
+  fields:
+    text: "First reply to a comment."
+    attachment: ""
     resource: null
     resource_part: null
     course: null
     comment: 4
     user: 2
-    modified: "2019-01-01 12:00:00.000000+00:00"
-    created: "2019-01-01 12:00:00.000000+00:00"
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
+- model: app.Comment
+  pk: 13
+  fields:
+    text: "Second reply to a comment."
+    attachment: ""
+    resource: null
+    resource_part: null
+    course: null
+    comment: 4
+    user: 2
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
+- model: app.Comment
+  pk: 14
+  fields:
+    text: "Third reply to a comment."
+    attachment: ""
+    resource: null
+    resource_part: null
+    course: null
+    comment: 4
+    user: 2
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
+- model: app.Comment
+  pk: 15
+  fields:
+    text: "4th reply to a comment."
+    attachment: ""
+    resource: null
+    resource_part: null
+    course: null
+    comment: 4
+    user: 2
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
+- model: app.Comment
+  pk: 16
+  fields:
+    text: "5th reply to a comment."
+    attachment: ""
+    resource: null
+    resource_part: null
+    course: null
+    comment: 4
+    user: 2
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
+- model: app.Comment
+  pk: 17
+  fields:
+    text: "6th reply to a comment."
+    attachment: ""
+    resource: null
+    resource_part: null
+    course: null
+    comment: 4
+    user: 2
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
+- model: app.Comment
+  pk: 18
+  fields:
+    text: "7th reply to a comment."
+    attachment: ""
+    resource: null
+    resource_part: null
+    course: null
+    comment: 4
+    user: 2
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
+- model: app.Comment
+  pk: 19
+  fields:
+    text: "8th reply to a comment."
+    attachment: ""
+    resource: null
+    resource_part: null
+    course: null
+    comment: 4
+    user: 2
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
+- model: app.Comment
+  pk: 20
+  fields:
+    text: "9th reply to a comment."
+    attachment: ""
+    resource: null
+    resource_part: null
+    course: null
+    comment: 4
+    user: 2
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
+- model: app.Comment
+  pk: 21
+  fields:
+    text: "10th reply to a comment."
+    attachment: ""
+    resource: null
+    resource_part: null
+    course: null
+    comment: 4
+    user: 2
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
+- model: app.Comment
+  pk: 22
+  fields:
+    text: "11th reply to a comment."
+    attachment: ""
+    resource: null
+    resource_part: null
+    course: null
+    comment: 4
+    user: 2
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
 
 
 - model: app.Vote
@@ -389,7 +581,7 @@
     status: 1
     user: 2
 - model: app.Vote
-  pk: 3
+  pk: 2
   fields:
     comment: 1
     course: null
@@ -397,7 +589,7 @@
     status: 1
     user: 3
 - model: app.Vote
-  pk: 4
+  pk: 3
   fields:
     comment: 1
     course: null
@@ -436,6 +628,6 @@
   pk: 2
   fields:
     contact_type: 1
-    email: null
+    email: ""
     user: 2
     message: "Message from a logged in user."

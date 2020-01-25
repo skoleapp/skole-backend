@@ -40,4 +40,4 @@ class UpdateCommentForm(forms.ModelForm):
 
     class Meta:
         model = Comment
-        fields = ("text", "attachment", "comment_id")
+        fields = ("comment_id", "text", "attachment")

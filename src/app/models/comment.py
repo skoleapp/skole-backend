@@ -35,9 +35,20 @@ class CommentManager(models.Manager):
         comment.save()
         return comment
 
+    def update_comment(
+        self,
+        comment: "Comment",
+        text: str,
+        attachment: Union[UploadedFile, str],
+    ):
+        comment.text = text
+        comment.attachment = attachment
+        comment.save()
+        return comment
+
     def get_queryset(self) -> QuerySet:
         qs = super().get_queryset()
-        return qs.annotate(reply_count=models.Count('reply_comments'))
+        return qs.annotate(reply_count=models.Count("reply_comments"))
 
 
 class Comment(models.Model):
@@ -47,9 +58,7 @@ class Comment(models.Model):
         User, on_delete=models.CASCADE, null=True, related_name="comments"
     )
     text = models.TextField(max_length=10000)
-    attachment = models.FileField(
-        upload_to="uploads/comment_attachments", null=True, blank=True
-    )
+    attachment = models.FileField(upload_to="uploads/comment_attachments", blank=True)
 
     course = models.ForeignKey(
         Course, on_delete=models.CASCADE, null=True, blank=True, related_name="comments"

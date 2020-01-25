@@ -29,11 +29,11 @@ class Contact(models.Model):
     contact_type = models.ForeignKey(
         ContactType, on_delete=models.PROTECT, related_name="contacts"
     )
-    email = models.EmailField(unique=True, null=True, blank=True)
+    email = models.EmailField(unique=True, blank=True)
     user = models.ForeignKey(
         User, on_delete=models.SET_NULL, related_name="contacts", null=True
     )
-    message = models.TextField(max_length=2000, null=True, blank=True)
+    message = models.TextField(max_length=2000, blank=True)
 
     objects = ContactManager()
 

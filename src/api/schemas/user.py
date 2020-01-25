@@ -42,7 +42,7 @@ class UserObjectType(DjangoObjectType):
             "created_resources",
         )
 
-    def resolve_email(self, info: ResolveInfo) -> Optional[str]:
+    def resolve_email(self, info: ResolveInfo) -> str:
         """
         Return email only if authenticated and querying
         through userMe query or user query with own ID. 
@@ -52,7 +52,7 @@ class UserObjectType(DjangoObjectType):
         if not user.is_anonymous and user.email == self.email:
             return self.email
         else:
-            return None
+            return ""
 
     def resolve_points(self, info: ResolveInfo) -> int:
         return get_points_for_user(self)

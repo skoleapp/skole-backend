@@ -9,14 +9,14 @@ from .user import User
 class CourseManager(models.Manager):
     def get_queryset(self) -> QuerySet:
         qs = super().get_queryset()
-        return qs.annotate(resource_count=models.Count('resources'))
+        return qs.annotate(resource_count=models.Count("resources"))
 
 
 class Course(models.Model):
     """Models one course."""
 
     name = models.CharField(max_length=200)
-    code = models.CharField(max_length=30, null=True, blank=True)
+    code = models.CharField(max_length=30, blank=True)
     subject = models.ForeignKey(
         Subject, on_delete=models.CASCADE, related_name="courses", null=True, blank=True
     )

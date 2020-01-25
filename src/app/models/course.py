@@ -1,8 +1,15 @@
 from django.db import models
+from django.db.models import QuerySet
 
 from .school import School
 from .subject import Subject
 from .user import User
+
+
+class CourseManager(models.Manager):
+    def get_queryset(self) -> QuerySet:
+        qs = super().get_queryset()
+        return qs.annotate(resource_count=models.Count('resources'))
 
 
 class Course(models.Model):
@@ -20,6 +27,8 @@ class Course(models.Model):
 
     modified = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
+
+    objects = CourseManager()
 
     def __str__(self) -> str:
         code = self.code if self.code is not None else ""

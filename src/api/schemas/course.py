@@ -34,9 +34,6 @@ class CourseObjectType(DjangoObjectType):
     def resolve_points(self, info: ResolveInfo) -> int:
         return get_points_for_target(self, POINTS_COURSE_MULTIPLIER)
 
-    def resolve_resource_count(self, info: ResolveInfo) -> int:
-        return self.resources.count()
-
 
 class CreateCourseMutation(DjangoModelFormMutation):
     course = graphene.Field(CourseObjectType)

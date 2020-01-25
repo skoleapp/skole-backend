@@ -36,11 +36,8 @@ class CommentManager(models.Manager):
         return comment
 
     def update_comment(
-        self,
-        comment: "Comment",
-        text: str,
-        attachment: Union[UploadedFile, str],
-    ):
+        self, comment: "Comment", text: str, attachment: Union[UploadedFile, str],
+    ) -> "Comment":
         comment.text = text
         comment.attachment = attachment
         comment.save()

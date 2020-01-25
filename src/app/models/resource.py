@@ -45,7 +45,13 @@ class ResourceManager(models.Manager):
 
         return resource
 
-    def update_resource(self, resource: "Resource", resource_type: ResourceType, title: str, date: datetime) -> "Resource":
+    def update_resource(
+        self,
+        resource: "Resource",
+        resource_type: ResourceType,
+        title: str,
+        date: datetime,
+    ) -> "Resource":
         resource.resource_type = resource_type
         resource.title = title
         resource.date = date

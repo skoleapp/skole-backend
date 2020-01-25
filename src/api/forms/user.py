@@ -1,7 +1,6 @@
 from django import forms
 from django.conf import settings
 from django.contrib.auth import authenticate, get_user_model
-from django.core.files.uploadedfile import UploadedFile
 from mypy.types import JsonDict
 
 from api.utils.messages import (

@@ -31,8 +31,7 @@ class Course(models.Model):
     objects = CourseManager()
 
     def __str__(self) -> str:
-        code = self.code if self.code is not None else ""
-        name = self.name if self.name is not None else ""
-        # One space in between if both `code` and `name` are non-empty strings,
-        # otherwise no need to have a space in between.
-        return f"{code}{' ' * bool(code and name)}{name}"
+        if self.code:
+            return f"{self.code} {self.name}"
+        else:
+            return f"{self.name}"

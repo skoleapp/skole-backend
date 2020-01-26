@@ -33,7 +33,7 @@ class ResourceManager(models.Manager):
             resource.date = date
         resource.save()
 
-        for file in files:
+        for file in files.values():
             # Automatically create resource parts based on amount of files provided.
 
             title = f"File {file}"  # File 1, File 2...

@@ -45,7 +45,7 @@ class UserObjectType(DjangoObjectType):
     def resolve_email(self, info: ResolveInfo) -> str:
         """
         Return email only if authenticated and querying
-        through userMe query or user query with own ID. 
+        through userMe query or user query with own ID.
         """
         user = info.context.user
 
@@ -195,14 +195,24 @@ class UpdateUserMutation(DjangoModelFormMutation):
 
 
 class Query(graphene.ObjectType):
-    users = graphene.List(UserObjectType)
+    users = graphene.List(UserObjectType, username=graphene.String(), ordering=graphene.String())
     user = graphene.Field(UserObjectType, user_id=graphene.Int(required=True))
     user_me = graphene.Field(UserObjectType)
 
-    def resolve_users(self, info: ResolveInfo) -> List[User]:
-        # TODO: add some sorting options for the frontend to use,
-        #  so that api caller can sort by points or by oldest user etc.
-        return get_user_model().objects.filter(is_superuser=False)
+    def resolve_users(self, info: ResolveInfo, username: Optional[str] = None, ordering: Optional[str] = None) -> List[User]:
+        qs = get_user_model().objects.filter(is_superuser=False)
+
+        if username is not None:
+            qs = qs.filter(username=username)
+
+        if ordering in ["username", "-username"]:
+            return qs.order_by(ordering)
+
+        # FIXME: Add feature for resolving points in the model level.
+        elif ordering in ["points", "-points"]:
+            return sorted(qs, key = lambda u: get_points_for_user(u))
+
+        return qs
 
     def resolve_user(self, info: ResolveInfo, user_id: int) -> Optional[User]:
         try:

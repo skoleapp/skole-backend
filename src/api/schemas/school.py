@@ -1,3 +1,4 @@
+from api.schemas.subject import SubjectObjectType
 from typing import List, Optional
 
 import graphene
@@ -11,10 +12,13 @@ class SchoolObjectType(DjangoObjectType):
     school_type = graphene.String()
     city = graphene.String()
     country = graphene.String()
+    subjects = graphene.List(SubjectObjectType)
+    subject_count = graphene.Int()
+    course_count = graphene.Int()
 
     class Meta:
         model = School
-        fields = ("id", "name")
+        fields = ("id", "name", "subjects", "courses", "subject_count", "course_count")
 
     def resolve_country(self, info: ResolveInfo) -> str:
         return self.city.country

@@ -1,7 +1,9 @@
-from django.db import models
 from typing import List
-from .school_type import SchoolType
+
+from django.db import models
+
 from .city import City
+from .school_type import SchoolType
 from .subject import Subject
 
 

@@ -1,5 +1,6 @@
 from graphene_django import DjangoObjectType
 from graphql import ResolveInfo
+
 from app.models import ResourcePart
 
 

@@ -195,11 +195,18 @@ class UpdateUserMutation(DjangoModelFormMutation):
 
 
 class Query(graphene.ObjectType):
-    users = graphene.List(UserObjectType, username=graphene.String(), ordering=graphene.String())
+    users = graphene.List(
+        UserObjectType, username=graphene.String(), ordering=graphene.String()
+    )
     user = graphene.Field(UserObjectType, user_id=graphene.Int(required=True))
     user_me = graphene.Field(UserObjectType)
 
-    def resolve_users(self, info: ResolveInfo, username: Optional[str] = None, ordering: Optional[str] = None) -> List[User]:
+    def resolve_users(
+        self,
+        info: ResolveInfo,
+        username: Optional[str] = None,
+        ordering: Optional[str] = None,
+    ) -> List[User]:
         qs = get_user_model().objects.filter(is_superuser=False)
 
         if username is not None:
@@ -210,7 +217,7 @@ class Query(graphene.ObjectType):
 
         # FIXME: Add feature for resolving points in the model level.
         elif ordering in ["points", "-points"]:
-            return sorted(qs, key = lambda u: get_points_for_user(u))
+            return sorted(qs, key=lambda u: get_points_for_user(u))
 
         return qs
 

@@ -1,10 +1,10 @@
-from api.schemas.subject import SubjectObjectType
 from typing import List, Optional
 
 import graphene
 from graphene_django import DjangoObjectType
 from graphql import ResolveInfo
 
+from api.schemas.subject import SubjectObjectType
 from app.models import School
 
 

@@ -11,6 +11,7 @@ from api.schemas.resource_part import ResourcePartObjectType
 from api.utils.points import (
     POINTS_COURSE_COMMENT_MULTIPLIER,
     POINTS_RESOURCE_COMMENT_MULTIPLIER,
+    POINTS_COMMENT_REPLY_MULTIPLIER,
     get_points_for_target,
 )
 from api.utils.vote import AbstractDownvoteMutation, AbstractUpvoteMutation
@@ -47,8 +48,7 @@ class CommentObjectType(DjangoObjectType):
         if self.resource_part is not None:
             return get_points_for_target(self, POINTS_RESOURCE_COMMENT_MULTIPLIER)
         if self.comment is not None:
-            # FIXME: probably doesn't work.
-            return self.comment.resolve_points(info)
+            return get_points_for_target(self.comment, POINTS_COMMENT_REPLY_MULTIPLIER)
 
         raise AssertionError("All foreign keys of the Comment were null.")
 

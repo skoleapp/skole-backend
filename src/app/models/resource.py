@@ -1,5 +1,5 @@
 import datetime
-from typing import List, Optional
+from typing import Dict, Optional
 
 from django.core.files.uploadedfile import UploadedFile
 from django.db import models
@@ -16,7 +16,7 @@ class ResourceManager(models.Manager):
         resource_type: ResourceType,
         title: str,
         course: Course,
-        files: List[UploadedFile],
+        files: Dict[str, UploadedFile],
         user: User,
         date: Optional[datetime.date] = None,
     ) -> "Resource":
@@ -46,7 +46,7 @@ class ResourceManager(models.Manager):
         resource: "Resource",
         resource_type: ResourceType,
         title: str,
-        date: datetime,
+        date: datetime.date,
     ) -> "Resource":
         resource.resource_type = resource_type
         resource.title = title

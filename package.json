@@ -10,7 +10,7 @@
     "clear-migrations": "find src/ -path '*/migrations/*.py' -not -name '__init__.py' -delete && find . -path '*/migrations/*.pyc'  -delete",
     "migrate": "python src/manage.py migrate",
     "create-superuser": "python src/manage.py createsuperuser",
-    "import-sample-data": "python src/manage.py loaddata sample.yaml",
+    "import-test-data": "python src/manage.py loaddata test-data.yaml",
     "test": "pytest --cov-report html --cov=src src/tests/ && mypy src",
     "lint": "autoflake -ir --remove-all-unused-imports --exclude __init__.py src && isort -rc src && black --exclude migrations/* src"
   }

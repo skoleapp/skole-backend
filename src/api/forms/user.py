@@ -61,6 +61,7 @@ class SignInForm(forms.ModelForm):
 class UpdateUserForm(forms.ModelForm):
     username = forms.CharField(error_messages=username_error_messages)
     email = forms.EmailField(error_messages=email_error_messages)
+    avatar = forms.CharField(required=False)
 
     class Meta:
         model = get_user_model()

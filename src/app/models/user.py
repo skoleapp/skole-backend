@@ -1,7 +1,8 @@
-from typing import Any
+from typing import Union
 
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
+from django.core.files.uploadedfile import UploadedFile
 from django.db import models
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
@@ -29,12 +30,20 @@ class UserManager(BaseUserManager):
         user.save()
         return user
 
-    def update_user(self, user: "User", **kwargs: Any) -> "User":
-        for key, value in kwargs.items():
-            if key in {"bio", "title"} and value == "":
-                # Avoid having empty strings in the db.
-                value = None
-            setattr(user, key, value)
+    def update_user(
+        self,
+        user: "User",
+        username: str,
+        email: str,
+        title: str,
+        bio: str,
+        avatar: Union[UploadedFile, str],
+    ) -> "User":
+        user.username = username
+        user.email = email
+        user.title = title
+        user.bio = bio
+        user.avatar = avatar
 
         user.save()
         return user
@@ -52,9 +61,9 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     username = models.CharField(max_length=30, unique=True)
     email = models.EmailField(unique=True)
-    title = models.CharField(max_length=100, null=True, blank=True)
-    bio = models.TextField(max_length=2000, null=True, blank=True)
-    avatar = models.ImageField(upload_to="uploads/avatars", null=True, blank=True)
+    title = models.CharField(max_length=100, blank=True)
+    bio = models.TextField(max_length=2000, blank=True)
+    avatar = models.ImageField(upload_to="uploads/avatars", blank=True)
     avatar_thumbnail = ImageSpecField(
         source="avatar",
         processors=[ResizeToFill(100, 100)],

@@ -16,7 +16,6 @@ class SchoolObjectType(DjangoObjectType):
         model = School
         fields = ("id", "name")
 
-
     def resolve_country(self, info: ResolveInfo) -> str:
         return self.city.country
 

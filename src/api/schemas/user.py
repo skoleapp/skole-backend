@@ -42,7 +42,7 @@ class UserObjectType(DjangoObjectType):
             "created_resources",
         )
 
-    def resolve_email(self, info: ResolveInfo) -> Optional[str]:
+    def resolve_email(self, info: ResolveInfo) -> str:
         """
         Return email only if authenticated and querying
         through userMe query or user query with own ID. 
@@ -52,7 +52,7 @@ class UserObjectType(DjangoObjectType):
         if not user.is_anonymous and user.email == self.email:
             return self.email
         else:
-            return None
+            return ""
 
     def resolve_points(self, info: ResolveInfo) -> int:
         return get_points_for_user(self)
@@ -181,12 +181,15 @@ class UpdateUserMutation(DjangoModelFormMutation):
     def perform_mutate(
         cls, form: UpdateUserForm, info: ResolveInfo
     ) -> "UpdateUserMutation":
-        if file := info.context.FILES.get("1"):
-            form.cleaned_data["avatar"] = file
-        else:
-            form.cleaned_data["avatar"] = None
-
         user = info.context.user
+
+        # Don't allow changing avatar to anything but a File or ""
+        if form.cleaned_data["avatar"] != "":
+            if file := info.context.FILES.get("1"):
+                form.cleaned_data["avatar"] = file
+            else:
+                form.cleaned_data["avatar"] = user.avatar
+
         get_user_model().objects.update_user(user, **form.cleaned_data)
         return cls(user=user)
 

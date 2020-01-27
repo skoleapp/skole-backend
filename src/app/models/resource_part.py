@@ -22,5 +22,5 @@ class ResourcePart(models.Model):
     # TODO: Allow exercise numbers such as "4. b)" etc.
     #  maybe via char field or a separate field for sub exercise number?
     exercise_number = models.IntegerField(null=True)
-    file = models.FileField(upload_to="uploads/resource_parts", null=True)
-    text = models.TextField(max_length=1000, null=True)
+    file = models.FileField(upload_to="uploads/resource_parts", blank=True)
+    text = models.TextField(max_length=1000, blank=True)

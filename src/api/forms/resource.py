@@ -10,4 +10,12 @@ class UploadResourceForm(forms.ModelForm):
 
     class Meta:
         model = Resource
-        fields = ("title", "resource_type", "course")
+        fields = ("title", "resource_type", "course", "date")
+
+
+class UpdateResourceForm(forms.ModelForm):
+    resource_id = forms.IntegerField()
+
+    class Meta:
+        model = Resource
+        fields = ("resource_id", "title", "resource_type", "date")

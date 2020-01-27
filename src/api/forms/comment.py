@@ -37,7 +37,8 @@ class CreateCommentForm(forms.ModelForm):
 
 class UpdateCommentForm(forms.ModelForm):
     comment_id = forms.IntegerField()
+    attachment = forms.CharField(required=False)
 
     class Meta:
         model = Comment
-        fields = ("text", "attachment", "comment_id")
+        fields = ("comment_id", "text", "attachment")

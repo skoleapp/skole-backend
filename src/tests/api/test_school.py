@@ -12,7 +12,7 @@ from tests.api.utils.school import (
 
 class SchoolAPITests(GraphQLTestCase):
     GRAPHQL_SCHEMA = schema
-    fixtures = ["sample.yaml"]
+    fixtures = ["test-data.yaml"]
 
     def setUp(self) -> None:
         self.client = Client(schema)

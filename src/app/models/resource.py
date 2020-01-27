@@ -1,4 +1,4 @@
-from datetime import datetime
+import datetime
 from typing import List, Optional
 
 from django.core.files.uploadedfile import UploadedFile
@@ -18,20 +18,19 @@ class ResourceManager(models.Manager):
         course: Course,
         files: List[UploadedFile],
         user: User,
-        date: Optional[datetime],
+        date: Optional[datetime.date] = None,
     ) -> "Resource":
-
-        if not date:
-            # If the user didn't provide a date for the resource, just use the current date.
-            date = datetime.now()
 
         resource = self.model(
             resource_type=resource_type,
             title=title,
             course=course,
             user=user,
-            date=date,
         )
+        if date:
+            # If the user did provide a date for the resource use that,
+            # otherwise will just use the default from the model.
+            resource.date = date
         resource.save()
 
         for file in files:
@@ -66,8 +65,7 @@ class Resource(models.Model):
     resource_type = models.ForeignKey(ResourceType, on_delete=models.PROTECT)
     title = models.CharField(max_length=100)
 
-    # The user can specify when the resource is dated.
-    date = models.DateField(null=True)
+    date = models.DateField(default=datetime.date.today, blank=True)
     course = models.ForeignKey(
         Course, on_delete=models.CASCADE, related_name="resources"
     )

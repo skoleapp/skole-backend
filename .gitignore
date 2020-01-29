@@ -127,9 +127,12 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-
 # Pycharm
-.idea
+.idea/**/*.iml
+.idea/shelf
+.idea/tasks.xml
+.idea/usage.statistics.xml
+.idea/workspace.xml
 
 # End of https://www.gitignore.io/api/python
 

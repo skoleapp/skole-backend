@@ -8,6 +8,7 @@ from graphql_jwt.decorators import login_required
 
 from api.forms.resource import UpdateResourceForm, UploadResourceForm
 from api.schemas.school import SchoolObjectType
+from api.utils.messages import NOT_ALLOWED_TO_MUTATE_MESSAGE, RESOURCE_DELETED_MESSAGE
 from api.utils.points import POINTS_RESOURCE_MULTIPLIER, get_points_for_target
 from api.utils.vote import AbstractDownvoteMutation, AbstractUpvoteMutation
 from app.models import Resource
@@ -88,6 +89,9 @@ class UpdateResourceMutation(DjangoModelFormMutation):
             resource = Resource.objects.get(pk=form.cleaned_data.pop("resource_id"))
         except Resource.DoesNotExist as e:
             return cls(errors=[{"field": "resourceId", "messages": [str(e)]}])
+
+        if resource.user != info.context.user:
+            return cls(errors=[{"field": "__all__", "messages": [NOT_ALLOWED_TO_MUTATE_MESSAGE]}])
 
         Resource.objects.update_resource(resource, **form.cleaned_data)
         return cls(resource=resource)

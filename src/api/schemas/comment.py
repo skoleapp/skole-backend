@@ -8,6 +8,7 @@ from graphql_jwt.decorators import login_required
 
 from api.forms.comment import CreateCommentForm, UpdateCommentForm
 from api.schemas.resource_part import ResourcePartObjectType
+from api.utils.messages import NOT_ALLOWED_TO_MUTATE_MESSAGE
 from api.utils.points import (
     POINTS_COURSE_COMMENT_MULTIPLIER,
     POINTS_RESOURCE_COMMENT_MULTIPLIER,
@@ -89,6 +90,9 @@ class UpdateCommentMutation(DjangoModelFormMutation):
             comment = Comment.objects.get(pk=form.cleaned_data.pop("comment_id"))
         except Comment.DoesNotExist as e:
             return cls(errors=[{"field": "commentId", "messages": [str(e)]}])
+
+        if comment.user != info.context.user:
+            return cls(errors=[{"field": "__all__", "messages": [NOT_ALLOWED_TO_MUTATE_MESSAGE]}])
 
         # Don't allow changing attachment to anything but a File or ""
         if form.cleaned_data["attachment"] != "":

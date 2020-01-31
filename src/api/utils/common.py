@@ -4,11 +4,11 @@ from django.db import models
 from graphene.types.mutation import MutationOptions
 
 
-def get_obj_or_none(model: Type[models.Model], model_id: int) -> Optional[models.Model]:
+def get_obj_or_none(model: Type[models.Model], obj_id: int) -> Optional[models.Model]:
     """Used as a helper function to return None instead of raising
     a GraphQLError."""
     try:
-        return model.objects.get(pk=model_id)
+        return model.objects.get(pk=obj_id)
     except model.DoesNotExist:
         return None
 

@@ -3,11 +3,13 @@ from typing import List, Optional
 import graphene
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
-from graphql import ResolveInfo
+from graphql import ResolveInfo, GraphQLError
 from graphql_jwt.decorators import login_required
 
 from api.forms.comment import CreateCommentForm, UpdateCommentForm
 from api.schemas.resource_part import ResourcePartObjectType
+from api.utils.common import get_obj_or_none
+from api.utils.delete import AbstractDeleteMutation
 from api.utils.messages import NOT_ALLOWED_TO_MUTATE_MESSAGE
 from api.utils.points import (
     POINTS_COURSE_COMMENT_MULTIPLIER,
@@ -86,13 +88,10 @@ class UpdateCommentMutation(DjangoModelFormMutation):
         cls, form: UpdateCommentForm, info: ResolveInfo
     ) -> "UpdateCommentMutation":
 
-        try:
-            comment = Comment.objects.get(pk=form.cleaned_data.pop("comment_id"))
-        except Comment.DoesNotExist as e:
-            return cls(errors=[{"field": "commentId", "messages": [str(e)]}])
+        comment = Comment.objects.get(pk=form.cleaned_data.pop("comment_id"))
 
         if comment.user != info.context.user:
-            return cls(errors=[{"field": "__all__", "messages": [NOT_ALLOWED_TO_MUTATE_MESSAGE]}])
+            raise GraphQLError(NOT_ALLOWED_TO_MUTATE_MESSAGE)
 
         # Don't allow changing attachment to anything but a File or ""
         if form.cleaned_data["attachment"] != "":
@@ -103,6 +102,13 @@ class UpdateCommentMutation(DjangoModelFormMutation):
 
         Comment.objects.update_comment(comment, **form.cleaned_data)
         return cls(comment=comment)
+
+
+class DeleteCommentMutation(AbstractDeleteMutation):
+    class Arguments:
+        comment_id = graphene.Int()
+
+    comment = graphene.Field(CommentObjectType)
 
 
 class UpvoteCommentMutation(AbstractUpvoteMutation):
@@ -123,11 +129,7 @@ class Query(graphene.ObjectType):
     comment = graphene.Field(CommentObjectType, comment_id=graphene.Int())
 
     def resolve_comment(self, info: ResolveInfo, comment_id: int) -> Optional[Comment]:
-        try:
-            return Comment.objects.get(pk=comment_id)
-        except Comment.DoesNotExist:
-            # Return None instead of throwing a GraphQL Error.
-            return None
+        return get_obj_or_none(Comment, comment_id)
 
 
 class Mutation(graphene.ObjectType):
@@ -135,3 +137,4 @@ class Mutation(graphene.ObjectType):
     downvote_comment = DownvoteCommentMutation.Field()
     create_comment = CreateCommentMutation.Field()
     update_comment = UpdateCommentMutation.Field()
+    delete_comment = DeleteCommentMutation.Field()

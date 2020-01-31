@@ -4,6 +4,7 @@ import graphene
 from graphene_django import DjangoObjectType
 from graphql import ResolveInfo
 
+from api.utils.common import get_obj_or_none
 from app.models import Country
 
 
@@ -23,8 +24,4 @@ class Query(graphene.ObjectType):
     def resolve_country(
         self, info: ResolveInfo, country_id: Optional[int] = None
     ) -> Optional[Country]:
-        try:
-            return Country.objects.get(pk=country_id)
-        except Country.DoesNotExist:
-            # Return 'None' instead of throwing a GraphQL Error.
-            return None
+        return get_obj_or_none(Country, country_id)

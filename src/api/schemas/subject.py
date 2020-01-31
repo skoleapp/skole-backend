@@ -4,6 +4,7 @@ import graphene
 from graphene_django import DjangoObjectType
 from graphql import ResolveInfo
 
+from api.utils.common import get_obj_or_none
 from app.models import Subject
 
 
@@ -23,8 +24,4 @@ class Query(graphene.ObjectType):
     def resolve_subject(
         self, info: ResolveInfo, subject_id: Optional[int] = None
     ) -> Optional[Subject]:
-        try:
-            return Subject.objects.get(pk=subject_id)
-        except Subject.DoesNotExist:
-            # Return None instead of throwing a GraphQL Error.
-            return None
+        return get_obj_or_none(Subject, subject_id)

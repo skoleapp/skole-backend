@@ -24,8 +24,4 @@ class Query(graphene.ObjectType):
     def resolve_school_type(
         self, info: ResolveInfo, school_type_id: Optional[int] = None
     ) -> Optional[SchoolType]:
-        try:
-            return SchoolType.objects.get(pk=school_type_id)
-        except SchoolType.DoesNotExist:
-            # Return None instead of throwing a GraphQL Error.
-            return None
+        return get_obj_or_none(SchoolType, school_type_id)

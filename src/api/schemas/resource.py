@@ -8,7 +8,9 @@ from graphql_jwt.decorators import login_required
 
 from api.forms.resource import UpdateResourceForm, UploadResourceForm
 from api.schemas.school import SchoolObjectType
-from api.utils.messages import NOT_ALLOWED_TO_MUTATE_MESSAGE, RESOURCE_DELETED_MESSAGE
+from api.utils.common import get_obj_or_none
+from api.utils.delete import AbstractDeleteMutation
+from api.utils.messages import NOT_ALLOWED_TO_MUTATE_MESSAGE
 from api.utils.points import POINTS_RESOURCE_MULTIPLIER, get_points_for_target
 from api.utils.vote import AbstractDownvoteMutation, AbstractUpvoteMutation
 from app.models import Resource
@@ -97,19 +99,22 @@ class UpdateResourceMutation(DjangoModelFormMutation):
         return cls(resource=resource)
 
 
+class DeleteResourceMutation(AbstractDeleteMutation):
+    class Arguments:
+        resource_id = graphene.Int()
+
+    resource = graphene.Field(ResourceObjectType)
+
+
 class Query(graphene.ObjectType):
     resource = graphene.Field(
         ResourceObjectType, resource_id=graphene.Int(required=True)
     )
 
     def resolve_resource(
-        self, info: ResolveInfo, resource_id: str
+        self, info: ResolveInfo, resource_id: int
     ) -> Optional[Resource]:
-        try:
-            return Resource.objects.get(pk=resource_id)
-        except Resource.DoesNotExist:
-            # Return None instead of throwing a GraphQL Error.
-            return None
+        return get_obj_or_none(Resource, resource_id)
 
 
 class Mutation(graphene.ObjectType):
@@ -117,3 +122,4 @@ class Mutation(graphene.ObjectType):
     downvote_resource = DownvoteResourceMutation.Field()
     upload_resource = UploadResourceMutation.Field()
     update_resource = UpdateResourceMutation.Field()
+    delete_resource = DeleteResourceMutation.Field()

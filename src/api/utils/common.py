@@ -1,12 +1,10 @@
-from typing import TypeVar, Optional, Dict
+from typing import Dict, Optional, Type
 
 from django.db import models
-from mypy.types import T
-
-M = TypeVar("M", bound=models.Model)
+from graphene.types.mutation import MutationOptions
 
 
-def get_obj_or_none(model: M, model_id: int) -> Optional[M]:
+def get_obj_or_none(model: Type[models.Model], model_id: int) -> Optional[models.Model]:
     """Used as a helper function to return None instead of raising
     a GraphQLError."""
     try:
@@ -15,7 +13,9 @@ def get_obj_or_none(model: M, model_id: int) -> Optional[M]:
         return None
 
 
-def get_object_from_meta_and_kwargs(meta, kwargs_of_caller: Dict[str, int]) -> models.Model:
+def get_object_from_meta_and_kwargs(
+    meta: MutationOptions, kwargs_of_caller: Dict[str, int]
+) -> models.Model:
     """Return the Model instance which we are mutating from a graphene.Mutation."""
     if len(meta.fields) != 1 or len(meta.arguments) != 1 or len(kwargs_of_caller) != 1:
         # FIXME: this bleeds straight into graphql's error messages

@@ -92,7 +92,7 @@ class Query(graphene.ObjectType):
     ) -> List[Course]:
         """Filter courses based on the query parameters."""
 
-        courses = Course.objects.order_by('name')
+        courses = Course.objects.order_by("name")
 
         if course_name is not None:
             courses = courses.filter(name__icontains=course_name)
@@ -111,9 +111,7 @@ class Query(graphene.ObjectType):
 
         return courses
 
-    def resolve_course(
-        self, info: ResolveInfo, course_id: Optional[int] = None
-    ) -> Optional[Course]:
+    def resolve_course(self, info: ResolveInfo, course_id: int) -> Optional[Course]:
         return get_obj_or_none(Course, course_id)
 
 

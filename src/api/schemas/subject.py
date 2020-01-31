@@ -21,7 +21,5 @@ class Query(graphene.ObjectType):
     def resolve_subjects(self, info: ResolveInfo) -> List[Subject]:
         return Subject.objects.order_by("name")
 
-    def resolve_subject(
-        self, info: ResolveInfo, subject_id: Optional[int] = None
-    ) -> Optional[Subject]:
+    def resolve_subject(self, info: ResolveInfo, subject_id: int) -> Optional[Subject]:
         return get_obj_or_none(Subject, subject_id)

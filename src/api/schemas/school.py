@@ -32,7 +32,5 @@ class Query(graphene.ObjectType):
     def resolve_schools(self, info: ResolveInfo) -> List[School]:
         return School.objects.order_by("name")
 
-    def resolve_school(
-        self, info: ResolveInfo, school_id: Optional[int] = None
-    ) -> Optional[School]:
+    def resolve_school(self, info: ResolveInfo, school_id: int) -> Optional[School]:
         return get_obj_or_none(School, school_id)

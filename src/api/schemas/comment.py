@@ -3,7 +3,7 @@ from typing import List, Optional
 import graphene
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
-from graphql import ResolveInfo, GraphQLError
+from graphql import GraphQLError, ResolveInfo
 from graphql_jwt.decorators import login_required
 
 from api.forms.comment import CreateCommentForm, UpdateCommentForm
@@ -12,9 +12,9 @@ from api.utils.common import get_obj_or_none
 from api.utils.delete import AbstractDeleteMutation
 from api.utils.messages import NOT_ALLOWED_TO_MUTATE_MESSAGE
 from api.utils.points import (
+    POINTS_COMMENT_REPLY_MULTIPLIER,
     POINTS_COURSE_COMMENT_MULTIPLIER,
     POINTS_RESOURCE_COMMENT_MULTIPLIER,
-    POINTS_COMMENT_REPLY_MULTIPLIER,
     get_points_for_target,
 )
 from api.utils.vote import AbstractDownvoteMutation, AbstractUpvoteMutation

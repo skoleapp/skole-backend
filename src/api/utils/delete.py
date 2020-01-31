@@ -1,11 +1,11 @@
 from typing import Any
 
 import graphene
-from graphql import ResolveInfo, GraphQLError
+from graphql import GraphQLError, ResolveInfo
 from graphql_jwt.decorators import login_required
 
 from api.utils.common import get_object_from_meta_and_kwargs
-from api.utils.messages import NOT_ALLOWED_TO_MUTATE_MESSAGE, OBJECT_DELETED_MESSAGE
+from api.utils.messages import NOT_ALLOWED_TO_MUTATE_MESSAGE
 
 
 class AbstractDeleteMutation(graphene.Mutation):
@@ -15,7 +15,9 @@ class AbstractDeleteMutation(graphene.Mutation):
 
     @classmethod
     @login_required
-    def mutate(cls, root: Any, info: ResolveInfo, **kwargs: int) -> "AbstractDeleteMutation":
+    def mutate(
+        cls, root: Any, info: ResolveInfo, **kwargs: int
+    ) -> "AbstractDeleteMutation":
         obj = get_object_from_meta_and_kwargs(cls._meta, kwargs)
 
         if hasattr(obj, "user") and obj.user != info.context.user:

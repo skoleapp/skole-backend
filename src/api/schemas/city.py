@@ -21,7 +21,5 @@ class Query(graphene.ObjectType):
     def resolve_cities(self, info: ResolveInfo) -> List[City]:
         return City.objects.order_by("name")
 
-    def resolve_city(
-        self, info: ResolveInfo, city_id: Optional[int] = None
-    ) -> Optional[City]:
+    def resolve_city(self, info: ResolveInfo, city_id: int) -> Optional[City]:
         return get_obj_or_none(City, city_id)

@@ -7,6 +7,7 @@ from graphql import ResolveInfo
 from graphql_jwt.decorators import login_required
 
 from api.forms.course import CreateCourseForm
+from api.utils.common import get_obj_or_none
 from api.utils.points import POINTS_COURSE_MULTIPLIER, get_points_for_target
 from api.utils.vote import AbstractDownvoteMutation, AbstractUpvoteMutation
 from app.models import Course
@@ -91,7 +92,7 @@ class Query(graphene.ObjectType):
     ) -> List[Course]:
         """Filter courses based on the query parameters."""
 
-        courses = Course.objects.order_by('name')
+        courses = Course.objects.order_by("name")
 
         if course_name is not None:
             courses = courses.filter(name__icontains=course_name)
@@ -110,14 +111,8 @@ class Query(graphene.ObjectType):
 
         return courses
 
-    def resolve_course(
-        self, info: ResolveInfo, course_id: Optional[int] = None
-    ) -> Optional[Course]:
-        try:
-            return Course.objects.get(pk=course_id)
-        except Course.DoesNotExist:
-            # Return None instead of throwing a GraphQL Error.
-            return None
+    def resolve_course(self, info: ResolveInfo, course_id: int) -> Optional[Course]:
+        return get_obj_or_none(Course, course_id)
 
 
 class Mutation(graphene.ObjectType):

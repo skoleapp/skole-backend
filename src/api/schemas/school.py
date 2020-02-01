@@ -5,6 +5,7 @@ from graphene_django import DjangoObjectType
 from graphql import ResolveInfo
 
 from api.schemas.subject import SubjectObjectType
+from api.utils.common import get_obj_or_none
 from app.models import School
 
 
@@ -31,11 +32,5 @@ class Query(graphene.ObjectType):
     def resolve_schools(self, info: ResolveInfo) -> List[School]:
         return School.objects.order_by("name")
 
-    def resolve_school(
-        self, info: ResolveInfo, school_id: Optional[int] = None
-    ) -> Optional[School]:
-        try:
-            return School.objects.get(pk=school_id)
-        except School.DoesNotExist:
-            # Return None instead of throwing a GraphQL Error.
-            return None
+    def resolve_school(self, info: ResolveInfo, school_id: int) -> Optional[School]:
+        return get_obj_or_none(School, school_id)

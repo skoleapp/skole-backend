@@ -4,6 +4,7 @@ import graphene
 from graphql import ResolveInfo
 from graphql_jwt.decorators import login_required
 
+from api.utils.common import get_object_from_meta_and_kwargs
 from app.models import Vote
 from app.utils.vote import DOWNVOTE, UPVOTE
 
@@ -18,24 +19,10 @@ class _AbstractVoteMutation(graphene.Mutation):
     @classmethod
     @login_required
     def mutate(
-        cls, _: Any, info: ResolveInfo, **kwargs: int
+        cls, root: Any, info: ResolveInfo, **kwargs: int
     ) -> "_AbstractVoteMutation":
-        if (
-            len(cls._meta.fields) != 1
-            or len(cls._meta.arguments) != 1
-            or len(kwargs) != 1
-        ):
-            raise AssertionError(
-                "Expected derived mutation to have exactly one graphene field and taking exactly one argument."
-            )
+        target = get_object_from_meta_and_kwargs(cls._meta, kwargs)
 
-        # Get the model we are mutating, e.g. Course
-        target_model = next(iter(cls._meta.fields.values()))._type._meta.model
-
-        # Get the value of the passed kwarg, e.g. the value of `course_id`
-        _, target_id = kwargs.popitem()
-
-        target = target_model.objects.get(pk=target_id)
         try:
             vote = target.votes.get(user=info.context.user)
             if vote.status == cls._vote_status:

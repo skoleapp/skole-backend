@@ -132,10 +132,10 @@ MEDIA_ROOT = "src/media"
 AUTH_USER_MODEL = "app.User"
 
 CORS_ORIGIN_WHITELIST = [
-    "http://localhost:3000",
-    "https://localhost:3000",
-    "http://127.0.0.1:3000",
-    "https://127.0.0.1:3000",
+    "http://localhost:3001",
+    "https://localhost:3001",
+    "http://127.0.0.1:3001",
+    "https://127.0.0.1:3001",
 ]
 
 CORS_ALLOW_CREDENTIALS = True

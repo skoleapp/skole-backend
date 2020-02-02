@@ -18,7 +18,7 @@ from api.utils.points import (
     get_points_for_target,
 )
 from api.utils.vote import AbstractDownvoteMutation, AbstractUpvoteMutation
-from app.models import Comment
+from app.models import Comment, Course, Resource, ResourcePart
 
 
 class CommentObjectType(DjangoObjectType):
@@ -57,10 +57,11 @@ class CommentObjectType(DjangoObjectType):
 
 
 class CreateCommentMutation(DjangoModelFormMutation):
-    comment = graphene.Field(CommentObjectType)
+    comments = graphene.List(CommentObjectType)
 
     class Meta:
         form_class = CreateCommentForm
+        return_field_name = "comments"
 
     @classmethod
     @login_required
@@ -70,10 +71,25 @@ class CreateCommentMutation(DjangoModelFormMutation):
         if file := info.context.FILES.get("1"):
             form.cleaned_data["attachment"] = file
 
-        comment = Comment.objects.create_comment(
+        Comment.objects.create_comment(
             user=info.context.user, **form.cleaned_data
         )
-        return cls(comment=comment)
+
+        target = form.cleaned_data["target"]
+
+        if isinstance(target, Course):
+            comments = Comment.objects.filter(course=target)
+        elif isinstance(target, Resource):
+            comments = Comment.objects.filter(resource=target)
+        elif isinstance(target, ResourcePart):
+            comments = Comment.objects.filter(resource_part=target)
+        elif isinstance(target, Comment):
+            comments = Comment.objects.filter(comment=target)
+        else:
+            # This should never happend because a validation error is thrown in the form.
+            comments = Comment.objects.none()
+
+        return cls(comments=comments)
 
 
 class UpdateCommentMutation(DjangoModelFormMutation):

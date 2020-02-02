@@ -45,7 +45,9 @@ class CommentManager(models.Manager):
 
     def get_queryset(self) -> QuerySet:
         qs = super().get_queryset()
-        return qs.annotate(reply_count=models.Count("reply_comments")).order_by('-reply_count')
+        return qs.annotate(reply_count=models.Count("reply_comments")).order_by(
+            "-reply_count"
+        )
 
 
 class Comment(models.Model):

@@ -1,7 +1,7 @@
 from django import forms
 from mypy.types import JsonDict
 
-from api.utils.messages import INCORRECT_TARGET_FOR_COMMENT_MESSAGE
+from api.utils.common import clean_target
 from app.models import Comment
 
 
@@ -18,21 +18,9 @@ class CreateCommentForm(forms.ModelForm):
         )
 
     def clean(self) -> JsonDict:
-        """Ensure that any created comment has exactly one foreign key it targets."""
-        course = self.cleaned_data.pop("course", None)
-        resource = self.cleaned_data.pop("resource", None)
-        resource_part = self.cleaned_data.pop("resource_part", None)
-        comment = self.cleaned_data.pop("comment", None)
-
-        # Ensure that the comment is linked to only one target.
-        target = [
-            n for n in (course, resource, resource_part, comment) if n is not None
-        ]
-        if len(target) != 1:
-            raise forms.ValidationError(INCORRECT_TARGET_FOR_COMMENT_MESSAGE)
-
-        self.cleaned_data["target"] = target[0]
-        return self.cleaned_data
+        return clean_target(
+            self.cleaned_data, "course", "resource", "resource_part", "comment"
+        )
 
 
 class UpdateCommentForm(forms.ModelForm):

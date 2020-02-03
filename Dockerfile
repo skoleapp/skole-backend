@@ -12,6 +12,8 @@ RUN apk add --update --no-cache --virtual .tmp-build-deps \
 
 COPY package.json .
 COPY requirements.txt .
+COPY requirements-dev.txt .
+
 RUN yarn install
 
 RUN apk del .tmp-build-deps

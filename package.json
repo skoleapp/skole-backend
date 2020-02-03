@@ -5,7 +5,7 @@
   "author": "Skole Team",
   "scripts": {
     "preinstall": "pip install --upgrade pip",
-    "install": "pip install -r requirements.txt",
+    "install": "pip install -r requirements.txt -r requirements-dev.txt",
     "make-migrations": "python src/manage.py makemigrations",
     "clear-migrations": "find src/ -path '*/migrations/*.py' -not -name '__init__.py' -delete && find . -path '*/migrations/*.pyc'  -delete",
     "migrate": "python src/manage.py migrate",

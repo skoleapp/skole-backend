@@ -3,11 +3,11 @@ from smtplib import SMTPException
 
 import graphene
 from django.core.mail import send_mail
+from django.utils.translation import gettext as _
 from graphene_django.forms.mutation import DjangoFormMutation
 from graphql import ResolveInfo
 
 from api.forms.contact import ContactForm
-from api.utils.messages import MESSAGE_SENT_ERROR_MESSAGE, MESSAGE_SENT_SUCCESS_MESSAGE
 from app.models import Contact
 
 
@@ -42,11 +42,16 @@ class ContactMutation(DjangoFormMutation):
                 fail_silently=False,
             )
 
-            return cls(message=MESSAGE_SENT_SUCCESS_MESSAGE)
+            return cls(message=_("Message sent successfully!"))
         except SMTPException as e:
             # This error will show among the general errors in the frontend form.
             return cls(
-                errors=[{"field": "__all__", "messages": [MESSAGE_SENT_ERROR_MESSAGE]}]
+                errors=[
+                    {
+                        "field": "__all__",
+                        "messages": [_("Error while sending message.")],
+                    }
+                ]
             )
 
 

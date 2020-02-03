@@ -2,6 +2,7 @@ from typing import Any, List, Optional
 
 import graphene
 from django.contrib.auth import get_user_model
+from django.utils.translation import gettext as _
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphene_django.types import ErrorType
@@ -16,7 +17,6 @@ from api.forms.user import (
     SignUpForm,
     UpdateUserForm,
 )
-from api.utils.messages import USER_DELETED_MESSAGE
 from api.utils.points import get_points_for_user
 from app.models import User
 
@@ -40,6 +40,7 @@ class UserObjectType(DjangoObjectType):
             "created",
             "created_courses",
             "created_resources",
+            "votes",
         )
 
     def resolve_email(self, info: ResolveInfo) -> str:
@@ -163,7 +164,7 @@ class DeleteUserMutation(DjangoModelFormMutation):
         cls, form: DeleteUserForm, info: ResolveInfo
     ) -> "DeleteUserMutation":
         info.context.user.delete()
-        return cls(message=USER_DELETED_MESSAGE)
+        return cls(message=_("User deleted successfully!"))
 
 
 class UpdateUserMutation(DjangoModelFormMutation):

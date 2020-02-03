@@ -9,7 +9,6 @@ from graphql_jwt.decorators import login_required
 from api.forms.course import CreateCourseForm
 from api.utils.common import get_obj_or_none
 from api.utils.points import POINTS_COURSE_MULTIPLIER, get_points_for_target
-from api.utils.vote import AbstractDownvoteMutation, AbstractUpvoteMutation
 from app.models import Course
 
 
@@ -49,20 +48,6 @@ class CreateCourseMutation(DjangoModelFormMutation):
     ) -> "CreateCourseMutation":
         course = Course.objects.create(user=info.context.user, **form.cleaned_data)
         return cls(course=course)
-
-
-class UpvoteCourseMutation(AbstractUpvoteMutation):
-    class Arguments:
-        course_id = graphene.Int()
-
-    course = graphene.Field(CourseObjectType)
-
-
-class DownvoteCourseMutation(AbstractDownvoteMutation):
-    class Arguments:
-        course_id = graphene.Int()
-
-    course = graphene.Field(CourseObjectType)
 
 
 class Query(graphene.ObjectType):
@@ -117,5 +102,3 @@ class Query(graphene.ObjectType):
 
 class Mutation(graphene.ObjectType):
     create_course = CreateCourseMutation.Field()
-    upvote_course = UpvoteCourseMutation.Field()
-    downvote_course = DownvoteCourseMutation.Field()

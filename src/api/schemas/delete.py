@@ -29,7 +29,6 @@ class DeleteObjectMutation(graphene.Mutation):
         if len(kwargs) != 1:
             raise GraphQLError(_("Incorrect mutation arguments."))
 
-        print(kwargs)
         if pk := kwargs.get("comment_id"):
             obj = Comment.objects.get(pk=pk)
         elif pk := kwargs.get("resource_id"):

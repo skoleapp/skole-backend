@@ -1,4 +1,4 @@
-from typing import Union
+from typing import TYPE_CHECKING, Callable, Union
 
 from django.db import models
 
@@ -10,7 +10,7 @@ from .resource import Resource
 from .user import User
 
 
-class VoteManager(models.Manager):
+class VoteManager(models.Manager):  # type: ignore[type-arg]
     def create_vote(
         self, user: User, status: int, target: Union[Comment, Course, Resource]
     ) -> "Vote":
@@ -47,6 +47,9 @@ class Vote(models.Model):
     )
 
     objects = VoteManager()
+
+    if TYPE_CHECKING:
+        get_status_display: Callable[..., int]
 
     class Meta:
         unique_together = ("comment", "course", "resource", "user")

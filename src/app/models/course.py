@@ -6,8 +6,8 @@ from .subject import Subject
 from .user import User
 
 
-class CourseManager(models.Manager):
-    def get_queryset(self) -> QuerySet:
+class CourseManager(models.Manager):  # type: ignore[type-arg]
+    def get_queryset(self) -> "QuerySet[Course]":
         qs = super().get_queryset()
         return qs.annotate(resource_count=models.Count("resources"))
 

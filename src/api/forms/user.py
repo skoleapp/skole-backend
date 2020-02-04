@@ -32,8 +32,9 @@ class SignInForm(forms.ModelForm):
         else:
             kwargs = {"username": username_or_email}
         try:
-            user = get_user_model().objects.get(**kwargs)
-            user = authenticate(username=user.email, password=password)
+            user = authenticate(
+                username=get_user_model().objects.get(**kwargs).email, password=password
+            )
 
             if not user:
                 raise forms.ValidationError(AUTH_ERROR_MESSAGE, code="authentication")

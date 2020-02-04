@@ -1,4 +1,4 @@
-from typing import Union
+from typing import TYPE_CHECKING, Any, Union
 
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
@@ -8,7 +8,10 @@ from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
 
 
-class UserManager(BaseUserManager):
+class UserManager(BaseUserManager):  # type: ignore[type-arg]
+    if TYPE_CHECKING:
+        BaseUserManager: Any
+
     def create_user(self, email: str, username: str, password: str) -> "User":
         user = self.model(email=self.normalize_email(email), username=username)
 
@@ -80,6 +83,9 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username"]
+
+    if TYPE_CHECKING:
+        _meta: Any
 
     def __str__(self) -> str:
         return f"{self.username}"

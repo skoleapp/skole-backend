@@ -10,7 +10,7 @@ from .resource_type import ResourceType
 from .user import User
 
 
-class ResourceManager(models.Manager):
+class ResourceManager(models.Manager):  # type: ignore[type-arg]
     def create_resource(
         self,
         resource_type: ResourceType,
@@ -77,4 +77,4 @@ class Resource(models.Model):
     objects = ResourceManager()
 
     def __str__(self) -> str:
-        return f"'{self.title}' by {self.user.username}"
+        return f"{self.title}"

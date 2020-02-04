@@ -1,10 +1,10 @@
-from typing import List, Optional
+from typing import Optional
 
 import graphene
+from django.db.models import QuerySet
 from graphene_django import DjangoObjectType
 from graphql import ResolveInfo
 
-from api.schemas.school import SchoolObjectType
 from api.utils.common import get_obj_or_none
 from app.models import SchoolType
 
@@ -19,7 +19,7 @@ class Query(graphene.ObjectType):
     school_types = graphene.List(SchoolTypeObjectType)
     school_type = graphene.Field(SchoolTypeObjectType, school_type_id=graphene.Int())
 
-    def resolve_school_types(self, info: ResolveInfo) -> List[SchoolObjectType]:
+    def resolve_school_types(self, info: ResolveInfo) -> "QuerySet[SchoolType]":
         return SchoolType.objects.all()
 
     def resolve_school_type(

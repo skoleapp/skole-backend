@@ -1,6 +1,7 @@
-from typing import List, Optional
+from typing import Optional
 
 import graphene
+from django.db.models import QuerySet
 from graphene_django import DjangoObjectType
 from graphql import ResolveInfo
 
@@ -18,7 +19,7 @@ class Query(graphene.ObjectType):
     countries = graphene.List(CountryObjectType)
     country = graphene.Field(CountryObjectType, country_id=graphene.Int())
 
-    def resolve_countries(self, info: ResolveInfo) -> List[Country]:
+    def resolve_countries(self, info: ResolveInfo) -> "QuerySet[Country]":
         return Country.objects.order_by("name")
 
     def resolve_country(self, info: ResolveInfo, country_id: int) -> Optional[Country]:

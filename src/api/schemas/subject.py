@@ -1,6 +1,7 @@
-from typing import List, Optional
+from typing import Optional
 
 import graphene
+from django.db.models import QuerySet
 from graphene_django import DjangoObjectType
 from graphql import ResolveInfo
 
@@ -18,7 +19,7 @@ class Query(graphene.ObjectType):
     subjects = graphene.List(SubjectObjectType)
     subject = graphene.Field(SubjectObjectType, subject_id=graphene.Int())
 
-    def resolve_subjects(self, info: ResolveInfo) -> List[Subject]:
+    def resolve_subjects(self, info: ResolveInfo) -> "QuerySet[Subject]":
         return Subject.objects.order_by("name")
 
     def resolve_subject(self, info: ResolveInfo, subject_id: int) -> Optional[Subject]:

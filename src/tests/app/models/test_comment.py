@@ -9,10 +9,10 @@ from app.models import Comment, Course, Resource, ResourcePart, User
 
 def test_str(db: fixture) -> None:
     comment1 = Comment.objects.get(pk=1)
-    assert str(comment1) == "testuser2: Starting comment for..."
+    assert str(comment1) == "Starting comment for the thread on a res..."
 
     comment2 = Comment.objects.get(pk=2)
-    assert str(comment2) == "testuser3: Second comment of th..."
+    assert str(comment2) == "Second comment of the thread."
 
 
 def test_manager_create_ok(db: fixture, temp_media: fixture) -> None:
@@ -20,19 +20,16 @@ def test_manager_create_ok(db: fixture, temp_media: fixture) -> None:
     text = "A comment."
     attachment = SimpleUploadedFile("test_notes.txt", b"file contents")
 
-    target_course = Course.objects.get(pk=1)
-    target_resource = Resource.objects.get(pk=1)
-    target_resource_part = ResourcePart.objects.get(pk=1)
-    target_comment = Comment.objects.get(pk=1)
+    targets = (
+        Course.objects.get(pk=1),
+        Resource.objects.get(pk=1),
+        ResourcePart.objects.get(pk=1),
+        Comment.objects.get(pk=1),
+    )
 
-    for target in (
-        target_course,
-        target_resource,
-        target_resource_part,
-        target_comment,
-    ):
+    for target in targets:
         comment = Comment.objects.create_comment(
-            user=user, text=text, attachment=attachment, target=target
+            user=user, text=text, attachment=attachment, target=target  # type: ignore
         )
 
         assert comment.user == user

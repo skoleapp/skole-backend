@@ -1,6 +1,7 @@
-from typing import List, Optional
+from typing import Optional
 
 import graphene
+from django.db.models import QuerySet
 from graphene_django import DjangoObjectType
 from graphql import ResolveInfo
 
@@ -29,7 +30,7 @@ class Query(graphene.ObjectType):
     schools = graphene.List(SchoolObjectType)
     school = graphene.Field(SchoolObjectType, school_id=graphene.Int())
 
-    def resolve_schools(self, info: ResolveInfo) -> List[School]:
+    def resolve_schools(self, info: ResolveInfo) -> "QuerySet[School]":
         return School.objects.order_by("name")
 
     def resolve_school(self, info: ResolveInfo, school_id: int) -> Optional[School]:

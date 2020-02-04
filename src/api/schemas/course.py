@@ -1,6 +1,7 @@
-from typing import List, Optional
+from typing import Optional
 
 import graphene
+from django.db.models import QuerySet
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphql import ResolveInfo
@@ -74,7 +75,7 @@ class Query(graphene.ObjectType):
         school_type_id: Optional[int] = None,
         country_id: Optional[int] = None,
         city_id: Optional[int] = None,
-    ) -> List[Course]:
+    ) -> "QuerySet[Course]":
         """Filter courses based on the query parameters."""
 
         courses = Course.objects.order_by("name")

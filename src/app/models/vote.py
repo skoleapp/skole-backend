@@ -10,7 +10,7 @@ from .resource import Resource
 from .user import User
 
 
-class VoteManager(models.Manager):
+class VoteManager(models.Manager):  # type: ignore[type-arg]
     def create_vote(
         self, user: User, status: int, target: Union[Comment, Course, Resource]
     ) -> "Vote":
@@ -52,4 +52,4 @@ class Vote(models.Model):
         unique_together = ("comment", "course", "resource", "user")
 
     def __str__(self) -> str:
-        return f"{self.get_status_display()}, {self.user.username}"
+        return f"{self.get_status_display()}, {self.user.username}"  # type: ignore[attr-defined]

@@ -38,7 +38,7 @@ class ContactMutation(DjangoFormMutation):
                 subject=contact_type,
                 message=message,
                 from_email=email,
-                recipient_list=[os.environ.get("SKOLE_INFO_EMAIL")],
+                recipient_list=[os.environ["SKOLE_INFO_EMAIL"]],
                 fail_silently=False,
             )
 

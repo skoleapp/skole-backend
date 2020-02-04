@@ -1,6 +1,5 @@
-from typing import List
-
 from django.db import models
+from django.db.models import QuerySet
 
 from .city import City
 from .school_type import SchoolType
@@ -20,13 +19,13 @@ class School(models.Model):
         return f"{self.name}"
 
     @property
-    def subjects(self) -> List[Subject]:
-        return Subject.objects.filter(courses__in=self.courses.all())
+    def subjects(self) -> "QuerySet[Subject]":
+        return Subject.objects.filter(courses__in=self.courses.all())  # type: ignore[attr-defined]
 
     @property
-    def subject_count(self) -> List[int]:
-        return self.courses.prefetch_related("subject").count()
+    def subject_count(self) -> int:
+        return self.courses.prefetch_related("subject").count()  # type: ignore[attr-defined]
 
     @property
-    def course_count(self) -> List[int]:
-        return self.courses.count()
+    def course_count(self) -> int:
+        return self.courses.count()  # type: ignore[attr-defined]

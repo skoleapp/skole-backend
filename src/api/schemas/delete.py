@@ -1,4 +1,4 @@
-from typing import Any, Dict
+from typing import Any, Dict, Optional, Union
 
 import graphene
 from django.utils.translation import gettext as _
@@ -29,6 +29,8 @@ class DeleteObjectMutation(graphene.Mutation):
         if len(kwargs) != 1:
             raise GraphQLError(_("Incorrect mutation arguments."))
 
+        obj: Any
+        pk: Any
         if pk := kwargs.get("comment_id"):
             obj = Comment.objects.get(pk=pk)
         elif pk := kwargs.get("resource_id"):

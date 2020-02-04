@@ -8,7 +8,7 @@ from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
 
 
-class UserManager(BaseUserManager):
+class UserManager(BaseUserManager):  # type: ignore[type-arg]
     def create_user(self, email: str, username: str, password: str) -> "User":
         user = self.model(email=self.normalize_email(email), username=username)
 
@@ -56,7 +56,7 @@ class UserManager(BaseUserManager):
         return user
 
 
-class User(AbstractBaseUser, PermissionsMixin):
+class User(AbstractBaseUser, PermissionsMixin):  # type: ignore[misc]
     """Models one user on the platform."""
 
     username = models.CharField(max_length=30, unique=True)

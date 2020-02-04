@@ -6,7 +6,7 @@ from .contact_type import ContactType
 from .user import User
 
 
-class ContactManager(models.Manager):
+class ContactManager(models.Manager):  # type: ignore[type-arg]
     def create_contact(
         self, contact_type: ContactType, message: str, user_or_email: Union[str, User]
     ) -> "Contact":

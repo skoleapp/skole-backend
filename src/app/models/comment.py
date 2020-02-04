@@ -9,7 +9,7 @@ from .resource import Resource, ResourcePart
 from .user import User
 
 
-class CommentManager(models.Manager):
+class CommentManager(models.Manager):  # type: ignore[type-arg]
     def create_comment(
         self,
         user: User,
@@ -43,7 +43,7 @@ class CommentManager(models.Manager):
         comment.save()
         return comment
 
-    def get_queryset(self) -> QuerySet:
+    def get_queryset(self) -> "QuerySet[Comment]":
         qs = super().get_queryset()
         return qs.annotate(reply_count=models.Count("reply_comments")).order_by(
             "-reply_count", "id"
@@ -90,7 +90,7 @@ class Comment(models.Model):
     objects = CommentManager()
 
     def __str__(self) -> str:
-        if len(self.text) > 20:
-            return f"{self.user.username}: {self.text[:20]}..."
+        if len(self.text) > 40:
+            return f"{self.text[:40]}..."
         else:
-            return f"{self.user.username}: {self.text}"
+            return f"{self.text}"

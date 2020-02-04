@@ -1,13 +1,14 @@
-from typing import Dict, List, Optional, Type
+from typing import Dict, List, Optional, Type, TypeVar
 
 from django import forms
 from django.db import models
 from django.utils.translation import gettext as _
 
+T = TypeVar("T", bound=models.Model)
 
-def get_obj_or_none(model: Type[models.Model], obj_id: int) -> Optional[models.Model]:
-    """Used as a helper function to return None instead of raising
-    a GraphQLError."""
+
+def get_obj_or_none(model: Type[T], obj_id: int) -> Optional[T]:
+    """Used as a helper function to return None instead of raising a GraphQLError."""
     try:
         return model.objects.get(pk=obj_id)
     except model.DoesNotExist:

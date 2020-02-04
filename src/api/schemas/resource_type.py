@@ -1,6 +1,5 @@
-from typing import List
-
 import graphene
+from django.db.models import QuerySet
 from graphene_django import DjangoObjectType
 from graphql import ResolveInfo
 
@@ -16,5 +15,5 @@ class ResourceTypeObjectType(DjangoObjectType):
 class Query(graphene.ObjectType):
     resource_types = graphene.List(ResourceTypeObjectType)
 
-    def resolve_resource_types(self, info: ResolveInfo) -> List[ResourceType]:
+    def resolve_resource_types(self, info: ResolveInfo) -> "QuerySet[ResourceType]":
         return ResourceType.objects.all()

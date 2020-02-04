@@ -8,6 +8,7 @@ T = TypeVar("T", bound=models.Model)
 
 
 def get_obj_or_none(model: Type[T], obj_id: int) -> Optional[T]:
+    """Used as a helper function to return None instead of raising a GraphQLError."""
     try:
         return model.objects.get(pk=obj_id)
     except model.DoesNotExist:

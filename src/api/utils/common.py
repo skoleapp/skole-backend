@@ -1,7 +1,8 @@
-from typing import Dict, Optional, Type
+from typing import Dict, List, Optional, Type
 
+from django import forms
 from django.db import models
-from graphene.types.mutation import MutationOptions
+from django.utils.translation import gettext as _
 
 
 def get_obj_or_none(model: Type[models.Model], obj_id: int) -> Optional[models.Model]:
@@ -13,22 +14,17 @@ def get_obj_or_none(model: Type[models.Model], obj_id: int) -> Optional[models.M
         return None
 
 
-def get_object_from_meta_and_kwargs(
-    meta: MutationOptions, kwargs_of_caller: Dict[str, int]
-) -> models.Model:
-    """Return the Model instance which we are mutating from a graphene.Mutation."""
-    if len(meta.fields) != 1 or len(meta.arguments) != 1 or len(kwargs_of_caller) != 1:
-        # FIXME: this bleeds straight into graphql's error messages
-        #  it apparently catches every single exception and puts the
-        #  message of the error as the message in the graphql response.
-        raise AssertionError(
-            "Expected derived mutation to have exactly one graphene field and taking exactly one argument."
-        )
+def clean_target(cleaned_data: Dict[str, str], *args: str) -> Dict[str, str]:
+    """Ensure that the created object has exactly one foreign key it targets."""
+    targets: List[Optional[str]] = []
 
-    # Get the model we are mutating. e.g. Course
-    # Since we only have one field, this just accesses it.
-    model = list(meta.fields.values())[0]._type._meta.model
+    for i in args:
+        targets.append(cleaned_data.pop(i, None))
 
-    _, obj_id = kwargs_of_caller.popitem()
+    target = [n for n in targets if n is not None]
 
-    return model.objects.get(pk=obj_id)
+    if len(target) != 1:
+        raise forms.ValidationError(_("Mutation input contains incorrect target."))
+
+    cleaned_data["target"] = target[0]
+    return cleaned_data

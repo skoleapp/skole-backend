@@ -5,12 +5,14 @@ import api.schemas.comment
 import api.schemas.contact
 import api.schemas.country
 import api.schemas.course
+import api.schemas.delete
 import api.schemas.resource
 import api.schemas.resource_type
 import api.schemas.school
 import api.schemas.school_type
 import api.schemas.subject
 import api.schemas.user
+import api.schemas.vote
 
 
 class Query(
@@ -34,6 +36,8 @@ class Mutation(
     api.schemas.course.Mutation,
     api.schemas.resource.Mutation,
     api.schemas.user.Mutation,
+    api.schemas.vote.Mutation,
+    api.schemas.delete.Mutation,
 ):
     pass
 

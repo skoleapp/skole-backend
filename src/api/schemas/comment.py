@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import Any, Optional
 
 import graphene
 from graphene_django import DjangoObjectType
@@ -9,15 +9,13 @@ from graphql_jwt.decorators import login_required
 from api.forms.comment import CreateCommentForm, UpdateCommentForm
 from api.schemas.resource_part import ResourcePartObjectType
 from api.utils.common import get_obj_or_none
-from api.utils.delete import AbstractDeleteMutation
-from api.utils.messages import NOT_ALLOWED_TO_MUTATE_MESSAGE
+from api.utils.messages import NOT_OWNER_MESSAGE
 from api.utils.points import (
     POINTS_COMMENT_REPLY_MULTIPLIER,
     POINTS_COURSE_COMMENT_MULTIPLIER,
     POINTS_RESOURCE_COMMENT_MULTIPLIER,
     get_points_for_target,
 )
-from api.utils.vote import AbstractDownvoteMutation, AbstractUpvoteMutation
 from app.models import Comment, Course, Resource, ResourcePart
 
 
@@ -25,6 +23,7 @@ class CommentObjectType(DjangoObjectType):
     points = graphene.Int()
     resource_part = graphene.Field(ResourcePartObjectType)
     reply_count = graphene.Int()
+    vote_status = graphene.Int()
 
     class Meta:
         model = Comment
@@ -54,6 +53,20 @@ class CommentObjectType(DjangoObjectType):
             return get_points_for_target(self.comment, POINTS_COMMENT_REPLY_MULTIPLIER)
 
         raise AssertionError("All foreign keys of the Comment were null.")
+
+    def resolve_vote_status(self, info: ResolveInfo) -> Optional[int]:
+        """Resolve current user's vote status if it exists."""
+        user = info.context.user
+
+        if user.is_anonymous:
+            return None
+
+        vote = self.votes.get(user=user)
+
+        if vote is not None:
+            return vote.status
+        else:
+            return None
 
 
 class CreateCommentMutation(DjangoModelFormMutation):
@@ -105,7 +118,7 @@ class UpdateCommentMutation(DjangoModelFormMutation):
         comment = Comment.objects.get(pk=form.cleaned_data.pop("comment_id"))
 
         if comment.user != info.context.user:
-            raise GraphQLError(NOT_ALLOWED_TO_MUTATE_MESSAGE)
+            raise GraphQLError(NOT_OWNER_MESSAGE)
 
         # Don't allow changing attachment to anything but a File or ""
         if form.cleaned_data["attachment"] != "":
@@ -118,27 +131,6 @@ class UpdateCommentMutation(DjangoModelFormMutation):
         return cls(comment=comment)
 
 
-class DeleteCommentMutation(AbstractDeleteMutation):
-    class Arguments:
-        comment_id = graphene.Int()
-
-    comment = graphene.Field(CommentObjectType)
-
-
-class UpvoteCommentMutation(AbstractUpvoteMutation):
-    class Arguments:
-        comment_id = graphene.Int()
-
-    comment = graphene.Field(CommentObjectType)
-
-
-class DownvoteCommentMutation(AbstractDownvoteMutation):
-    class Arguments:
-        comment_id = graphene.Int()
-
-    comment = graphene.Field(CommentObjectType)
-
-
 class Query(graphene.ObjectType):
     comment = graphene.Field(CommentObjectType, comment_id=graphene.Int())
 
@@ -147,8 +139,5 @@ class Query(graphene.ObjectType):
 
 
 class Mutation(graphene.ObjectType):
-    upvote_comment = UpvoteCommentMutation.Field()
-    downvote_comment = DownvoteCommentMutation.Field()
     create_comment = CreateCommentMutation.Field()
     update_comment = UpdateCommentMutation.Field()
-    delete_comment = DeleteCommentMutation.Field()

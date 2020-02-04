@@ -1,22 +1,13 @@
 from django import forms
 from django.conf import settings
 from django.contrib.auth import authenticate, get_user_model
+from django.utils.translation import gettext as _
 from mypy.types import JsonDict
 
-from api.utils.messages import (
-    EMAIL_TAKEN_MESSAGE,
-    INCORRECT_OLD_PASSWORD_MESSAGE,
-    INCORRECT_PASSWORD_MESSAGE,
-    UNABLE_TO_AUTHENTICATE_MESSAGE,
-    USERNAME_TAKEN_MESSAGE,
-    email_error_messages,
-    username_error_messages,
-)
+from api.utils.messages import AUTH_ERROR_MESSAGE
 
 
 class SignUpForm(forms.ModelForm):
-    username = forms.CharField(error_messages=username_error_messages)
-    email = forms.EmailField(error_messages=email_error_messages)
     password = forms.CharField(min_length=settings.PASSWORD_MIN_LENGTH)
 
     class Meta:
@@ -45,22 +36,16 @@ class SignInForm(forms.ModelForm):
             user = authenticate(username=user.email, password=password)
 
             if not user:
-                raise forms.ValidationError(
-                    UNABLE_TO_AUTHENTICATE_MESSAGE, code="authentication"
-                )
+                raise forms.ValidationError(AUTH_ERROR_MESSAGE, code="authentication")
 
             self.cleaned_data["user"] = user
             return self.cleaned_data
 
         except get_user_model().DoesNotExist:
-            raise forms.ValidationError(
-                UNABLE_TO_AUTHENTICATE_MESSAGE, code="authentication"
-            )
+            raise forms.ValidationError(AUTH_ERROR_MESSAGE, code="authentication")
 
 
 class UpdateUserForm(forms.ModelForm):
-    username = forms.CharField(error_messages=username_error_messages)
-    email = forms.EmailField(error_messages=email_error_messages)
     avatar = forms.CharField(required=False)
 
     class Meta:
@@ -74,7 +59,7 @@ class UpdateUserForm(forms.ModelForm):
             .objects.exclude(pk=self.instance.pk)
             .filter(email__iexact=email)
         ):
-            raise forms.ValidationError(EMAIL_TAKEN_MESSAGE)
+            raise forms.ValidationError(_("This email is taken."))
         return email
 
     def clean_username(self) -> str:
@@ -84,7 +69,7 @@ class UpdateUserForm(forms.ModelForm):
             .objects.exclude(pk=self.instance.pk)
             .filter(username__exact=username)
         ):
-            raise forms.ValidationError(USERNAME_TAKEN_MESSAGE)
+            raise forms.ValidationError(_("This username is taken."))
         return username
 
 
@@ -99,7 +84,7 @@ class ChangePasswordForm(forms.ModelForm):
     def clean_old_password(self) -> None:
         old_password = self.cleaned_data["old_password"]
         if not self.instance.check_password(old_password):
-            raise forms.ValidationError(INCORRECT_OLD_PASSWORD_MESSAGE)
+            raise forms.ValidationError(_("Incorrect old password."))
 
         return old_password
 
@@ -113,6 +98,6 @@ class DeleteUserForm(forms.ModelForm):
         password = self.cleaned_data["password"]
 
         if not self.instance.check_password(password):
-            raise forms.ValidationError(INCORRECT_PASSWORD_MESSAGE)
+            raise forms.ValidationError(_("Incorrect password."))
 
         return password

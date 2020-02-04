@@ -37,13 +37,13 @@ class Vote(models.Model):
     status = models.IntegerField(choices=VOTE_STATUS)
 
     comment = models.ForeignKey(
-        Comment, on_delete=models.CASCADE, null=True, related_name="votes"
+        Comment, on_delete=models.CASCADE, null=True, blank=True, related_name="votes"
     )
     course = models.ForeignKey(
-        Course, on_delete=models.CASCADE, null=True, related_name="votes"
+        Course, on_delete=models.CASCADE, null=True, blank=True, related_name="votes"
     )
     resource = models.ForeignKey(
-        Resource, on_delete=models.CASCADE, null=True, related_name="votes"
+        Resource, on_delete=models.CASCADE, null=True, blank=True, related_name="votes"
     )
 
     objects = VoteManager()

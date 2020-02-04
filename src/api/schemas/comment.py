@@ -85,7 +85,6 @@ class CreateCommentMutation(DjangoModelFormMutation):
             form.cleaned_data["attachment"] = file
 
         Comment.objects.create_comment(user=info.context.user, **form.cleaned_data)
-
         target = form.cleaned_data["target"]
 
         if isinstance(target, Course):
@@ -97,8 +96,7 @@ class CreateCommentMutation(DjangoModelFormMutation):
         elif isinstance(target, Comment):
             comments = Comment.objects.filter(comment=target)
         else:
-            # This should never happend because a validation error is thrown in the form.
-            comments = Comment.objects.none()
+            comments = None
 
         return cls(comments=comments)
 

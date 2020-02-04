@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, Callable, Union
+from typing import Union
 
 from django.db import models
 
@@ -48,11 +48,8 @@ class Vote(models.Model):
 
     objects = VoteManager()
 
-    if TYPE_CHECKING:
-        get_status_display: Callable[..., int]
-
     class Meta:
         unique_together = ("comment", "course", "resource", "user")
 
     def __str__(self) -> str:
-        return f"{self.get_status_display()}, {self.user.username}"
+        return f"{self.get_status_display()}, {self.user.username}"  # type: ignore[attr-defined]

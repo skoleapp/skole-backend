@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, Any, Union
+from typing import Union
 
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
@@ -9,9 +9,6 @@ from imagekit.processors import ResizeToFill
 
 
 class UserManager(BaseUserManager):  # type: ignore[type-arg]
-    if TYPE_CHECKING:
-        BaseUserManager: Any
-
     def create_user(self, email: str, username: str, password: str) -> "User":
         user = self.model(email=self.normalize_email(email), username=username)
 
@@ -59,7 +56,7 @@ class UserManager(BaseUserManager):  # type: ignore[type-arg]
         return user
 
 
-class User(AbstractBaseUser, PermissionsMixin):
+class User(AbstractBaseUser, PermissionsMixin):  # type: ignore[misc]
     """Models one user on the platform."""
 
     username = models.CharField(max_length=30, unique=True)
@@ -83,9 +80,6 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username"]
-
-    if TYPE_CHECKING:
-        _meta: Any
 
     def __str__(self) -> str:
         return f"{self.username}"

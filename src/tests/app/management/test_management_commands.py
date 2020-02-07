@@ -1,13 +1,10 @@
 from typing import Any
 from unittest.mock import patch
 
-import pytest
 from django.core.management import call_command
 from django.db.utils import OperationalError
 
 
-@pytest.mark.django_db
-@pytest.mark.management
 class CommandTests:
     def test_wait_for_db_ready(self) -> None:
         with patch("django.db.utils.ConnectionHandler.__getitem__") as gi:

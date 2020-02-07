@@ -1,6 +1,5 @@
 from django import forms
-from mypy.types import JsonDict
-from app.models import Vote
+
 from api.utils.common import TargetMixin
 from app.utils.dummy_model import DummyModel
 

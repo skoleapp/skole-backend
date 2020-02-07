@@ -98,7 +98,7 @@ class CreateCommentMutation(DjangoModelFormMutation):
         elif isinstance(target, Comment):
             comments = Comment.objects.filter(comment=target)
         else:
-            comments = None
+            comments = Comment.objects.none()
 
         return cls(comments=comments)
 

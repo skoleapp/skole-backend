@@ -1,7 +1,7 @@
 from django import forms
-from mypy.types import JsonDict
-from app.models import Comment
+
 from api.utils.common import TargetMixin
+from app.models import Comment
 
 
 class CreateCommentForm(forms.ModelForm, TargetMixin):

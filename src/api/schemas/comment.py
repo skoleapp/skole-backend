@@ -52,8 +52,9 @@ class CommentObjectType(DjangoObjectType):
             return get_points_for_target(self, POINTS_RESOURCE_COMMENT_MULTIPLIER)
         if self.comment is not None:
             return get_points_for_target(self.comment, POINTS_COMMENT_REPLY_MULTIPLIER)
-
-        raise AssertionError("All foreign keys of the Comment were null.")
+        raise AssertionError(
+            "Unexpected error."
+        )  # All foreign keys of the Comment were null.
 
     def resolve_vote_status(self, info: ResolveInfo) -> Optional[int]:
         """Resolve current user's vote status if it exists."""

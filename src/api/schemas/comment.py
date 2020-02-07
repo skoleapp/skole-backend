@@ -20,6 +20,7 @@ from app.models import Comment, Course, Resource, ResourcePart
 
 
 class CommentObjectType(DjangoObjectType):
+    id = graphene.Int()
     points = graphene.Int()
     resource_part = graphene.Field(ResourcePartObjectType)
     reply_count = graphene.Int()
@@ -74,6 +75,7 @@ class CreateCommentMutation(DjangoModelFormMutation):
 
     class Meta:
         form_class = CreateCommentForm
+        exclude_fields = ("id",)
         return_field_name = "comments"
 
     @classmethod
@@ -106,6 +108,7 @@ class UpdateCommentMutation(DjangoModelFormMutation):
 
     class Meta:
         form_class = UpdateCommentForm
+        exclude_fields = ("id",)
 
     @classmethod
     @login_required

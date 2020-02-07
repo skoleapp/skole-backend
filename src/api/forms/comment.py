@@ -5,15 +5,20 @@ from api.utils.common import TargetMixin
 
 
 class CreateCommentForm(forms.ModelForm, TargetMixin):
+    course_id = forms.IntegerField(required=False)
+    resource_id = forms.IntegerField(required=False)
+    resource_part_id = forms.IntegerField(required=False)
+    comment_id = forms.IntegerField(required=False)
+
     class Meta:
         model = Comment
         fields = (
             "text",
             "attachment",
-            "course",
-            "resource",
-            "resource_part",
-            "comment",
+            "course_id",
+            "resource_id",
+            "resource_part_id",
+            "comment_id",
         )
 
 

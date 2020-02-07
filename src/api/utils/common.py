@@ -25,21 +25,21 @@ class TargetMixin:
         cleaned_data = self.cleaned_data
         targets: Dict[str, any] = {}
 
-        targets["comment"] = cleaned_data.pop("comment", None)
-        targets["resource"] = cleaned_data.pop("resource", None)
-        targets["resource_part"] = cleaned_data.pop("resource_part", None)
-        targets["vote"] = cleaned_data.pop("vote", None)
+        targets["comment_id"] = cleaned_data.pop("comment_id", None)
+        targets["resource_id"] = cleaned_data.pop("resource_id", None)
+        targets["resource_part_id"] = cleaned_data.pop("resource_part_id", None)
+        targets["vote_id"] = cleaned_data.pop("vote_id", None)
 
         if len(targets.values) != 1:
             self.invalid_mutation_input()
 
-        if pk := targets["comment"] is not None:
+        if pk := targets["comment_id"] is not None:
             cleaned_data["target"] = Comment.objects.get(pk=pk)
-        elif pk := targets["resource"] is not None:
+        elif pk := targets["resource_id"] is not None:
             cleaned_data["target"] = Resource.objects.get(pk=pk)
-        elif pk := targets["resource_part"] is not None:
+        elif pk := targets["resource_part_id"] is not None:
             cleaned_data["target"] = ResourcePart.objects.get(pk=pk)
-        elif pk := targets["vote"] is not None:
+        elif pk := targets["vote_id"] is not None:
             cleaned_data["target"] = Vote.objects.get(pk=pk)
         else:
             self.invalid_mutation_input()

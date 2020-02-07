@@ -6,7 +6,7 @@ from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphql import ResolveInfo
 from graphql_jwt.decorators import login_required
 
-from api.forms.resource import UpdateResourceForm, UploadResourceForm
+from api.forms.resource import UpdateResourceForm, CreateResourceForm
 from api.schemas.school import SchoolObjectType
 from api.utils.common import get_obj_or_none
 from api.utils.messages import NOT_OWNER_MESSAGE
@@ -42,16 +42,16 @@ class ResourceObjectType(DjangoObjectType):
         return self.course.school
 
 
-class UploadResourceMutation(DjangoModelFormMutation):
+class CreateResourceMutation(DjangoModelFormMutation):
     class Meta:
-        form_class = UploadResourceForm
+        form_class = CreateResourceForm
         exclude_fields = ("id",)
 
     @classmethod
     @login_required
     def perform_mutate(
-        cls, form: UploadResourceForm, info: ResolveInfo
-    ) -> "UploadResourceMutation":
+        cls, form: CreateResourceForm, info: ResolveInfo
+    ) -> "CreateResourceMutation":
         """Replace the form files with the actual files from the context. The resource manager
         will then take care of automatically creating resource parts based on the files.
         """
@@ -99,5 +99,5 @@ class Query(graphene.ObjectType):
 
 
 class Mutation(graphene.ObjectType):
-    upload_resource = UploadResourceMutation.Field()
+    upload_resource = CreateResourceMutation.Field()
     update_resource = UpdateResourceMutation.Field()

@@ -7,7 +7,7 @@ from mypy.types import JsonDict
 from api.utils.messages import AUTH_ERROR_MESSAGE
 
 
-class SignUpForm(forms.ModelForm):
+class RegisterForm(forms.ModelForm):
     password = forms.CharField(min_length=settings.PASSWORD_MIN_LENGTH)
 
     class Meta:
@@ -15,7 +15,7 @@ class SignUpForm(forms.ModelForm):
         fields = ("username", "email", "password")
 
 
-class SignInForm(forms.ModelForm):
+class LoginForm(forms.ModelForm):
     username_or_email = forms.CharField()
     password = forms.CharField()
 

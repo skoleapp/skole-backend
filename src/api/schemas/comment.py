@@ -71,12 +71,9 @@ class CommentObjectType(DjangoObjectType):
 
 
 class CreateCommentMutation(DjangoModelFormMutation):
-    comments = graphene.List(CommentObjectType)
-
     class Meta:
         form_class = CreateCommentForm
         exclude_fields = ("id",)
-        return_field_name = "comments"
 
     @classmethod
     @login_required
@@ -86,21 +83,8 @@ class CreateCommentMutation(DjangoModelFormMutation):
         if file := info.context.FILES.get("1"):
             form.cleaned_data["attachment"] = file
 
-        Comment.objects.create_comment(user=info.context.user, **form.cleaned_data)
-        target = form.cleaned_data["target"]
-
-        if isinstance(target, Course):
-            comments = Comment.objects.filter(course=target)
-        elif isinstance(target, Resource):
-            comments = Comment.objects.filter(resource=target)
-        elif isinstance(target, ResourcePart):
-            comments = Comment.objects.filter(resource_part=target)
-        elif isinstance(target, Comment):
-            comments = Comment.objects.filter(comment=target)
-        else:
-            comments = Comment.objects.none()
-
-        return cls(comments=comments)
+        comment = Comment.objects.create_comment(user=info.context.user, **form.cleaned_data)
+        return cls(comment=comment)
 
 
 class UpdateCommentMutation(DjangoModelFormMutation):

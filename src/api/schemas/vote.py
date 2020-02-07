@@ -18,17 +18,20 @@ class VoteObjectType(DjangoObjectType):
 
 
 class CreateVoteMutation(DjangoModelFormMutation):
+    message = graphene.String()
+
     class Meta:
         form_class = CreateVoteForm
         exclude_fields = ("id",)
+        return_field_name = "message"
 
     @classmethod
     @login_required
     def perform_mutate(
         cls, form: CreateVoteForm, info: ResolveInfo
     ) -> "CreateVoteMutation":
-        vote = Vote.objects.create_vote(user=info.context.user, **form.cleaned_data)
-        return cls(vote=vote)
+        Vote.objects.create_vote(user=info.context.user, **form.cleaned_data)
+        return cls(message=_("Vote created successfully!"))
 
 
 class Mutation(graphene.ObjectType):

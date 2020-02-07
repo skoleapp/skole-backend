@@ -83,7 +83,9 @@ class CreateCommentMutation(DjangoModelFormMutation):
         if file := info.context.FILES.get("1"):
             form.cleaned_data["attachment"] = file
 
-        comment = Comment.objects.create_comment(user=info.context.user, **form.cleaned_data)
+        comment = Comment.objects.create_comment(
+            user=info.context.user, **form.cleaned_data
+        )
         return cls(comment=comment)
 
 

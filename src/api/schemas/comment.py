@@ -20,6 +20,7 @@ from app.models import Comment, Course, Resource, ResourcePart
 
 
 class CommentObjectType(DjangoObjectType):
+    id = graphene.Int()
     points = graphene.Int()
     resource_part = graphene.Field(ResourcePartObjectType)
     reply_count = graphene.Int()
@@ -74,6 +75,7 @@ class CreateCommentMutation(DjangoModelFormMutation):
 
     class Meta:
         form_class = CreateCommentForm
+        exclude_fields = ("id",)
         return_field_name = "comments"
 
     @classmethod
@@ -85,7 +87,6 @@ class CreateCommentMutation(DjangoModelFormMutation):
             form.cleaned_data["attachment"] = file
 
         Comment.objects.create_comment(user=info.context.user, **form.cleaned_data)
-
         target = form.cleaned_data["target"]
 
         if isinstance(target, Course):
@@ -97,7 +98,6 @@ class CreateCommentMutation(DjangoModelFormMutation):
         elif isinstance(target, Comment):
             comments = Comment.objects.filter(comment=target)
         else:
-            # This should never happend because a validation error is thrown in the form.
             comments = Comment.objects.none()
 
         return cls(comments=comments)
@@ -108,6 +108,7 @@ class UpdateCommentMutation(DjangoModelFormMutation):
 
     class Meta:
         form_class = UpdateCommentForm
+        exclude_fields = ("id",)
 
     @classmethod
     @login_required

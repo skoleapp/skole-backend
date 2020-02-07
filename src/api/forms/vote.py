@@ -1,21 +1,20 @@
 from django import forms
-from mypy.types import JsonDict
 
-from api.utils.common import clean_target
+from api.utils.common import TargetMixin
 from app.models import Vote
 
 
-class CreateVoteForm(forms.ModelForm):
+class CreateVoteForm(forms.ModelForm, TargetMixin):
     status = forms.IntegerField()
+    comment_id = forms.IntegerField(required=False)
+    course_id = forms.IntegerField(required=False)
+    resource_id = forms.IntegerField(required=False)
 
     class Meta:
         model = Vote
         fields = (
             "status",
-            "comment",
-            "course",
-            "resource",
+            "comment_id",
+            "course_id",
+            "resource_id",
         )
-
-    def clean(self) -> JsonDict:
-        return clean_target(self.cleaned_data, "comment", "course", "resource")

@@ -4,6 +4,8 @@ from django import forms
 from django.db import models
 from django.utils.translation import gettext as _
 
+from app.models import Comment, Resource, ResourcePart, Vote
+
 T = TypeVar("T", bound=models.Model)
 
 
@@ -15,17 +17,29 @@ def get_obj_or_none(model: Type[T], obj_id: int) -> Optional[T]:
         return None
 
 
-def clean_target(cleaned_data: Dict[str, str], *args: str) -> Dict[str, str]:
-    """Ensure that the created object has exactly one foreign key it targets."""
-    targets: List[Optional[str]] = []
+class TargetMixin:
+    def clean(self) -> Dict[str, str]:
+        """Ensure that the created object has exactly one foreign key it targets."""
+        cleaned_data = self.cleaned_data  # type: ignore
+        targets: Dict[str, Optional[int]] = {}
 
-    for i in args:
-        targets.append(cleaned_data.pop(i, None))
+        targets["comment_id"] = cleaned_data.pop("comment_id", None)
+        targets["resource_id"] = cleaned_data.pop("resource_id", None)
+        targets["resource_part_id"] = cleaned_data.pop("resource_part_id", None)
+        targets["vote_id"] = cleaned_data.pop("vote_id", None)
 
-    target = [n for n in targets if n is not None]
+        if len([val for val in targets.values() if val is not None]) != 1:
+            raise forms.ValidationError(_("Invalid mutation input."))
 
-    if len(target) != 1:
-        raise forms.ValidationError(_("Mutation input contains incorrect target."))
+        if pk := targets["comment_id"] is not None:
+            cleaned_data["target"] = Comment.objects.get(pk=pk)
+        elif pk := targets["resource_id"] is not None:
+            cleaned_data["target"] = Resource.objects.get(pk=pk)
+        elif pk := targets["resource_part_id"] is not None:
+            cleaned_data["target"] = ResourcePart.objects.get(pk=pk)
+        elif pk := targets["vote_id"] is not None:
+            cleaned_data["target"] = Vote.objects.get(pk=pk)
+        else:
+            raise AssertionError("Unexpected error.")  # Mutation target is null.
 
-    cleaned_data["target"] = target[0]
-    return cleaned_data
+        return cleaned_data

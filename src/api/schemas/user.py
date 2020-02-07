@@ -23,6 +23,7 @@ from app.models import User
 
 
 class UserObjectType(DjangoObjectType):
+    id = graphene.Int()
     email = graphene.String()
     avatar = graphene.String()
     avatar_thumbnail = graphene.String()
@@ -81,6 +82,7 @@ class UserObjectType(DjangoObjectType):
 class SignUpMutation(DjangoModelFormMutation):
     class Meta:
         form_class = SignUpForm
+        exclude_fields = ("id",)
 
     @classmethod
     def perform_mutate(cls, form: SignUpForm, info: ResolveInfo) -> "SignUpForm":
@@ -98,6 +100,7 @@ class SignInMutation(DjangoModelFormMutation):
 
     class Meta:
         form_class = SignInForm
+        exclude_fields = ("id",)
 
     @classmethod
     def mutate_and_get_payload(
@@ -132,6 +135,7 @@ class SignInMutation(DjangoModelFormMutation):
 class ChangePasswordMutation(DjangoModelFormMutation):
     class Meta:
         form_class = ChangePasswordForm
+        exclude_fields = ("id",)
 
     @classmethod
     def get_form_kwargs(
@@ -152,6 +156,8 @@ class DeleteUserMutation(DjangoModelFormMutation):
 
     class Meta:
         form_class = DeleteUserForm
+        exclude_fields = ("id",)
+        return_field_name = "message"
 
     @classmethod
     def get_form_kwargs(
@@ -171,6 +177,7 @@ class DeleteUserMutation(DjangoModelFormMutation):
 class UpdateUserMutation(DjangoModelFormMutation):
     class Meta:
         form_class = UpdateUserForm
+        exclude_fields = ("id",)
 
     @classmethod
     def get_form_kwargs(

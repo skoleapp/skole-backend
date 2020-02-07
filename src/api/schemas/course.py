@@ -14,6 +14,7 @@ from app.models import Course
 
 
 class CourseObjectType(DjangoObjectType):
+    id = graphene.Int()
     points = graphene.Int()
     resource_count = graphene.Int()
 
@@ -41,6 +42,7 @@ class CreateCourseMutation(DjangoModelFormMutation):
 
     class Meta:
         form_class = CreateCourseForm
+        exclude_fields = ("id",)
 
     @classmethod
     @login_required

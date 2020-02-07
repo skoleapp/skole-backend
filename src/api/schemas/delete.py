@@ -16,10 +16,10 @@ class DeleteObjectMutation(graphene.Mutation):
     message = graphene.String()
 
     class Arguments:
-        comment_id = graphene.ID()
-        resource_id = graphene.ID()
-        resource_part_id = graphene.ID()
-        vote_id = graphene.ID()
+        comment = graphene.Int()
+        resource = graphene.Int()
+        resource_part = graphene.Int()
+        vote = graphene.Int()
 
     @classmethod
     @login_required

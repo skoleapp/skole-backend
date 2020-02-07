@@ -15,6 +15,7 @@ from app.models import Resource
 
 
 class ResourceObjectType(DjangoObjectType):
+    id = graphene.Int()
     resource_type = graphene.String()
     points = graphene.Int()
     school = graphene.Field(SchoolObjectType)
@@ -44,6 +45,7 @@ class ResourceObjectType(DjangoObjectType):
 class UploadResourceMutation(DjangoModelFormMutation):
     class Meta:
         form_class = UploadResourceForm
+        exclude_fields = ("id",)
 
     @classmethod
     @login_required
@@ -64,6 +66,7 @@ class UploadResourceMutation(DjangoModelFormMutation):
 class UpdateResourceMutation(DjangoModelFormMutation):
     class Meta:
         form_class = UpdateResourceForm
+        exclude_fields = ("id",)
 
     @classmethod
     @login_required
@@ -74,6 +77,7 @@ class UpdateResourceMutation(DjangoModelFormMutation):
         try:
             resource = Resource.objects.get(pk=form.cleaned_data.pop("resource_id"))
         except Resource.DoesNotExist as e:
+            # Camel case on purpose.
             return cls(errors=[{"field": "resourceId", "messages": [str(e)]}])
 
         if resource.user != info.context.user:

@@ -1,11 +1,10 @@
 from django import forms
 from mypy.types import JsonDict
-
-from api.utils.common import clean_target
 from app.models import Comment
+from api.utils.common import TargetMixin
 
 
-class CreateCommentForm(forms.ModelForm):
+class CreateCommentForm(forms.ModelForm, TargetMixin):
     class Meta:
         model = Comment
         fields = (
@@ -15,11 +14,6 @@ class CreateCommentForm(forms.ModelForm):
             "resource",
             "resource_part",
             "comment",
-        )
-
-    def clean(self) -> JsonDict:
-        return clean_target(
-            self.cleaned_data, "course", "resource", "resource_part", "comment"
         )
 
 

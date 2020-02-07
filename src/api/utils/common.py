@@ -15,17 +15,33 @@ def get_obj_or_none(model: Type[T], obj_id: int) -> Optional[T]:
         return None
 
 
-def clean_target(cleaned_data: Dict[str, str], *args: str) -> Dict[str, str]:
-    """Ensure that the created object has exactly one foreign key it targets."""
-    targets: List[Optional[str]] = []
+class TargetMixin:
+    @staticmethod
+    def invalid_mutation_input():
+        raise forms.ValidationError(_("Invalid mutation input."))
 
-    for i in args:
-        targets.append(cleaned_data.pop(i, None))
+    def clean(self) -> Dict[str, str]:
+        """Ensure that the created object has exactly one foreign key it targets."""
+        cleaned_data = self.cleaned_data
+        targets: Dict[str, any] = {}
 
-    target = [n for n in targets if n is not None]
+        targets["comment"] = cleaned_data.pop("comment", None)
+        targets["resource"] = cleaned_data.pop("resource", None)
+        targets["resource_part"] = cleaned_data.pop("resource_part", None)
+        targets["vote"] = cleaned_data.pop("vote", None)
 
-    if len(target) != 1:
-        raise forms.ValidationError(_("Mutation input contains incorrect target."))
+        if len(targets.values) != 1:
+            self.invalid_mutation_input()
 
-    cleaned_data["target"] = target[0]
-    return cleaned_data
+        if pk := targets["comment"] is not None:
+            cleaned_data["target"] = Comment.objects.get(pk=pk)
+        elif pk := targets["resource"] is not None:
+            cleaned_data["target"] = Resource.objects.get(pk=pk)
+        elif pk := targets["resource_part"] is not None:
+            cleaned_data["target"] = ResourcePart.objects.get(pk=pk)
+        elif pk := targets["vote"] is not None:
+            cleaned_data["target"] = Vote.objects.get(pk=pk)
+        else:
+            self.invalid_mutation_input()
+
+        return cleaned_data

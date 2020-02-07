@@ -4,6 +4,8 @@ from django import forms
 from django.db import models
 from django.utils.translation import gettext as _
 
+from app.models import Comment, Resource, ResourcePart, Vote
+
 T = TypeVar("T", bound=models.Model)
 
 
@@ -18,7 +20,7 @@ def get_obj_or_none(model: Type[T], obj_id: int) -> Optional[T]:
 class TargetMixin:
     def clean(self) -> Dict[str, str]:
         """Ensure that the created object has exactly one foreign key it targets."""
-        cleaned_data = self.cleaned_data # type: ignore
+        cleaned_data = self.cleaned_data  # type: ignore
         targets: Dict[str, Optional[int]] = {}
 
         targets["comment_id"] = cleaned_data.pop("comment_id", None)
@@ -38,6 +40,6 @@ class TargetMixin:
         elif pk := targets["vote_id"] is not None:
             cleaned_data["target"] = Vote.objects.get(pk=pk)
         else:
-            raise AssertionError("Unexpected error.") # Mutation target is null.
+            raise AssertionError("Unexpected error.")  # Mutation target is null.
 
         return cleaned_data

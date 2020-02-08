@@ -3,7 +3,7 @@ from django import forms
 from app.models import Resource
 
 
-class UploadResourceForm(forms.ModelForm):
+class CreateResourceForm(forms.ModelForm):
     resource_type_id = forms.IntegerField()
     course_id = forms.IntegerField()
     files = forms.FileField(

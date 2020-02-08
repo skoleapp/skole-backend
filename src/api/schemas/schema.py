@@ -16,7 +16,9 @@ import api.schemas.vote
 
 
 class Query(
+    api.schemas.city.Query,
     api.schemas.comment.Query,
+    api.schemas.country.Query,
     api.schemas.course.Query,
     api.schemas.resource.Query,
     api.schemas.resource_type.Query,
@@ -24,8 +26,6 @@ class Query(
     api.schemas.school_type.Query,
     api.schemas.subject.Query,
     api.schemas.user.Query,
-    api.schemas.country.Query,
-    api.schemas.city.Query,
 ):
     pass
 
@@ -34,10 +34,10 @@ class Mutation(
     api.schemas.comment.Mutation,
     api.schemas.contact.Mutation,
     api.schemas.course.Mutation,
+    api.schemas.delete.Mutation,
     api.schemas.resource.Mutation,
     api.schemas.user.Mutation,
     api.schemas.vote.Mutation,
-    api.schemas.delete.Mutation,
 ):
     pass
 

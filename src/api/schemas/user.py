@@ -14,8 +14,8 @@ from mypy.types import JsonDict
 from api.forms.user import (
     ChangePasswordForm,
     DeleteUserForm,
-    SignInForm,
-    SignUpForm,
+    LoginForm,
+    RegisterForm,
     UpdateUserForm,
 )
 from api.utils.points import get_points_for_user
@@ -79,13 +79,13 @@ class UserObjectType(DjangoObjectType):
             return f"media/{self.avatar_thumbnail}"
 
 
-class SignUpMutation(DjangoModelFormMutation):
+class RegisterMutation(DjangoModelFormMutation):
     class Meta:
-        form_class = SignUpForm
+        form_class = RegisterForm
         exclude_fields = ("id",)
 
     @classmethod
-    def perform_mutate(cls, form: SignUpForm, info: ResolveInfo) -> "SignUpForm":
+    def perform_mutate(cls, form: RegisterForm, info: ResolveInfo) -> "RegisterForm":
         user = get_user_model().objects.create_user(
             email=form.cleaned_data["email"],
             username=form.cleaned_data["username"],
@@ -95,17 +95,17 @@ class SignUpMutation(DjangoModelFormMutation):
         return cls(user=user)
 
 
-class SignInMutation(DjangoModelFormMutation):
+class LoginMutation(DjangoModelFormMutation):
     token = graphene.String()
 
     class Meta:
-        form_class = SignInForm
+        form_class = LoginForm
         exclude_fields = ("id",)
 
     @classmethod
     def mutate_and_get_payload(
         cls, root: Any, info: ResolveInfo, **input: JsonDict
-    ) -> "SignInMutation":
+    ) -> "LoginMutation":
         form = cls.get_form(root, info, **input)
 
         if form.is_valid():
@@ -127,8 +127,8 @@ class SignInMutation(DjangoModelFormMutation):
     @classmethod
     @token_auth
     def perform_mutate(
-        cls, form: SignInForm, info: ResolveInfo, user: User, **kwargs: JsonDict
-    ) -> "SignInMutation":
+        cls, form: LoginForm, info: ResolveInfo, user: User, **kwargs: JsonDict
+    ) -> "LoginMutation":
         return cls(user=user)
 
 
@@ -243,8 +243,8 @@ class Query(graphene.ObjectType):
 
 
 class Mutation(graphene.ObjectType):
-    sign_up = SignUpMutation.Field()
-    sign_in = SignInMutation.Field()
+    login = LoginMutation.Field()
+    register = RegisterMutation.Field()
     update_user = UpdateUserMutation.Field()
     change_password = ChangePasswordMutation.Field()
     delete_user = DeleteUserMutation.Field()

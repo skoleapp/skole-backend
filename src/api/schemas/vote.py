@@ -36,4 +36,4 @@ class CreateVoteMutation(DjangoModelFormMutation):
 
 
 class Mutation(graphene.ObjectType):
-    vote = CreateVoteMutation.Field()
+    create_vote = CreateVoteMutation.Field()

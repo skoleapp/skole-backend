@@ -1,10 +1,10 @@
 from django import forms
 
-from api.utils.common import TargetMixin
+from api.utils.common import TargetForm
 from app.models import Comment
 
 
-class CreateCommentForm(TargetMixin, forms.ModelForm):
+class CreateCommentForm(TargetForm):
     course_id = forms.IntegerField(required=False)
     resource_id = forms.IntegerField(required=False)
     resource_part_id = forms.IntegerField(required=False)

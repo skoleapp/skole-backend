@@ -1,10 +1,10 @@
-from typing import Dict, List, Optional, Type, TypeVar
+from typing import Dict, List, Optional, Type, TypeVar, Union
 
 from django import forms
 from django.db import models
 from django.utils.translation import gettext as _
 
-from app.models import Comment, Resource, ResourcePart, Vote, Course
+from app.models import Comment, Course, Resource, ResourcePart, Vote
 
 T = TypeVar("T", bound=models.Model)
 
@@ -17,9 +17,9 @@ def get_obj_or_none(model: Type[T], obj_id: int) -> Optional[T]:
         return None
 
 
-class TargetMixin:
+class TargetForm(forms.ModelForm):
     @staticmethod
-    def get_target(targets) -> Optional[Type[T]]:
+    def get_target(targets: Dict[str, Optional[int]]) -> Union[Course, Comment, Resource, ResourcePart, Vote]:
         if pk := targets["course_id"] is not None:
             return Course.objects.get(pk=pk)
         elif pk := targets["comment_id"] is not None:
@@ -42,10 +42,8 @@ class TargetMixin:
             "comment_id": None,
             "resource_id": None,
             "resource_part_id": None,
-            "vote_id": None
+            "vote_id": None,
         }
-
-        print(targets.keys())
 
         for i in targets.keys():
             targets[i] = cleaned_data.pop(i, None)
@@ -54,5 +52,4 @@ class TargetMixin:
             raise forms.ValidationError(_("Invalid mutation input."))
 
         cleaned_data["target"] = self.get_target(targets)
-        print(cleaned_data)
-        return self.cleaned_data
+        return cleaned_data

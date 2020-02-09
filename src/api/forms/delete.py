@@ -4,7 +4,7 @@ from api.utils.common import TargetMixin
 from app.utils.dummy_model import DummyModel
 
 
-class DeleteObjectForm(forms.ModelForm, TargetMixin):
+class DeleteObjectForm(TargetMixin, forms.ModelForm):
     comment_id = forms.IntegerField(required=False)
     resource_id = forms.IntegerField(required=False)
     resource_part_id = forms.IntegerField(required=False)

@@ -4,7 +4,7 @@ from api.utils.common import TargetMixin
 from app.models import Vote
 
 
-class CreateVoteForm(forms.ModelForm, TargetMixin):
+class CreateVoteForm(TargetMixin, forms.ModelForm):
     status = forms.IntegerField()
     comment_id = forms.IntegerField(required=False)
     course_id = forms.IntegerField(required=False)

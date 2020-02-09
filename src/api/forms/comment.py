@@ -4,7 +4,7 @@ from api.utils.common import TargetMixin
 from app.models import Comment
 
 
-class CreateCommentForm(forms.ModelForm, TargetMixin):
+class CreateCommentForm(TargetMixin, forms.ModelForm):
     course_id = forms.IntegerField(required=False)
     resource_id = forms.IntegerField(required=False)
     resource_part_id = forms.IntegerField(required=False)

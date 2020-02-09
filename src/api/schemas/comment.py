@@ -16,7 +16,7 @@ from api.utils.points import (
     POINTS_RESOURCE_COMMENT_MULTIPLIER,
     get_points_for_target,
 )
-from app.models import Comment, Course, Resource, ResourcePart
+from app.models import Comment, Course, Resource, ResourcePart, Vote
 
 
 class CommentObjectType(DjangoObjectType):
@@ -63,7 +63,10 @@ class CommentObjectType(DjangoObjectType):
         if user.is_anonymous:
             return None
 
-        vote = self.votes.get(user=user)
+        try:
+            vote = self.votes.get(user=user)
+        except Vote.DoesNotExist:
+            vote = None
 
         if vote is not None:
             return vote.status

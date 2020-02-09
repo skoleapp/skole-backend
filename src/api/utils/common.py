@@ -4,7 +4,7 @@ from django import forms
 from django.db import models
 from django.utils.translation import gettext as _
 
-from app.models import Comment, Resource, ResourcePart, Vote
+from app.models import Comment, Resource, ResourcePart, Vote, Course
 
 T = TypeVar("T", bound=models.Model)
 
@@ -18,28 +18,41 @@ def get_obj_or_none(model: Type[T], obj_id: int) -> Optional[T]:
 
 
 class TargetMixin:
+    @staticmethod
+    def get_target(targets) -> Optional[Type[T]]:
+        if pk := targets["course_id"] is not None:
+            return Course.objects.get(pk=pk)
+        elif pk := targets["comment_id"] is not None:
+            return Comment.objects.get(pk=pk)
+        elif pk := targets["resource_id"] is not None:
+            return Resource.objects.get(pk=pk)
+        elif pk := targets["resource_part_id"] is not None:
+            return ResourcePart.objects.get(pk=pk)
+        elif pk := targets["vote_id"] is not None:
+            return Vote.objects.get(pk=pk)
+        else:
+            raise AssertionError("Unexpected error.")  # Mutation target is null.
+
     def clean(self) -> Dict[str, str]:
         """Ensure that the created object has exactly one foreign key it targets."""
-        cleaned_data = self.cleaned_data  # type: ignore
-        targets: Dict[str, Optional[int]] = {}
+        cleaned_data = self.cleaned_data
 
-        targets["comment_id"] = cleaned_data.pop("comment_id", None)
-        targets["resource_id"] = cleaned_data.pop("resource_id", None)
-        targets["resource_part_id"] = cleaned_data.pop("resource_part_id", None)
-        targets["vote_id"] = cleaned_data.pop("vote_id", None)
+        targets: Dict[str, Optional[int]] = {
+            "course_id": None,
+            "comment_id": None,
+            "resource_id": None,
+            "resource_part_id": None,
+            "vote_id": None
+        }
+
+        print(targets.keys())
+
+        for i in targets.keys():
+            targets[i] = cleaned_data.pop(i, None)
 
         if len([val for val in targets.values() if val is not None]) != 1:
             raise forms.ValidationError(_("Invalid mutation input."))
 
-        if pk := targets["comment_id"] is not None:
-            cleaned_data["target"] = Comment.objects.get(pk=pk)
-        elif pk := targets["resource_id"] is not None:
-            cleaned_data["target"] = Resource.objects.get(pk=pk)
-        elif pk := targets["resource_part_id"] is not None:
-            cleaned_data["target"] = ResourcePart.objects.get(pk=pk)
-        elif pk := targets["vote_id"] is not None:
-            cleaned_data["target"] = Vote.objects.get(pk=pk)
-        else:
-            raise AssertionError("Unexpected error.")  # Mutation target is null.
-
-        return cleaned_data
+        cleaned_data["target"] = self.get_target(targets)
+        print(cleaned_data)
+        return self.cleaned_data

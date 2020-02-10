@@ -16,7 +16,7 @@ from api.utils.points import (
     POINTS_RESOURCE_COMMENT_MULTIPLIER,
     get_points_for_target,
 )
-from app.models import Comment, Course, Resource, ResourcePart
+from app.models import Comment, Course, Resource, ResourcePart, Vote
 
 
 class CommentObjectType(DjangoObjectType):
@@ -58,16 +58,15 @@ class CommentObjectType(DjangoObjectType):
 
     def resolve_vote_status(self, info: ResolveInfo) -> Optional[int]:
         """Resolve current user's vote status if it exists."""
+
         user = info.context.user
 
         if user.is_anonymous:
             return None
 
-        vote = self.votes.get(user=user)
-
-        if vote is not None:
-            return vote.status
-        else:
+        try:
+            return user.votes.get(comment=self.pk).status
+        except Vote.DoesNotExist:
             return None
 
 

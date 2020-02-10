@@ -6,9 +6,6 @@ from app.models import Vote
 
 class CreateVoteForm(TargetForm):
     status = forms.IntegerField()
-    comment_id = forms.IntegerField(required=False)
-    course_id = forms.IntegerField(required=False)
-    resource_id = forms.IntegerField(required=False)
 
     class Meta:
         model = Vote

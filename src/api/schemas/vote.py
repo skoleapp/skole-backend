@@ -20,7 +20,7 @@ class VoteObjectType(DjangoObjectType):
 class CreateVoteMutation(DjangoModelFormMutation):
     class Meta:
         form_class = CreateVoteForm
-        exclude_fields = ("id",)
+        exclude_fields = ("id", "resource_part_id", "vote_id")
 
     @classmethod
     @login_required

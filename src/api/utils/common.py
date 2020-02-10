@@ -18,6 +18,12 @@ def get_obj_or_none(model: Type[T], obj_id: int) -> Optional[T]:
 
 
 class TargetForm(forms.ModelForm):
+    comment_id = forms.IntegerField(required=False)
+    course_id = forms.IntegerField(required=False)
+    resource_id = forms.IntegerField(required=False)
+    resource_part_id = forms.IntegerField(required=False)
+    vote_id = forms.IntegerField(required=True)
+
     @staticmethod
     def get_target(
         targets: Dict[str, Optional[int]]

@@ -22,7 +22,7 @@ class TargetForm(forms.ModelForm):
     course_id = forms.IntegerField(required=False)
     resource_id = forms.IntegerField(required=False)
     resource_part_id = forms.IntegerField(required=False)
-    vote_id = forms.IntegerField(required=True)
+    vote_id = forms.IntegerField(required=False)
 
     @staticmethod
     def get_target(

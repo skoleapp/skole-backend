@@ -5,11 +5,6 @@ from app.models import Comment
 
 
 class CreateCommentForm(TargetForm):
-    course_id = forms.IntegerField(required=False)
-    resource_id = forms.IntegerField(required=False)
-    resource_part_id = forms.IntegerField(required=False)
-    comment_id = forms.IntegerField(required=False)
-
     class Meta:
         model = Comment
         fields = (

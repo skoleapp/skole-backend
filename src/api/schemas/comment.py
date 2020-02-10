@@ -57,7 +57,7 @@ class CommentObjectType(DjangoObjectType):
         )  # All foreign keys of the Comment were null.
 
     def resolve_vote_status(self, info: ResolveInfo) -> Optional[int]:
-        # Resolve current user's vote status if it exists.
+        """Resolve current user's vote status if it exists."""
 
         user = info.context.user
 

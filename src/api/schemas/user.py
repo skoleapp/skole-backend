@@ -19,7 +19,7 @@ from api.forms.user import (
     UpdateUserForm,
 )
 from api.utils.points import get_points_for_user
-from app.models import User, BetaCode
+from app.models import BetaCode, User
 
 
 class UserObjectType(DjangoObjectType):
@@ -85,7 +85,9 @@ class RegisterMutation(DjangoModelFormMutation):
         exclude_fields = ("id",)
 
     @classmethod
-    def perform_mutate(cls, form: RegisterForm, info: ResolveInfo) -> "RegisterMutation":
+    def perform_mutate(
+        cls, form: RegisterForm, info: ResolveInfo
+    ) -> "RegisterMutation":
         user = get_user_model().objects.create_user(
             email=form.cleaned_data["email"],
             username=form.cleaned_data["username"],

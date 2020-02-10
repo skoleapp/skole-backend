@@ -1,3 +1,4 @@
+from .beta_code import BetaCode
 from .city import City
 from .comment import Comment
 from .contact import Contact

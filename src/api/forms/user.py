@@ -5,14 +5,24 @@ from django.utils.translation import gettext as _
 from mypy.types import JsonDict
 
 from api.utils.messages import AUTH_ERROR_MESSAGE
+from app.models import BetaCode
 
 
 class RegisterForm(forms.ModelForm):
     password = forms.CharField(min_length=settings.PASSWORD_MIN_LENGTH)
+    code = forms.CharField(max_length=6)
 
     class Meta:
         model = get_user_model()
-        fields = ("username", "email", "password")
+        fields = ("username", "email", "password", "code")
+
+    def clean_code(self) -> BetaCode:
+        code = self.cleaned_data["code"]
+        try:
+            beta_code = BetaCode.objects.filter(user=None).get(code=code)
+        except BetaCode.DoesNotExist:
+            raise forms.ValidationError(_("Invalid beta register code."))
+        return beta_code
 
 
 class LoginForm(forms.ModelForm):

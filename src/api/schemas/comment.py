@@ -6,7 +6,7 @@ from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphql import GraphQLError, ResolveInfo
 from graphql_jwt.decorators import login_required
 
-from api.forms.comment import CreateCommentForm, UpdateCommentForm
+from api.forms.comment import CreateUpdateCommentForm
 from api.schemas.resource_part import ResourcePartObjectType
 from api.utils.common import get_obj_or_none
 from api.utils.messages import NOT_OWNER_MESSAGE
@@ -72,8 +72,8 @@ class CommentObjectType(DjangoObjectType):
 
 class CreateCommentMutation(DjangoModelFormMutation):
     class Meta:
-        form_class = CreateCommentForm
-        exclude_fields = ("id",)
+        form_class = CreateUpdateCommentForm
+        exclude_fields = ("id", "vote_id")
 
     @classmethod
     @login_required
@@ -93,8 +93,8 @@ class UpdateCommentMutation(DjangoModelFormMutation):
     comment = graphene.Field(CommentObjectType)
 
     class Meta:
-        form_class = UpdateCommentForm
-        exclude_fields = ("id",)
+        form_class = CreateUpdateCommentForm
+        exclude_fields = ("id", "vote_id")
 
     @classmethod
     @login_required

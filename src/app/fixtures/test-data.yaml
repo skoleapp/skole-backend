@@ -625,3 +625,50 @@
     email: ""
     user: 2
     message: "Message from a logged in user."
+
+
+- model: app.BetaCode
+  pk: 1
+  fields:
+    code: "ABC001"
+    user: null
+- model: app.BetaCode
+  pk: 2
+  fields:
+    code: "ABC002"
+    user: null
+- model: app.BetaCode
+  pk: 3
+  fields:
+    code: "ABC003"
+    user: null
+- model: app.BetaCode
+  pk: 4
+  fields:
+    code: "ABC004"
+    user: null
+- model: app.BetaCode
+  pk: 5
+  fields:
+    code: "ABC005"
+    user: null
+- model: app.BetaCode
+  pk: 6
+  fields:
+    code: "ABC006"
+    user: null
+- model: app.BetaCode
+  pk: 7
+  fields:
+    code: "ABC007"
+    user: null
+- model: app.BetaCode
+  pk: 8
+  fields:
+    code: "ABC008"
+    user: null
+- model: app.BetaCode
+  pk: 9
+  fields:
+    code: "ABC009"
+    user: null

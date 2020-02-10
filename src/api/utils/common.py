@@ -19,16 +19,18 @@ def get_obj_or_none(model: Type[T], obj_id: int) -> Optional[T]:
 
 class TargetForm(forms.ModelForm):
     @staticmethod
-    def get_target(targets: Dict[str, Optional[int]]) -> Union[Course, Comment, Resource, ResourcePart, Vote]:
-        if pk := targets["course_id"] is not None:
+    def get_target(
+        targets: Dict[str, Optional[int]]
+    ) -> Union[Course, Comment, Resource, ResourcePart, Vote]:
+        if pk := targets.get("course_id") is not None:
             return Course.objects.get(pk=pk)
-        elif pk := targets["comment_id"] is not None:
+        elif pk := targets.get("comment_id") is not None:
             return Comment.objects.get(pk=pk)
-        elif pk := targets["resource_id"] is not None:
+        elif pk := targets.get("resource_id") is not None:
             return Resource.objects.get(pk=pk)
-        elif pk := targets["resource_part_id"] is not None:
+        elif pk := targets.get("resource_part_id") is not None:
             return ResourcePart.objects.get(pk=pk)
-        elif pk := targets["vote_id"] is not None:
+        elif pk := targets.get("vote_id") is not None:
             return Vote.objects.get(pk=pk)
         else:
             raise AssertionError("Unexpected error.")  # Mutation target is null.

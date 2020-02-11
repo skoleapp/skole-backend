@@ -8,6 +8,7 @@ from graphql_jwt.decorators import login_required
 
 from api.forms.comment import CreateUpdateCommentForm
 from api.schemas.resource_part import ResourcePartObjectType
+from api.schemas.vote import VoteObjectType
 from api.utils.common import get_obj_or_none
 from api.utils.messages import NOT_OWNER_MESSAGE
 from api.utils.points import (
@@ -24,7 +25,7 @@ class CommentObjectType(DjangoObjectType):
     points = graphene.Int()
     resource_part = graphene.Field(ResourcePartObjectType)
     reply_count = graphene.Int()
-    vote_status = graphene.Int()
+    vote = graphene.Field(VoteObjectType)
 
     class Meta:
         model = Comment
@@ -56,8 +57,8 @@ class CommentObjectType(DjangoObjectType):
             "Unexpected error."
         )  # All foreign keys of the Comment were null.
 
-    def resolve_vote_status(self, info: ResolveInfo) -> Optional[int]:
-        """Resolve current user's vote status if it exists."""
+    def resolve_vote(self, info: ResolveInfo) -> Optional[int]:
+        """Resolve current user's vote if it exists."""
 
         user = info.context.user
 
@@ -65,7 +66,7 @@ class CommentObjectType(DjangoObjectType):
             return None
 
         try:
-            return user.votes.get(comment=self.pk).status
+            return user.votes.filter(comment=self.pk).first()
         except Vote.DoesNotExist:
             return None
 

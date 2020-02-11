@@ -1,5 +1,3 @@
-from django import forms
-
 from api.utils.common import TargetForm
 from app.models import Comment
 

@@ -6,7 +6,6 @@ from app.models import Vote
 
 class CreateVoteForm(TargetForm):
     status = forms.IntegerField()
-    vote_id = forms.IntegerField() # Override to make it required.
 
     class Meta:
         model = Vote

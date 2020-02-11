@@ -66,7 +66,7 @@ class CommentObjectType(DjangoObjectType):
             return None
 
         try:
-            return user.votes.filter(comment=self.pk).first()
+            return user.votes.get(comment=self.pk)
         except Vote.DoesNotExist:
             return None
 

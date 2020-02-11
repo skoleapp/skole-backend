@@ -9,7 +9,7 @@ from app.models import Comment, Course, Resource, ResourcePart, Vote
 T = TypeVar("T", bound=models.Model)
 
 
-def get_obj_or_none(model: Type[T], pk: int) -> Optional[T]:
+def get_obj_or_none(model: Type[T], pk: Optional[int]) -> Optional[T]:
     """Used as a helper function to return None instead of raising a GraphQLError."""
     try:
         return model.objects.get(pk=pk)
@@ -28,15 +28,15 @@ class TargetForm(forms.ModelForm):
         self, targets: Dict[str, Optional[int]]
     ) -> Union[Course, Comment, Resource, ResourcePart, Vote, None]:
         if pk := targets.get("course_id"):
-            return get_obj_or_none(Course, pk) # type: ignore[arg-type]
+            return get_obj_or_none(Course, pk)
         elif pk := targets.get("comment_id"):
-            return get_obj_or_none(Comment, pk) # type: ignore[arg-type]
+            return get_obj_or_none(Comment, pk)
         elif pk := targets.get("resource_id"):
-            return get_obj_or_none(Resource, pk) # type: ignore[arg-type]
+            return get_obj_or_none(Resource, pk)
         elif pk := targets.get("resource_part_id"):
-            return get_obj_or_none(ResourcePart, pk) # type: ignore[arg-type]
+            return get_obj_or_none(ResourcePart, pk)
         elif pk := targets.get("vote_id"):
-            return get_obj_or_none(Vote, pk) # type: ignore[arg-type]
+            return get_obj_or_none(Vote, pk)
         else:
             return None
 

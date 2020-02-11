@@ -78,7 +78,7 @@ class CreateCommentMutation(DjangoModelFormMutation):
     @classmethod
     @login_required
     def perform_mutate(
-        cls, form: CreateCommentForm, info: ResolveInfo
+        cls, form: CreateUpdateCommentForm, info: ResolveInfo
     ) -> "CreateCommentMutation":
         if file := info.context.FILES.get("1"):
             form.cleaned_data["attachment"] = file
@@ -99,7 +99,7 @@ class UpdateCommentMutation(DjangoModelFormMutation):
     @classmethod
     @login_required
     def perform_mutate(
-        cls, form: UpdateCommentForm, info: ResolveInfo
+        cls, form: CreateUpdateCommentForm, info: ResolveInfo
     ) -> "UpdateCommentMutation":
 
         comment = Comment.objects.get(pk=form.cleaned_data.pop("comment_id"))

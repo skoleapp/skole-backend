@@ -55,6 +55,9 @@ class UserManager(BaseUserManager):  # type: ignore[type-arg]
         user.save()
         return user
 
+    def get_queryset(self):
+        return super().get_queryset().filter(is_superuser=False)
+
 
 class User(AbstractBaseUser, PermissionsMixin):  # type: ignore[misc]
     """Models one user on the platform."""

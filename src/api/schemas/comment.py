@@ -21,7 +21,6 @@ from app.models import Comment, Course, Resource, ResourcePart, Vote
 
 
 class CommentObjectType(DjangoObjectType):
-    id = graphene.Int()
     points = graphene.Int()
     resource_part = graphene.Field(ResourcePartObjectType)
     reply_count = graphene.Int()
@@ -74,7 +73,7 @@ class CommentObjectType(DjangoObjectType):
 class CreateCommentMutation(DjangoModelFormMutation):
     class Meta:
         form_class = CreateUpdateCommentForm
-        exclude_fields = ("id", "vote_id")
+        exclude_fields = ("id",)
 
     @classmethod
     @login_required
@@ -95,15 +94,14 @@ class UpdateCommentMutation(DjangoModelFormMutation):
 
     class Meta:
         form_class = CreateUpdateCommentForm
-        exclude_fields = ("id", "vote_id")
+        exclude_fields = ("id", "vote")
 
     @classmethod
     @login_required
     def perform_mutate(
         cls, form: CreateUpdateCommentForm, info: ResolveInfo
     ) -> "UpdateCommentMutation":
-
-        comment = Comment.objects.get(pk=form.cleaned_data.pop("comment_id"))
+        comment = Comment.objects.get(pk=form.cleaned_data.pop("comment"))
 
         if comment.user != info.context.user:
             raise GraphQLError(NOT_OWNER_MESSAGE)
@@ -120,10 +118,10 @@ class UpdateCommentMutation(DjangoModelFormMutation):
 
 
 class Query(graphene.ObjectType):
-    comment = graphene.Field(CommentObjectType, comment_id=graphene.Int())
+    comment = graphene.Field(CommentObjectType, id=graphene.ID(required=True))
 
-    def resolve_comment(self, info: ResolveInfo, comment_id: int) -> Optional[Comment]:
-        return get_obj_or_none(Comment, comment_id)
+    def resolve_comment(self, info: ResolveInfo, id: int) -> Optional[Comment]:
+        return get_obj_or_none(Comment, id)
 
 
 class Mutation(graphene.ObjectType):

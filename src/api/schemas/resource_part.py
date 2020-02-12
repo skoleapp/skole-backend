@@ -20,6 +20,7 @@ class ResourcePartObjectType(DjangoObjectType):
 class CreateResourcePartMutation(DjangoModelFormMutation):
     class Meta:
         form_class = CreateResourcePartForm
+        exclude_fields = ("id",)
 
     @classmethod
     @login_required
@@ -28,7 +29,6 @@ class CreateResourcePartMutation(DjangoModelFormMutation):
     ) -> "CreateResourcePartMutation":
         # Replace the form file with the actual file from the context.
         form.cleaned_data["file"] = list(info.context.FILES.values())[0]
-
         resource_part = ResourcePart.objects.create(**form.cleaned_data)
         return cls(resource_part=resource_part)
 
@@ -48,9 +48,11 @@ class UpdateResourcePartMutation(DjangoModelFormMutation):
         instance = ResourcePart.objects.get(
             pk=form.cleaned_data.pop("resource_part_id")
         )
+
         resource_part = ResourcePart.objects.update(
             instance=instance, **form.cleaned_data
         )
+
         return cls(resource_part=resource_part)
 
 

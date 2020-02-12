@@ -18,12 +18,12 @@ from api.forms.user import (
     RegisterForm,
     UpdateUserForm,
 )
+from api.utils.common import get_obj_or_none
 from api.utils.points import get_points_for_user
 from app.models import BetaCode, User
 
 
 class UserObjectType(DjangoObjectType):
-    id = graphene.Int()
     email = graphene.String()
     avatar = graphene.String()
     avatar_thumbnail = graphene.String()
@@ -213,7 +213,7 @@ class Query(graphene.ObjectType):
     users = graphene.List(
         UserObjectType, username=graphene.String(), ordering=graphene.String()
     )
-    user = graphene.Field(UserObjectType, user_id=graphene.Int(required=True))
+    user = graphene.Field(UserObjectType, id=graphene.ID(required=True))
     user_me = graphene.Field(UserObjectType)
 
     def resolve_users(
@@ -222,7 +222,7 @@ class Query(graphene.ObjectType):
         username: Optional[str] = None,
         ordering: Optional[str] = None,
     ) -> Union["QuerySet[User]", List[User]]:
-        qs = get_user_model().objects.filter(is_superuser=False)
+        qs = get_user_model().objects.all()
 
         if username is not None:
             qs = qs.filter(username=username)
@@ -236,12 +236,8 @@ class Query(graphene.ObjectType):
 
         return qs
 
-    def resolve_user(self, info: ResolveInfo, user_id: int) -> Optional[User]:
-        try:
-            return get_user_model().objects.filter(is_superuser=False).get(pk=user_id)
-        except get_user_model().DoesNotExist:
-            # Return None instead of throwing a GraphQL Error.
-            return None
+    def resolve_user(self, info: ResolveInfo, id: int) -> Optional[User]:
+        return get_obj_or_none(get_user_model(), id)
 
     @login_required
     def resolve_user_me(self, info: ResolveInfo) -> User:

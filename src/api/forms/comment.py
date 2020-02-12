@@ -8,8 +8,8 @@ class CreateUpdateCommentForm(TargetForm):
         fields = (
             "text",
             "attachment",
-            "course_id",
-            "resource_id",
-            "resource_part_id",
-            "comment_id",
+            "course",
+            "resource",
+            "resource_part",
+            "comment",
         )

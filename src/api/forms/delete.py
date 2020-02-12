@@ -1,8 +1,8 @@
 from api.utils.common import TargetForm
-from app.utils.dummy_model import DummyModel
+from app.utils.delete_object_model import DeleteObjectModel
 
 
 class DeleteObjectForm(TargetForm):
     class Meta:
-        model = DummyModel
-        fields = ("comment_id", "resource_id", "resource_part_id", "vote_id")
+        model = DeleteObjectModel
+        fields = ("comment", "resource", "resource_part", "vote")

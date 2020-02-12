@@ -96,12 +96,12 @@ def query_users(test_cls: GraphQLTestCase) -> JsonDict:
     return test_cls.client.execute(query)
 
 
-def query_user(test_cls: GraphQLTestCase, id_: int = 1) -> JsonDict:
-    variables = {"id": id_}
+def query_user(test_cls: GraphQLTestCase, id: int = 1) -> JsonDict:
+    variables = {"id": id}
 
     query = """
-        query user($userId: Int!) {
-         user(id: $userId) {
+        query user($id: ID!) {
+         user(id: $id) {
            id
            username
            title

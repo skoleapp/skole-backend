@@ -21,6 +21,17 @@ class DeleteObjectMutation(DjangoModelFormMutation):
         cls, form: DeleteObjectForm, info: ResolveInfo
     ) -> "DeleteObjectMutation":
         obj = form.cleaned_data.get("target")
+
+        if obj.user != info.context.user:
+            return cls(
+                errors=[
+                    {
+                        "field": "__all__",
+                        "messages": [_("You are not the owner of this object!")],
+                    }
+                ]
+            )
+
         obj.delete()
         return cls(message=_("Object deleted successfully!"))
 

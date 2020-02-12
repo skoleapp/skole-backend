@@ -1,19 +1,18 @@
 import graphene
 from django.utils.translation import gettext as _
-from graphene_django.forms.mutation import DjangoModelFormMutation
+from graphene_django.forms.mutation import DjangoFormMutation
 from graphql import ResolveInfo
 from graphql_jwt.decorators import login_required
 
 from api.forms.delete import DeleteObjectForm
 
 
-class DeleteObjectMutation(DjangoModelFormMutation):
+# FIXME: This mutation currently returns all form fields (that are always null) but we only want to return the message.
+class DeleteObjectMutation(DjangoFormMutation):
     message = graphene.String()
 
     class Meta:
         form_class = DeleteObjectForm
-        exclude_fields = ("id",)
-        return_field_name = "message"
 
     @classmethod
     @login_required

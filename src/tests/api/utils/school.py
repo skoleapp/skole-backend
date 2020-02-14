@@ -17,12 +17,12 @@ def query_schools(test_cls: GraphQLTestCase) -> JsonDict:
     return test_cls.client.execute(query)
 
 
-def query_school(test_cls: GraphQLTestCase, school_id: int = 1) -> JsonDict:
-    variables = {"schoolId": school_id}
+def query_school(test_cls: GraphQLTestCase, id: int = 1) -> JsonDict:
+    variables = {"id": id}
 
     query = """
-        query school($schoolId: Int!) {
-          school(schoolId: $schoolId) {
+        query school($id: ID!) {
+          school(id: $id) {
             id
             name
             schoolType
@@ -47,12 +47,12 @@ def query_school_types(test_cls: GraphQLTestCase) -> JsonDict:
     return test_cls.client.execute(query)
 
 
-def query_school_type(test_cls: GraphQLTestCase, school_type_id: int) -> JsonDict:
-    variables = {"schoolTypeId": school_type_id}
+def query_school_type(test_cls: GraphQLTestCase, id: int) -> JsonDict:
+    variables = {"id": id}
 
     query = """
-        query schoolType($schoolTypeId: Int!) {
-          schoolType(schoolTypeId: $schoolTypeId) {
+        query schoolType($id: ID!) {
+          schoolType(id: $id) {
             id
             name
           }

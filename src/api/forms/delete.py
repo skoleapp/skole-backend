@@ -1,8 +1,9 @@
-from api.utils.common import TargetForm
-from app.utils.dummy_model import DummyModel
+from django import forms
+from graphene_django.forms import GlobalIDFormField
 
 
-class DeleteObjectForm(TargetForm):
-    class Meta:
-        model = DummyModel
-        fields = ("comment_id", "resource_id", "resource_part_id", "vote_id")
+class DeleteObjectForm(forms.Form):
+    comment = GlobalIDFormField(required=False)
+    resource = GlobalIDFormField(required=False)
+    resource_part = GlobalIDFormField(required=False)
+    vote = GlobalIDFormField(required=False)

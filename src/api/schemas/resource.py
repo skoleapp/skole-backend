@@ -15,7 +15,6 @@ from app.models import Resource
 
 
 class ResourceObjectType(DjangoObjectType):
-    id = graphene.Int()
     resource_type = graphene.String()
     points = graphene.Int()
     school = graphene.Field(SchoolObjectType)
@@ -66,7 +65,6 @@ class CreateResourceMutation(DjangoModelFormMutation):
 class UpdateResourceMutation(DjangoModelFormMutation):
     class Meta:
         form_class = UpdateResourceForm
-        exclude_fields = ("id",)
 
     @classmethod
     @login_required
@@ -88,14 +86,10 @@ class UpdateResourceMutation(DjangoModelFormMutation):
 
 
 class Query(graphene.ObjectType):
-    resource = graphene.Field(
-        ResourceObjectType, resource_id=graphene.Int(required=True)
-    )
+    resource = graphene.Field(ResourceObjectType, id=graphene.ID(required=True))
 
-    def resolve_resource(
-        self, info: ResolveInfo, resource_id: int
-    ) -> Optional[Resource]:
-        return get_obj_or_none(Resource, resource_id)
+    def resolve_resource(self, info: ResolveInfo, id: int) -> Optional[Resource]:
+        return get_obj_or_none(Resource, id)
 
 
 class Mutation(graphene.ObjectType):

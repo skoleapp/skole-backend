@@ -9,7 +9,6 @@ from app.models import Vote
 
 
 class VoteObjectType(DjangoObjectType):
-    id = graphene.Int()
     status = graphene.Int()
 
     class Meta:
@@ -20,7 +19,7 @@ class VoteObjectType(DjangoObjectType):
 class CreateVoteMutation(DjangoModelFormMutation):
     class Meta:
         form_class = CreateVoteForm
-        exclude_fields = ("id", "resource_part_id", "vote_id")
+        exclude_fields = ("id",)
 
     @classmethod
     @login_required

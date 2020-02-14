@@ -17,10 +17,10 @@ class CityObjectType(DjangoObjectType):
 
 class Query(graphene.ObjectType):
     cities = graphene.List(CityObjectType)
-    city = graphene.Field(CityObjectType, city_id=graphene.Int())
+    city = graphene.Field(CityObjectType, id=graphene.ID(required=True))
 
     def resolve_cities(self, info: ResolveInfo) -> "QuerySet[City]":
         return City.objects.order_by("name")
 
-    def resolve_city(self, info: ResolveInfo, city_id: int) -> Optional[City]:
-        return get_obj_or_none(City, city_id)
+    def resolve_city(self, info: ResolveInfo, id: int) -> Optional[City]:
+        return get_obj_or_none(City, id)

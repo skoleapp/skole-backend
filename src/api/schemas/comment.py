@@ -8,6 +8,7 @@ from graphql_jwt.decorators import login_required
 
 from api.forms.comment import CreateUpdateCommentForm
 from api.schemas.resource_part import ResourcePartObjectType
+from api.schemas.vote import VoteObjectType
 from api.utils.common import get_obj_or_none
 from api.utils.messages import NOT_OWNER_MESSAGE
 from api.utils.points import (
@@ -20,11 +21,10 @@ from app.models import Comment, Course, Resource, ResourcePart, Vote
 
 
 class CommentObjectType(DjangoObjectType):
-    id = graphene.Int()
     points = graphene.Int()
     resource_part = graphene.Field(ResourcePartObjectType)
     reply_count = graphene.Int()
-    vote_status = graphene.Int()
+    vote = graphene.Field(VoteObjectType)
 
     class Meta:
         model = Comment
@@ -56,8 +56,8 @@ class CommentObjectType(DjangoObjectType):
             "Unexpected error."
         )  # All foreign keys of the Comment were null.
 
-    def resolve_vote_status(self, info: ResolveInfo) -> Optional[int]:
-        """Resolve current user's vote status if it exists."""
+    def resolve_vote(self, info: ResolveInfo) -> Optional[int]:
+        """Resolve current user's vote if it exists."""
 
         user = info.context.user
 
@@ -65,7 +65,7 @@ class CommentObjectType(DjangoObjectType):
             return None
 
         try:
-            return user.votes.get(comment=self.pk).status
+            return user.votes.get(comment=self.pk)
         except Vote.DoesNotExist:
             return None
 
@@ -73,12 +73,12 @@ class CommentObjectType(DjangoObjectType):
 class CreateCommentMutation(DjangoModelFormMutation):
     class Meta:
         form_class = CreateUpdateCommentForm
-        exclude_fields = ("id", "vote_id")
+        exclude_fields = ("id",)
 
     @classmethod
     @login_required
     def perform_mutate(
-        cls, form: CreateCommentForm, info: ResolveInfo
+        cls, form: CreateUpdateCommentForm, info: ResolveInfo
     ) -> "CreateCommentMutation":
         if file := info.context.FILES.get("1"):
             form.cleaned_data["attachment"] = file
@@ -94,15 +94,14 @@ class UpdateCommentMutation(DjangoModelFormMutation):
 
     class Meta:
         form_class = CreateUpdateCommentForm
-        exclude_fields = ("id", "vote_id")
+        exclude_fields = ("id", "vote")
 
     @classmethod
     @login_required
     def perform_mutate(
-        cls, form: UpdateCommentForm, info: ResolveInfo
+        cls, form: CreateUpdateCommentForm, info: ResolveInfo
     ) -> "UpdateCommentMutation":
-
-        comment = Comment.objects.get(pk=form.cleaned_data.pop("comment_id"))
+        comment = Comment.objects.get(pk=form.cleaned_data.pop("comment"))
 
         if comment.user != info.context.user:
             raise GraphQLError(NOT_OWNER_MESSAGE)
@@ -119,10 +118,10 @@ class UpdateCommentMutation(DjangoModelFormMutation):
 
 
 class Query(graphene.ObjectType):
-    comment = graphene.Field(CommentObjectType, comment_id=graphene.Int())
+    comment = graphene.Field(CommentObjectType, id=graphene.ID(required=True))
 
-    def resolve_comment(self, info: ResolveInfo, comment_id: int) -> Optional[Comment]:
-        return get_obj_or_none(Comment, comment_id)
+    def resolve_comment(self, info: ResolveInfo, id: int) -> Optional[Comment]:
+        return get_obj_or_none(Comment, id)
 
 
 class Mutation(graphene.ObjectType):

@@ -7,6 +7,7 @@ import api.schemas.country
 import api.schemas.course
 import api.schemas.delete
 import api.schemas.resource
+import api.schemas.resource_part
 import api.schemas.resource_type
 import api.schemas.school
 import api.schemas.school_type
@@ -36,6 +37,7 @@ class Mutation(
     api.schemas.course.Mutation,
     api.schemas.delete.Mutation,
     api.schemas.resource.Mutation,
+    api.schemas.resource_part.Mutation,
     api.schemas.user.Mutation,
     api.schemas.vote.Mutation,
 ):

@@ -28,10 +28,10 @@ class SchoolObjectType(DjangoObjectType):
 
 class Query(graphene.ObjectType):
     schools = graphene.List(SchoolObjectType)
-    school = graphene.Field(SchoolObjectType, school_id=graphene.Int())
+    school = graphene.Field(SchoolObjectType, id=graphene.ID(required=True))
 
     def resolve_schools(self, info: ResolveInfo) -> "QuerySet[School]":
         return School.objects.order_by("name")
 
-    def resolve_school(self, info: ResolveInfo, school_id: int) -> Optional[School]:
-        return get_obj_or_none(School, school_id)
+    def resolve_school(self, info: ResolveInfo, id: int) -> Optional[School]:
+        return get_obj_or_none(School, id)

@@ -14,7 +14,6 @@ from app.models import Course
 
 
 class CourseObjectType(DjangoObjectType):
-    id = graphene.Int()
     points = graphene.Int()
     resource_count = graphene.Int()
 
@@ -58,25 +57,25 @@ class Query(graphene.ObjectType):
         CourseObjectType,
         course_name=graphene.String(),
         course_code=graphene.String(),
-        subject_id=graphene.Int(),
-        school_id=graphene.Int(),
-        school_type_id=graphene.Int(),
-        country_id=graphene.Int(),
-        city_id=graphene.Int(),
+        subject=graphene.ID(),
+        school=graphene.ID(),
+        school_type=graphene.ID(),
+        country=graphene.ID(),
+        city=graphene.ID(),
     )
 
-    course = graphene.Field(CourseObjectType, course_id=graphene.Int())
+    course = graphene.Field(CourseObjectType, id=graphene.ID(required=True))
 
     def resolve_courses(
         self,
         info: ResolveInfo,
         course_name: Optional[str] = None,
         course_code: Optional[str] = None,
-        subject_id: Optional[int] = None,
-        school_id: Optional[int] = None,
-        school_type_id: Optional[int] = None,
-        country_id: Optional[int] = None,
-        city_id: Optional[int] = None,
+        subject: Optional[int] = None,
+        school: Optional[int] = None,
+        school_type: Optional[int] = None,
+        country: Optional[int] = None,
+        city: Optional[int] = None,
     ) -> "QuerySet[Course]":
         """Filter courses based on the query parameters."""
 
@@ -86,21 +85,21 @@ class Query(graphene.ObjectType):
             courses = courses.filter(name__icontains=course_name)
         if course_code is not None:
             courses = courses.filter(code__icontains=course_code)
-        if subject_id is not None:
-            courses = courses.filter(subject__pk=subject_id)
-        if school_id is not None:
-            courses = courses.filter(school__pk=school_id)
-        if school_type_id is not None:
-            courses = courses.filter(school__school_type__pk=school_type_id)
-        if country_id is not None:
-            courses = courses.filter(school__city__country__pk=country_id)
-        if city_id is not None:
-            courses = courses.filter(school__city__pk=city_id)
+        if subject is not None:
+            courses = courses.filter(subject__pk=subject)
+        if school is not None:
+            courses = courses.filter(school__pk=school)
+        if school_type is not None:
+            courses = courses.filter(school__school_type__pk=school_type)
+        if country is not None:
+            courses = courses.filter(school__city__country__pk=country)
+        if city is not None:
+            courses = courses.filter(school__city__pk=city)
 
         return courses
 
-    def resolve_course(self, info: ResolveInfo, course_id: int) -> Optional[Course]:
-        return get_obj_or_none(Course, course_id)
+    def resolve_course(self, info: ResolveInfo, id: int) -> Optional[Course]:
+        return get_obj_or_none(Course, id)
 
 
 class Mutation(graphene.ObjectType):

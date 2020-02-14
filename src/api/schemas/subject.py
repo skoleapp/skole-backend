@@ -17,10 +17,10 @@ class SubjectObjectType(DjangoObjectType):
 
 class Query(graphene.ObjectType):
     subjects = graphene.List(SubjectObjectType)
-    subject = graphene.Field(SubjectObjectType, subject_id=graphene.Int())
+    subject = graphene.Field(SubjectObjectType, id=graphene.ID(required=True))
 
     def resolve_subjects(self, info: ResolveInfo) -> "QuerySet[Subject]":
         return Subject.objects.order_by("name")
 
-    def resolve_subject(self, info: ResolveInfo, subject_id: int) -> Optional[Subject]:
-        return get_obj_or_none(Subject, subject_id)
+    def resolve_subject(self, info: ResolveInfo, id: int) -> Optional[Subject]:
+        return get_obj_or_none(Subject, id)

@@ -20,7 +20,7 @@ class ResourceFileObjectType(DjangoObjectType):
         fields = ("id", "file")
 
     def resolve_file(self, info: ResolveInfo) -> str:
-        return f"media/{self.file}"
+        return f"media/{self.file}" if self.file else ""
 
 
 class ResourceObjectType(DjangoObjectType):

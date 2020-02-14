@@ -67,16 +67,10 @@ class UserObjectType(DjangoObjectType):
         return self.created_resources.count()
 
     def resolve_avatar(self, info: ResolveInfo) -> str:
-        if self.avatar:
-            return f"media/{self.avatar}"
-        else:
-            return self.avatar
+        return f"media/{self.avatar}" if self.avatar else ""
 
     def resolve_avatar_thumbnail(self, info: ResolveInfo) -> str:
-        if self.avatar_thumbnail:
-            return f"media/{self.avatar_thumbnail}"
-        else:
-            return self.avatar_thumbnail
+        return f"media/{self.avatar_thumbnail}" if self.avatar_thumbnail else ""
 
 
 class RegisterMutation(DjangoModelFormMutation):

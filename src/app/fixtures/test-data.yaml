@@ -267,35 +267,22 @@
     created: "2020-01-01 12:00:00.000000+00:00"
 
 
-- model: app.ResourcePartType
-  pk: 1
-  fields:
-    name: "Exercise"
-- model: app.ResourcePartType
-  pk: 2
-  fields:
-    name: "Note Part"
-
-
 - model: app.ResourcePart
   pk: 1
   fields:
     resource: 1
-    resource_part_type: 1
     title: "Multiple Choice"
     file: "media/uploads/resource_parts/sample_resource_part_1.jpg"
 - model: app.ResourcePart
   pk: 2
   fields:
     resource: 1
-    resource_part_type: 1
     title: "Concept Explanation"
     file: "media/uploads/resource_parts/sample_resource_part_2.png"
 - model: app.ResourcePart
   pk: 3
   fields:
     resource: 1
-    resource_part_type: 1
     title: "Essay"
     file: "media/uploads/resource_parts/sample_resource_part_3.png"
 
@@ -617,7 +604,6 @@
     email: "testfeedback@test.com"
     user: null
     message: "Hi!\nThis is a test message."
-
 - model: app.Contact
   pk: 2
   fields:

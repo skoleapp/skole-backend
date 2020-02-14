@@ -3,7 +3,7 @@ from graphene_django.forms import GlobalIDFormField
 
 
 class DeleteObjectForm(forms.Form):
-    comment = GlobalIDFormField()
-    resource = GlobalIDFormField()
-    resource_part = GlobalIDFormField()
-    vote = GlobalIDFormField()
+    comment = GlobalIDFormField(required=False)
+    resource = GlobalIDFormField(required=False)
+    resource_part = GlobalIDFormField(required=False)
+    vote = GlobalIDFormField(required=False)

@@ -20,7 +20,6 @@ class DeleteObjectMutation(DjangoFormMutation):
         cls, form: DeleteObjectForm, info: ResolveInfo
     ) -> "DeleteObjectMutation":
         obj = form.cleaned_data.get("target")
-
         if obj.user != info.context.user:
             return cls(
                 errors=[

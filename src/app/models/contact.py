@@ -29,7 +29,7 @@ class Contact(models.Model):
     contact_type = models.ForeignKey(
         ContactType, on_delete=models.PROTECT, related_name="contacts"
     )
-    email = models.EmailField(unique=True, blank=True)
+    email = models.EmailField(unique=False, blank=True)
     user = models.ForeignKey(
         User, on_delete=models.SET_NULL, related_name="contacts", null=True
     )
@@ -38,4 +38,4 @@ class Contact(models.Model):
     objects = ContactManager()
 
     def __str__(self) -> str:
-        return f"Contact by {self.email}, type: {self.contact_type}"
+        return f"Contact by {self.email or 'no-email'}, type: {self.contact_type}"

@@ -617,7 +617,6 @@
     email: "testfeedback@test.com"
     user: null
     message: "Hi!\nThis is a test message."
-
 - model: app.Contact
   pk: 2
   fields:

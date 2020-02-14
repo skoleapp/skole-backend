@@ -7,7 +7,6 @@ from graphql import GraphQLError, ResolveInfo
 from graphql_jwt.decorators import login_required
 
 from api.forms.comment import CreateUpdateCommentForm
-from api.schemas.resource_part import ResourcePartObjectType
 from api.schemas.vote import VoteObjectType
 from api.utils.common import get_obj_or_none
 from api.utils.messages import NOT_OWNER_MESSAGE
@@ -17,12 +16,11 @@ from api.utils.points import (
     POINTS_RESOURCE_COMMENT_MULTIPLIER,
     get_points_for_target,
 )
-from app.models import Comment, Course, Resource, ResourcePart, Vote
+from app.models import Comment, Course, Resource, ResourceFile, Vote
 
 
 class CommentObjectType(DjangoObjectType):
     points = graphene.Int()
-    resource_part = graphene.Field(ResourcePartObjectType)
     reply_count = graphene.Int()
     vote = graphene.Field(VoteObjectType)
 
@@ -35,7 +33,6 @@ class CommentObjectType(DjangoObjectType):
             "attachment",
             "course",
             "resource",
-            "resource_part",
             "comment",
             "reply_comments",
             "reply_count",
@@ -47,8 +44,6 @@ class CommentObjectType(DjangoObjectType):
         if self.course is not None:
             return get_points_for_target(self, POINTS_COURSE_COMMENT_MULTIPLIER)
         if self.resource is not None:
-            return get_points_for_target(self, POINTS_RESOURCE_COMMENT_MULTIPLIER)
-        if self.resource_part is not None:
             return get_points_for_target(self, POINTS_RESOURCE_COMMENT_MULTIPLIER)
         if self.comment is not None:
             return get_points_for_target(self.comment, POINTS_COMMENT_REPLY_MULTIPLIER)

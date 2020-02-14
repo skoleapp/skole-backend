@@ -11,7 +11,16 @@ from api.schemas.school import SchoolObjectType
 from api.utils.common import get_obj_or_none
 from api.utils.messages import NOT_OWNER_MESSAGE
 from api.utils.points import POINTS_RESOURCE_MULTIPLIER, get_points_for_target
-from app.models import Resource
+from app.models import Resource, ResourceFile
+
+
+class ResourceFileObjectType(DjangoObjectType):
+    class Meta:
+        model = ResourceFile
+        fields = ("id", "file")
+
+    def resolve_file(self, info: ResolveInfo) -> str:
+        return f"media/{self.file}" if self.file else ""
 
 
 class ResourceObjectType(DjangoObjectType):
@@ -23,7 +32,7 @@ class ResourceObjectType(DjangoObjectType):
         model = Resource
         fields = (
             "id",
-            "resource_parts",
+            "resource_files",
             "title",
             "date",
             "course",

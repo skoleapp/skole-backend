@@ -10,6 +10,5 @@ class CreateUpdateCommentForm(TargetForm):
             "attachment",
             "course",
             "resource",
-            "resource_part",
             "comment",
         )

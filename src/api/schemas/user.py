@@ -73,7 +73,7 @@ class UserObjectType(DjangoObjectType):
             return self.avatar
 
     def resolve_avatar_thumbnail(self, info: ResolveInfo) -> str:
-        if not self.avatar_thumbnail:
+        if self.avatar_thumbnail:
             return f"media/{self.avatar_thumbnail}"
         else:
             return self.avatar_thumbnail

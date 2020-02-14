@@ -10,7 +10,7 @@ class CreateResourcePartForm(forms.ModelForm):
 
     class Meta:
         model = ResourcePart
-        fields = ("resource", "resource_part_type", "title", "file")
+        fields = ("resource", "title", "file")
 
 
 class UpdateResourcePartForm(forms.ModelForm):
@@ -20,4 +20,4 @@ class UpdateResourcePartForm(forms.ModelForm):
 
     class Meta:
         model = ResourcePart
-        fields = ("id", "resource_part_type", "title", "file")
+        fields = ("id", "title", "file")

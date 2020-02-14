@@ -34,5 +34,5 @@ def test_manager_create_bad_contact(db: fixture) -> None:
 
     with pytest.raises(TypeError):
         Contact.objects.create_contact(
-            contact_type=feedback_type, message="Sending some feedback", user_or_email=1
+            contact_type=feedback_type, message="Sending some feedback", user_or_email=1  # type: ignore[arg-type]
         )

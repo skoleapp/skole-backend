@@ -5,7 +5,7 @@ from django.db import models
 from django.db.models.query import QuerySet
 
 from .course import Course
-from .resource import Resource, ResourcePart
+from .resource import Resource
 from .user import User
 
 
@@ -15,14 +15,12 @@ class CommentManager(models.Manager):  # type: ignore[type-arg]
         user: User,
         text: str,
         attachment: Optional[UploadedFile],
-        target: Union[Course, Resource, ResourcePart, "Comment"],
+        target: Union[Course, Resource, "Comment"],
     ) -> "Comment":
         if isinstance(target, Course):
             comment = self.model(course=target)
         elif isinstance(target, Resource):
             comment = self.model(resource=target)
-        elif isinstance(target, ResourcePart):
-            comment = self.model(resource_part=target)
         elif isinstance(target, Comment):
             comment = self.model(comment=target)
         else:
@@ -64,13 +62,6 @@ class Comment(models.Model):
     )
     resource = models.ForeignKey(
         Resource,
-        on_delete=models.CASCADE,
-        null=True,
-        blank=True,
-        related_name="comments",
-    )
-    resource_part = models.ForeignKey(
-        ResourcePart,
         on_delete=models.CASCADE,
         null=True,
         blank=True,

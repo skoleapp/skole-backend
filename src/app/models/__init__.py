@@ -6,7 +6,7 @@ from .contact_type import ContactType
 from .country import Country
 from .course import Course
 from .resource import Resource
-from .resource_part import ResourcePart
+from .resource_part import ResourceFile
 from .resource_type import ResourceType
 from .school import School
 from .school_type import SchoolType

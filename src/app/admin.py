@@ -6,7 +6,7 @@ from app.models import (
     Country,
     Course,
     Resource,
-    ResourcePart,
+    ResourceFile,
     ResourceType,
     School,
     SchoolType,
@@ -17,7 +17,7 @@ admin.site.register(Country)
 admin.site.register(Course)
 admin.site.register(Resource)
 admin.site.register(ResourceType)
-admin.site.register(ResourcePart)
+admin.site.register(ResourceFile)
 admin.site.register(School)
 admin.site.register(SchoolType)
 admin.site.register(get_user_model())

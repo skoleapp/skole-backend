@@ -267,24 +267,21 @@
     created: "2020-01-01 12:00:00.000000+00:00"
 
 
-- model: app.ResourcePart
+- model: app.ResourceFile
   pk: 1
   fields:
     resource: 1
-    title: "Multiple Choice"
-    file: "media/uploads/resource_parts/sample_resource_part_1.jpg"
-- model: app.ResourcePart
+    file: "media/uploads/resource_files/sample_resource_file_1.jpg"
+- model: app.ResourceFile
   pk: 2
   fields:
     resource: 1
-    title: "Concept Explanation"
-    file: "media/uploads/resource_parts/sample_resource_part_2.png"
-- model: app.ResourcePart
+    file: "media/uploads/resource_files/sample_resource_file_2.png"
+- model: app.ResourceFile
   pk: 3
   fields:
     resource: 1
-    title: "Essay"
-    file: "media/uploads/resource_parts/sample_resource_part_3.png"
+    file: "media/uploads/resource_files/sample_resource_file_3.png"
 
 
 - model: app.Comment
@@ -293,7 +290,6 @@
     text: "Starting comment for the thread on a resource."
     attachment: "media/uploads/comment_attachments/test_file.txt"
     resource: 1
-    resource_part: null
     course: null
     comment: null
     user: 2
@@ -305,7 +301,6 @@
     text: "Second comment of the thread."
     attachment: ""
     resource: 1
-    resource_part: null
     course: null
     comment: null
     user: 3
@@ -317,7 +312,6 @@
     text: "Third comment of the thread."
     attachment: ""
     resource: 1
-    resource_part: null
     course: null
     comment: null
     user: 2
@@ -329,7 +323,6 @@
     text: "Comment 1 to a course"
     attachment: ""
     resource: null
-    resource_part: null
     course: 1
     comment: null
     user: 2
@@ -341,7 +334,6 @@
     text: "Comment 2 to a course"
     attachment: ""
     resource: null
-    resource_part: null
     course: 1
     comment: null
     user: 2
@@ -353,7 +345,6 @@
     text: "Comment 3 to a course"
     attachment: ""
     resource: null
-    resource_part: null
     course: 1
     comment: null
     user: 2
@@ -365,7 +356,6 @@
     text: "Comment 4 to a course"
     attachment: ""
     resource: null
-    resource_part: null
     course: 1
     comment: null
     user: 2
@@ -377,7 +367,6 @@
     text: "Comment 5 to a course"
     attachment: ""
     resource: null
-    resource_part: null
     course: 1
     comment: null
     user: 2
@@ -389,7 +378,6 @@
     text: "Comment 6 to a course"
     attachment: ""
     resource: null
-    resource_part: null
     course: 1
     comment: null
     user: 2
@@ -401,7 +389,6 @@
     text: "Comment 7 to a course"
     attachment: ""
     resource: null
-    resource_part: null
     course: 1
     comment: null
     user: 2
@@ -413,7 +400,6 @@
     text: "Comment 8 to a course"
     attachment: ""
     resource: null
-    resource_part: null
     course: 1
     comment: null
     user: 2
@@ -425,7 +411,6 @@
     text: "First reply to a comment."
     attachment: ""
     resource: null
-    resource_part: null
     course: null
     comment: 4
     user: 2
@@ -437,7 +422,6 @@
     text: "Second reply to a comment."
     attachment: ""
     resource: null
-    resource_part: null
     course: null
     comment: 4
     user: 2
@@ -449,7 +433,6 @@
     text: "Third reply to a comment."
     attachment: ""
     resource: null
-    resource_part: null
     course: null
     comment: 4
     user: 2
@@ -461,7 +444,6 @@
     text: "4th reply to a comment."
     attachment: ""
     resource: null
-    resource_part: null
     course: null
     comment: 4
     user: 2
@@ -473,7 +455,6 @@
     text: "5th reply to a comment."
     attachment: ""
     resource: null
-    resource_part: null
     course: null
     comment: 4
     user: 2
@@ -485,7 +466,6 @@
     text: "6th reply to a comment."
     attachment: ""
     resource: null
-    resource_part: null
     course: null
     comment: 4
     user: 2
@@ -497,7 +477,6 @@
     text: "7th reply to a comment."
     attachment: ""
     resource: null
-    resource_part: null
     course: null
     comment: 4
     user: 2
@@ -509,7 +488,6 @@
     text: "8th reply to a comment."
     attachment: ""
     resource: null
-    resource_part: null
     course: null
     comment: 4
     user: 2
@@ -521,19 +499,6 @@
     text: "9th reply to a comment."
     attachment: ""
     resource: null
-    resource_part: null
-    course: null
-    comment: 4
-    user: 2
-    modified: "2020-01-01 12:00:00.000000+00:00"
-    created: "2020-01-01 12:00:00.000000+00:00"
-- model: app.Comment
-  pk: 21
-  fields:
-    text: "10th reply to a comment."
-    attachment: ""
-    resource: null
-    resource_part: null
     course: null
     comment: 4
     user: 2
@@ -545,7 +510,6 @@
     text: "11th reply to a comment."
     attachment: ""
     resource: null
-    resource_part: null
     course: null
     comment: 4
     user: 2

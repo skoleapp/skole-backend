@@ -5,7 +5,7 @@ from django.core.files.uploadedfile import UploadedFile
 from django.db import models
 
 from .course import Course
-from .resource_part import ResourcePart
+from .resource_part import ResourceFile
 from .resource_type import ResourceType
 from .user import User
 
@@ -34,9 +34,7 @@ class ResourceManager(models.Manager):  # type: ignore[type-arg]
             # Automatically create resource parts based on amount of files provided.
 
             title = f"File {file}"  # File 1, File 2...
-            resource_part = ResourcePart.objects.create(
-                resource=resource, title=title, file=file
-            )
+            resource_part = ResourceFile.objects.create(resource=resource, file=file)
             resource_part.save()
 
         return resource

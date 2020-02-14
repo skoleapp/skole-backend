@@ -4,7 +4,7 @@ import pytest
 from django.core.files.uploadedfile import SimpleUploadedFile
 from pytest import fixture
 
-from app.models import Comment, Course, Resource, ResourcePart, User
+from app.models import Comment, Course, Resource, User
 
 
 def test_str(db: fixture) -> None:
@@ -23,7 +23,6 @@ def test_manager_create_ok(db: fixture, temp_media: fixture) -> None:
     targets = (
         Course.objects.get(pk=1),
         Resource.objects.get(pk=1),
-        ResourcePart.objects.get(pk=1),
         Comment.objects.get(pk=1),
     )
 
@@ -41,7 +40,7 @@ def test_manager_create_ok(db: fixture, temp_media: fixture) -> None:
         )
 
         # Check that only one foreign key reference is active.
-        for attr in ("course", "resource", "resource_part", "comment"):
+        for attr in ("course", "resource", "comment"):
             if target.__class__.__name__.lower() == attr.replace("_", ""):
                 assert getattr(comment, attr) == target
             else:

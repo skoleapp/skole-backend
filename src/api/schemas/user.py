@@ -66,18 +66,6 @@ class UserObjectType(DjangoObjectType):
     def resolve_resource_count(self, info: ResolveInfo) -> int:
         return self.created_resources.count()
 
-    def resolve_avatar(self, info: ResolveInfo) -> str:
-        if not self.avatar:
-            return "static/default_avatar.jpg"
-        else:
-            return f"media/{self.avatar}"
-
-    def resolve_avatar_thumbnail(self, info: ResolveInfo) -> str:
-        if not self.avatar_thumbnail:
-            return "static/default_avatar_thumbnail.jpg"
-        else:
-            return f"media/{self.avatar_thumbnail}"
-
 
 class RegisterMutation(DjangoModelFormMutation):
     class Meta:

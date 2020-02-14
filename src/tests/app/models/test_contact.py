@@ -1,3 +1,4 @@
+import pytest
 from pytest import fixture
 
 from app.models import Contact, ContactType, User
@@ -26,3 +27,12 @@ def test_manager_create_ok(db: fixture) -> None:
 
     assert Contact.objects.get(pk=3) == contact3
     assert Contact.objects.get(pk=4) == contact4
+
+
+def test_manager_create_bad_contact(db: fixture) -> None:
+    feedback_type = ContactType.objects.get(pk=1)
+
+    with pytest.raises(TypeError):
+        Contact.objects.create_contact(
+            contact_type=feedback_type, message="Sending some feedback", user_or_email=1
+        )

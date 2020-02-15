@@ -6,7 +6,4 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker
-      - run: >
-          docker-compose -f docker-compose.circleci.yml run --rm backend
-              sh -c "pwd && mypy src &&
-                     pytest --cov-report html --cov=src src/tests/"
+      - run: docker-compose -f docker-compose.circleci.yml run --rm backend sh -c "pwd && mypy src && pytest --cov-report html --cov=src src/tests/"

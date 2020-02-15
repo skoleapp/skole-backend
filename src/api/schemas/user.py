@@ -230,7 +230,9 @@ class Query(graphene.ObjectType):
 
         return qs
 
-    def resolve_user(self, info: ResolveInfo, id: Optional[int] = None) -> Optional[User]:
+    def resolve_user(
+        self, info: ResolveInfo, id: Optional[int] = None
+    ) -> Optional[User]:
         return get_obj_or_none(get_user_model(), id)
 
     @login_required

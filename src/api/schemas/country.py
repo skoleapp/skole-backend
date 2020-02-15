@@ -22,5 +22,7 @@ class Query(graphene.ObjectType):
     def resolve_countries(self, info: ResolveInfo) -> "QuerySet[Country]":
         return Country.objects.order_by("name")
 
-    def resolve_country(self, info: ResolveInfo, id: Optional[int] = None) -> Optional[Country]:
+    def resolve_country(
+        self, info: ResolveInfo, id: Optional[int] = None
+    ) -> Optional[Country]:
         return get_obj_or_none(Country, id)

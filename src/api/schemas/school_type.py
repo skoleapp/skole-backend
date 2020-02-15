@@ -22,5 +22,7 @@ class Query(graphene.ObjectType):
     def resolve_school_types(self, info: ResolveInfo) -> "QuerySet[SchoolType]":
         return SchoolType.objects.all()
 
-    def resolve_school_type(self, info: ResolveInfo, id: Optional[int] = None) -> Optional[SchoolType]:
+    def resolve_school_type(
+        self, info: ResolveInfo, id: Optional[int] = None
+    ) -> Optional[SchoolType]:
         return get_obj_or_none(SchoolType, id)

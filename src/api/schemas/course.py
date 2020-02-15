@@ -98,7 +98,9 @@ class Query(graphene.ObjectType):
 
         return courses
 
-    def resolve_course(self, info: ResolveInfo, id: Optional[int] = None) -> Optional[Course]:
+    def resolve_course(
+        self, info: ResolveInfo, id: Optional[int] = None
+    ) -> Optional[Course]:
         return get_obj_or_none(Course, id)
 
 

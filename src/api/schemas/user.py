@@ -235,7 +235,8 @@ class Query(graphene.ObjectType):
         self, info: ResolveInfo, id: Optional[int] = None
     ) -> Optional[User]:
         try:
-            return get_user_model().objects.filter(is_superuser=False).get(pk=id)
+            # ignore because get() doesn't like None, even if it doesn't error
+            return get_user_model().objects.filter(is_superuser=False).get(pk=id)  # type: ignore
         except User.DoesNotExist:
             return None
 

@@ -1,7 +1,8 @@
 import pytest
+from django.contrib.auth import get_user_model
 from pytest import fixture
 
-from app.models import Contact, ContactType, User
+from app.models import Contact, ContactType
 
 
 def test_str(db: fixture) -> None:
@@ -13,20 +14,25 @@ def test_str(db: fixture) -> None:
 
 
 def test_manager_create_ok(db: fixture) -> None:
-    feedback_type = ContactType.objects.get(pk=1)
+    contact_type = ContactType.objects.get(pk=1)
+    message = "Sending some feedback"
+    email = "some@email.com"
     contact3 = Contact.objects.create_contact(
-        contact_type=feedback_type,
-        message="Sending some feedback",
-        user_or_email="some@email.com",
+        contact_type=contact_type, message=message, user_or_email=email,
     )
+    assert contact3.contact_type == contact_type
+    assert contact3.message == message
+    assert contact3.user is None
+    assert contact3.email == email
 
-    user = User.objects.get(pk=2)
+    user = get_user_model().objects.get(pk=2)
     contact4 = Contact.objects.create_contact(
-        contact_type=feedback_type, message="Sending some feedback", user_or_email=user
+        contact_type=contact_type, message=message, user_or_email=user,
     )
-
-    assert Contact.objects.get(pk=3) == contact3
-    assert Contact.objects.get(pk=4) == contact4
+    assert contact4.contact_type == contact_type
+    assert contact4.message == message
+    assert contact4.user == user
+    assert contact4.email == ""
 
 
 def test_manager_create_bad_contact(db: fixture) -> None:

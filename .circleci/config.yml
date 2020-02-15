@@ -5,4 +5,6 @@
        - image: circleci/ruby:2.4.1
      steps:
        - checkout
+       - run: pwd
+       - run: ls
        - run: docker-compose run --rm backend sh -c "mypy src pytest --cov-report html --cov=src src/tests/"

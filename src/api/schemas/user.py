@@ -111,6 +111,7 @@ class LoginMutation(DjangoModelFormMutation):
         if form.is_valid():
             password = form.cleaned_data["password"]
             user = form.cleaned_data["user"]
+
             return cls.perform_mutate(
                 # @token_auth decorator changes the signature of perform_mutate to expect
                 # exactly these params.
@@ -216,7 +217,7 @@ class Query(graphene.ObjectType):
         username: Optional[str] = None,
         ordering: Optional[str] = None,
     ) -> Union["QuerySet[User]", List[User]]:
-        qs = get_user_model().objects.all()
+        qs = get_user_model().objects.filter(is_superuser=False)
 
         if username is not None:
             qs = qs.filter(username=username)
@@ -233,7 +234,10 @@ class Query(graphene.ObjectType):
     def resolve_user(
         self, info: ResolveInfo, id: Optional[int] = None
     ) -> Optional[User]:
-        return get_obj_or_none(get_user_model(), id)
+        try:
+            return get_user_model().objects.filter(is_superuser=False).get(pk=id)
+        except User.DoesNotExist:
+            return None
 
     @login_required
     def resolve_user_me(self, info: ResolveInfo) -> User:

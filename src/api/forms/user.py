@@ -49,6 +49,11 @@ class LoginForm(forms.ModelForm):
             if not user:
                 raise forms.ValidationError(AUTH_ERROR_MESSAGE, code="authentication")
 
+            if user.is_superuser:
+                raise forms.ValidationError(
+                    _("Cannot log in as superuser."), code="authentication"
+                )
+
             self.cleaned_data["user"] = user
             return self.cleaned_data
 

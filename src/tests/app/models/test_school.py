@@ -9,3 +9,18 @@ def test_str(db: fixture) -> None:
 
     school2 = School.objects.get(pk=2)
     assert str(school2) == "Aalto University"
+
+
+def test_subjects(db: fixture) -> None:
+    school = School.objects.get(pk=1)
+    assert school.subjects.first().name == "Computer Engineering"
+
+
+def test_subject_count(db: fixture) -> None:
+    school = School.objects.get(pk=1)
+    assert school.subject_count
+
+
+def test_course_count(db: fixture) -> None:
+    school = School.objects.get(pk=1)
+    assert school.course_count == 3

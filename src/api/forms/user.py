@@ -1,3 +1,5 @@
+from typing import cast
+
 from django import forms
 from django.conf import settings
 from django.contrib.auth import authenticate, get_user_model
@@ -5,7 +7,7 @@ from django.utils.translation import gettext as _
 from mypy.types import JsonDict
 
 from api.utils.messages import AUTH_ERROR_MESSAGE
-from app.models import BetaCode
+from app.models import BetaCode, User
 
 
 class RegisterForm(forms.ModelForm):
@@ -45,6 +47,7 @@ class LoginForm(forms.ModelForm):
             user = authenticate(
                 username=get_user_model().objects.get(**kwargs).email, password=password
             )
+            user = cast(User, user)
 
             if not user:
                 raise forms.ValidationError(AUTH_ERROR_MESSAGE, code="authentication")

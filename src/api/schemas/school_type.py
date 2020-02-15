@@ -17,10 +17,10 @@ class SchoolTypeObjectType(DjangoObjectType):
 
 class Query(graphene.ObjectType):
     school_types = graphene.List(SchoolTypeObjectType)
-    school_type = graphene.Field(SchoolTypeObjectType, id=graphene.ID(required=True))
+    school_type = graphene.Field(SchoolTypeObjectType, id=graphene.ID())
 
     def resolve_school_types(self, info: ResolveInfo) -> "QuerySet[SchoolType]":
         return SchoolType.objects.all()
 
-    def resolve_school_type(self, info: ResolveInfo, id: int) -> Optional[SchoolType]:
+    def resolve_school_type(self, info: ResolveInfo, id: Optional[int] = None) -> Optional[SchoolType]:
         return get_obj_or_none(SchoolType, id)

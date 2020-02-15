@@ -64,7 +64,7 @@ class Query(graphene.ObjectType):
         city=graphene.ID(),
     )
 
-    course = graphene.Field(CourseObjectType, id=graphene.ID(required=True))
+    course = graphene.Field(CourseObjectType, id=graphene.ID())
 
     def resolve_courses(
         self,
@@ -98,7 +98,7 @@ class Query(graphene.ObjectType):
 
         return courses
 
-    def resolve_course(self, info: ResolveInfo, id: int) -> Optional[Course]:
+    def resolve_course(self, info: ResolveInfo, id: Optional[int] = None) -> Optional[Course]:
         return get_obj_or_none(Course, id)
 
 

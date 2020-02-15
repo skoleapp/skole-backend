@@ -118,9 +118,9 @@ class UpdateCommentMutation(DjangoModelFormMutation):
 
 
 class Query(graphene.ObjectType):
-    comment = graphene.Field(CommentObjectType, id=graphene.ID(required=True))
+    comment = graphene.Field(CommentObjectType, id=graphene.ID())
 
-    def resolve_comment(self, info: ResolveInfo, id: int) -> Optional[Comment]:
+    def resolve_comment(self, info: ResolveInfo, id: Optional[int] = None) -> Optional[Comment]:
         return get_obj_or_none(Comment, id)
 
 

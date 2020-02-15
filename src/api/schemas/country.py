@@ -17,10 +17,10 @@ class CountryObjectType(DjangoObjectType):
 
 class Query(graphene.ObjectType):
     countries = graphene.List(CountryObjectType)
-    country = graphene.Field(CountryObjectType, id=graphene.ID(required=True))
+    country = graphene.Field(CountryObjectType, id=graphene.ID())
 
     def resolve_countries(self, info: ResolveInfo) -> "QuerySet[Country]":
         return Country.objects.order_by("name")
 
-    def resolve_country(self, info: ResolveInfo, id: int) -> Optional[Country]:
+    def resolve_country(self, info: ResolveInfo, id: Optional[int] = None) -> Optional[Country]:
         return get_obj_or_none(Country, id)

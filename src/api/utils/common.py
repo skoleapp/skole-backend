@@ -7,7 +7,7 @@ from django.utils.translation import gettext as _
 T = TypeVar("T", bound=models.Model)
 
 
-def get_obj_or_none(model: Type[T], pk: int) -> Optional[T]:
+def get_obj_or_none(model: Type[T], pk: Optional[int] = None) -> Optional[T]:
     """Used as a helper function to return None instead of raising a GraphQLError."""
     try:
         return model.objects.get(pk=pk)

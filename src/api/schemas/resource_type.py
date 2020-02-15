@@ -9,7 +9,7 @@ from app.models import ResourceType
 class ResourceTypeObjectType(DjangoObjectType):
     class Meta:
         model = ResourceType
-        fields = ("id", "name", "has_parts")
+        fields = ("id", "name")
 
 
 class Query(graphene.ObjectType):

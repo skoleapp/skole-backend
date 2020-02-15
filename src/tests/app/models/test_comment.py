@@ -1,10 +1,11 @@
 import re
 
 import pytest
+from django.contrib.auth import get_user_model
 from django.core.files.uploadedfile import SimpleUploadedFile
 from pytest import fixture
 
-from app.models import Comment, Course, Resource, User
+from app.models import Comment, Course, Resource
 
 
 def test_str(db: fixture) -> None:
@@ -16,7 +17,7 @@ def test_str(db: fixture) -> None:
 
 
 def test_manager_create_ok(db: fixture, temp_media: fixture) -> None:
-    user = User.objects.get(pk=2)
+    user = get_user_model().objects.get(pk=2)
     text = "A comment."
     attachment = SimpleUploadedFile("test_notes.txt", b"file contents")
 
@@ -48,9 +49,9 @@ def test_manager_create_ok(db: fixture, temp_media: fixture) -> None:
 
 
 def test_manager_create_bad_target(db: fixture) -> None:
-    user = User.objects.get(pk=2)
+    user = get_user_model().objects.get(pk=2)
     bad_target = user
     with pytest.raises(TypeError):
-        comment4 = Comment.objects.create_comment(
+        comment = Comment.objects.create_comment(
             user=user, text="foo", attachment=None, target=bad_target
         )

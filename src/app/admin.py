@@ -1,23 +1,7 @@
+from django.apps import apps
 from django.contrib import admin
-from django.contrib.auth import get_user_model
 
-from app.models import (
-    City,
-    Country,
-    Course,
-    Resource,
-    ResourceFile,
-    ResourceType,
-    School,
-    SchoolType,
-)
+app = apps.get_app_config("app")
 
-admin.site.register(City)
-admin.site.register(Country)
-admin.site.register(Course)
-admin.site.register(Resource)
-admin.site.register(ResourceType)
-admin.site.register(ResourceFile)
-admin.site.register(School)
-admin.site.register(SchoolType)
-admin.site.register(get_user_model())
+for model_name, model in app.models.items():
+    admin.site.register(model)

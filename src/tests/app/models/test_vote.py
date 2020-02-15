@@ -40,3 +40,12 @@ def test_manager_create_bad_target(db: fixture) -> None:
     bad_target = user
     with pytest.raises(TypeError):
         vote = Vote.objects.create_vote(user=user, status=1, target=bad_target)  # type: ignore[arg-type]
+
+
+def test_manager_update_ok(db: fixture) -> None:
+    comment = Comment.objects.get(pk=1)
+    text = "new text"
+    attachment = ""
+    Comment.objects.update_comment(comment, text=text, attachment=attachment)
+    assert comment.text == text
+    assert comment.attachment == attachment

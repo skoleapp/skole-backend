@@ -1,8 +1,0 @@
-- model: app.ResourcePartType
-  pk: 1
-  fields:
-    name: "Exercise"
-- model: app.ResourcePartType
-  pk: 2
-  fields:
-    name: "Note Part"

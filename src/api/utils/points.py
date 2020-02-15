@@ -39,7 +39,7 @@ def get_points_for_user(user: User) -> int:
     )
     points += aggregate(
         user.comments,
-        "resource_part__comments__votes__status",
+        "resource_file__comments__votes__status",
         POINTS_RESOURCE_COMMENT_MULTIPLIER,
     )
 

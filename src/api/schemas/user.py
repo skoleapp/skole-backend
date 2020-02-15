@@ -207,7 +207,7 @@ class Query(graphene.ObjectType):
     users = graphene.List(
         UserObjectType, username=graphene.String(), ordering=graphene.String()
     )
-    user = graphene.Field(UserObjectType, id=graphene.ID(required=True))
+    user = graphene.Field(UserObjectType, id=graphene.ID())
     user_me = graphene.Field(UserObjectType)
 
     def resolve_users(
@@ -230,7 +230,7 @@ class Query(graphene.ObjectType):
 
         return qs
 
-    def resolve_user(self, info: ResolveInfo, id: int) -> Optional[User]:
+    def resolve_user(self, info: ResolveInfo, id: Optional[int] = None) -> Optional[User]:
         return get_obj_or_none(get_user_model(), id)
 
     @login_required

@@ -95,9 +95,9 @@ class UpdateResourceMutation(DjangoModelFormMutation):
 
 
 class Query(graphene.ObjectType):
-    resource = graphene.Field(ResourceObjectType, id=graphene.ID(required=True))
+    resource = graphene.Field(ResourceObjectType, id=graphene.ID())
 
-    def resolve_resource(self, info: ResolveInfo, id: int) -> Optional[Resource]:
+    def resolve_resource(self, info: ResolveInfo, id: Optional[int] = None) -> Optional[Resource]:
         return get_obj_or_none(Resource, id)
 
 

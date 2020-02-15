@@ -52,3 +52,18 @@ def test_create_resource(db: fixture, temp_media: fixture) -> None:
         resource_type=resource_type, title=title, course=course, files=files, user=user,
     )
     assert resource2.date == current_date
+
+
+def test_update_resource(db: fixture) -> None:
+    resource = Resource.objects.get(pk=1)
+    resource_type = ResourceType.objects.get(pk=2)
+    title = "new title"
+    date = datetime.date(2099, 1, 1)
+
+    Resource.objects.update_resource(
+        resource=resource, resource_type=resource_type, title=title, date=date
+    )
+
+    assert resource.resource_type == resource_type
+    assert resource.title == title
+    assert resource.date == date

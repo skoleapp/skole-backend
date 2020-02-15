@@ -1,7 +1,8 @@
 import pytest
+from django.contrib.auth import get_user_model
 from pytest import fixture
 
-from app.models import Comment, Course, Resource, User, Vote
+from app.models import Comment, Course, Resource, Vote
 
 
 def test_str(db: fixture) -> None:
@@ -13,7 +14,7 @@ def test_str(db: fixture) -> None:
 
 
 def test_manager_create_ok(db: fixture) -> None:
-    user = User.objects.get(pk=2)
+    user = get_user_model().objects.get(pk=2)
     status = 1
 
     targets = (
@@ -36,7 +37,7 @@ def test_manager_create_ok(db: fixture) -> None:
 
 
 def test_manager_create_bad_target(db: fixture) -> None:
-    user = User.objects.get(pk=2)
+    user = get_user_model().objects.get(pk=2)
     bad_target = user
     with pytest.raises(TypeError):
         vote = Vote.objects.create_vote(user=user, status=1, target=bad_target)  # type: ignore[arg-type]

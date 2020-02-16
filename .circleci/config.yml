@@ -6,4 +6,7 @@ jobs:
       image: ubuntu-1604:201903-01 
     steps:
       - checkout
-      - run: docker-compose -f docker-compose.circleci.yml run --rm backend sh -c "mypy src && pytest src/tests/"
+      - run: >
+          docker-compose -f docker-compose.circleci.yml run --rm backend sh -c \
+          "mypy src
+           pytest src/tests/"

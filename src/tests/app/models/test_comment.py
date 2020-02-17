@@ -55,3 +55,12 @@ def test_manager_create_bad_target(db: fixture) -> None:
         comment = Comment.objects.create_comment(
             user=user, text="foo", attachment=None, target=bad_target
         )
+
+
+def test_manager_update_ok(db: fixture) -> None:
+    comment = Comment.objects.get(pk=1)
+    text = "new text"
+    attachment = ""
+    Comment.objects.update_comment(comment, text=text, attachment=attachment)
+    assert comment.text == text
+    assert comment.attachment == attachment

@@ -1,4 +1,4 @@
-from typing import Union
+from typing import Union, Optional, Dict
 
 from django.db import models
 
@@ -11,23 +11,39 @@ from .user import User
 
 
 class VoteManager(models.Manager):  # type: ignore[type-arg]
-    def create_vote(
+    def perform_vote(
         self, user: User, status: int, target: Union[Comment, Course, Resource]
     ) -> "Vote":
+        """Automatically create a new vote or delete one if it already exists."""
+
         if isinstance(target, Comment):
-            vote = self.model(comment=target)
+            return self.check_existing_vote(user, status, comment=target)
         elif isinstance(target, Course):
-            vote = self.model(course=target)
+            return self.check_existing_vote(user, status, course=target)
         elif isinstance(target, Resource):
-            vote = self.model(resource=target)
+            return self.check_existing_vote(user, status, resource=target)
         else:
             raise TypeError(f"Invalid target type for Vote: {type(target)}")
 
-        vote.user = user
-        vote.status = status
 
-        vote.save()
-        return vote
+    def check_existing_vote(self, user: User, status: int, **target: Union[Comment, Course, Resource]) -> "Vote":
+        try:
+            vote = user.votes.get(**target) # type: ignore [attr-defined]
+
+            if vote.status == status:
+                vote.delete()
+                return None # type: ignore [return-value]
+
+            vote.status = status
+            vote.save()
+            return vote
+
+        except Vote.DoesNotExist:
+            vote = self.model(**target)
+            vote.user = user
+            vote.status = status
+            vote.save()
+            return vote
 
 
 class Vote(models.Model):

@@ -1,4 +1,4 @@
-from api.utils.common import TargetForm
+from api.utils.forms import DeleteObjectForm, TargetForm
 from app.models import Comment
 
 
@@ -12,3 +12,8 @@ class CreateUpdateCommentForm(TargetForm):
             "resource",
             "comment",
         )
+
+
+class DeleteCommentForm(DeleteObjectForm):
+    class Meta(DeleteObjectForm.Meta):
+        model = Comment

@@ -4,7 +4,8 @@ from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphql import ResolveInfo
 from graphql_jwt.decorators import login_required
 
-from api.forms.vote import CreateVoteForm
+from api.forms.vote import CreateVoteForm, DeleteVoteForm
+from api.utils.mixins import DeleteMutationMixin
 from app.models import Vote
 
 
@@ -30,5 +31,11 @@ class CreateVoteMutation(DjangoModelFormMutation):
         return cls(vote=vote)
 
 
+class DeleteVoteMutation(DeleteMutationMixin, DjangoModelFormMutation):
+    class Meta(DeleteMutationMixin.Meta):
+        form_class = DeleteVoteForm
+
+
 class Mutation(graphene.ObjectType):
     create_vote = CreateVoteMutation.Field()
+    delete_vote = DeleteVoteMutation.Field()

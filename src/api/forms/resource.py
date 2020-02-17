@@ -1,19 +1,19 @@
 from django import forms
 
+from api.utils.forms import DeleteObjectForm
 from app.models import Resource
 
 
-class CreateResourceForm(forms.ModelForm):
+class CreateUpdateResourceForm(forms.ModelForm):
     files = forms.FileField(
         widget=forms.FileInput(attrs={"multiple": True}), required=False  # type: ignore
     )
 
     class Meta:
         model = Resource
-        fields = ("title", "resource_type", "course", "date")
+        fields = ("id", "title", "resource_type", "course", "date")
 
 
-class UpdateResourceForm(forms.ModelForm):
-    class Meta:
+class DeleteResourceForm(DeleteObjectForm):
+    class Meta(DeleteObjectForm.Meta):
         model = Resource
-        fields = ("id", "title", "resource_type", "date")

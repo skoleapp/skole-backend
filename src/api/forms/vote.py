@@ -1,6 +1,6 @@
 from django import forms
 
-from api.utils.forms import DeleteObjectForm, TargetForm
+from api.utils.forms import TargetForm
 from app.models import Vote
 
 
@@ -15,8 +15,3 @@ class CreateVoteForm(TargetForm):
             "course",
             "resource",
         )
-
-
-class DeleteVoteForm(DeleteObjectForm):
-    class Meta(DeleteObjectForm.Meta):
-        model = Vote

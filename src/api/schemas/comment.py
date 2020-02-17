@@ -43,11 +43,11 @@ class CommentObjectType(DjangoObjectType):
 
     def resolve_points(self, info: ResolveInfo) -> int:
         if self.course is not None:
-            return get_points_for_target(self, POINTS_COURSE_COMMENT_MULTIPLIER)
+            return get_points_for_target(self.course)
         if self.resource is not None:
-            return get_points_for_target(self, POINTS_RESOURCE_COMMENT_MULTIPLIER)
+            return get_points_for_target(self.resource)
         if self.comment is not None:
-            return get_points_for_target(self.comment, POINTS_COMMENT_REPLY_MULTIPLIER)
+            return get_points_for_target(self.comment)
         raise AssertionError(
             "Unexpected error."
         )  # All foreign keys of the Comment were null.

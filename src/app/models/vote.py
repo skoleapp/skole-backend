@@ -1,7 +1,8 @@
-from typing import Union
+from typing import Optional, Tuple, Union
 
 from django.db import models
 
+from api.utils.points import get_points_for_target
 from app.utils.vote import VOTE_STATUS
 
 from .comment import Comment
@@ -13,27 +14,30 @@ from .user import User
 class VoteManager(models.Manager):  # type: ignore[type-arg]
     def perform_vote(
         self, user: User, status: int, target: Union[Comment, Course, Resource]
-    ) -> "Vote":
+    ) -> Tuple[Optional["Vote"], int]:
         """Automatically create a new vote or delete one if it already exists."""
 
         if isinstance(target, Comment):
-            return self.check_existing_vote(user, status, comment=target)
+            vote = self.check_existing_vote(user, status, comment=target)
         elif isinstance(target, Course):
-            return self.check_existing_vote(user, status, course=target)
+            vote = self.check_existing_vote(user, status, course=target)
         elif isinstance(target, Resource):
-            return self.check_existing_vote(user, status, resource=target)
+            vote = self.check_existing_vote(user, status, resource=target)
         else:
             raise TypeError(f"Invalid target type for Vote: {type(target)}")
 
+        target_points = get_points_for_target(target=target) # type: ignore [arg-type]
+        return vote, target_points
+
     def check_existing_vote(
         self, user: User, status: int, **target: Union[Comment, Course, Resource]
-    ) -> "Vote":
+    ) -> Optional["Vote"]:
         try:
             vote = user.votes.get(**target)  # type: ignore [attr-defined]
 
             if vote.status == status:
                 vote.delete()
-                return None  # type: ignore [return-value]
+                return None
 
             vote.status = status
             vote.save()

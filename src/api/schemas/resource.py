@@ -11,7 +11,7 @@ from api.schemas.school import SchoolObjectType
 from api.utils.common import get_obj_or_none
 from api.utils.messages import NOT_OWNER_MESSAGE
 from api.utils.mixins import DeleteMutationMixin
-from api.utils.points import POINTS_RESOURCE_MULTIPLIER, get_points_for_target
+from api.utils.points import get_points_for_target
 from app.models import Resource, ResourceFile
 
 
@@ -45,7 +45,7 @@ class ResourceObjectType(DjangoObjectType):
         )
 
     def resolve_points(self, info: ResolveInfo) -> int:
-        return get_points_for_target(self, POINTS_RESOURCE_MULTIPLIER)
+        return get_points_for_target(self)
 
     def resolve_school(self, info: ResolveInfo) -> str:
         return self.course.school

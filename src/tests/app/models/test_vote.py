@@ -20,13 +20,13 @@ def test_manager_create_ok(db: fixture) -> None:
     targets = (
         Course.objects.get(pk=1),
         Resource.objects.get(pk=1),
-        Comment.objects.get(pk=2), # Does not have votes.
+        Comment.objects.get(pk=2),  # Does not have votes.
     )
 
     for target in targets:
         vote, target_points = Vote.objects.perform_vote(user=user, status=status, target=target)  # type: ignore[arg-type]
-        assert vote.user == user # type: ignore [union-attr]
-        assert vote.status == status # type: ignore [union-attr]
+        assert vote.user == user  # type: ignore [union-attr]
+        assert vote.status == status  # type: ignore [union-attr]
         assert target_points == 1
 
         # Check that only one foreign key reference is active.
@@ -44,7 +44,7 @@ def test_manager_create_existing(db: fixture) -> None:
     targets = (
         Course.objects.get(pk=1),
         Resource.objects.get(pk=1),
-        Comment.objects.get(pk=2), # Does not have votes.
+        Comment.objects.get(pk=2),  # Does not have votes.
     )
 
     for target in targets:

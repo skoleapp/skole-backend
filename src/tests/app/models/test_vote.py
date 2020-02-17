@@ -54,9 +54,9 @@ def test_manager_create_existing(db: fixture) -> None:
         vote = Vote.objects.perform_vote(user=user, status=status, target=target)  # type: ignore[arg-type]
         assert vote == None
 
+
 def test_manager_create_bad_target(db: fixture) -> None:
     user = get_user_model().objects.get(pk=2)
     bad_target = user
     with pytest.raises(TypeError):
         vote = Vote.objects.perform_vote(user=user, status=1, target=bad_target)  # type: ignore[arg-type]
-

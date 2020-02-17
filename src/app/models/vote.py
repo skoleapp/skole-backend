@@ -1,4 +1,4 @@
-from typing import Union, Optional, Dict
+from typing import Union
 
 from django.db import models
 
@@ -25,14 +25,15 @@ class VoteManager(models.Manager):  # type: ignore[type-arg]
         else:
             raise TypeError(f"Invalid target type for Vote: {type(target)}")
 
-
-    def check_existing_vote(self, user: User, status: int, **target: Union[Comment, Course, Resource]) -> "Vote":
+    def check_existing_vote(
+        self, user: User, status: int, **target: Union[Comment, Course, Resource]
+    ) -> "Vote":
         try:
-            vote = user.votes.get(**target) # type: ignore [attr-defined]
+            vote = user.votes.get(**target)  # type: ignore [attr-defined]
 
             if vote.status == status:
                 vote.delete()
-                return None # type: ignore [return-value]
+                return None  # type: ignore [return-value]
 
             vote.status = status
             vote.save()

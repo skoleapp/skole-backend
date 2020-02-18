@@ -21,6 +21,9 @@ class TargetForm(forms.ModelForm):
             "vote": None,
         }
 
+        for i in targets.keys():
+            targets[i] = cleaned_data.pop(i, None)
+
         target_list = [target for target in targets.values() if target is not None]
 
         if len(target_list) != 1:

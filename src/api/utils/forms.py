@@ -21,16 +21,12 @@ class TargetForm(forms.ModelForm):
             "vote": None,
         }
 
-        for i in targets.keys():
-            targets[i] = cleaned_data.pop(i, None)
+        target_list = [target for target in targets.values() if target is not None]
 
-        if len([val for val in targets.values() if val is not None]) != 1:
+        if len(target_list) != 1:
             raise forms.ValidationError(_("Mutation contains too many targets!"))
 
-        # Place first not None item from targets dict as the cleaned target.
-        cleaned_data["target"] = next(
-            target for target in targets.values() if target is not None
-        )
+        cleaned_data["target"] = target_list[0]
         return cleaned_data
 
 

@@ -16,19 +16,21 @@ class VoteObjectType(DjangoObjectType):
         fields = ("id", "user", "status", "comment", "course", "resource")
 
 
-class CreateVoteMutation(DjangoModelFormMutation):
+class VoteMutation(DjangoModelFormMutation):
+    target_points = graphene.Int()
+
     class Meta:
         form_class = CreateVoteForm
         exclude_fields = ("id",)
 
     @classmethod
     @login_required
-    def perform_mutate(
-        cls, form: CreateVoteForm, info: ResolveInfo
-    ) -> "CreateVoteMutation":
-        vote = Vote.objects.create_vote(user=info.context.user, **form.cleaned_data)
-        return cls(vote=vote)
+    def perform_mutate(cls, form: CreateVoteForm, info: ResolveInfo) -> "VoteMutation":
+        vote, target_points = Vote.objects.perform_vote(
+            user=info.context.user, **form.cleaned_data
+        )
+        return cls(vote=vote, target_points=target_points)
 
 
 class Mutation(graphene.ObjectType):
-    create_vote = CreateVoteMutation.Field()
+    perform_vote = VoteMutation.Field()

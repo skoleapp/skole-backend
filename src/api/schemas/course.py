@@ -9,7 +9,7 @@ from graphql_jwt.decorators import login_required
 
 from api.forms.course import CreateCourseForm
 from api.utils.common import get_obj_or_none
-from api.utils.points import POINTS_COURSE_MULTIPLIER, get_points_for_target
+from api.utils.points import get_points_for_target
 from app.models import Course
 
 
@@ -33,7 +33,7 @@ class CourseObjectType(DjangoObjectType):
         )
 
     def resolve_points(self, info: ResolveInfo) -> int:
-        return get_points_for_target(self, POINTS_COURSE_MULTIPLIER)
+        return get_points_for_target(self)
 
 
 class CreateCourseMutation(DjangoModelFormMutation):

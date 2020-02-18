@@ -1,7 +1,8 @@
-from typing import Union
+from typing import Optional, Tuple, Union
 
 from django.db import models
 
+from api.utils.points import get_points_for_target
 from app.utils.vote import VOTE_STATUS
 
 from .comment import Comment
@@ -11,23 +12,43 @@ from .user import User
 
 
 class VoteManager(models.Manager):  # type: ignore[type-arg]
-    def create_vote(
+    def perform_vote(
         self, user: User, status: int, target: Union[Comment, Course, Resource]
-    ) -> "Vote":
+    ) -> Tuple[Optional["Vote"], int]:
+        """Automatically create a new vote or delete one if it already exists."""
+
         if isinstance(target, Comment):
-            vote = self.model(comment=target)
+            vote = self.check_existing_vote(user, status, comment=target)
         elif isinstance(target, Course):
-            vote = self.model(course=target)
+            vote = self.check_existing_vote(user, status, course=target)
         elif isinstance(target, Resource):
-            vote = self.model(resource=target)
+            vote = self.check_existing_vote(user, status, resource=target)
         else:
             raise TypeError(f"Invalid target type for Vote: {type(target)}")
 
-        vote.user = user
-        vote.status = status
+        target_points = get_points_for_target(target=target)  # type: ignore [arg-type]
+        return vote, target_points
 
-        vote.save()
-        return vote
+    def check_existing_vote(
+        self, user: User, status: int, **target: Union[Comment, Course, Resource]
+    ) -> Optional["Vote"]:
+        try:
+            vote = user.votes.get(**target)  # type: ignore [attr-defined]
+
+            if vote.status == status:
+                vote.delete()
+                return None
+
+            vote.status = status
+            vote.save()
+            return vote
+
+        except Vote.DoesNotExist:
+            vote = self.model(**target)
+            vote.user = user
+            vote.status = status
+            vote.save()
+            return vote
 
 
 class Vote(models.Model):

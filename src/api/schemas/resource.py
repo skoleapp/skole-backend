@@ -6,11 +6,12 @@ from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphql import ResolveInfo
 from graphql_jwt.decorators import login_required
 
-from api.forms.resource import CreateResourceForm, UpdateResourceForm
+from api.forms.resource import CreateUpdateResourceForm, DeleteResourceForm
 from api.schemas.school import SchoolObjectType
 from api.utils.common import get_obj_or_none
 from api.utils.messages import NOT_OWNER_MESSAGE
-from api.utils.points import POINTS_RESOURCE_MULTIPLIER, get_points_for_target
+from api.utils.mixins import DeleteMutationMixin
+from api.utils.points import get_points_for_target
 from app.models import Resource, ResourceFile
 
 
@@ -44,7 +45,7 @@ class ResourceObjectType(DjangoObjectType):
         )
 
     def resolve_points(self, info: ResolveInfo) -> int:
-        return get_points_for_target(self, POINTS_RESOURCE_MULTIPLIER)
+        return get_points_for_target(self)
 
     def resolve_school(self, info: ResolveInfo) -> str:
         return self.course.school
@@ -52,13 +53,13 @@ class ResourceObjectType(DjangoObjectType):
 
 class CreateResourceMutation(DjangoModelFormMutation):
     class Meta:
-        form_class = CreateResourceForm
+        form_class = CreateUpdateResourceForm
         exclude_fields = ("id",)
 
     @classmethod
     @login_required
     def perform_mutate(
-        cls, form: CreateResourceForm, info: ResolveInfo
+        cls, form: CreateUpdateResourceForm, info: ResolveInfo
     ) -> "CreateResourceMutation":
         """Replace the form files with the actual files from the context. The resource manager
         will then take care of automatically creating resource parts based on the files.
@@ -73,12 +74,13 @@ class CreateResourceMutation(DjangoModelFormMutation):
 
 class UpdateResourceMutation(DjangoModelFormMutation):
     class Meta:
-        form_class = UpdateResourceForm
+        form_class = CreateUpdateResourceForm
+        exclude_fields = ("course",)
 
     @classmethod
     @login_required
     def perform_mutate(
-        cls, form: UpdateResourceForm, info: ResolveInfo
+        cls, form: CreateUpdateResourceForm, info: ResolveInfo
     ) -> "UpdateResourceMutation":
 
         try:
@@ -94,6 +96,11 @@ class UpdateResourceMutation(DjangoModelFormMutation):
         return cls(resource=resource)
 
 
+class DeleteResourceMutation(DeleteMutationMixin, DjangoModelFormMutation):
+    class Meta(DeleteMutationMixin.Meta):
+        form_class = DeleteResourceForm
+
+
 class Query(graphene.ObjectType):
     resource = graphene.Field(ResourceObjectType, id=graphene.ID())
 
@@ -104,5 +111,6 @@ class Query(graphene.ObjectType):
 
 
 class Mutation(graphene.ObjectType):
-    upload_resource = CreateResourceMutation.Field()
+    create_resource = CreateResourceMutation.Field()
     update_resource = UpdateResourceMutation.Field()
+    delete_resource = DeleteResourceMutation.Field()

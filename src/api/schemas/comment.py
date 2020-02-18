@@ -6,10 +6,11 @@ from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphql import GraphQLError, ResolveInfo
 from graphql_jwt.decorators import login_required
 
-from api.forms.comment import CreateUpdateCommentForm
+from api.forms.comment import CreateUpdateCommentForm, DeleteCommentForm
 from api.schemas.vote import VoteObjectType
 from api.utils.common import get_obj_or_none
 from api.utils.messages import NOT_OWNER_MESSAGE
+from api.utils.mixins import DeleteMutationMixin
 from api.utils.points import (
     POINTS_COMMENT_REPLY_MULTIPLIER,
     POINTS_COURSE_COMMENT_MULTIPLIER,
@@ -42,11 +43,11 @@ class CommentObjectType(DjangoObjectType):
 
     def resolve_points(self, info: ResolveInfo) -> int:
         if self.course is not None:
-            return get_points_for_target(self, POINTS_COURSE_COMMENT_MULTIPLIER)
+            return get_points_for_target(self.course)
         if self.resource is not None:
-            return get_points_for_target(self, POINTS_RESOURCE_COMMENT_MULTIPLIER)
+            return get_points_for_target(self.resource)
         if self.comment is not None:
-            return get_points_for_target(self.comment, POINTS_COMMENT_REPLY_MULTIPLIER)
+            return get_points_for_target(self.comment)
         raise AssertionError(
             "Unexpected error."
         )  # All foreign keys of the Comment were null.
@@ -81,6 +82,7 @@ class CreateCommentMutation(DjangoModelFormMutation):
         comment = Comment.objects.create_comment(
             user=info.context.user, **form.cleaned_data
         )
+
         return cls(comment=comment)
 
 
@@ -89,7 +91,6 @@ class UpdateCommentMutation(DjangoModelFormMutation):
 
     class Meta:
         form_class = CreateUpdateCommentForm
-        exclude_fields = ("id", "vote")
 
     @classmethod
     @login_required
@@ -112,6 +113,11 @@ class UpdateCommentMutation(DjangoModelFormMutation):
         return cls(comment=comment)
 
 
+class DeleteCommentMutation(DeleteMutationMixin, DjangoModelFormMutation):
+    class Meta(DeleteMutationMixin.Meta):
+        form_class = DeleteCommentForm
+
+
 class Query(graphene.ObjectType):
     comment = graphene.Field(CommentObjectType, id=graphene.ID())
 
@@ -124,3 +130,4 @@ class Query(graphene.ObjectType):
 class Mutation(graphene.ObjectType):
     create_comment = CreateCommentMutation.Field()
     update_comment = UpdateCommentMutation.Field()
+    delete_comment = DeleteCommentMutation.Field()

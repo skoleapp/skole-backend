@@ -41,7 +41,14 @@ def get_points_for_user(user: User) -> int:
     return points
 
 
-def get_points_for_target(
-    target: Union[Comment, Course, Resource], multiplier: int
-) -> int:
+def get_points_for_target(target: Union[Comment, Course, Resource]) -> int:
+    if isinstance(target, Comment):
+        multiplier = POINTS_COMMENT_REPLY_MULTIPLIER
+    elif isinstance(target, Course):
+        multiplier = POINTS_COURSE_COMMENT_MULTIPLIER
+    elif isinstance(target, Resource):
+        multiplier = POINTS_RESOURCE_COMMENT_MULTIPLIER
+    else:
+        raise TypeError(f"Invalid target type for Vote: {type(target)}")
+
     return aggregate(target.votes, "status", multiplier)

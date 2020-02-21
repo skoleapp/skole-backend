@@ -576,45 +576,45 @@
 - model: app.BetaCode
   pk: 1
   fields:
-    code: "ABC001"
+    code: "ABC00001"
     user: null
 - model: app.BetaCode
   pk: 2
   fields:
-    code: "ABC002"
+    code: "ABC00002"
     user: null
 - model: app.BetaCode
   pk: 3
   fields:
-    code: "ABC003"
+    code: "ABC00003"
     user: null
 - model: app.BetaCode
   pk: 4
   fields:
-    code: "ABC004"
+    code: "ABC00004"
     user: null
 - model: app.BetaCode
   pk: 5
   fields:
-    code: "ABC005"
+    code: "ABC00005"
     user: null
 - model: app.BetaCode
   pk: 6
   fields:
-    code: "ABC006"
+    code: "ABC00006"
     user: null
 - model: app.BetaCode
   pk: 7
   fields:
-    code: "ABC007"
+    code: "ABC00007"
     user: null
 - model: app.BetaCode
   pk: 8
   fields:
-    code: "ABC008"
+    code: "ABC00008"
     user: null
 - model: app.BetaCode
   pk: 9
   fields:
-    code: "ABC009"
+    code: "ABC00009"
     user: null

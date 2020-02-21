@@ -12,7 +12,7 @@ from app.models import BetaCode, User
 
 class RegisterForm(forms.ModelForm):
     password = forms.CharField(min_length=settings.PASSWORD_MIN_LENGTH)
-    code = forms.CharField(max_length=6)
+    code = forms.CharField(max_length=8)
 
     class Meta:
         model = get_user_model()

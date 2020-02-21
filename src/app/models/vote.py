@@ -26,8 +26,7 @@ class VoteManager(models.Manager):  # type: ignore[type-arg]
         else:
             raise TypeError(f"Invalid target type for Vote: {type(target)}")
 
-        target_points = get_points_for_target(target=target)  # type: ignore [arg-type]
-        return vote, target_points
+        return vote, get_points_for_target(target)  # type: ignore [arg-type]
 
     def check_existing_vote(
         self, user: User, status: int, **target: Union[Comment, Course, Resource]

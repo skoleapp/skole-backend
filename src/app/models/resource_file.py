@@ -8,4 +8,5 @@ class ResourceFile(models.Model):
         "Resource", on_delete=models.CASCADE, related_name="resource_files"
     )
     file = models.FileField(
-        upload_to="uploads/resource_files", blank=True, max_length=500)
+        upload_to="uploads/resource_files", blank=True, max_length=500
+    )

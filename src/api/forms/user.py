@@ -50,8 +50,7 @@ class LoginForm(forms.ModelForm):
             user = cast(User, user)
 
             if not user:
-                raise forms.ValidationError(
-                    AUTH_ERROR_MESSAGE, code="authentication")
+                raise forms.ValidationError(AUTH_ERROR_MESSAGE, code="authentication")
 
             if user.is_superuser:
                 raise forms.ValidationError(
@@ -62,8 +61,7 @@ class LoginForm(forms.ModelForm):
             return self.cleaned_data
 
         except get_user_model().DoesNotExist:
-            raise forms.ValidationError(
-                AUTH_ERROR_MESSAGE, code="authentication")
+            raise forms.ValidationError(AUTH_ERROR_MESSAGE, code="authentication")
 
 
 class UpdateUserForm(forms.ModelForm):

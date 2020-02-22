@@ -103,24 +103,19 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
-    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator", },
-    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator", },
-    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator", },
+    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",},
+    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",},
+    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
 ]
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
-LANGUAGES = (
-    ('en-US', 'english'),
-    ('fi-FI', 'finnish')
-)
+LANGUAGES = (("en-US", "english"), ("fi-FI", "finnish"))
 
 LANGUAGES_CODE = "fi-FI"
 
-LOCALE_PATHS = [
-    os.path.join(BASE_DIR, "locale")
-]
+LOCALE_PATHS = [os.path.join(BASE_DIR, "locale")]
 
 
 TIME_ZONE = "UTC"
@@ -153,7 +148,7 @@ CORS_ALLOW_CREDENTIALS = True
 
 GRAPHENE = {
     "SCHEMA": "api.schemas.schema.schema",
-    "MIDDLEWARE": ["graphql_jwt.middleware.JSONWebTokenMiddleware", ],
+    "MIDDLEWARE": ["graphql_jwt.middleware.JSONWebTokenMiddleware",],
 }
 
 AUTHENTICATION_BACKENDS = [

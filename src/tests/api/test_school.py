@@ -1,3 +1,4 @@
+"""
 from graphene.test import Client
 from graphene_django.utils.testing import GraphQLTestCase
 
@@ -68,3 +69,4 @@ class SchoolAPITests(GraphQLTestCase):
         # Test that returns None when ID not found.
         res = query_school_type(self, 999)
         assert res["data"]["schoolType"] is None
+"""

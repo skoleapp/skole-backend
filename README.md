@@ -8,7 +8,6 @@
 - To create superuser, run `yarn create-superuser`.
 - To import test data, run `yarn import-test-data`.
 - To run tests and type checks, run `yarn test`.
-- To run linting, run `yarn lint`.
 
 ### To enable pre-commit hooks locally
 

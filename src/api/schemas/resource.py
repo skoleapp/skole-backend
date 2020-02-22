@@ -104,6 +104,7 @@ class DeleteResourceMutation(DeleteMutationMixin, DjangoModelFormMutation):
 class Query(graphene.ObjectType):
     resource = graphene.Field(ResourceObjectType, id=graphene.ID())
 
+    @login_required
     def resolve_resource(
         self, info: ResolveInfo, id: Optional[int] = None
     ) -> Optional[Resource]:

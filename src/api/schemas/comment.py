@@ -110,6 +110,7 @@ class DeleteCommentMutation(DeleteMutationMixin, DjangoModelFormMutation):
 class Query(graphene.ObjectType):
     comment = graphene.Field(CommentObjectType, id=graphene.ID())
 
+    @login_required
     def resolve_comment(
         self, info: ResolveInfo, id: Optional[int] = None
     ) -> Optional[Comment]:

@@ -211,6 +211,7 @@ class Query(graphene.ObjectType):
     user = graphene.Field(UserObjectType, id=graphene.ID())
     user_me = graphene.Field(UserObjectType)
 
+    @login_required
     def resolve_users(
         self,
         info: ResolveInfo,
@@ -231,6 +232,7 @@ class Query(graphene.ObjectType):
 
         return qs
 
+    @login_required
     def resolve_user(
         self, info: ResolveInfo, id: Optional[int] = None
     ) -> Optional[User]:

@@ -66,6 +66,7 @@ class Query(graphene.ObjectType):
 
     course = graphene.Field(CourseObjectType, id=graphene.ID())
 
+    @login_required
     def resolve_courses(
         self,
         info: ResolveInfo,
@@ -98,6 +99,7 @@ class Query(graphene.ObjectType):
 
         return courses
 
+    @login_required
     def resolve_course(
         self, info: ResolveInfo, id: Optional[int] = None
     ) -> Optional[Course]:

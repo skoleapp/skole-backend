@@ -4,8 +4,16 @@ from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.core.files.uploadedfile import UploadedFile
 from django.db import models
+from django.db.models import Sum
+from django.db.models.query import QuerySet
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
+
+from core.utils.vote import (
+    POINTS_COMMENT_MULTIPLIER,
+    POINTS_COURSE_MULTIPLIER,
+    POINTS_RESOURCE_MULTIPLIER,
+)
 
 
 class UserManager(BaseUserManager):  # type: ignore[type-arg]
@@ -54,6 +62,17 @@ class UserManager(BaseUserManager):  # type: ignore[type-arg]
 
         user.save()
         return user
+
+    def get_queryset(self) -> "QuerySet[User]":
+        return (
+            super()
+            .get_queryset()
+            .annotate(
+                points=Sum("created_courses__votes__status") * POINTS_COURSE_MULTIPLIER
+                + Sum("created_resources__votes__status") * POINTS_RESOURCE_MULTIPLIER
+                + Sum("comments__votes__status") * POINTS_COMMENT_MULTIPLIER
+            )
+        )
 
 
 class User(AbstractBaseUser, PermissionsMixin):  # type: ignore[misc]

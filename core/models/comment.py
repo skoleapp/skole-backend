@@ -2,7 +2,11 @@ from typing import Optional, Union
 
 from django.core.files.uploadedfile import UploadedFile
 from django.db import models
+from django.db.models import Count, Sum
+from django.db.models.functions import Coalesce
 from django.db.models.query import QuerySet
+
+from core.utils.vote import POINTS_COMMENT_MULTIPLIER
 
 from .course import Course
 from .resource import Resource
@@ -42,9 +46,11 @@ class CommentManager(models.Manager):  # type: ignore[type-arg]
         return comment
 
     def get_queryset(self) -> "QuerySet[Comment]":
-        qs = super().get_queryset()
-        return qs.annotate(reply_count=models.Count("reply_comments")).order_by(
-            "-reply_count", "id"
+        return (
+            super()
+            .get_queryset()
+            .annotate(reply_count=Count("reply_comments"))
+            .order_by("-reply_count", "id")
         )
 
 
@@ -85,3 +91,10 @@ class Comment(models.Model):
             return f"{self.text[:40]}..."
         else:
             return f"{self.text}"
+
+    @property
+    def points(self) -> int:
+        return (
+            self.votes.aggregate(points=Coalesce(Sum("status"), 0))["points"]
+            * POINTS_COMMENT_MULTIPLIER
+        )

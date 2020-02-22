@@ -1,0 +1,234 @@
+- model: app.School
+  pk: 1
+  fields:
+    school_type: 1
+    name: "University of Turku"
+    city: 1
+- model: app.School
+  pk: 2
+  fields:
+    school_type: 2
+    name: "Turku University of Applied Sciences"
+    city: 1
+- model: app.School
+  pk: 3
+  fields:
+    school_type: 1
+    name: "Åbo Akademi"
+    city: 1
+- model: app.School
+  pk: 4
+  fields:
+    school_type: 2
+    name: "Diaconia University of Applied Sciences"
+    city: 1
+- model: app.School
+  pk: 5
+  fields:
+    school_type: 2
+    name: "Novia University of Applied Sciences"
+    city: 1
+- model: app.School
+  pk: 6
+  fields:
+    school_type: 2
+    name: "Humak University of Applied Sciences"
+    city: 1
+- model: app.School
+  pk: 7
+  fields:
+    school_type: 1
+    name: "Tampere University"
+    city: 2
+- model: app.School
+  pk: 8
+  fields:
+    school_type: 2
+    name: "Tampere University of Applied Sciences"
+    city: 2
+- model: app.School
+  pk: 9
+  fields:
+    school_type: 2
+    name: "Police University College"
+    city: 2
+- model: app.School
+  pk: 10
+  fields:
+    school_type: 1
+    name: "Aalto University"
+    city: 3
+- model: app.School
+  pk: 11
+  fields:
+    school_type: 2
+    name: "Metropolia University of Applied Sciences"
+    city: 4
+- model: app.School
+  pk: 12
+  fields:
+    school_type: 2
+    name: "Laurea University of Applied Sciences"
+    city: 3
+- model: app.School
+  pk: 13
+  fields:
+    school_type: 1
+    name: "University of Helsinki"
+    city: 4
+- model: app.School
+  pk: 14
+  fields:
+    school_type: 1
+    name: "University of the Arts Helsinki"
+    city: 4
+- model: app.School
+  pk: 15
+  fields:
+    school_type: 2
+    name: "Haaga-Helia University of Applied Sciences"
+    city: 4
+- model: app.School
+  pk: 16
+  fields:
+    school_type: 1
+    name: "Hanken School of Economics"
+    city: 4
+- model: app.School
+  pk: 17
+  fields:
+    school_type: 1
+    name: "Maanpuolustuskorkeakoulu"
+    city: 4
+- model: app.School
+  pk: 18
+  fields:
+    school_type: 2
+    name: "Arcada University of Applied Sciences"
+    city: 4
+- model: app.School
+  pk: 19
+  fields:
+    school_type: 1
+    name: "HELBUS Helsinki School of Business"
+    city: 4
+- model: app.School
+  pk: 20
+  fields:
+    school_type: 2
+    name: "Satakunta University of Applied Sciences"
+    city: 5
+- model: app.School
+  pk: 21
+  fields:
+    school_type: 1
+    name: "University of Vaasa"
+    city: 6
+- model: app.School
+  pk: 22
+  fields:
+    school_type: 2
+    name: "Vaasa University of Applied Sciences"
+    city: 6
+- model: app.School
+  pk: 23
+  fields:
+    school_type: 1
+    name: "University of Jysäskylä"
+    city: 7
+- model: app.School
+  pk: 24
+  fields:
+    school_type: 2
+    name: "JAMK University of Applied Sciences"
+    city: 7
+- model: app.School
+  pk: 25
+  fields:
+    school_type: 1
+    name: "University of Oulu"
+    city: 8
+- model: app.School
+  pk: 26
+  fields:
+    school_type: 2
+    name: "Oulu University of Applied Sciences"
+    city: 8
+- model: app.School
+  pk: 27
+  fields:
+    school_type: 1
+    name: "University of Lapland"
+    city: 9
+- model: app.School
+  pk: 28
+  fields:
+    school_type: 2
+    name: "Lapland University of Applied Sciences"
+    city: 9
+- model: app.School
+  pk: 29
+  fields:
+    school_type: 1
+    name: "LUT University"
+    city: 10
+- model: app.School
+  pk: 30
+  fields:
+    school_type: 2
+    name: "LAB University of Applied Sciences"
+    city: 17
+- model: app.School
+  pk: 31
+  fields:
+    school_type: 1
+    name: "University of Eastern Finland"
+    city: 11
+- model: app.School
+  pk: 32
+  fields:
+    school_type: 2
+    name: "Karelia University of Applied Sciences"
+    city: 11
+- model: app.School
+  pk: 33
+  fields:
+    school_type: 2
+    name: "Åland University of Applied Sciences"
+    city: 12
+- model: app.School
+  pk: 34
+  fields:
+    school_type: 2
+    name: "Centria University of Applied Sciences"
+    city: 13
+- model: app.School
+  pk: 35
+  fields:
+    school_type: 2
+    name: "Häme University of Applied Sciences"
+    city: 14
+- model: app.School
+  pk: 36
+  fields:
+    school_type: 2
+    name: "South-Eastern Finland University of Applied Sciences"
+    city: 15
+- model: app.School
+  pk: 37
+  fields:
+    school_type: 2
+    name: "KAMK University of Applied Sciences"
+    city: 16
+- model: app.School
+  pk: 38
+  fields:
+    school_type: 2
+    name: "Savonia University of Applied Sciences"
+    city: 18
+- model: app.School
+  pk: 39
+  fields:
+    school_type: 2
+    name: "Seinäjoki University of Applied Sciences"
+    city: 19

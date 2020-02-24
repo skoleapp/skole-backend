@@ -2,6 +2,7 @@ from typing import Any, List, Optional, Union
 
 import graphene
 from django.contrib.auth import get_user_model
+from django.db.models import QuerySet
 from django.utils.translation import gettext as _
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation

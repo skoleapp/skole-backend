@@ -8,7 +8,6 @@ from graphene_django.forms.mutation import DjangoFormMutation
 from graphql import ResolveInfo
 
 from api.forms.contact import ContactForm
-from core.models import Contact
 
 
 class ContactMutation(DjangoFormMutation):
@@ -19,26 +18,16 @@ class ContactMutation(DjangoFormMutation):
 
     @classmethod
     def perform_mutate(cls, form: ContactForm, info: ResolveInfo) -> "ContactMutation":
-        contact_type = form.cleaned_data["contact_type"]
-        message = form.cleaned_data["message"]
-        user = info.context.user
-
-        if not user.is_anonymous:
-            user_or_email = user
-        else:
-            email = form.cleaned_data["email"]
-            user_or_email = email
-
-        Contact.objects.create_contact(
-            contact_type=contact_type, message=message, user_or_email=user_or_email,
-        )
+        subject = form.cleaned_data.get("subject")
+        email = form.cleaned_data.get("email")
+        message = form.cleaned_data.get("message")
 
         try:
             send_mail(
-                subject=contact_type,
+                subject=subject,
                 message=message,
                 from_email=email,
-                recipient_list=[os.environ["SKOLE_INFO_EMAIL"]],
+                recipient_list=[os.environ.get("EMAIL_URL", default="")],
                 fail_silently=False,
             )
 

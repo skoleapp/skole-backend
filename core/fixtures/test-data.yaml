@@ -527,38 +527,6 @@
     status: -1
     user: 4
 
-- model: core.ContactType
-  pk: 1
-  fields:
-    name: "Feedback"
-- model: core.ContactType
-  pk: 2
-  fields:
-    name: "Request School"
-- model: core.ContactType
-  pk: 3
-  fields:
-    name: "Request Subject"
-- model: core.ContactType
-  pk: 4
-  fields:
-    name: "Business Inquiry"
-
-- model: core.Contact
-  pk: 1
-  fields:
-    contact_type: 1
-    email: "testfeedback@test.com"
-    user: null
-    message: "Hi!\nThis is a test message."
-- model: core.Contact
-  pk: 2
-  fields:
-    contact_type: 1
-    email: ""
-    user: 2
-    message: "Message from a logged in user."
-
 - model: core.BetaCode
   pk: 1
   fields:

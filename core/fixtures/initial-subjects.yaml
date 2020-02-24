@@ -1,0 +1,268 @@
+model: app.Subject
+  pk: 1
+  fields:
+    name: "Accounting"
+- model: app.Subject
+  pk: 2
+  fields:
+    name: "Aeronautical Engineering"
+- model: app.Subject
+  pk: 3
+  fields:
+    name: "Agriculture and Forestry"
+- model: app.Subject
+  pk: 4
+  fields:
+    name: "Anatomy and Physiology"
+- model: app.Subject
+  pk: 5
+  fields:
+    name: "Anthropology"
+- model: app.Subject
+  pk: 6
+  fields:
+    name: "Archaeology"
+- model: app.Subject
+  pk: 7
+  fields:
+    name: "Architecture"
+- model: app.Subject
+  pk: 8
+  fields:
+    name: "Art and Design"
+- model: app.Subject
+  pk: 9
+  fields:
+    name: "Aural and Oral Sciences"
+- model: app.Subject
+  pk: 10
+  fields:
+    name: "Biotechnology"
+- model: app.Subject
+  pk: 11
+  fields:
+    name: "Biology"
+- model: app.Subject
+  pk: 12
+  fields:
+    name: "Building"
+- model: app.Subject
+  pk: 13
+  fields:
+    name: "Business and Management Studies"
+- model: app.Subject
+  pk: 14
+  fields:
+    name: "Computer engineer"
+- model: app.Subject
+  pk: 15
+  fields:
+    name: "Chemical Engineering"
+- model: app.Subject
+  pk: 16
+  fields:
+    name: "Chemistry"
+- model: app.Subject
+  pk: 17
+  fields:
+    name: "Communication ja Media Studies"
+- model: app.Subject
+  pk: 18
+  fields:
+    name: "Computer Science"
+- model: app.Subject
+  pk: 19
+  fields:
+    name: "Finance"
+- model: app.Subject
+  pk: 20
+  fields:
+    name: "Finnish Studies"
+- model: app.Subject
+  pk: 21
+  fields:
+    name: "Dentistry"
+- model: app.Subject
+  pk: 22
+  fields:
+    name: "Economics"
+- model: app.Subject
+  pk: 23
+  fields:
+    name: "Education"
+- model: app.Subject
+  pk: 24
+  fields:
+    name: "Electrical and Electronic Engineering"
+- model: app.Subject
+  pk: 25
+  fields:
+    name: "English"
+- model: app.Subject
+  pk: 26
+  fields:
+    name: "Film Making"
+- model: app.Subject
+  pk: 27
+  fields:
+    name: "Food Science"
+- model: app.Subject
+  pk: 28
+  fields:
+    name: "Forensic Science"
+- model: app.Subject
+  pk: 29
+  fields:
+    name: "French"
+- model: app.Subject
+  pk: 30
+  fields:
+    name: "Geography"
+- model: app.Subject
+  pk: 31
+  fields:
+    name: "Geology"
+- model: app.Subject
+  pk: 32
+  fields:
+    name: "General Engineering"
+- model: app.Subject
+  pk: 33
+  fields:
+    name: "German"
+- model: app.Subject
+  pk: 34
+  fields:
+    name: "History"
+- model: app.Subject
+  pk: 35
+  fields:
+    name: "History of Art, Architecture and Design"
+- model: app.Subject
+  pk: 36
+  fields:
+    name: "Hospitality, Leisure, Recreation and Tourism"
+- model: app.Subject
+  pk: 37
+  fields:
+    name: "Italian"
+- model: app.Subject
+  pk: 38
+  fields:
+    name: "Law"
+- model: app.Subject
+  pk: 39
+  fields:
+    name: "Linguistics"
+- model: app.Subject
+  pk: 40
+  fields:
+    name: "Manufacturing Engineering"
+- model: app.Subject
+  pk: 41
+  fields:
+    name: "Marketing"
+- model: app.Subject
+  pk: 42
+  fields:
+    name: "Materials Technology"
+- model: app.Subject
+  pk: 43
+  fields:
+    name: "Mathematics"
+- model: app.Subject
+  pk: 44
+  fields:
+    name: "Mechanical Engineering"
+- model: app.Subject
+  pk: 45
+  fields:
+    name: "Medical Technology"
+- model: app.Subject
+  pk: 46
+  fields:
+    name: "Medicine"
+- model: app.Subject
+  pk: 47
+  fields:
+    name: "Music"
+- model: app.Subject
+  pk: 48
+  fields:
+    name: "Phonetics"
+- model: app.Subject
+  pk: 49
+  fields:
+    name: "Nursing"
+- model: app.Subject
+  pk: 50
+  fields:
+    name: "Occupational Therapy"
+- model: app.Subject
+  pk: 51
+  fields:
+    name: "Pharmacology and Pharmacy"
+- model: app.Subject
+  pk: 52
+  fields:
+    name: "Philosophy"
+- model: app.Subject
+  pk: 53
+  fields:
+    name: "Physics and Astronomy"
+- model: app.Subject
+  pk: 54
+  fields:
+    name: "Physiotherapy"
+- model: app.Subject
+  pk: 55
+  fields:
+    name: "Politics"
+- model: app.Subject
+  pk: 56
+  fields:
+    name: "Psychology"
+- model: app.Subject
+  pk: 57
+  fields:
+    name: "Process technology"
+- model: app.Subject
+  pk: 58
+  fields:
+    name: "Robotics"
+- model: app.Subject
+  pk: 59
+  fields:
+    name: "Russia"
+- model: app.Subject
+  pk: 60
+  fields:
+    name: "Social Science"
+- model: app.Subject
+  pk: 61
+  fields:
+    name: "Social Work"
+- model: app.Subject
+  pk: 62
+  fields:
+    name: "Sociology"
+- model: app.Subject
+  pk: 63
+  fields:
+    name: "Swedish"
+- model: app.Subject
+  pk: 64
+  fields:
+    name: "Sports Science"
+- model: app.Subject
+  pk: 65
+  fields:
+    name: "Theology and Religious Studies"
+- model: app.Subject
+  pk: 66
+  fields:
+    name: "Veterinary Medicine"
+- model: app.Subject
+  pk: 67
+  fields:
+    name: "Youth Work"

@@ -2,7 +2,8 @@ import datetime
 import os
 
 import dj_database_url  # type: ignore [import]
-from django.utils.translation import gettext_lazy as _
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 DEBUG = os.environ.get("DEBUG")
 SECRET_KEY = os.environ.get("SECRET_KEY")
@@ -20,7 +21,6 @@ MEDIA_URL = os.environ.get("MEDIA_URL", default="/media/")
 STATIC_URL = os.environ.get("STATIC_URL", default="/static/")
 MEDIA_ROOT = "media"
 STATIC_ROOT = "static"
-LANGUAGE_CODE = "en"
 TIME_ZONE = "UTC"
 USE_I18N = True
 USE_L10N = True
@@ -29,7 +29,8 @@ USE_TZ = True
 if DEBUG is False:
     STATICFILES_STORAGE = "django_s3_storage.storage.StaticS3Storage"
 
-LANGUAGES = [("en", _("English")), ("fi", _("Finnish")), ("sv", _("Swedish"))]
+LANGUAGES = [("en", "English"), ("fi", "Finnish"), ("sv", "Swedish")]
+LOCALE_PATHS = [os.path.join(BASE_DIR, "locale")]
 
 INSTALLED_APPS = [
     "django.contrib.admin",

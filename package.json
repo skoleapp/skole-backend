@@ -11,6 +11,8 @@
     "migrate": "python manage.py migrate",
     "create-superuser": "python manage.py createsuperuser",
     "import-test-data": "python manage.py loaddata test-data.yaml",
-    "test": "mypy . && pytest --cov-report html --cov=. tests"
+    "test": "mypy . && pytest --cov-report html --cov=. tests",
+    "makemessages": "django-admin makemessages",
+    "compilemessages": "django-admin compilemessages"
   }
 }

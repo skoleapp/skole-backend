@@ -193,9 +193,7 @@ class UpdateUserMutation(DjangoModelFormMutation):
 
         # Don't allow changing avatar to anything but a File or ""
         if form.cleaned_data["avatar"] != "":
-            file = info.context.FILES.get("1")
-
-            if file is not None:
+            if file := info.context.FILES.get("1"):
                 form.cleaned_data["avatar"] = file
             else:
                 form.cleaned_data["avatar"] = user.avatar

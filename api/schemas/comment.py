@@ -63,9 +63,7 @@ class CreateCommentMutation(DjangoModelFormMutation):
     def perform_mutate(
         cls, form: CreateUpdateCommentForm, info: ResolveInfo
     ) -> "CreateCommentMutation":
-        file = info.context.FILES.get("1")
-
-        if file is not None:
+        if file := info.context.FILES.get("1"):
             form.cleaned_data["attachment"] = file
 
         comment = Comment.objects.create_comment(
@@ -95,9 +93,7 @@ class UpdateCommentMutation(DjangoModelFormMutation):
 
         # Don't allow changing attachment to anything but a File or ""
         if form.cleaned_data["attachment"] != "":
-            file = info.context.FILES.get("1")
-
-            if file is not None:
+            if file := info.context.FILES.get("1"):
                 form.cleaned_data["attachment"] = file
             else:
                 form.cleaned_data["attachment"] = comment.attachment

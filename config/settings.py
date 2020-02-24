@@ -1,11 +1,12 @@
-import os
 import datetime
-import dj_database_url # type: ignore [import]
+import os
 
-DEBUG = os.environ.get('DEBUG')
-SECRET_KEY = os.environ.get('SECRET_KEY')
-DATABASES = {'default': dj_database_url.config()}
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', default="*").split()
+import dj_database_url  # type: ignore [import]
+
+DEBUG = os.environ.get("DEBUG")
+SECRET_KEY = os.environ.get("SECRET_KEY")
+DATABASES = {"default": dj_database_url.config()}
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", default="*").split()
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 ROOT_URLCONF = "config.urls"
 PASSWORD_MIN_LENGTH = 6
@@ -18,9 +19,9 @@ USE_TZ = True
 AUTH_USER_MODEL = "core.User"
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_WHITELIST = ("http://localhost:3001",)
-AWS_S3_BUCKET_NAME_STATIC = os.environ.get('AWS_S3_BUCKET_NAME_STATIC')
-MEDIA_URL = os.environ.get('MEDIA_URL', default='/media/')
-STATIC_URL = os.environ.get('STATIC_URL', default='/static/')
+AWS_S3_BUCKET_NAME_STATIC = os.environ.get("AWS_S3_BUCKET_NAME_STATIC")
+MEDIA_URL = os.environ.get("MEDIA_URL", default="/media/")
+STATIC_URL = os.environ.get("STATIC_URL", default="/static/")
 MEDIA_ROOT = "media"
 STATIC_ROOT = "static"
 

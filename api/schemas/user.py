@@ -2,7 +2,6 @@ from typing import Any, List, Optional, Union
 
 import graphene
 from django.contrib.auth import get_user_model
-from django.db.models import QuerySet
 from django.utils.translation import gettext as _
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
@@ -18,9 +17,8 @@ from api.forms.user import (
     RegisterForm,
     UpdateUserForm,
 )
-from api.utils.common import get_obj_or_none
 from api.utils.points import get_points_for_user
-from core.models import BetaCode, User
+from core.models import User
 
 
 class UserObjectType(DjangoObjectType):

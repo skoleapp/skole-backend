@@ -31,7 +31,9 @@ class ContactMutation(DjangoFormMutation):
             username_or_email = email
 
         Contact.objects.create_contact(
-            contact_type=contact_type, message=message, username_or_email=username_or_email
+            contact_type=contact_type,
+            message=message,
+            username_or_email=username_or_email,
         )
 
         try:

@@ -3,12 +3,11 @@ from typing import Optional, Tuple, Union
 from django.db import models
 
 from api.utils.points import get_points_for_target
-from core.utils.vote import VOTE_STATUS
-
 from core.models.comment import Comment
 from core.models.course import Course
 from core.models.resource import Resource
 from core.models.user import User
+from core.utils.vote import VOTE_STATUS
 
 
 class VoteManager(models.Manager):  # type: ignore[type-arg]

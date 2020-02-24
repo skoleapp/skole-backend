@@ -1,4 +1,4 @@
-from typing import Any, Optional
+from typing import Optional
 
 import graphene
 from graphene_django import DjangoObjectType
@@ -12,7 +12,7 @@ from api.utils.common import get_obj_or_none
 from api.utils.messages import NOT_OWNER_MESSAGE
 from api.utils.mixins import DeleteMutationMixin
 from api.utils.points import get_points_for_target
-from core.models import Comment, Course, Resource, ResourceFile, Vote
+from core.models import Comment, Vote
 
 
 class CommentObjectType(DjangoObjectType):

@@ -8,7 +8,10 @@ from .user import User
 
 class ContactManager(models.Manager):  # type: ignore[type-arg]
     def create_contact(
-        self, contact_type: ContactType, message: str, username_or_email: Union[str, User]
+        self,
+        contact_type: ContactType,
+        message: str,
+        username_or_email: Union[str, User],
     ) -> "Contact":
         contact = self.model(contact_type=contact_type, message=message)
 

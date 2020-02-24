@@ -1,0 +1,606 @@
+- model: core.User
+  pk: 1
+  fields:
+    username: "root"
+    email: "root@root.com"
+    password: "pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4=" # 'password'
+    title: ""
+    bio: ""
+    avatar: ""
+    is_staff: true
+    is_superuser: true
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
+- model: core.User
+  pk: 2
+  fields:
+    username: "testuser2"
+    email: "test2@test.com"
+    password: "pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4=" # 'password'
+    title: ""
+    bio: ""
+    avatar: "uploads/avatars/user_image.jpg"
+    is_staff: false
+    is_superuser: false
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
+- model: core.User
+  pk: 3
+  fields:
+    username: "testuser3"
+    email: "test3@test.com"
+    password: "pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4=" # 'password'
+    title: ""
+    bio: ""
+    avatar: ""
+    is_staff: false
+    is_superuser: false
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
+- model: core.User
+  pk: 4
+  fields:
+    username: "testuser4"
+    email: "test4@test.com"
+    password: "pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4=" # password
+    title: ""
+    bio: ""
+    avatar: ""
+    is_staff: false
+    is_superuser: false
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
+- model: core.User
+  pk: 5
+  fields:
+    username: "testuser5"
+    email: "test5@test.com"
+    password: "pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4=" # password
+    title: ""
+    bio: ""
+    avatar: ""
+    is_staff: false
+    is_superuser: false
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
+- model: core.User
+  pk: 6
+  fields:
+    username: "testuser6"
+    email: "test6@test.com"
+    password: "pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4=" # password
+    title: ""
+    bio: ""
+    avatar: ""
+    is_staff: false
+    is_superuser: false
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
+
+- model: core.Country
+  pk: 1
+  fields:
+    name: "Finland"
+
+- model: core.City
+  pk: 1
+  fields:
+    name: "Turku"
+    country: 1
+- model: core.City
+  pk: 2
+  fields:
+    name: "Helsinki"
+    country: 1
+- model: core.City
+  pk: 3
+  fields:
+    name: "Espoo"
+    country: 1
+- model: core.City
+  pk: 4
+  fields:
+    name: "Tampere"
+    country: 1
+- model: core.City
+  pk: 5
+  fields:
+    name: "Raisio"
+    country: 1
+
+- model: core.SchoolType
+  pk: 1
+  fields:
+    name: "University"
+- model: core.SchoolType
+  pk: 2
+  fields:
+    name: "University of Applied Sciences"
+- model: core.SchoolType
+  pk: 3
+  fields:
+    name: "High School"
+
+- model: core.School
+  pk: 1
+  fields:
+    school_type: 1
+    name: "University of Turku"
+    city: 1
+- model: core.School
+  pk: 2
+  fields:
+    school_type: 1
+    name: "Aalto University"
+    city: 3
+- model: core.School
+  pk: 3
+  fields:
+    school_type: 1
+    name: "University of Tampere"
+    city: 4
+- model: core.School
+  pk: 4
+  fields:
+    school_type: 2
+    name: "Turku University of Applied Sciences"
+    city: 1
+- model: core.School
+  pk: 5
+  fields:
+    school_type: 2
+    name: "Metropolia University of Applied Sciences"
+    city: 2
+- model: core.School
+  pk: 6
+  fields:
+    school_type: 3
+    name: "Raision lukio"
+    city: 5
+
+- model: core.Subject
+  pk: 1
+  fields:
+    name: "Computer Engineering"
+- model: core.Subject
+  pk: 2
+  fields:
+    name: "Computer Science"
+- model: core.Subject
+  pk: 3
+  fields:
+    name: "Chemistry"
+- model: core.Subject
+  pk: 4
+  fields:
+    name: "Economy"
+
+- model: core.Course
+  pk: 1
+  fields:
+    name: "Test Engineering Course 1"
+    code: "TEST0001"
+    subject: 1
+    school: 1
+    user: 2
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
+- model: core.Course
+  pk: 2
+  fields:
+    name: "Test Engineering Course 2"
+    code: "TEST0002"
+    subject: 1
+    school: 1
+    user: 2
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
+- model: core.Course
+  pk: 3
+  fields:
+    name: "Test Engineering Course 3"
+    code: "TEST0003"
+    subject: 1
+    school: 1
+    user: 2
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
+
+- model: core.ResourceType
+  pk: 1
+  fields:
+    name: "Exam"
+- model: core.ResourceType
+  pk: 2
+  fields:
+    name: "Exercise"
+- model: core.ResourceType
+  pk: 3
+  fields:
+    name: "Note"
+- model: core.ResourceType
+  pk: 4
+  fields:
+    name: "Other"
+
+- model: core.Resource
+  pk: 1
+  fields:
+    resource_type: 1
+    title: "Sample exam 1"
+    date: "2012-12-12"
+    course: 1
+    user: 2
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
+- model: core.Resource
+  pk: 2
+  fields:
+    resource_type: 1
+    title: "Sample exam 2"
+    date: "2012-12-12"
+    course: 1
+    user: 2
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
+- model: core.Resource
+  pk: 3
+  fields:
+    resource_type: 2
+    title: "Sample exercise"
+    date: "2012-12-12"
+    course: 1
+    user: 2
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
+
+- model: core.ResourceFile
+  pk: 1
+  fields:
+    resource: 1
+    file: "media/uploads/resource_files/sample_resource_file_1.jpg"
+- model: core.ResourceFile
+  pk: 2
+  fields:
+    resource: 1
+    file: "media/uploads/resource_files/sample_resource_file_2.png"
+- model: core.ResourceFile
+  pk: 3
+  fields:
+    resource: 1
+    file: "media/uploads/resource_files/sample_resource_file_3.png"
+
+- model: core.Comment
+  pk: 1
+  fields:
+    text: "Starting comment for the thread on a resource."
+    attachment: "media/uploads/comment_attachments/test_file.txt"
+    resource: 1
+    course: null
+    comment: null
+    user: 2
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
+- model: core.Comment
+  pk: 2
+  fields:
+    text: "Second comment of the thread."
+    attachment: ""
+    resource: 1
+    course: null
+    comment: null
+    user: 3
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
+- model: core.Comment
+  pk: 3
+  fields:
+    text: "Third comment of the thread."
+    attachment: ""
+    resource: 1
+    course: null
+    comment: null
+    user: 2
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
+- model: core.Comment
+  pk: 4
+  fields:
+    text: "Comment 1 to a course"
+    attachment: ""
+    resource: null
+    course: 1
+    comment: null
+    user: 2
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
+- model: core.Comment
+  pk: 5
+  fields:
+    text: "Comment 2 to a course"
+    attachment: ""
+    resource: null
+    course: 1
+    comment: null
+    user: 2
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
+- model: core.Comment
+  pk: 6
+  fields:
+    text: "Comment 3 to a course"
+    attachment: ""
+    resource: null
+    course: 1
+    comment: null
+    user: 2
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
+- model: core.Comment
+  pk: 7
+  fields:
+    text: "Comment 4 to a course"
+    attachment: ""
+    resource: null
+    course: 1
+    comment: null
+    user: 2
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
+- model: core.Comment
+  pk: 8
+  fields:
+    text: "Comment 5 to a course"
+    attachment: ""
+    resource: null
+    course: 1
+    comment: null
+    user: 2
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
+- model: core.Comment
+  pk: 9
+  fields:
+    text: "Comment 6 to a course"
+    attachment: ""
+    resource: null
+    course: 1
+    comment: null
+    user: 2
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
+- model: core.Comment
+  pk: 10
+  fields:
+    text: "Comment 7 to a course"
+    attachment: ""
+    resource: null
+    course: 1
+    comment: null
+    user: 2
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
+- model: core.Comment
+  pk: 11
+  fields:
+    text: "Comment 8 to a course"
+    attachment: ""
+    resource: null
+    course: 1
+    comment: null
+    user: 2
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
+- model: core.Comment
+  pk: 12
+  fields:
+    text: "First reply to a comment."
+    attachment: ""
+    resource: null
+    course: null
+    comment: 4
+    user: 2
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
+- model: core.Comment
+  pk: 13
+  fields:
+    text: "Second reply to a comment."
+    attachment: ""
+    resource: null
+    course: null
+    comment: 4
+    user: 2
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
+- model: core.Comment
+  pk: 14
+  fields:
+    text: "Third reply to a comment."
+    attachment: ""
+    resource: null
+    course: null
+    comment: 4
+    user: 2
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
+- model: core.Comment
+  pk: 15
+  fields:
+    text: "4th reply to a comment."
+    attachment: ""
+    resource: null
+    course: null
+    comment: 4
+    user: 2
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
+- model: core.Comment
+  pk: 16
+  fields:
+    text: "5th reply to a comment."
+    attachment: ""
+    resource: null
+    course: null
+    comment: 4
+    user: 2
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
+- model: core.Comment
+  pk: 17
+  fields:
+    text: "6th reply to a comment."
+    attachment: ""
+    resource: null
+    course: null
+    comment: 4
+    user: 2
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
+- model: core.Comment
+  pk: 18
+  fields:
+    text: "7th reply to a comment."
+    attachment: ""
+    resource: null
+    course: null
+    comment: 4
+    user: 2
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
+- model: core.Comment
+  pk: 19
+  fields:
+    text: "8th reply to a comment."
+    attachment: ""
+    resource: null
+    course: null
+    comment: 4
+    user: 2
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
+- model: core.Comment
+  pk: 20
+  fields:
+    text: "9th reply to a comment."
+    attachment: ""
+    resource: null
+    course: null
+    comment: 4
+    user: 2
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
+- model: core.Comment
+  pk: 22
+  fields:
+    text: "11th reply to a comment."
+    attachment: ""
+    resource: null
+    course: null
+    comment: 4
+    user: 2
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
+
+- model: core.Vote
+  pk: 1
+  fields:
+    comment: 1
+    course: null
+    resource: null
+    status: 1
+    user: 2
+- model: core.Vote
+  pk: 2
+  fields:
+    comment: 1
+    course: null
+    resource: null
+    status: 1
+    user: 3
+- model: core.Vote
+  pk: 3
+  fields:
+    comment: 1
+    course: null
+    resource: null
+    status: -1
+    user: 4
+
+- model: core.ContactType
+  pk: 1
+  fields:
+    name: "Feedback"
+- model: core.ContactType
+  pk: 2
+  fields:
+    name: "Request School"
+- model: core.ContactType
+  pk: 3
+  fields:
+    name: "Request Subject"
+- model: core.ContactType
+  pk: 4
+  fields:
+    name: "Business Inquiry"
+
+- model: core.Contact
+  pk: 1
+  fields:
+    contact_type: 1
+    email: "testfeedback@test.com"
+    user: null
+    message: "Hi!\nThis is a test message."
+- model: core.Contact
+  pk: 2
+  fields:
+    contact_type: 1
+    email: ""
+    user: 2
+    message: "Message from a logged in user."
+
+- model: core.BetaCode
+  pk: 1
+  fields:
+    code: "ABC00001"
+    user: null
+- model: core.BetaCode
+  pk: 2
+  fields:
+    code: "ABC00002"
+    user: null
+- model: core.BetaCode
+  pk: 3
+  fields:
+    code: "ABC00003"
+    user: null
+- model: core.BetaCode
+  pk: 4
+  fields:
+    code: "ABC00004"
+    user: null
+- model: core.BetaCode
+  pk: 5
+  fields:
+    code: "ABC00005"
+    user: null
+- model: core.BetaCode
+  pk: 6
+  fields:
+    code: "ABC00006"
+    user: null
+- model: core.BetaCode
+  pk: 7
+  fields:
+    code: "ABC00007"
+    user: null
+- model: core.BetaCode
+  pk: 8
+  fields:
+    code: "ABC00008"
+    user: null
+- model: core.BetaCode
+  pk: 9
+  fields:
+    code: "ABC00009"
+    user: null

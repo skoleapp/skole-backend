@@ -1,4 +1,0 @@
-- model: app.Country
-  pk: 1
-  fields:
-    name: "Finland"

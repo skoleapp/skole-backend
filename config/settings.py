@@ -4,7 +4,6 @@ import os
 import dj_database_url  # type: ignore [import]
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 DEBUG = os.environ.get("DEBUG")
 SECRET_KEY = os.environ.get("SECRET_KEY")
 DATABASES = {"default": dj_database_url.config()}
@@ -25,12 +24,11 @@ TIME_ZONE = "UTC"
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
+LANGUAGES = [("en", "English"), ("fi", "Finnish"), ("sv", "Swedish")]
+LOCALE_PATHS = [os.path.join(BASE_DIR, "locale")]
 
 if DEBUG is False:
     STATICFILES_STORAGE = "django_s3_storage.storage.StaticS3Storage"
-
-LANGUAGES = [("en", "English"), ("fi", "Finnish"), ("sv", "Swedish")]
-LOCALE_PATHS = [os.path.join(BASE_DIR, "locale")]
 
 INSTALLED_APPS = [
     "django.contrib.admin",

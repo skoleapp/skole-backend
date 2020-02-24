@@ -72,12 +72,12 @@ msgstr "Objekti poistettu onnistuneesti"
 
 #: config/settings.py:36
 msgid "English"
-msgstr ""
+msgstr "Englanti"
 
 #: config/settings.py:37
 msgid "Finnish"
-msgstr ""
+msgstr "Suomi"
 
 #: config/settings.py:38
 msgid "Swedish"
-msgstr ""
+msgstr "Ruotsi"

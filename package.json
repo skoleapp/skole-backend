@@ -6,11 +6,13 @@
   "scripts": {
     "preinstall": "pip install --upgrade pip",
     "install": "pip install -r requirements.txt -r requirements-dev.txt",
-    "make-migrations": "python src/manage.py makemigrations",
-    "clear-migrations": "find src/ -path '*/migrations/*.py' -not -name '__init__.py' -delete && find . -path '*/migrations/*.pyc'  -delete",
-    "migrate": "python src/manage.py migrate",
-    "create-superuser": "python src/manage.py createsuperuser",
-    "import-test-data": "python src/manage.py loaddata test-data.yaml",
-    "test": "mypy src && pytest --cov-report html --cov=src src/tests/"
+    "make-migrations": "python manage.py makemigrations",
+    "clear-migrations": "find . -path '*/migrations/*.py' -not -name '__init__.py' -delete && find . -path '*/migrations/*.pyc'  -delete",
+    "migrate": "python manage.py migrate",
+    "create-superuser": "python manage.py createsuperuser",
+    "import-test-data": "python manage.py loaddata test-data.yaml",
+    "test": "mypy . && pytest --cov-report html --cov=. tests",
+    "makemessages": "django-admin makemessages",
+    "compilemessages": "django-admin compilemessages"
   }
 }

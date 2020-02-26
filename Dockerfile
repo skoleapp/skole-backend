@@ -2,7 +2,6 @@ FROM nikolaik/python-nodejs:python3.8-nodejs13-alpine
 
 ENV PYTHONUNBUFFERED 1
 ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONPATH "${PYTHONPATH}:/app/src"
 
 RUN mkdir /app
 WORKDIR /app

@@ -7,7 +7,7 @@ services:
     env_file:
       - ./.env.circleci
     volumes:
-      - ./src:/app/src
+      - ./:/app/
       - ./htmlcov:/app/htmlcov
     depends_on:
       - db

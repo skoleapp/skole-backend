@@ -6,9 +6,9 @@ export PATH=/usr/local/bin:$PATH
 status_before=$(git status -vv)
 
 docker-compose run --no-deps --rm backend sh -c "
-    autoflake -ir --remove-all-unused-imports --exclude __init__.py src &&
-    isort -rc src &&
-    black --exclude migrations/* src
+    autoflake -ir --remove-all-unused-imports --exclude __init__.py . &&
+    isort -rc . &&
+    black --exclude migrations/* .
 "
 
 status_after=$(git status -vv)

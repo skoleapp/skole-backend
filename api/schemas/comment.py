@@ -52,6 +52,9 @@ class CommentObjectType(DjangoObjectType):
         except Vote.DoesNotExist:
             return None
 
+    def resolve_attachment(self, info: ResolveInfo) -> str:
+        return f"media/{self.attachment}" if self.attachment else ""
+
 
 class CreateCommentMutation(DjangoModelFormMutation):
     class Meta:

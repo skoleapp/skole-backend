@@ -12,16 +12,7 @@ from api.utils.common import get_obj_or_none
 from api.utils.messages import NOT_OWNER_MESSAGE
 from api.utils.mixins import DeleteMutationMixin
 from api.utils.points import get_points_for_target
-from core.models import Resource, ResourceFile
-
-
-class ResourceFileObjectType(DjangoObjectType):
-    class Meta:
-        model = ResourceFile
-        fields = ("id", "file")
-
-    def resolve_file(self, info: ResolveInfo) -> str:
-        return f"media/{self.file}" if self.file else ""
+from core.models import Resource
 
 
 class ResourceObjectType(DjangoObjectType):
@@ -33,7 +24,7 @@ class ResourceObjectType(DjangoObjectType):
         model = Resource
         fields = (
             "id",
-            "resource_files",
+            "file",
             "title",
             "date",
             "course",
@@ -43,6 +34,9 @@ class ResourceObjectType(DjangoObjectType):
             "created",
             "comments",
         )
+
+    def resolve_file(self, info: ResolveInfo) -> str:
+        return f"media/{self.file}" if self.file else ""
 
     def resolve_points(self, info: ResolveInfo) -> int:
         return get_points_for_target(self)
@@ -65,9 +59,14 @@ class CreateResourceMutation(DjangoModelFormMutation):
         will then take care of automatically creating resource parts based on the files.
         """
 
-        form.cleaned_data.pop("files")
+        print(info.context.FILES)
+        form.cleaned_data.pop("file")
+        file = info.context.FILES.get("1")
+
+        print(file)
+
         resource = Resource.objects.create_resource(
-            **form.cleaned_data, files=info.context.FILES, user=info.context.user  # type: ignore
+            **form.cleaned_data, file=file, user=info.context.user  # type: ignore
         )
         return cls(resource=resource)
 

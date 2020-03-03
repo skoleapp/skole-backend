@@ -17,7 +17,6 @@ class TargetForm(forms.ModelForm):
             "course": None,
             "comment": None,
             "resource": None,
-            "resource_file": None,
             "vote": None,
         }
 

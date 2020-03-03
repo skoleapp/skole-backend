@@ -37,7 +37,7 @@ def test_manager_create_ok(db: fixture, temp_media: fixture) -> None:
 
         # Filenames after the first created comment will have a random glob to make them unique.
         assert re.match(
-            r"^uploads/comment_attachments/test_notes\w*\.txt$", comment.attachment.name
+            r"^uploads/attachments/test_notes\w*\.txt$", comment.attachment.name
         )
 
         # Check that only one foreign key reference is active.

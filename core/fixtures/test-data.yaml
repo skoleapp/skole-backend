@@ -228,6 +228,7 @@
   fields:
     resource_type: 1
     title: "Sample exam 1"
+    file: "uploads/resources/sample_resource_file_1.jpg"
     date: "2012-12-12"
     course: 1
     user: 2
@@ -238,6 +239,7 @@
   fields:
     resource_type: 1
     title: "Sample exam 2"
+    file: "uploads/resources/sample_resource_file_2.png"
     date: "2012-12-12"
     course: 1
     user: 2
@@ -248,33 +250,18 @@
   fields:
     resource_type: 2
     title: "Sample exercise"
+    file: "uploads/resources/sample_resource_file_3.png"
     date: "2012-12-12"
     course: 1
     user: 2
     modified: "2020-01-01 12:00:00.000000+00:00"
     created: "2020-01-01 12:00:00.000000+00:00"
 
-- model: core.ResourceFile
-  pk: 1
-  fields:
-    resource: 1
-    file: "media/uploads/resource_files/sample_resource_file_1.jpg"
-- model: core.ResourceFile
-  pk: 2
-  fields:
-    resource: 1
-    file: "media/uploads/resource_files/sample_resource_file_2.png"
-- model: core.ResourceFile
-  pk: 3
-  fields:
-    resource: 1
-    file: "media/uploads/resource_files/sample_resource_file_3.png"
-
 - model: core.Comment
   pk: 1
   fields:
     text: "Starting comment for the thread on a resource."
-    attachment: "media/uploads/comment_attachments/test_file.txt"
+    attachment: "uploads/attachments/test_file.txt"
     resource: 1
     course: null
     comment: null

@@ -4,7 +4,6 @@ from .comment import Comment
 from .country import Country
 from .course import Course
 from .resource import Resource
-from .resource_file import ResourceFile
 from .resource_type import ResourceType
 from .school import School
 from .school_type import SchoolType

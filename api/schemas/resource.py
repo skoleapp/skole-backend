@@ -8,17 +8,19 @@ from graphql_jwt.decorators import login_required
 
 from api.forms.resource import CreateUpdateResourceForm, DeleteResourceForm
 from api.schemas.school import SchoolObjectType
+from api.schemas.vote import VoteObjectType
 from api.utils.common import get_obj_or_none
 from api.utils.messages import NOT_OWNER_MESSAGE
 from api.utils.mixins import DeleteMutationMixin
 from api.utils.points import get_points_for_target
-from core.models import Resource
+from core.models import Resource, Vote
 
 
 class ResourceObjectType(DjangoObjectType):
     resource_type = graphene.String()
     points = graphene.Int()
     school = graphene.Field(SchoolObjectType)
+    vote = graphene.Field(VoteObjectType)
 
     class Meta:
         model = Resource
@@ -43,6 +45,19 @@ class ResourceObjectType(DjangoObjectType):
 
     def resolve_school(self, info: ResolveInfo) -> str:
         return self.course.school
+
+    def resolve_vote(self, info: ResolveInfo) -> Optional[int]:
+        """Resolve current user's vote if it exists."""
+
+        user = info.context.user
+
+        if user.is_anonymous:
+            return None
+
+        try:
+            return user.votes.get(comment=self.pk)
+        except Vote.DoesNotExist:
+            return None
 
 
 class CreateResourceMutation(DjangoModelFormMutation):

@@ -73,13 +73,8 @@ class CreateResourceMutation(DjangoModelFormMutation):
         """Replace the form files with the actual files from the context. The resource manager
         will then take care of automatically creating resource parts based on the files.
         """
-
-        print(info.context.FILES)
         form.cleaned_data.pop("file")
         file = info.context.FILES.get("1")
-
-        print(file)
-
         resource = Resource.objects.create_resource(
             **form.cleaned_data, file=file, user=info.context.user  # type: ignore
         )

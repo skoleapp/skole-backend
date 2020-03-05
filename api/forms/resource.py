@@ -5,13 +5,7 @@ from core.models import Resource
 
 
 class CreateUpdateResourceForm(forms.ModelForm):
-    file = forms.FileField(
-        widget=forms.FileInput(
-            attrs={
-                "accept": "application/pdf, application/msword, application/vnd.ms-excel, image/*"
-            }
-        )
-    )
+    file = forms.CharField(required=False)
 
     class Meta:
         model = Resource

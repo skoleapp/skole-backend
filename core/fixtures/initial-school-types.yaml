@@ -1,8 +1,8 @@
-- model: app.SchoolType
+- model: core.SchoolType
   pk: 1
   fields:
     name: "University"
-- model: app.SchoolType
+- model: core.SchoolType
   pk: 2
   fields:
     name: "University of Applied Sciences"

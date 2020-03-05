@@ -1,4 +1,4 @@
-- model: app.Country
+- model: core.Country
   pk: 1
   fields:
     name: "Finland"

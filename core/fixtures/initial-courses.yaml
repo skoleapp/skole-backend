@@ -1,4 +1,4 @@
-- model: app.Course
+- model: core.Course
   pk: 1
   fields:
     name: "3D Integration and System on Package"
@@ -8,7 +8,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 2
   fields:
     name: "Advanced Course on Databases"
@@ -18,7 +18,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 3
   fields:
     name: "Advanced Course on Operating Systems"
@@ -28,7 +28,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 4
   fields:
     name: "Algebran peruskurssi I"
@@ -38,7 +38,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 5
   fields:
     name: "Algebran peruskurssi II"
@@ -48,7 +48,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 6
   fields:
     name: "Algorithm Design"
@@ -58,7 +58,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 7
   fields:
     name: "Algorithms for Computer Games"
@@ -68,7 +68,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 8
   fields:
     name: "Algoritmien ja ohjelmoinnin peruskurssi"
@@ -78,7 +78,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 9
   fields:
     name: "Algoritmien suunnittelu ja analysointi"
@@ -88,7 +88,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 10
   fields:
     name: "Algoritminen matematiikka"
@@ -98,7 +98,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 11
   fields:
     name: "Analogiaelektroniikan suunnittelu- ja simulointikurssi"
@@ -108,7 +108,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 12
   fields:
     name: "Analogiaelektroniikka I"
@@ -118,7 +118,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 13
   fields:
     name: "Analog IC Design"
@@ -128,7 +128,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 14
   fields:
     name: "Asiakas-palvelin sovellukset ja käyttöliittymät"
@@ -138,7 +138,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 15
   fields:
     name: "Business Case Analysis"
@@ -148,7 +148,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 16
   fields:
     name: "C++"
@@ -158,7 +158,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 17
   fields:
     name: "Code Optimization"
@@ -168,7 +168,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 18
   fields:
     name: "Coding Theory I"
@@ -178,7 +178,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 19
   fields:
     name: "Convolutional Codes"
@@ -188,7 +188,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 20
   fields:
     name: "Cryptography I"
@@ -198,7 +198,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 21
   fields:
     name: "C++ sulautettuihin järjestelmiin"
@@ -208,7 +208,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 22
   fields:
     name: "Data Analysys and Knowledge Discovery"
@@ -218,7 +218,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 23
   fields:
     name: "Data Mining"
@@ -228,7 +228,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 24
   fields:
     name: "Declarative Programming"
@@ -238,7 +238,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 25
   fields:
     name: "Designing Object Oriented Software"
@@ -248,7 +248,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 26
   fields:
     name: "Device Mismatch in IC"
@@ -258,7 +258,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 27
   fields:
     name: "Differentiaaliyhtälöt"
@@ -268,7 +268,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 28
   fields:
     name: "Digitaalinen piiritekniikka"
@@ -278,7 +278,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 29
   fields:
     name: "Digitaalinen signaalinkäsittely"
@@ -288,7 +288,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 30
   fields:
     name: "Digitaalisen äänenkäsittelyn perusteet"
@@ -298,7 +298,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 31
   fields:
     name: "Digitaalisen kuvankäsittelyn perusteet"
@@ -308,7 +308,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 32
   fields:
     name: "Digitaalisen tiedonsiirron standardit ja konvergenssi"
@@ -318,7 +318,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 33
   fields:
     name: "Digitaalisen videonkäsittelyn perusteet"
@@ -328,7 +328,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 34
   fields:
     name: "Digitaaliset tietoliikennejärjestelmät"
@@ -338,7 +338,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 35
   fields:
     name: "Digitaalisuunnittelu"
@@ -348,7 +348,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 36
   fields:
     name: "Digitaalisuunnittelun perusteet"
@@ -358,7 +358,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 37
   fields:
     name: "Digital business"
@@ -368,7 +368,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 38
   fields:
     name: "Digital communication systems"
@@ -378,7 +378,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 39
   fields:
     name: "Digital Systems Engineering"
@@ -388,7 +388,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 40
   fields:
     name: "Diskreetti Matematiikka"
@@ -398,7 +398,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 41
   fields:
     name: "Diskreetti Matematiikka I"
@@ -408,7 +408,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 42
   fields:
     name: "Diskreetti Matematiikka II"
@@ -418,7 +418,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 43
   fields:
     name: "Electronics Packaging Technology"
@@ -428,7 +428,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 44
   fields:
     name: "Elektroniikan komponentit ja materiaalit"
@@ -438,7 +438,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 45
   fields:
     name: "Elektroniikan perusteet I"
@@ -448,7 +448,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 46
   fields:
     name: "Elektroniikan perusteet II"
@@ -458,7 +458,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 47
   fields:
     name: "Elektroniikan perusteet III"
@@ -468,7 +468,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 48
   fields:
     name: "Elektroniikan tuotantotekniikka"
@@ -478,7 +478,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 49
   fields:
     name: "Elektroniikkajärjestelmät"
@@ -488,7 +488,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 50
   fields:
     name: "Elektroniset laitteistot ja kestävä kehitys"
@@ -498,7 +498,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 51
   fields:
     name: "Embedded Systems Design"
@@ -508,7 +508,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 52
   fields:
     name: "Energy efficient embedded electronics"
@@ -518,7 +518,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 53
   fields:
     name: "Error Correction Coding"
@@ -528,7 +528,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 54
   fields:
     name: "Firewall and ips technology"
@@ -538,7 +538,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 55
   fields:
     name: "Foundations of cryptography"
@@ -548,7 +548,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 56
   fields:
     name: "FPGA Prototyping"
@@ -558,7 +558,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 57
   fields:
     name: "From Product Idea to R&amp;D Plan"
@@ -568,7 +568,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 58
   fields:
     name: "Fuktioteoria"
@@ -578,7 +578,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 59
   fields:
     name: "Fundamentals of Information Theory"
@@ -588,7 +588,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 60
   fields:
     name: "Fysiikan matemaattiset apuneuvot 1"
@@ -598,7 +598,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 61
   fields:
     name: "Fysiikan peruskurssi 1"
@@ -608,7 +608,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 62
   fields:
     name: "Fysiikan peruskurssi 2"
@@ -618,7 +618,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 63
   fields:
     name: "Fysiikan peruskurssi 3"
@@ -628,7 +628,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 64
   fields:
     name: "Fysiikan peruskurssi 4"
@@ -638,7 +638,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 65
   fields:
     name: "Fysiikka I"
@@ -648,7 +648,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 66
   fields:
     name: "Fysiikka II"
@@ -658,7 +658,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 67
   fields:
     name: "Graph Theory"
@@ -668,7 +668,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 68
   fields:
     name: "Grundkurs i Reglering och Instrumentering"
@@ -678,7 +678,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 69
   fields:
     name: "Hajautettujen sovellusten muodostamistekniikat"
@@ -688,7 +688,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 70
   fields:
     name: "Hajautetut ohjelmistojärjestelmät"
@@ -698,7 +698,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 71
   fields:
     name: "HDL Based Design"
@@ -708,7 +708,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 72
   fields:
     name: "Implementation of Development Project"
@@ -718,7 +718,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 73
   fields:
     name: "Industrial Design"
@@ -728,7 +728,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 74
   fields:
     name: "Insinöörimatematiikka A"
@@ -738,7 +738,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 75
   fields:
     name: "Insinöörimatematiikka B"
@@ -748,7 +748,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 76
   fields:
     name: "Insinöörimatematiikka C"
@@ -758,7 +758,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 77
   fields:
     name: "Insinöörimatematiikka D"
@@ -768,7 +768,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 78
   fields:
     name: "Insinöörimatematiikka I"
@@ -778,7 +778,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 79
   fields:
     name: "Insinöörimatematiikka I A"
@@ -788,7 +788,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 80
   fields:
     name: "Insinöörimatematiikka I B"
@@ -798,7 +798,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 81
   fields:
     name: "Insinöörimatematiikka II"
@@ -808,7 +808,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 82
   fields:
     name: "Insinöörimatematiikka II A"
@@ -818,7 +818,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 83
   fields:
     name: "Insinöörimatematiikka II B"
@@ -828,7 +828,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 84
   fields:
     name: "Introduction to Project Leadership"
@@ -838,7 +838,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 85
   fields:
     name: "Järjestelmäohjelmointi C++-kielellä"
@@ -848,7 +848,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 86
   fields:
     name: "Johdatus automaattien teoriaan"
@@ -858,7 +858,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 87
   fields:
     name: "Johdatus elektroniikkaan"
@@ -868,7 +868,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 88
   fields:
     name: "Johdatus informaatioteknologiaan"
@@ -878,7 +878,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 89
   fields:
     name: "Johdatus informaatioteknologiaan 1"
@@ -888,7 +888,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 90
   fields:
     name: "Johdatus informaatioteknologiaan 2"
@@ -898,7 +898,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 91
   fields:
     name: "Johdatus laskettavuuteen"
@@ -908,7 +908,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 92
   fields:
     name: "Johdatus tekoälyyn"
@@ -918,7 +918,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 93
   fields:
     name: "Johdatus tietojärjestelmätieteeseen"
@@ -928,7 +928,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 94
   fields:
     name: "Johdatus tietojenkäsittelytieteeseen I"
@@ -938,7 +938,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 95
   fields:
     name: "Johdatus todennäköisyyslaskentaan ja tilastotieteeseen"
@@ -948,7 +948,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 96
   fields:
     name: "Käyttöjärjestelmät"
@@ -958,7 +958,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 97
   fields:
     name: "Käyttöliittymätekniikat"
@@ -968,7 +968,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 98
   fields:
     name: "Kombinatoriikka"
@@ -978,7 +978,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 99
   fields:
     name: "Konveksi analyysi ja optimointi"
@@ -988,7 +988,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 100
   fields:
     name: "Kryptografia I"
@@ -998,7 +998,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 101
   fields:
     name: "Lähdekoodin ja tiedon pakkaus"
@@ -1008,7 +1008,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 102
   fields:
     name: "Liiketoimintaosaaminen"
@@ -1018,7 +1018,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 103
   fields:
     name: "Lineaariset järjestelmät ja piirit"
@@ -1028,7 +1028,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 104
   fields:
     name: "Linux and system programming"
@@ -1038,7 +1038,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 105
   fields:
     name: "Logiikka"
@@ -1048,7 +1048,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 106
   fields:
     name: "Lukuteoria"
@@ -1058,7 +1058,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 107
   fields:
     name: "Machine Learning and Neural networks"
@@ -1068,7 +1068,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 108
   fields:
     name: "Matemaattinen mallintaminen"
@@ -1078,7 +1078,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 109
   fields:
     name: "Matemaattinen optimointi I"
@@ -1088,7 +1088,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 110
   fields:
     name: "Matemaattinen optimointi II"
@@ -1098,7 +1098,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 111
   fields:
     name: "Matematisk Modellering"
@@ -1108,7 +1108,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 112
   fields:
     name: "MHP-ohjelmointi"
@@ -1118,7 +1118,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 113
   fields:
     name: "Microsensors"
@@ -1128,7 +1128,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 114
   fields:
     name: "Mikroprosessoripohjaiset järjestelmät"
@@ -1138,7 +1138,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 115
   fields:
     name: "Mikroprosessorit"
@@ -1148,7 +1148,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 116
   fields:
     name: "Mixed Mode IC Design"
@@ -1158,7 +1158,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 117
   fields:
     name: "Modelling parallel systems"
@@ -1168,7 +1168,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 118
   fields:
     name: "MPEG-5"
@@ -1178,7 +1178,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 119
   fields:
     name: "Multimedia databases"
@@ -1188,7 +1188,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 120
   fields:
     name: "Multimedia Signal Processing"
@@ -1198,7 +1198,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 121
   fields:
     name: "Multiplayer Computer Games"
@@ -1208,7 +1208,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 122
   fields:
     name: "Multiprocessor Architectures"
@@ -1218,7 +1218,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 123
   fields:
     name: "Ohjelmistoarkkitehtuurit"
@@ -1228,7 +1228,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 124
   fields:
     name: "Ohjelmistotestaus"
@@ -1238,7 +1238,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 125
   fields:
     name: "Ohjelmistotuotannon jatkokurssi"
@@ -1248,7 +1248,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 126
   fields:
     name: "Ohjelmistotuotannon peruskurssi"
@@ -1258,7 +1258,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 127
   fields:
     name: "Ohjelmistotuotanto"
@@ -1268,7 +1268,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 128
   fields:
     name: "Ohjelmointi I"
@@ -1278,7 +1278,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 129
   fields:
     name: "Ohjelmointi II"
@@ -1288,7 +1288,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 130
   fields:
     name: "Olio-ohjelmoinnin jatkokurssi"
@@ -1298,7 +1298,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 131
   fields:
     name: "Olio-ohjelmoinnin perusteet"
@@ -1308,7 +1308,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 132
   fields:
     name: "Opiskelun ja työelämän tietotekniikka"
@@ -1318,7 +1318,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 133
   fields:
     name: "Optimointialgoritmit"
@@ -1328,7 +1328,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 134
   fields:
     name: "Optoelektroniikka"
@@ -1338,7 +1338,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 135
   fields:
     name: "Osittaisdifferentiaaliyhtälöt"
@@ -1348,7 +1348,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 136
   fields:
     name: "Piiriteoria"
@@ -1358,7 +1358,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 137
   fields:
     name: "Processreglering"
@@ -1368,7 +1368,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 138
   fields:
     name: "Programming of Embedded Systems"
@@ -1378,7 +1378,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 139
   fields:
     name: "Project Management"
@@ -1388,7 +1388,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 140
   fields:
     name: "Puheviestintä"
@@ -1398,7 +1398,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 141
   fields:
     name: "Puolijohteiden perusteet"
@@ -1408,7 +1408,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 142
   fields:
     name: "Radiotekniikan perusteet"
@@ -1418,7 +1418,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 143
   fields:
     name: "Real-time Systems"
@@ -1428,7 +1428,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 144
   fields:
     name: "Reconfigurable Computing"
@@ -1438,7 +1438,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 145
   fields:
     name: "Reglerteknik"
@@ -1448,7 +1448,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 146
   fields:
     name: "RF Analog IC Design"
@@ -1458,7 +1458,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 147
   fields:
     name: "Säteilyn käyttö ja turvallisuus"
@@ -1468,7 +1468,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 148
   fields:
     name: "Semiconductor technology"
@@ -1478,7 +1478,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 149
   fields:
     name: "SoC Design"
@@ -1488,7 +1488,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 150
   fields:
     name: "Software architectures"
@@ -1498,7 +1498,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 151
   fields:
     name: "Software Engineering for Global Enterprises"
@@ -1508,7 +1508,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 152
   fields:
     name: "Software Product Development"
@@ -1518,7 +1518,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 153
   fields:
     name: "Sopimuspohjainen olio-ohjelmointi"
@@ -1528,7 +1528,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 154
   fields:
     name: "Sulautettujen järjestelmien perusteet"
@@ -1538,7 +1538,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 155
   fields:
     name: "Sulautetut prosessorijärjestelmät"
@@ -1548,7 +1548,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 156
   fields:
     name: "Systeemi- ja säätötekniikan perusteet"
@@ -1558,7 +1558,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 157
   fields:
     name: "System Modelling with SystemC"
@@ -1568,7 +1568,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 158
   fields:
     name: "System Verification"
@@ -1578,7 +1578,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 159
   fields:
     name: "System Verification and Design for Testability"
@@ -1588,7 +1588,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 160
   fields:
     name: "Tähtitieteen historia"
@@ -1598,7 +1598,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 161
   fields:
     name: "Technological Systems, Foresight and Societal Change"
@@ -1608,7 +1608,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 162
   fields:
     name: "Tekstin- ja kielenhuollon harjoituskurssi"
@@ -1618,7 +1618,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 163
   fields:
     name: "Teollisuustalous"
@@ -1628,7 +1628,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 164
   fields:
     name: "Tiedonsiirron perusteet"
@@ -1638,7 +1638,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 165
   fields:
     name: "Tietojärjestelmän käyttöönotto"
@@ -1648,7 +1648,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 166
   fields:
     name: "Tietojärjestelmän mallintaminen"
@@ -1658,7 +1658,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 167
   fields:
     name: "Tietojärjestelmätiede"
@@ -1668,7 +1668,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 168
   fields:
     name: "Tietojärjestelmät ja työ"
@@ -1678,7 +1678,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 169
   fields:
     name: "Tietojenkäsittely ja yhteiskunta"
@@ -1688,7 +1688,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 170
   fields:
     name: "Tietokannat"
@@ -1698,7 +1698,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 171
   fields:
     name: "Tietokannat 1"
@@ -1708,7 +1708,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 172
   fields:
     name: "Tietokannat 2"
@@ -1718,7 +1718,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 173
   fields:
     name: "Tietokantojen perusteet 1"
@@ -1728,7 +1728,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 174
   fields:
     name: "Tietokonearkkitehtuurit"
@@ -1738,7 +1738,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 175
   fields:
     name: "Tietokonearkkitehtuurit ja käyttöjärjestelmät"
@@ -1748,7 +1748,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 176
   fields:
     name: "Tietokone työvälineenä"
@@ -1758,7 +1758,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 177
   fields:
     name: "Tietokoneverkot"
@@ -1768,7 +1768,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 178
   fields:
     name: "Tietoliikenneteoria"
@@ -1778,7 +1778,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 179
   fields:
     name: "Tietorakenteet ja algoritmit"
@@ -1788,7 +1788,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 180
   fields:
     name: "Tietorakenteet ja algoritmit 1"
@@ -1798,7 +1798,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 181
   fields:
     name: "Tietorakenteet ja algoritmit 2"
@@ -1808,7 +1808,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 182
   fields:
     name: "Tietotekninen algebra"
@@ -1818,7 +1818,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 183
   fields:
     name: "Tietoverkkotekniikat"
@@ -1828,7 +1828,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 184
   fields:
     name: "Tietoverkot ja tietoturva"
@@ -1838,7 +1838,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 185
   fields:
     name: "Tilastollisen päättelyn peruskurssi"
@@ -1848,7 +1848,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 186
   fields:
     name: "Tilastotieteen peruskurssi c, tilastollisia malleja"
@@ -1858,7 +1858,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 187
   fields:
     name: "Todennäköisyyslaskenta sivuaineopiskelijoille"
@@ -1868,7 +1868,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 188
   fields:
     name: "Usean muuttujan funktiot"
@@ -1878,7 +1878,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 189
   fields:
     name: "Variaatiolaskenta"
@@ -1888,7 +1888,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 190
   fields:
     name: "Web-ohjelmointi"
@@ -1898,7 +1898,7 @@
     user: null
     modified: "2019-01-01 12:00:00.000000+00:00"
     created: "2019-01-01 12:00:00.000000+00:00"
-- model: app.Course
+- model: core.Course
   pk: 191
   fields:
     name: "XML Technologies and Applications"

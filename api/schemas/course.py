@@ -7,10 +7,12 @@ from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphql import ResolveInfo
 from graphql_jwt.decorators import login_required
 
-from api.forms.course import CreateCourseForm
+from api.forms.course import CreateCourseForm, DeleteCourseForm
+
 from api.schemas.vote import VoteObjectType
 from api.utils.common import get_obj_or_none
 from api.utils.points import get_points_for_target
+from api.utils.mixins import DeleteMutationMixin
 from core.models import Course, Vote
 
 
@@ -65,6 +67,10 @@ class CreateCourseMutation(DjangoModelFormMutation):
     ) -> "CreateCourseMutation":
         course = Course.objects.create(user=info.context.user, **form.cleaned_data)
         return cls(course=course)
+
+class DeleteCourseMutation(DeleteMutationMixin, DjangoModelFormMutation):
+    class Meta(DeleteMutationMixin.Meta):
+        form_class = DeleteCourseForm
 
 
 class Query(graphene.ObjectType):
@@ -123,3 +129,4 @@ class Query(graphene.ObjectType):
 
 class Mutation(graphene.ObjectType):
     create_course = CreateCourseMutation.Field()
+    delete_course = DeleteCourseMutation.Field()

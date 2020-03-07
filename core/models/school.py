@@ -20,7 +20,7 @@ class School(models.Model):
 
     @property
     def subjects(self) -> "QuerySet[Subject]":
-        return Subject.objects.filter(courses__in=self.courses.all())  # type: ignore[attr-defined]
+        return Subject.objects.filter(courses__in=self.courses.all()).distinct()  # type: ignore[attr-defined]
 
     @property
     def subject_count(self) -> int:

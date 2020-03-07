@@ -55,7 +55,7 @@ class Comment(models.Model):
         User, on_delete=models.CASCADE, null=True, related_name="comments"
     )
     text = models.TextField(max_length=10000)
-    attachment = models.FileField(upload_to="uploads/comment_attachments", blank=True)
+    attachment = models.FileField(upload_to="uploads/attachments", blank=True)
 
     course = models.ForeignKey(
         Course, on_delete=models.CASCADE, null=True, blank=True, related_name="comments"

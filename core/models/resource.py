@@ -1,11 +1,10 @@
 import datetime
-from typing import Dict, Optional
+from typing import Optional
 
 from django.core.files.uploadedfile import UploadedFile
 from django.db import models
 
 from .course import Course
-from .resource_file import ResourceFile
 from .resource_type import ResourceType
 from .user import User
 
@@ -16,7 +15,7 @@ class ResourceManager(models.Manager):  # type: ignore[type-arg]
         resource_type: ResourceType,
         title: str,
         course: Course,
-        files: Dict[str, UploadedFile],
+        file: UploadedFile,
         user: User,
         date: Optional[datetime.date] = None,
     ) -> "Resource":
@@ -28,15 +27,9 @@ class ResourceManager(models.Manager):  # type: ignore[type-arg]
             # If the user did provide a date for the resource use that,
             # otherwise will just use the default from the model.
             resource.date = date
+
+        resource.file = file
         resource.save()
-
-        for file in files.values():
-            # Automatically create resource parts based on amount of files provided.
-
-            title = f"File {file}"  # File 1, File 2...
-            resource_file = ResourceFile.objects.create(resource=resource, file=file)
-            resource_file.save()
-
         return resource
 
     def update_resource(
@@ -59,7 +52,7 @@ class Resource(models.Model):
 
     resource_type = models.ForeignKey(ResourceType, on_delete=models.PROTECT)
     title = models.CharField(max_length=100)
-
+    file = models.FileField(upload_to="uploads/resources", blank=True, max_length=500)
     date = models.DateField(default=datetime.date.today, blank=True)
     course = models.ForeignKey(
         Course, on_delete=models.CASCADE, related_name="resources"
@@ -68,7 +61,6 @@ class Resource(models.Model):
     user = models.ForeignKey(
         User, on_delete=models.SET_NULL, null=True, related_name="created_resources",
     )
-
     modified = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 

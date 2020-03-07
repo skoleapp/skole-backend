@@ -5,9 +5,7 @@ from core.models import Resource
 
 
 class CreateUpdateResourceForm(forms.ModelForm):
-    files = forms.FileField(
-        widget=forms.FileInput(attrs={"multiple": True}), required=False  # type: ignore
-    )
+    file = forms.CharField(required=False)
 
     class Meta:
         model = Resource

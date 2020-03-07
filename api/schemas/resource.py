@@ -8,32 +8,25 @@ from graphql_jwt.decorators import login_required
 
 from api.forms.resource import CreateUpdateResourceForm, DeleteResourceForm
 from api.schemas.school import SchoolObjectType
+from api.schemas.vote import VoteObjectType
 from api.utils.common import get_obj_or_none
 from api.utils.messages import NOT_OWNER_MESSAGE
 from api.utils.mixins import DeleteMutationMixin
 from api.utils.points import get_points_for_target
-from core.models import Resource, ResourceFile
-
-
-class ResourceFileObjectType(DjangoObjectType):
-    class Meta:
-        model = ResourceFile
-        fields = ("id", "file")
-
-    def resolve_file(self, info: ResolveInfo) -> str:
-        return f"media/{self.file}" if self.file else ""
+from core.models import Resource, Vote
 
 
 class ResourceObjectType(DjangoObjectType):
     resource_type = graphene.String()
     points = graphene.Int()
     school = graphene.Field(SchoolObjectType)
+    vote = graphene.Field(VoteObjectType)
 
     class Meta:
         model = Resource
         fields = (
             "id",
-            "resource_files",
+            "file",
             "title",
             "date",
             "course",
@@ -44,11 +37,27 @@ class ResourceObjectType(DjangoObjectType):
             "comments",
         )
 
+    def resolve_file(self, info: ResolveInfo) -> str:
+        return f"media/{self.file}" if self.file else ""
+
     def resolve_points(self, info: ResolveInfo) -> int:
         return get_points_for_target(self)
 
     def resolve_school(self, info: ResolveInfo) -> str:
         return self.course.school
+
+    def resolve_vote(self, info: ResolveInfo) -> Optional[int]:
+        """Resolve current user's vote if it exists."""
+
+        user = info.context.user
+
+        if user.is_anonymous:
+            return None
+
+        try:
+            return user.votes.get(comment=self.pk)
+        except Vote.DoesNotExist:
+            return None
 
 
 class CreateResourceMutation(DjangoModelFormMutation):
@@ -64,10 +73,10 @@ class CreateResourceMutation(DjangoModelFormMutation):
         """Replace the form files with the actual files from the context. The resource manager
         will then take care of automatically creating resource parts based on the files.
         """
-
-        form.cleaned_data.pop("files")
+        form.cleaned_data.pop("file")
+        file = info.context.FILES.get("1")
         resource = Resource.objects.create_resource(
-            **form.cleaned_data, files=info.context.FILES, user=info.context.user  # type: ignore
+            **form.cleaned_data, file=file, user=info.context.user  # type: ignore
         )
         return cls(resource=resource)
 

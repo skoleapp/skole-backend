@@ -1,7 +1,7 @@
-import os
 from smtplib import SMTPException
 
 import graphene
+from django.conf import settings
 from django.core.mail import send_mail
 from django.utils.translation import gettext as _
 from graphene_django.forms.mutation import DjangoFormMutation
@@ -32,7 +32,7 @@ class ContactMutation(DjangoFormMutation):
                 subject=subject,
                 message=message,
                 from_email=email,
-                recipient_list=[os.environ.get("EMAIL_URL", default="")],
+                recipient_list=[settings.EMAIL_URL],
                 fail_silently=False,
             )
 

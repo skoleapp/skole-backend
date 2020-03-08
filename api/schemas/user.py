@@ -18,15 +18,14 @@ from api.forms.user import (
     RegisterForm,
     UpdateUserForm,
 )
-from api.utils.points import get_points_for_user
-from core.models import User
+from core.models import User, Vote
 
 
 class UserObjectType(DjangoObjectType):
     email = graphene.String()
+    points = graphene.Int()
     avatar = graphene.String()
     avatar_thumbnail = graphene.String()
-    points = graphene.Int()
     course_count = graphene.Int()
     resource_count = graphene.Int()
 
@@ -55,9 +54,6 @@ class UserObjectType(DjangoObjectType):
             return self.email
         else:
             return ""
-
-    def resolve_points(self, info: ResolveInfo) -> int:
-        return get_points_for_user(self)
 
     def resolve_course_count(self, info: ResolveInfo) -> int:
         return self.created_courses.count()
@@ -222,12 +218,8 @@ class Query(graphene.ObjectType):
         if username is not None:
             qs = qs.filter(username=username)
 
-        if ordering in ["username", "-username"]:
+        if ordering in ["username", "-username", "points", "-points"]:
             return qs.order_by(ordering)
-
-        # FIXME: Add feature for resolving points in the model level.
-        elif ordering in ["points", "-points"]:
-            return sorted(qs, key=lambda u: get_points_for_user(u))
 
         return qs
 

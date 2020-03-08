@@ -11,14 +11,12 @@ from api.schemas.vote import VoteObjectType
 from api.utils.common import get_obj_or_none
 from api.utils.messages import NOT_OWNER_MESSAGE
 from api.utils.mixins import DeleteMutationMixin
-from api.utils.points import get_points_for_target
+from api.utils.vote import VoteMixin
 from core.models import Comment, Vote
 
 
-class CommentObjectType(DjangoObjectType):
-    points = graphene.Int()
+class CommentObjectType(VoteMixin, DjangoObjectType):
     reply_count = graphene.Int()
-    vote = graphene.Field(VoteObjectType)
 
     class Meta:
         model = Comment
@@ -35,22 +33,6 @@ class CommentObjectType(DjangoObjectType):
             "modified",
             "created",
         )
-
-    def resolve_points(self, info: ResolveInfo) -> int:
-        return get_points_for_target(self)
-
-    def resolve_vote(self, info: ResolveInfo) -> Optional[int]:
-        """Resolve current user's vote if it exists."""
-
-        user = info.context.user
-
-        if user.is_anonymous:
-            return None
-
-        try:
-            return user.votes.get(comment=self.pk)
-        except Vote.DoesNotExist:
-            return None
 
     def resolve_attachment(self, info: ResolveInfo) -> str:
         return f"media/{self.attachment}" if self.attachment else ""

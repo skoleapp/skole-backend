@@ -36,7 +36,6 @@ def test_create_resource(db: fixture, temp_media: fixture) -> None:
     assert resource1.course == course
     assert resource1.user == user
     assert resource1.date == date
-    assert resource1.file == file
     assert re.match(
         r"^uploads/resources/file1\w*\.txt$", resource1.file.name,  # type: ignore
     )
@@ -47,7 +46,7 @@ def test_create_resource(db: fixture, temp_media: fixture) -> None:
         resource_type=resource_type,
         title=title,
         course=course,
-        files=files,  # type: ignore
+        file=file,  # type: ignore
         user=user,
     )
     assert resource2.date == current_date

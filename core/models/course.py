@@ -1,5 +1,8 @@
 from django.db import models
-from django.db.models import QuerySet
+from django.db.models import Count, QuerySet, Sum
+from django.db.models.functions import Coalesce
+
+from core.utils.vote import POINTS_COURSE_MULTIPLIER
 
 from .school import School
 from .subject import Subject
@@ -8,8 +11,7 @@ from .user import User
 
 class CourseManager(models.Manager):  # type: ignore[type-arg]
     def get_queryset(self) -> "QuerySet[Course]":
-        qs = super().get_queryset()
-        return qs.annotate(resource_count=models.Count("resources"))
+        return super().get_queryset().annotate(resource_count=Count("resources"))
 
 
 class Course(models.Model):
@@ -22,7 +24,11 @@ class Course(models.Model):
     )
     school = models.ForeignKey(School, on_delete=models.CASCADE, related_name="courses")
     user = models.ForeignKey(
-        User, on_delete=models.SET_NULL, null=True, related_name="created_courses",
+        User,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="created_courses",
     )
 
     modified = models.DateTimeField(auto_now=True)
@@ -35,3 +41,10 @@ class Course(models.Model):
             return f"{self.code} {self.name}"
         else:
             return f"{self.name}"
+
+    @property
+    def points(self) -> int:
+        return (
+            self.votes.aggregate(points=Coalesce(Sum("status"), 0))["points"]
+            * POINTS_COURSE_MULTIPLIER
+        )

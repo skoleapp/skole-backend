@@ -5,7 +5,7 @@ from graphql import ResolveInfo
 from graphql_jwt.decorators import login_required
 
 from api.forms.vote import CreateVoteForm
-from core.models import Vote
+from core.models.vote import Vote
 
 
 class VoteObjectType(DjangoObjectType):

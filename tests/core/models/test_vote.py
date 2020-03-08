@@ -30,12 +30,15 @@ def test_manager_create_ok(db: fixture) -> None:
         assert vote.user == user
         assert vote.status == status
 
-        if vote.course:
-            assert target_points == 5
-        elif vote.resource:
-            assert target_points == 10
-        elif vote.comment:
-            assert target_points == 1
+        if vote.course is not None:
+            course = Course.objects.get(pk=target.pk)
+            assert target_points == course.points == 5  # type: ignore [attr-defined]
+        elif vote.resource is not None:
+            resource = Resource.objects.get(pk=target.pk)
+            assert target_points == resource.points == 10  # type: ignore [attr-defined]
+        elif vote.comment is not None:
+            comment = Comment.objects.get(pk=target.pk)
+            assert target_points == comment.points == 1  # type: ignore [attr-defined]
 
         # Check that only one foreign key reference is active.
         for attr in ("course", "resource", "comment"):
@@ -59,12 +62,15 @@ def test_manager_create_existing(db: fixture) -> None:
         vote, target_points = Vote.objects.perform_vote(user=user, status=status, target=target)  # type: ignore[arg-type]
         assert vote is not None
 
-        if vote.course:
-            assert target_points == 5
-        elif vote.resource:
-            assert target_points == 10
-        elif vote.comment:
-            assert target_points == 1
+        if vote.course is not None:
+            course = Course.objects.get(pk=target.pk)
+            assert target_points == course.points == 5  # type: ignore [attr-defined]
+        elif vote.resource is not None:
+            resource = Resource.objects.get(pk=target.pk)
+            assert target_points == resource.points == 10  # type: ignore [attr-defined]
+        elif vote.comment is not None:
+            comment = Comment.objects.get(pk=target.pk)
+            assert target_points == comment.points == 1  # type: ignore [attr-defined]
 
     for target in targets:
         vote, target_points = Vote.objects.perform_vote(user=user, status=status, target=target)  # type: ignore[arg-type]

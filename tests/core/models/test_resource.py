@@ -46,7 +46,7 @@ def test_create_resource(db: fixture, temp_media: fixture) -> None:
         resource_type=resource_type,
         title=title,
         course=course,
-        files=files,  # type: ignore
+        file=file,  # type: ignore
         user=user,
     )
     assert resource2.date == current_date

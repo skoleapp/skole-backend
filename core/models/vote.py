@@ -2,7 +2,6 @@ from typing import Optional, Tuple, Union
 
 from django.db import models
 
-from api.utils.points import get_points_for_target
 from core.models.comment import Comment
 from core.models.course import Course
 from core.models.resource import Resource
@@ -25,7 +24,7 @@ class VoteManager(models.Manager):  # type: ignore[type-arg]
         else:
             raise TypeError(f"Invalid target type for Vote: {type(target)}")
 
-        return vote, get_points_for_target(target)  # type: ignore [arg-type]
+        return vote, target.points  # type: ignore [union-attr]
 
     def check_existing_vote(
         self, user: User, status: int, **target: Union[Comment, Course, Resource]

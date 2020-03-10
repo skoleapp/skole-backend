@@ -1,7 +1,8 @@
-UPVOTE = 1
-DOWNVOTE = -1
+POINTS_RESOURCE_MULTIPLIER = 10
+POINTS_COURSE_MULTIPLIER = 5
+POINTS_COMMENT_MULTIPLIER = 1
 
 VOTE_STATUS = (
-    (UPVOTE, "upvote"),
-    (DOWNVOTE, "downvote"),
+    (1, "upvote"),
+    (-1, "downvote"),
 )

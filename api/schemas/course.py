@@ -8,18 +8,14 @@ from graphql import ResolveInfo
 from graphql_jwt.decorators import login_required
 
 from api.forms.course import CreateCourseForm, DeleteCourseForm
-
-from api.schemas.vote import VoteObjectType
 from api.utils.common import get_obj_or_none
-from api.utils.points import get_points_for_target
 from api.utils.mixins import DeleteMutationMixin
+from api.utils.vote import VoteMixin
 from core.models import Course, Vote
 
 
-class CourseObjectType(DjangoObjectType):
-    points = graphene.Int()
+class CourseObjectType(VoteMixin, DjangoObjectType):
     resource_count = graphene.Int()
-    vote = graphene.Field(VoteObjectType)
 
     class Meta:
         model = Course
@@ -35,22 +31,6 @@ class CourseObjectType(DjangoObjectType):
             "resources",
             "comments",
         )
-
-    def resolve_points(self, info: ResolveInfo) -> int:
-        return get_points_for_target(self)
-
-    def resolve_vote(self, info: ResolveInfo) -> Optional[int]:
-        """Resolve current user's vote if it exists."""
-
-        user = info.context.user
-
-        if user.is_anonymous:
-            return None
-
-        try:
-            return user.votes.get(comment=self.pk)
-        except Vote.DoesNotExist:
-            return None
 
 
 class CreateCourseMutation(DjangoModelFormMutation):

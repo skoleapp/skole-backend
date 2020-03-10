@@ -3,6 +3,10 @@ from typing import Optional
 
 from django.core.files.uploadedfile import UploadedFile
 from django.db import models
+from django.db.models import Sum
+from django.db.models.functions import Coalesce
+
+from core.utils.vote import POINTS_RESOURCE_MULTIPLIER
 
 from .course import Course
 from .resource_type import ResourceType
@@ -57,9 +61,13 @@ class Resource(models.Model):
     course = models.ForeignKey(
         Course, on_delete=models.CASCADE, related_name="resources"
     )
-    downloads = models.PositiveIntegerField(default=0, null=True)
+    downloads = models.PositiveIntegerField(default=0)
     user = models.ForeignKey(
-        User, on_delete=models.SET_NULL, null=True, related_name="created_resources",
+        User,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="created_resources",
     )
     modified = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
@@ -68,3 +76,10 @@ class Resource(models.Model):
 
     def __str__(self) -> str:
         return f"{self.title}"
+
+    @property
+    def points(self) -> int:
+        return (
+            self.votes.aggregate(points=Coalesce(Sum("status"), 0))["points"]
+            * POINTS_RESOURCE_MULTIPLIER
+        )

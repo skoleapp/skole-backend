@@ -11,7 +11,7 @@ from api.forms.course import CreateCourseForm, DeleteCourseForm
 from api.utils.common import get_obj_or_none
 from api.utils.mixins import DeleteMutationMixin
 from api.utils.vote import VoteMixin
-from core.models import Course, Vote
+from core.models import Course
 
 
 class CourseObjectType(VoteMixin, DjangoObjectType):

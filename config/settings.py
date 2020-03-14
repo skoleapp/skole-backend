@@ -2,7 +2,6 @@ import datetime
 import os
 
 import dj_database_url  # type: ignore [import]
-
 import requests
 
 # Django settings

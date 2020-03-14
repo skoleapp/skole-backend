@@ -5268,7 +5268,6 @@
 
 - model: core.Resource
   pk: 440
-    file: "uploads/resource_parts/Elektroniikan_perusteet_I_Välikoe_1_2005-03-09.pdf"
   fields:
     resource_type: 1
     title: "Tietorakenteet ja algoritmit Välikoe 1"

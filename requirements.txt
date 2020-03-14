@@ -14,3 +14,4 @@ dj-database-url==0.5.0
 mypy==0.761
 gunicorn==20.0.4
 requests==2.23.0
+pyaml==20.3.1

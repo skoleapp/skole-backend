@@ -3,17 +3,30 @@ import os
 
 import dj_database_url  # type: ignore [import]
 
+import requests
+
 # Django settings
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DEBUG = int(os.environ.get("DEBUG", default=0))
 SECRET_KEY = os.environ.get("SECRET_KEY")
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", default="").split()
 DATABASES = {"default": dj_database_url.config()}
 ROOT_URLCONF = "config.urls"
 WSGI_APPLICATION = "config.wsgi.application"
 AUTH_USER_MODEL = "core.User"
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+# This is used to allow AWS ELB health checks access the backend.
+# https://stackoverflow.com/a/55718293
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", default="").split()
+ELB_HEALTHCHECK_HOSTNAMES = [
+    ip
+    for network in requests.get(os.environ["ECS_CONTAINER_METADATA_URI"]).json()[
+        "Networks"
+    ]
+    for ip in network["IPv4Addresses"]
+]
+ALLOWED_HOSTS += ELB_HEALTHCHECK_HOSTNAMES
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -73,9 +86,8 @@ AUTHENTICATION_BACKENDS = [
 
 LOGGING = {
     "version": 1,
-    "disable_existing_loggers": False,
-    "handlers": {"console": {"level": "DEBUG", "class": "logging.StreamHandler"}},
-    "loggers": {"django": {"level": "DEBUG", "handlers": ["console"]}},
+    "handlers": {"console": {"level": "INFO", "class": "logging.StreamHandler"}},
+    "loggers": {"django": {"level": "INFO", "handlers": ["console"]}},
 }
 
 # Localization settings

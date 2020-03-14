@@ -9,6 +9,7 @@ import requests
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DEBUG = int(os.environ.get("DEBUG", default=0))
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", default="").split()
 SECRET_KEY = os.environ.get("SECRET_KEY")
 DATABASES = {"default": dj_database_url.config()}
 ROOT_URLCONF = "config.urls"
@@ -17,16 +18,15 @@ AUTH_USER_MODEL = "core.User"
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 # This is used to allow AWS ELB health checks access the backend.
-# https://stackoverflow.com/a/55718293
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", default="").split()
-ELB_HEALTHCHECK_HOSTNAMES = [
-    ip
-    for network in requests.get(os.environ["ECS_CONTAINER_METADATA_URI"]).json()[
-        "Networks"
-    ]
-    for ip in network["IPv4Addresses"]
-]
-ALLOWED_HOSTS += ELB_HEALTHCHECK_HOSTNAMES
+# https://gist.github.com/dryan/8271687
+try:
+    ALLOWED_HOSTS.append(
+        requests.get(
+            "http://169.254.169.254/latest/meta-data/local-ipv4", timeout=0.01
+        ).text
+    )
+except requests.exceptions.RequestException:
+    pass
 
 INSTALLED_APPS = [
     "django.contrib.admin",

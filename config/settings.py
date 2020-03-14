@@ -74,14 +74,8 @@ AUTHENTICATION_BACKENDS = [
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
-    "handlers": {"console": {"level": "DEBUG", "class": "logging.StreamHandler",}},
-    "loggers": {
-        "gunicorn.access": {
-            "level": "DEBUG",
-            "handlers": ["console"],
-            "propagate": False,
-        }
-    },
+    "handlers": {"console": {"level": "DEBUG", "class": "logging.StreamHandler"}},
+    "loggers": {"django": {"level": "DEBUG", "handlers": ["console"]}},
 }
 
 # Localization settings

@@ -1,4 +1,4 @@
-model: core.School
+- model: core.School
   pk: 1
   fields:
     school_type: 1

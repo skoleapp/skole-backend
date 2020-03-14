@@ -2,18 +2,30 @@ import datetime
 import os
 
 import dj_database_url  # type: ignore [import]
+import requests
 
 # Django settings
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DEBUG = int(os.environ.get("DEBUG", default=0))
-SECRET_KEY = os.environ.get("SECRET_KEY")
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", default="").split()
+SECRET_KEY = os.environ.get("SECRET_KEY")
 DATABASES = {"default": dj_database_url.config()}
 ROOT_URLCONF = "config.urls"
 WSGI_APPLICATION = "config.wsgi.application"
 AUTH_USER_MODEL = "core.User"
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+# This is used to allow AWS ELB health checks access the backend.
+# https://gist.github.com/dryan/8271687
+try:
+    ALLOWED_HOSTS.append(
+        requests.get(
+            "http://169.254.169.254/latest/meta-data/local-ipv4", timeout=0.01
+        ).text
+    )
+except requests.exceptions.RequestException:
+    pass
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -74,14 +86,8 @@ AUTHENTICATION_BACKENDS = [
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
-    "handlers": {"console": {"level": "DEBUG", "class": "logging.StreamHandler",}},
-    "loggers": {
-        "gunicorn.access": {
-            "level": "DEBUG",
-            "handlers": ["console"],
-            "propagate": False,
-        }
-    },
+    "handlers": {"console": {"level": "INFO", "class": "logging.StreamHandler"}},
+    "loggers": {"django": {"level": "INFO", "handlers": ["console"]}},
 }
 
 # Localization settings

@@ -9,6 +9,7 @@ class CreateCourseForm(forms.ModelForm):
         model = Course
         fields = ("name", "code", "subject", "school")
 
+
 class DeleteCourseForm(DeleteObjectForm):
     class Meta(DeleteObjectForm.Meta):
         model = Course

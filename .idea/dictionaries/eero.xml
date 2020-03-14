@@ -14,6 +14,8 @@
       <w>fmap</w>
       <w>fobjs</w>
       <w>graphene</w>
+      <w>healthcheck</w>
+      <w>hostnames</w>
       <w>imagekit</w>
       <w>loaddata</w>
       <w>lukio</w>

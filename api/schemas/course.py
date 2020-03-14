@@ -48,6 +48,7 @@ class CreateCourseMutation(DjangoModelFormMutation):
         course = Course.objects.create(user=info.context.user, **form.cleaned_data)
         return cls(course=course)
 
+
 class DeleteCourseMutation(DeleteMutationMixin, DjangoModelFormMutation):
     class Meta(DeleteMutationMixin.Meta):
         form_class = DeleteCourseForm

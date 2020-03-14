@@ -1,4 +1,4 @@
-model: core.Subject
+- model: core.Subject
   pk: 1
   fields:
     name: "Accounting"

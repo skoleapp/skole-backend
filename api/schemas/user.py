@@ -18,7 +18,7 @@ from api.forms.user import (
     RegisterForm,
     UpdateUserForm,
 )
-from core.models import User, Vote
+from core.models import BetaCode, User, Vote
 
 
 class UserObjectType(DjangoObjectType):
@@ -84,8 +84,7 @@ class RegisterMutation(DjangoModelFormMutation):
         )
 
         code = form.cleaned_data["code"]
-        code.user = user
-        code.save()
+        BetaCode.objects.decrement_usages(code)
 
         return cls(user=user)
 

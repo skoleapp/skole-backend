@@ -518,44 +518,44 @@
   pk: 1
   fields:
     code: "ABC00001"
-    user: null
+    usages: 1
 - model: core.BetaCode
   pk: 2
   fields:
     code: "ABC00002"
-    user: null
+    usages: 1
 - model: core.BetaCode
   pk: 3
   fields:
     code: "ABC00003"
-    user: null
+    usages: 1
 - model: core.BetaCode
   pk: 4
   fields:
     code: "ABC00004"
-    user: null
+    usages: 1
 - model: core.BetaCode
   pk: 5
   fields:
     code: "ABC00005"
-    user: null
+    usages: 1
 - model: core.BetaCode
   pk: 6
   fields:
     code: "ABC00006"
-    user: null
+    usages: 1
 - model: core.BetaCode
   pk: 7
   fields:
     code: "ABC00007"
-    user: null
+    usages: 1
 - model: core.BetaCode
   pk: 8
   fields:
     code: "ABC00008"
-    user: null
+    usages: 1
 - model: core.BetaCode
   pk: 9
   fields:
     code: "ABC00009"
-    user: null
+    usages: 1

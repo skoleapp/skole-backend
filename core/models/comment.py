@@ -8,6 +8,7 @@ from django.db.models.query import QuerySet
 
 from core.utils.vote import POINTS_COMMENT_MULTIPLIER
 
+from ..utils.validators import ValidateFileSizeAndType
 from .course import Course
 from .resource import Resource
 from .user import User
@@ -61,7 +62,11 @@ class Comment(models.Model):
         User, on_delete=models.CASCADE, null=True, related_name="comments"
     )
     text = models.TextField(max_length=10000)
-    attachment = models.FileField(upload_to="uploads/attachments", blank=True)
+    attachment = models.FileField(
+        upload_to="uploads/attachments",
+        blank=True,
+        validators=[ValidateFileSizeAndType(3, ["image/jpeg", "image/png"])],
+    )
 
     course = models.ForeignKey(
         Course, on_delete=models.CASCADE, null=True, blank=True, related_name="comments"

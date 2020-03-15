@@ -9,6 +9,7 @@ from django.db.models.query import QuerySet
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
 
+from core.utils.validators import ValidateFileSizeAndType
 from core.utils.vote import (
     POINTS_COMMENT_MULTIPLIER,
     POINTS_COURSE_MULTIPLIER,
@@ -82,7 +83,11 @@ class User(AbstractBaseUser, PermissionsMixin):  # type: ignore[misc]
     email = models.EmailField(unique=True)
     title = models.CharField(max_length=100, blank=True)
     bio = models.TextField(max_length=2000, blank=True)
-    avatar = models.ImageField(upload_to="uploads/avatars", blank=True)
+    avatar = models.ImageField(
+        upload_to="uploads/avatars",
+        blank=True,
+        validators=[ValidateFileSizeAndType(2, ["image/jpeg", "image/png"])],
+    )
     avatar_thumbnail = ImageSpecField(
         source="avatar",
         processors=[ResizeToFill(100, 100)],

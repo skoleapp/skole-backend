@@ -84,7 +84,7 @@ class RegisterMutation(DjangoModelFormMutation):
         )
 
         code = form.cleaned_data["code"]
-        code.user = user
+        code.usages -= 1
         code.save()
 
         return cls(user=user)

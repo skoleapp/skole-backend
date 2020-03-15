@@ -21,7 +21,7 @@ class RegisterForm(forms.ModelForm):
     def clean_code(self) -> BetaCode:
         code = self.cleaned_data["code"]
         try:
-            beta_code = BetaCode.objects.filter(user=None).get(code=code)
+            beta_code = BetaCode.objects.filter(usages__gt=0).get(code=code)
         except BetaCode.DoesNotExist:
             raise forms.ValidationError(_("Invalid beta register code."))
         return beta_code

@@ -50,4 +50,4 @@ class ContactMutation(DjangoFormMutation):
 
 
 class Mutation(graphene.ObjectType):
-    contact = ContactMutation.Field()
+    create_message = ContactMutation.Field()

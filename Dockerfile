@@ -7,7 +7,7 @@ ENV PYTHONPATH /app
 RUN mkdir /app
 WORKDIR /app
 
-RUN apk add --update --no-cache postgresql-client gettext jpeg-dev
+RUN apk add --update --no-cache postgresql-client gettext jpeg-dev libmagic
 RUN apk add --update --no-cache --virtual .tmp-build-deps \
     gcc libc-dev linux-headers postgresql-dev musl-dev zlib zlib-dev
 

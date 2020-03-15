@@ -6,7 +6,7 @@ from graphene_django.views import GraphQLView, HttpError
 
 
 class CustomGraphQLView(GraphQLView):
-    def parse_body(self, request):
+    def parse_body(self, request):  # type: ignore
         content_type = self.get_content_type(request)
 
         if content_type == "application/graphql":
@@ -51,7 +51,7 @@ class CustomGraphQLView(GraphQLView):
         return {}
 
 
-def place_files_in_operations(operations, files_map, files):
+def place_files_in_operations(operations, files_map, files):  # type: ignore
     # operations: dict or list
     # files_map: {filename: [path, path, ...]}
     # files: {filename: FileStorage}
@@ -65,13 +65,13 @@ def place_files_in_operations(operations, files_map, files):
     return _place_files_in_operations(operations, fmap, files)
 
 
-def _place_files_in_operations(ops, fmap, fobjs):
+def _place_files_in_operations(ops, fmap, fobjs):  # type: ignore
     for path, fkey in fmap:
         ops = _place_file_in_operations(ops, path, fobjs[fkey])
     return ops
 
 
-def _place_file_in_operations(ops, path, obj):
+def _place_file_in_operations(ops, path, obj):  # type: ignore
     if len(path) == 0:
         return obj
 
@@ -88,9 +88,9 @@ def _place_file_in_operations(ops, path, obj):
     raise TypeError("Expected ops to be list or dict")
 
 
-def _insert_in_dict(dct, key, val):
+def _insert_in_dict(dct, key, val):  # type: ignore
     return {**dct, key: val}
 
 
-def _insert_in_list(lst, key, val):
+def _insert_in_list(lst, key, val):  # type: ignore
     return [*lst[:key], val, *lst[key + 1 :]]

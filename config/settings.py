@@ -19,16 +19,17 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 # This is used to allow AWS ELB health checks access the backend.
 # https://gist.github.com/dryan/8271687
-if not DEBUG:
-    try:
-        ALLOWED_HOSTS.append(
-            urllib.request.urlopen("http://169.254.169.254/latest/meta-data/local-ipv4")
-            .read()
-            .decode("utf-8")
+try:
+    ALLOWED_HOSTS.append(
+        urllib.request.urlopen(
+            "http://169.254.169.254/latest/meta-data/local-ipv4", timeout=0.01
         )
-    except urllib.error.URLError:
-        # We were not in an EC2 instance.
-        pass
+        .read()
+        .decode("utf-8")
+    )
+except urllib.error.URLError:
+    # We were not in an EC2 instance.
+    pass
 
 INSTALLED_APPS = [
     "django.contrib.admin",

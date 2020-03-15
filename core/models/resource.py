@@ -6,6 +6,7 @@ from django.db import models
 from django.db.models import Sum
 from django.db.models.functions import Coalesce
 
+from core.utils.validators import ValidateFileSizeAndType
 from core.utils.vote import POINTS_RESOURCE_MULTIPLIER
 
 from .course import Course
@@ -56,7 +57,12 @@ class Resource(models.Model):
 
     resource_type = models.ForeignKey(ResourceType, on_delete=models.PROTECT)
     title = models.CharField(max_length=100)
-    file = models.FileField(upload_to="uploads/resources", blank=True, max_length=500)
+    file = models.FileField(
+        upload_to="uploads/resources",
+        blank=True,
+        max_length=500,
+        validators=[ValidateFileSizeAndType(5, ["application/pdf"])],
+    )
     date = models.DateField(default=datetime.date.today, blank=True)
     course = models.ForeignKey(
         Course, on_delete=models.CASCADE, related_name="resources"

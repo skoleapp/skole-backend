@@ -1,3 +1,4 @@
+from django.core.validators import MinValueValidator
 from django.db import models
 
 
@@ -5,12 +6,20 @@ from django.db import models
 class BetaCodeManager(models.Manager):  # type: ignore[type-arg]
     def decrement_usages(self, code: "BetaCode") -> "BetaCode":
         code.usages -= 1
-        code.save()
+
+        if code.usages == 0:
+            code.delete()
+        else:
+            code.save()
+
         return code
 
 
 class BetaCode(models.Model):
     code = models.CharField(max_length=8, unique=True)
-    usages = models.IntegerField()
+    usages = models.IntegerField(validators=[MinValueValidator(1)])
 
     objects = BetaCodeManager()
+
+    def __str__(self) -> str:
+        return f"{self.code} - Usages left: {self.usages}"

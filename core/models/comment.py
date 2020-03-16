@@ -14,6 +14,7 @@ from .resource import Resource
 from .user import User
 
 
+# Ignore: See explanation in UserManager.
 class CommentManager(models.Manager):  # type: ignore[type-arg]
     def create_comment(
         self,

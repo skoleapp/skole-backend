@@ -1,6 +1,7 @@
 from django.db import models
 
 
+# Ignore: See explanation in UserManager.
 class BetaCodeManager(models.Manager):  # type: ignore[type-arg]
     def decrement_usages(self, code: "BetaCode") -> "BetaCode":
         code.usages -= 1

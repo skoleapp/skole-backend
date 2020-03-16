@@ -14,6 +14,7 @@ from .resource_type import ResourceType
 from .user import User
 
 
+# Ignore: See explanation in UserManager.
 class ResourceManager(models.Manager):  # type: ignore[type-arg]
     def create_resource(
         self,

@@ -13,7 +13,7 @@ def test_str(db: fixture) -> None:
 
 def test_subjects(db: fixture) -> None:
     school = School.objects.get(pk=1)
-    assert school.subjects.first().name == "Computer Engineering"  # type: ignore
+    assert school.subjects.get(pk=1).name == "Computer Engineering"
 
 
 def test_subject_count(db: fixture) -> None:

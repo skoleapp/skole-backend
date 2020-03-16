@@ -9,6 +9,7 @@ from core.models.user import User
 from core.utils.vote import VOTE_STATUS
 
 
+# Ignore: See explanation in UserManager.
 class VoteManager(models.Manager):  # type: ignore[type-arg]
     def perform_vote(
         self, user: User, status: int, target: Union[Comment, Course, Resource]
@@ -24,13 +25,13 @@ class VoteManager(models.Manager):  # type: ignore[type-arg]
         else:
             raise TypeError(f"Invalid target type for Vote: {type(target)}")
 
-        return vote, target.points  # type: ignore [union-attr]
+        return vote, target.points
 
     def check_existing_vote(
         self, user: User, status: int, **target: Union[Comment, Course, Resource]
     ) -> Optional["Vote"]:
         try:
-            vote = user.votes.get(**target)  # type: ignore [attr-defined]
+            vote = user.votes.get(**target)
 
             if vote.status == status:
                 vote.delete()
@@ -70,4 +71,4 @@ class Vote(models.Model):
         unique_together = ("comment", "course", "resource", "user")
 
     def __str__(self) -> str:
-        return f"{self.get_status_display()}, {self.user.username}"  # type: ignore[attr-defined]
+        return f"{self.get_status_display()}, {self.user.username}"

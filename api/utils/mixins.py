@@ -25,7 +25,8 @@ class DeleteMutationMixin:
         pk = input.pop("id", None)
 
         if pk:
-            instance = cls._meta.model._default_manager.get(pk=pk)  # type: ignore [attr-defined]
+            # Ignore: Mypy can't see the _meta attribute.
+            instance = cls._meta.model._default_manager.get(pk=pk)  # type: ignore[attr-defined]
             kwargs["instance"] = instance
             kwargs["user"] = info.context.user
 
@@ -38,4 +39,7 @@ class DeleteMutationMixin:
     ) -> "DeleteMutationMixin":
         obj = form.cleaned_data.get("target")
         obj.delete()
-        return cls(message=_("Object deleted successfully!"))  # type: ignore [call-arg]
+        # Ignore: Mypy doesn't know that this function will actually be used in a class
+        #  deriving from DjangoModelFormMutation, where this type of calling cls with
+        #  a graphene field name makes sense.
+        return cls(message=_("Object deleted successfully!"))  # type: ignore[call-arg]

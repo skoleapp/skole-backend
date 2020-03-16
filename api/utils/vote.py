@@ -20,6 +20,7 @@ class VoteMixin:
             return None
 
         try:
+            # Ignore: pk attribute will be defined in the class deriving from this mixin.
             return user.votes.get(comment=self.pk)  # type: ignore [attr-defined]
         except Vote.DoesNotExist:
             return None

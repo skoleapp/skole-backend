@@ -27,7 +27,7 @@ def test_create_resource(db: fixture, temp_media: fixture) -> None:
         resource_type=resource_type,
         title=title,
         course=course,
-        file=file,  # type: ignore
+        file=file,
         user=user,
         date=date,
     )
@@ -36,18 +36,12 @@ def test_create_resource(db: fixture, temp_media: fixture) -> None:
     assert resource1.course == course
     assert resource1.user == user
     assert resource1.date == date
-    assert re.match(
-        r"^uploads/resources/file1\w*\.txt$", resource1.file.name,  # type: ignore
-    )
+    assert re.match(r"^uploads/resources/file1\w*\.txt$", resource1.file.name,)
 
     # Test that the date gets autopopulated if not passed explicitly.
     current_date = datetime.date.today()
     resource2 = Resource.objects.create_resource(
-        resource_type=resource_type,
-        title=title,
-        course=course,
-        file=file,  # type: ignore
-        user=user,
+        resource_type=resource_type, title=title, course=course, file=file, user=user,
     )
     assert resource2.date == current_date
 

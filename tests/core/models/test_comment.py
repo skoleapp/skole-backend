@@ -29,7 +29,7 @@ def test_manager_create_ok(db: fixture, temp_media: fixture) -> None:
 
     for target in targets:
         comment = Comment.objects.create_comment(
-            user=user, text=text, attachment=attachment, target=target  # type: ignore
+            user=user, text=text, attachment=attachment, target=target  # type: ignore[arg-type]
         )
 
         assert comment.user == user

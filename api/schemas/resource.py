@@ -57,7 +57,11 @@ class CreateResourceMutation(DjangoModelFormMutation):
         form.cleaned_data.pop("file")
         file = info.context.FILES.get("1")
         resource = Resource.objects.create_resource(
-            **form.cleaned_data, file=file, user=info.context.user  # type: ignore
+            # Ignore: Mypy doesn't understand that the file key was removed from the dict
+            #  and thinks it's getting multiple values with that key.
+            #  Mypy also somehow thinks that the user was already in the cleaned_data,
+            #  and would thus also be a duplicate key.
+            **form.cleaned_data, file=file, user=info.context.user  # type: ignore[misc]
         )
         return cls(resource=resource)
 

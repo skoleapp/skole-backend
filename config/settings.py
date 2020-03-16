@@ -3,7 +3,7 @@ import os
 import urllib.error
 import urllib.request
 
-import dj_database_url  # type: ignore [import]
+import dj_database_url
 
 # Django settings
 

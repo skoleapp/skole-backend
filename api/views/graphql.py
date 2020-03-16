@@ -1,12 +1,16 @@
 # https://stackoverflow.com/questions/57812673/how-to-upload-files-in-graphql-using-graphene-file-upload-with-apollo-upload-cli/58059674#58059674
 import json
+from typing import Union
 
+from django.core.handlers.wsgi import WSGIRequest
+from django.http import QueryDict
 from django.http.response import HttpResponseBadRequest
 from graphene_django.views import GraphQLView, HttpError
+from mypy.types import JsonDict
 
 
 class CustomGraphQLView(GraphQLView):
-    def parse_body(self, request):  # type: ignore
+    def parse_body(self, request: WSGIRequest) -> Union[JsonDict, QueryDict]:
         content_type = self.get_content_type(request)
 
         if content_type == "application/graphql":
@@ -41,7 +45,7 @@ class CustomGraphQLView(GraphQLView):
         elif content_type == "multipart/form-data":
             operations = json.loads(request.POST["operations"])
             files_map = json.loads(request.POST["map"])
-            return place_files_in_operations(operations, files_map, request.FILES)
+            return _place_files_in_operations(operations, files_map, request.FILES)
 
         elif content_type in [
             "application/x-www-form-urlencoded",
@@ -51,46 +55,34 @@ class CustomGraphQLView(GraphQLView):
         return {}
 
 
-def place_files_in_operations(operations, files_map, files):  # type: ignore
+# Ignore: The types of the parameters and return values are too complex
+#  to type-annotate reasonably. Since these are one-off functions it's fine.
+def _place_files_in_operations(operations, files_map, files):  # type: ignore[no-untyped-def]
     # operations: dict or list
     # files_map: {filename: [path, path, ...]}
     # files: {filename: FileStorage}
 
-    fmap = []
     for key, values in files_map.items():
         for val in values:
             path = val.split(".")
-            fmap.append((path, key))
+            operations = _place_file_in_operations(operations, path, files[key])
 
-    return _place_files_in_operations(operations, fmap, files)
-
-
-def _place_files_in_operations(ops, fmap, fobjs):  # type: ignore
-    for path, fkey in fmap:
-        ops = _place_file_in_operations(ops, path, fobjs[fkey])
-    return ops
+    return operations
 
 
-def _place_file_in_operations(ops, path, obj):  # type: ignore
+# Ignore: Same as above.
+def _place_file_in_operations(ops, path, obj):  # type: ignore[no-untyped-def]
     if len(path) == 0:
         return obj
 
     if isinstance(ops, list):
         key = int(path[0])
         sub = _place_file_in_operations(ops[key], path[1:], obj)
-        return _insert_in_list(ops, key, sub)
+        return [*ops[:key], sub, *ops[key + 1 :]]
 
     if isinstance(ops, dict):
         key = path[0]
         sub = _place_file_in_operations(ops[key], path[1:], obj)
-        return _insert_in_dict(ops, key, sub)
+        return {**ops, key: sub}
 
     raise TypeError("Expected ops to be list or dict")
-
-
-def _insert_in_dict(dct, key, val):  # type: ignore
-    return {**dct, key: val}
-
-
-def _insert_in_list(lst, key, val):  # type: ignore
-    return [*lst[:key], val, *lst[key + 1 :]]

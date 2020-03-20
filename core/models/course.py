@@ -2,8 +2,6 @@ from django.db import models
 from django.db.models import Count, QuerySet, Sum
 from django.db.models.functions import Coalesce
 
-from core.utils.vote import POINTS_COURSE_MULTIPLIER
-
 from .school import School
 from .subject import Subject
 from .user import User
@@ -45,7 +43,4 @@ class Course(models.Model):
 
     @property
     def points(self) -> int:
-        return (
-            self.votes.aggregate(points=Coalesce(Sum("status"), 0))["points"]
-            * POINTS_COURSE_MULTIPLIER
-        )
+        return self.votes.aggregate(points=Coalesce(Sum("status"), 0))["points"]

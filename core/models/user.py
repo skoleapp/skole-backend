@@ -5,7 +5,7 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.core.files.uploadedfile import UploadedFile
 from django.db import models
 from django.db.models import Sum
-from django.db.models.query import QuerySet
+from django.db.models.functions import Coalesce
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
 
@@ -23,13 +23,10 @@ from core.utils.vote import (
 class UserManager(BaseUserManager):  # type: ignore[type-arg]
     def create_user(self, email: str, username: str, password: str) -> "User":
         user = self.model(email=self.normalize_email(email), username=username)
-
         user.is_staff = False
         user.is_superuser = False
-
         user.avatar = None
         user.set_password(password)
-
         user.save()
         return user
 
@@ -38,7 +35,6 @@ class UserManager(BaseUserManager):  # type: ignore[type-arg]
         user.is_staff = True
         user.is_superuser = True
         user.set_password(password)
-
         user.save()
         return user
 
@@ -56,27 +52,14 @@ class UserManager(BaseUserManager):  # type: ignore[type-arg]
         user.title = title
         user.bio = bio
         user.avatar = avatar
-
         user.save()
         return user
 
     @staticmethod
     def set_password(user: "User", password: str) -> "User":
         user.set_password(password)
-
         user.save()
         return user
-
-    def get_queryset(self) -> "QuerySet[User]":
-        return (
-            super()
-            .get_queryset()
-            .annotate(
-                points=Sum("created_courses__votes__status") * POINTS_COURSE_MULTIPLIER
-                + Sum("created_resources__votes__status") * POINTS_RESOURCE_MULTIPLIER
-                + Sum("comments__votes__status") * POINTS_COMMENT_MULTIPLIER
-            )
-        )
 
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -110,3 +93,24 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self) -> str:
         return f"{self.username}"
+
+    @property
+    def points(self) -> int:
+        points = 0
+        points += (
+            self.created_courses.aggregate(points=Coalesce(Sum("votes__status"), 0))[
+                "points"
+            ]
+            * POINTS_COURSE_MULTIPLIER
+        )
+        points += (
+            self.created_resources.aggregate(points=Coalesce(Sum("votes__status"), 0))[
+                "points"
+            ]
+            * POINTS_RESOURCE_MULTIPLIER
+        )
+        points += (
+            self.comments.aggregate(points=Coalesce(Sum("votes__status"), 0))["points"]
+            * POINTS_COMMENT_MULTIPLIER
+        )
+        return points

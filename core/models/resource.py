@@ -7,7 +7,6 @@ from django.db.models import Sum
 from django.db.models.functions import Coalesce
 
 from core.utils.validators import ValidateFileSizeAndType
-from core.utils.vote import POINTS_RESOURCE_MULTIPLIER
 
 from .course import Course
 from .resource_type import ResourceType
@@ -86,7 +85,4 @@ class Resource(models.Model):
 
     @property
     def points(self) -> int:
-        return (
-            self.votes.aggregate(points=Coalesce(Sum("status"), 0))["points"]
-            * POINTS_RESOURCE_MULTIPLIER
-        )
+        return self.votes.aggregate(points=Coalesce(Sum("status"), 0))["points"]

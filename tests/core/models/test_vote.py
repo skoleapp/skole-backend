@@ -3,6 +3,11 @@ from django.contrib.auth import get_user_model
 from pytest import fixture
 
 from core.models import Comment, Course, Resource, Vote
+from core.utils.vote import (
+    POINTS_COMMENT_MULTIPLIER,
+    POINTS_COURSE_MULTIPLIER,
+    POINTS_RESOURCE_MULTIPLIER,
+)
 
 
 def test_str(db: fixture) -> None:
@@ -19,8 +24,8 @@ def test_manager_create_ok(db: fixture) -> None:
 
     targets = (
         Course.objects.get(pk=1),
-        Resource.objects.get(pk=1),
-        Comment.objects.get(pk=2),  # Does not have votes.
+        Resource.objects.get(pk=2),
+        Comment.objects.get(pk=3),
     )
 
     for target in targets:
@@ -32,13 +37,16 @@ def test_manager_create_ok(db: fixture) -> None:
 
         if vote.course is not None:
             course = Course.objects.get(pk=target.pk)
-            assert target_points == course.points == 5  # type: ignore [attr-defined]
+            assert target_points == course.points == 1  # type: ignore [attr-defined]
+            assert course.user.points == target_points * POINTS_COURSE_MULTIPLIER  # type: ignore [union-attr]
         elif vote.resource is not None:
             resource = Resource.objects.get(pk=target.pk)
-            assert target_points == resource.points == 10  # type: ignore [attr-defined]
+            assert target_points == resource.points == 1  # type: ignore [attr-defined]
+            assert resource.user.points == target_points * POINTS_RESOURCE_MULTIPLIER  # type: ignore [union-attr]
         elif vote.comment is not None:
             comment = Comment.objects.get(pk=target.pk)
             assert target_points == comment.points == 1  # type: ignore [attr-defined]
+            assert comment.user.points == target_points * POINTS_COMMENT_MULTIPLIER  # type: ignore [union-attr]
 
         # Check that only one foreign key reference is active.
         for attr in ("course", "resource", "comment"):
@@ -54,23 +62,13 @@ def test_manager_create_existing(db: fixture) -> None:
 
     targets = (
         Course.objects.get(pk=1),
-        Resource.objects.get(pk=1),
-        Comment.objects.get(pk=2),  # Does not have votes.
+        Resource.objects.get(pk=2),
+        Comment.objects.get(pk=3),
     )
 
     for target in targets:
         vote, target_points = Vote.objects.perform_vote(user=user, status=status, target=target)  # type: ignore[arg-type]
         assert vote is not None
-
-        if vote.course is not None:
-            course = Course.objects.get(pk=target.pk)
-            assert target_points == course.points == 5  # type: ignore [attr-defined]
-        elif vote.resource is not None:
-            resource = Resource.objects.get(pk=target.pk)
-            assert target_points == resource.points == 10  # type: ignore [attr-defined]
-        elif vote.comment is not None:
-            comment = Comment.objects.get(pk=target.pk)
-            assert target_points == comment.points == 1  # type: ignore [attr-defined]
 
     for target in targets:
         vote, target_points = Vote.objects.perform_vote(user=user, status=status, target=target)  # type: ignore[arg-type]

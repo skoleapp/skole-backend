@@ -226,19 +226,26 @@ class Query(graphene.ObjectType):
         self,
         info: ResolveInfo,
         page: Optional[int] = 1,
-        page_size: Optional[int] = 20,
+        page_size: Optional[int] = 10,
         username: Optional[str] = None,
         ordering: Optional[str] = None,
     ) -> Union["QuerySet[User]", List[User]]:
         qs = get_user_model().objects.filter(is_superuser=False)
 
         if username is not None:
-            qs = qs.filter(username=username)
+            qs = qs.filter(username__icontains=username)
 
-        if ordering in ["username", "-username", "points", "-points"]:
-            return qs.order_by(ordering)
+        if ordering in ["username", "-username"]:
+            qs = qs.order_by(ordering)
+        elif ordering == "points":
+            # Ignore: Python sorted doesn't recognize Django types.
+            qs = sorted(qs, key=lambda u: u.points)  # type: ignore [assignment]
+        else:  # -points
+            # Same here ^^.
+            qs = sorted(qs, key=lambda u: u.points, reverse=True)  # type: ignore [assignment]
 
-        return get_paginator(qs, page_size, page, PaginatedUserObjectType)
+        # Ignore: paginator will get default page and page sizes if they are not provided.
+        return get_paginator(qs, page_size, page, PaginatedUserObjectType)  # type: ignore [arg-type]
 
     @login_required
     def resolve_user(

@@ -10,6 +10,7 @@ from graphql_jwt.decorators import login_required
 from api.forms.course import CreateCourseForm, DeleteCourseForm
 from api.utils.common import get_obj_or_none
 from api.utils.mixins import DeleteMutationMixin
+from api.utils.pagination import PaginationMixin, get_paginator
 from api.utils.vote import VoteMixin
 from core.models import Course
 
@@ -31,6 +32,10 @@ class CourseObjectType(VoteMixin, DjangoObjectType):
             "resources",
             "comments",
         )
+
+
+class PaginatedCourseObjectType(PaginationMixin, graphene.ObjectType):
+    objects = graphene.List(CourseObjectType)
 
 
 class CreateCourseMutation(DjangoModelFormMutation):
@@ -55,8 +60,8 @@ class DeleteCourseMutation(DeleteMutationMixin, DjangoModelFormMutation):
 
 
 class Query(graphene.ObjectType):
-    courses = graphene.List(
-        CourseObjectType,
+    courses = graphene.Field(
+        PaginatedCourseObjectType,
         course_name=graphene.String(),
         course_code=graphene.String(),
         subject=graphene.ID(),
@@ -64,6 +69,9 @@ class Query(graphene.ObjectType):
         school_type=graphene.ID(),
         country=graphene.ID(),
         city=graphene.ID(),
+        page=graphene.Int(),
+        page_size=graphene.Int(),
+        ordering=graphene.String(),
     )
 
     course = graphene.Field(CourseObjectType, id=graphene.ID())
@@ -79,27 +87,39 @@ class Query(graphene.ObjectType):
         school_type: Optional[int] = None,
         country: Optional[int] = None,
         city: Optional[int] = None,
+        page: Optional[int] = 1,
+        page_size: Optional[int] = 10,
+        ordering: Optional[str] = None,
     ) -> "QuerySet[Course]":
         """Filter courses based on the query parameters."""
-
-        courses = Course.objects.order_by("name")
+        qs = Course.objects.all()
 
         if course_name is not None:
-            courses = courses.filter(name__icontains=course_name)
+            qs = qs.filter(name__icontains=course_name)
         if course_code is not None:
-            courses = courses.filter(code__icontains=course_code)
+            qs = qs.filter(code__icontains=course_code)
         if subject is not None:
-            courses = courses.filter(subject__pk=subject)
+            qs = qs.filter(subject__pk=subject)
         if school is not None:
-            courses = courses.filter(school__pk=school)
+            qs = qs.filter(school__pk=school)
         if school_type is not None:
-            courses = courses.filter(school__school_type__pk=school_type)
+            qs = qs.filter(school__school_type__pk=school_type)
         if country is not None:
-            courses = courses.filter(school__city__country__pk=country)
+            qs = qs.filter(school__city__country__pk=country)
         if city is not None:
-            courses = courses.filter(school__city__pk=city)
+            qs = qs.filter(school__city__pk=city)
 
-        return courses
+        if ordering in ["name", "-name"]:
+            qs = qs.order_by(ordering)
+        elif ordering == "points":
+            # Ignore: Python sorted doesn't recognize Django types.
+            qs = sorted(qs, key=lambda c: c.points)  # type: ignore [assignment]
+        else:  # -points
+            # Same here ^^.
+            qs = sorted(qs, key=lambda c: c.points, reverse=True)  # type: ignore [assignment]
+
+        # Ignore: paginator will get default page and page sizes if they are not provided.
+        return get_paginator(qs, page_size, page, PaginatedCourseObjectType)  # type: ignore [arg-type]
 
     @login_required
     def resolve_course(

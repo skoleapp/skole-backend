@@ -35,7 +35,7 @@ class CommentObjectType(VoteMixin, DjangoObjectType):
         )
 
     def resolve_attachment(self, info: ResolveInfo) -> str:
-        return f"media/{self.attachment}" if self.attachment else ""
+        return self.attachment.url if self.attachment else ""
 
 
 class CreateCommentMutation(DjangoModelFormMutation):

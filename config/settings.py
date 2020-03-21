@@ -126,11 +126,14 @@ GRAPHQL_JWT = {
 
 # S3 storage settings
 if not DEBUG:
-    AWS_S3_KEY_PREFIX_STATIC = "static"
     AWS_S3_KEY_PREFIX = "media"
     AWS_S3_BUCKET_NAME = os.environ.get("AWS_S3_BUCKET_NAME")
-    AWS_S3_BUCKET_NAME_STATIC = AWS_S3_BUCKET_NAME
     AWS_S3_BUCKET_AUTH = True
+
+    AWS_S3_KEY_PREFIX_STATIC = "static"
+    AWS_S3_BUCKET_NAME_STATIC = os.environ.get("AWS_S3_BUCKET_NAME_STATIC")
+    AWS_S3_BUCKET_AUTH_STATIC = False
+
     AWS_S3_MAX_AGE_SECONDS = 1800
 
     AWS_REGION = os.environ.get("AWS_REGION")

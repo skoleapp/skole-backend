@@ -18,6 +18,7 @@ from api.forms.user import (
     RegisterForm,
     UpdateUserForm,
 )
+from api.utils.pagination import PaginationMixin, get_paginator
 from core.models import BetaCode, User, Vote
 
 
@@ -68,7 +69,13 @@ class UserObjectType(DjangoObjectType):
         return self.avatar_thumbnail.url if self.avatar_thumbnail else ""
 
 
+class PaginatedUserObjectType(PaginationMixin, graphene.ObjectType):
+    objects = graphene.List(UserObjectType)
+
+
 class RegisterMutation(DjangoModelFormMutation):
+    user = graphene.Field(UserObjectType)
+
     class Meta:
         form_class = RegisterForm
         exclude_fields = ("id",)
@@ -85,11 +92,11 @@ class RegisterMutation(DjangoModelFormMutation):
 
         code = form.cleaned_data["code"]
         BetaCode.objects.decrement_usages(code)
-
         return cls(user=user)
 
 
 class LoginMutation(DjangoModelFormMutation):
+    user = graphene.Field(UserObjectType)
     token = graphene.String()
 
     class Meta:
@@ -128,6 +135,8 @@ class LoginMutation(DjangoModelFormMutation):
 
 
 class ChangePasswordMutation(DjangoModelFormMutation):
+    user = graphene.Field(UserObjectType)
+
     class Meta:
         form_class = ChangePasswordForm
         exclude_fields = ("id",)
@@ -170,6 +179,8 @@ class DeleteUserMutation(DjangoModelFormMutation):
 
 
 class UpdateUserMutation(DjangoModelFormMutation):
+    user = graphene.Field(UserObjectType)
+
     class Meta:
         form_class = UpdateUserForm
         exclude_fields = ("id",)
@@ -199,9 +210,14 @@ class UpdateUserMutation(DjangoModelFormMutation):
 
 
 class Query(graphene.ObjectType):
-    users = graphene.List(
-        UserObjectType, username=graphene.String(), ordering=graphene.String()
+    users = graphene.Field(
+        PaginatedUserObjectType,
+        page=graphene.Int(),
+        page_size=graphene.Int(),
+        username=graphene.String(),
+        ordering=graphene.String(),
     )
+
     user = graphene.Field(UserObjectType, id=graphene.ID())
     user_me = graphene.Field(UserObjectType)
 
@@ -209,6 +225,8 @@ class Query(graphene.ObjectType):
     def resolve_users(
         self,
         info: ResolveInfo,
+        page: Optional[int] = 1,
+        page_size: Optional[int] = 20,
         username: Optional[str] = None,
         ordering: Optional[str] = None,
     ) -> Union["QuerySet[User]", List[User]]:
@@ -220,7 +238,7 @@ class Query(graphene.ObjectType):
         if ordering in ["username", "-username", "points", "-points"]:
             return qs.order_by(ordering)
 
-        return qs
+        return get_paginator(qs, page_size, page, PaginatedUserObjectType)
 
     @login_required
     def resolve_user(

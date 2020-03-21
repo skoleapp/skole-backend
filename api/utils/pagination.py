@@ -1,9 +1,21 @@
+from typing import Union
+
 import graphene
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.db.models import QuerySet
+from mypy.types import JsonDict
+
+from core.models import Course, Resource, User
 
 
-# src: https://gist.github.com/mbrochh/f92594ab8188393bd83c892ef2af25e6
-def get_paginator(qs, page_size, page, paginated_type, **kwargs):
+def get_paginator(
+    qs: "QuerySet[Union[User, Course, Resource]]",
+    page_size: int,
+    page: int,
+    paginated_type: graphene.ObjectType,
+    **kwargs: JsonDict,
+) -> graphene.ObjectType:
+
     p = Paginator(qs, page_size)
 
     try:
@@ -18,7 +30,8 @@ def get_paginator(qs, page_size, page, paginated_type, **kwargs):
         has_next=page_obj.has_next(),
         has_prev=page_obj.has_previous(),
         objects=page_obj.object_list,
-        **kwargs
+        count=len(qs),  # FIXME: qs.count() throws an error for some reason.
+        **kwargs,
     )
 
 
@@ -27,3 +40,4 @@ class PaginationMixin:
     pages = graphene.Int()
     has_next = graphene.Boolean()
     has_prev = graphene.Boolean()
+    count = graphene.Int()

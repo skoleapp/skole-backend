@@ -1,4 +1,4 @@
-from typing import Any, List, Optional, Union
+from typing import Any, List, Literal, Optional, Union
 
 import graphene
 from django.contrib.auth import get_user_model
@@ -7,7 +7,7 @@ from django.utils.translation import gettext as _
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphene_django.types import ErrorType
-from graphql import ResolveInfo
+from graphql import GraphQLError, ResolveInfo
 from graphql_jwt.decorators import login_required, token_auth
 from mypy.types import JsonDict
 
@@ -225,27 +225,30 @@ class Query(graphene.ObjectType):
     def resolve_users(
         self,
         info: ResolveInfo,
-        page: Optional[int] = 1,
-        page_size: Optional[int] = 10,
+        page: int = 1,
+        page_size: int = 10,
         username: Optional[str] = None,
-        ordering: Optional[str] = None,
+        ordering: Optional[
+            Literal["username", "-username", "points", "-points"]
+        ] = None,
     ) -> Union["QuerySet[User]", List[User]]:
         qs = get_user_model().objects.filter(is_superuser=False)
 
         if username is not None:
             qs = qs.filter(username__icontains=username)
 
-        if ordering in ["username", "-username"]:
+        if ordering in {"username", "-username"}:
             qs = qs.order_by(ordering)
         elif ordering == "points":
-            # Ignore: Python sorted doesn't recognize Django types.
-            qs = sorted(qs, key=lambda u: u.points)  # type: ignore [assignment]
-        else:  # -points
-            # Same here ^^.
-            qs = sorted(qs, key=lambda u: u.points, reverse=True)  # type: ignore [assignment]
+            # Ignore: qs changes from QuerySet to a List, get_paginator handles that.
+            qs = sorted(qs, key=lambda u: u.points)  # type: ignore[assignment]
+        elif ordering == "-points":
+            # Ignore: Same as above.
+            qs = sorted(qs, key=lambda u: u.points, reverse=True)  # type: ignore[assignment]
+        else:
+            raise GraphQLError("Invalid ordering value.")
 
-        # Ignore: paginator will get default page and page sizes if they are not provided.
-        return get_paginator(qs, page_size, page, PaginatedUserObjectType)  # type: ignore [arg-type]
+        return get_paginator(qs, page_size, page, PaginatedUserObjectType)
 
     @login_required
     def resolve_user(

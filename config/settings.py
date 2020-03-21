@@ -16,6 +16,10 @@ ROOT_URLCONF = "config.urls"
 WSGI_APPLICATION = "config.wsgi.application"
 AUTH_USER_MODEL = "core.User"
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+MEDIA_ROOT = "media"
+STATIC_ROOT = "static"
+MEDIA_URL = "media/"
+STATIC_URL = "static/"
 
 # This is used to allow AWS ELB health checks access the backend.
 # https://gist.github.com/dryan/8271687
@@ -120,22 +124,14 @@ GRAPHQL_JWT = {
     "JWT_EXPIRATION_DELTA": datetime.timedelta(hours=24),
 }
 
-# Static file settings
-
-if DEBUG:
-    MEDIA_ROOT = "media"
-    STATIC_ROOT = "static"
-    MEDIA_URL = "/media/"
-    STATIC_URL = "/static/"
-
-else:
+# S3 storage settings
+if not DEBUG:
     AWS_S3_KEY_PREFIX_STATIC = "static"
     AWS_S3_KEY_PREFIX = "media"
     AWS_S3_BUCKET_NAME = os.environ.get("AWS_S3_BUCKET_NAME")
     AWS_S3_BUCKET_NAME_STATIC = AWS_S3_BUCKET_NAME
-
-    STATIC_URL = f"{AWS_S3_BUCKET_NAME}.s3.amazonaws.com/{AWS_S3_KEY_PREFIX_STATIC}/"
-    MEDIA_URL = f"{AWS_S3_BUCKET_NAME}.s3.amazonaws.com/{AWS_S3_KEY_PREFIX}/"
+    AWS_S3_BUCKET_AUTH = True
+    AWS_S3_MAX_AGE_SECONDS = 1800
 
     AWS_REGION = os.environ.get("AWS_REGION")
     AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")

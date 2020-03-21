@@ -35,7 +35,7 @@ class ResourceObjectType(VoteMixin, DjangoObjectType):
         )
 
     def resolve_file(self, info: ResolveInfo) -> str:
-        return f"media/{self.file}" if self.file else ""
+        return self.file.url if self.file else ""
 
     def resolve_school(self, info: ResolveInfo) -> str:
         return self.course.school

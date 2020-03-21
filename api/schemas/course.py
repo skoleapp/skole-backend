@@ -1,10 +1,9 @@
-from typing import Optional
+from typing import Literal, Optional
 
 import graphene
-from django.db.models import QuerySet
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
-from graphql import ResolveInfo
+from graphql import GraphQLError, ResolveInfo
 from graphql_jwt.decorators import login_required
 
 from api.forms.course import CreateCourseForm, DeleteCourseForm
@@ -87,10 +86,10 @@ class Query(graphene.ObjectType):
         school_type: Optional[int] = None,
         country: Optional[int] = None,
         city: Optional[int] = None,
-        page: Optional[int] = 1,
-        page_size: Optional[int] = 10,
-        ordering: Optional[str] = None,
-    ) -> "QuerySet[Course]":
+        page: int = 1,
+        page_size: int = 10,
+        ordering: Optional[Literal["name", "-name", "points", "-points"]] = None,
+    ) -> graphene.ObjectType:
         """Filter courses based on the query parameters."""
         qs = Course.objects.all()
 
@@ -109,17 +108,17 @@ class Query(graphene.ObjectType):
         if city is not None:
             qs = qs.filter(school__city__pk=city)
 
-        if ordering in ["name", "-name"]:
+        if ordering in {"name", "-name"}:
             qs = qs.order_by(ordering)
         elif ordering == "points":
-            # Ignore: Python sorted doesn't recognize Django types.
-            qs = sorted(qs, key=lambda c: c.points)  # type: ignore [assignment]
-        else:  # -points
-            # Same here ^^.
-            qs = sorted(qs, key=lambda c: c.points, reverse=True)  # type: ignore [assignment]
+            # Ignore: qs changes from QuerySet to a List, get_paginator handles that.
+            qs = sorted(qs, key=lambda c: c.points)  # type: ignore[assignment]
+        elif ordering == "-points":
+            # Ignore: Same as above.
+            qs = sorted(qs, key=lambda c: c.points, reverse=True)  # type: ignore[assignment]
+        raise GraphQLError("Invalid ordering value.")
 
-        # Ignore: paginator will get default page and page sizes if they are not provided.
-        return get_paginator(qs, page_size, page, PaginatedCourseObjectType)  # type: ignore [arg-type]
+        return get_paginator(qs, page_size, page, PaginatedCourseObjectType)
 
     @login_required
     def resolve_course(

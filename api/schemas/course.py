@@ -59,7 +59,7 @@ class DeleteCourseMutation(DeleteMutationMixin, DjangoModelFormMutation):
 
 
 class Query(graphene.ObjectType):
-    courses = graphene.Field(
+    search_courses = graphene.Field(
         PaginatedCourseObjectType,
         course_name=graphene.String(),
         course_code=graphene.String(),
@@ -73,10 +73,11 @@ class Query(graphene.ObjectType):
         ordering=graphene.String(),
     )
 
+    courses = graphene.List(CourseObjectType)
     course = graphene.Field(CourseObjectType, id=graphene.ID())
 
     @login_required
-    def resolve_courses(
+    def resolve_search_courses(
         self,
         info: ResolveInfo,
         course_name: Optional[str] = None,
@@ -119,6 +120,10 @@ class Query(graphene.ObjectType):
         raise GraphQLError("Invalid ordering value.")
 
         return get_paginator(qs, page_size, page, PaginatedCourseObjectType)
+
+    @login_required
+    def resolve_courses(self, info: ResolveInfo) -> "QuerySet[Course]":
+        return self.courses.order_by("name")
 
     @login_required
     def resolve_course(

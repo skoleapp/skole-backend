@@ -242,11 +242,9 @@ class Query(graphene.ObjectType):
         elif ordering == "points":
             # Ignore: qs changes from QuerySet to a List, get_paginator handles that.
             qs = sorted(qs, key=lambda u: u.points)  # type: ignore[assignment]
-        elif ordering == "-points":
+        else:  # -points
             # Ignore: Same as above.
             qs = sorted(qs, key=lambda u: u.points, reverse=True)  # type: ignore[assignment]
-        else:
-            raise GraphQLError("Invalid ordering value.")
 
         return get_paginator(qs, page_size, page, PaginatedUserObjectType)
 

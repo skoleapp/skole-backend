@@ -23,4 +23,4 @@ def test_subject_count(db: fixture) -> None:
 
 def test_course_count(db: fixture) -> None:
     school = School.objects.get(pk=1)
-    assert school.course_count == 3
+    assert school.course_count == 12

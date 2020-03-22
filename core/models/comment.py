@@ -1,4 +1,4 @@
-from typing import Optional, Union
+from typing import TYPE_CHECKING, Optional, Union
 
 from django.core.files.uploadedfile import UploadedFile
 from django.db import models
@@ -6,12 +6,16 @@ from django.db.models import Count, Sum
 from django.db.models.functions import Coalesce
 from django.db.models.query import QuerySet
 
+from core.utils.validators import ValidateFileSizeAndType
 from core.utils.vote import POINTS_COMMENT_MULTIPLIER
 
-from ..utils.validators import ValidateFileSizeAndType
 from .course import Course
 from .resource import Resource
 from .user import User
+
+if TYPE_CHECKING:
+    # To avoid circular import.
+    from core.utils.types import CommentableModel
 
 
 # Ignore: See explanation in UserManager.
@@ -21,7 +25,7 @@ class CommentManager(models.Manager):  # type: ignore[type-arg]
         user: User,
         text: str,
         attachment: Optional[UploadedFile],
-        target: Union[Course, Resource, "Comment"],
+        target: "CommentableModel",
     ) -> "Comment":
         if isinstance(target, Course):
             comment = self.model(course=target)

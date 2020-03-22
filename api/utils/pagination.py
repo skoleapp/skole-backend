@@ -4,13 +4,11 @@ import graphene
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db.models import QuerySet
 
-from core.models import Course, Resource, User
-
-_PaginableModels = Union[User, Course, Resource]
+from core.utils.types import PaginableModel
 
 
 def get_paginator(
-    qs: "Union[List[_PaginableModels], QuerySet[_PaginableModels]]",
+    qs: Union[List[PaginableModel], "QuerySet[PaginableModel]"],
     page_size: int,
     page: int,
     paginated_type: graphene.ObjectType,

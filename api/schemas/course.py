@@ -4,7 +4,7 @@ import graphene
 from django.db.models import QuerySet
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
-from graphql import ResolveInfo
+from graphql import GraphQLError, ResolveInfo
 from graphql_jwt.decorators import login_required
 
 from api.forms.course import CreateCourseForm, DeleteCourseForm
@@ -109,6 +109,14 @@ class Query(graphene.ObjectType):
             qs = qs.filter(school__city__country__pk=country)
         if city is not None:
             qs = qs.filter(school__city__pk=city)
+
+        if ordering is not None and ordering not in {
+            "name",
+            "-name",
+            "points",
+            "-points",
+        }:
+            raise GraphQLError("Invalid ordering value.")
 
         if ordering in {"name", "-name"}:
             qs = qs.order_by(ordering)

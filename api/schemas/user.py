@@ -237,6 +237,14 @@ class Query(graphene.ObjectType):
         if username is not None:
             qs = qs.filter(username__icontains=username)
 
+        if ordering is not None and ordering not in {
+            "username",
+            "-username",
+            "points",
+            "-points",
+        }:
+            raise GraphQLError("Invalid ordering value.")
+
         if ordering in {"username", "-username"}:
             qs = qs.order_by(ordering)
         elif ordering == "points":

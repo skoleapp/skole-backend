@@ -1,9 +1,10 @@
 from typing import Literal, Optional
 
 import graphene
+from django.db.models import QuerySet
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
-from graphql import GraphQLError, ResolveInfo
+from graphql import ResolveInfo
 from graphql_jwt.decorators import login_required
 
 from api.forms.course import CreateCourseForm, DeleteCourseForm
@@ -114,10 +115,9 @@ class Query(graphene.ObjectType):
         elif ordering == "points":
             # Ignore: qs changes from QuerySet to a List, get_paginator handles that.
             qs = sorted(qs, key=lambda c: c.points)  # type: ignore[assignment]
-        elif ordering == "-points":
+        else:  # -points
             # Ignore: Same as above.
             qs = sorted(qs, key=lambda c: c.points, reverse=True)  # type: ignore[assignment]
-        raise GraphQLError("Invalid ordering value.")
 
         return get_paginator(qs, page_size, page, PaginatedCourseObjectType)
 

@@ -5,8 +5,6 @@ from core.models import Resource
 
 
 class CreateUpdateResourceForm(forms.ModelForm):
-    file = forms.CharField(required=False)
-
     class Meta:
         model = Resource
         fields = ("id", "title", "resource_type", "course", "date")

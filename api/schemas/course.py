@@ -1,16 +1,15 @@
-from typing import Literal, Optional
+from typing import Optional
 
 import graphene
 from django.db.models import QuerySet
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
-from graphql import GraphQLError, ResolveInfo
+from graphql import ResolveInfo
 from graphql_jwt.decorators import login_required
 
 from api.forms.course import CreateCourseForm, DeleteCourseForm
 from api.utils.common import get_obj_or_none
 from api.utils.mixins import DeleteMutationMixin
-from api.utils.pagination import PaginationMixin, get_paginator
 from api.utils.vote import VoteMixin
 from core.models import Course
 
@@ -32,10 +31,6 @@ class CourseObjectType(VoteMixin, DjangoObjectType):
             "resources",
             "comments",
         )
-
-
-class PaginatedCourseObjectType(PaginationMixin, graphene.ObjectType):
-    objects = graphene.List(CourseObjectType)
 
 
 class CreateCourseMutation(DjangoModelFormMutation):
@@ -60,8 +55,8 @@ class DeleteCourseMutation(DeleteMutationMixin, DjangoModelFormMutation):
 
 
 class Query(graphene.ObjectType):
-    search_courses = graphene.Field(
-        PaginatedCourseObjectType,
+    courses = graphene.List(
+        CourseObjectType,
         course_name=graphene.String(),
         course_code=graphene.String(),
         subject=graphene.ID(),
@@ -69,16 +64,12 @@ class Query(graphene.ObjectType):
         school_type=graphene.ID(),
         country=graphene.ID(),
         city=graphene.ID(),
-        page=graphene.Int(),
-        page_size=graphene.Int(),
-        ordering=graphene.String(),
     )
 
-    courses = graphene.List(CourseObjectType)
     course = graphene.Field(CourseObjectType, id=graphene.ID())
 
     @login_required
-    def resolve_search_courses(
+    def resolve_courses(
         self,
         info: ResolveInfo,
         course_name: Optional[str] = None,
@@ -88,50 +79,27 @@ class Query(graphene.ObjectType):
         school_type: Optional[int] = None,
         country: Optional[int] = None,
         city: Optional[int] = None,
-        page: int = 1,
-        page_size: int = 10,
-        ordering: Optional[Literal["name", "-name", "points", "-points"]] = None,
-    ) -> graphene.ObjectType:
+    ) -> "QuerySet[Course]":
         """Filter courses based on the query parameters."""
-        qs = Course.objects.all()
+
+        courses = Course.objects.order_by("name")
 
         if course_name is not None:
-            qs = qs.filter(name__icontains=course_name)
+            courses = courses.filter(name__icontains=course_name)
         if course_code is not None:
-            qs = qs.filter(code__icontains=course_code)
+            courses = courses.filter(code__icontains=course_code)
         if subject is not None:
-            qs = qs.filter(subject__pk=subject)
+            courses = courses.filter(subject__pk=subject)
         if school is not None:
-            qs = qs.filter(school__pk=school)
+            courses = courses.filter(school__pk=school)
         if school_type is not None:
-            qs = qs.filter(school__school_type__pk=school_type)
+            courses = courses.filter(school__school_type__pk=school_type)
         if country is not None:
-            qs = qs.filter(school__city__country__pk=country)
+            courses = courses.filter(school__city__country__pk=country)
         if city is not None:
-            qs = qs.filter(school__city__pk=city)
+            courses = courses.filter(school__city__pk=city)
 
-        if ordering is not None and ordering not in {
-            "name",
-            "-name",
-            "points",
-            "-points",
-        }:
-            raise GraphQLError("Invalid ordering value.")
-
-        if ordering in {"name", "-name"}:
-            qs = qs.order_by(ordering)
-        elif ordering == "points":
-            # Ignore: qs changes from QuerySet to a List, get_paginator handles that.
-            qs = sorted(qs, key=lambda c: c.points)  # type: ignore[assignment]
-        else:  # -points
-            # Ignore: Same as above.
-            qs = sorted(qs, key=lambda c: c.points, reverse=True)  # type: ignore[assignment]
-
-        return get_paginator(qs, page_size, page, PaginatedCourseObjectType)
-
-    @login_required
-    def resolve_courses(self, info: ResolveInfo) -> "QuerySet[Course]":
-        return self.courses.order_by("name")
+        return courses
 
     @login_required
     def resolve_course(

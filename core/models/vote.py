@@ -1,4 +1,4 @@
-from typing import Optional, Tuple
+from typing import Optional, Tuple, Union
 
 from django.db import models
 
@@ -6,14 +6,13 @@ from core.models.comment import Comment
 from core.models.course import Course
 from core.models.resource import Resource
 from core.models.user import User
-from core.utils.types import VotableModel
 from core.utils.vote import VOTE_STATUS
 
 
 # Ignore: See explanation in UserManager.
 class VoteManager(models.Manager):  # type: ignore[type-arg]
     def perform_vote(
-        self, user: User, status: int, target: VotableModel
+        self, user: User, status: int, target: Union[Comment, Course, Resource]
     ) -> Tuple[Optional["Vote"], int]:
         """Automatically create a new vote or delete one if it already exists."""
 
@@ -29,7 +28,7 @@ class VoteManager(models.Manager):  # type: ignore[type-arg]
         return vote, target.points
 
     def check_existing_vote(
-        self, user: User, status: int, **target: VotableModel
+        self, user: User, status: int, **target: Union[Comment, Course, Resource]
     ) -> Optional["Vote"]:
         try:
             vote = user.votes.get(**target)

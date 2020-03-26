@@ -18,7 +18,7 @@ AUTH_USER_MODEL = "core.User"
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 MEDIA_ROOT = "media"
 STATIC_ROOT = "static"
-MEDIA_URL = "/media/"
+MEDIA_URL = "media/"
 STATIC_URL = "/static/"
 
 # This is used to allow AWS ELB health checks access the backend.

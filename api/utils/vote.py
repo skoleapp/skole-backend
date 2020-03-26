@@ -4,7 +4,7 @@ import graphene
 from graphql import ResolveInfo
 
 from api.schemas.vote import VoteObjectType
-from core.models import Vote
+from core.models import Comment, Course, Resource, Vote
 
 
 class VoteMixin:
@@ -20,7 +20,15 @@ class VoteMixin:
             return None
 
         try:
-            # Ignore: pk attribute will be defined in the class deriving from this mixin.
-            return user.votes.get(comment=self.pk)  # type: ignore [attr-defined]
+            if isinstance(self, Comment):
+                # Ignore: pk attribute will be defined in the class deriving from this mixin.
+                return user.votes.get(comment=self.pk)  # type: ignore [attr-defined]
+            if isinstance(self, Course):
+                # Ignore: pk attribute will be defined in the class deriving from this mixin.
+                return user.votes.get(course=self.pk)  # type: ignore [attr-defined]
+            if isinstance(self, Resource):
+                # Ignore: pk attribute will be defined in the class deriving from this mixin.
+                return user.votes.get(resource=self.pk)  # type: ignore [attr-defined]
+
         except Vote.DoesNotExist:
             return None

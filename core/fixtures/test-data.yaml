@@ -76,6 +76,84 @@
     is_superuser: false
     modified: "2020-01-01 12:00:00.000000+00:00"
     created: "2020-01-01 12:00:00.000000+00:00"
+- model: core.User
+  pk: 7
+  fields:
+    username: "testuser7"
+    email: "test7@test.com"
+    password: "pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4=" # password
+    title: ""
+    bio: ""
+    avatar: ""
+    is_staff: false
+    is_superuser: false
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
+- model: core.User
+  pk: 8
+  fields:
+    username: "testuser8"
+    email: "test8@test.com"
+    password: "pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4=" # password
+    title: ""
+    bio: ""
+    avatar: ""
+    is_staff: false
+    is_superuser: false
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
+- model: core.User
+  pk: 9
+  fields:
+    username: "testuser9"
+    email: "test9@test.com"
+    password: "pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4=" # password
+    title: ""
+    bio: ""
+    avatar: ""
+    is_staff: false
+    is_superuser: false
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
+- model: core.User
+  pk: 10
+  fields:
+    username: "testuser10"
+    email: "test10@test.com"
+    password: "pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4=" # password
+    title: ""
+    bio: ""
+    avatar: ""
+    is_staff: false
+    is_superuser: false
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
+- model: core.User
+  pk: 11
+  fields:
+    username: "testuser11"
+    email: "test11@test.com"
+    password: "pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4=" # password
+    title: ""
+    bio: ""
+    avatar: ""
+    is_staff: false
+    is_superuser: false
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
+- model: core.User
+  pk: 12
+  fields:
+    username: "testuser12"
+    email: "test12@test.com"
+    password: "pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4=" # password
+    title: ""
+    bio: ""
+    avatar: ""
+    is_staff: false
+    is_superuser: false
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
 
 - model: core.Country
   pk: 1
@@ -200,6 +278,96 @@
   fields:
     name: "Test Engineering Course 3"
     code: "TEST0003"
+    subject: 1
+    school: 1
+    user: 4
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
+- model: core.Course
+  pk: 4
+  fields:
+    name: "Test Engineering Course 4"
+    code: "TEST0004"
+    subject: 1
+    school: 1
+    user: 2
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
+- model: core.Course
+  pk: 5
+  fields:
+    name: "Test Engineering Course 5"
+    code: "TEST0005"
+    subject: 1
+    school: 1
+    user: 3
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
+- model: core.Course
+  pk: 6
+  fields:
+    name: "Test Engineering Course 6"
+    code: "TEST0006"
+    subject: 1
+    school: 1
+    user: 4
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
+- model: core.Course
+  pk: 7
+  fields:
+    name: "Test Engineering Course 7"
+    code: "TEST0007"
+    subject: 1
+    school: 1
+    user: 2
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
+- model: core.Course
+  pk: 8
+  fields:
+    name: "Test Engineering Course 8"
+    code: "TEST0008"
+    subject: 1
+    school: 1
+    user: 2
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
+- model: core.Course
+  pk: 9
+  fields:
+    name: "Test Engineering Course 9"
+    code: "TEST0009"
+    subject: 1
+    school: 1
+    user: 3
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
+- model: core.Course
+  pk: 10
+  fields:
+    name: "Test Engineering Course 10"
+    code: "TEST00010"
+    subject: 1
+    school: 1
+    user: 4
+    modified: "2020-01-01 12:00:00.000000+00:00"
+    created: "2020-01-01 12:00:00.000000+00:00"
+- model: core.Course
+  pk: 11
+  fields:
+      name: "Test Engineering Course 11"
+      code: "TEST00011"
+      subject: 1
+      school: 1
+      user: 3
+      modified: "2020-01-01 12:00:00.000000+00:00"
+      created: "2020-01-01 12:00:00.000000+00:00"
+- model: core.Course
+  pk: 12
+  fields:
+    name: "Test Engineering Course 12"
+    code: "TEST00012"
     subject: 1
     school: 1
     user: 4

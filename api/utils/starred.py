@@ -3,14 +3,14 @@ from typing import Optional
 import graphene
 from graphql import ResolveInfo
 
-from core.models import Course, Resource, Star
+from core.models import Course, Resource, Starred
 
 
-class StarMixin:
+class StarredMixin:
     starred = graphene.Boolean()
 
     def resolve_starred(self, info: ResolveInfo) -> Optional[int]:
-        """Resolve whether user has starred current item."""
+        """Check whether user has starred current item."""
 
         user = info.context.user
 
@@ -33,5 +33,5 @@ class StarMixin:
             else:
                 raise TypeError("Invalid class.")
 
-        except Star.DoesNotExist:
+        except Starred.DoesNotExist:
             return False

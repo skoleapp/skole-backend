@@ -27,11 +27,14 @@ class StarManager(models.Manager):  # type: ignore[type-arg]
         self, user: User, **target: Union[Course, Resource]
     ) -> Optional["Star"]:
         try:
-            star = user.stars.get(**target)
+            # Ignore: user.stars not yet defined.
+            star = user.stars.get(**target)  # type: ignore [attr-defined]
 
             if star is not None:
                 star.delete()
                 return None
+            else:
+                return star
 
         except Star.DoesNotExist:
             star = self.model(**target)
@@ -45,16 +48,21 @@ class Star(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="stars")
     course = models.ForeignKey(
-        Course, on_delete=models.CASCADE, null=True, blank=True, related_name="votes"
+        Course, on_delete=models.CASCADE, null=True, blank=True, related_name="stars"
     )
     resource = models.ForeignKey(
-        Resource, on_delete=models.CASCADE, null=True, blank=True, related_name="votes"
+        Resource, on_delete=models.CASCADE, null=True, blank=True, related_name="stars"
     )
 
     objects = StarManager()
 
     class Meta:
-        unique_together = ("user", "course", "user")
+        unique_together = ("user", "course", "resource")
 
     def __str__(self) -> str:
-        return self.user.username
+        if self.course is not None:
+            return f"{self.user} - {self.course}"
+        elif self.resource is not None:
+            return f"{self.user} - {self.resource}"
+        else:
+            raise ValueError("Invalid star object!")

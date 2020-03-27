@@ -36,10 +36,7 @@ class Course(models.Model):
     objects = CourseManager()
 
     def __str__(self) -> str:
-        if self.code:
-            return f"{self.code} {self.name}"
-        else:
-            return f"{self.name}"
+        return f"{self.name} {self.code}" if self.code else self.name
 
     @property
     def points(self) -> int:

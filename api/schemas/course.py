@@ -11,12 +11,12 @@ from api.forms.course import CreateCourseForm, DeleteCourseForm
 from api.utils.common import get_obj_or_none
 from api.utils.mixins import DeleteMutationMixin
 from api.utils.pagination import PaginationMixin, get_paginator
-from api.utils.star import StarMixin
+from api.utils.starred import StarredMixin
 from api.utils.vote import VoteMixin
 from core.models import Course
 
 
-class CourseObjectType(VoteMixin, StarMixin, DjangoObjectType):
+class CourseObjectType(VoteMixin, StarredMixin, DjangoObjectType):
     resource_count = graphene.Int()
 
     class Meta:

@@ -8,43 +8,43 @@ from core.models.user import User
 
 
 # Ignore: See explanation in UserManager.
-class StarManager(models.Manager):  # type: ignore[type-arg]
+class StarredManager(models.Manager):  # type: ignore[type-arg]
     def perform_star(
         self, user: User, target: Union[Course, Resource]
-    ) -> Optional["Star"]:
+    ) -> Optional["Starred"]:
         """Automatically create a new star or delete one if it already exists."""
 
         if isinstance(target, Course):
-            star = self.check_existing_star(user, course=target)
+            starred = self.check_existing_starred(user, course=target)
         elif isinstance(target, Resource):
-            star = self.check_existing_star(user, resource=target)
+            starred = self.check_existing_starred(user, resource=target)
         else:
             raise TypeError(f"Invalid target type for Vote: {type(target)}")
 
-        return star
+        return starred
 
-    def check_existing_star(
+    def check_existing_starred(
         self, user: User, **target: Union[Course, Resource]
-    ) -> Optional["Star"]:
+    ) -> Optional["Starred"]:
         try:
             # Ignore: user.stars not yet defined.
-            star = user.stars.get(**target)  # type: ignore [attr-defined]
+            starred = user.stars.get(**target)  # type: ignore [attr-defined]
 
-            if star is not None:
-                star.delete()
+            if starred is not None:
+                starred.delete()
                 return None
             else:
-                return star
+                return starred
 
-        except Star.DoesNotExist:
-            star = self.model(**target)
-            star.user = user
-            star.save()
-            return star
+        except Starred.DoesNotExist:
+            starred = self.model(**target)
+            starred.user = user
+            starred.save()
+            return starred
 
 
-class Star(models.Model):
-    """Models a user's star on either course or resource."""
+class Starred(models.Model):
+    """Models a user's starred course or resource."""
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="stars")
     course = models.ForeignKey(
@@ -54,7 +54,7 @@ class Star(models.Model):
         Resource, on_delete=models.CASCADE, null=True, blank=True, related_name="stars"
     )
 
-    objects = StarManager()
+    objects = StarredManager()
 
     class Meta:
         unique_together = ("user", "course", "resource")
@@ -65,4 +65,4 @@ class Star(models.Model):
         elif self.resource is not None:
             return f"{self.user} - {self.resource}"
         else:
-            raise ValueError("Invalid star object!")
+            raise ValueError("Invalid starred object!")

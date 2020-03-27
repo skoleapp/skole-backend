@@ -10,11 +10,12 @@ from graphql_jwt.decorators import login_required
 from api.forms.course import CreateCourseForm, DeleteCourseForm
 from api.utils.common import get_obj_or_none
 from api.utils.mixins import DeleteMutationMixin
+from api.utils.star import StarMixin
 from api.utils.vote import VoteMixin
 from core.models import Course
 
 
-class CourseObjectType(VoteMixin, DjangoObjectType):
+class CourseObjectType(VoteMixin, StarMixin, DjangoObjectType):
     resource_count = graphene.Int()
 
     class Meta:

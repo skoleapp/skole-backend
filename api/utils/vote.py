@@ -29,6 +29,8 @@ class VoteMixin:
             if isinstance(self, Resource):
                 # Ignore: pk attribute will be defined in the class deriving from this mixin.
                 return user.votes.get(resource=self.pk)  # type: ignore [attr-defined]
+            else:
+                raise TypeError("Invalid class.")
 
         except Vote.DoesNotExist:
             return None

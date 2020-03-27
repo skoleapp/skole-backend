@@ -11,11 +11,12 @@ from api.schemas.school import SchoolObjectType
 from api.utils.common import get_obj_or_none
 from api.utils.messages import NOT_OWNER_MESSAGE
 from api.utils.mixins import DeleteMutationMixin
+from api.utils.star import StarMixin
 from api.utils.vote import VoteMixin
 from core.models import Resource
 
 
-class ResourceObjectType(VoteMixin, DjangoObjectType):
+class ResourceObjectType(VoteMixin, StarMixin, DjangoObjectType):
     resource_type = graphene.String()
     school = graphene.Field(SchoolObjectType)
 

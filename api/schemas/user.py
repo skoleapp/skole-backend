@@ -18,8 +18,10 @@ from api.forms.user import (
     RegisterForm,
     UpdateUserForm,
 )
+from api.schemas.course import CourseObjectType
+from api.schemas.resource import ResourceObjectType
 from api.utils.pagination import PaginationMixin, get_paginator
-from core.models import BetaCode, User, Vote
+from core.models import BetaCode, Course, Resource, User, Vote
 
 
 class UserObjectType(DjangoObjectType):
@@ -29,6 +31,8 @@ class UserObjectType(DjangoObjectType):
     avatar_thumbnail = graphene.String()
     course_count = graphene.Int()
     resource_count = graphene.Int()
+    starred_courses = graphene.List(CourseObjectType)
+    starred_resources = graphene.List(ResourceObjectType)
 
     class Meta:
         model = get_user_model()
@@ -67,6 +71,12 @@ class UserObjectType(DjangoObjectType):
 
     def resolve_avatar_thumbnail(self, info: ResolveInfo) -> str:
         return self.avatar_thumbnail.url if self.avatar_thumbnail else ""
+
+    def resolve_starred_courses(self, info: ResolveInfo) -> List[CourseObjectType]:
+        return Course.objects.filter(stars__user__pk=self.pk)
+
+    def resolve_starred_resources(self, info: ResolveInfo) -> List[ResourceObjectType]:
+        return Resource.objects.filter(stars__user__pk=self.pk)
 
 
 class PaginatedUserObjectType(PaginationMixin, graphene.ObjectType):

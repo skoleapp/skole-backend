@@ -66,7 +66,7 @@ class Comment(models.Model):
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, null=True, related_name="comments"
     )
-    text = models.TextField(max_length=10000)
+    text = models.TextField(max_length=10000, blank=True)
     attachment = models.FileField(
         upload_to="uploads/attachments",
         blank=True,
@@ -97,10 +97,14 @@ class Comment(models.Model):
     objects = CommentManager()
 
     def __str__(self) -> str:
-        if len(self.text) > 40:
+        if self.text and len(self.text) > 40:
             return f"{self.text[:40]}..."
-        else:
+        elif self.text != "":
             return f"{self.text}"
+        elif self.attachment != "":
+            return f"Attachment Comment: {self.pk}"
+        else:
+            raise ValueError("Invalid comment with neither text nor attachment!")
 
     @property
     def points(self) -> int:

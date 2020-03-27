@@ -15,6 +15,9 @@ def test_str(db: fixture) -> None:
     comment2 = Comment.objects.get(pk=2)
     assert str(comment2) == "Second comment of the thread."
 
+    comment3 = Comment.objects.get(pk=3)
+    assert str(comment3) == "Attachment Comment: 3"
+
 
 def test_manager_create_ok(db: fixture, temp_media: fixture) -> None:
     user = get_user_model().objects.get(pk=2)

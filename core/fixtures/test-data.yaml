@@ -450,8 +450,8 @@
 - model: core.Comment
   pk: 3
   fields:
-    text: "Third comment of the thread."
-    attachment: ""
+    text: ""
+    attachment: "uploads/attachments/test_file.txt"
     resource: 1
     course: null
     comment: null

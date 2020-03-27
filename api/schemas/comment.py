@@ -1,6 +1,7 @@
 from typing import Optional
 
 import graphene
+from django.utils.translation import gettext as _
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphql import GraphQLError, ResolveInfo
@@ -50,6 +51,8 @@ class CreateCommentMutation(DjangoModelFormMutation):
     ) -> "CreateCommentMutation":
         if file := info.context.FILES.get("1"):
             form.cleaned_data["attachment"] = file
+        elif form.cleaned_data["text"] == "":
+            raise GraphQLError(_("Comment must include either text or attachment!"))
 
         comment = Comment.objects.create_comment(
             user=info.context.user, **form.cleaned_data

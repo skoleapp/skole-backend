@@ -9,7 +9,7 @@ from graphql_jwt.decorators import login_required
 
 from api.forms.course import CreateCourseForm, DeleteCourseForm
 from api.utils.common import get_obj_or_none
-from api.utils.mixins import DeleteMutationMixin
+from api.utils.delete import DeleteMutationMixin
 from api.utils.pagination import PaginationMixin, get_paginator
 from api.utils.starred import StarredMixin
 from api.utils.vote import VoteMixin

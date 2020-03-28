@@ -49,7 +49,6 @@ class ResourceManager(models.Manager):  # type: ignore[type-arg]
         resource.resource_type = resource_type
         resource.title = title
         resource.date = date
-
         resource.full_clean()
         resource.save()
         return resource

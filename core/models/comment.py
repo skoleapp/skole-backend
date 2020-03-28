@@ -39,7 +39,6 @@ class CommentManager(models.Manager):  # type: ignore[type-arg]
         comment.user = user
         comment.text = text
         comment.attachment = attachment
-
         comment.full_clean()
         comment.save()
         return comment
@@ -49,7 +48,6 @@ class CommentManager(models.Manager):  # type: ignore[type-arg]
     ) -> "Comment":
         comment.text = text
         comment.attachment = attachment
-
         comment.full_clean()
         comment.save()
         return comment
@@ -70,7 +68,7 @@ class Comment(models.Model):
         User, on_delete=models.CASCADE, null=True, related_name="comments"
     )
     text = models.TextField(max_length=10000, blank=True)
-    attachment = models.FileField(
+    attachment = models.ImageField(
         upload_to="uploads/attachments",
         blank=True,
         validators=[ValidateFileSizeAndType(3, ["image/jpeg", "image/png"])],

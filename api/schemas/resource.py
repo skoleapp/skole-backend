@@ -9,8 +9,9 @@ from graphql_jwt.decorators import login_required
 from api.forms.resource import CreateUpdateResourceForm, DeleteResourceForm
 from api.schemas.school import SchoolObjectType
 from api.utils.common import get_obj_or_none
+from api.utils.delete import DeleteMutationMixin
+from api.utils.file import FileMixin
 from api.utils.messages import NOT_OWNER_MESSAGE
-from api.utils.mixins import DeleteMutationMixin
 from api.utils.starred import StarredMixin
 from api.utils.vote import VoteMixin
 from core.models import Resource
@@ -42,7 +43,7 @@ class ResourceObjectType(VoteMixin, StarredMixin, DjangoObjectType):
         return self.course.school
 
 
-class CreateResourceMutation(DjangoModelFormMutation):
+class CreateResourceMutation(FileMixin, DjangoModelFormMutation):
     class Meta:
         form_class = CreateUpdateResourceForm
         exclude_fields = ("id",)
@@ -52,17 +53,10 @@ class CreateResourceMutation(DjangoModelFormMutation):
     def perform_mutate(
         cls, form: CreateUpdateResourceForm, info: ResolveInfo
     ) -> "CreateResourceMutation":
-        """Replace the form files with the actual files from the context. The resource manager
-        will then take care of automatically creating resource parts based on the files.
-        """
-        form.cleaned_data.pop("file")
-        file = info.context.FILES.get("1")
         resource = Resource.objects.create_resource(
-            # Ignore: Mypy doesn't understand that the file key was removed from the dict
-            #  and thinks it's getting multiple values with that key.
-            #  Mypy also somehow thinks that the user was already in the cleaned_data,
+            #  Mypy somehow thinks that the user was already in the cleaned_data,
             #  and would thus also be a duplicate key.
-            **form.cleaned_data, file=file, user=info.context.user  # type: ignore[misc]
+            **form.cleaned_data, user=info.context.user # type: ignore[misc]
         )
         return cls(resource=resource)
 

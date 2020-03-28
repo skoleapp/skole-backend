@@ -13,6 +13,13 @@ class CreateUpdateCommentForm(TargetForm):
             "comment",
         )
 
+    def clean_attachment(self) -> str:
+        # Ignore: Mypy considers files as optional but they're always at least an empty MultiValueDict.
+        if attachment := self.files.get("1", None):  # type: ignore [union-attr]
+            return attachment
+        else:
+            return self.cleaned_data["attachment"]
+
 
 class DeleteCommentForm(DeleteObjectForm):
     class Meta(DeleteObjectForm.Meta):

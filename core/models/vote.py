@@ -1,6 +1,8 @@
 from typing import Optional, Tuple
 
 from django.db import models
+from django.utils.translation import gettext as _
+from graphql import GraphQLError
 
 from core.models.comment import Comment
 from core.models.course import Course
@@ -16,6 +18,9 @@ class VoteManager(models.Manager):  # type: ignore[type-arg]
         self, user: User, status: int, target: VotableModel
     ) -> Tuple[Optional["Vote"], int]:
         """Automatically create a new vote or delete one if it already exists."""
+
+        if target.user == user:
+            raise GraphQLError(_("Can't vote for own stuff."))
 
         if isinstance(target, Comment):
             vote = self.check_existing_vote(user, status, comment=target)

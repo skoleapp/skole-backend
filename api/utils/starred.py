@@ -20,16 +20,10 @@ class StarredMixin:
         try:
             if isinstance(self, Course):
                 # Ignore: pk attribute will be defined in the class deriving from this mixin.
-                if user.stars.get(course=self.pk) is not None:  # type: ignore [attr-defined]
-                    return True
-                else:
-                    return False
+                return user.stars.get(course=self.pk) is not None  # type: ignore [attr-defined]
             if isinstance(self, Resource):
                 # Ignore: pk attribute will be defined in the class deriving from this mixin.
-                if user.stars.get(resource=self.pk) is not None:  # type: ignore [attr-defined]
-                    return True
-                else:
-                    return False
+                return user.stars.get(resource=self.pk) is not None  # type: ignore [attr-defined]
             else:
                 raise TypeError("Invalid class.")
 

@@ -19,7 +19,7 @@ class StarredManager(models.Manager):  # type: ignore[type-arg]
         elif isinstance(target, Resource):
             starred = self.check_existing_starred(user, resource=target)
         else:
-            raise TypeError(f"Invalid target type for Vote: {type(target)}")
+            raise TypeError(f"Invalid target type for Starred: {type(target)}")
 
         return starred
 
@@ -29,12 +29,8 @@ class StarredManager(models.Manager):  # type: ignore[type-arg]
         try:
             # Ignore: user.stars not yet defined.
             starred = user.stars.get(**target)  # type: ignore [attr-defined]
-
-            if starred is not None:
-                starred.delete()
-                return None
-            else:
-                return starred
+            starred.delete()
+            return None
 
         except Starred.DoesNotExist:
             starred = self.model(**target)

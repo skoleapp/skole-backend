@@ -19,7 +19,7 @@ class VoteManager(models.Manager):  # type: ignore[type-arg]
     ) -> Tuple[Optional["Vote"], int]:
         """Automatically create a new vote or delete one if it already exists."""
 
-        if target.user == user:
+        if hasattr(target, "user") and target.user == user:
             raise GraphQLError(_("Can't vote for own stuff."))
 
         if isinstance(target, Comment):

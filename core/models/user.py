@@ -52,8 +52,6 @@ class UserManager(BaseUserManager):  # type: ignore[type-arg]
         user.title = title
         user.bio = bio
         user.avatar = avatar
-
-        user.full_clean()
         user.save()
         return user
 

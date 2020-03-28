@@ -21,7 +21,7 @@ from api.forms.user import (
 from api.schemas.course import CourseObjectType
 from api.schemas.resource import ResourceObjectType
 from api.utils.pagination import PaginationMixin, get_paginator
-from core.models import BetaCode, Course, Resource, User, Vote
+from core.models import BetaCode, Course, Resource, User
 
 
 class UserObjectType(DjangoObjectType):
@@ -199,7 +199,11 @@ class UpdateUserMutation(DjangoModelFormMutation):
     def get_form_kwargs(
         cls, root: Any, info: ResolveInfo, **input: JsonDict
     ) -> JsonDict:
-        return {"data": input, "instance": info.context.user}
+        return {
+            "data": input,
+            "instance": info.context.user,
+            "files": info.context.FILES,
+        }
 
     @classmethod
     @login_required
@@ -207,14 +211,6 @@ class UpdateUserMutation(DjangoModelFormMutation):
         cls, form: UpdateUserForm, info: ResolveInfo
     ) -> "UpdateUserMutation":
         user = info.context.user
-
-        # Don't allow changing avatar to anything but a File or ""
-        if form.cleaned_data["avatar"] != "":
-            if file := info.context.FILES.get("1"):
-                form.cleaned_data["avatar"] = file
-            else:
-                form.cleaned_data["avatar"] = user.avatar
-
         get_user_model().objects.update_user(user, **form.cleaned_data)
         return cls(user=user)
 

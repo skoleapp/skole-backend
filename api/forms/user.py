@@ -69,6 +69,13 @@ class UpdateUserForm(forms.ModelForm):
         model = get_user_model()
         fields = ("username", "email", "title", "bio", "avatar")
 
+    def clean_avatar(self) -> str:
+        # Ignore: Mypy considers files as optional but they're always at least an empty MultiValueDict.
+        if avatar := self.files.get("1", None):  # type: ignore [union-attr]
+            return avatar
+        else:
+            return ""
+
     def clean_email(self) -> str:
         email = self.cleaned_data["email"]
         if (

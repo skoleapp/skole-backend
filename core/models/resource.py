@@ -28,13 +28,13 @@ class ResourceManager(models.Manager):  # type: ignore[type-arg]
         resource = self.model(
             resource_type=resource_type, title=title, course=course, user=user,
         )
+
         if date:
             # If the user did provide a date for the resource use that,
             # otherwise will just use the default from the model.
             resource.date = date
 
         resource.file = file
-
         resource.full_clean()
         resource.save()
         return resource

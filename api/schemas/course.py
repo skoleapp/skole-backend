@@ -132,7 +132,7 @@ class Query(graphene.ObjectType):
 
     @login_required
     def resolve_courses(self, info: ResolveInfo) -> "QuerySet[Course]":
-        return self.courses.order_by("name")
+        return Course.objects.order_by("name")
 
     @login_required
     def resolve_course(

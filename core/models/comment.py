@@ -40,6 +40,7 @@ class CommentManager(models.Manager):  # type: ignore[type-arg]
         comment.text = text
         comment.attachment = attachment
 
+        comment.full_clean()
         comment.save()
         return comment
 
@@ -48,6 +49,8 @@ class CommentManager(models.Manager):  # type: ignore[type-arg]
     ) -> "Comment":
         comment.text = text
         comment.attachment = attachment
+
+        comment.full_clean()
         comment.save()
         return comment
 

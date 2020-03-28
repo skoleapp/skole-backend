@@ -16,11 +16,12 @@ def test_str(db: fixture) -> None:
     assert str(resource2) == "Sample exam 2"
 
 
-def test_create_resource(db: fixture, temp_media: fixture) -> None:
+def test_create_and_update_resource(db: fixture, temp_media: fixture) -> None:
     resource_type = ResourceType.objects.get(pk=1)
     title = "title for resource"
     course = Course.objects.get(pk=1)
-    file = SimpleUploadedFile("file1.txt", b"some data")
+    # The pdf bit pattern is taken from https://en.wikipedia.org/wiki/List_of_file_signatures
+    file = SimpleUploadedFile("exam.pdf", b"\x25\x50\x44\x46\x2d")
     user = get_user_model().objects.get(pk=2)
     date = datetime.date(2020, 1, 1)
     resource1 = Resource.objects.create_resource(
@@ -36,7 +37,10 @@ def test_create_resource(db: fixture, temp_media: fixture) -> None:
     assert resource1.course == course
     assert resource1.user == user
     assert resource1.date == date
-    assert re.match(r"^uploads/resources/file1\w*\.txt$", resource1.file.name,)
+    assert re.match(r"^uploads/resources/exam\w*\.pdf$", resource1.file.name,)
+
+    # Somehow the file needs to be created for validation to work.
+    file = SimpleUploadedFile("exam.pdf", b"\x25\x50\x44\x46\x2d")
 
     # Test that the date gets autopopulated if not passed explicitly.
     current_date = datetime.date.today()
@@ -45,17 +49,18 @@ def test_create_resource(db: fixture, temp_media: fixture) -> None:
     )
     assert resource2.date == current_date
 
-
-def test_update_resource(db: fixture) -> None:
-    resource = Resource.objects.get(pk=1)
-    resource_type = ResourceType.objects.get(pk=2)
-    title = "new title"
-    date = datetime.date(2099, 1, 1)
+    # Test that updating the newly created resource works fine.
+    new_resource_type = ResourceType.objects.get(pk=4)
+    new_title = "new title"
+    new_date = datetime.date(2099, 1, 1)
 
     Resource.objects.update_resource(
-        resource=resource, resource_type=resource_type, title=title, date=date
+        resource=resource2,
+        resource_type=new_resource_type,
+        title=new_title,
+        date=new_date,
     )
 
-    assert resource.resource_type == resource_type
-    assert resource.title == title
-    assert resource.date == date
+    assert resource2.resource_type == new_resource_type
+    assert resource2.title == new_title
+    assert resource2.date == new_date

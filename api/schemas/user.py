@@ -72,10 +72,10 @@ class UserObjectType(DjangoObjectType):
     def resolve_avatar_thumbnail(self, info: ResolveInfo) -> str:
         return self.avatar_thumbnail.url if self.avatar_thumbnail else ""
 
-    def resolve_starred_courses(self, info: ResolveInfo) -> List[CourseObjectType]:
+    def resolve_starred_courses(self, info: ResolveInfo) -> "QuerySet[Course]":
         return Course.objects.filter(stars__user__pk=self.pk)
 
-    def resolve_starred_resources(self, info: ResolveInfo) -> List[ResourceObjectType]:
+    def resolve_starred_resources(self, info: ResolveInfo) -> "QuerySet[Resource]":
         return Resource.objects.filter(stars__user__pk=self.pk)
 
 

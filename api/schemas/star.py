@@ -21,14 +21,8 @@ class StarredMutation(DjangoModelFormMutation):
             user=info.context.user, **form.cleaned_data
         )
 
-        if starred is not None:
-            # Ignore: value must be cast to boolean from Starred object.
-            starred = True  # type: ignore [assignment]
-        else:
-            # Ignore: Same as above.
-            starred = False  # type: ignore [assignment]
-
-        return cls(starred=starred)
+        starred_bool = starred is not None
+        return cls(starred=starred_bool)
 
 
 class Mutation(graphene.ObjectType):

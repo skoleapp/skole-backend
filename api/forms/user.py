@@ -74,7 +74,7 @@ class UpdateUserForm(forms.ModelForm):
         if avatar := self.files.get("1", None):  # type: ignore [union-attr]
             return avatar
         else:
-            return ""
+            return self.cleaned_data["avatar"]
 
     def clean_email(self) -> str:
         email = self.cleaned_data["email"]

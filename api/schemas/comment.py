@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Any, Optional
 
 import graphene
 from django.utils.translation import gettext as _
@@ -6,12 +6,14 @@ from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphql import GraphQLError, ResolveInfo
 from graphql_jwt.decorators import login_required
+from mypy.types import JsonDict
 
 from api.forms.comment import CreateUpdateCommentForm, DeleteCommentForm
 from api.schemas.vote import VoteObjectType
 from api.utils.common import get_obj_or_none
+from api.utils.delete import DeleteMutationMixin
+from api.utils.file import FileMixin
 from api.utils.messages import NOT_OWNER_MESSAGE
-from api.utils.mixins import DeleteMutationMixin
 from api.utils.vote import VoteMixin
 from core.models import Comment, Vote
 
@@ -39,7 +41,7 @@ class CommentObjectType(VoteMixin, DjangoObjectType):
         return self.attachment.url if self.attachment else ""
 
 
-class CreateCommentMutation(DjangoModelFormMutation):
+class CreateCommentMutation(FileMixin, DjangoModelFormMutation):
     class Meta:
         form_class = CreateUpdateCommentForm
         exclude_fields = ("id",)
@@ -49,9 +51,7 @@ class CreateCommentMutation(DjangoModelFormMutation):
     def perform_mutate(
         cls, form: CreateUpdateCommentForm, info: ResolveInfo
     ) -> "CreateCommentMutation":
-        if file := info.context.FILES.get("1"):
-            form.cleaned_data["attachment"] = file
-        elif form.cleaned_data["text"] == "":
+        if form.cleaned_data["attachment"] == "" and form.cleaned_data["text"] == "":
             raise GraphQLError(_("Comment must include either text or attachment!"))
 
         comment = Comment.objects.create_comment(

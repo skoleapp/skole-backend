@@ -20,6 +20,7 @@ from api.forms.user import (
 )
 from api.schemas.course import CourseObjectType
 from api.schemas.resource import ResourceObjectType
+from api.utils.file import FileMixin
 from api.utils.pagination import PaginationMixin, get_paginator
 from core.models import BetaCode, Course, Resource, User
 
@@ -188,22 +189,12 @@ class DeleteUserMutation(DjangoModelFormMutation):
         return cls(message=_("User deleted successfully!"))
 
 
-class UpdateUserMutation(DjangoModelFormMutation):
+class UpdateUserMutation(FileMixin, DjangoModelFormMutation):
     user = graphene.Field(UserObjectType)
 
     class Meta:
         form_class = UpdateUserForm
         exclude_fields = ("id",)
-
-    @classmethod
-    def get_form_kwargs(
-        cls, root: Any, info: ResolveInfo, **input: JsonDict
-    ) -> JsonDict:
-        return {
-            "data": input,
-            "instance": info.context.user,
-            "files": info.context.FILES,
-        }
 
     @classmethod
     @login_required

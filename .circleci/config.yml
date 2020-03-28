@@ -2,10 +2,15 @@ version: 2
 
 jobs:
   build:
+    branches:
+      ignore:
+        - develop
     machine:
       image: ubuntu-1604:201903-01
     steps:
       - checkout
-      - run: >
-          docker-compose -f docker-compose.circleci.yml run --rm backend sh -c \
-          "mypy . && pytest tests"
+      - run:
+          name: "Run type-check and tests"
+          command: >
+            docker-compose -f docker-compose.circleci.yml
+            run --rm backend sh -c "mypy . && pytest tests"

@@ -571,7 +571,7 @@
 - model: core.Course
   pk: 58
   fields:
-    name: "Fuktioteoria"
+    name: "Funktioteoria"
     code: "MATE_5033"
     subject: 43
     school: 1

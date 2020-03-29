@@ -244,12 +244,14 @@ class Query(graphene.ObjectType):
 
         if ordering in {"username", "-username"}:
             qs = qs.order_by(ordering)
-        elif ordering == "points":
-            # Ignore: qs changes from QuerySet to a List, get_paginator handles that.
-            qs = sorted(qs, key=lambda u: u.points)  # type: ignore[assignment]
-        else:  # -points
-            # Ignore: Same as above.
-            qs = sorted(qs, key=lambda u: u.points, reverse=True)  # type: ignore[assignment]
+        else:
+            qs = qs.order_by("username")
+            if ordering == "points":
+                # Ignore: qs changes from QuerySet to a List, get_paginator handles that.
+                qs = sorted(qs, key=lambda u: u.points)  # type: ignore[assignment]
+            else:  # -points
+                # Ignore: Same as above.
+                qs = sorted(qs, key=lambda u: u.points, reverse=True)  # type: ignore[assignment]
 
         return get_paginator(qs, page_size, page, PaginatedUserObjectType)
 

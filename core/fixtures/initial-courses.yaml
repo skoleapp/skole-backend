@@ -1171,7 +1171,7 @@
 - model: core.Course
   pk: 118
   fields:
-    name: "MPEG-5"
+    name: "MPEG-4"
     code: "ÅA_453301"
     subject: 14
     school: 3

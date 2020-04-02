@@ -111,6 +111,7 @@ LOCALE_PATHS = [os.path.join(BASE_DIR, "locale")]
 
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_WHITELIST = os.environ.get("CORS_ORIGIN_WHITELIST", default="").split()
+CORS_ORIGIN_ALLOW_ALL = True if DEBUG else False
 
 # GraphQL settings
 

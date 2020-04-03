@@ -120,8 +120,9 @@ GRAPHENE = {
 }
 
 GRAPHQL_JWT = {
-    "JWT_VERIFY_EXPIRATION": False,
-    "JWT_EXPIRATION_DELTA": datetime.timedelta(hours=24),
+    "JWT_VERIFY_EXPIRATION": False if DEBUG else True,
+    "JWT_EXPIRATION_DELTA": datetime.timedelta(days=7),
+    "JWT_REFRESH_EXPIRATION_DELTA": datetime.timedelta(days=60),
 }
 
 # S3 storage settings

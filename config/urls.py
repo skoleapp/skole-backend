@@ -8,7 +8,10 @@ from api.views import CustomGraphQLView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("graphql/", csrf_exempt(CustomGraphQLView.as_view(graphiql=True))),
+    path(
+        "graphql/",
+        csrf_exempt(CustomGraphQLView.as_view(graphiql=bool(settings.DEBUG))),
+    ),
 ]
 
 if settings.DEBUG:

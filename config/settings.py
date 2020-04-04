@@ -111,7 +111,7 @@ LOCALE_PATHS = [os.path.join(BASE_DIR, "locale")]
 
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_WHITELIST = os.environ.get("CORS_ORIGIN_WHITELIST", default="").split()
-CORS_ORIGIN_ALLOW_ALL = True if DEBUG else False
+CORS_ORIGIN_ALLOW_ALL = bool(DEBUG)
 
 # GraphQL settings
 
@@ -121,7 +121,7 @@ GRAPHENE = {
 }
 
 GRAPHQL_JWT = {
-    "JWT_VERIFY_EXPIRATION": False if DEBUG else True,
+    "JWT_VERIFY_EXPIRATION": not DEBUG,
     "JWT_EXPIRATION_DELTA": datetime.timedelta(days=7),
     "JWT_REFRESH_EXPIRATION_DELTA": datetime.timedelta(days=60),
 }

@@ -127,6 +127,7 @@ GRAPHQL_JWT = {
 }
 
 # S3 storage settings
+
 if not DEBUG:
     AWS_S3_KEY_PREFIX = "media"
     AWS_S3_BUCKET_NAME = os.environ.get("AWS_S3_BUCKET_NAME")
@@ -145,7 +146,15 @@ if not DEBUG:
     DEFAULT_FILE_STORAGE = "django_s3_storage.storage.S3Storage"
     STATICFILES_STORAGE = "django_s3_storage.storage.StaticS3Storage"
 
+# Email settings
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", default="")
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", default="")
+
 # Custom settings
 
 PASSWORD_MIN_LENGTH = 6
-EMAIL_URL = os.environ.get("EMAIL_URL", default="")

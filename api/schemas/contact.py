@@ -32,7 +32,7 @@ class ContactMutation(DjangoFormMutation):
                 subject=subject,
                 message=message,
                 from_email=email,
-                recipient_list=[settings.EMAIL_URL],
+                recipient_list=[settings.EMAIL_HOST_USER],
                 fail_silently=False,
             )
 

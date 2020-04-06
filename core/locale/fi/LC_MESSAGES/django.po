@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-06 18:38+0000\n"
+"POT-Creation-Date: 2020-04-06 22:06+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -74,8 +74,16 @@ msgstr "Et ole tämän objektin omistaja!"
 msgid "Unable to authenticate with the provided credentials."
 msgstr "Kirjautuminen epäonnistui annetuilla tiedoilla"
 
-#: core/models/school_type.py:10
-msgid "Name"
+#: config/settings.py:112
+msgid "English"
+msgstr ""
+
+#: config/settings.py:112
+msgid "Finnish"
+msgstr ""
+
+#: config/settings.py:112
+msgid "Swedish"
 msgstr ""
 
 #: core/models/vote.py:23

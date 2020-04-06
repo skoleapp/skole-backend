@@ -5,6 +5,10 @@ import urllib.request
 
 import dj_database_url
 
+# We use this instead of the real gettext to avoid a circular import
+# https://django-book.readthedocs.io/en/latest/chapter19.html
+_ = lambda s: s
+
 # Django settings
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -105,13 +109,13 @@ TIME_ZONE = "UTC"
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
-LANGUAGES = [("en", "English"), ("fi", "Finnish"), ("sv", "Swedish")]
-LOCALE_PATHS = [os.path.join(BASE_DIR, "locale")]
+LANGUAGES = (("en", _("English")), ("fi", _("Finnish")), ("sv", _("Swedish")))
+LOCALE_PATHS = (os.path.join(BASE_DIR, "core/locale"),)
 
 # django-parlel settings
 PARLER_LANGUAGES = {
     None: (tuple({"code": code} for code, _ in LANGUAGES)),
-    "default": {"fallbacks": ["en"], "hide_untranslated": False},
+    "default": {"fallbacks": ["en", "fi", "sv"], "hide_untranslated": False},
 }
 PARLER_ENABLE_CACHING = False
 

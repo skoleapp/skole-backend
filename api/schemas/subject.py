@@ -11,6 +11,8 @@ from core.models import Subject
 
 
 class SubjectObjectType(DjangoObjectType):
+    name = graphene.String()
+
     class Meta:
         model = Subject
         fields = ("id", "name")

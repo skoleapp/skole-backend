@@ -11,6 +11,8 @@ from core.models import Country
 
 
 class CountryObjectType(DjangoObjectType):
+    name = graphene.String()
+
     class Meta:
         model = Country
         fields = ("id", "name")

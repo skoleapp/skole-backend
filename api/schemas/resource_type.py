@@ -8,6 +8,8 @@ from core.models import ResourceType
 
 
 class ResourceTypeObjectType(DjangoObjectType):
+    name = graphene.String()
+
     class Meta:
         model = ResourceType
         fields = ("id", "name")

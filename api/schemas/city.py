@@ -11,6 +11,8 @@ from core.models import City
 
 
 class CityObjectType(DjangoObjectType):
+    name = graphene.String()
+
     class Meta:
         model = City
         fields = ("id", "name")

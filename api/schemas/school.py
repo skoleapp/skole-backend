@@ -12,6 +12,7 @@ from core.models import School
 
 
 class SchoolObjectType(DjangoObjectType):
+    name = graphene.String()
     school_type = graphene.String()
     city = graphene.String()
     country = graphene.String()

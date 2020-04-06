@@ -1,10 +1,11 @@
 from django.db import models
+from parler.models import TranslatableModel, TranslatedFields
 
 
-class Subject(models.Model):
+class Subject(TranslatableModel):
     """Models one studiable subject, e.g. Computer Engineering."""
 
-    name = models.CharField(max_length=100)
+    translations = TranslatedFields(name=models.CharField(max_length=100))
 
     def __str__(self) -> str:
         return f"{self.name}"

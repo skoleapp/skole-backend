@@ -30,8 +30,8 @@ class UserManager(BaseUserManager):  # type: ignore[type-arg]
         user.save()
         return user
 
-    def create_superuser(self, email: str, username: str, password: str) -> "User":
-        user = self.model(email=email, username=username)
+    def create_superuser(self, username: str, password: str) -> "User":
+        user = self.model(username=username)
         user.is_staff = True
         user.is_superuser = True
         user.set_password(password)
@@ -66,7 +66,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     """Models one user on the platform."""
 
     username = models.CharField(max_length=30, unique=True)
-    email = models.EmailField(unique=True, blank=True)
+    email = models.EmailField(blank=True)
     title = models.CharField(max_length=100, blank=True)
     bio = models.TextField(max_length=2000, blank=True)
     avatar = models.ImageField(

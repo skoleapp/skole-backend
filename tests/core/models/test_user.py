@@ -11,25 +11,22 @@ def test_str(db: fixture) -> None:
 
 
 def test_create_user(db: fixture) -> None:
-    email = "test@test.com"
     username = "testusername"
     password = "password"
-    user = get_user_model().objects.create_user(
-        email=email, username=username, password=password,
-    )
+    user = get_user_model().objects.create_user(username=username, password=password)
 
     assert not user.is_staff
     assert not user.is_superuser
     assert user.username == username
-    assert user.email == email
+    assert user.email == ""
     assert user.check_password(password)
 
 
 def test_create_superuser(db: fixture) -> None:
     username = "testroot"
-    password = "testroot"
+    password = "testpassword"
     user = get_user_model().objects.create_superuser(
-        email="testroot@testroot.com", username=username, password=password
+        username=username, password=password
     )
 
     assert user.is_superuser

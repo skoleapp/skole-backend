@@ -37,7 +37,7 @@ def test_create_and_update_resource(db: fixture, temp_media: fixture) -> None:
     assert resource1.course == course
     assert resource1.user == user
     assert resource1.date == date
-    assert re.match(r"^uploads/resources/exam\w*\.pdf$", resource1.file.name,)
+    assert re.match(r"^uploads/resources/exam\w*\.pdf$", resource1.file.name)
 
     # Somehow the file needs to be created for validation to work.
     file = SimpleUploadedFile("exam.pdf", b"\x25\x50\x44\x46\x2d")

@@ -24,7 +24,9 @@ class Query(graphene.ObjectType):
 
     @login_required
     def resolve_cities(self, info: ResolveInfo) -> "QuerySet[City]":
-        return City.objects.order_by("name")
+        return City.objects.translated(info.context.LANGUAGE_CODE).order_by(
+            "translations__name"
+        )
 
     @login_required
     def resolve_city(

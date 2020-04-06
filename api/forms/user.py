@@ -16,37 +16,30 @@ class RegisterForm(forms.ModelForm):
 
     class Meta:
         model = get_user_model()
-        fields = ("username", "email", "password", "code")
+        fields = ("username", "password", "code")
 
     def clean_code(self) -> BetaCode:
         code = self.cleaned_data["code"]
         try:
-            beta_code = BetaCode.objects.filter(usages__gt=0).get(code=code)
+            return BetaCode.objects.get(code=code)
         except BetaCode.DoesNotExist:
             raise forms.ValidationError(_("Invalid beta register code."))
-        return beta_code
 
 
 class LoginForm(forms.ModelForm):
-    username_or_email = forms.CharField()
+    username = forms.CharField()
     password = forms.CharField()
 
     class Meta:
         model = get_user_model()
-        fields = ("username_or_email", "password")
+        fields = ("username", "password")
 
     def clean(self) -> JsonDict:
-        username_or_email = self.cleaned_data.get("username_or_email")
+        username = self.cleaned_data.get("username")
         password = self.cleaned_data.get("password")
 
-        if "@" in username_or_email:
-            kwargs = {"email": username_or_email}
-        else:
-            kwargs = {"username": username_or_email}
         try:
-            user = authenticate(
-                username=get_user_model().objects.get(**kwargs).email, password=password
-            )
+            user = authenticate(username=username, password=password)
             user = cast(User, user)
 
             if not user:

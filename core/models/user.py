@@ -21,8 +21,8 @@ from core.utils.vote import (
 #  this doesn't actually work, so we ignore it.
 #  https://gitter.im/mypy-django/Lobby?at=5de6bd09d75ad3721d4a58ba
 class UserManager(BaseUserManager):  # type: ignore[type-arg]
-    def create_user(self, email: str, username: str, password: str) -> "User":
-        user = self.model(email=self.normalize_email(email), username=username)
+    def create_user(self, username: str, password: str) -> "User":
+        user = self.model(username=username)
         user.is_staff = False
         user.is_superuser = False
         user.avatar = None
@@ -48,7 +48,7 @@ class UserManager(BaseUserManager):  # type: ignore[type-arg]
         avatar: Union[UploadedFile, str],
     ) -> "User":
         user.username = username
-        user.email = email
+        user.email = self.normalize_email(email)
         user.title = title
         user.bio = bio
         user.avatar = avatar
@@ -66,7 +66,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     """Models one user on the platform."""
 
     username = models.CharField(max_length=30, unique=True)
-    email = models.EmailField(unique=True)
+    email = models.EmailField(unique=True, blank=True)
     title = models.CharField(max_length=100, blank=True)
     bio = models.TextField(max_length=2000, blank=True)
     avatar = models.ImageField(
@@ -88,8 +88,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     objects = UserManager()
 
-    USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ["username"]
+    USERNAME_FIELD = "username"
 
     def __str__(self) -> str:
         return f"{self.username}"

@@ -96,7 +96,6 @@ class RegisterMutation(DjangoModelFormMutation):
         cls, form: RegisterForm, info: ResolveInfo
     ) -> "RegisterMutation":
         user = get_user_model().objects.create_user(
-            email=form.cleaned_data["email"],
             username=form.cleaned_data["username"],
             password=form.cleaned_data["password"],
         )
@@ -131,7 +130,7 @@ class LoginMutation(DjangoModelFormMutation):
                 info=info,
                 password=password,
                 user=user,
-                email=user.email,
+                username=user.username,
             )
         else:
             errors = ErrorType.from_errors(form.errors)

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-24 21:00+0000\n"
+"POT-Creation-Date: 2020-04-06 18:38+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,43 +22,51 @@ msgstr ""
 msgid "Invalid beta register code."
 msgstr "Virheellinen beta-rekisteröitymiskoodi."
 
-#: api/forms/user.py:57
+#: api/forms/user.py:50
 msgid "Cannot log in as superuser."
 msgstr "Ei voi kirjautua pääkäyttäjänä."
 
-#: api/forms/user.py:81
+#: api/forms/user.py:83
 msgid "This email is taken."
 msgstr "Sähköposti on jo käytössä."
 
-#: api/forms/user.py:91
+#: api/forms/user.py:93
 msgid "This username is taken."
 msgstr "Käyttäjänimi on jo käytössä."
 
-#: api/forms/user.py:106
+#: api/forms/user.py:108
 msgid "Incorrect old password."
 msgstr "Vanha salasana väärin"
 
-#: api/forms/user.py:120
+#: api/forms/user.py:122
 msgid "Incorrect password."
 msgstr "Väärä salasana."
 
-#: api/schemas/contact.py:34
+#: api/schemas/comment.py:55
+msgid "Comment must include either text or attachment!"
+msgstr ""
+
+#: api/schemas/contact.py:39
 msgid "Message sent successfully!"
 msgstr "Viesti lähetetty onnistuneesti!"
 
-#: api/schemas/contact.py:41
+#: api/schemas/contact.py:46
 msgid "Error while sending message."
 msgstr "Virhe lähettäessä viestiä."
 
-#: api/schemas/user.py:173
+#: api/schemas/user.py:188
 msgid "User deleted successfully!"
 msgstr "Käyttäjä poistettu onnistuneesti!"
 
-#: api/utils/forms.py:30
+#: api/utils/delete.py:45
+msgid "Object deleted successfully!"
+msgstr "Objekti poistettu onnistuneesti"
+
+#: api/utils/forms.py:29
 msgid "Mutation contains too many targets!"
 msgstr "Mutaatio sisältää liian monta kohdetta!"
 
-#: api/utils/forms.py:50 api/utils/messages.py:4
+#: api/utils/forms.py:49 api/utils/messages.py:4
 msgid "You are not the owner of this object!"
 msgstr "Et ole tämän objektin omistaja!"
 
@@ -66,6 +74,18 @@ msgstr "Et ole tämän objektin omistaja!"
 msgid "Unable to authenticate with the provided credentials."
 msgstr "Kirjautuminen epäonnistui annetuilla tiedoilla"
 
-#: api/utils/mixins.py:41
-msgid "Object deleted successfully!"
-msgstr "Objekti poistettu onnistuneesti"
+#: core/models/school_type.py:10
+msgid "Name"
+msgstr ""
+
+#: core/models/vote.py:23
+msgid "Can't vote for own stuff."
+msgstr ""
+
+#: core/utils/validators.py:35
+msgid "File is too large, maximum allowed is: {}MB"
+msgstr ""
+
+#: core/utils/validators.py:42
+msgid "Invalid file type, allowed types are: {}"
+msgstr ""

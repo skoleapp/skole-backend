@@ -108,6 +108,13 @@ USE_TZ = True
 LANGUAGES = [("en", "English"), ("fi", "Finnish"), ("sv", "Swedish")]
 LOCALE_PATHS = [os.path.join(BASE_DIR, "locale")]
 
+# django-parlel settings
+PARLER_LANGUAGES = {
+    None: (tuple({"code": code} for code, _ in LANGUAGES)),
+    "default": {"fallbacks": ["en"], "hide_untranslated": False},
+}
+PARLER_ENABLE_CACHING = False
+
 # CORS settings
 
 CORS_ALLOW_CREDENTIALS = True

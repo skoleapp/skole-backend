@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "graphene_django",
     "imagekit",
     "django_s3_storage",
+    "parler",
     "core",
 ]
 

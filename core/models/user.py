@@ -6,6 +6,7 @@ from django.core.files.uploadedfile import UploadedFile
 from django.db import models
 from django.db.models import Sum
 from django.db.models.functions import Coalesce
+from django.utils.translation import gettext_lazy as _
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
 
@@ -65,7 +66,11 @@ class UserManager(BaseUserManager):  # type: ignore[type-arg]
 class User(AbstractBaseUser, PermissionsMixin):
     """Models one user on the platform."""
 
-    username = models.CharField(max_length=30, unique=True)
+    username = models.CharField(
+        max_length=30,
+        unique=True,
+        error_messages={"unique": _("This username is taken.")},
+    )
     email = models.EmailField(blank=True)
     title = models.CharField(max_length=100, blank=True)
     bio = models.TextField(max_length=2000, blank=True)

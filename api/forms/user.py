@@ -11,6 +11,7 @@ from core.models import BetaCode, User
 
 
 class RegisterForm(forms.ModelForm):
+    username = forms.CharField(min_length=settings.USERNAME_MIN_LENGTH)
     password = forms.CharField(min_length=settings.PASSWORD_MIN_LENGTH)
     code = forms.CharField(max_length=8)
 
@@ -58,6 +59,7 @@ class LoginForm(forms.ModelForm):
 
 
 class UpdateUserForm(forms.ModelForm):
+    username = forms.CharField(min_length=settings.USERNAME_MIN_LENGTH)
     avatar = forms.CharField(required=False)
 
     class Meta:

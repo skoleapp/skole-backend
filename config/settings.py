@@ -170,3 +170,4 @@ EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", default="")
 # Custom settings
 
 PASSWORD_MIN_LENGTH = 6
+USERNAME_MIN_LENGTH = 3

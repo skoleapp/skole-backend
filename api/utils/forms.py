@@ -3,6 +3,7 @@ from typing import Any, Dict, Optional
 from django import forms
 from django.utils.translation import gettext as _
 
+from api.utils.messages import NOT_OWNER_MESSAGE
 from core.models import User
 
 
@@ -46,7 +47,7 @@ class DeleteObjectForm(forms.ModelForm):
 
     def clean(self) -> Dict[str, str]:
         if self.instance.user != self.user:
-            raise forms.ValidationError(_("You are not the owner of this object!"))
+            raise forms.ValidationError(NOT_OWNER_MESSAGE)
 
         self.cleaned_data["target"] = self.instance
         return self.cleaned_data

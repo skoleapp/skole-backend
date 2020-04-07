@@ -11,6 +11,8 @@ from core.models import SchoolType
 
 
 class SchoolTypeObjectType(DjangoObjectType):
+    name = graphene.String()
+
     class Meta:
         model = SchoolType
         fields = ("id", "name")

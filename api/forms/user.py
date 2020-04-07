@@ -11,6 +11,7 @@ from core.models import BetaCode, User
 
 
 class RegisterForm(forms.ModelForm):
+    username = forms.CharField(min_length=settings.USERNAME_MIN_LENGTH)
     password = forms.CharField(min_length=settings.PASSWORD_MIN_LENGTH)
     code = forms.CharField(max_length=8)
 
@@ -58,6 +59,7 @@ class LoginForm(forms.ModelForm):
 
 
 class UpdateUserForm(forms.ModelForm):
+    username = forms.CharField(min_length=settings.USERNAME_MIN_LENGTH)
     avatar = forms.CharField(required=False)
 
     class Meta:
@@ -82,16 +84,6 @@ class UpdateUserForm(forms.ModelForm):
         ):
             raise forms.ValidationError(_("This email is taken."))
         return email
-
-    def clean_username(self) -> str:
-        username = self.cleaned_data["username"]
-        if (
-            get_user_model()
-            .objects.exclude(pk=self.instance.pk)
-            .filter(username__exact=username)
-        ):
-            raise forms.ValidationError(_("This username is taken."))
-        return username
 
 
 class ChangePasswordForm(forms.ModelForm):

@@ -185,7 +185,7 @@ class DeleteUserMutation(DjangoModelFormMutation):
         cls, form: DeleteUserForm, info: ResolveInfo
     ) -> "DeleteUserMutation":
         info.context.user.delete()
-        return cls(message=_("User deleted successfully!"))
+        return cls(message=_("User deleted successfully."))
 
 
 class UpdateUserMutation(FileMixin, DjangoModelFormMutation):

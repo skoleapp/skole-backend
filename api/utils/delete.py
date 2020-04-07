@@ -42,4 +42,4 @@ class DeleteMutationMixin:
         # Ignore: Mypy doesn't know that this function will actually be used in a class
         #  deriving from DjangoModelFormMutation, where this type of calling cls with
         #  a graphene field name makes sense.
-        return cls(message=_("Object deleted successfully!"))  # type: ignore[call-arg]
+        return cls(message=_("Object deleted successfully."))  # type: ignore[call-arg]

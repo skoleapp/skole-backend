@@ -1,4 +1,4 @@
-# https://stackoverflow.com/questions/57812673/how-to-upload-files-in-graphql-using-graphene-file-upload-with-apollo-upload-cli/58059674#58059674
+# Taken from: https://stackoverflow.com/a/58059674
 import json
 from typing import Union
 

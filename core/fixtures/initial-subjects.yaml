@@ -53,7 +53,7 @@
 - model: core.Subject
   pk: 14
   fields:
-    name: "Computer engineer"
+    name: "Computer Engineering"
 - model: core.Subject
   pk: 15
   fields:

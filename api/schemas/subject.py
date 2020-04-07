@@ -11,6 +11,8 @@ from core.models import Subject
 
 
 class SubjectObjectType(DjangoObjectType):
+    name = graphene.String()
+
     class Meta:
         model = Subject
         fields = ("id", "name")
@@ -22,7 +24,9 @@ class Query(graphene.ObjectType):
 
     @login_required
     def resolve_subjects(self, info: ResolveInfo) -> "QuerySet[Subject]":
-        return Subject.objects.order_by("name")
+        return Subject.objects.translated(info.context.LANGUAGE_CODE).order_by(
+            "translations__name"
+        )
 
     @login_required
     def resolve_subject(

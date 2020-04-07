@@ -61,4 +61,4 @@ class Starred(models.Model):
         elif self.resource is not None:
             return f"{self.user} - {self.resource}"
         else:
-            raise ValueError("Invalid starred object!")
+            raise ValueError("Invalid starred object.")

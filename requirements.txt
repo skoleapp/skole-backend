@@ -13,3 +13,4 @@ mypy==0.761
 gunicorn==20.0.4
 PyYAML==5.1.2
 python-magic==0.4.15
+django-parler==2.0.1

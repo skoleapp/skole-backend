@@ -6,6 +6,7 @@ from django.conf import settings
 import django.core.validators
 from django.db import migrations, models
 import django.db.models.deletion
+import parler.models
 
 
 class Migration(migrations.Migration):
@@ -53,6 +54,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=100)),
             ],
+            bases=(parler.models.TranslatableModelMixin, models.Model),
         ),
         migrations.CreateModel(
             name='Country',
@@ -60,6 +62,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=100)),
             ],
+            bases=(parler.models.TranslatableModelMixin, models.Model),
         ),
         migrations.CreateModel(
             name='Course',
@@ -77,6 +80,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=100, unique=True)),
             ],
+            bases=(parler.models.TranslatableModelMixin, models.Model),
         ),
         migrations.CreateModel(
             name='SchoolType',
@@ -84,6 +88,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=100)),
             ],
+            bases=(parler.models.TranslatableModelMixin, models.Model),
         ),
         migrations.CreateModel(
             name='Subject',
@@ -91,6 +96,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=100)),
             ],
+            bases=(parler.models.TranslatableModelMixin, models.Model),
         ),
         migrations.CreateModel(
             name='School',
@@ -100,6 +106,7 @@ class Migration(migrations.Migration):
                 ('city', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='schools', to='core.City')),
                 ('school_type', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='schools', to='core.SchoolType')),
             ],
+            bases=(parler.models.TranslatableModelMixin, models.Model),
         ),
         migrations.CreateModel(
             name='Resource',

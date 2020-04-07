@@ -109,10 +109,11 @@ TIME_ZONE = "UTC"
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
+LANGUAGE_CODE = "en"
 LANGUAGES = (("en", _("English")), ("fi", _("Finnish")), ("sv", _("Swedish")))
 LOCALE_PATHS = (os.path.join(BASE_DIR, "core/locale"),)
 
-# django-parlel settings
+# django-parler settings
 PARLER_LANGUAGES = {
     None: (tuple({"code": code} for code, _ in LANGUAGES)),
     "default": {"fallbacks": ["en", "fi", "sv"], "hide_untranslated": False},

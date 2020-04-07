@@ -3,7 +3,8 @@ from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 
 
-def forwards_func(apps, schema_editor):
+# Ignore: One-off thing, no need to bother typing these.
+def forwards_func(apps, schema_editor):  # type: ignore
     for model in ('City', 'Country', 'ResourceType', 'School', 'SchoolType', 'Subject'):
         MyModel = apps.get_model('core', model)
         MyModelTranslation = apps.get_model('core', f'{model}Translation')
@@ -14,7 +15,7 @@ def forwards_func(apps, schema_editor):
                 language_code=settings.LANGUAGE_CODE,
             )
 
-def backwards_func(apps, schema_editor):
+def backwards_func(apps, schema_editor):  # type: ignore
     for model in ('City', 'Country', 'ResourceType', 'School', 'SchoolType', 'Subject'):
         MyModel = apps.get_model('core', model)
         MyModelTranslation = apps.get_model('core', f'{model}Translation')
@@ -23,7 +24,7 @@ def backwards_func(apps, schema_editor):
             translation = _get_translation(object, MyModelTranslation)
             object.save()   # Note this only calls Model.save()
 
-def _get_translation(object, MyModelTranslation):
+def _get_translation(object, MyModelTranslation):  # type: ignore
     translations = MyModelTranslation.objects.filter(master_id=object.pk)
     try:
         # Try default translation

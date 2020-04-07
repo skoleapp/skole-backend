@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-07 16:29+0000\n"
+"POT-Creation-Date: 2020-04-07 20:08+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,80 +20,80 @@ msgstr ""
 
 #: api/forms/user.py:27
 msgid "Invalid beta register code."
-msgstr ""
+msgstr "Felaktig beta-registreringskod."
 
 #: api/forms/user.py:51
 msgid "Cannot log in as superuser."
-msgstr ""
+msgstr "Kan inte logga in som superanvändare."
 
 #: api/forms/user.py:85
 msgid "This email is taken."
-msgstr ""
+msgstr "Den här e-postadressen är upptagen."
 
 #: api/forms/user.py:100
 msgid "Incorrect old password."
-msgstr ""
+msgstr "Felaktigt gammalt lösenord."
 
 #: api/forms/user.py:114
 msgid "Incorrect password."
-msgstr ""
+msgstr "Felaktig lösenord."
 
 #: api/schemas/comment.py:55
 msgid "Comment must include either text or attachment."
-msgstr ""
+msgstr "Kommentaren måste innehålla antingen text eller bilaga."
 
 #: api/schemas/contact.py:39
 msgid "Message sent successfully."
-msgstr ""
+msgstr "Meddelandet har skickats."
 
 #: api/schemas/contact.py:46
 msgid "Error while sending message."
-msgstr ""
+msgstr "Fel vid sändning av meddelande."
 
 #: api/schemas/user.py:188
 msgid "User deleted successfully."
-msgstr ""
+msgstr "Användarkonto har borttagits."
 
 #: api/utils/delete.py:45
 msgid "Object deleted successfully."
-msgstr ""
+msgstr "Objektet har raderats."
 
 #: api/utils/forms.py:30
 msgid "Mutation contains too many targets."
-msgstr ""
+msgstr "Mutation innehåller för många mål."
 
 #: api/utils/messages.py:3
-msgid "Unable to authenticate with the provided credentials."
-msgstr ""
+msgid "Invalid username or password."
+msgstr "Kontrollera din e-postadress och lösenord."
 
 #: api/utils/messages.py:4
 msgid "You are not the owner of this object."
-msgstr ""
+msgstr "Du är inte ägare av detta objekt."
 
-#: config/settings.py:112
+#: config/settings.py:113
 msgid "English"
-msgstr ""
+msgstr "engelska"
 
-#: config/settings.py:112
+#: config/settings.py:113
 msgid "Finnish"
-msgstr ""
+msgstr "finska"
 
-#: config/settings.py:112
+#: config/settings.py:113
 msgid "Swedish"
-msgstr ""
+msgstr "svenska"
 
 #: core/models/user.py:72
 msgid "This username is taken."
-msgstr ""
+msgstr "Användarnamnet är upptaget."
 
 #: core/models/vote.py:23
 msgid "You can't vote for your own content."
-msgstr ""
+msgstr "Du kan inte rösta för ditt eget innehåll."
 
 #: core/utils/validators.py:35
 msgid "File is too large, maximum allowed is {}MB"
-msgstr ""
+msgstr "Filen är för stor, största tillåtna filstorlek {}MB"
 
 #: core/utils/validators.py:42
 msgid "Invalid file type, allowed types are: {}"
-msgstr ""
+msgstr "Ogiltig filtyp, tillåtna typer är: {}"

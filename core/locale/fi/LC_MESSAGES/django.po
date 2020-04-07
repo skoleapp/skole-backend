@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-07 16:29+0000\n"
+"POT-Creation-Date: 2020-04-07 20:08+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,14 +39,10 @@ msgid "Incorrect password."
 msgstr "Väärä salasana."
 
 #: api/schemas/comment.py:55
-#, fuzzy
-#| msgid "Comment must include either text or attachment!"
 msgid "Comment must include either text or attachment."
 msgstr "Kommentissa tulee olla tekstiä tai liite."
 
 #: api/schemas/contact.py:39
-#, fuzzy
-#| msgid "Message sent successfully!"
 msgid "Message sent successfully."
 msgstr "Viesti lähetetty onnistuneesti."
 
@@ -55,42 +51,34 @@ msgid "Error while sending message."
 msgstr "Virhe lähettäessä viestiä."
 
 #: api/schemas/user.py:188
-#, fuzzy
-#| msgid "User deleted successfully!"
 msgid "User deleted successfully."
 msgstr "Käyttäjä poistettu onnistuneesti."
 
 #: api/utils/delete.py:45
-#, fuzzy
-#| msgid "Object deleted successfully!"
 msgid "Object deleted successfully."
 msgstr "Objekti poistettu onnistuneesti."
 
 #: api/utils/forms.py:30
-#, fuzzy
-#| msgid "Mutation contains too many targets!"
 msgid "Mutation contains too many targets."
 msgstr "Mutaatio sisältää liian monta kohdetta."
 
 #: api/utils/messages.py:3
-msgid "Unable to authenticate with the provided credentials."
-msgstr "Kirjautuminen epäonnistui annetuilla tiedoilla"
+msgid "Invalid username or password."
+msgstr "Käyttäjätunnus ja salasana eivät täsmää."
 
 #: api/utils/messages.py:4
-#, fuzzy
-#| msgid "You are not the owner of this object!"
 msgid "You are not the owner of this object."
 msgstr "Et ole tämän objektin omistaja."
 
-#: config/settings.py:112
+#: config/settings.py:113
 msgid "English"
 msgstr "englanti"
 
-#: config/settings.py:112
+#: config/settings.py:113
 msgid "Finnish"
 msgstr "suomi"
 
-#: config/settings.py:112
+#: config/settings.py:113
 msgid "Swedish"
 msgstr "ruotsi"
 

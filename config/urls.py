@@ -8,13 +8,14 @@ from django.views.decorators.csrf import csrf_exempt
 from api.views import CustomGraphQLView
 
 urlpatterns = [
-    i18n_patterns(path("admin/", admin.site.urls)),
     # FIXME: make frontend work without exempt.
     path(
         "graphql/",
         csrf_exempt(CustomGraphQLView.as_view(graphiql=bool(settings.DEBUG))),
-    ),
+    )
 ]
+
+urlpatterns += i18n_patterns(path("admin/", admin.site.urls))
 
 if settings.DEBUG:
     # Static files are handled with the staticfiles app.

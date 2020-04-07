@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-06 22:06+0000\n"
+"POT-Creation-Date: 2020-04-07 16:29+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,36 +18,32 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: api/forms/user.py:26
+#: api/forms/user.py:27
 msgid "Invalid beta register code."
 msgstr ""
 
-#: api/forms/user.py:50
+#: api/forms/user.py:51
 msgid "Cannot log in as superuser."
 msgstr ""
 
-#: api/forms/user.py:83
+#: api/forms/user.py:85
 msgid "This email is taken."
 msgstr ""
 
-#: api/forms/user.py:93
-msgid "This username is taken."
-msgstr ""
-
-#: api/forms/user.py:108
+#: api/forms/user.py:100
 msgid "Incorrect old password."
 msgstr ""
 
-#: api/forms/user.py:122
+#: api/forms/user.py:114
 msgid "Incorrect password."
 msgstr ""
 
 #: api/schemas/comment.py:55
-msgid "Comment must include either text or attachment!"
+msgid "Comment must include either text or attachment."
 msgstr ""
 
 #: api/schemas/contact.py:39
-msgid "Message sent successfully!"
+msgid "Message sent successfully."
 msgstr ""
 
 #: api/schemas/contact.py:46
@@ -55,23 +51,23 @@ msgid "Error while sending message."
 msgstr ""
 
 #: api/schemas/user.py:188
-msgid "User deleted successfully!"
+msgid "User deleted successfully."
 msgstr ""
 
 #: api/utils/delete.py:45
-msgid "Object deleted successfully!"
+msgid "Object deleted successfully."
 msgstr ""
 
-#: api/utils/forms.py:29
-msgid "Mutation contains too many targets!"
-msgstr ""
-
-#: api/utils/forms.py:49 api/utils/messages.py:4
-msgid "You are not the owner of this object!"
+#: api/utils/forms.py:30
+msgid "Mutation contains too many targets."
 msgstr ""
 
 #: api/utils/messages.py:3
 msgid "Unable to authenticate with the provided credentials."
+msgstr ""
+
+#: api/utils/messages.py:4
+msgid "You are not the owner of this object."
 msgstr ""
 
 #: config/settings.py:112
@@ -86,12 +82,16 @@ msgstr ""
 msgid "Swedish"
 msgstr ""
 
+#: core/models/user.py:72
+msgid "This username is taken."
+msgstr ""
+
 #: core/models/vote.py:23
-msgid "Can't vote for own stuff."
+msgid "You can't vote for your own content."
 msgstr ""
 
 #: core/utils/validators.py:35
-msgid "File is too large, maximum allowed is: {}MB"
+msgid "File is too large, maximum allowed is {}MB"
 msgstr ""
 
 #: core/utils/validators.py:42

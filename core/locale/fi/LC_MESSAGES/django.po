@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-06 22:06+0000\n"
+"POT-Creation-Date: 2020-04-07 16:29+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,82 +18,94 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: api/forms/user.py:26
+#: api/forms/user.py:27
 msgid "Invalid beta register code."
 msgstr "Virheellinen beta-rekisteröitymiskoodi."
 
-#: api/forms/user.py:50
+#: api/forms/user.py:51
 msgid "Cannot log in as superuser."
 msgstr "Ei voi kirjautua pääkäyttäjänä."
 
-#: api/forms/user.py:83
+#: api/forms/user.py:85
 msgid "This email is taken."
 msgstr "Sähköposti on jo käytössä."
 
-#: api/forms/user.py:93
-msgid "This username is taken."
-msgstr "Käyttäjänimi on jo käytössä."
-
-#: api/forms/user.py:108
+#: api/forms/user.py:100
 msgid "Incorrect old password."
 msgstr "Vanha salasana väärin"
 
-#: api/forms/user.py:122
+#: api/forms/user.py:114
 msgid "Incorrect password."
 msgstr "Väärä salasana."
 
 #: api/schemas/comment.py:55
-msgid "Comment must include either text or attachment!"
-msgstr ""
+#, fuzzy
+#| msgid "Comment must include either text or attachment!"
+msgid "Comment must include either text or attachment."
+msgstr "Kommentissa tulee olla tekstiä tai liite."
 
 #: api/schemas/contact.py:39
-msgid "Message sent successfully!"
-msgstr "Viesti lähetetty onnistuneesti!"
+#, fuzzy
+#| msgid "Message sent successfully!"
+msgid "Message sent successfully."
+msgstr "Viesti lähetetty onnistuneesti."
 
 #: api/schemas/contact.py:46
 msgid "Error while sending message."
 msgstr "Virhe lähettäessä viestiä."
 
 #: api/schemas/user.py:188
-msgid "User deleted successfully!"
-msgstr "Käyttäjä poistettu onnistuneesti!"
+#, fuzzy
+#| msgid "User deleted successfully!"
+msgid "User deleted successfully."
+msgstr "Käyttäjä poistettu onnistuneesti."
 
 #: api/utils/delete.py:45
-msgid "Object deleted successfully!"
-msgstr "Objekti poistettu onnistuneesti"
+#, fuzzy
+#| msgid "Object deleted successfully!"
+msgid "Object deleted successfully."
+msgstr "Objekti poistettu onnistuneesti."
 
-#: api/utils/forms.py:29
-msgid "Mutation contains too many targets!"
-msgstr "Mutaatio sisältää liian monta kohdetta!"
-
-#: api/utils/forms.py:49 api/utils/messages.py:4
-msgid "You are not the owner of this object!"
-msgstr "Et ole tämän objektin omistaja!"
+#: api/utils/forms.py:30
+#, fuzzy
+#| msgid "Mutation contains too many targets!"
+msgid "Mutation contains too many targets."
+msgstr "Mutaatio sisältää liian monta kohdetta."
 
 #: api/utils/messages.py:3
 msgid "Unable to authenticate with the provided credentials."
 msgstr "Kirjautuminen epäonnistui annetuilla tiedoilla"
 
+#: api/utils/messages.py:4
+#, fuzzy
+#| msgid "You are not the owner of this object!"
+msgid "You are not the owner of this object."
+msgstr "Et ole tämän objektin omistaja."
+
 #: config/settings.py:112
 msgid "English"
-msgstr ""
+msgstr "englanti"
 
 #: config/settings.py:112
 msgid "Finnish"
-msgstr ""
+msgstr "suomi"
 
 #: config/settings.py:112
 msgid "Swedish"
-msgstr ""
+msgstr "ruotsi"
+
+#: core/models/user.py:72
+msgid "This username is taken."
+msgstr "Käyttäjänimi on jo käytössä."
 
 #: core/models/vote.py:23
-msgid "Can't vote for own stuff."
-msgstr ""
+msgid "You can't vote for your own content."
+msgstr "Et voi äänestää omaa sisältöäsi."
 
 #: core/utils/validators.py:35
-msgid "File is too large, maximum allowed is: {}MB"
-msgstr ""
+msgid "File is too large, maximum allowed is {}MB"
+msgstr "Tiedosto on liian suuri, suurin sallittu on {}Mt"
 
 #: core/utils/validators.py:42
 msgid "Invalid file type, allowed types are: {}"
-msgstr ""
+msgstr "Virheellinen tiedostotyyppi, sallittuja on: {}"

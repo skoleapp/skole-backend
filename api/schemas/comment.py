@@ -52,7 +52,7 @@ class CreateCommentMutation(FileMixin, DjangoModelFormMutation):
         cls, form: CreateUpdateCommentForm, info: ResolveInfo
     ) -> "CreateCommentMutation":
         if form.cleaned_data["attachment"] == "" and form.cleaned_data["text"] == "":
-            raise GraphQLError(_("Comment must include either text or attachment!"))
+            raise GraphQLError(_("Comment must include either text or attachment."))
 
         comment = Comment.objects.create_comment(
             user=info.context.user, **form.cleaned_data

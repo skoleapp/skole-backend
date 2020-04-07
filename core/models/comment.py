@@ -105,7 +105,7 @@ class Comment(models.Model):
         elif self.attachment != "":
             return f"Attachment Comment: {self.pk}"
         else:
-            raise ValueError("Invalid comment with neither text nor attachment!")
+            raise ValueError("Invalid comment with neither text nor attachment.")
 
     @property
     def points(self) -> int:

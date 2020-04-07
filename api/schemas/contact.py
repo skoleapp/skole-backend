@@ -36,7 +36,7 @@ class ContactMutation(DjangoFormMutation):
                 fail_silently=False,
             )
 
-            return cls(message=_("Message sent successfully!"))
+            return cls(message=_("Message sent successfully."))
         except SMTPException as e:
             # This error will show among the general errors in the frontend form.
             return cls(

@@ -27,7 +27,7 @@ class TargetForm(forms.ModelForm):
         target_list = [target for target in targets.values() if target is not None]
 
         if len(target_list) != 1:
-            raise forms.ValidationError(_("Mutation contains too many targets!"))
+            raise forms.ValidationError(_("Mutation contains too many targets."))
 
         cleaned_data["target"] = target_list[0]
         return cleaned_data

@@ -268,7 +268,7 @@
   pk: 15
   fields:
     master: 5
-    language_code: "se"
+    language_code: "sv"
     name: "Reso"
 
 - model: core.City
@@ -453,7 +453,19 @@
   pk: 16
   fields:
     master: 6
+    language_code: "en"
+    name: "Raision lukio"
+- model: core.SchoolTranslation
+  pk: 17
+  fields:
+    master: 6
     language_code: "fi"
+    name: "Raision lukio"
+- model: core.SchoolTranslation
+  pk: 18
+  fields:
+    master: 6
+    language_code: "sv"
     name: "Raision lukio"
 
 - model: core.School

@@ -85,16 +85,6 @@ class UpdateUserForm(forms.ModelForm):
             raise forms.ValidationError(_("This email is taken."))
         return email
 
-    def clean_username(self) -> str:
-        username = self.cleaned_data["username"]
-        if (
-            get_user_model()
-            .objects.exclude(pk=self.instance.pk)
-            .filter(username__exact=username)
-        ):
-            raise forms.ValidationError(_("This username is taken."))
-        return username
-
 
 class ChangePasswordForm(forms.ModelForm):
     old_password = forms.CharField()

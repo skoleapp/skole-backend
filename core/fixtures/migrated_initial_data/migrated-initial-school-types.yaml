@@ -1,0 +1,42 @@
+- model: core.schooltypetranslation
+  pk: 1
+  fields:
+    language_code: en
+    name: University
+    master: 1
+- model: core.schooltypetranslation
+  pk: 2
+  fields:
+    language_code: fi
+    name: University
+    master: 1
+- model: core.schooltypetranslation
+  pk: 3
+  fields:
+    language_code: sv
+    name: University
+    master: 1
+- model: core.schooltypetranslation
+  pk: 4
+  fields:
+    language_code: en
+    name: University of Applied Sciences
+    master: 2
+- model: core.schooltypetranslation
+  pk: 5
+  fields:
+    language_code: fi
+    name: University of Applied Sciences
+    master: 2
+- model: core.schooltypetranslation
+  pk: 6
+  fields:
+    language_code: sv
+    name: University of Applied Sciences
+    master: 2
+- model: core.schooltype
+  pk: 1
+  fields: {}
+- model: core.schooltype
+  pk: 2
+  fields: {}

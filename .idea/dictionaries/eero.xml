@@ -15,6 +15,7 @@
       <w>fobjs</w>
       <w>graphene</w>
       <w>healthcheck</w>
+      <w>healthz</w>
       <w>hostnames</w>
       <w>imagekit</w>
       <w>loaddata</w>

@@ -5,14 +5,15 @@ from django.contrib import admin
 from django.urls import path
 from django.views.decorators.csrf import csrf_exempt
 
-from api.views import CustomGraphQLView
+from api.views import CustomGraphQLView, health_check
 
 urlpatterns = [
     # FIXME: make frontend work without exempt.
     path(
         "graphql/",
         csrf_exempt(CustomGraphQLView.as_view(graphiql=bool(settings.DEBUG))),
-    )
+    ),
+    path("healthz/", health_check),
 ]
 
 urlpatterns += i18n_patterns(path("admin/", admin.site.urls))

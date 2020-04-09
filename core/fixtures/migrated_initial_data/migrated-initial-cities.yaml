@@ -14,7 +14,7 @@
   pk: 3
   fields:
     language_code: sv
-    name: Turku
+    name: Åbo
     master: 1
 - model: core.citytranslation
   pk: 4
@@ -32,7 +32,7 @@
   pk: 6
   fields:
     language_code: sv
-    name: Tampere
+    name: Tammerfors
     master: 2
 - model: core.citytranslation
   pk: 7
@@ -50,7 +50,7 @@
   pk: 9
   fields:
     language_code: sv
-    name: Espoo
+    name: Esbo
     master: 3
 - model: core.citytranslation
   pk: 10
@@ -68,7 +68,7 @@
   pk: 12
   fields:
     language_code: sv
-    name: Helsinki
+    name: Helsingfors
     master: 4
 - model: core.citytranslation
   pk: 13
@@ -86,7 +86,7 @@
   pk: 15
   fields:
     language_code: sv
-    name: Pori
+    name: Björneborg
     master: 5
 - model: core.citytranslation
   pk: 16
@@ -104,25 +104,25 @@
   pk: 18
   fields:
     language_code: sv
-    name: Vaasa
+    name: Vasa
     master: 6
 - model: core.citytranslation
   pk: 19
   fields:
     language_code: en
-    name: "Jys\xE4skyl\xE4"
+    name: Jyväskylä
     master: 7
 - model: core.citytranslation
   pk: 20
   fields:
     language_code: fi
-    name: "Jys\xE4skyl\xE4"
+    name: Jyväskylä
     master: 7
 - model: core.citytranslation
   pk: 21
   fields:
     language_code: sv
-    name: "Jys\xE4skyl\xE4"
+    name: Jyväskylä
     master: 7
 - model: core.citytranslation
   pk: 22
@@ -140,7 +140,7 @@
   pk: 24
   fields:
     language_code: sv
-    name: Oulu
+    name: Uleåborg
     master: 8
 - model: core.citytranslation
   pk: 25
@@ -176,7 +176,7 @@
   pk: 30
   fields:
     language_code: sv
-    name: Lappeenranta
+    name: Villmanstrand
     master: 10
 - model: core.citytranslation
   pk: 31
@@ -212,7 +212,7 @@
   pk: 36
   fields:
     language_code: sv
-    name: Maarianhamina
+    name: Mariehamn
     master: 12
 - model: core.citytranslation
   pk: 37
@@ -230,25 +230,25 @@
   pk: 39
   fields:
     language_code: sv
-    name: Kokkola
+    name: Karleby
     master: 13
 - model: core.citytranslation
   pk: 40
   fields:
     language_code: en
-    name: "H\xE4meenlinna"
+    name: Hämeenlinna
     master: 14
 - model: core.citytranslation
   pk: 41
   fields:
     language_code: fi
-    name: "H\xE4meenlinna"
+    name: Hämeenlinna
     master: 14
 - model: core.citytranslation
   pk: 42
   fields:
     language_code: sv
-    name: "H\xE4meenlinna"
+    name: Tavastehus
     master: 14
 - model: core.citytranslation
   pk: 43
@@ -284,7 +284,7 @@
   pk: 48
   fields:
     language_code: sv
-    name: Kajaani
+    name: Kajana
     master: 16
 - model: core.citytranslation
   pk: 49
@@ -302,7 +302,7 @@
   pk: 51
   fields:
     language_code: sv
-    name: Lahti
+    name: Lahtis
     master: 17
 - model: core.citytranslation
   pk: 52
@@ -326,19 +326,19 @@
   pk: 55
   fields:
     language_code: en
-    name: "Sein\xE4joki"
+    name: Seinäjoki
     master: 19
 - model: core.citytranslation
   pk: 56
   fields:
     language_code: fi
-    name: "Sein\xE4joki"
+    name: Seinäjoki
     master: 19
 - model: core.citytranslation
   pk: 57
   fields:
     language_code: sv
-    name: "Sein\xE4joki"
+    name: Seinäjoki
     master: 19
 - model: core.city
   pk: 1

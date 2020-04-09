@@ -8,13 +8,13 @@
   pk: 2
   fields:
     language_code: fi
-    name: Exam
+    name: Tentti
     master: 1
 - model: core.resourcetypetranslation
   pk: 3
   fields:
     language_code: sv
-    name: Exam
+    name: Tenta
     master: 1
 - model: core.resourcetypetranslation
   pk: 4
@@ -26,13 +26,13 @@
   pk: 5
   fields:
     language_code: fi
-    name: Exercise
+    name: Harjoitustehtävä
     master: 2
 - model: core.resourcetypetranslation
   pk: 6
   fields:
     language_code: sv
-    name: Exercise
+    name: Uppgift
     master: 2
 - model: core.resourcetypetranslation
   pk: 7
@@ -44,13 +44,13 @@
   pk: 8
   fields:
     language_code: fi
-    name: Note
+    name: Muistiinpano
     master: 3
 - model: core.resourcetypetranslation
   pk: 9
   fields:
     language_code: sv
-    name: Note
+    name: Minnesanteckning
     master: 3
 - model: core.resourcetypetranslation
   pk: 10
@@ -62,13 +62,13 @@
   pk: 11
   fields:
     language_code: fi
-    name: Other
+    name: Muu
     master: 4
 - model: core.resourcetypetranslation
   pk: 12
   fields:
     language_code: sv
-    name: Other
+    name: Annat
     master: 4
 - model: core.resourcetype
   pk: 1

@@ -8,7 +8,7 @@
   pk: 2
   fields:
     language_code: fi
-    name: University of Turku
+    name: Turun yliopisto
     master: 1
 - model: core.schooltranslation
   pk: 3
@@ -26,7 +26,7 @@
   pk: 5
   fields:
     language_code: fi
-    name: Turku University of Applied Sciences
+    name: Turun Ammattikorkeakoulu
     master: 2
 - model: core.schooltranslation
   pk: 6
@@ -38,31 +38,31 @@
   pk: 7
   fields:
     language_code: en
-    name: "\xC5bo Akademi"
+    name: Åbo Akademi
     master: 3
 - model: core.schooltranslation
   pk: 8
   fields:
     language_code: fi
-    name: "\xC5bo Akademi"
+    name: Åbo Akademi
     master: 3
 - model: core.schooltranslation
   pk: 9
   fields:
     language_code: sv
-    name: "\xC5bo Akademi"
+    name: Åbo Akademi
     master: 3
 - model: core.schooltranslation
   pk: 10
   fields:
     language_code: en
-    name: Diaconia University of Applied Sciences
+    name: Diakonia University of Applied Sciences
     master: 4
 - model: core.schooltranslation
   pk: 11
   fields:
     language_code: fi
-    name: Diaconia University of Applied Sciences
+    name: Diakonia ammattikorkeakoulu
     master: 4
 - model: core.schooltranslation
   pk: 12
@@ -86,7 +86,7 @@
   pk: 15
   fields:
     language_code: sv
-    name: Novia University of Applied Sciences
+    name: Yrkeshögskolan Novia
     master: 5
 - model: core.schooltranslation
   pk: 16
@@ -98,7 +98,7 @@
   pk: 17
   fields:
     language_code: fi
-    name: Humak University of Applied Sciences
+    name: Humanistinen ammattikorkeakoulu
     master: 6
 - model: core.schooltranslation
   pk: 18
@@ -116,7 +116,7 @@
   pk: 20
   fields:
     language_code: fi
-    name: Tampere University
+    name: Tampereen yliopisto
     master: 7
 - model: core.schooltranslation
   pk: 21
@@ -134,7 +134,7 @@
   pk: 23
   fields:
     language_code: fi
-    name: Tampere University of Applied Sciences
+    name: Tampereen ammattikorkeakoulu
     master: 8
 - model: core.schooltranslation
   pk: 24
@@ -152,13 +152,13 @@
   pk: 26
   fields:
     language_code: fi
-    name: Police University College
+    name: Poliisiammattikorkeakoulu
     master: 9
 - model: core.schooltranslation
   pk: 27
   fields:
     language_code: sv
-    name: Police University College
+    name: Polisyrkeshögskolan
     master: 9
 - model: core.schooltranslation
   pk: 28
@@ -170,13 +170,13 @@
   pk: 29
   fields:
     language_code: fi
-    name: Aalto University
+    name: Aalto yliopisto
     master: 10
 - model: core.schooltranslation
   pk: 30
   fields:
     language_code: sv
-    name: Aalto University
+    name: Aalto Universitet
     master: 10
 - model: core.schooltranslation
   pk: 31
@@ -188,7 +188,7 @@
   pk: 32
   fields:
     language_code: fi
-    name: Metropolia University of Applied Sciences
+    name: Metropolia ammattikorkeakoulu
     master: 11
 - model: core.schooltranslation
   pk: 33
@@ -206,7 +206,7 @@
   pk: 35
   fields:
     language_code: fi
-    name: Laurea University of Applied Sciences
+    name: Laurea ammattikorkeakoulu
     master: 12
 - model: core.schooltranslation
   pk: 36
@@ -224,13 +224,13 @@
   pk: 38
   fields:
     language_code: fi
-    name: University of Helsinki
+    name: Helsingin yliopisto
     master: 13
 - model: core.schooltranslation
   pk: 39
   fields:
     language_code: sv
-    name: University of Helsinki
+    name: Helsingfros Universitet
     master: 13
 - model: core.schooltranslation
   pk: 40
@@ -242,13 +242,13 @@
   pk: 41
   fields:
     language_code: fi
-    name: University of the Arts Helsinki
+    name: Taide yliopisto
     master: 14
 - model: core.schooltranslation
   pk: 42
   fields:
     language_code: sv
-    name: University of the Arts Helsinki
+    name: UKonstuniversitetet
     master: 14
 - model: core.schooltranslation
   pk: 43
@@ -260,7 +260,7 @@
   pk: 44
   fields:
     language_code: fi
-    name: Haaga-Helia University of Applied Sciences
+    name: Haaga-Helia ammattikorkeakoulu
     master: 15
 - model: core.schooltranslation
   pk: 45
@@ -278,19 +278,19 @@
   pk: 47
   fields:
     language_code: fi
-    name: Hanken School of Economics
+    name: Hanken
     master: 16
 - model: core.schooltranslation
   pk: 48
   fields:
     language_code: sv
-    name: Hanken School of Economics
+    name: Hanken Universitet
     master: 16
 - model: core.schooltranslation
   pk: 49
   fields:
     language_code: en
-    name: Maanpuolustuskorkeakoulu
+    name: National Defence University
     master: 17
 - model: core.schooltranslation
   pk: 50
@@ -302,7 +302,7 @@
   pk: 51
   fields:
     language_code: sv
-    name: Maanpuolustuskorkeakoulu
+    name: Försvarshögskolan
     master: 17
 - model: core.schooltranslation
   pk: 52
@@ -314,7 +314,7 @@
   pk: 53
   fields:
     language_code: fi
-    name: Arcada University of Applied Sciences
+    name: Arcada ammattikorkeakoulu
     master: 18
 - model: core.schooltranslation
   pk: 54
@@ -350,7 +350,7 @@
   pk: 59
   fields:
     language_code: fi
-    name: Satakunta University of Applied Sciences
+    name: Satakunnan ammattikorkeakoulu
     master: 20
 - model: core.schooltranslation
   pk: 60
@@ -368,7 +368,7 @@
   pk: 62
   fields:
     language_code: fi
-    name: University of Vaasa
+    name: Vaasan yliopisto
     master: 21
 - model: core.schooltranslation
   pk: 63
@@ -386,7 +386,7 @@
   pk: 65
   fields:
     language_code: fi
-    name: Vaasa University of Applied Sciences
+    name: Vaasan ammattikorkeakoulu
     master: 22
 - model: core.schooltranslation
   pk: 66
@@ -398,19 +398,19 @@
   pk: 67
   fields:
     language_code: en
-    name: "University of Jys\xE4skyl\xE4"
+    name: University of Jyväskylä
     master: 23
 - model: core.schooltranslation
   pk: 68
   fields:
     language_code: fi
-    name: "University of Jys\xE4skyl\xE4"
+    name: Jyväskylän yliopisto
     master: 23
 - model: core.schooltranslation
   pk: 69
   fields:
     language_code: sv
-    name: "University of Jys\xE4skyl\xE4"
+    name: University of Jyväskylä
     master: 23
 - model: core.schooltranslation
   pk: 70
@@ -422,7 +422,7 @@
   pk: 71
   fields:
     language_code: fi
-    name: JAMK University of Applied Sciences
+    name: Jyväskylän ammattikorkeakoulu
     master: 24
 - model: core.schooltranslation
   pk: 72
@@ -440,7 +440,7 @@
   pk: 74
   fields:
     language_code: fi
-    name: University of Oulu
+    name: Oulun yliopisto
     master: 25
 - model: core.schooltranslation
   pk: 75
@@ -458,7 +458,7 @@
   pk: 77
   fields:
     language_code: fi
-    name: Oulu University of Applied Sciences
+    name: Oulun ammattikorkeakoulu
     master: 26
 - model: core.schooltranslation
   pk: 78
@@ -476,7 +476,7 @@
   pk: 80
   fields:
     language_code: fi
-    name: University of Lapland
+    name: Lapin yliopisto
     master: 27
 - model: core.schooltranslation
   pk: 81
@@ -494,7 +494,7 @@
   pk: 83
   fields:
     language_code: fi
-    name: Lapland University of Applied Sciences
+    name: Lapin ammattikorkeakoulu
     master: 28
 - model: core.schooltranslation
   pk: 84
@@ -512,7 +512,7 @@
   pk: 86
   fields:
     language_code: fi
-    name: LUT University
+    name: Lappeenrannan yliopisto LUT
     master: 29
 - model: core.schooltranslation
   pk: 87
@@ -530,7 +530,7 @@
   pk: 89
   fields:
     language_code: fi
-    name: LAB University of Applied Sciences
+    name: Lahden ammattikorkeakoulu LAB
     master: 30
 - model: core.schooltranslation
   pk: 90
@@ -548,7 +548,7 @@
   pk: 92
   fields:
     language_code: fi
-    name: University of Eastern Finland
+    name: Itä-Suomen yliopisto
     master: 31
 - model: core.schooltranslation
   pk: 93
@@ -566,7 +566,7 @@
   pk: 95
   fields:
     language_code: fi
-    name: Karelia University of Applied Sciences
+    name: Karelia ammattikorkeakoulu
     master: 32
 - model: core.schooltranslation
   pk: 96
@@ -578,19 +578,19 @@
   pk: 97
   fields:
     language_code: en
-    name: "\xC5land University of Applied Sciences"
+    name: Åland University of Applied Sciences
     master: 33
 - model: core.schooltranslation
   pk: 98
   fields:
     language_code: fi
-    name: "\xC5land University of Applied Sciences"
+    name: Ahvenanmaan ammattikorkeakoulu
     master: 33
 - model: core.schooltranslation
   pk: 99
   fields:
     language_code: sv
-    name: "\xC5land University of Applied Sciences"
+    name: Högskolan på Åland
     master: 33
 - model: core.schooltranslation
   pk: 100
@@ -602,7 +602,7 @@
   pk: 101
   fields:
     language_code: fi
-    name: Centria University of Applied Sciences
+    name: Centria ammattikorkeakoulu
     master: 34
 - model: core.schooltranslation
   pk: 102
@@ -614,55 +614,55 @@
   pk: 103
   fields:
     language_code: en
-    name: "H\xE4me University of Applied Sciences"
+    name: Häme University of Applied Sciences
     master: 35
 - model: core.schooltranslation
   pk: 104
   fields:
     language_code: fi
-    name: "H\xE4me University of Applied Sciences"
+    name: Hämeen ammattikorkeakoulu
     master: 35
 - model: core.schooltranslation
   pk: 105
   fields:
     language_code: sv
-    name: "H\xE4me University of Applied Sciences"
+    name: Häme University of Applied Sciences
     master: 35
 - model: core.schooltranslation
   pk: 106
   fields:
     language_code: en
-    name: South-Eastern Finland University of Applied Sciences
+    name: South-Eastern Finland University of Applied Sciences – Xamk
     master: 36
 - model: core.schooltranslation
   pk: 107
   fields:
     language_code: fi
-    name: South-Eastern Finland University of Applied Sciences
+    name: Kaakkois-Suomen ammattikorkeakoulu – Xamk
     master: 36
 - model: core.schooltranslation
   pk: 108
   fields:
     language_code: sv
-    name: South-Eastern Finland University of Applied Sciences
+    name: South-Eastern Finland University of Applied Sciences – Xamk
     master: 36
 - model: core.schooltranslation
   pk: 109
   fields:
     language_code: en
-    name: KAMK University of Applied Sciences
+    name: Kajaani University of Applied Sciences
     master: 37
 - model: core.schooltranslation
   pk: 110
   fields:
     language_code: fi
-    name: KAMK University of Applied Sciences
+    name: Kajaanin ammattikorkeakoulu
     master: 37
 - model: core.schooltranslation
   pk: 111
   fields:
     language_code: sv
-    name: KAMK University of Applied Sciences
+    name: Kajaani University of Applied Sciences
     master: 37
 - model: core.schooltranslation
   pk: 112
@@ -674,7 +674,7 @@
   pk: 113
   fields:
     language_code: fi
-    name: Savonia University of Applied Sciences
+    name: Savonia ammattikorkeakoulu
     master: 38
 - model: core.schooltranslation
   pk: 114
@@ -686,19 +686,19 @@
   pk: 115
   fields:
     language_code: en
-    name: "Sein\xE4joki University of Applied Sciences"
+    name: Seinäjoki University of Applied Sciences
     master: 39
 - model: core.schooltranslation
   pk: 116
   fields:
     language_code: fi
-    name: "Sein\xE4joki University of Applied Sciences"
+    name: Seinäjoen ammattikorkeakoulu
     master: 39
 - model: core.schooltranslation
   pk: 117
   fields:
     language_code: sv
-    name: "Sein\xE4joki University of Applied Sciences"
+    name: Seinäjoki University of Applied Sciences
     master: 39
 - model: core.school
   pk: 1

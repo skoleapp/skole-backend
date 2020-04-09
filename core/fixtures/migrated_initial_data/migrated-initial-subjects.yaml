@@ -8,13 +8,13 @@
   pk: 2
   fields:
     language_code: fi
-    name: Accounting
+    name: Kirjanpito
     master: 1
 - model: core.subjecttranslation
   pk: 3
   fields:
     language_code: sv
-    name: Accounting
+    name: Bokföring
     master: 1
 - model: core.subjecttranslation
   pk: 4
@@ -26,7 +26,7 @@
   pk: 5
   fields:
     language_code: fi
-    name: Aeronautical Engineering
+    name: Ilmailutekniikka
     master: 2
 - model: core.subjecttranslation
   pk: 6
@@ -44,13 +44,13 @@
   pk: 8
   fields:
     language_code: fi
-    name: Agriculture and Forestry
+    name: Maa- ja metsätalous
     master: 3
 - model: core.subjecttranslation
   pk: 9
   fields:
     language_code: sv
-    name: Agriculture and Forestry
+    name: Jordbruk och skogsbruk
     master: 3
 - model: core.subjecttranslation
   pk: 10
@@ -62,13 +62,13 @@
   pk: 11
   fields:
     language_code: fi
-    name: Anatomy and Physiology
+    name: Anatomia ja fysiologia
     master: 4
 - model: core.subjecttranslation
   pk: 12
   fields:
     language_code: sv
-    name: Anatomy and Physiology
+    name: Anatomi och fysiologi
     master: 4
 - model: core.subjecttranslation
   pk: 13
@@ -80,13 +80,13 @@
   pk: 14
   fields:
     language_code: fi
-    name: Anthropology
+    name: Antropologia
     master: 5
 - model: core.subjecttranslation
   pk: 15
   fields:
     language_code: sv
-    name: Anthropology
+    name: Antropologi
     master: 5
 - model: core.subjecttranslation
   pk: 16
@@ -98,13 +98,13 @@
   pk: 17
   fields:
     language_code: fi
-    name: Archaeology
+    name: Arkeologia
     master: 6
 - model: core.subjecttranslation
   pk: 18
   fields:
     language_code: sv
-    name: Archaeology
+    name: Arkeologi
     master: 6
 - model: core.subjecttranslation
   pk: 19
@@ -116,13 +116,13 @@
   pk: 20
   fields:
     language_code: fi
-    name: Architecture
+    name: Arkkitehtuuri
     master: 7
 - model: core.subjecttranslation
   pk: 21
   fields:
     language_code: sv
-    name: Architecture
+    name: Arkitektur
     master: 7
 - model: core.subjecttranslation
   pk: 22
@@ -134,13 +134,13 @@
   pk: 23
   fields:
     language_code: fi
-    name: Art and Design
+    name: Taide ja design
     master: 8
 - model: core.subjecttranslation
   pk: 24
   fields:
     language_code: sv
-    name: Art and Design
+    name: Konst och design
     master: 8
 - model: core.subjecttranslation
   pk: 25
@@ -152,13 +152,13 @@
   pk: 26
   fields:
     language_code: fi
-    name: Aural and Oral Sciences
+    name: Logopedia
     master: 9
 - model: core.subjecttranslation
   pk: 27
   fields:
     language_code: sv
-    name: Aural and Oral Sciences
+    name: Aural och muntlig vetenskap
     master: 9
 - model: core.subjecttranslation
   pk: 28
@@ -170,13 +170,13 @@
   pk: 29
   fields:
     language_code: fi
-    name: Biotechnology
+    name: Biotekniikka
     master: 10
 - model: core.subjecttranslation
   pk: 30
   fields:
     language_code: sv
-    name: Biotechnology
+    name: Bioteknik
     master: 10
 - model: core.subjecttranslation
   pk: 31
@@ -188,13 +188,13 @@
   pk: 32
   fields:
     language_code: fi
-    name: Biology
+    name: Biologia
     master: 11
 - model: core.subjecttranslation
   pk: 33
   fields:
     language_code: sv
-    name: Biology
+    name: Biologi
     master: 11
 - model: core.subjecttranslation
   pk: 34
@@ -206,13 +206,13 @@
   pk: 35
   fields:
     language_code: fi
-    name: Building
+    name: Rakennustekiikka
     master: 12
 - model: core.subjecttranslation
   pk: 36
   fields:
     language_code: sv
-    name: Building
+    name: Byggteknik
     master: 12
 - model: core.subjecttranslation
   pk: 37
@@ -224,13 +224,13 @@
   pk: 38
   fields:
     language_code: fi
-    name: Business and Management Studies
+    name: Liiketoiminta ja hallinto
     master: 13
 - model: core.subjecttranslation
   pk: 39
   fields:
     language_code: sv
-    name: Business and Management Studies
+    name: Företag och förvaltning
     master: 13
 - model: core.subjecttranslation
   pk: 40
@@ -242,13 +242,13 @@
   pk: 41
   fields:
     language_code: fi
-    name: Computer engineer
+    name: Tietotekniikka
     master: 14
 - model: core.subjecttranslation
   pk: 42
   fields:
     language_code: sv
-    name: Computer engineer
+    name: Datateknik
     master: 14
 - model: core.subjecttranslation
   pk: 43
@@ -260,13 +260,13 @@
   pk: 44
   fields:
     language_code: fi
-    name: Chemical Engineering
+    name: Kemiantekniikka
     master: 15
 - model: core.subjecttranslation
   pk: 45
   fields:
     language_code: sv
-    name: Chemical Engineering
+    name: Kemiteknik
     master: 15
 - model: core.subjecttranslation
   pk: 46
@@ -278,13 +278,13 @@
   pk: 47
   fields:
     language_code: fi
-    name: Chemistry
+    name: Kemia
     master: 16
 - model: core.subjecttranslation
   pk: 48
   fields:
     language_code: sv
-    name: Chemistry
+    name: Kemi
     master: 16
 - model: core.subjecttranslation
   pk: 49
@@ -296,13 +296,13 @@
   pk: 50
   fields:
     language_code: fi
-    name: Communication ja Media Studies
+    name: Mediatutkimus
     master: 17
 - model: core.subjecttranslation
   pk: 51
   fields:
     language_code: sv
-    name: Communication ja Media Studies
+    name: Media forskning
     master: 17
 - model: core.subjecttranslation
   pk: 52
@@ -314,13 +314,13 @@
   pk: 53
   fields:
     language_code: fi
-    name: Computer Science
+    name: Tietojenkäsittelytiede
     master: 18
 - model: core.subjecttranslation
   pk: 54
   fields:
     language_code: sv
-    name: Computer Science
+    name: Datavetenskap
     master: 18
 - model: core.subjecttranslation
   pk: 55
@@ -332,13 +332,13 @@
   pk: 56
   fields:
     language_code: fi
-    name: Finance
+    name: Rahoitus
     master: 19
 - model: core.subjecttranslation
   pk: 57
   fields:
     language_code: sv
-    name: Finance
+    name: Finansiering
     master: 19
 - model: core.subjecttranslation
   pk: 58
@@ -350,13 +350,13 @@
   pk: 59
   fields:
     language_code: fi
-    name: Finnish Studies
+    name: Suomen kielen tutkimus
     master: 20
 - model: core.subjecttranslation
   pk: 60
   fields:
     language_code: sv
-    name: Finnish Studies
+    name: Finska studier
     master: 20
 - model: core.subjecttranslation
   pk: 61
@@ -368,13 +368,13 @@
   pk: 62
   fields:
     language_code: fi
-    name: Dentistry
+    name: Hammaslääketiede
     master: 21
 - model: core.subjecttranslation
   pk: 63
   fields:
     language_code: sv
-    name: Dentistry
+    name: Tandvård
     master: 21
 - model: core.subjecttranslation
   pk: 64
@@ -386,13 +386,13 @@
   pk: 65
   fields:
     language_code: fi
-    name: Economics
+    name: Taloustiede
     master: 22
 - model: core.subjecttranslation
   pk: 66
   fields:
     language_code: sv
-    name: Economics
+    name: Ekonomi
     master: 22
 - model: core.subjecttranslation
   pk: 67
@@ -404,13 +404,13 @@
   pk: 68
   fields:
     language_code: fi
-    name: Education
+    name: Koulutus - Opettaja opinnot
     master: 23
 - model: core.subjecttranslation
   pk: 69
   fields:
     language_code: sv
-    name: Education
+    name: Utbildning
     master: 23
 - model: core.subjecttranslation
   pk: 70
@@ -422,13 +422,13 @@
   pk: 71
   fields:
     language_code: fi
-    name: Electrical and Electronic Engineering
+    name: Sähkötekniikka
     master: 24
 - model: core.subjecttranslation
   pk: 72
   fields:
     language_code: sv
-    name: Electrical and Electronic Engineering
+    name: Elektroteknik
     master: 24
 - model: core.subjecttranslation
   pk: 73
@@ -440,13 +440,13 @@
   pk: 74
   fields:
     language_code: fi
-    name: English
+    name: Englanti
     master: 25
 - model: core.subjecttranslation
   pk: 75
   fields:
     language_code: sv
-    name: English
+    name: Engelska
     master: 25
 - model: core.subjecttranslation
   pk: 76
@@ -458,13 +458,13 @@
   pk: 77
   fields:
     language_code: fi
-    name: Film Making
+    name: Elokuva-alan opinnot
     master: 26
 - model: core.subjecttranslation
   pk: 78
   fields:
     language_code: sv
-    name: Film Making
+    name: Filmstudier
     master: 26
 - model: core.subjecttranslation
   pk: 79
@@ -476,13 +476,13 @@
   pk: 80
   fields:
     language_code: fi
-    name: Food Science
+    name: Ravistsemustiede
     master: 27
 - model: core.subjecttranslation
   pk: 81
   fields:
     language_code: sv
-    name: Food Science
+    name: Näring
     master: 27
 - model: core.subjecttranslation
   pk: 82
@@ -494,13 +494,13 @@
   pk: 83
   fields:
     language_code: fi
-    name: Forensic Science
+    name: Oikeustiede
     master: 28
 - model: core.subjecttranslation
   pk: 84
   fields:
     language_code: sv
-    name: Forensic Science
+    name: Forensisk
     master: 28
 - model: core.subjecttranslation
   pk: 85
@@ -512,13 +512,13 @@
   pk: 86
   fields:
     language_code: fi
-    name: French
+    name: Ranskan kielen opinnot
     master: 29
 - model: core.subjecttranslation
   pk: 87
   fields:
     language_code: sv
-    name: French
+    name: Franskastudier
     master: 29
 - model: core.subjecttranslation
   pk: 88
@@ -530,13 +530,13 @@
   pk: 89
   fields:
     language_code: fi
-    name: Geography
+    name: Maantiede
     master: 30
 - model: core.subjecttranslation
   pk: 90
   fields:
     language_code: sv
-    name: Geography
+    name: Geografi
     master: 30
 - model: core.subjecttranslation
   pk: 91
@@ -548,13 +548,13 @@
   pk: 92
   fields:
     language_code: fi
-    name: Geology
+    name: Geologia
     master: 31
 - model: core.subjecttranslation
   pk: 93
   fields:
     language_code: sv
-    name: Geology
+    name: Geologi
     master: 31
 - model: core.subjecttranslation
   pk: 94
@@ -566,13 +566,13 @@
   pk: 95
   fields:
     language_code: fi
-    name: General Engineering
+    name: Insinöörityö
     master: 32
 - model: core.subjecttranslation
   pk: 96
   fields:
     language_code: sv
-    name: General Engineering
+    name: Teknik
     master: 32
 - model: core.subjecttranslation
   pk: 97
@@ -584,13 +584,13 @@
   pk: 98
   fields:
     language_code: fi
-    name: German
+    name: Saksan kielen opinnot
     master: 33
 - model: core.subjecttranslation
   pk: 99
   fields:
     language_code: sv
-    name: German
+    name: Tyskstudier
     master: 33
 - model: core.subjecttranslation
   pk: 100
@@ -602,13 +602,13 @@
   pk: 101
   fields:
     language_code: fi
-    name: History
+    name: Historia
     master: 34
 - model: core.subjecttranslation
   pk: 102
   fields:
     language_code: sv
-    name: History
+    name: Histori
     master: 34
 - model: core.subjecttranslation
   pk: 103
@@ -620,13 +620,13 @@
   pk: 104
   fields:
     language_code: fi
-    name: History of Art, Architecture and Design
+    name: Taidehistoria
     master: 35
 - model: core.subjecttranslation
   pk: 105
   fields:
     language_code: sv
-    name: History of Art, Architecture and Design
+    name: Konsthistoria
     master: 35
 - model: core.subjecttranslation
   pk: 106
@@ -638,13 +638,13 @@
   pk: 107
   fields:
     language_code: fi
-    name: Hospitality, Leisure, Recreation and Tourism
+    name: Matkailualan opinnot
     master: 36
 - model: core.subjecttranslation
   pk: 108
   fields:
     language_code: sv
-    name: Hospitality, Leisure, Recreation and Tourism
+    name: Turismstudier
     master: 36
 - model: core.subjecttranslation
   pk: 109
@@ -656,13 +656,13 @@
   pk: 110
   fields:
     language_code: fi
-    name: Italian
+    name: Italian kielen opinnot
     master: 37
 - model: core.subjecttranslation
   pk: 111
   fields:
     language_code: sv
-    name: Italian
+    name: Italiensk
     master: 37
 - model: core.subjecttranslation
   pk: 112
@@ -674,13 +674,13 @@
   pk: 113
   fields:
     language_code: fi
-    name: Law
+    name: Oikeustiede
     master: 38
 - model: core.subjecttranslation
   pk: 114
   fields:
     language_code: sv
-    name: Law
+    name: Lag
     master: 38
 - model: core.subjecttranslation
   pk: 115
@@ -692,13 +692,13 @@
   pk: 116
   fields:
     language_code: fi
-    name: Linguistics
+    name: Kielitiede
     master: 39
 - model: core.subjecttranslation
   pk: 117
   fields:
     language_code: sv
-    name: Linguistics
+    name: Lingvistik
     master: 39
 - model: core.subjecttranslation
   pk: 118
@@ -710,13 +710,13 @@
   pk: 119
   fields:
     language_code: fi
-    name: Manufacturing Engineering
+    name: Tuotantotalous
     master: 40
 - model: core.subjecttranslation
   pk: 120
   fields:
     language_code: sv
-    name: Manufacturing Engineering
+    name: industriell ekonomi
     master: 40
 - model: core.subjecttranslation
   pk: 121
@@ -728,13 +728,13 @@
   pk: 122
   fields:
     language_code: fi
-    name: Marketing
+    name: Markkinointi
     master: 41
 - model: core.subjecttranslation
   pk: 123
   fields:
     language_code: sv
-    name: Marketing
+    name: Marknadsföring
     master: 41
 - model: core.subjecttranslation
   pk: 124
@@ -746,13 +746,13 @@
   pk: 125
   fields:
     language_code: fi
-    name: Materials Technology
+    name: Materiaalitekniikka
     master: 42
 - model: core.subjecttranslation
   pk: 126
   fields:
     language_code: sv
-    name: Materials Technology
+    name: Materialteknik
     master: 42
 - model: core.subjecttranslation
   pk: 127
@@ -764,13 +764,13 @@
   pk: 128
   fields:
     language_code: fi
-    name: Mathematics
+    name: Matematiikka
     master: 43
 - model: core.subjecttranslation
   pk: 129
   fields:
     language_code: sv
-    name: Mathematics
+    name: Matematik
     master: 43
 - model: core.subjecttranslation
   pk: 130
@@ -782,13 +782,13 @@
   pk: 131
   fields:
     language_code: fi
-    name: Mechanical Engineering
+    name: Konetekniikka
     master: 44
 - model: core.subjecttranslation
   pk: 132
   fields:
     language_code: sv
-    name: Mechanical Engineering
+    name: Maskinteknik
     master: 44
 - model: core.subjecttranslation
   pk: 133
@@ -800,13 +800,13 @@
   pk: 134
   fields:
     language_code: fi
-    name: Medical Technology
+    name: Terveysteknologiat
     master: 45
 - model: core.subjecttranslation
   pk: 135
   fields:
     language_code: sv
-    name: Medical Technology
+    name: Medicinskteknik
     master: 45
 - model: core.subjecttranslation
   pk: 136
@@ -818,13 +818,13 @@
   pk: 137
   fields:
     language_code: fi
-    name: Medicine
+    name: Lääketiede
     master: 46
 - model: core.subjecttranslation
   pk: 138
   fields:
     language_code: sv
-    name: Medicine
+    name: Medicin
     master: 46
 - model: core.subjecttranslation
   pk: 139
@@ -836,13 +836,13 @@
   pk: 140
   fields:
     language_code: fi
-    name: Music
+    name: Musiikki alan opinnot
     master: 47
 - model: core.subjecttranslation
   pk: 141
   fields:
     language_code: sv
-    name: Music
+    name: Musik
     master: 47
 - model: core.subjecttranslation
   pk: 142
@@ -854,13 +854,13 @@
   pk: 143
   fields:
     language_code: fi
-    name: Phonetics
+    name: Fonetiikka
     master: 48
 - model: core.subjecttranslation
   pk: 144
   fields:
     language_code: sv
-    name: Phonetics
+    name: Fonetik
     master: 48
 - model: core.subjecttranslation
   pk: 145
@@ -872,13 +872,13 @@
   pk: 146
   fields:
     language_code: fi
-    name: Nursing
+    name: Sairaanhoito alan opinnot
     master: 49
 - model: core.subjecttranslation
   pk: 147
   fields:
     language_code: sv
-    name: Nursing
+    name: Amning
     master: 49
 - model: core.subjecttranslation
   pk: 148
@@ -890,13 +890,13 @@
   pk: 149
   fields:
     language_code: fi
-    name: Occupational Therapy
+    name: Toimintaterapia
     master: 50
 - model: core.subjecttranslation
   pk: 150
   fields:
     language_code: sv
-    name: Occupational Therapy
+    name: Arbetsterapi
     master: 50
 - model: core.subjecttranslation
   pk: 151
@@ -908,13 +908,13 @@
   pk: 152
   fields:
     language_code: fi
-    name: Pharmacology and Pharmacy
+    name: Farmakologia
     master: 51
 - model: core.subjecttranslation
   pk: 153
   fields:
     language_code: sv
-    name: Pharmacology and Pharmacy
+    name: Pharmacologi
     master: 51
 - model: core.subjecttranslation
   pk: 154
@@ -926,13 +926,13 @@
   pk: 155
   fields:
     language_code: fi
-    name: Philosophy
+    name: Filosofia
     master: 52
 - model: core.subjecttranslation
   pk: 156
   fields:
     language_code: sv
-    name: Philosophy
+    name: Filosofia
     master: 52
 - model: core.subjecttranslation
   pk: 157
@@ -944,13 +944,13 @@
   pk: 158
   fields:
     language_code: fi
-    name: Physics and Astronomy
+    name: Fysiikka ja astronomia
     master: 53
 - model: core.subjecttranslation
   pk: 159
   fields:
     language_code: sv
-    name: Physics and Astronomy
+    name: Fysik och astronomi
     master: 53
 - model: core.subjecttranslation
   pk: 160
@@ -962,13 +962,13 @@
   pk: 161
   fields:
     language_code: fi
-    name: Physiotherapy
+    name: Fysioterapia
     master: 54
 - model: core.subjecttranslation
   pk: 162
   fields:
     language_code: sv
-    name: Physiotherapy
+    name: Fysioterapi
     master: 54
 - model: core.subjecttranslation
   pk: 163
@@ -980,13 +980,13 @@
   pk: 164
   fields:
     language_code: fi
-    name: Politics
+    name: Politiikan tutkimus
     master: 55
 - model: core.subjecttranslation
   pk: 165
   fields:
     language_code: sv
-    name: Politics
+    name: Politik
     master: 55
 - model: core.subjecttranslation
   pk: 166
@@ -998,13 +998,13 @@
   pk: 167
   fields:
     language_code: fi
-    name: Psychology
+    name: Psykologia
     master: 56
 - model: core.subjecttranslation
   pk: 168
   fields:
     language_code: sv
-    name: Psychology
+    name: Psykologi
     master: 56
 - model: core.subjecttranslation
   pk: 169
@@ -1016,13 +1016,13 @@
   pk: 170
   fields:
     language_code: fi
-    name: Process technology
+    name: Prosessitekniikka
     master: 57
 - model: core.subjecttranslation
   pk: 171
   fields:
     language_code: sv
-    name: Process technology
+    name: Processteknik
     master: 57
 - model: core.subjecttranslation
   pk: 172
@@ -1034,7 +1034,7 @@
   pk: 173
   fields:
     language_code: fi
-    name: Robotics
+    name: Robotiikka
     master: 58
 - model: core.subjecttranslation
   pk: 174
@@ -1052,13 +1052,13 @@
   pk: 176
   fields:
     language_code: fi
-    name: Russia
+    name: Venäjän kielen opinnot
     master: 59
 - model: core.subjecttranslation
   pk: 177
   fields:
     language_code: sv
-    name: Russia
+    name: Ryssland studier
     master: 59
 - model: core.subjecttranslation
   pk: 178
@@ -1070,13 +1070,13 @@
   pk: 179
   fields:
     language_code: fi
-    name: Social Science
+    name: Sosiaalitieteet
     master: 60
 - model: core.subjecttranslation
   pk: 180
   fields:
     language_code: sv
-    name: Social Science
+    name: Samhällskunskap
     master: 60
 - model: core.subjecttranslation
   pk: 181
@@ -1088,13 +1088,13 @@
   pk: 182
   fields:
     language_code: fi
-    name: Social Work
+    name: Sosiaalityö
     master: 61
 - model: core.subjecttranslation
   pk: 183
   fields:
     language_code: sv
-    name: Social Work
+    name: Socialt arbete
     master: 61
 - model: core.subjecttranslation
   pk: 184
@@ -1106,13 +1106,13 @@
   pk: 185
   fields:
     language_code: fi
-    name: Sociology
+    name: Sosiologia
     master: 62
 - model: core.subjecttranslation
   pk: 186
   fields:
     language_code: sv
-    name: Sociology
+    name: Sociologi
     master: 62
 - model: core.subjecttranslation
   pk: 187
@@ -1124,13 +1124,13 @@
   pk: 188
   fields:
     language_code: fi
-    name: Swedish
+    name: Ruotsin kielen opinnot
     master: 63
 - model: core.subjecttranslation
   pk: 189
   fields:
     language_code: sv
-    name: Swedish
+    name: Svenska studier
     master: 63
 - model: core.subjecttranslation
   pk: 190
@@ -1142,13 +1142,13 @@
   pk: 191
   fields:
     language_code: fi
-    name: Sports Science
+    name: Urheilutiede
     master: 64
 - model: core.subjecttranslation
   pk: 192
   fields:
     language_code: sv
-    name: Sports Science
+    name: Idrottsvetenskap
     master: 64
 - model: core.subjecttranslation
   pk: 193
@@ -1160,13 +1160,13 @@
   pk: 194
   fields:
     language_code: fi
-    name: Theology and Religious Studies
+    name: Teologia
     master: 65
 - model: core.subjecttranslation
   pk: 195
   fields:
     language_code: sv
-    name: Theology and Religious Studies
+    name: Teologi
     master: 65
 - model: core.subjecttranslation
   pk: 196
@@ -1178,13 +1178,13 @@
   pk: 197
   fields:
     language_code: fi
-    name: Veterinary Medicine
+    name: Eläinlääketiede
     master: 66
 - model: core.subjecttranslation
   pk: 198
   fields:
     language_code: sv
-    name: Veterinary Medicine
+    name: Veterinärmedicin
     master: 66
 - model: core.subjecttranslation
   pk: 199
@@ -1196,13 +1196,13 @@
   pk: 200
   fields:
     language_code: fi
-    name: Youth Work
+    name: Nuorisotyö
     master: 67
 - model: core.subjecttranslation
   pk: 201
   fields:
     language_code: sv
-    name: Youth Work
+    name: Ungdomsarbete
     master: 67
 - model: core.subject
   pk: 1

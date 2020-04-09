@@ -14,7 +14,7 @@
   pk: 3
   fields:
     language_code: sv
-    name: Tenta
+    name: Tentamen
     master: 1
 - model: core.ResourceTypeTranslation
   pk: 4

@@ -1,8 +1,42 @@
-- model: core.SchoolType
+- model: core.SchoolTypeTranslation
   pk: 1
   fields:
-    name: "University"
-- model: core.SchoolType
+    language_code: en
+    name: University
+    master: 1
+- model: core.SchoolTypeTranslation
   pk: 2
   fields:
-    name: "University of Applied Sciences"
+    language_code: fi
+    name: Yliopisto
+    master: 1
+- model: core.SchoolTypeTranslation
+  pk: 3
+  fields:
+    language_code: sv
+    name: Universitet
+    master: 1
+- model: core.SchoolTypeTranslation
+  pk: 4
+  fields:
+    language_code: en
+    name: University of Applied Sciences
+    master: 2
+- model: core.SchoolTypeTranslation
+  pk: 5
+  fields:
+    language_code: fi
+    name: Ammattikorkeakoulu
+    master: 2
+- model: core.SchoolTypeTranslation
+  pk: 6
+  fields:
+    language_code: sv
+    name: Yrkeshögskola
+    master: 2
+- model: core.SchoolType
+  pk: 1
+  fields: {}
+- model: core.SchoolType
+  pk: 2
+  fields: {}

@@ -1,16 +1,84 @@
-- model: core.ResourceType
+- model: core.ResourceTypeTranslation
   pk: 1
   fields:
-    name: "Exam"
-- model: core.ResourceType
+    language_code: en
+    name: Exam
+    master: 1
+- model: core.ResourceTypeTranslation
   pk: 2
   fields:
-    name: "Exercise"
-- model: core.ResourceType
+    language_code: fi
+    name: Tentti
+    master: 1
+- model: core.ResourceTypeTranslation
   pk: 3
   fields:
-    name: "Note"
-- model: core.ResourceType
+    language_code: sv
+    name: Tenta
+    master: 1
+- model: core.ResourceTypeTranslation
   pk: 4
   fields:
-    name: "Other"
+    language_code: en
+    name: Exercise
+    master: 2
+- model: core.ResourceTypeTranslation
+  pk: 5
+  fields:
+    language_code: fi
+    name: Harjoitustehtävä
+    master: 2
+- model: core.ResourceTypeTranslation
+  pk: 6
+  fields:
+    language_code: sv
+    name: Uppgift
+    master: 2
+- model: core.ResourceTypeTranslation
+  pk: 7
+  fields:
+    language_code: en
+    name: Note
+    master: 3
+- model: core.ResourceTypeTranslation
+  pk: 8
+  fields:
+    language_code: fi
+    name: Muistiinpano
+    master: 3
+- model: core.ResourceTypeTranslation
+  pk: 9
+  fields:
+    language_code: sv
+    name: Minnesanteckning
+    master: 3
+- model: core.ResourceTypeTranslation
+  pk: 10
+  fields:
+    language_code: en
+    name: Other
+    master: 4
+- model: core.ResourceTypeTranslation
+  pk: 11
+  fields:
+    language_code: fi
+    name: Muu
+    master: 4
+- model: core.ResourceTypeTranslation
+  pk: 12
+  fields:
+    language_code: sv
+    name: Annat
+    master: 4
+- model: core.ResourceType
+  pk: 1
+  fields: {}
+- model: core.ResourceType
+  pk: 2
+  fields: {}
+- model: core.ResourceType
+  pk: 3
+  fields: {}
+- model: core.ResourceType
+  pk: 4
+  fields: {}

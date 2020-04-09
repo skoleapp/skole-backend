@@ -1,4 +1,21 @@
-- model: core.Country
+- model: core.CountryTranslation
   pk: 1
   fields:
-    name: "Finland"
+    language_code: en
+    name: Finland
+    master: 1
+- model: core.CountryTranslation
+  pk: 2
+  fields:
+    language_code: fi
+    name: Suomi
+    master: 1
+- model: core.CountryTranslation
+  pk: 3
+  fields:
+    language_code: sv
+    name: Finland
+    master: 1
+- model: core.Country
+  pk: 1
+  fields: {}

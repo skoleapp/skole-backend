@@ -738,7 +738,7 @@
   fields:
     master: 2
     language_code: "fi"
-    name: "Tehtävä"
+    name: "Harjoitustehtävä"
 - model: core.ResourceTypeTranslation
   pk: 6
   fields:

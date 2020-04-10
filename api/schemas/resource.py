@@ -53,6 +53,7 @@ class CreateResourceMutation(FileMixin, DjangoModelFormMutation):
     def perform_mutate(
         cls, form: CreateUpdateResourceForm, info: ResolveInfo
     ) -> "CreateResourceMutation":
+        assert info.context is not None
         resource = Resource.objects.create_resource(
             #  Mypy somehow thinks that the user was already in the cleaned_data,
             #  and would thus also be a duplicate key.
@@ -71,6 +72,7 @@ class UpdateResourceMutation(DjangoModelFormMutation):
     def perform_mutate(
         cls, form: CreateUpdateResourceForm, info: ResolveInfo
     ) -> "UpdateResourceMutation":
+        assert info.context is not None
 
         try:
             resource = Resource.objects.get(pk=form.cleaned_data.pop("resource_id"))

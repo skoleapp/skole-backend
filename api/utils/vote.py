@@ -13,6 +13,7 @@ class VoteMixin:
 
     def resolve_vote(self, info: ResolveInfo) -> Optional[int]:
         """Resolve current user's vote if it exists."""
+        assert info.context is not None
 
         user = info.context.user
 

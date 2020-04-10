@@ -51,6 +51,7 @@ class CreateCourseMutation(DjangoModelFormMutation):
     def perform_mutate(
         cls, form: CreateCourseForm, info: ResolveInfo
     ) -> "CreateCourseMutation":
+        assert info.context is not None
         course = Course.objects.create(user=info.context.user, **form.cleaned_data)
         return cls(course=course)
 

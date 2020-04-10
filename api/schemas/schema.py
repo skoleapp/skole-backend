@@ -9,7 +9,7 @@ import api.schemas.resource
 import api.schemas.resource_type
 import api.schemas.school
 import api.schemas.school_type
-import api.schemas.star
+import api.schemas.starred
 import api.schemas.subject
 import api.schemas.user
 import api.schemas.vote
@@ -37,7 +37,7 @@ class Mutation(
     api.schemas.resource.Mutation,
     api.schemas.user.Mutation,
     api.schemas.vote.Mutation,
-    api.schemas.star.Mutation,
+    api.schemas.starred.Mutation,
 ):
     pass
 

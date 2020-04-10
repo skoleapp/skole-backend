@@ -26,6 +26,7 @@ class VoteMutation(DjangoModelFormMutation):
     @classmethod
     @login_required
     def perform_mutate(cls, form: CreateVoteForm, info: ResolveInfo) -> "VoteMutation":
+        assert info.context is not None
         vote, target_points = Vote.objects.perform_vote(
             user=info.context.user, **form.cleaned_data
         )

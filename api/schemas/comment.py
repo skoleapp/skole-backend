@@ -49,6 +49,7 @@ class CreateCommentMutation(FileMixin, DjangoModelFormMutation):
     def perform_mutate(
         cls, form: CreateUpdateCommentForm, info: ResolveInfo
     ) -> "CreateCommentMutation":
+        assert info.context is not None
         if form.cleaned_data["attachment"] == "" and form.cleaned_data["text"] == "":
             raise GraphQLError(_("Comment must include either text or attachment."))
 
@@ -73,6 +74,7 @@ class UpdateCommentMutation(DjangoModelFormMutation):
         cls, form: CreateUpdateCommentForm, info: ResolveInfo
     ) -> "UpdateCommentMutation":
         comment = Comment.objects.get(pk=form.cleaned_data.pop("comment"))
+        assert info.context is not None
 
         if comment.user != info.context.user:
             raise GraphQLError(NOT_OWNER_MESSAGE)

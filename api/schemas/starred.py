@@ -23,6 +23,7 @@ class StarredMutation(DjangoModelFormMutation):
     @classmethod
     @login_required
     def perform_mutate(cls, form: StarForm, info: ResolveInfo) -> "StarredMutation":
+        assert info.context is not None
         starred = Starred.objects.perform_star(
             user=info.context.user, **form.cleaned_data
         )

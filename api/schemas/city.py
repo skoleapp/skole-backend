@@ -24,6 +24,7 @@ class Query(graphene.ObjectType):
 
     @login_required
     def resolve_cities(self, info: ResolveInfo) -> "QuerySet[City]":
+        assert info.context is not None
         return City.objects.translated(info.context.LANGUAGE_CODE).order_by(
             "translations__name"
         )

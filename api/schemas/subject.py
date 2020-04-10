@@ -24,6 +24,7 @@ class Query(graphene.ObjectType):
 
     @login_required
     def resolve_subjects(self, info: ResolveInfo) -> "QuerySet[Subject]":
+        assert info.context is not None
         return Subject.objects.translated(info.context.LANGUAGE_CODE).order_by(
             "translations__name"
         )

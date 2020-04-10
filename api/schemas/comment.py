@@ -1,4 +1,4 @@
-from typing import Any, Optional
+from typing import Optional
 
 import graphene
 from django.utils.translation import gettext as _
@@ -6,16 +6,14 @@ from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphql import GraphQLError, ResolveInfo
 from graphql_jwt.decorators import login_required
-from mypy.types import JsonDict
 
 from api.forms.comment import CreateUpdateCommentForm, DeleteCommentForm
-from api.schemas.vote import VoteObjectType
 from api.utils.common import get_obj_or_none
 from api.utils.delete import DeleteMutationMixin
 from api.utils.file import FileMixin
 from api.utils.messages import NOT_OWNER_MESSAGE
 from api.utils.vote import VoteMixin
-from core.models import Comment, Vote
+from core.models import Comment
 
 
 class CommentObjectType(VoteMixin, DjangoObjectType):

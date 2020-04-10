@@ -11,6 +11,7 @@ class FileMixin:
     def get_form_kwargs(
         cls, root: Any, info: ResolveInfo, **input: JsonDict
     ) -> JsonDict:
+        assert info.context is not None
         return {
             "data": input,
             "instance": info.context.user,

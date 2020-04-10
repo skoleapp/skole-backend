@@ -54,6 +54,7 @@ class UserObjectType(DjangoObjectType):
         Return email only if authenticated and querying
         through userMe query or user query with own ID.
         """
+        assert info.context is not None
         user = info.context.user
 
         if not user.is_anonymous and user.email == self.email:
@@ -155,6 +156,7 @@ class ChangePasswordMutation(DjangoModelFormMutation):
     def get_form_kwargs(
         cls, root: Any, info: ResolveInfo, **input: JsonDict
     ) -> JsonDict:
+        assert info.context is not None
         return {"data": input, "instance": info.context.user}
 
     @classmethod
@@ -162,6 +164,7 @@ class ChangePasswordMutation(DjangoModelFormMutation):
     def perform_mutate(
         cls, form: ChangePasswordForm, info: ResolveInfo
     ) -> "ChangePasswordMutation":
+        assert info.context is not None
         return cls(user=info.context.user)
 
 
@@ -177,6 +180,7 @@ class DeleteUserMutation(DjangoModelFormMutation):
     def get_form_kwargs(
         cls, root: Any, info: ResolveInfo, **input: JsonDict
     ) -> JsonDict:
+        assert info.context is not None
         return {"data": input, "instance": info.context.user}
 
     @classmethod
@@ -184,6 +188,7 @@ class DeleteUserMutation(DjangoModelFormMutation):
     def perform_mutate(
         cls, form: DeleteUserForm, info: ResolveInfo
     ) -> "DeleteUserMutation":
+        assert info.context is not None
         info.context.user.delete()
         return cls(message=_("User deleted successfully."))
 
@@ -200,6 +205,7 @@ class UpdateUserMutation(FileMixin, DjangoModelFormMutation):
     def perform_mutate(
         cls, form: UpdateUserForm, info: ResolveInfo
     ) -> "UpdateUserMutation":
+        assert info.context is not None
         user = info.context.user
         get_user_model().objects.update_user(user, **form.cleaned_data)
         return cls(user=user)
@@ -266,6 +272,7 @@ class Query(graphene.ObjectType):
 
     @login_required
     def resolve_user_me(self, info: ResolveInfo) -> User:
+        assert info.context is not None
         return info.context.user
 
 

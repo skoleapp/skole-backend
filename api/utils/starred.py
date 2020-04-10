@@ -11,6 +11,7 @@ class StarredMixin:
 
     def resolve_starred(self, info: ResolveInfo) -> Optional[int]:
         """Check whether user has starred current item."""
+        assert info.context is not None
 
         user = info.context.user
 

@@ -15,5 +15,6 @@ COPY requirements.txt .
 COPY requirements-dev.txt .
 
 RUN pip install --upgrade pip
-RUN pip install -r requirements.txt -r requirements-dev.txt
+RUN pip install -r requirements.txt
+RUN pip install -r requirements-dev.txt
 RUN apk del .tmp-build-deps

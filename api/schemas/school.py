@@ -35,6 +35,7 @@ class Query(graphene.ObjectType):
 
     @login_required
     def resolve_schools(self, info: ResolveInfo) -> "QuerySet[School]":
+        assert info.context is not None
         return School.objects.translated(info.context.LANGUAGE_CODE).order_by(
             "translations__name"
         )

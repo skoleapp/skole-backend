@@ -113,13 +113,6 @@ LANGUAGE_CODE = "en"
 LANGUAGES = (("en", _("English")), ("fi", _("Finnish")), ("sv", _("Swedish")))
 LOCALE_PATHS = (os.path.join(BASE_DIR, "core/locale"),)
 
-# django-parler settings
-PARLER_LANGUAGES = {
-    None: (tuple({"code": code} for code, _ in LANGUAGES)),
-    "default": {"fallbacks": ["en", "fi", "sv"], "hide_untranslated": False},
-}
-PARLER_ENABLE_CACHING = False
-
 # CORS settings
 
 CORS_ALLOW_CREDENTIALS = True

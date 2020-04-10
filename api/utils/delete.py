@@ -21,6 +21,7 @@ class DeleteMutationMixin:
     def get_form_kwargs(
         cls, root: Any, info: ResolveInfo, **input: Dict[str, Any]
     ) -> Dict[str, Any]:
+        assert info.context is not None
         kwargs = {"data": input}
         pk = input.pop("id", None)
 

@@ -1,0 +1,1 @@
+from .skole_schema_test_case import SkoleSchemaTestCase

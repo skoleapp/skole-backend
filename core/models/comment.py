@@ -18,8 +18,7 @@ if TYPE_CHECKING:
     from core.utils.types import CommentableModel
 
 
-# Ignore: See explanation in UserManager.
-class CommentManager(models.Manager):  # type: ignore[type-arg]
+class CommentManager(models.Manager["Comment"]):
     def create_comment(
         self,
         user: User,

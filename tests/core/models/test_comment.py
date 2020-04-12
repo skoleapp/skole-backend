@@ -71,7 +71,7 @@ def test_manager_create_bad_target(db: fixture) -> None:
     bad_target = user
     with pytest.raises(TypeError):
         comment = Comment.objects.create_comment(
-            user=user, text="foo", attachment=None, target=bad_target
+            user=user, text="foo", attachment=None, target=bad_target  # type: ignore[arg-type]
         )
 
 

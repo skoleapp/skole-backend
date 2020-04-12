@@ -7,8 +7,7 @@ from .subject import Subject
 from .user import User
 
 
-# Ignore: See explanation in UserManager.
-class CourseManager(models.Manager):  # type: ignore[type-arg]
+class CourseManager(models.Manager["Course"]):
     def get_queryset(self) -> "QuerySet[Course]":
         return super().get_queryset().annotate(resource_count=Count("resources"))
 

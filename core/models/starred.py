@@ -7,8 +7,7 @@ from core.models.resource import Resource
 from core.models.user import User
 
 
-# Ignore: See explanation in UserManager.
-class StarredManager(models.Manager):  # type: ignore[type-arg]
+class StarredManager(models.Manager["Starred"]):
     def perform_star(
         self, user: User, target: Union[Course, Resource]
     ) -> Optional["Starred"]:

@@ -18,10 +18,7 @@ from core.utils.vote import (
 )
 
 
-# Ignore: Mypy expects Managers to have a generic type,
-#  this doesn't actually work, so we ignore it.
-#  https://gitter.im/mypy-django/Lobby?at=5de6bd09d75ad3721d4a58ba
-class UserManager(BaseUserManager):  # type: ignore[type-arg]
+class UserManager(BaseUserManager["User"]):
     def create_user(self, username: str, password: str) -> "User":
         user = self.model(username=username)
         user.is_staff = False

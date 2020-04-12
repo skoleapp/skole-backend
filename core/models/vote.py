@@ -12,8 +12,7 @@ from core.utils.types import VotableModel
 from core.utils.vote import VOTE_STATUS
 
 
-# Ignore: See explanation in UserManager.
-class VoteManager(models.Manager):  # type: ignore[type-arg]
+class VoteManager(models.Manager["Vote"]):
     def perform_vote(
         self, user: User, status: int, target: VotableModel
     ) -> Tuple[Optional["Vote"], int]:

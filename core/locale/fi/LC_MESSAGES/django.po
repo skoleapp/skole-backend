@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-07 20:08+0000\n"
+"POT-Creation-Date: 2020-04-12 16:48+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,7 +38,7 @@ msgstr "Vanha salasana väärin"
 msgid "Incorrect password."
 msgstr "Väärä salasana."
 
-#: api/schemas/comment.py:55
+#: api/schemas/comment.py:54
 msgid "Comment must include either text or attachment."
 msgstr "Kommentissa tulee olla tekstiä tai liite."
 
@@ -50,11 +50,11 @@ msgstr "Viesti lähetetty onnistuneesti."
 msgid "Error while sending message."
 msgstr "Virhe lähettäessä viestiä."
 
-#: api/schemas/user.py:188
+#: api/schemas/user.py:193
 msgid "User deleted successfully."
 msgstr "Käyttäjä poistettu onnistuneesti."
 
-#: api/utils/delete.py:45
+#: api/utils/delete.py:46
 msgid "Object deleted successfully."
 msgstr "Objekti poistettu onnistuneesti."
 
@@ -82,11 +82,11 @@ msgstr "suomi"
 msgid "Swedish"
 msgstr "ruotsi"
 
-#: core/models/user.py:72
+#: core/models/user.py:78
 msgid "This username is taken."
 msgstr "Käyttäjänimi on jo käytössä."
 
-#: core/models/vote.py:23
+#: core/models/vote.py:29
 msgid "You can't vote for your own content."
 msgstr "Et voi äänestää omaa sisältöäsi."
 

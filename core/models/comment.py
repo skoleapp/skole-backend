@@ -7,7 +7,6 @@ from django.db.models.functions import Coalesce
 from django.db.models.query import QuerySet
 
 from core.utils.validators import ValidateFileSizeAndType
-from core.utils.vote import POINTS_COMMENT_MULTIPLIER
 
 from .course import Course
 from .resource import Resource
@@ -108,8 +107,5 @@ class Comment(models.Model):
             raise ValueError("Invalid comment with neither text nor attachment.")
 
     @property
-    def points(self) -> int:
-        return (
-            self.votes.aggregate(points=Coalesce(Sum("status"), 0))["points"]
-            * POINTS_COMMENT_MULTIPLIER
-        )
+    def score(self) -> int:
+        return self.votes.aggregate(score=Coalesce(Sum("status"), 0))["score"]

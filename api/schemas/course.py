@@ -92,7 +92,7 @@ class Query(graphene.ObjectType):
         city: Optional[int] = None,
         page: int = 1,
         page_size: int = 10,
-        ordering: Optional[Literal["name", "-name", "points", "-points"]] = None,
+        ordering: Optional[Literal["name", "-name", "score", "-score"]] = None,
     ) -> graphene.ObjectType:
         """Filter courses based on the query parameters."""
         qs = Course.objects.all()
@@ -115,8 +115,8 @@ class Query(graphene.ObjectType):
         if ordering is not None and ordering not in {
             "name",
             "-name",
-            "points",
-            "-points",
+            "score",
+            "-score",
         }:
             raise GraphQLError("Invalid ordering value.")
 
@@ -124,12 +124,12 @@ class Query(graphene.ObjectType):
             qs = qs.order_by(ordering)
         else:
             qs = qs.order_by("name")
-            if ordering == "points":
+            if ordering == "score":
                 # Ignore: qs changes from QuerySet to a List, get_paginator handles that.
-                qs = sorted(qs, key=lambda c: c.points)  # type: ignore[assignment]
-            else:  # -points
+                qs = sorted(qs, key=lambda c: c.score)  # type: ignore[assignment]
+            else:  # -score
                 # Ignore: Same as above.
-                qs = sorted(qs, key=lambda c: c.points, reverse=True)  # type: ignore[assignment]
+                qs = sorted(qs, key=lambda c: c.score, reverse=True)  # type: ignore[assignment]
 
         return get_paginator(qs, page_size, page, PaginatedCourseObjectType)
 

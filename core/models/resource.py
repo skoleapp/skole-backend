@@ -86,5 +86,5 @@ class Resource(models.Model):
         return f"{self.title}"
 
     @property
-    def points(self) -> int:
-        return self.votes.aggregate(points=Coalesce(Sum("status"), 0))["points"]
+    def score(self) -> int:
+        return self.votes.aggregate(score=Coalesce(Sum("status"), 0))["score"]

@@ -4,17 +4,15 @@ from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.core.files.uploadedfile import UploadedFile
 from django.db import models
-from django.db.models import Sum
-from django.db.models.functions import Coalesce
 from django.utils.translation import gettext_lazy as _
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
 
 from core.utils.validators import ValidateFileSizeAndType
 from core.utils.vote import (
-    POINTS_COMMENT_MULTIPLIER,
-    POINTS_COURSE_MULTIPLIER,
-    POINTS_RESOURCE_MULTIPLIER,
+    SCORE_COMMENT_MULTIPLIER,
+    SCORE_COURSE_MULTIPLIER,
+    SCORE_RESOURCE_MULTIPLIER,
 )
 
 
@@ -62,6 +60,12 @@ class UserManager(BaseUserManager):  # type: ignore[type-arg]
         user.save()
         return user
 
+    @staticmethod
+    def change_score(user: "User", score: int) -> "User":
+        user.score += score  # Can also be a subtraction when `score` is negative.
+        user.save()
+        return user
+
 
 class User(AbstractBaseUser, PermissionsMixin):
     """Models one user on the platform."""
@@ -85,6 +89,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         format="JPEG",
         options={"quality": 60},
     )
+    score = models.IntegerField(default=0)
 
     is_staff = models.BooleanField(default=False)
 
@@ -97,24 +102,3 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self) -> str:
         return f"{self.username}"
-
-    @property
-    def points(self) -> int:
-        points = 0
-        points += (
-            self.created_courses.aggregate(points=Coalesce(Sum("votes__status"), 0))[
-                "points"
-            ]
-            * POINTS_COURSE_MULTIPLIER
-        )
-        points += (
-            self.created_resources.aggregate(points=Coalesce(Sum("votes__status"), 0))[
-                "points"
-            ]
-            * POINTS_RESOURCE_MULTIPLIER
-        )
-        points += (
-            self.comments.aggregate(points=Coalesce(Sum("votes__status"), 0))["points"]
-            * POINTS_COMMENT_MULTIPLIER
-        )
-        return points

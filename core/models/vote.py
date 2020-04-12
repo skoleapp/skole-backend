@@ -1,5 +1,6 @@
 from typing import Optional, Tuple
 
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.translation import gettext as _
 from graphql import GraphQLError
@@ -9,7 +10,12 @@ from core.models.course import Course
 from core.models.resource import Resource
 from core.models.user import User
 from core.utils.types import VotableModel
-from core.utils.vote import VOTE_STATUS
+from core.utils.vote import (
+    SCORE_COMMENT_MULTIPLIER,
+    SCORE_COURSE_MULTIPLIER,
+    SCORE_RESOURCE_MULTIPLIER,
+    VOTE_STATUS,
+)
 
 
 # Ignore: See explanation in UserManager.
@@ -23,36 +29,42 @@ class VoteManager(models.Manager):  # type: ignore[type-arg]
             raise GraphQLError(_("You can't vote for your own content."))
 
         if isinstance(target, Comment):
+            multiplier = SCORE_COMMENT_MULTIPLIER
             vote = self.check_existing_vote(user, status, comment=target)
         elif isinstance(target, Course):
+            multiplier = SCORE_COURSE_MULTIPLIER
             vote = self.check_existing_vote(user, status, course=target)
         elif isinstance(target, Resource):
+            multiplier = SCORE_RESOURCE_MULTIPLIER
             vote = self.check_existing_vote(user, status, resource=target)
         else:
             raise TypeError(f"Invalid target type for Vote: {type(target)}")
 
-        return vote, target.points
+        if not vote:
+            # We invert the status to revert the affect of the vote to the user's score.
+            status = -status
+        # Ignore: Mypy doesn't know that `target` always the `user` attribute.
+        get_user_model().objects.change_score(target.user, status * multiplier)  # type: ignore[arg-type]
+
+        return vote, target.score
 
     def check_existing_vote(
         self, user: User, status: int, **target: VotableModel
     ) -> Optional["Vote"]:
         try:
             vote = user.votes.get(**target)
-
             if vote.status == status:
                 vote.delete()
                 return None
-
-            vote.status = status
-            vote.save()
-            return vote
-
+            else:
+                vote.status = status
+                vote.save()
         except Vote.DoesNotExist:
             vote = self.model(**target)
             vote.user = user
             vote.status = status
             vote.save()
-            return vote
+        return vote
 
 
 class Vote(models.Model):
@@ -74,7 +86,7 @@ class Vote(models.Model):
     objects = VoteManager()
 
     class Meta:
-        unique_together = ("comment", "course", "resource", "user")
+        unique_together = ("user", "comment", "course", "resource")
 
     def __str__(self) -> str:
         return f"{self.get_status_display()}, {self.user.username}"

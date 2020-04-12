@@ -27,7 +27,7 @@ from core.models import BetaCode, Course, Resource, User
 
 class UserObjectType(DjangoObjectType):
     email = graphene.String()
-    points = graphene.Int()
+    score = graphene.Int()
     avatar = graphene.String()
     avatar_thumbnail = graphene.String()
     course_count = graphene.Int()
@@ -230,9 +230,7 @@ class Query(graphene.ObjectType):
         page: int = 1,
         page_size: int = 10,
         username: Optional[str] = None,
-        ordering: Optional[
-            Literal["username", "-username", "points", "-points"]
-        ] = None,
+        ordering: Optional[Literal["username", "-username", "score", "-score"]] = None,
     ) -> Union["QuerySet[User]", List[User]]:
         qs = get_user_model().objects.filter(is_superuser=False)
 
@@ -242,21 +240,15 @@ class Query(graphene.ObjectType):
         if ordering is not None and ordering not in {
             "username",
             "-username",
-            "points",
-            "-points",
+            "score",
+            "-score",
         }:
             raise GraphQLError("Invalid ordering value.")
 
-        if ordering in {"username", "-username"}:
-            qs = qs.order_by(ordering)
-        else:
+        if ordering not in {"username", "-username"}:
+            # When ordering by score we also first order by the username.
             qs = qs.order_by("username")
-            if ordering == "points":
-                # Ignore: qs changes from QuerySet to a List, get_paginator handles that.
-                qs = sorted(qs, key=lambda u: u.points)  # type: ignore[assignment]
-            else:  # -points
-                # Ignore: Same as above.
-                qs = sorted(qs, key=lambda u: u.points, reverse=True)  # type: ignore[assignment]
+        qs = qs.order_by(ordering)
 
         return get_paginator(qs, page_size, page, PaginatedUserObjectType)
 

@@ -2,13 +2,13 @@ from typing import List
 
 from mypy.types import JsonDict
 
-from tests.utils import SkoleSchemaTestCase
+from tests.utils import BaseSchemaTestCase
 
 
-class TestSchoolSchema(SkoleSchemaTestCase):
+class SchoolSchemaTestCase(BaseSchemaTestCase):
     authenticated = True
 
-    base_query = """
+    fields = """
       id
       name
       subjects {
@@ -26,24 +26,23 @@ class TestSchoolSchema(SkoleSchemaTestCase):
 
     def query_schools(self) -> List[JsonDict]:
         query = f"""
-          query {{
+          {{
             schools {{
-              {self.base_query}
+              {self.fields}
             }}
           }}
         """
         return self.execute(query)["schools"]
 
     def query_school(self, id: int) -> JsonDict:
-        variables = {"id": id}
-
         query = f"""
-          query school($id: ID!) {{
+          query ($id: ID!) {{
             school(id: $id) {{
-              {self.base_query}
+              {self.fields}
             }}
           }}
         """
+        variables = {"id": id}
         return self.execute(query, variables=variables)["school"]
 
     def test_query_schools(self) -> None:

@@ -7,15 +7,18 @@ from mypy.types import JsonDict
 from api.schemas.schema import schema
 
 
-class SkoleSchemaTestCase(GraphQLTestCase):
+class BaseSchemaTestCase(GraphQLTestCase):
     """This class should be subclassed for every schema test.
-    Users of this class should explicitly set `authenticated` attribute
-    to suit that test's needs.
+    Users of this class should explicitly set the `authenticated` attribute
+    to suit that test case's needs.
     """
 
     GRAPHQL_SCHEMA = schema
     fixtures = ["test-data.yaml"]
-    authenticated: bool  # Users of this class have to explicitly set this.
+
+    # This should be set at the class level, but it can still be overridden
+    # for individual tests when needed.
+    authenticated: bool
 
     def execute(self, query: str, *args: Any, **kwargs: Any) -> JsonDict:
         """Helper method for running a GraphQL query and getting it's json response."""
@@ -33,6 +36,5 @@ class SkoleSchemaTestCase(GraphQLTestCase):
 
         response = self.query(query, *args, **kwargs, headers=headers)
 
-        # Only on GraphQL syntax errors we get status != 200.
         self.assertResponseNoErrors(response)
         return json.loads(response.content)["data"]

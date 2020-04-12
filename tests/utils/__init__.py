@@ -1,1 +1,1 @@
-from .base_schema_test_case import BaseSchemaTestCase
+from .schema import BaseSchemaTestCase, execute_input_mutation

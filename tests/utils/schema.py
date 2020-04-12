@@ -20,8 +20,8 @@ class BaseSchemaTestCase(GraphQLTestCase):
     # for individual tests when needed.
     authenticated: bool
 
-    def execute(self, query: str, *args: Any, **kwargs: Any) -> JsonDict:
-        """Helper method for running a GraphQL query and getting it's json response."""
+    def execute(self, graphql: str, *args: Any, **kwargs: Any) -> JsonDict:
+        """Run a GraphQL query and return the resulting JSON "data" section."""
 
         # Token is for testuser2, hardcoded since always getting a fresh one with
         # a login mutation takes time and slows down the tests.
@@ -32,9 +32,37 @@ class BaseSchemaTestCase(GraphQLTestCase):
             headers = {}
 
         if "headers" in kwargs:
-            headers = {**headers, **kwargs.pop("headers")}
+            headers.update(kwargs["headers"])
 
-        response = self.query(query, *args, **kwargs, headers=headers)
+        response = self.query(graphql, *args, **kwargs, headers=headers)
 
         self.assertResponseNoErrors(response)
         return json.loads(response.content)["data"]
+
+
+def execute_input_mutation(
+    test_case: BaseSchemaTestCase,
+    input_type: str,
+    op_name: str,
+    input: JsonDict,
+    result: str,
+    **params: str,
+) -> JsonDict:
+
+    if params is not None:
+        input.update(**params)
+
+    mutation = f"""
+      mutation ($input: {input_type}) {{
+        {op_name}(input: $input) {{
+          errors {{
+            field
+            messages
+          }}
+          {result}
+        }}
+      }}
+    """
+    return test_case.execute(mutation, variables={"input": input}, op_name=op_name)[
+        op_name
+    ]

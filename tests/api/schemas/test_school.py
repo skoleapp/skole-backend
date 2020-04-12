@@ -9,19 +9,19 @@ class SchoolSchemaTestCase(BaseSchemaTestCase):
     authenticated = True
 
     fields = """
+    id
+    name
+    subjects {
       id
-      name
-      subjects {
-        id
-      }
-      courses {
-        id
-      }
-      subjectCount
-      courseCount
-      schoolType
-      country
-      city
+    }
+    courses {
+      id
+    }
+    subjectCount
+    courseCount
+    schoolType
+    country
+    city
     """
 
     def query_schools(self) -> List[JsonDict]:
@@ -35,6 +35,8 @@ class SchoolSchemaTestCase(BaseSchemaTestCase):
         return self.execute(query)["schools"]
 
     def query_school(self, id: int) -> JsonDict:
+        variables = {"id": id}
+
         query = f"""
           query ($id: ID!) {{
             school(id: $id) {{
@@ -42,7 +44,6 @@ class SchoolSchemaTestCase(BaseSchemaTestCase):
             }}
           }}
         """
-        variables = {"id": id}
         return self.execute(query, variables=variables)["school"]
 
     def test_query_schools(self) -> None:

@@ -1,10 +1,10 @@
+from django.conf import settings
 from django.db import models
 from django.db.models import Count, QuerySet, Sum
 from django.db.models.functions import Coalesce
 
 from .school import School
 from .subject import Subject
-from .user import User
 
 
 # Ignore: See explanation in UserManager.
@@ -23,7 +23,7 @@ class Course(models.Model):
     )
     school = models.ForeignKey(School, on_delete=models.CASCADE, related_name="courses")
     user = models.ForeignKey(
-        User,
+        settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,
         null=True,
         blank=True,

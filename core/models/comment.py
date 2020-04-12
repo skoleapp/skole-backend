@@ -1,5 +1,6 @@
 from typing import TYPE_CHECKING, Optional, Union
 
+from django.conf import settings
 from django.core.files.uploadedfile import UploadedFile
 from django.db import models
 from django.db.models import Count, Sum
@@ -64,7 +65,10 @@ class Comment(models.Model):
     """Models one comment posted on a comment thread."""
 
     user = models.ForeignKey(
-        User, on_delete=models.CASCADE, null=True, related_name="comments"
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        null=True,
+        related_name="comments",
     )
     text = models.TextField(max_length=10000, blank=True)
     attachment = models.ImageField(

@@ -1,5 +1,6 @@
 from typing import Optional, Tuple
 
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.translation import gettext as _
@@ -70,7 +71,9 @@ class VoteManager(models.Manager):  # type: ignore[type-arg]
 class Vote(models.Model):
     """Models one vote on either comment, course or resource."""
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="votes")
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="votes"
+    )
     status = models.IntegerField(choices=VOTE_STATUS)
 
     comment = models.ForeignKey(

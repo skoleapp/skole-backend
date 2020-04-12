@@ -1,6 +1,7 @@
 import datetime
 from typing import Optional
 
+from django.conf import settings
 from django.core.files.uploadedfile import UploadedFile
 from django.db import models
 from django.db.models import Sum
@@ -71,7 +72,7 @@ class Resource(models.Model):
     )
     downloads = models.PositiveIntegerField(default=0)
     user = models.ForeignKey(
-        User,
+        settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,
         null=True,
         blank=True,

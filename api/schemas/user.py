@@ -1,4 +1,4 @@
-from typing import Any, List, Literal, Optional, Union
+from typing import Any, Literal, Optional
 
 import graphene
 from django.contrib.auth import get_user_model
@@ -231,7 +231,7 @@ class Query(graphene.ObjectType):
         page_size: int = 10,
         username: Optional[str] = None,
         ordering: Optional[Literal["username", "-username", "score", "-score"]] = None,
-    ) -> Union["QuerySet[User]", List[User]]:
+    ) -> graphene.ObjectType:
         qs = get_user_model().objects.filter(is_superuser=False)
 
         if username is not None:

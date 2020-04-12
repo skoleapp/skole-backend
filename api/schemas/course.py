@@ -120,16 +120,10 @@ class Query(graphene.ObjectType):
         }:
             raise GraphQLError("Invalid ordering value.")
 
-        if ordering in {"name", "-name"}:
-            qs = qs.order_by(ordering)
-        else:
+        if ordering not in {"name", "-name"}:
+            # When ordering by score we also first order by the name.
             qs = qs.order_by("name")
-            if ordering == "score":
-                # Ignore: qs changes from QuerySet to a List, get_paginator handles that.
-                qs = sorted(qs, key=lambda c: c.score)  # type: ignore[assignment]
-            else:  # -score
-                # Ignore: Same as above.
-                qs = sorted(qs, key=lambda c: c.score, reverse=True)  # type: ignore[assignment]
+        qs = qs.order_by(ordering)
 
         return get_paginator(qs, page_size, page, PaginatedCourseObjectType)
 

@@ -3,12 +3,13 @@ from typing import Optional
 from mypy.types import JsonDict
 
 from api.utils.messages import AUTH_ERROR_MESSAGE
-from tests.test_utils import SkoleSchemaTestCase
+from tests.test_utils import SchemaTestCase
 
 
-class UserSchemaTestCase(SkoleSchemaTestCase):
+class UserSchemaTests(SchemaTestCase):
     authenticated = True
 
+    # language=GraphQL
     user_fields = """
         fragment userFields on UserObjectType {
             id
@@ -44,7 +45,7 @@ class UserSchemaTestCase(SkoleSchemaTestCase):
         self,
         page: int = 1,
         page_size: int = 10,
-        username: str = "",
+        username: Optional[str] = None,
         ordering: Optional[str] = None,
     ) -> JsonDict:
         variables = {
@@ -53,6 +54,8 @@ class UserSchemaTestCase(SkoleSchemaTestCase):
             "username": username,
             "ordering": ordering,
         }
+
+        # language=GraphQL
         graphql = (
             self.user_fields
             + """
@@ -75,6 +78,7 @@ class UserSchemaTestCase(SkoleSchemaTestCase):
     def query_user(self, id: int) -> JsonDict:
         variables = {"id": id}
 
+        # language=GraphQL
         graphql = (
             self.user_fields
             + """
@@ -87,18 +91,23 @@ class UserSchemaTestCase(SkoleSchemaTestCase):
         )
         return self.execute(graphql, variables=variables)["user"]
 
-    def query_user_me(self) -> JsonDict:
+    def query_user_me(self, should_error: bool = False) -> JsonDict:
+        # language=GraphQL
         graphql = (
             self.user_fields
             + """
             query UserMe {
                 userMe {
+                    id
                     ...userFields
                 }
             }
         """
         )
-        return self.execute(graphql)["userMe"]
+        res = self.execute(graphql, should_error=should_error)
+        if should_error:
+            return res
+        return res["userMe"]
 
     def mutate_register(
         self,
@@ -286,22 +295,44 @@ class UserSchemaTestCase(SkoleSchemaTestCase):
         users = self.query_users(page_size=999)
         assert any(user["email"] != "" for user in users["objects"])
 
-    """
     def test_user_me(self) -> None:
-        res = self.query_user_me()
-        cont = res["data"]["userMe"]
-        assert cont["username"] == "testuser"
-        assert cont["email"] == "test@test.com"
-        assert cont["language"] == "English"
+        user = self.query_user_me()
+        assert user["id"] == "2"
+        assert user["username"] == "testuser2"
+        assert user["email"] == "test2@test.com"
+
+        # Doesn't work without auth.
+        self.authenticated = False
+        res = self.query_user_me(should_error=True)
+        assert "permission" in res["errors"][0]["message"]
+        assert res["data"] == {"userMe": None}
 
     def test_update_user(self) -> None:
-        new_mail = "newmail@email.com"
-        new_language = "Swedish"
-        res = self.mutate_update_user(email=new_mail, language=new_language)
-        cont = res["data"]["updateUser"]
-        assert cont["errors"] is None
-        assert cont["user"]["email"] == new_mail
-        assert cont["user"]["language"] == "Swedish"
+        # Fine to not change anything.
+        res = self.mutate_update_user()
+        user = self.query_user_me()
+        assert res["errors"] is None
+        assert res["user"] == user
+
+        # Update some fields.
+        new_username = "newusername"
+        new_email = "newmail@email.com"
+        new_title = "My new Title."
+        res = self.mutate_update_user(
+            username=new_username, email=new_email, title=new_title
+        )
+        assert res["errors"] is None
+        assert res["user"]["username"] == new_username
+        assert res["user"]["email"] == new_email
+        assert res["user"]["title"] == new_title
+        assert res["user"]["bio"] == ""
+
+        # Email is already taken.
+        res = self.mutate_update_user(email="test3@test.com")
+        assert res["errors"] is not None
+        assert res["user"] is None
+
+    """
 
     def test_update_user_error(self) -> None:
         res = self.mutate_update_user(language="badlang")

@@ -1,1 +1,1 @@
-from .skole_schema_test_case import SkoleSchemaTestCase
+from .schema_test_case import SchemaTestCase

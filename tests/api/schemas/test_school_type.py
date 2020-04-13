@@ -2,12 +2,13 @@ from typing import List
 
 from mypy.types import JsonDict
 
-from tests.test_utils import SkoleSchemaTestCase
+from tests.test_utils import SchemaTestCase
 
 
-class SchoolTypeSchemaTestCase(SkoleSchemaTestCase):
+class SchoolTypeSchemaTests(SchemaTestCase):
     authenticated = True
 
+    # language=GraphQL
     school_type_fields = """
         fragment schoolTypeFields on SchoolTypeObjectType {
             id
@@ -16,6 +17,7 @@ class SchoolTypeSchemaTestCase(SkoleSchemaTestCase):
     """
 
     def query_school_types(self) -> List[JsonDict]:
+        # language=GraphQL
         graphql = (
             self.school_type_fields
             + """
@@ -31,6 +33,7 @@ class SchoolTypeSchemaTestCase(SkoleSchemaTestCase):
     def query_school_type(self, id: int) -> JsonDict:
         variables = {"id": id}
 
+        # language=GraphQL
         graphql = (
             self.school_type_fields
             + """

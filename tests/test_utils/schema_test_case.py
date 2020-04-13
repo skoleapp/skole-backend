@@ -8,7 +8,7 @@ from mypy.types import JsonDict
 from api.schemas.schema import schema
 
 
-class SkoleSchemaTestCase(GraphQLTestCase):
+class SchemaTestCase(GraphQLTestCase):
     """This class should be subclassed for every schema test case.
     Users of this class should explicitly set the `authenticated` attribute
     to suit that test case's needs.
@@ -21,17 +21,21 @@ class SkoleSchemaTestCase(GraphQLTestCase):
     # for individual tests when needed.
     authenticated: bool
 
-    def execute(self, graphql: str, **kwargs: Any) -> JsonDict:
+    def execute(
+        self, graphql: str, should_error: bool = False, **kwargs: Any
+    ) -> JsonDict:
         """Run a GraphQL query assert that status code was 200 (=syntax was ok)
         and that the result didn't have an "error" section
 
         Args:
             graphql: The query that will be executed
+            should_error: True if an error is to be expected, then we also return it.
             **kwargs: `header` kwarg will get merged with the possible token header.
                 Other kwargs are passed straight to GraphQLTestCase.query().
 
         Returns:
-            The resulting JSON "data" section.
+            The resulting JSON "data" section if `should_error` is False.
+            Otherwise returns both the "error" and "data" sections.
         """
 
         # Token is for testuser2, hardcoded since always getting a fresh one with
@@ -46,8 +50,12 @@ class SkoleSchemaTestCase(GraphQLTestCase):
 
         response = self.query(graphql, **kwargs, headers=headers)
 
-        self.assertResponseNoErrors(response)
-        return json.loads(response.content)["data"]
+        if should_error:
+            self.assertResponseHasErrors(response)
+            return json.loads(response.content)
+        else:
+            self.assertResponseNoErrors(response)
+            return json.loads(response.content)["data"]
 
     def execute_input_mutation(
         self,

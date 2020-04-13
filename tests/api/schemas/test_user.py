@@ -1,5 +1,6 @@
 from typing import Optional
 
+from django.contrib.auth import get_user_model
 from mypy.types import JsonDict
 
 from api.utils.messages import AUTH_ERROR_MESSAGE
@@ -91,7 +92,7 @@ class UserSchemaTests(SchemaTestCase):
         )
         return self.execute(graphql, variables=variables)["user"]
 
-    def query_user_me(self, should_error: bool = False) -> JsonDict:
+    def query_user_me(self) -> JsonDict:
         # language=GraphQL
         graphql = (
             self.user_fields
@@ -104,8 +105,8 @@ class UserSchemaTests(SchemaTestCase):
             }
         """
         )
-        res = self.execute(graphql, should_error=should_error)
-        if should_error:
+        res = self.execute(graphql)
+        if self.should_error:
             return res
         return res["userMe"]
 
@@ -156,53 +157,24 @@ class UserSchemaTests(SchemaTestCase):
             fragment=self.user_fields,
         )
 
-    '''
-    def mutate_change_password(self, **params: str) -> JsonDict:
-        input = {
-            "oldPassword": "password",
-            "newPassword": "newpassword",
-        }
+    def mutate_change_password(
+        self, old_password: str = "password", new_password: str = "newpassword"
+    ) -> JsonDict:
+        return self.execute_input_mutation(
+            input_type="ChangePasswordMutationInput!",
+            op_name="changePassword",
+            input={"oldPassword": old_password, "newPassword": new_password,},
+            result="user { ...userFields }",
+            fragment=self.user_fields,
+        )
 
-        if params is not None:
-            input.update(**params)
-
-        mutation = f"""
-          mutation ($input: ChangePasswordMutationInput!) {{
-            changePassword(input: $input) {{
-              errors {{
-                field
-                messages
-              }}
-              user {{
-                {self.fields}
-              }}
-            }}
-          }}
-        """
-
-        return self.query(mutation, variables={"input": input})
-
-    def mutate_delete_user(self, **params: str) -> JsonDict:
-        input = {
-            "password": "password",
-        }
-
-        if params is not None:
-            input.update(**params)
-
-        mutation = f"""
-          mutation ($input: DeleteUserMutationInput!) {{
-            deleteUser(input: $input) {{
-              errors {{
-                field
-                messages
-              }}
-              message
-            }}
-          }}
-        """
-        return self.query(mutation, variables={"input": input})
-    '''
+    def mutate_delete_user(self, password: str = "password") -> JsonDict:
+        return self.execute_input_mutation(
+            input_type="DeleteUserMutationInput!",
+            op_name="deleteUser",
+            input={"password": "password",},
+            result="message",
+        )
 
     def test_register_ok(self) -> None:
         self.authenticated = False
@@ -301,13 +273,22 @@ class UserSchemaTests(SchemaTestCase):
         assert user["username"] == "testuser2"
         assert user["email"] == "test2@test.com"
 
-        # Doesn't work without auth.
+        # Shouldn't work without auth.
         self.authenticated = False
-        res = self.query_user_me(should_error=True)
+        self.should_error = True
+        res = self.query_user_me()
         assert "permission" in res["errors"][0]["message"]
         assert res["data"] == {"userMe": None}
 
     def test_update_user(self) -> None:
+        # We test the error cases first because after successfully
+        # updating the user the current token is no longer valid.
+
+        # Email is already taken.
+        res = self.mutate_update_user(email="test3@test.com")
+        assert res["errors"] is not None
+        assert res["user"] is None
+
         # Fine to not change anything.
         res = self.mutate_update_user()
         user = self.query_user_me()
@@ -327,42 +308,28 @@ class UserSchemaTests(SchemaTestCase):
         assert res["user"]["title"] == new_title
         assert res["user"]["bio"] == ""
 
-        # Email is already taken.
-        res = self.mutate_update_user(email="test3@test.com")
-        assert res["errors"] is not None
-        assert res["user"] is None
-
-    """
-
-    def test_update_user_error(self) -> None:
-        res = self.mutate_update_user(language="badlang")
-        cont = res["data"]["updateUser"]
-        assert "valid choice" in cont["errors"][0]["messages"][0]
-        assert cont["user"] is None
-
     def test_update_user_avatar(self) -> None:
         # TODO: implement
         pass
 
     def test_user_delete(self) -> None:
-        # delete the logged in user
-        res = self.mutate_user_delete()
-        cont = res["data"]["deleteUser"]
-        assert "deleted" in cont["message"]
+        # Delete the logged in testuser2.
+        res = self.mutate_delete_user()
+        assert res["errors"] is None
+        assert "deleted" in res["message"]
 
-        # test that the profile cannot be found anymore
-        res = self.query_user(id=1)
-        assert res["data"]["user"] is None
+        # Test that the user cannot be found anymore.
+        assert get_user_model().objects.filter(pk=2).count() == 0
 
-    def test_change_password_success(self) -> None:
+    def test_change_password_ok(self) -> None:
+        old_hash = get_user_model().objects.get(pk=2).password
         res = self.mutate_change_password()
-        cont = res["data"]["changePassword"]
-        assert cont["errors"] is None
-        assert cont["user"]["id"] is not None
-        assert cont["user"]["modified"] is not None
+        assert res["errors"] is None
+        assert res["user"]["id"] == "2"
+        new_hash = get_user_model().objects.get(pk=2).password
+        assert old_hash != new_hash
 
     def test_change_password_error(self) -> None:
-        res = self.mutate_change_password(oldPassword="badpass")
-        cont = res["data"]["changePassword"]
-        assert cont["errors"][0]["messages"][0] == "Incorrect old password."
-    """
+        res = self.mutate_change_password(old_password="badpass")
+        assert res["errors"][0]["messages"][0] == "Incorrect old password."
+        assert res["user"] is None

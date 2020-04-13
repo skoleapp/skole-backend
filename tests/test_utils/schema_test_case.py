@@ -9,27 +9,27 @@ from api.schemas.schema import schema
 
 
 class SchemaTestCase(GraphQLTestCase):
-    """This class should be subclassed for every schema test case.
-    Users of this class should explicitly set the `authenticated` attribute
-    to suit that test case's needs.
+    """Base class for all schema tests.
+
+    Attributes:
+        authenticated: When True a JWT token is sent with all the requests.
+        should_error: Can be set to True for individual tests, for making
+            that test pass when the request errors.
     """
 
     GRAPHQL_SCHEMA = schema
     fixtures = ["test-data.yaml"]
 
-    # This should be set at the class level, but it can still be overridden
-    # for individual tests when needed.
-    authenticated: bool
+    authenticated: bool = False
+    should_error: bool = False
 
-    def execute(
-        self, graphql: str, should_error: bool = False, **kwargs: Any
-    ) -> JsonDict:
-        """Run a GraphQL query assert that status code was 200 (=syntax was ok)
-        and that the result didn't have an "error" section
+    def execute(self, graphql: str, **kwargs: Any) -> JsonDict:
+        """Run a GraphQL query, if `should_error` attribute is False assert that status
+        code was 200 (=syntax was ok) and that the result didn't have an "error" section
+        if `should_error` is True, we assert that the result does contain "error".
 
         Args:
             graphql: The query that will be executed
-            should_error: True if an error is to be expected, then we also return it.
             **kwargs: `header` kwarg will get merged with the possible token header.
                 Other kwargs are passed straight to GraphQLTestCase.query().
 
@@ -50,7 +50,7 @@ class SchemaTestCase(GraphQLTestCase):
 
         response = self.query(graphql, **kwargs, headers=headers)
 
-        if should_error:
+        if self.should_error:
             self.assertResponseHasErrors(response)
             return json.loads(response.content)
         else:
@@ -94,7 +94,10 @@ class SchemaTestCase(GraphQLTestCase):
             }}
         """
         )
-        return self.execute(graphql, input_data=input, op_name=op_name)[op_name]
+        res = self.execute(graphql, input_data=input, op_name=op_name)
+        if self.should_error:
+            return res
+        return res[op_name]  # Convenience to get straight to the object.
 
     def assertResponseNoErrors(self, resp: HttpResponse) -> None:
         """Overridden and re-ordered to immediately see the errors if there were any."""

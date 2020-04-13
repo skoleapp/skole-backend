@@ -40,13 +40,20 @@ class UserObjectType(DjangoObjectType):
         fields = (
             "id",
             "username",
+            "email",
+            "score",
             "title",
             "bio",
             "avatar",
+            "avatar_thumbnail",
             "created",
+            "course_count",
+            "resource_count",
+            "votes",
+            "starred_courses",
+            "starred_resources",
             "created_courses",
             "created_resources",
-            "votes",
         )
 
     def resolve_email(self, info: ResolveInfo) -> str:

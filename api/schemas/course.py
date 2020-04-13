@@ -32,6 +32,7 @@ class CourseObjectType(VoteMixin, StarredMixin, DjangoObjectType):
             "created",
             "resources",
             "comments",
+            "resource_count",
         )
 
 

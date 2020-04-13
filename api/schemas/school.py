@@ -22,7 +22,17 @@ class SchoolObjectType(DjangoObjectType):
 
     class Meta:
         model = School
-        fields = ("id", "name", "subjects", "courses", "subject_count", "course_count")
+        fields = (
+            "id",
+            "name",
+            "school_type",
+            "city",
+            "country",
+            "subjects",
+            "courses",
+            "subject_count",
+            "course_count",
+        )
 
     @login_required
     def resolve_country(self, info: ResolveInfo) -> str:

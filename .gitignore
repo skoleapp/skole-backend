@@ -142,7 +142,7 @@ media/*
 media/uploads/*
 !media/uploads/avatars
 media/uploads/avatars/*
-!media/uploads/avatars/user_image.png
+!media/uploads/avatars/test_user_avatar.jpg
 
 # VSCode
 .vscode

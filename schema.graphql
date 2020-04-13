@@ -1,0 +1,404 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+input ChangePasswordMutationInput {
+  oldPassword: String!
+  newPassword: String!
+  clientMutationId: String
+}
+
+type ChangePasswordMutationPayload {
+  user: UserObjectType
+  errors: [ErrorType]
+  clientMutationId: String
+}
+
+type CityObjectType {
+  id: ID!
+  name: String
+}
+
+type CommentObjectType {
+  id: ID!
+  user: UserObjectType
+  text: String!
+  attachment: String!
+  course: CourseObjectType
+  resource: ResourceObjectType
+  comment: CommentObjectType
+  modified: DateTime!
+  created: DateTime!
+  replyComments: [CommentObjectType!]!
+  score: Int
+  vote: VoteObjectType
+  replyCount: Int
+}
+
+input ContactMutationInput {
+  subject: String!
+  name: String
+  email: String!
+  message: String!
+  clientMutationId: String
+}
+
+type ContactMutationPayload {
+  subject: String!
+  name: String
+  email: String!
+  message: String
+  errors: [ErrorType]
+  clientMutationId: String
+}
+
+type CountryObjectType {
+  id: ID!
+  name: String
+}
+
+type CourseObjectType {
+  id: ID!
+  name: String!
+  code: String!
+  subject: SubjectObjectType
+  school: SchoolObjectType!
+  user: UserObjectType
+  modified: DateTime!
+  created: DateTime!
+  resources: [ResourceObjectType!]!
+  comments: [CommentObjectType!]!
+  starred: Boolean
+  score: Int
+  vote: VoteObjectType
+  resourceCount: Int
+}
+
+input CreateCommentMutationInput {
+  text: String
+  attachment: String
+  course: ID
+  resource: ID
+  comment: ID
+  clientMutationId: String
+}
+
+type CreateCommentMutationPayload {
+  comment: CommentObjectType
+  errors: [ErrorType]
+  clientMutationId: String
+}
+
+input CreateCourseMutationInput {
+  name: String!
+  code: String
+  subject: ID
+  school: ID!
+  clientMutationId: String
+}
+
+type CreateCourseMutationPayload {
+  course: CourseObjectType
+  errors: [ErrorType]
+  clientMutationId: String
+}
+
+input CreateResourceMutationInput {
+  title: String!
+  file: String
+  resourceType: ID!
+  course: ID!
+  date: Date
+  clientMutationId: String
+}
+
+type CreateResourceMutationPayload {
+  resource: ResourceObjectType
+  errors: [ErrorType]
+  clientMutationId: String
+}
+
+scalar Date
+
+scalar DateTime
+
+input DeleteCommentMutationInput {
+  id: ID
+  clientMutationId: String
+}
+
+type DeleteCommentMutationPayload {
+  message: String
+  errors: [ErrorType]
+  clientMutationId: String
+}
+
+input DeleteCourseMutationInput {
+  id: ID
+  clientMutationId: String
+}
+
+type DeleteCourseMutationPayload {
+  message: String
+  errors: [ErrorType]
+  clientMutationId: String
+}
+
+input DeleteResourceMutationInput {
+  id: ID
+  clientMutationId: String
+}
+
+type DeleteResourceMutationPayload {
+  message: String
+  errors: [ErrorType]
+  clientMutationId: String
+}
+
+input DeleteUserMutationInput {
+  password: String!
+  clientMutationId: String
+}
+
+type DeleteUserMutationPayload {
+  message: String
+  errors: [ErrorType]
+  clientMutationId: String
+}
+
+type ErrorType {
+  field: String!
+  messages: [String!]!
+}
+
+input LoginMutationInput {
+  username: String!
+  password: String!
+  clientMutationId: String
+}
+
+type LoginMutationPayload {
+  user: UserObjectType
+  errors: [ErrorType]
+  token: String
+  clientMutationId: String
+}
+
+type Mutation {
+  performStar(input: StarredMutationInput!): StarredMutationPayload
+  performVote(input: VoteMutationInput!): VoteMutationPayload
+  register(input: RegisterMutationInput!): RegisterMutationPayload
+  login(input: LoginMutationInput!): LoginMutationPayload
+  updateUser(input: UpdateUserMutationInput!): UpdateUserMutationPayload
+  changePassword(input: ChangePasswordMutationInput!): ChangePasswordMutationPayload
+  deleteUser(input: DeleteUserMutationInput!): DeleteUserMutationPayload
+  createResource(input: CreateResourceMutationInput!): CreateResourceMutationPayload
+  updateResource(input: UpdateResourceMutationInput!): UpdateResourceMutationPayload
+  deleteResource(input: DeleteResourceMutationInput!): DeleteResourceMutationPayload
+  createCourse(input: CreateCourseMutationInput!): CreateCourseMutationPayload
+  deleteCourse(input: DeleteCourseMutationInput!): DeleteCourseMutationPayload
+  createMessage(input: ContactMutationInput!): ContactMutationPayload
+  createComment(input: CreateCommentMutationInput!): CreateCommentMutationPayload
+  updateComment(input: UpdateCommentMutationInput!): UpdateCommentMutationPayload
+  deleteComment(input: DeleteCommentMutationInput!): DeleteCommentMutationPayload
+}
+
+type PaginatedCourseObjectType {
+  page: Int
+  pages: Int
+  hasNext: Boolean
+  hasPrev: Boolean
+  count: Int
+  objects: [CourseObjectType]
+}
+
+type PaginatedUserObjectType {
+  page: Int
+  pages: Int
+  hasNext: Boolean
+  hasPrev: Boolean
+  count: Int
+  objects: [UserObjectType]
+}
+
+type Query {
+  users(page: Int, pageSize: Int, username: String, ordering: String): PaginatedUserObjectType
+  user(id: ID): UserObjectType
+  userMe: UserObjectType
+  subjects: [SubjectObjectType]
+  subject(id: ID): SubjectObjectType
+  schoolTypes: [SchoolTypeObjectType]
+  schoolType(id: ID): SchoolTypeObjectType
+  schools: [SchoolObjectType]
+  school(id: ID): SchoolObjectType
+  resourceTypes: [ResourceTypeObjectType]
+  resource(id: ID): ResourceObjectType
+  searchCourses(courseName: String, courseCode: String, subject: ID, school: ID, schoolType: ID, country: ID, city: ID, page: Int, pageSize: Int, ordering: String): PaginatedCourseObjectType
+  courses: [CourseObjectType]
+  course(id: ID): CourseObjectType
+  countries: [CountryObjectType]
+  country(id: ID): CountryObjectType
+  comment(id: ID): CommentObjectType
+  cities: [CityObjectType]
+  city(id: ID): CityObjectType
+}
+
+input RegisterMutationInput {
+  username: String!
+  password: String!
+  code: String!
+  clientMutationId: String
+}
+
+type RegisterMutationPayload {
+  user: UserObjectType
+  errors: [ErrorType]
+  clientMutationId: String
+}
+
+type ResourceObjectType {
+  id: ID!
+  resourceType: String
+  title: String!
+  file: String!
+  date: Date!
+  course: CourseObjectType!
+  downloads: Int!
+  user: UserObjectType
+  modified: DateTime!
+  created: DateTime!
+  comments: [CommentObjectType!]!
+  starred: Boolean
+  score: Int
+  vote: VoteObjectType
+  school: SchoolObjectType
+}
+
+type ResourceTypeObjectType {
+  id: ID!
+  name: String
+}
+
+type SchoolObjectType {
+  id: ID!
+  schoolType: String
+  city: String
+  courses: [CourseObjectType!]!
+  name: String
+  country: String
+  subjects: [SubjectObjectType]
+  subjectCount: Int
+  courseCount: Int
+}
+
+type SchoolTypeObjectType {
+  id: ID!
+  name: String
+}
+
+input StarredMutationInput {
+  course: ID
+  resource: ID
+  clientMutationId: String
+}
+
+type StarredMutationPayload {
+  starred: Boolean
+  errors: [ErrorType]
+  clientMutationId: String
+}
+
+type SubjectObjectType {
+  id: ID!
+  name: String
+}
+
+input UpdateCommentMutationInput {
+  text: String
+  attachment: String
+  course: ID
+  resource: ID
+  comment: ID
+  id: ID
+  clientMutationId: String
+}
+
+type UpdateCommentMutationPayload {
+  comment: CommentObjectType
+  errors: [ErrorType]
+  clientMutationId: String
+}
+
+input UpdateResourceMutationInput {
+  title: String!
+  file: String
+  resourceType: ID!
+  date: Date
+  id: ID
+  clientMutationId: String
+}
+
+type UpdateResourceMutationPayload {
+  resource: ResourceObjectType
+  errors: [ErrorType]
+  clientMutationId: String
+}
+
+input UpdateUserMutationInput {
+  username: String!
+  email: String
+  title: String
+  bio: String
+  avatar: String
+  clientMutationId: String
+}
+
+type UpdateUserMutationPayload {
+  user: UserObjectType
+  errors: [ErrorType]
+  clientMutationId: String
+}
+
+type UserObjectType {
+  id: ID!
+  username: String!
+  email: String
+  title: String!
+  bio: String!
+  avatar: String
+  score: Int
+  created: DateTime!
+  createdCourses: [CourseObjectType!]!
+  createdResources: [ResourceObjectType!]!
+  votes: [VoteObjectType!]!
+  avatarThumbnail: String
+  courseCount: Int
+  resourceCount: Int
+  starredCourses: [CourseObjectType]
+  starredResources: [ResourceObjectType]
+}
+
+input VoteMutationInput {
+  status: Int!
+  comment: ID
+  course: ID
+  resource: ID
+  clientMutationId: String
+}
+
+type VoteMutationPayload {
+  vote: VoteObjectType
+  errors: [ErrorType]
+  targetScore: Int
+  clientMutationId: String
+}
+
+type VoteObjectType {
+  id: ID!
+  user: UserObjectType!
+  status: Int
+  comment: CommentObjectType
+  course: CourseObjectType
+  resource: ResourceObjectType
+}

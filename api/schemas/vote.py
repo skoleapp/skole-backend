@@ -17,7 +17,7 @@ class VoteObjectType(DjangoObjectType):
 
 
 class VoteMutation(DjangoModelFormMutation):
-    target_points = graphene.Int()
+    target_score = graphene.Int()
 
     class Meta:
         form_class = CreateVoteForm
@@ -27,10 +27,10 @@ class VoteMutation(DjangoModelFormMutation):
     @login_required
     def perform_mutate(cls, form: CreateVoteForm, info: ResolveInfo) -> "VoteMutation":
         assert info.context is not None
-        vote, target_points = Vote.objects.perform_vote(
+        vote, target_score = Vote.objects.perform_vote(
             user=info.context.user, **form.cleaned_data
         )
-        return cls(vote=vote, target_points=target_points)
+        return cls(vote=vote, target_score=target_score)
 
 
 class Mutation(graphene.ObjectType):

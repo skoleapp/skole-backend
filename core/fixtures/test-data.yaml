@@ -1,179 +1,179 @@
 - model: core.User
   pk: 1
   fields:
-    username: "root"
-    email: "root@root.com"
-    password: "pbkdf2_sha256$150000$gxz3raENC7JU$5ZWSBCqPqjox2VwHG5RHuu2UnaGCBt7rbO2QX5E7LAY="  # root
+    username: root
+    email: root@root.com
+    password: pbkdf2_sha256$150000$gxz3raENC7JU$5ZWSBCqPqjox2VwHG5RHuu2UnaGCBt7rbO2QX5E7LAY=  # root
     title: ""
     bio: ""
     avatar: ""
     is_staff: true
     is_superuser: true
-    modified: "2020-01-01 12:00:00.000000+00:00"
-    created: "2020-01-01 12:00:00.000000+00:00"
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 - model: core.User
   pk: 2
   fields:
-    username: "testuser2"
-    email: "test2@test.com"
-    password: "pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4="  # password
+    username: testuser2
+    email: test2@test.com
+    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4=  # password
     title: ""
     bio: ""
-    avatar: "uploads/avatars/user_image.jpg"
+    avatar: uploads/avatars/user_image.jpg
     is_staff: false
     is_superuser: false
-    modified: "2020-01-01 12:00:00.000000+00:00"
-    created: "2020-01-01 12:00:00.000000+00:00"
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 - model: core.User
   pk: 3
   fields:
-    username: "testuser3"
-    email: "test3@test.com"
-    password: "pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4="  # password
+    username: testuser3
+    email: test3@test.com
+    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4=  # password
     title: ""
     bio: ""
     avatar: ""
     is_staff: false
     is_superuser: false
-    modified: "2020-01-01 12:00:00.000000+00:00"
-    created: "2020-01-01 12:00:00.000000+00:00"
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 - model: core.User
   pk: 4
   fields:
-    username: "testuser4"
-    email: "test4@test.com"
-    password: "pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4="  # password
+    username: testuser4
+    email: test4@test.com
+    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4=  # password
     title: ""
     bio: ""
     avatar: ""
     is_staff: false
     is_superuser: false
-    modified: "2020-01-01 12:00:00.000000+00:00"
-    created: "2020-01-01 12:00:00.000000+00:00"
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 - model: core.User
   pk: 5
   fields:
-    username: "testuser5"
-    email: "test5@test.com"
-    password: "pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4="  # password
+    username: testuser5
+    email: test5@test.com
+    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4=  # password
     title: ""
     bio: ""
     avatar: ""
     is_staff: false
     is_superuser: false
-    modified: "2020-01-01 12:00:00.000000+00:00"
-    created: "2020-01-01 12:00:00.000000+00:00"
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 - model: core.User
   pk: 6
   fields:
-    username: "testuser6"
-    email: "test6@test.com"
-    password: "pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4="  # password
+    username: testuser6
+    email: test6@test.com
+    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4=  # password
     title: ""
     bio: ""
     avatar: ""
     is_staff: false
     is_superuser: false
-    modified: "2020-01-01 12:00:00.000000+00:00"
-    created: "2020-01-01 12:00:00.000000+00:00"
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 - model: core.User
   pk: 7
   fields:
-    username: "testuser7"
-    email: "test7@test.com"
-    password: "pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4="  # password
+    username: testuser7
+    email: test7@test.com
+    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4=  # password
     title: ""
     bio: ""
     avatar: ""
     is_staff: false
     is_superuser: false
-    modified: "2020-01-01 12:00:00.000000+00:00"
-    created: "2020-01-01 12:00:00.000000+00:00"
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 - model: core.User
   pk: 8
   fields:
-    username: "testuser8"
-    email: "test8@test.com"
-    password: "pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4="  # password
+    username: testuser8
+    email: test8@test.com
+    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4=  # password
     title: ""
     bio: ""
     avatar: ""
     is_staff: false
     is_superuser: false
-    modified: "2020-01-01 12:00:00.000000+00:00"
-    created: "2020-01-01 12:00:00.000000+00:00"
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 - model: core.User
   pk: 9
   fields:
-    username: "testuser9"
-    email: "test9@test.com"
-    password: "pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4="  # password
+    username: testuser9
+    email: test9@test.com
+    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4=  # password
     title: ""
     bio: ""
     avatar: ""
     is_staff: false
     is_superuser: false
-    modified: "2020-01-01 12:00:00.000000+00:00"
-    created: "2020-01-01 12:00:00.000000+00:00"
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 - model: core.User
   pk: 10
   fields:
-    username: "testuser10"
-    email: "test10@test.com"
-    password: "pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4="  # password
+    username: testuser10
+    email: test10@test.com
+    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4=  # password
     title: ""
     bio: ""
     avatar: ""
     is_staff: false
     is_superuser: false
-    modified: "2020-01-01 12:00:00.000000+00:00"
-    created: "2020-01-01 12:00:00.000000+00:00"
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 - model: core.User
   pk: 11
   fields:
-    username: "testuser11"
-    email: "test11@test.com"
-    password: "pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4="  # password
+    username: testuser11
+    email: test11@test.com
+    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4=  # password
     title: ""
     bio: ""
     avatar: ""
     is_staff: false
     is_superuser: false
-    modified: "2020-01-01 12:00:00.000000+00:00"
-    created: "2020-01-01 12:00:00.000000+00:00"
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 - model: core.User
   pk: 12
   fields:
-    username: "testuser12"
-    email: "test12@test.com"
-    password: "pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4="  # password
+    username: testuser12
+    email: test12@test.com
+    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4=  # password
     title: ""
     bio: ""
     avatar: ""
     is_staff: false
     is_superuser: false
-    modified: "2020-01-01 12:00:00.000000+00:00"
-    created: "2020-01-01 12:00:00.000000+00:00"
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 
 
 - model: core.CountryTranslation
   pk: 1
   fields:
     master: 1
-    language_code: "en"
-    name: "Finland"
+    language_code: en
+    name: Finland
 - model: core.CountryTranslation
   pk: 2
   fields:
     master: 1
-    language_code: "fi"
-    name: "Suomi"
+    language_code: fi
+    name: Suomi
 - model: core.CountryTranslation
   pk: 3
   fields:
     master: 1
-    language_code: "sv"
-    name: "Finland"
+    language_code: sv
+    name: Finland
 
 - model: core.Country
   pk: 1
@@ -184,92 +184,92 @@
   pk: 1
   fields:
     master: 1
-    language_code: "en"
-    name: "Turku"
+    language_code: en
+    name: Turku
 - model: core.CityTranslation
   pk: 2
   fields:
     master: 1
-    language_code: "fi"
-    name: "Turku"
+    language_code: fi
+    name: Turku
 - model: core.CityTranslation
   pk: 3
   fields:
     master: 1
-    language_code: "sv"
-    name: "Åbo"
+    language_code: sv
+    name: Åbo
 - model: core.CityTranslation
   pk: 4
   fields:
     master: 2
-    language_code: "en"
-    name: "Helsinki"
+    language_code: en
+    name: Helsinki
 - model: core.CityTranslation
   pk: 5
   fields:
     master: 2
-    language_code: "fi"
-    name: "Helsinki"
+    language_code: fi
+    name: Helsinki
 - model: core.CityTranslation
   pk: 6
   fields:
     master: 2
-    language_code: "sv"
-    name: "Helsingfors"
+    language_code: sv
+    name: Helsingfors
 - model: core.CityTranslation
   pk: 7
   fields:
     master: 3
-    language_code: "en"
-    name: "Espoo"
+    language_code: en
+    name: Espoo
 - model: core.CityTranslation
   pk: 8
   fields:
     master: 3
-    language_code: "fi"
-    name: "Espoo"
+    language_code: fi
+    name: Espoo
 - model: core.CityTranslation
   pk: 9
   fields:
     master: 3
-    language_code: "sv"
-    name: "Esbo"
+    language_code: sv
+    name: Esbo
 - model: core.CityTranslation
   pk: 10
   fields:
     master: 4
-    language_code: "en"
-    name: "Tampere"
+    language_code: en
+    name: Tampere
 - model: core.CityTranslation
   pk: 11
   fields:
     master: 4
-    language_code: "fi"
-    name: "Tampere"
+    language_code: fi
+    name: Tampere
 - model: core.CityTranslation
   pk: 12
   fields:
     master: 4
-    language_code: "sv"
-    name: "Tammerfors"
+    language_code: sv
+    name: Tammerfors
 - model: core.CityTranslation
   pk: 13
   fields:
     master: 5
-    language_code: "en"
-    name: "Raisio"
+    language_code: en
+    name: Raisio
 - model: core.CityTranslation
   pk: 14
   fields:
     master: 5
-    language_code: "fi"
-    name: "Raisio"
+    language_code: fi
+    name: Raisio
 - model: core.CityTranslation
   pk: 15
   fields:
     master: 5
-    language_code: "sv"
-    name: "Reso"
+    language_code: sv
+    name: Reso
 
 - model: core.City
   pk: 1
@@ -297,56 +297,56 @@
   pk: 1
   fields:
     master: 1
-    language_code: "en"
-    name: "University"
+    language_code: en
+    name: University
 - model: core.SchoolTypeTranslation
   pk: 2
   fields:
     master: 1
-    language_code: "fi"
-    name: "Yliopisto"
+    language_code: fi
+    name: Yliopisto
 - model: core.SchoolTypeTranslation
   pk: 3
   fields:
     master: 1
-    language_code: "sv"
-    name: "Universitet"
+    language_code: sv
+    name: Universitet
 - model: core.SchoolTypeTranslation
   pk: 4
   fields:
     master: 2
-    language_code: "en"
-    name: "University of Applied Sciences"
+    language_code: en
+    name: University of Applied Sciences
 - model: core.SchoolTypeTranslation
   pk: 5
   fields:
     master: 2
-    language_code: "fi"
-    name: "Ammattikorkekoulu"
+    language_code: fi
+    name: Ammattikorkekoulu
 - model: core.SchoolTypeTranslation
   pk: 6
   fields:
     master: 2
-    language_code: "sv"
-    name: "Yrkeshögskolan"
+    language_code: sv
+    name: Yrkeshögskolan
 - model: core.SchoolTypeTranslation
   pk: 7
   fields:
     master: 3
-    language_code: "en"
-    name: "High School"
+    language_code: en
+    name: High School
 - model: core.SchoolTypeTranslation
   pk: 8
   fields:
     master: 3
-    language_code: "fi"
-    name: "Lukio"
+    language_code: fi
+    name: Lukio
 - model: core.SchoolTypeTranslation
   pk: 9
   fields:
     master: 3
-    language_code: "sv"
-    name: "Gymnasium"
+    language_code: sv
+    name: Gymnasium
 
 - model: core.SchoolType
   pk: 1
@@ -363,110 +363,110 @@
   pk: 1
   fields:
     master: 1
-    language_code: "en"
-    name: "University of Turku"
+    language_code: en
+    name: University of Turku
 - model: core.SchoolTranslation
   pk: 2
   fields:
     master: 1
-    language_code: "fi"
-    name: "Turun yliopisto"
+    language_code: fi
+    name: Turun yliopisto
 - model: core.SchoolTranslation
   pk: 3
   fields:
     master: 1
-    language_code: "sv"
-    name: "Åbo universitet"
+    language_code: sv
+    name: Åbo universitet
 - model: core.SchoolTranslation
   pk: 4
   fields:
     master: 2
-    language_code: "en"
-    name: "Aalto University"
+    language_code: en
+    name: Aalto University
 - model: core.SchoolTranslation
   pk: 5
   fields:
     master: 2
-    language_code: "fi"
-    name: "Aalto-yliopisto"
+    language_code: fi
+    name: Aalto-yliopisto
 - model: core.SchoolTranslation
   pk: 6
   fields:
     master: 2
-    language_code: "sv"
-    name: "Aalto-universitetet"
+    language_code: sv
+    name: Aalto-universitetet
 - model: core.SchoolTranslation
   pk: 7
   fields:
     master: 3
-    language_code: "en"
-    name: "University of Tampere"
+    language_code: en
+    name: University of Tampere
 - model: core.SchoolTranslation
   pk: 8
   fields:
     master: 3
-    language_code: "fi"
-    name: "Tampereen yliopisto"
+    language_code: fi
+    name: Tampereen yliopisto
 - model: core.SchoolTranslation
   pk: 9
   fields:
     master: 3
-    language_code: "sv"
-    name: "Tammerfors universitet"
+    language_code: sv
+    name: Tammerfors universitet
 - model: core.SchoolTranslation
   pk: 10
   fields:
     master: 4
-    language_code: "en"
-    name: "Turku University of Applied Sciences"
+    language_code: en
+    name: Turku University of Applied Sciences
 - model: core.SchoolTranslation
   pk: 11
   fields:
     master: 4
-    language_code: "fi"
-    name: "Turun ammattikorkeakoulu"
+    language_code: fi
+    name: Turun ammattikorkeakoulu
 - model: core.SchoolTranslation
   pk: 12
   fields:
     master: 4
-    language_code: "sv"
-    name: "Åbo yrkeshögskola"
+    language_code: sv
+    name: Åbo yrkeshögskola
 - model: core.SchoolTranslation
   pk: 13
   fields:
     master: 5
-    language_code: "en"
-    name: "Metropolia University of Applied Sciences"
+    language_code: en
+    name: Metropolia University of Applied Sciences
 - model: core.SchoolTranslation
   pk: 14
   fields:
     master: 5
-    language_code: "fi"
-    name: "Metropolia ammattikorkeakoulu"
+    language_code: fi
+    name: Metropolia ammattikorkeakoulu
 - model: core.SchoolTranslation
   pk: 15
   fields:
     master: 5
-    language_code: "sv"
-    name: "Metropolia yrkeshögskola"
+    language_code: sv
+    name: Metropolia yrkeshögskola
 - model: core.SchoolTranslation
   pk: 16
   fields:
     master: 6
-    language_code: "en"
-    name: "Raision lukio"
+    language_code: en
+    name: Raision lukio
 - model: core.SchoolTranslation
   pk: 17
   fields:
     master: 6
-    language_code: "fi"
-    name: "Raision lukio"
+    language_code: fi
+    name: Raision lukio
 - model: core.SchoolTranslation
   pk: 18
   fields:
     master: 6
-    language_code: "sv"
-    name: "Raision lukio"
+    language_code: sv
+    name: Raision lukio
 
 - model: core.School
   pk: 1
@@ -504,74 +504,74 @@
   pk: 1
   fields:
     master: 1
-    language_code: "en"
-    name: "Computer Engineering"
+    language_code: en
+    name: Computer Engineering
 - model: core.SubjectTranslation
   pk: 2
   fields:
     master: 1
-    language_code: "fi"
-    name: "Tietotekniikka"
+    language_code: fi
+    name: Tietotekniikka
 - model: core.SubjectTranslation
   pk: 3
   fields:
     master: 1
-    language_code: "sv"
-    name: "Datateknologi"
+    language_code: sv
+    name: Datateknologi
 - model: core.SubjectTranslation
   pk: 4
   fields:
     master: 2
-    language_code: "en"
-    name: "Computer Science"
+    language_code: en
+    name: Computer Science
 - model: core.SubjectTranslation
   pk: 5
   fields:
     master: 2
-    language_code: "fi"
-    name: "Tietojenkäsittelytiede"
+    language_code: fi
+    name: Tietojenkäsittelytiede
 - model: core.SubjectTranslation
   pk: 6
   fields:
     master: 2
-    language_code: "sv"
-    name: "Informasjonsteknologi"
+    language_code: sv
+    name: Informasjonsteknologi
 - model: core.SubjectTranslation
   pk: 7
   fields:
     master: 3
-    language_code: "en"
-    name: "Chemistry"
+    language_code: en
+    name: Chemistry
 - model: core.SubjectTranslation
   pk: 8
   fields:
     master: 3
-    language_code: "fi"
-    name: "Kemia"
+    language_code: fi
+    name: Kemia
 - model: core.SubjectTranslation
   pk: 9
   fields:
     master: 3
-    language_code: "sv"
-    name: "Kemi"
+    language_code: sv
+    name: Kemi
 - model: core.SubjectTranslation
   pk: 10
   fields:
     master: 4
-    language_code: "en"
-    name: "Economy"
+    language_code: en
+    name: Economy
 - model: core.SubjectTranslation
   pk: 11
   fields:
     master: 4
-    language_code: "fi"
-    name: "Taloustiede"
+    language_code: fi
+    name: Taloustiede
 - model: core.SubjectTranslation
   pk: 12
   fields:
     master: 4
-    language_code: "sv"
-    name: "Ekonomi"
+    language_code: sv
+    name: Ekonomi
 
 - model: core.Subject
   pk: 1
@@ -590,197 +590,197 @@
 - model: core.Course
   pk: 1
   fields:
-    name: "Test Engineering Course 1"
-    code: "TEST0001"
+    name: Test Engineering Course 1
+    code: TEST0001
     subject: 1
     school: 1
     user: 2
-    modified: "2020-01-01 12:00:00.000000+00:00"
-    created: "2020-01-01 12:00:00.000000+00:00"
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 - model: core.Course
   pk: 2
   fields:
-    name: "Test Engineering Course 2"
-    code: "TEST0002"
+    name: Test Engineering Course 2
+    code: TEST0002
     subject: 1
     school: 1
     user: 3
-    modified: "2020-01-01 12:00:00.000000+00:00"
-    created: "2020-01-01 12:00:00.000000+00:00"
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 - model: core.Course
   pk: 3
   fields:
-    name: "Test Engineering Course 3"
-    code: "TEST0003"
+    name: Test Engineering Course 3
+    code: TEST0003
     subject: 1
     school: 1
     user: 4
-    modified: "2020-01-01 12:00:00.000000+00:00"
-    created: "2020-01-01 12:00:00.000000+00:00"
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 - model: core.Course
   pk: 4
   fields:
-    name: "Test Engineering Course 4"
-    code: "TEST0004"
+    name: Test Engineering Course 4
+    code: TEST0004
     subject: 1
     school: 1
     user: 2
-    modified: "2020-01-01 12:00:00.000000+00:00"
-    created: "2020-01-01 12:00:00.000000+00:00"
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 - model: core.Course
   pk: 5
   fields:
-    name: "Test Engineering Course 5"
-    code: "TEST0005"
+    name: Test Engineering Course 5
+    code: TEST0005
     subject: 1
     school: 1
     user: 3
-    modified: "2020-01-01 12:00:00.000000+00:00"
-    created: "2020-01-01 12:00:00.000000+00:00"
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 - model: core.Course
   pk: 6
   fields:
-    name: "Test Engineering Course 6"
-    code: "TEST0006"
+    name: Test Engineering Course 6
+    code: TEST0006
     subject: 1
     school: 1
     user: 4
-    modified: "2020-01-01 12:00:00.000000+00:00"
-    created: "2020-01-01 12:00:00.000000+00:00"
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 - model: core.Course
   pk: 7
   fields:
-    name: "Test Engineering Course 7"
-    code: "TEST0007"
+    name: Test Engineering Course 7
+    code: TEST0007
     subject: 1
     school: 1
     user: 2
-    modified: "2020-01-01 12:00:00.000000+00:00"
-    created: "2020-01-01 12:00:00.000000+00:00"
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 - model: core.Course
   pk: 8
   fields:
-    name: "Test Engineering Course 8"
-    code: "TEST0008"
+    name: Test Engineering Course 8
+    code: TEST0008
     subject: 1
     school: 1
     user: 2
-    modified: "2020-01-01 12:00:00.000000+00:00"
-    created: "2020-01-01 12:00:00.000000+00:00"
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 - model: core.Course
   pk: 9
   fields:
-    name: "Test Engineering Course 9"
-    code: "TEST0009"
+    name: Test Engineering Course 9
+    code: TEST0009
     subject: 1
     school: 1
     user: 3
-    modified: "2020-01-01 12:00:00.000000+00:00"
-    created: "2020-01-01 12:00:00.000000+00:00"
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 - model: core.Course
   pk: 10
   fields:
-    name: "Test Engineering Course 10"
-    code: "TEST00010"
+    name: Test Engineering Course 10
+    code: TEST00010
     subject: 1
     school: 1
     user: 4
-    modified: "2020-01-01 12:00:00.000000+00:00"
-    created: "2020-01-01 12:00:00.000000+00:00"
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 - model: core.Course
   pk: 11
   fields:
-    name: "Test Engineering Course 11"
-    code: "TEST00011"
+    name: Test Engineering Course 11
+    code: TEST00011
     subject: 1
     school: 1
     user: 3
-    modified: "2020-01-01 12:00:00.000000+00:00"
-    created: "2020-01-01 12:00:00.000000+00:00"
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 - model: core.Course
   pk: 12
   fields:
-    name: "Test Engineering Course 12"
-    code: "TEST00012"
+    name: Test Engineering Course 12
+    code: TEST00012
     subject: 1
     school: 1
     user: 4
-    modified: "2020-01-01 12:00:00.000000+00:00"
-    created: "2020-01-01 12:00:00.000000+00:00"
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 
 
 - model: core.ResourceTypeTranslation
   pk: 1
   fields:
     master: 1
-    language_code: "en"
-    name: "Exam"
+    language_code: en
+    name: Exam
 - model: core.ResourceTypeTranslation
   pk: 2
   fields:
     master: 1
-    language_code: "fi"
-    name: "Tentti"
+    language_code: fi
+    name: Tentti
 - model: core.ResourceTypeTranslation
   pk: 3
   fields:
     master: 1
-    language_code: "sv"
-    name: "Tentamen"
+    language_code: sv
+    name: Tentamen
 - model: core.ResourceTypeTranslation
   pk: 4
   fields:
     master: 2
-    language_code: "en"
-    name: "Exercise"
+    language_code: en
+    name: Exercise
 - model: core.ResourceTypeTranslation
   pk: 5
   fields:
     master: 2
-    language_code: "fi"
-    name: "Harjoitustehtävä"
+    language_code: fi
+    name: Harjoitustehtävä
 - model: core.ResourceTypeTranslation
   pk: 6
   fields:
     master: 2
-    language_code: "sv"
-    name: "Uppgift"
+    language_code: sv
+    name: Uppgift
 - model: core.ResourceTypeTranslation
   pk: 7
   fields:
     master: 3
-    language_code: "en"
-    name: "Note"
+    language_code: en
+    name: Note
 - model: core.ResourceTypeTranslation
   pk: 8
   fields:
     master: 3
-    language_code: "fi"
-    name: "Muistiinpano"
+    language_code: fi
+    name: Muistiinpano
 - model: core.ResourceTypeTranslation
   pk: 9
   fields:
     master: 3
-    language_code: "sv"
-    name: "Minnesanteckning"
+    language_code: sv
+    name: Minnesanteckning
 - model: core.ResourceTypeTranslation
   pk: 10
   fields:
     master: 4
-    language_code: "en"
-    name: "Other"
+    language_code: en
+    name: Other
 - model: core.ResourceTypeTranslation
   pk: 11
   fields:
     master: 4
-    language_code: "fi"
-    name: "Muu"
+    language_code: fi
+    name: Muu
 - model: core.ResourceTypeTranslation
   pk: 12
   fields:
     master: 4
-    language_code: "sv"
-    name: "Annat"
+    language_code: sv
+    name: Annat
 
 - model: core.ResourceType
   pk: 1
@@ -800,268 +800,268 @@
   pk: 1
   fields:
     resource_type: 1
-    title: "Sample exam 1"
-    file: "uploads/resources/sample_resource_file_1.jpg"
-    date: "2012-12-12"
+    title: Sample exam 1
+    file: uploads/resources/sample_resource_file_1.jpg
+    date: 2012-12-12
     course: 1
     user: 2
-    modified: "2020-01-01 12:00:00.000000+00:00"
-    created: "2020-01-01 12:00:00.000000+00:00"
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 - model: core.Resource
   pk: 2
   fields:
     resource_type: 1
-    title: "Sample exam 2"
-    file: "uploads/resources/sample_resource_file_2.png"
-    date: "2012-12-12"
+    title: Sample exam 2
+    file: uploads/resources/sample_resource_file_2.png
+    date: 2012-12-12
     course: 1
     user: 3
-    modified: "2020-01-01 12:00:00.000000+00:00"
-    created: "2020-01-01 12:00:00.000000+00:00"
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 - model: core.Resource
   pk: 3
   fields:
     resource_type: 2
-    title: "Sample exercise"
-    file: "uploads/resources/sample_resource_file_3.png"
-    date: "2012-12-12"
+    title: Sample exercise
+    file: uploads/resources/sample_resource_file_3.png
+    date: 2012-12-12
     course: 1
     user: 4
-    modified: "2020-01-01 12:00:00.000000+00:00"
-    created: "2020-01-01 12:00:00.000000+00:00"
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 
 
 - model: core.Comment
   pk: 1
   fields:
-    text: "Starting comment for the thread on a resource."
-    attachment: "uploads/attachments/test_file.txt"
+    text: Starting comment for the thread on a resource.
+    attachment: uploads/attachments/test_file.txt
     resource: 1
     course: null
     comment: null
     user: 2
-    modified: "2020-01-01 12:00:00.000000+00:00"
-    created: "2020-01-01 12:00:00.000000+00:00"
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 - model: core.Comment
   pk: 2
   fields:
-    text: "Second comment of the thread."
+    text: Second comment of the thread.
     attachment: ""
     resource: 1
     course: null
     comment: null
     user: 3
-    modified: "2020-01-01 12:00:00.000000+00:00"
-    created: "2020-01-01 12:00:00.000000+00:00"
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 - model: core.Comment
   pk: 3
   fields:
     text: ""
-    attachment: "uploads/attachments/test_file.txt"
+    attachment: uploads/attachments/test_file.txt
     resource: 1
     course: null
     comment: null
     user: 4
-    modified: "2020-01-01 12:00:00.000000+00:00"
-    created: "2020-01-01 12:00:00.000000+00:00"
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 - model: core.Comment
   pk: 4
   fields:
-    text: "Comment 1 to a course"
+    text: Comment 1 to a course
     attachment: ""
     resource: null
     course: 1
     comment: null
     user: 2
-    modified: "2020-01-01 12:00:00.000000+00:00"
-    created: "2020-01-01 12:00:00.000000+00:00"
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 - model: core.Comment
   pk: 5
   fields:
-    text: "Comment 2 to a course"
+    text: Comment 2 to a course
     attachment: ""
     resource: null
     course: 1
     comment: null
     user: 2
-    modified: "2020-01-01 12:00:00.000000+00:00"
-    created: "2020-01-01 12:00:00.000000+00:00"
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 - model: core.Comment
   pk: 6
   fields:
-    text: "Comment 3 to a course"
+    text: Comment 3 to a course
     attachment: ""
     resource: null
     course: 1
     comment: null
     user: 2
-    modified: "2020-01-01 12:00:00.000000+00:00"
-    created: "2020-01-01 12:00:00.000000+00:00"
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 - model: core.Comment
   pk: 7
   fields:
-    text: "Comment 4 to a course"
+    text: Comment 4 to a course
     attachment: ""
     resource: null
     course: 1
     comment: null
     user: 2
-    modified: "2020-01-01 12:00:00.000000+00:00"
-    created: "2020-01-01 12:00:00.000000+00:00"
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 - model: core.Comment
   pk: 8
   fields:
-    text: "Comment 5 to a course"
+    text: Comment 5 to a course
     attachment: ""
     resource: null
     course: 1
     comment: null
     user: 2
-    modified: "2020-01-01 12:00:00.000000+00:00"
-    created: "2020-01-01 12:00:00.000000+00:00"
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 - model: core.Comment
   pk: 9
   fields:
-    text: "Comment 6 to a course"
+    text: Comment 6 to a course
     attachment: ""
     resource: null
     course: 1
     comment: null
     user: 2
-    modified: "2020-01-01 12:00:00.000000+00:00"
-    created: "2020-01-01 12:00:00.000000+00:00"
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 - model: core.Comment
   pk: 10
   fields:
-    text: "Comment 7 to a course"
+    text: Comment 7 to a course
     attachment: ""
     resource: null
     course: 1
     comment: null
     user: 2
-    modified: "2020-01-01 12:00:00.000000+00:00"
-    created: "2020-01-01 12:00:00.000000+00:00"
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 - model: core.Comment
   pk: 11
   fields:
-    text: "Comment 8 to a course"
+    text: Comment 8 to a course
     attachment: ""
     resource: null
     course: 1
     comment: null
     user: 2
-    modified: "2020-01-01 12:00:00.000000+00:00"
-    created: "2020-01-01 12:00:00.000000+00:00"
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 - model: core.Comment
   pk: 12
   fields:
-    text: "First reply to a comment."
+    text: First reply to a comment.
     attachment: ""
     resource: null
     course: null
     comment: 4
     user: 2
-    modified: "2020-01-01 12:00:00.000000+00:00"
-    created: "2020-01-01 12:00:00.000000+00:00"
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 - model: core.Comment
   pk: 13
   fields:
-    text: "Second reply to a comment."
+    text: Second reply to a comment.
     attachment: ""
     resource: null
     course: null
     comment: 4
     user: 2
-    modified: "2020-01-01 12:00:00.000000+00:00"
-    created: "2020-01-01 12:00:00.000000+00:00"
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 - model: core.Comment
   pk: 14
   fields:
-    text: "Third reply to a comment."
+    text: Third reply to a comment.
     attachment: ""
     resource: null
     course: null
     comment: 4
     user: 2
-    modified: "2020-01-01 12:00:00.000000+00:00"
-    created: "2020-01-01 12:00:00.000000+00:00"
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 - model: core.Comment
   pk: 15
   fields:
-    text: "4th reply to a comment."
+    text: 4th reply to a comment.
     attachment: ""
     resource: null
     course: null
     comment: 4
     user: 2
-    modified: "2020-01-01 12:00:00.000000+00:00"
-    created: "2020-01-01 12:00:00.000000+00:00"
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 - model: core.Comment
   pk: 16
   fields:
-    text: "5th reply to a comment."
+    text: 5th reply to a comment.
     attachment: ""
     resource: null
     course: null
     comment: 4
     user: 2
-    modified: "2020-01-01 12:00:00.000000+00:00"
-    created: "2020-01-01 12:00:00.000000+00:00"
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 - model: core.Comment
   pk: 17
   fields:
-    text: "6th reply to a comment."
+    text: 6th reply to a comment.
     attachment: ""
     resource: null
     course: null
     comment: 4
     user: 2
-    modified: "2020-01-01 12:00:00.000000+00:00"
-    created: "2020-01-01 12:00:00.000000+00:00"
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 - model: core.Comment
   pk: 18
   fields:
-    text: "7th reply to a comment."
+    text: 7th reply to a comment.
     attachment: ""
     resource: null
     course: null
     comment: 4
     user: 2
-    modified: "2020-01-01 12:00:00.000000+00:00"
-    created: "2020-01-01 12:00:00.000000+00:00"
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 - model: core.Comment
   pk: 19
   fields:
-    text: "8th reply to a comment."
+    text: 8th reply to a comment.
     attachment: ""
     resource: null
     course: null
     comment: 4
     user: 2
-    modified: "2020-01-01 12:00:00.000000+00:00"
-    created: "2020-01-01 12:00:00.000000+00:00"
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 - model: core.Comment
   pk: 20
   fields:
-    text: "9th reply to a comment."
+    text: 9th reply to a comment.
     attachment: ""
     resource: null
     course: null
     comment: 4
     user: 2
-    modified: "2020-01-01 12:00:00.000000+00:00"
-    created: "2020-01-01 12:00:00.000000+00:00"
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 - model: core.Comment
   pk: 22
   fields:
-    text: "11th reply to a comment."
+    text: 11th reply to a comment.
     attachment: ""
     resource: null
     course: null
     comment: 4
     user: 2
-    modified: "2020-01-01 12:00:00.000000+00:00"
-    created: "2020-01-01 12:00:00.000000+00:00"
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 
 
 - model: core.Vote
@@ -1093,45 +1093,45 @@
 - model: core.BetaCode
   pk: 1
   fields:
-    code: "ABC00001"
+    code: ABC00001
     usages: 1
 - model: core.BetaCode
   pk: 2
   fields:
-    code: "ABC00002"
+    code: ABC00002
     usages: 1
 - model: core.BetaCode
   pk: 3
   fields:
-    code: "ABC00003"
+    code: ABC00003
     usages: 1
 - model: core.BetaCode
   pk: 4
   fields:
-    code: "ABC00004"
+    code: ABC00004
     usages: 1
 - model: core.BetaCode
   pk: 5
   fields:
-    code: "ABC00005"
+    code: ABC00005
     usages: 1
 - model: core.BetaCode
   pk: 6
   fields:
-    code: "ABC00006"
+    code: ABC00006
     usages: 1
 - model: core.BetaCode
   pk: 7
   fields:
-    code: "ABC00007"
+    code: ABC00007
     usages: 1
 - model: core.BetaCode
   pk: 8
   fields:
-    code: "ABC00008"
+    code: ABC00008
     usages: 1
 - model: core.BetaCode
   pk: 9
   fields:
-    code: "ABC00009"
+    code: ABC00009
     usages: 1

@@ -32,6 +32,7 @@ class CourseObjectType(VoteMixin, StarredMixin, DjangoObjectType):
             "created",
             "resources",
             "comments",
+            "resource_count",
         )
 
 
@@ -92,7 +93,7 @@ class Query(graphene.ObjectType):
         city: Optional[int] = None,
         page: int = 1,
         page_size: int = 10,
-        ordering: Optional[Literal["name", "-name", "points", "-points"]] = None,
+        ordering: Optional[Literal["name", "-name", "score", "-score"]] = None,
     ) -> graphene.ObjectType:
         """Filter courses based on the query parameters."""
         qs = Course.objects.all()
@@ -115,21 +116,15 @@ class Query(graphene.ObjectType):
         if ordering is not None and ordering not in {
             "name",
             "-name",
-            "points",
-            "-points",
+            "score",
+            "-score",
         }:
             raise GraphQLError("Invalid ordering value.")
 
-        if ordering in {"name", "-name"}:
-            qs = qs.order_by(ordering)
-        else:
+        if ordering not in {"name", "-name"}:
+            # When ordering by score we also first order by the name.
             qs = qs.order_by("name")
-            if ordering == "points":
-                # Ignore: qs changes from QuerySet to a List, get_paginator handles that.
-                qs = sorted(qs, key=lambda c: c.points)  # type: ignore[assignment]
-            else:  # -points
-                # Ignore: Same as above.
-                qs = sorted(qs, key=lambda c: c.points, reverse=True)  # type: ignore[assignment]
+        qs = qs.order_by(ordering)
 
         return get_paginator(qs, page_size, page, PaginatedCourseObjectType)
 

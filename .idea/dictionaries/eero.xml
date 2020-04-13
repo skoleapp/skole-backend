@@ -7,6 +7,7 @@
       <w>badmail</w>
       <w>badpass</w>
       <w>bdkr</w>
+      <w>commentable</w>
       <w>corsheaders</w>
       <w>downvote</w>
       <w>espoo</w>
@@ -27,6 +28,7 @@
       <w>newpass</w>
       <w>newpassword</w>
       <w>newusername</w>
+      <w>paginable</w>
       <w>parler</w>
       <w>postgresql</w>
       <w>pythonpath</w>
@@ -40,6 +42,7 @@
       <w>testusername</w>
       <w>turku</w>
       <w>upvote</w>
+      <w>votable</w>
       <w>wrongpass</w>
       <w>ytoc</w>
     </words>

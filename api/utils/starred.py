@@ -1,16 +1,14 @@
-from typing import Optional
-
 import graphene
 from graphql import ResolveInfo
 
-from core.models import Course, Resource, Starred
+from core.models import Starred
 
 
 class StarredMixin:
     starred = graphene.Boolean()
 
-    def resolve_starred(self, info: ResolveInfo) -> Optional[int]:
-        """Check whether user has starred current item."""
+    def resolve_starred(self, info: ResolveInfo) -> bool:
+        """Check whether user has starred the current item."""
         assert info.context is not None
 
         user = info.context.user
@@ -19,14 +17,7 @@ class StarredMixin:
             return False
 
         try:
-            if isinstance(self, Course):
-                # Ignore: pk attribute will be defined in the class deriving from this mixin.
-                return user.stars.get(course=self.pk) is not None  # type: ignore [attr-defined]
-            if isinstance(self, Resource):
-                # Ignore: pk attribute will be defined in the class deriving from this mixin.
-                return user.stars.get(resource=self.pk) is not None  # type: ignore [attr-defined]
-            else:
-                raise TypeError("Invalid class.")
-
+            # Ignore: pk attribute will be defined in the class deriving from this mixin.
+            return user.stars.get(**{self.__class__.__name__.lower(): self.pk}) is not None  # type: ignore [attr-defined]
         except Starred.DoesNotExist:
             return False

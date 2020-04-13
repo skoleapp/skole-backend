@@ -4,9 +4,9 @@ from pytest import fixture
 
 from core.models import Comment, Course, Resource, Vote
 from core.utils.vote import (
-    POINTS_COMMENT_MULTIPLIER,
-    POINTS_COURSE_MULTIPLIER,
-    POINTS_RESOURCE_MULTIPLIER,
+    SCORE_COMMENT_MULTIPLIER,
+    SCORE_COURSE_MULTIPLIER,
+    SCORE_RESOURCE_MULTIPLIER,
 )
 
 
@@ -29,7 +29,7 @@ def test_manager_create_ok(db: fixture) -> None:
     )
 
     for target in targets:
-        vote, target_points = Vote.objects.perform_vote(user=user, status=status, target=target)  # type: ignore[arg-type]
+        vote, target_score = Vote.objects.perform_vote(user=user, status=status, target=target)  # type: ignore[arg-type]
 
         assert vote is not None
         assert vote.user == user
@@ -37,16 +37,16 @@ def test_manager_create_ok(db: fixture) -> None:
 
         if vote.course is not None:
             course = Course.objects.get(pk=target.pk)
-            assert target_points == course.points == 1  # type: ignore [attr-defined]
-            assert course.user.points == target_points * POINTS_COURSE_MULTIPLIER  # type: ignore [union-attr]
+            assert target_score == course.score == 1  # type: ignore [attr-defined]
+            assert course.user.score == target_score * SCORE_COURSE_MULTIPLIER  # type: ignore [union-attr]
         elif vote.resource is not None:
             resource = Resource.objects.get(pk=target.pk)
-            assert target_points == resource.points == 1  # type: ignore [attr-defined]
-            assert resource.user.points == target_points * POINTS_RESOURCE_MULTIPLIER  # type: ignore [union-attr]
+            assert target_score == resource.score == 1  # type: ignore [attr-defined]
+            assert resource.user.score == target_score * SCORE_RESOURCE_MULTIPLIER  # type: ignore [union-attr]
         elif vote.comment is not None:
             comment = Comment.objects.get(pk=target.pk)
-            assert target_points == comment.points == 1  # type: ignore [attr-defined]
-            assert comment.user.points == target_points * POINTS_COMMENT_MULTIPLIER  # type: ignore [union-attr]
+            assert target_score == comment.score == 1  # type: ignore [attr-defined]
+            assert comment.user.score == target_score * SCORE_COMMENT_MULTIPLIER  # type: ignore [union-attr]
 
         # Check that only one foreign key reference is active.
         for attr in ("course", "resource", "comment"):
@@ -67,13 +67,13 @@ def test_manager_create_existing(db: fixture) -> None:
     )
 
     for target in targets:
-        vote, target_points = Vote.objects.perform_vote(user=user, status=status, target=target)  # type: ignore[arg-type]
+        vote, target_score = Vote.objects.perform_vote(user=user, status=status, target=target)  # type: ignore[arg-type]
         assert vote is not None
 
     for target in targets:
-        vote, target_points = Vote.objects.perform_vote(user=user, status=status, target=target)  # type: ignore[arg-type]
+        vote, target_score = Vote.objects.perform_vote(user=user, status=status, target=target)  # type: ignore[arg-type]
         assert vote == None
-        assert target_points == 0
+        assert target_score == 0
 
 
 def test_manager_create_bad_target(db: fixture) -> None:

@@ -1,5 +1,6 @@
 from typing import Optional, Union
 
+from django.conf import settings
 from django.db import models
 
 from core.models.course import Course
@@ -42,7 +43,9 @@ class StarredManager(models.Manager):  # type: ignore[type-arg]
 class Starred(models.Model):
     """Models a user's starred course or resource."""
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="stars")
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="stars"
+    )
     course = models.ForeignKey(
         Course, on_delete=models.CASCADE, null=True, blank=True, related_name="stars"
     )

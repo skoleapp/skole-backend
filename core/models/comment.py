@@ -1,5 +1,6 @@
 from typing import TYPE_CHECKING, Optional, Union
 
+from django.conf import settings
 from django.core.files.uploadedfile import UploadedFile
 from django.db import models
 from django.db.models import Count, Sum
@@ -7,7 +8,6 @@ from django.db.models.functions import Coalesce
 from django.db.models.query import QuerySet
 
 from core.utils.validators import ValidateFileSizeAndType
-from core.utils.vote import POINTS_COMMENT_MULTIPLIER
 
 from .course import Course
 from .resource import Resource
@@ -65,7 +65,10 @@ class Comment(models.Model):
     """Models one comment posted on a comment thread."""
 
     user = models.ForeignKey(
-        User, on_delete=models.CASCADE, null=True, related_name="comments"
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        null=True,
+        related_name="comments",
     )
     text = models.TextField(max_length=10000, blank=True)
     attachment = models.ImageField(
@@ -108,8 +111,5 @@ class Comment(models.Model):
             raise ValueError("Invalid comment with neither text nor attachment.")
 
     @property
-    def points(self) -> int:
-        return (
-            self.votes.aggregate(points=Coalesce(Sum("status"), 0))["points"]
-            * POINTS_COMMENT_MULTIPLIER
-        )
+    def score(self) -> int:
+        return self.votes.aggregate(score=Coalesce(Sum("status"), 0))["score"]

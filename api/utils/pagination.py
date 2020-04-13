@@ -1,5 +1,3 @@
-from typing import List, Union
-
 import graphene
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db.models import QuerySet
@@ -8,7 +6,7 @@ from core.utils.types import PaginableModel
 
 
 def get_paginator(
-    qs: Union[List[PaginableModel], "QuerySet[PaginableModel]"],
+    qs: "QuerySet[PaginableModel]",
     page_size: int,
     page: int,
     paginated_type: graphene.ObjectType,
@@ -23,18 +21,13 @@ def get_paginator(
     except EmptyPage:
         page_obj = p.page(p.num_pages)
 
-    if isinstance(qs, QuerySet):
-        count = qs.count()
-    elif isinstance(qs, list):
-        count = len(qs)
-
     return paginated_type(
         page=page_obj.number,
         pages=p.num_pages,
         has_next=page_obj.has_next(),
         has_prev=page_obj.has_previous(),
         objects=page_obj.object_list,
-        count=count,
+        count=qs.count(),
     )
 
 

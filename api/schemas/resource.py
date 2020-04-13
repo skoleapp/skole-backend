@@ -34,6 +34,8 @@ class ResourceObjectType(VoteMixin, StarredMixin, DjangoObjectType):
             "modified",
             "created",
             "comments",
+            "resource_type",
+            "school",
         )
 
     def resolve_file(self, info: ResolveInfo) -> str:

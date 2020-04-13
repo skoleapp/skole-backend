@@ -237,14 +237,14 @@ class Query(graphene.ObjectType):
         page: int = 1,
         page_size: int = 10,
         username: Optional[str] = None,
-        ordering: Optional[Literal["username", "-username", "score", "-score"]] = None,
+        ordering: Literal["username", "-username", "score", "-score"] = "username",
     ) -> graphene.ObjectType:
         qs = get_user_model().objects.filter(is_superuser=False)
 
         if username is not None:
             qs = qs.filter(username__icontains=username)
 
-        if ordering is not None and ordering not in {
+        if ordering not in {
             "username",
             "-username",
             "score",

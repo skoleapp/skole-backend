@@ -93,7 +93,7 @@ class Query(graphene.ObjectType):
         city: Optional[int] = None,
         page: int = 1,
         page_size: int = 10,
-        ordering: Optional[Literal["name", "-name", "score", "-score"]] = None,
+        ordering: Literal["name", "-name", "score", "-score"] = "name",
     ) -> graphene.ObjectType:
         """Filter courses based on the query parameters."""
         qs = Course.objects.all()
@@ -113,7 +113,7 @@ class Query(graphene.ObjectType):
         if city is not None:
             qs = qs.filter(school__city__pk=city)
 
-        if ordering is not None and ordering not in {
+        if ordering not in {
             "name",
             "-name",
             "score",

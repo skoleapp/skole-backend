@@ -1,72 +1,83 @@
 from mypy.types import JsonDict
 
 from api.utils.messages import AUTH_ERROR_MESSAGE
-from tests.utils import BaseSchemaTestCase, execute_input_mutation
+from tests.test_utils import SkoleSchemaTestCase
 
 
-class UserSchemaTestCase(BaseSchemaTestCase):
+class UserSchemaTestCase(SkoleSchemaTestCase):
     authenticated = True
 
-    fields = """
-    id
-    username
-    email
-    score
-    title
-    bio
-    avatar
-    avatarThumbnail
-    created
-    courseCount
-    resourceCount
-    votes {
-      id
-    }
-    createdCourses {
-      id
-    }
-    createdResources {
-      id
-    }
-    starredCourses {
-      id
-    }
-    starredResources {
-      id
-    }
+    user_fields = """
+        fragment userFields on UserObjectType {
+            id
+            username
+            email
+            score
+            title
+            bio
+            avatar
+            avatarThumbnail
+            created
+            courseCount
+            resourceCount
+            votes {
+                id
+            }
+            createdCourses {
+                id
+            }
+            createdResources {
+                id
+            }
+            starredCourses {
+                id
+            }
+            starredResources {
+                id
+            }
+        }
     """
 
     def query_users(self) -> JsonDict:
-        query = f"""
-          {{
-            users {{
-              {self.fields}
-            }}
-          }}
+        graphql = (
+            self.user_fields
+            + """
+            query Users {
+                users {
+                    ...userFields
+                }
+            }
         """
-        return self.execute(query)["users"]
+        )
+        return self.execute(graphql)["users"]
 
     def query_user(self, id: int) -> JsonDict:
         variables = {"id": id}
 
-        query = f"""
-          query ($id: ID!) {{
-            user(id: $id) {{
-              {self.fields}
-            }}
-          }}
+        graphql = (
+            self.user_fields
+            + """
+            query User ($id: ID!) {
+                user(id: $id) {
+                    ...userFields
+                }
+            }
         """
-        return self.execute(query, variables=variables)["user"]
+        )
+        return self.execute(graphql, variables=variables)["user"]
 
     def query_user_me(self) -> JsonDict:
-        query = f"""
-          {{
-            userMe {{
-              {self.fields}
-            }}
-          }}
+        graphql = (
+            self.user_fields
+            + """
+            query UserMe {
+                userMe {
+                    ...userFields
+                }
+            }
         """
-        return self.execute(query)["userMe"]
+        )
+        return self.execute(graphql)["userMe"]
 
     def mutate_register(
         self,
@@ -74,23 +85,23 @@ class UserSchemaTestCase(BaseSchemaTestCase):
         password: str = "password",
         code: str = "ABC00001",
     ) -> JsonDict:
-        return execute_input_mutation(
-            test_case=self,
+        return self.execute_input_mutation(
             input_type="RegisterMutationInput!",
             op_name="register",
             input={"username": username, "password": password, "code": code},
-            result=f"user {{ {self.fields} }}",
+            result="user { ...userFields }",
+            fragment=self.user_fields,
         )
 
     def mutate_login(
         self, username: str = "testuser2", password: str = "password"
     ) -> JsonDict:
-        return execute_input_mutation(
-            test_case=self,
+        return self.execute_input_mutation(
             input_type="LoginMutationInput!",
             op_name="login",
             input={"username": username, "password": password},
-            result=f"user {{ {self.fields} }} token",
+            result="user { ...userFields } token",
+            fragment=self.user_fields,
         )
 
     def mutate_update_user(
@@ -101,8 +112,7 @@ class UserSchemaTestCase(BaseSchemaTestCase):
         bio: str = "",
         avatar: str = "",
     ) -> JsonDict:
-        return execute_input_mutation(
-            test_case=self,
+        return self.execute_input_mutation(
             input_type="UpdateUserMutationInput!",
             op_name="updateUser",
             input={
@@ -112,7 +122,8 @@ class UserSchemaTestCase(BaseSchemaTestCase):
                 "bio": bio,
                 "avatar": avatar,
             },
-            result=f"user {{ {self.fields} }}",
+            result="user { ...userFields }",
+            fragment=self.user_fields,
         )
 
     def mutate_change_password(self, **params: str) -> JsonDict:
@@ -166,85 +177,73 @@ class UserSchemaTestCase(BaseSchemaTestCase):
 
         res = self.mutate_register()
         assert res["errors"] is None
-        assert res["user"] is not None
+        assert res["user"]["username"] == "newuser"
+        assert res["user"]["email"] == ""
 
     def test_register_error(self) -> None:
         self.authenticated = False
 
-        # username taken
+        # Username taken.
         res = self.mutate_register(username="testuser2")
         assert res["user"] is None
         message = res["errors"][0]["messages"][0]
         assert "This username is taken." == message
 
-        # invalid beta code
+        # Invalid beta code.
         res = self.mutate_register(code="invalid")
         assert res["user"] is None
         message = res["errors"][0]["messages"][0]
         assert message == "Invalid beta register code."
 
-        # too short username
+        # Too short username.
         res = self.mutate_register(username="to")
         assert res["user"] is None
         message = res["errors"][0]["messages"][0]
         assert "Ensure this value has at least" in message
 
-        # too short password
+        # Too short password.
         res = self.mutate_register(password="short")
         assert res["user"] is None
         message = res["errors"][0]["messages"][0]
         assert "Ensure this value has at least" in message
 
     def test_login_ok(self) -> None:
+        self.authenticated = False
+
         res = self.mutate_login()
-        assert "token" in res
+        assert isinstance(res["token"], str)
         assert res["user"]["email"] == "test2@test.com"
         assert res["user"]["username"] == "testuser2"
 
     def test_login_error(self) -> None:
-        # trying to login with email
+        self.authenticated = False
+
+        # Trying to login with email.
         res = self.mutate_login(username="test2@test.com")
+        assert res["token"] is None
         assert res["errors"][0]["messages"][0] == AUTH_ERROR_MESSAGE
 
-        # invalid username
+        # Invalid username.
         res = self.mutate_login(username="badusername")
+        assert res["token"] is None
         assert res["errors"][0]["messages"][0] == AUTH_ERROR_MESSAGE
 
-        # invalid password
+        # Invalid password.
         res = self.mutate_login(password="wrongpass")
+        assert res["token"] is None
         assert res["errors"][0]["messages"][0] == AUTH_ERROR_MESSAGE
 
-    def test_user_detail(self) -> None:
-        self.mutate_register()
+    def test_user(self) -> None:
+        user = self.query_user(id=2)
+        assert user["id"] == "2"
+        assert user["username"] == "testuser2"
 
-        # Get the id of the first user, so we can use it to query
-        res = self.query_users()
-        id = res["data"]["users"][0]["id"]
+        # ID not found.
+        assert self.query_user(id=999) is None
 
-        # Get the profile with that id
-        res = self.query_user(id=id)
-        cont = res["data"]["user"]
-        assert cont["id"] == id
-        assert cont["username"] == "testuser"
-
-        # ID not found
-        res = self.query_user(999)
-        cont = res["data"]["user"]
-        assert cont is None
-        assert "does not exist" in res["errors"][0]["message"]
-
+    """
     def test_users(self) -> None:
-        self.mutate_register()
-        self.mutate_register(email="test2@test.com", username="testuser2")
-        self.mutate_register(email="test3@test.com", username="testuser3")
-
-        # check that the register users come as a result for the users
-        res = self.query_users()
-        cont = res["data"]["users"]
-        assert len(cont) == 3
-        assert cont[0]["username"] == "testuser"
-        assert cont[1]["username"] == "testuser2"
-        assert cont[2]["username"] == "testuser3"
+        users = 
 
     def test_user_me(self) -> None:
         res = self.query_user_me()
@@ -293,3 +292,4 @@ class UserSchemaTestCase(BaseSchemaTestCase):
         res = self.mutate_change_password(oldPassword="badpass")
         cont = res["data"]["changePassword"]
         assert cont["errors"][0]["messages"][0] == "Incorrect old password."
+    """

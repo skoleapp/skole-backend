@@ -2,40 +2,48 @@ from typing import List
 
 from mypy.types import JsonDict
 
-from tests.utils import BaseSchemaTestCase
+from tests.test_utils import SkoleSchemaTestCase
 
 
-class SchoolTypeSchemaTestCase(BaseSchemaTestCase):
+class SchoolTypeSchemaTestCase(SkoleSchemaTestCase):
     authenticated = True
 
-    fields = """
-    id
-    name
+    school_type_fields = """
+        fragment schoolTypeFields on SchoolTypeObjectType {
+            id
+            name
+        }
     """
 
     def query_school_types(self) -> List[JsonDict]:
-        query = f"""
-          {{
-            schoolTypes {{
-              {self.fields}
-            }}
-          }}
+        graphql = (
+            self.school_type_fields
+            + """
+            query SchoolTypes {
+                schoolTypes {
+                    ...schoolTypeFields
+                }
+            }
         """
-        return self.execute(query)["schoolTypes"]
+        )
+        return self.execute(graphql)["schoolTypes"]
 
     def query_school_type(self, id: int) -> JsonDict:
         variables = {"id": id}
 
-        query = f"""
-          query ($id: ID!) {{
-            schoolType(id: $id) {{
-              {self.fields}
-            }}
-          }}
+        graphql = (
+            self.school_type_fields
+            + """
+            query ($id: ID!) {
+                schoolType(id: $id) {
+                    ...schoolTypeFields
+                }
+            }
         """
-        return self.execute(query, variables=variables)["schoolType"]
+        )
+        return self.execute(graphql, variables=variables)["schoolType"]
 
-    def test_query_school_types(self) -> None:
+    def test_school_types(self) -> None:
         school_types = self.query_school_types()
         assert len(school_types) == 3
         assert school_types[0]["id"] == "1"
@@ -43,11 +51,10 @@ class SchoolTypeSchemaTestCase(BaseSchemaTestCase):
         assert school_types[1]["id"] == "2"
         assert school_types[1]["name"] == "University of Applied Sciences"
 
-    def test_query_school_type(self) -> None:
-        # Test that every SchoolType from the list can be queried with its own id.
-        school_types = self.query_school_types()
-        for school_type in school_types:
-            assert school_type == self.query_school_type(school_type["id"])
+    def test_school_type(self) -> None:
+        res = self.query_school_type(id=1)
+        assert res["id"] == "1"
+        assert res["name"] == "University"
 
-        # Test that returns None when ID not found.
-        assert self.query_school_type(999) is None
+        # ID not found.
+        assert self.query_school_type(id=999) is None

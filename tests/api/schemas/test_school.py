@@ -2,51 +2,59 @@ from typing import List
 
 from mypy.types import JsonDict
 
-from tests.utils import BaseSchemaTestCase
+from tests.test_utils import SkoleSchemaTestCase
 
 
-class SchoolSchemaTestCase(BaseSchemaTestCase):
+class SchoolSchemaTestCase(SkoleSchemaTestCase):
     authenticated = True
 
-    fields = """
-    id
-    name
-    subjects {
-      id
-    }
-    courses {
-      id
-    }
-    subjectCount
-    courseCount
-    schoolType
-    country
-    city
+    school_fields = """
+        fragment schoolFields on SchoolObjectType {
+            id
+            name
+            subjects {
+              id
+            }
+            courses {
+              id
+            }
+            subjectCount
+            courseCount
+            schoolType
+            country
+            city
+        }
     """
 
     def query_schools(self) -> List[JsonDict]:
-        query = f"""
-          {{
-            schools {{
-              {self.fields}
-            }}
-          }}
+        graphql = (
+            self.school_fields
+            + """
+            query Schools {
+                schools {
+                    ...schoolFields
+                }
+            }
         """
-        return self.execute(query)["schools"]
+        )
+        return self.execute(graphql)["schools"]
 
     def query_school(self, id: int) -> JsonDict:
         variables = {"id": id}
 
-        query = f"""
-          query ($id: ID!) {{
-            school(id: $id) {{
-              {self.fields}
-            }}
-          }}
-        """
-        return self.execute(query, variables=variables)["school"]
+        graphql = (
+            self.school_fields
+            + """
+            query ($id: ID!) {
+                school(id: $id) {
+                    ...schoolFields
+                }
+            }
+            """
+        )
+        return self.execute(graphql, variables=variables)["school"]
 
-    def test_query_schools(self) -> None:
+    def test_schools(self) -> None:
         schools = self.query_schools()
         assert len(schools) == 6
         assert schools[0]["id"] == "2"
@@ -58,11 +66,10 @@ class SchoolSchemaTestCase(BaseSchemaTestCase):
         assert schools[5]["schoolType"] == "University"
         assert schools[5]["city"] == "Turku"
 
-    def test_query_school(self) -> None:
-        # Test that every School from the list can be queried with its own id.
-        schools = self.query_schools()
-        for school in schools:
-            assert school == self.query_school(school["id"])
+    def test_school(self) -> None:
+        school = self.query_school(id=1)
+        assert school["id"] == "1"
+        assert school["name"] == "University of Turku"
 
-        # Test that returns None when ID not found.
-        assert self.query_school(999) is None
+        # ID not found.
+        assert self.query_school(id=999) is None

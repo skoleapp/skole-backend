@@ -46,11 +46,7 @@ def execute_input_mutation(
     op_name: str,
     input: JsonDict,
     result: str,
-    **params: str,
 ) -> JsonDict:
-
-    if params is not None:
-        input.update(**params)
 
     mutation = f"""
       mutation ($input: {input_type}) {{

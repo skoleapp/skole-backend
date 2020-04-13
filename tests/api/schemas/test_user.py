@@ -1,3 +1,5 @@
+from typing import Optional
+
 from mypy.types import JsonDict
 
 from api.utils.messages import AUTH_ERROR_MESSAGE
@@ -38,18 +40,37 @@ class UserSchemaTestCase(SkoleSchemaTestCase):
         }
     """
 
-    def query_users(self) -> JsonDict:
+    def query_users(
+        self,
+        page: int = 1,
+        page_size: int = 10,
+        username: str = "",
+        ordering: Optional[str] = None,
+    ) -> JsonDict:
+        variables = {
+            "page": page,
+            "pageSize": page_size,
+            "username": username,
+            "ordering": ordering,
+        }
         graphql = (
             self.user_fields
             + """
-            query Users {
-                users {
-                    ...userFields
+            query Users($page: Int, $pageSize: Int, $username: String, $ordering: String) {
+                users(page: $page, pageSize: $pageSize, username: $username, ordering: $ordering) {
+                    count
+                    page
+                    pages
+                    hasNext
+                    hasPrev
+                    objects {
+                      ...userFields
+                    }
                 }
             }
         """
         )
-        return self.execute(graphql)["users"]
+        return self.execute(graphql, variables=variables)["users"]
 
     def query_user(self, id: int) -> JsonDict:
         variables = {"id": id}
@@ -126,6 +147,7 @@ class UserSchemaTestCase(SkoleSchemaTestCase):
             fragment=self.user_fields,
         )
 
+    '''
     def mutate_change_password(self, **params: str) -> JsonDict:
         input = {
             "oldPassword": "password",
@@ -171,6 +193,7 @@ class UserSchemaTestCase(SkoleSchemaTestCase):
           }}
         """
         return self.query(mutation, variables={"input": input})
+    '''
 
     def test_register_ok(self) -> None:
         self.authenticated = False
@@ -241,10 +264,29 @@ class UserSchemaTestCase(SkoleSchemaTestCase):
         # ID not found.
         assert self.query_user(id=999) is None
 
-    """
     def test_users(self) -> None:
-        users = 
+        # Default ordering is lexicographic (=not numeric!) by username.
+        users = self.query_users(page_size=999)
+        assert len(users["objects"]) == 11
+        assert users["objects"][0]["username"] == "testuser10"
+        assert users["objects"][9]["username"] == "testuser8"
+        assert users["objects"][10]["username"] == "testuser9"
 
+        # Change page size.
+        users = self.query_users(page_size=3)
+        assert len(users["objects"]) == 3
+
+        # Get second page.
+        users = self.query_users(page_size=3, page=2)
+        assert len(users["objects"]) == 3
+        assert users["page"] == 2
+        assert users["objects"][0]["username"] == "testuser2"
+
+        # Can't see emails of the users.
+        users = self.query_users(page_size=999)
+        assert any(user["email"] != "" for user in users["objects"])
+
+    """
     def test_user_me(self) -> None:
         res = self.query_user_me()
         cont = res["data"]["userMe"]

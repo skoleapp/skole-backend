@@ -3,9 +3,11 @@
     <words>
       <w>aalto</w>
       <w>autopopulated</w>
+      <w>badcode</w>
       <w>badlang</w>
       <w>badmail</w>
       <w>badpass</w>
+      <w>badusername</w>
       <w>bdkr</w>
       <w>commentable</w>
       <w>corsheaders</w>
@@ -27,6 +29,7 @@
       <w>newpas</w>
       <w>newpass</w>
       <w>newpassword</w>
+      <w>newuser</w>
       <w>newusername</w>
       <w>paginable</w>
       <w>parler</w>

@@ -123,6 +123,7 @@ CORS_ORIGIN_ALLOW_ALL = bool(DEBUG)
 
 GRAPHENE = {
     "SCHEMA": "api.schemas.schema.schema",
+    "SCHEMA_OUTPUT": "schema.graphql",
     "MIDDLEWARE": ["graphql_jwt.middleware.JSONWebTokenMiddleware",],
 }
 

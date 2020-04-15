@@ -104,3 +104,23 @@ class SchemaTestCase(GraphQLTestCase):
         content = json.loads(resp.content)
         self.assertNotIn("errors", content)
         self.assertEqual(resp.status_code, 200)
+
+    def assert_field_fragment_matches_schema(self, field_fragment: str) -> None:
+        """Assert that the given fragment contains all the fields that are actually
+        queryable on that object type its defined for.
+        """
+        # language=GraphQL
+        graphql = """
+            query IntrospectAllFields($name: String!) {
+                __type(name: $name) {
+                    fields {
+                        name
+                    }
+                }
+            }
+        """
+        object_type = field_fragment.split()[3]
+        res = self.execute(graphql, variables={"name": object_type})
+
+        for field in res["__type"]["fields"]:
+            assert field["name"] in field_fragment

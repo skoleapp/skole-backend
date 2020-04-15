@@ -48,14 +48,18 @@ class SchoolSchemaTests(SchemaTestCase):
         graphql = (
             self.school_fields
             + """
-            query ($id: ID!) {
+            query School($id: ID!) {
                 school(id: $id) {
                     ...schoolFields
                 }
             }
-            """
+        """
         )
         return self.execute(graphql, variables=variables)["school"]
+
+    def test_field_fragment(self) -> None:
+        self.authenticated = False
+        self.assert_field_fragment_matches_schema(self.school_fields)
 
     def test_schools(self) -> None:
         schools = self.query_schools()

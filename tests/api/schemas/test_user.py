@@ -68,7 +68,7 @@ class UserSchemaTests(SchemaTestCase):
                     hasNext
                     hasPrev
                     objects {
-                      ...userFields
+                        ...userFields
                     }
                 }
             }
@@ -83,7 +83,7 @@ class UserSchemaTests(SchemaTestCase):
         graphql = (
             self.user_fields
             + """
-            query User ($id: ID!) {
+            query User($id: ID!) {
                 user(id: $id) {
                     ...userFields
                 }
@@ -99,7 +99,6 @@ class UserSchemaTests(SchemaTestCase):
             + """
             query UserMe {
                 userMe {
-                    id
                     ...userFields
                 }
             }
@@ -175,6 +174,10 @@ class UserSchemaTests(SchemaTestCase):
             input={"password": "password",},
             result="message",
         )
+
+    def test_field_fragment(self) -> None:
+        self.authenticated = False
+        self.assert_field_fragment_matches_schema(self.user_fields)
 
     def test_register_ok(self) -> None:
         self.authenticated = False

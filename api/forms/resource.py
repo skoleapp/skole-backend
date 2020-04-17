@@ -4,10 +4,10 @@ from api.utils.forms import DeleteObjectForm
 from core.models import Resource
 
 
-class CreateUpdateResourceForm(forms.ModelForm):
+class CreateResourceForm(forms.ModelForm):
     class Meta:
         model = Resource
-        fields = ("id", "title", "file", "resource_type", "course", "date")
+        fields = ("title", "file", "resource_type", "course", "date")
 
     def clean_file(self) -> str:
         # Ignore: Mypy considers files as optional but they're always at least an empty MultiValueDict.
@@ -15,6 +15,14 @@ class CreateUpdateResourceForm(forms.ModelForm):
             return file
         else:
             return self.cleaned_data["file"]
+
+
+class UpdateResourceForm(forms.ModelForm):
+    class Meta:
+        model = Resource
+        fields = ("title", "resource_type", "date")
+
+    clean_file = CreateResourceForm.clean_file
 
 
 class DeleteResourceForm(DeleteObjectForm):

@@ -136,13 +136,19 @@ dmypy.json
 
 # End of https://www.gitignore.io/api/python
 
-# Ignore every media file except the one image.
+# Ignore every media file except these three.
 media/*
 !media/uploads
 media/uploads/*
+!media/uploads/attachments
 !media/uploads/avatars
+!media/uploads/resources
+!media/uploads/attachments/*
 media/uploads/avatars/*
-!media/uploads/avatars/test_user_avatar.jpg
+!media/uploads/resources/*
+!media/uploads/attachments/test_attachment.png
+!media/uploads/avatars/test_avatar.jpg
+!media/uploads/resources/test_resource.pdf
 
 # VSCode
 .vscode

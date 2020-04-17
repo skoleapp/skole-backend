@@ -8,7 +8,7 @@ from core.models import User
 
 
 class TargetForm(forms.ModelForm):
-    "A base class for forms that require a single object as a target."
+    """A base class for forms that require a single object as a target."""
 
     def clean(self) -> Dict[str, str]:
         """Ensure that the created object has exactly one foreign key it targets."""
@@ -21,13 +21,13 @@ class TargetForm(forms.ModelForm):
             "vote": None,
         }
 
-        for i in targets.keys():
-            targets[i] = cleaned_data.pop(i, None)
+        for target in targets:
+            targets[target] = cleaned_data.pop(target, None)
 
         target_list = [target for target in targets.values() if target is not None]
 
         if len(target_list) != 1:
-            raise forms.ValidationError(_("Mutation contains too many targets."))
+            raise forms.ValidationError(_("Mutation needs exactly on target."))
 
         cleaned_data["target"] = target_list[0]
         return cleaned_data

@@ -19,6 +19,12 @@ class RegisterForm(forms.ModelForm):
         model = get_user_model()
         fields = ("username", "password", "code")
 
+    def clean_username(self) -> str:
+        username = self.cleaned_data["username"]
+        if get_user_model().objects.filter(username__iexact=username):
+            raise forms.ValidationError(_("This username is taken."))
+        return username
+
     def clean_code(self) -> BetaCode:
         code = self.cleaned_data["code"]
         try:
@@ -59,6 +65,7 @@ class LoginForm(forms.ModelForm):
 
 
 class UpdateUserForm(forms.ModelForm):
+
     username = forms.CharField(min_length=settings.USERNAME_MIN_LENGTH)
     avatar = forms.CharField(required=False)
 
@@ -75,9 +82,19 @@ class UpdateUserForm(forms.ModelForm):
         else:
             return self.instance.avatar  # Avatar not modified.
 
+    def clean_username(self) -> str:
+        username = self.cleaned_data["username"]
+        if (
+            get_user_model()
+            .objects.exclude(pk=self.instance.pk)
+            .filter(username__iexact=username)
+        ):
+            raise forms.ValidationError(_("This username is taken."))
+        return username
+
     def clean_email(self) -> str:
         email = self.cleaned_data["email"]
-        if (
+        if email != "" and (
             get_user_model()
             .objects.exclude(pk=self.instance.pk)
             .filter(email__iexact=email)

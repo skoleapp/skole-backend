@@ -6,7 +6,8 @@ from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphql import ResolveInfo
 from graphql_jwt.decorators import login_required
 
-from api.forms.resource import CreateResourceForm, DeleteResourceForm, UpdateResourceForm
+from api.forms.resource import (CreateResourceForm, DeleteResourceForm,
+                                UpdateResourceForm)
 from api.schemas.school import SchoolObjectType
 from api.utils.common import get_obj_or_none
 from api.utils.delete import DeleteMutationMixin

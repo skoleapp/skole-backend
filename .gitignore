@@ -143,9 +143,9 @@ media/uploads/*
 !media/uploads/attachments
 !media/uploads/avatars
 !media/uploads/resources
-!media/uploads/attachments/*
+media/uploads/attachments/*
 media/uploads/avatars/*
-!media/uploads/resources/*
+media/uploads/resources/*
 !media/uploads/attachments/test_attachment.png
 !media/uploads/avatars/test_avatar.jpg
 !media/uploads/resources/test_resource.pdf

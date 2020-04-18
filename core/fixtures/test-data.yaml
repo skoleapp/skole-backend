@@ -28,7 +28,7 @@
   pk: 3
   fields:
     username: testuser3
-    email: test3@test.com
+    email: ""
     password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4=  # password
     title: ""
     bio: ""
@@ -41,7 +41,7 @@
   pk: 4
   fields:
     username: testuser4
-    email: test4@test.com
+    email: ""
     password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4=  # password
     title: ""
     bio: ""
@@ -54,7 +54,7 @@
   pk: 5
   fields:
     username: testuser5
-    email: test5@test.com
+    email: ""
     password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4=  # password
     title: ""
     bio: ""
@@ -67,7 +67,7 @@
   pk: 6
   fields:
     username: testuser6
-    email: test6@test.com
+    email: ""
     password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4=  # password
     title: ""
     bio: ""
@@ -80,7 +80,7 @@
   pk: 7
   fields:
     username: testuser7
-    email: test7@test.com
+    email: ""
     password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4=  # password
     title: ""
     bio: ""
@@ -93,7 +93,7 @@
   pk: 8
   fields:
     username: testuser8
-    email: test8@test.com
+    email: ""
     password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4=  # password
     title: ""
     bio: ""
@@ -106,7 +106,7 @@
   pk: 9
   fields:
     username: testuser9
-    email: test9@test.com
+    email: ""
     password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4=  # password
     title: ""
     bio: ""
@@ -119,7 +119,7 @@
   pk: 10
   fields:
     username: testuser10
-    email: test10@test.com
+    email: ""
     password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4=  # password
     title: ""
     bio: ""
@@ -132,7 +132,7 @@
   pk: 11
   fields:
     username: testuser11
-    email: test11@test.com
+    email: ""
     password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4=  # password
     title: ""
     bio: ""
@@ -145,7 +145,7 @@
   pk: 12
   fields:
     username: testuser12
-    email: test12@test.com
+    email: ""
     password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4=  # password
     title: ""
     bio: ""

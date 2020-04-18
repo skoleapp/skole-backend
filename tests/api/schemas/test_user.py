@@ -140,7 +140,7 @@ class UserSchemaTests(SchemaTestCase):
         email: str = "test2@test.com",
         title: str = "",
         bio: str = "",
-        avatar: str = "",
+        avatar: str = "media/uploads/avatars/test_avatar.jpg",
     ) -> JsonDict:
         return self.execute_input_mutation(
             input_type="UpdateUserMutationInput!",
@@ -171,7 +171,7 @@ class UserSchemaTests(SchemaTestCase):
         return self.execute_input_mutation(
             input_type="DeleteUserMutationInput!",
             op_name="deleteUser",
-            input={"password": "password",},
+            input={"password": password},
             result="message",
         )
 
@@ -283,20 +283,17 @@ class UserSchemaTests(SchemaTestCase):
         assert "permission" in res["errors"][0]["message"]
         assert res["data"] == {"userMe": None}
 
-    def test_update_user(self) -> None:
-        # We test the error cases first because after successfully
-        # updating the user the current token is no longer valid.
-
-        # Email is already taken.
-        res = self.mutate_update_user(email="test3@test.com")
-        assert res["errors"] is not None
-        assert res["user"] is None
-
+    def test_update_user_ok(self) -> None:
         # Fine to not change anything.
-        res = self.mutate_update_user()
         user = self.query_user_me()
+        res = self.mutate_update_user()
         assert res["errors"] is None
         assert res["user"] == user
+
+        # Fine to remove associated email.
+        res = self.mutate_update_user(email="")
+        assert res["errors"] is None
+        assert res["user"]["email"] == ""
 
         # Update some fields.
         new_username = "newusername"
@@ -311,11 +308,28 @@ class UserSchemaTests(SchemaTestCase):
         assert res["user"]["title"] == new_title
         assert res["user"]["bio"] == ""
 
+    def test_update_user_error(self) -> None:
+        user_old = self.query_user_me()
+
+        # Email is already taken.
+        res = self.mutate_update_user(email="root@root.com")
+        assert len(res["errors"]) == 1
+        assert "email" in res["errors"][0]["messages"][0]
+        assert res["user"] is None
+
+        res = self.mutate_update_user(username="testuser3")
+        assert len(res["errors"]) == 1
+        assert "username" in res["errors"][0]["messages"][0]
+        assert res["user"] is None
+
+        # Check that nothing has changed.
+        assert self.query_user_me() == user_old
+
     def test_update_user_avatar(self) -> None:
         # TODO: implement
         pass
 
-    def test_user_delete(self) -> None:
+    def test_user_delete_ok(self) -> None:
         # Delete the logged in testuser2.
         res = self.mutate_delete_user()
         assert res["errors"] is None
@@ -323,6 +337,14 @@ class UserSchemaTests(SchemaTestCase):
 
         # Test that the user cannot be found anymore.
         assert get_user_model().objects.filter(pk=2).count() == 0
+
+    def test_user_delete_error(self) -> None:
+        # Delete the logged in testuser2.
+        res = self.mutate_delete_user(password="wrongpass")
+        assert "password" in res["errors"][0]["messages"][0]
+
+        # Test that the user didn't get deleted.
+        assert get_user_model().objects.filter(pk=2).count() == 1
 
     def test_change_password_ok(self) -> None:
         old_hash = get_user_model().objects.get(pk=2).password

@@ -26,7 +26,7 @@ class School(TranslatableModel):
 
     @property
     def subject_count(self) -> int:
-        return self.courses.prefetch_related("subject").count()  # type: ignore[attr-defined]
+        return self.courses.values("subject").distinct().count()
 
     @property
     def course_count(self) -> int:

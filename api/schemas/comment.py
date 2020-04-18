@@ -7,7 +7,7 @@ from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphql import GraphQLError, ResolveInfo
 from graphql_jwt.decorators import login_required
 
-from api.forms.comment import CreateUpdateCommentForm, DeleteCommentForm
+from api.forms.comment import CreateCommentForm, DeleteCommentForm, UpdateCommentForm
 from api.utils.common import get_obj_or_none
 from api.utils.delete import DeleteMutationMixin
 from api.utils.file import FileMixin
@@ -41,13 +41,13 @@ class CommentObjectType(VoteMixin, DjangoObjectType):
 
 class CreateCommentMutation(FileMixin, DjangoModelFormMutation):
     class Meta:
-        form_class = CreateUpdateCommentForm
+        form_class = CreateCommentForm
         exclude_fields = ("id",)
 
     @classmethod
     @login_required
     def perform_mutate(
-        cls, form: CreateUpdateCommentForm, info: ResolveInfo
+        cls, form: CreateCommentForm, info: ResolveInfo
     ) -> "CreateCommentMutation":
         assert info.context is not None
         if form.cleaned_data["attachment"] == "" and form.cleaned_data["text"] == "":
@@ -66,14 +66,14 @@ class UpdateCommentMutation(DjangoModelFormMutation):
     comment = graphene.Field(CommentObjectType)
 
     class Meta:
-        form_class = CreateUpdateCommentForm
+        form_class = UpdateCommentForm
 
     @classmethod
     @login_required
     def perform_mutate(
-        cls, form: CreateUpdateCommentForm, info: ResolveInfo
+        cls, form: UpdateCommentForm, info: ResolveInfo
     ) -> "UpdateCommentMutation":
-        comment = Comment.objects.get(pk=form.cleaned_data.pop("comment"))
+        comment = Comment.objects.get(pk=form.cleaned_data.pop("id"))
         assert info.context is not None
 
         if comment.user != info.context.user:

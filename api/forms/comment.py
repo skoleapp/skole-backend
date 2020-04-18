@@ -1,8 +1,10 @@
+from django import forms
+
 from api.utils.forms import DeleteObjectForm, TargetForm
 from core.models import Comment
 
 
-class CreateUpdateCommentForm(TargetForm):
+class CreateCommentForm(TargetForm):
     class Meta:
         model = Comment
         fields = (
@@ -19,6 +21,14 @@ class CreateUpdateCommentForm(TargetForm):
             return attachment
         else:
             return self.cleaned_data["attachment"]
+
+
+class UpdateCommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ("id", "text", "attachment")
+
+    clean_attachment = CreateCommentForm.clean_attachment
 
 
 class DeleteCommentForm(DeleteObjectForm):

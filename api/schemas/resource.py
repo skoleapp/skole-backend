@@ -6,7 +6,8 @@ from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphql import ResolveInfo
 from graphql_jwt.decorators import login_required
 
-from api.forms.resource import CreateUpdateResourceForm, DeleteResourceForm
+from api.forms.resource import (CreateResourceForm, DeleteResourceForm,
+                                UpdateResourceForm)
 from api.schemas.school import SchoolObjectType
 from api.utils.common import get_obj_or_none
 from api.utils.delete import DeleteMutationMixin
@@ -47,13 +48,13 @@ class ResourceObjectType(VoteMixin, StarredMixin, DjangoObjectType):
 
 class CreateResourceMutation(FileMixin, DjangoModelFormMutation):
     class Meta:
-        form_class = CreateUpdateResourceForm
+        form_class = CreateResourceForm
         exclude_fields = ("id",)
 
     @classmethod
     @login_required
     def perform_mutate(
-        cls, form: CreateUpdateResourceForm, info: ResolveInfo
+        cls, form: CreateResourceForm, info: ResolveInfo
     ) -> "CreateResourceMutation":
         assert info.context is not None
         resource = Resource.objects.create_resource(
@@ -66,22 +67,16 @@ class CreateResourceMutation(FileMixin, DjangoModelFormMutation):
 
 class UpdateResourceMutation(DjangoModelFormMutation):
     class Meta:
-        form_class = CreateUpdateResourceForm
-        exclude_fields = ("course",)
+        form_class = UpdateResourceForm
 
     @classmethod
     @login_required
     def perform_mutate(
-        cls, form: CreateUpdateResourceForm, info: ResolveInfo
+        cls, form: UpdateResourceForm, info: ResolveInfo
     ) -> "UpdateResourceMutation":
         assert info.context is not None
 
-        try:
-            resource = Resource.objects.get(pk=form.cleaned_data.pop("resource_id"))
-        except Resource.DoesNotExist as e:
-            # Camel case on purpose.
-            return cls(errors=[{"field": "resourceId", "messages": [str(e)]}])
-
+        resource = form.instance
         if resource.user != info.context.user:
             return cls(errors=[{"field": "__all__", "messages": [NOT_OWNER_MESSAGE]}])
 

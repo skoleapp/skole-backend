@@ -1,0 +1,8 @@
+*
+!api
+!config
+!core
+!static
+!manage.py
+!requirements.txt
+!requirements-dev.txt

@@ -3,7 +3,7 @@
   fields:
     username: root
     email: root@root.com
-    password: pbkdf2_sha256$150000$gxz3raENC7JU$5ZWSBCqPqjox2VwHG5RHuu2UnaGCBt7rbO2QX5E7LAY=  # root
+    password: pbkdf2_sha256$150000$gxz3raENC7JU$5ZWSBCqPqjox2VwHG5RHuu2UnaGCBt7rbO2QX5E7LAY= # root
     title: ""
     bio: ""
     avatar: ""
@@ -16,7 +16,7 @@
   fields:
     username: testuser2
     email: test2@test.com
-    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4=  # password
+    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4= # password
     title: ""
     bio: ""
     avatar: uploads/avatars/test_avatar.jpg
@@ -29,7 +29,7 @@
   fields:
     username: testuser3
     email: ""
-    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4=  # password
+    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4= # password
     title: ""
     bio: ""
     avatar: ""
@@ -42,7 +42,7 @@
   fields:
     username: testuser4
     email: ""
-    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4=  # password
+    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4= # password
     title: ""
     bio: ""
     avatar: ""
@@ -55,7 +55,7 @@
   fields:
     username: testuser5
     email: ""
-    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4=  # password
+    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4= # password
     title: ""
     bio: ""
     avatar: ""
@@ -68,7 +68,7 @@
   fields:
     username: testuser6
     email: ""
-    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4=  # password
+    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4= # password
     title: ""
     bio: ""
     avatar: ""
@@ -81,7 +81,7 @@
   fields:
     username: testuser7
     email: ""
-    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4=  # password
+    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4= # password
     title: ""
     bio: ""
     avatar: ""
@@ -94,7 +94,7 @@
   fields:
     username: testuser8
     email: ""
-    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4=  # password
+    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4= # password
     title: ""
     bio: ""
     avatar: ""
@@ -107,7 +107,7 @@
   fields:
     username: testuser9
     email: ""
-    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4=  # password
+    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4= # password
     title: ""
     bio: ""
     avatar: ""
@@ -120,7 +120,7 @@
   fields:
     username: testuser10
     email: ""
-    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4=  # password
+    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4= # password
     title: ""
     bio: ""
     avatar: ""
@@ -133,7 +133,7 @@
   fields:
     username: testuser11
     email: ""
-    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4=  # password
+    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4= # password
     title: ""
     bio: ""
     avatar: ""
@@ -146,7 +146,7 @@
   fields:
     username: testuser12
     email: ""
-    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4=  # password
+    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4= # password
     title: ""
     bio: ""
     avatar: ""
@@ -154,7 +154,6 @@
     is_superuser: false
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
-
 
 - model: core.CountryTranslation
   pk: 1
@@ -178,7 +177,6 @@
 - model: core.Country
   pk: 1
   fields: {}
-
 
 - model: core.CityTranslation
   pk: 1
@@ -292,7 +290,6 @@
   fields:
     country: 1
 
-
 - model: core.SchoolTypeTranslation
   pk: 1
   fields:
@@ -357,7 +354,6 @@
 - model: core.SchoolType
   pk: 3
   fields: {}
-
 
 - model: core.SchoolTranslation
   pk: 1
@@ -499,7 +495,6 @@
     school_type: 3
     city: 5
 
-
 - model: core.SubjectTranslation
   pk: 1
   fields:
@@ -585,7 +580,6 @@
 - model: core.Subject
   pk: 4
   fields: {}
-
 
 - model: core.Course
   pk: 1
@@ -708,7 +702,6 @@
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
 
-
 - model: core.ResourceTypeTranslation
   pk: 1
   fields:
@@ -795,7 +788,6 @@
   pk: 4
   fields: {}
 
-
 - model: core.Resource
   pk: 1
   fields:
@@ -830,7 +822,6 @@
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
 
-
 - model: core.Comment
   pk: 1
   fields:
@@ -857,7 +848,7 @@
   pk: 3
   fields:
     text: ""
-    attachment: uploads/attachments/test_file.txt
+    attachment: uploads/attachments/test_attachment.png
     resource: 1
     course: null
     comment: null
@@ -1063,7 +1054,6 @@
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
 
-
 - model: core.Vote
   pk: 1
   fields:
@@ -1088,7 +1078,6 @@
     resource: null
     status: -1
     user: 4
-
 
 - model: core.BetaCode
   pk: 1

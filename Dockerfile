@@ -1,19 +1,22 @@
-FROM python:3.8.2-alpine
+FROM python:3.8.2-alpine3.11
 
-ENV PYTHONUNBUFFERED 1
-ENV PYTHONDONTWRITEBYTECODE 1
+RUN adduser --disabled-password user
+WORKDIR /home/user/app
+RUN chown user:user /home/user/app
 
-RUN mkdir /app
-WORKDIR /app
+ENV PATH="/home/user/.local/bin:${PATH}"
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1
 
 RUN apk add --update-cache --no-cache postgresql-client gettext jpeg-dev libmagic
+
+COPY --chown=user:user requirements.txt .
+COPY --chown=user:user requirements-dev.txt .
+
 RUN apk add --update-cache --no-cache --virtual .tmp-build-deps \
-    gcc libc-dev linux-headers postgresql-dev musl-dev zlib zlib-dev
+        gcc libc-dev linux-headers postgresql-dev musl-dev zlib zlib-dev \
+    && su user -c 'pip install --user --no-cache-dir --upgrade pip' \
+    && su user -c 'pip install --user --no-cache-dir -r requirements.txt -r requirements-dev.txt' \
+    && apk del .tmp-build-deps
 
-COPY requirements.txt .
-COPY requirements-dev.txt .
-
-RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
-RUN pip install -r requirements-dev.txt
-RUN apk del .tmp-build-deps
+USER user

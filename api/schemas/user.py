@@ -68,6 +68,7 @@ class UserObjectType(DjangoObjectType):
             "avatar",
             "avatar_thumbnail",
             "created",
+            "is_active",
             "course_count",
             "resource_count",
             "votes",
@@ -101,6 +102,9 @@ class UserObjectType(DjangoObjectType):
 
     def resolve_avatar_thumbnail(self, info: ResolveInfo) -> str:
         return self.avatar_thumbnail.url if self.avatar_thumbnail else ""
+
+    def resolve_is_active(self, info: ResolveInfo) -> str:
+        return info.context.user.is_active
 
     def resolve_starred_courses(self, info: ResolveInfo) -> "QuerySet[Course]":
         return Course.objects.filter(stars__user__pk=self.pk)

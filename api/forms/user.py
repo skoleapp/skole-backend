@@ -37,6 +37,10 @@ class VerifyAccountForm(forms.Form):
     token = forms.CharField()
 
 
+class EmailForm(forms.Form):
+    email = forms.EmailField()
+
+
 class LoginForm(forms.ModelForm):
     username = forms.CharField()
     password = forms.CharField()

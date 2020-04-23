@@ -3,14 +3,19 @@ from typing import Any, Literal, Optional
 
 import graphene
 from django.contrib.auth import get_user_model
+from django.core.signing import BadSignature, SignatureExpired
 from django.db.models import QuerySet
 from django.utils.translation import gettext as _
 from graphene_django import DjangoObjectType
-from graphene_django.forms.mutation import DjangoModelFormMutation, DjangoFormMutation
+from graphene_django.forms.mutation import DjangoFormMutation, DjangoModelFormMutation
 from graphene_django.types import ErrorType
 from graphql import GraphQLError, ResolveInfo
+from graphql_auth.exceptions import TokenScopeError, UserAlreadyVerified
+from graphql_auth.models import UserStatus
+from graphql_auth.shortcuts import get_user_by_email
 from graphql_jwt.decorators import login_required, token_auth
 from mypy.types import JsonDict
+from django.core.exceptions import ObjectDoesNotExist
 
 from api.forms.user import (
     ChangePasswordForm,
@@ -19,16 +24,14 @@ from api.forms.user import (
     RegisterForm,
     UpdateUserForm,
     VerifyAccountForm,
+    EmailForm,
 )
 from api.schemas.course import CourseObjectType
 from api.schemas.resource import ResourceObjectType
 from api.utils.file import FileMixin
 from api.utils.pagination import PaginationMixin, get_paginator
+from api.utils.messages import ACTIVATION_EMAIL_ERROR_MESSAGE, ACCOUNT_ALREADY_VERIFIED_MESSAGE
 from core.models import BetaCode, Course, Resource, User
-from graphql_auth.exceptions import UserAlreadyVerified, UserNotVerified, TokenScopeError
-from graphql_auth.constants import Messages
-from graphql_auth.models import UserStatus
-from django.core.signing import BadSignature, SignatureExpired
 
 
 class UserObjectType(DjangoObjectType):
@@ -137,7 +140,7 @@ class RegisterMutation(DjangoModelFormMutation):
                 errors=[
                     {
                         "field": "__all__",
-                        "messages": [_("Error while sending activation email.")], # TODO: Translate this.
+                        "messages": [ACTIVATION_EMAIL_ERROR_MESSAGE],
                     }
                 ]
             )
@@ -159,35 +162,107 @@ class VerifyAccountMutation(DjangoFormMutation):
         form_class = VerifyAccountForm
 
     @classmethod
-    def perform_mutate(cls, form: VerifyAccountForm, info: ResolveInfo, **kwargs: JsonDict):
+    def perform_mutate(
+        cls, form: VerifyAccountForm, info: ResolveInfo, **kwargs: JsonDict
+    ):
         token = form.cleaned_data.get("token")
 
         try:
             UserStatus.verify(token)
+             # TODO: Translate this.
             return cls(message=_("Account verified successfully!"))
         except UserAlreadyVerified:
-            return cls(errors=[
+            return cls(
+                errors=[
                     {
                         "field": "__all__",
-                        "messages": [_("This account has already been verified.")], # TODO: Translate this.
+                        "messages": [ACCOUNT_ALREADY_VERIFIED_MESSAGE],
                     }
-                ])
+                ]
+            )
 
         except SignatureExpired:
-            return cls(errors=[
+            return cls(
+                errors=[
                     {
                         "field": "__all__",
-                        "messages": [_("Token expired. Please request new activation link.")], # TODO: Translate this.
+                        "messages": [
+                            # TODO: Translate this.
+                            _("Token expired. Please request new activation link.")
+                        ],
                     }
-                ])
+                ]
+            )
 
         except (BadSignature, TokenScopeError):
-            return cls(errors=[
+            return cls(
+                errors=[
                     {
                         "field": "__all__",
-                        "messages": [_("Invalid token. Please request new activation link.")], # TODO: Translate this.
+                        "messages": [
+                             # TODO: Translate this.
+                            _("Invalid token. Please request new activation link.")
+                        ],
                     }
-                ])
+                ]
+            )
+
+
+class ResendVerificationEmailMutation(DjangoFormMutation):
+    """
+    Sends activation email again.
+    An error is returned ff a user with the provided email is not found.
+    """
+
+    message = graphene.String()
+
+    class Meta:
+        form_class = EmailForm
+
+    @classmethod
+    def perform_mutate(
+        cls, form: EmailForm, info: ResolveInfo, **kwargs: JsonDict
+    ):
+        email = form.cleaned_data.get("email")
+
+        try:
+            user = get_user_by_email(email)
+            user.status.resend_activation_email(info)
+            # TODO: Translate this.
+            return cls(message=_("Verification email sent successfully!"))
+
+        except ObjectDoesNotExist:
+            return cls(
+                errors=[
+                    {
+                        "field": "__all__",
+                        "messages": [
+                             # TODO: Translate this.
+                            _("A user with the provided email was not found.")
+                        ],
+                    }
+                ]
+            )
+
+        except SMTPException:
+            return cls(
+                errors=[
+                    {
+                        "field": "__all__",
+                        "messages": [ACTIVATION_EMAIL_ERROR_MESSAGE],
+                    }
+                ]
+            )
+
+        except UserAlreadyVerified:
+            return cls(
+                errors=[
+                    {
+                        "field": "__all__",
+                        "messages": [ACCOUNT_ALREADY_VERIFIED_MESSAGE],
+                    }
+                ]
+            )
 
 
 class LoginMutation(DjangoModelFormMutation):
@@ -355,6 +430,7 @@ class Query(graphene.ObjectType):
 class Mutation(graphene.ObjectType):
     register = RegisterMutation.Field()
     verify_account = VerifyAccountMutation.Field()
+    resend_verification = ResendVerificationEmailMutation.Field()
     login = LoginMutation.Field()
     update_user = UpdateUserMutation.Field()
     change_password = ChangePasswordMutation.Field()

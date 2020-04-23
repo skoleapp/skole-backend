@@ -23,6 +23,8 @@ from api.schemas.resource import ResourceObjectType
 from api.utils.file import FileMixin
 from api.utils.pagination import PaginationMixin, get_paginator
 from core.models import BetaCode, Course, Resource, User
+from django.conf import settings
+from smtplib import SMTPException
 
 
 class UserObjectType(DjangoObjectType):
@@ -46,7 +48,7 @@ class UserObjectType(DjangoObjectType):
             "bio",
             "avatar",
             "avatar_thumbnail",
-            "created",
+            "date_joined",
             "course_count",
             "resource_count",
             "votes",
@@ -93,6 +95,16 @@ class PaginatedUserObjectType(PaginationMixin, graphene.ObjectType):
 
 
 class RegisterMutation(DjangoModelFormMutation):
+    """
+    Register user with fields defined in `RegisterForm`.
+    Check if there is no user with that email.
+    If it exists, it does not register the user.
+    When creating the user, it also creates a `UserStatus`
+    related to that user, making it possible to track
+    if the user is archived, verified and has a secondary email.
+    Send account verification email.
+    """
+
     user = graphene.Field(UserObjectType)
 
     class Meta:
@@ -105,11 +117,23 @@ class RegisterMutation(DjangoModelFormMutation):
     ) -> "RegisterMutation":
         user = get_user_model().objects.create_user(
             username=form.cleaned_data["username"],
+            email=form.cleaned_data["email"],
             password=form.cleaned_data["password"],
         )
 
         code = form.cleaned_data["code"]
         BetaCode.objects.decrement_usages(code)
+
+        try:
+            user.status.send_activation_email(info)
+        except SMTPException:
+            return cls(errors=[
+                    {
+                        "field": "__all__",
+                        "messages": [_("Error while sending activation email.")],
+                    }
+                ])
+
         return cls(user=user)
 
 

@@ -20,10 +20,8 @@ from core.utils.vote import (
 #  this doesn't actually work, so we ignore it.
 #  https://gitter.im/mypy-django/Lobby?at=5de6bd09d75ad3721d4a58ba
 class UserManager(BaseUserManager):  # type: ignore[type-arg]
-    def create_user(self, username: str, password: str) -> "User":
-        user = self.model(username=username)
-        user.is_staff = False
-        user.is_superuser = False
+    def create_user(self, username: str, email: str, password: str) -> "User":
+        user = self.model(username=username, email=self.normalize_email(email))
         user.avatar = None
         user.set_password(password)
         user.save()
@@ -75,7 +73,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         unique=True,
         error_messages={"unique": _("This username is taken.")},
     )
-    email = models.EmailField(blank=True)
+    email = models.EmailField(unique=True)
     title = models.CharField(max_length=100, blank=True)
     bio = models.TextField(max_length=2000, blank=True)
     avatar = models.ImageField(
@@ -90,15 +88,14 @@ class User(AbstractBaseUser, PermissionsMixin):
         options={"quality": 60},
     )
     score = models.IntegerField(default=0)
-
     is_staff = models.BooleanField(default=False)
-
+    is_active = models.BooleanField(default=True)
+    date_joined = models.DateTimeField(auto_now=True)
     modified = models.DateTimeField(auto_now=True)
-    created = models.DateTimeField(auto_now_add=True)
-
     objects = UserManager()
 
     USERNAME_FIELD = "username"
+    EMAIL_FIELD = "email"
 
     def __str__(self) -> str:
         return f"{self.username}"

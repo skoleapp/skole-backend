@@ -8,22 +8,24 @@
     bio: ""
     avatar: ""
     is_staff: true
+    is_active: true
     is_superuser: true
     modified: 2020-01-01 12:00:00.000000+00:00
-    created: 2020-01-01 12:00:00.000000+00:00
+    date_joined: 2020-01-01 12:00:00.000000+00:00
 - model: core.User
   pk: 2
   fields:
     username: testuser2
-    email: test2@test.com
+    email: ""
     password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4= # password
     title: ""
     bio: ""
     avatar: uploads/avatars/test_avatar.jpg
     is_staff: false
+    is_active: true
     is_superuser: false
     modified: 2020-01-01 12:00:00.000000+00:00
-    created: 2020-01-01 12:00:00.000000+00:00
+    date_joined: 2020-01-01 12:00:00.000000+00:00
 - model: core.User
   pk: 3
   fields:
@@ -34,9 +36,10 @@
     bio: ""
     avatar: ""
     is_staff: false
+    is_active: true
     is_superuser: false
     modified: 2020-01-01 12:00:00.000000+00:00
-    created: 2020-01-01 12:00:00.000000+00:00
+    date_joined: 2020-01-01 12:00:00.000000+00:00
 - model: core.User
   pk: 4
   fields:
@@ -47,9 +50,10 @@
     bio: ""
     avatar: ""
     is_staff: false
+    is_active: true
     is_superuser: false
     modified: 2020-01-01 12:00:00.000000+00:00
-    created: 2020-01-01 12:00:00.000000+00:00
+    date_joined: 2020-01-01 12:00:00.000000+00:00
 - model: core.User
   pk: 5
   fields:
@@ -60,9 +64,10 @@
     bio: ""
     avatar: ""
     is_staff: false
+    is_active: true
     is_superuser: false
     modified: 2020-01-01 12:00:00.000000+00:00
-    created: 2020-01-01 12:00:00.000000+00:00
+    date_joined: 2020-01-01 12:00:00.000000+00:00
 - model: core.User
   pk: 6
   fields:
@@ -73,9 +78,10 @@
     bio: ""
     avatar: ""
     is_staff: false
+    is_active: true
     is_superuser: false
     modified: 2020-01-01 12:00:00.000000+00:00
-    created: 2020-01-01 12:00:00.000000+00:00
+    date_joined: 2020-01-01 12:00:00.000000+00:00
 - model: core.User
   pk: 7
   fields:
@@ -86,9 +92,10 @@
     bio: ""
     avatar: ""
     is_staff: false
+    is_active: true
     is_superuser: false
     modified: 2020-01-01 12:00:00.000000+00:00
-    created: 2020-01-01 12:00:00.000000+00:00
+    date_joined: 2020-01-01 12:00:00.000000+00:00
 - model: core.User
   pk: 8
   fields:
@@ -99,9 +106,10 @@
     bio: ""
     avatar: ""
     is_staff: false
+    is_active: true
     is_superuser: false
     modified: 2020-01-01 12:00:00.000000+00:00
-    created: 2020-01-01 12:00:00.000000+00:00
+    date_joined: 2020-01-01 12:00:00.000000+00:00
 - model: core.User
   pk: 9
   fields:
@@ -112,9 +120,10 @@
     bio: ""
     avatar: ""
     is_staff: false
+    is_active: true
     is_superuser: false
     modified: 2020-01-01 12:00:00.000000+00:00
-    created: 2020-01-01 12:00:00.000000+00:00
+    date_joined: 2020-01-01 12:00:00.000000+00:00
 - model: core.User
   pk: 10
   fields:
@@ -125,9 +134,10 @@
     bio: ""
     avatar: ""
     is_staff: false
+    is_active: true
     is_superuser: false
     modified: 2020-01-01 12:00:00.000000+00:00
-    created: 2020-01-01 12:00:00.000000+00:00
+    date_joined: 2020-01-01 12:00:00.000000+00:00
 - model: core.User
   pk: 11
   fields:
@@ -138,9 +148,10 @@
     bio: ""
     avatar: ""
     is_staff: false
+    is_active: true
     is_superuser: false
     modified: 2020-01-01 12:00:00.000000+00:00
-    created: 2020-01-01 12:00:00.000000+00:00
+    date_joined: 2020-01-01 12:00:00.000000+00:00
 - model: core.User
   pk: 12
   fields:
@@ -151,9 +162,10 @@
     bio: ""
     avatar: ""
     is_staff: false
+    is_active: true
     is_superuser: false
     modified: 2020-01-01 12:00:00.000000+00:00
-    created: 2020-01-01 12:00:00.000000+00:00
+    date_joined: 2020-01-01 12:00:00.000000+00:00
 
 - model: core.CountryTranslation
   pk: 1

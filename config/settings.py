@@ -1,7 +1,7 @@
-import datetime
 import os
 import urllib.error
 import urllib.request
+from datetime import timedelta
 
 import dj_database_url
 
@@ -24,6 +24,7 @@ MEDIA_ROOT = "media"
 STATIC_ROOT = "static"
 MEDIA_URL = "media/"
 STATIC_URL = "/static/"
+SITE_ID = 1
 
 # This is used to allow AWS ELB health checks access the backend.
 # https://gist.github.com/dryan/8271687
@@ -46,13 +47,14 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.sessions",
     "django.contrib.staticfiles",
+    "django.contrib.sites",
     "corsheaders",
     "graphene_django",
     "imagekit",
     "django_s3_storage",
     "parler",
     "graphql_auth",
-    'django_filters',
+    "django_filters",
     "core",
 ]
 
@@ -88,15 +90,9 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
-    {
-        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
-    },
+    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",},
+    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",},
+    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
 ]
 
 AUTHENTICATION_BACKENDS = [
@@ -137,27 +133,36 @@ GRAPHENE = {
 
 GRAPHQL_JWT = {
     "JWT_VERIFY_EXPIRATION": not DEBUG,
-    "JWT_EXPIRATION_DELTA": datetime.timedelta(days=7),
-    "JWT_REFRESH_EXPIRATION_DELTA": datetime.timedelta(days=60),
+    "JWT_EXPIRATION_DELTA": timedelta(days=7),
+    "JWT_REFRESH_EXPIRATION_DELTA": timedelta(days=60),
 }
 
 GRAPHQL_AUTH = {
-    "UPDATE_MUTATION_FIELDS": {},
+    "EXPIRATION_ACTIVATION_TOKEN": timedelta(days=7),
+    "EXPIRATION_PASSWORD_RESET_TOKEN": timedelta(hours=1),
+    "EXPIRATION_SECONDARY_EMAIL_ACTIVATION_TOKEN": timedelta(hours=1),
+    "EMAIL_FROM": os.environ.get(
+        "DEFAULT_FROM_EMAIL", ""
+    ),  # FIXME: This is not working for some reason.
+    "SEND_ACTIVATION_EMAIL": True,
+    "ACTIVATION_PATH_ON_EMAIL": "activate-account",
+    "PASSWORD_RESET_PATH_ON_EMAIL": "reset-password",
+    "ALLOW_DELETE_ACCOUNT": False,
 }
 
 # Templates
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": ["templates"],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
             ],
         },
     },

@@ -10,6 +10,7 @@ for model_name, model in core.models.items():
         admin.site.register(model)
 
 admin.site.register(get_user_model())
+admin.site.site_header = "Skole Administration"
 
 # We monkey patch the method here so that it's used for every single translated model.
 # Without this would just be displayed as "Finnish" or "English" in the object list.

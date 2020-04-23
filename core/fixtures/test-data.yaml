@@ -1,3 +1,9 @@
+- model: sites.site
+  pk: 1
+  fields:
+    domain: localhost:3001
+    name: Skole
+
 - model: core.User
   pk: 1
   fields:

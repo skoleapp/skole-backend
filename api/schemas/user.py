@@ -1,3 +1,4 @@
+from smtplib import SMTPException
 from typing import Any, Literal, Optional
 
 import graphene
@@ -23,8 +24,6 @@ from api.schemas.resource import ResourceObjectType
 from api.utils.file import FileMixin
 from api.utils.pagination import PaginationMixin, get_paginator
 from core.models import BetaCode, Course, Resource, User
-from django.conf import settings
-from smtplib import SMTPException
 
 
 class UserObjectType(DjangoObjectType):
@@ -127,12 +126,14 @@ class RegisterMutation(DjangoModelFormMutation):
         try:
             user.status.send_activation_email(info)
         except SMTPException:
-            return cls(errors=[
+            return cls(
+                errors=[
                     {
                         "field": "__all__",
                         "messages": [_("Error while sending activation email.")],
                     }
-                ])
+                ]
+            )
 
         return cls(user=user)
 

@@ -34,12 +34,9 @@ class RegisterForm(forms.ModelForm):
 
 
 class TokenForm(forms.Form):
-    """
-    We don't make the token required because we don't want
-    to return error messages for that specific field but rather
-    general error messages as the token is always a hidden field.
-    """
-
+    # We don't make the token required because we don't want
+    # to return error messages for that specific field but rather
+    # general error messages as the token is always a hidden field.
     token = forms.CharField(required=False)
 
 
@@ -133,18 +130,6 @@ class ChangePasswordForm(forms.ModelForm):
 
 class SetPasswordForm(TokenForm):
     new_password = forms.CharField(min_length=settings.PASSWORD_MIN_LENGTH)
-    confirm_new_password = forms.CharField()
-
-    def clean_confirm_new_password(self):
-        password1 = self.cleaned_data.get("new_password")
-        password2 = self.cleaned_data.get("confirm_new_password")
-
-        if password1 and password2:
-            if password1 != password2:
-                # TODO: Translate this
-                raise forms.ValidationError(_("Passwords do not match."))
-
-        return password2
 
 
 class DeleteUserForm(forms.ModelForm):

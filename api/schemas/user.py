@@ -6,7 +6,7 @@ from django.contrib.auth import get_user_model
 from django.db.models import QuerySet
 from django.utils.translation import gettext as _
 from graphene_django import DjangoObjectType
-from graphene_django.forms.mutation import DjangoModelFormMutation
+from graphene_django.forms.mutation import DjangoModelFormMutation, DjangoFormMutation
 from graphene_django.types import ErrorType
 from graphql import GraphQLError, ResolveInfo
 from graphql_jwt.decorators import login_required, token_auth
@@ -18,12 +18,17 @@ from api.forms.user import (
     LoginForm,
     RegisterForm,
     UpdateUserForm,
+    VerifyAccountForm,
 )
 from api.schemas.course import CourseObjectType
 from api.schemas.resource import ResourceObjectType
 from api.utils.file import FileMixin
 from api.utils.pagination import PaginationMixin, get_paginator
 from core.models import BetaCode, Course, Resource, User
+from graphql_auth.exceptions import UserAlreadyVerified, UserNotVerified, TokenScopeError
+from graphql_auth.constants import Messages
+from graphql_auth.models import UserStatus
+from django.core.signing import BadSignature, SignatureExpired
 
 
 class UserObjectType(DjangoObjectType):
@@ -47,7 +52,9 @@ class UserObjectType(DjangoObjectType):
             "bio",
             "avatar",
             "avatar_thumbnail",
-            "date_joined",
+            "created",
+            "is_active",
+            "is_staff",
             "course_count",
             "resource_count",
             "votes",
@@ -130,12 +137,57 @@ class RegisterMutation(DjangoModelFormMutation):
                 errors=[
                     {
                         "field": "__all__",
-                        "messages": [_("Error while sending activation email.")],
+                        "messages": [_("Error while sending activation email.")], # TODO: Translate this.
                     }
                 ]
             )
 
         return cls(user=user)
+
+
+class VerifyAccountMutation(DjangoFormMutation):
+    """
+    Verify user account.
+    Receive the token that was sent by email.
+    If the token is valid, make the user verified
+    by making the `user.status.verified` field true.
+    """
+
+    message = graphene.String()
+
+    class Meta:
+        form_class = VerifyAccountForm
+
+    @classmethod
+    def perform_mutate(cls, form: VerifyAccountForm, info: ResolveInfo, **kwargs: JsonDict):
+        token = form.cleaned_data.get("token")
+
+        try:
+            UserStatus.verify(token)
+            return cls(message=_("Account verified successfully!"))
+        except UserAlreadyVerified:
+            return cls(errors=[
+                    {
+                        "field": "__all__",
+                        "messages": [_("This account has already been verified.")], # TODO: Translate this.
+                    }
+                ])
+
+        except SignatureExpired:
+            return cls(errors=[
+                    {
+                        "field": "__all__",
+                        "messages": [_("Token expired. Please request new activation link.")], # TODO: Translate this.
+                    }
+                ])
+
+        except (BadSignature, TokenScopeError):
+            return cls(errors=[
+                    {
+                        "field": "__all__",
+                        "messages": [_("Invalid token. Please request new activation link.")], # TODO: Translate this.
+                    }
+                ])
 
 
 class LoginMutation(DjangoModelFormMutation):
@@ -302,6 +354,7 @@ class Query(graphene.ObjectType):
 
 class Mutation(graphene.ObjectType):
     register = RegisterMutation.Field()
+    verify_account = VerifyAccountMutation.Field()
     login = LoginMutation.Field()
     update_user = UpdateUserMutation.Field()
     change_password = ChangePasswordMutation.Field()

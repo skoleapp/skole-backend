@@ -17,12 +17,12 @@
     is_active: true
     is_superuser: true
     modified: 2020-01-01 12:00:00.000000+00:00
-    date_joined: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 - model: core.User
   pk: 2
   fields:
     username: testuser2
-    email: ""
+    email: testuser2@test.com
     password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4= # password
     title: ""
     bio: ""
@@ -31,12 +31,12 @@
     is_active: true
     is_superuser: false
     modified: 2020-01-01 12:00:00.000000+00:00
-    date_joined: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 - model: core.User
   pk: 3
   fields:
     username: testuser3
-    email: ""
+    email: testuser3@test.com
     password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4= # password
     title: ""
     bio: ""
@@ -45,12 +45,12 @@
     is_active: true
     is_superuser: false
     modified: 2020-01-01 12:00:00.000000+00:00
-    date_joined: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 - model: core.User
   pk: 4
   fields:
     username: testuser4
-    email: ""
+    email: testuser4@test.com
     password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4= # password
     title: ""
     bio: ""
@@ -59,12 +59,12 @@
     is_active: true
     is_superuser: false
     modified: 2020-01-01 12:00:00.000000+00:00
-    date_joined: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 - model: core.User
   pk: 5
   fields:
     username: testuser5
-    email: ""
+    email: testuser5@test.com
     password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4= # password
     title: ""
     bio: ""
@@ -73,12 +73,12 @@
     is_active: true
     is_superuser: false
     modified: 2020-01-01 12:00:00.000000+00:00
-    date_joined: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 - model: core.User
   pk: 6
   fields:
     username: testuser6
-    email: ""
+    email: testuser6@test.com
     password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4= # password
     title: ""
     bio: ""
@@ -87,12 +87,12 @@
     is_active: true
     is_superuser: false
     modified: 2020-01-01 12:00:00.000000+00:00
-    date_joined: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 - model: core.User
   pk: 7
   fields:
     username: testuser7
-    email: ""
+    email: testuser7@test.com
     password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4= # password
     title: ""
     bio: ""
@@ -101,12 +101,12 @@
     is_active: true
     is_superuser: false
     modified: 2020-01-01 12:00:00.000000+00:00
-    date_joined: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 - model: core.User
   pk: 8
   fields:
     username: testuser8
-    email: ""
+    email: testuser8@test.com
     password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4= # password
     title: ""
     bio: ""
@@ -115,12 +115,12 @@
     is_active: true
     is_superuser: false
     modified: 2020-01-01 12:00:00.000000+00:00
-    date_joined: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 - model: core.User
   pk: 9
   fields:
     username: testuser9
-    email: ""
+    email: testuser9@test.com
     password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4= # password
     title: ""
     bio: ""
@@ -129,12 +129,12 @@
     is_active: true
     is_superuser: false
     modified: 2020-01-01 12:00:00.000000+00:00
-    date_joined: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 - model: core.User
   pk: 10
   fields:
     username: testuser10
-    email: ""
+    email: testuser10@test.com
     password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4= # password
     title: ""
     bio: ""
@@ -143,12 +143,12 @@
     is_active: true
     is_superuser: false
     modified: 2020-01-01 12:00:00.000000+00:00
-    date_joined: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 - model: core.User
   pk: 11
   fields:
     username: testuser11
-    email: ""
+    email: testuser11@test.com
     password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4= # password
     title: ""
     bio: ""
@@ -157,12 +157,12 @@
     is_active: true
     is_superuser: false
     modified: 2020-01-01 12:00:00.000000+00:00
-    date_joined: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 - model: core.User
   pk: 12
   fields:
     username: testuser12
-    email: ""
+    email: testuser12@test.com
     password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4= # password
     title: ""
     bio: ""
@@ -171,7 +171,7 @@
     is_active: true
     is_superuser: false
     modified: 2020-01-01 12:00:00.000000+00:00
-    date_joined: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 
 - model: core.CountryTranslation
   pk: 1
@@ -1100,45 +1100,5 @@
 - model: core.BetaCode
   pk: 1
   fields:
-    code: ABC00001
-    usages: 1
-- model: core.BetaCode
-  pk: 2
-  fields:
-    code: ABC00002
-    usages: 1
-- model: core.BetaCode
-  pk: 3
-  fields:
-    code: ABC00003
-    usages: 1
-- model: core.BetaCode
-  pk: 4
-  fields:
-    code: ABC00004
-    usages: 1
-- model: core.BetaCode
-  pk: 5
-  fields:
-    code: ABC00005
-    usages: 1
-- model: core.BetaCode
-  pk: 6
-  fields:
-    code: ABC00006
-    usages: 1
-- model: core.BetaCode
-  pk: 7
-  fields:
-    code: ABC00007
-    usages: 1
-- model: core.BetaCode
-  pk: 8
-  fields:
-    code: ABC00008
-    usages: 1
-- model: core.BetaCode
-  pk: 9
-  fields:
-    code: ABC00009
-    usages: 1
+    code: TEST
+    usages: 100

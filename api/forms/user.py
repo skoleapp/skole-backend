@@ -33,6 +33,10 @@ class RegisterForm(forms.ModelForm):
             raise forms.ValidationError(_("Invalid beta register code."))
 
 
+class VerifyAccountForm(forms.Form):
+    token = forms.CharField()
+
+
 class LoginForm(forms.ModelForm):
     username = forms.CharField()
     password = forms.CharField()

@@ -88,9 +88,9 @@ class User(AbstractBaseUser, PermissionsMixin):
         options={"quality": 60},
     )
     score = models.IntegerField(default=0)
-    is_staff = models.BooleanField(default=False)
+    created = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
-    date_joined = models.DateTimeField(auto_now=True)
+    is_staff = models.BooleanField(default=False)
     modified = models.DateTimeField(auto_now=True)
     objects = UserManager()
 

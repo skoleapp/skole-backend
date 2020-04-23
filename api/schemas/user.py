@@ -145,7 +145,7 @@ class RegisterMutation(DjangoModelFormMutation):
 
         try:
             # Ignore: Mypy doesn't recognize relation between `User` and `UserStatus` models.
-            user.status.send_activation_email(info) # type: ignore [attr-defined]
+            user.status.send_activation_email(info)  # type: ignore [attr-defined]
         except SMTPException:
             return cls(
                 errors=[{"field": "__all__", "messages": [EMAIL_ERROR_MESSAGE],}]
@@ -168,7 +168,9 @@ class VerifyAccountMutation(DjangoFormMutation):
         form_class = TokenForm
 
     @classmethod
-    def perform_mutate(cls, form: TokenForm, info: ResolveInfo, **kwargs: JsonDict) -> "VerifyAccountMutation":
+    def perform_mutate(
+        cls, form: TokenForm, info: ResolveInfo, **kwargs: JsonDict
+    ) -> "VerifyAccountMutation":
         token = form.cleaned_data.get("token")
 
         try:
@@ -224,7 +226,9 @@ class ResendVerificationEmailMutation(DjangoFormMutation):
         form_class = EmailForm
 
     @classmethod
-    def perform_mutate(cls, form: EmailForm, info: ResolveInfo, **kwargs: JsonDict) -> "ResendVerificationEmailMutation":
+    def perform_mutate(
+        cls, form: EmailForm, info: ResolveInfo, **kwargs: JsonDict
+    ) -> "ResendVerificationEmailMutation":
         email = form.cleaned_data.get("email")
 
         try:
@@ -273,7 +277,9 @@ class SendPasswordResetEmailMutation(DjangoFormMutation):
         form_class = EmailForm
 
     @classmethod
-    def perform_mutate(cls, form: EmailForm, info: ResolveInfo, **kwargs: JsonDict) -> "SendPasswordResetEmailMutation":
+    def perform_mutate(
+        cls, form: EmailForm, info: ResolveInfo, **kwargs: JsonDict
+    ) -> "SendPasswordResetEmailMutation":
         email = form.cleaned_data.get("email")
 
         try:
@@ -342,7 +348,9 @@ class ResetPasswordMutation(DjangoFormMutation):
         form_class = SetPasswordForm
 
     @classmethod
-    def perform_mutate(cls, form: EmailForm, info: ResolveInfo, **kwargs: JsonDict) -> "ResetPasswordMutation":
+    def perform_mutate(
+        cls, form: EmailForm, info: ResolveInfo, **kwargs: JsonDict
+    ) -> "ResetPasswordMutation":
         token = form.cleaned_data.get("token")
         password = form.cleaned_data.get("new_password")
 

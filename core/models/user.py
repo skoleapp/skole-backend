@@ -27,8 +27,8 @@ class UserManager(BaseUserManager):  # type: ignore[type-arg]
         user.save()
         return user
 
-    def create_superuser(self, username: str, password: str) -> "User":
-        user = self.model(username=username)
+    def create_superuser(self, username: str, email: str, password: str) -> "User":
+        user = self.model(username=username, email=self.normalize_email(email))
         user.is_staff = True
         user.is_superuser = True
         user.set_password(password)
@@ -88,7 +88,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         options={"quality": 60},
     )
     score = models.IntegerField(default=0)
-    created = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True)
     is_staff = models.BooleanField(default=False)
     modified = models.DateTimeField(auto_now=True)
     objects = UserManager()

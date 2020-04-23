@@ -20,14 +20,17 @@ def test_create_user(db: fixture) -> None:
     assert not user.is_staff
     assert not user.is_superuser
     assert user.username == username
-    assert user.email == ""
+    assert user.email == "test@email.com"
     assert user.check_password(password)
 
 
 def test_create_superuser(db: fixture) -> None:
     username = "testroot"
+    email = "root@email.com"
     password = "testpassword"
-    user = User.objects.create_superuser(username=username, password=password)
+    user = User.objects.create_superuser(
+        username=username, email=email, password=password
+    )
 
     assert user.is_superuser
     assert user.is_staff
@@ -37,8 +40,8 @@ def test_create_superuser(db: fixture) -> None:
 
 def test_update_user(db: fixture) -> None:
     user = User.objects.get(pk=2)
-    email = "new@email.com"
     username = "newusername"
+    email = "new@email.com"
     title = "new title"
     bio = "new bio"
     avatar = ""
@@ -46,8 +49,8 @@ def test_update_user(db: fixture) -> None:
         user=user, email=email, username=username, title=title, bio=bio, avatar=avatar,
     )
 
-    assert user.email == email
     assert user.username == username
+    assert user.email == email
     assert user.title == title
     assert user.bio == bio
     assert user.avatar == avatar

@@ -112,13 +112,19 @@ class UserSchemaTests(SchemaTestCase):
     def mutate_register(
         self,
         username: str = "newuser",
+        email: str = "newemail@test.com",
         password: str = "password",
-        code: str = "ABC00001",
+        code: str = "TEST",
     ) -> JsonDict:
         return self.execute_input_mutation(
             input_type="RegisterMutationInput!",
             op_name="register",
-            input={"username": username, "password": password, "code": code},
+            input={
+                "username": username,
+                "email": email,
+                "password": password,
+                "code": code,
+            },
             result="user { ...userFields }",
             fragment=self.user_fields,
         )
@@ -137,7 +143,7 @@ class UserSchemaTests(SchemaTestCase):
     def mutate_update_user(
         self,
         username: str = "testuser2",
-        email: str = "test2@test.com",
+        email: str = "testuser2@test.com",
         title: str = "",
         bio: str = "",
         avatar: str = "media/uploads/avatars/test_avatar.jpg",
@@ -196,6 +202,12 @@ class UserSchemaTests(SchemaTestCase):
         message = res["errors"][0]["messages"][0]
         assert "This username is taken." == message
 
+        # Email taken.
+        res = self.mutate_register(email="testuser2@test.com")
+        assert res["user"] is None
+        message = res["errors"][0]["messages"][0]
+        assert "User with this Email already exists." == message
+
         # Invalid beta code.
         res = self.mutate_register(code="invalid")
         assert res["user"] is None
@@ -219,14 +231,14 @@ class UserSchemaTests(SchemaTestCase):
 
         res = self.mutate_login()
         assert isinstance(res["token"], str)
-        assert res["user"]["email"] == "test2@test.com"
+        assert res["user"]["email"] == "testuser2@test.com"
         assert res["user"]["username"] == "testuser2"
 
     def test_login_error(self) -> None:
         self.authenticated = False
 
         # Trying to login with email.
-        res = self.mutate_login(username="test2@test.com")
+        res = self.mutate_login(username="testuser2@test.com")
         assert res["token"] is None
         assert res["errors"][0]["messages"][0] == AUTH_ERROR_MESSAGE
 
@@ -274,7 +286,7 @@ class UserSchemaTests(SchemaTestCase):
         user = self.query_user_me()
         assert user["id"] == "2"
         assert user["username"] == "testuser2"
-        assert user["email"] == "test2@test.com"
+        assert user["email"] == "testuser2@test.com"
 
         # Shouldn't work without auth.
         self.authenticated = False
@@ -289,11 +301,6 @@ class UserSchemaTests(SchemaTestCase):
         res = self.mutate_update_user()
         assert res["errors"] is None
         assert res["user"] == user
-
-        # Fine to remove associated email.
-        res = self.mutate_update_user(email="")
-        assert res["errors"] is None
-        assert res["user"]["email"] == ""
 
         # Update some fields.
         new_username = "newusername"

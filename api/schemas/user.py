@@ -68,7 +68,6 @@ class UserObjectType(DjangoObjectType):
             "avatar",
             "avatar_thumbnail",
             "created",
-            "is_staff",
             "course_count",
             "resource_count",
             "votes",

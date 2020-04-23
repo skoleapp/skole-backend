@@ -3,6 +3,7 @@ from typing import Any, Literal, Optional
 
 import graphene
 from django.contrib.auth import get_user_model
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.signing import BadSignature, SignatureExpired
 from django.db.models import QuerySet
 from django.utils.translation import gettext as _
@@ -10,27 +11,34 @@ from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoFormMutation, DjangoModelFormMutation
 from graphene_django.types import ErrorType
 from graphql import GraphQLError, ResolveInfo
-from graphql_auth.exceptions import TokenScopeError, UserAlreadyVerified
+from graphql_auth.exceptions import (
+    TokenScopeError,
+    UserAlreadyVerified,
+    UserNotVerified,
+)
 from graphql_auth.models import UserStatus
 from graphql_auth.shortcuts import get_user_by_email
 from graphql_jwt.decorators import login_required, token_auth
 from mypy.types import JsonDict
-from django.core.exceptions import ObjectDoesNotExist
 
 from api.forms.user import (
     ChangePasswordForm,
     DeleteUserForm,
+    EmailForm,
     LoginForm,
     RegisterForm,
     UpdateUserForm,
     VerifyAccountForm,
-    EmailForm,
 )
 from api.schemas.course import CourseObjectType
 from api.schemas.resource import ResourceObjectType
 from api.utils.file import FileMixin
+from api.utils.messages import (
+    ACCOUNT_ALREADY_VERIFIED_MESSAGE,
+    EMAIL_ERROR_MESSAGE,
+    USER_NOT_FOUND_WITH_PROVIDED_EMAIL_MESSAGE,
+)
 from api.utils.pagination import PaginationMixin, get_paginator
-from api.utils.messages import ACTIVATION_EMAIL_ERROR_MESSAGE, ACCOUNT_ALREADY_VERIFIED_MESSAGE
 from core.models import BetaCode, Course, Resource, User
 
 
@@ -137,12 +145,7 @@ class RegisterMutation(DjangoModelFormMutation):
             user.status.send_activation_email(info)
         except SMTPException:
             return cls(
-                errors=[
-                    {
-                        "field": "__all__",
-                        "messages": [ACTIVATION_EMAIL_ERROR_MESSAGE],
-                    }
-                ]
+                errors=[{"field": "__all__", "messages": [EMAIL_ERROR_MESSAGE],}]
             )
 
         return cls(user=user)
@@ -169,7 +172,7 @@ class VerifyAccountMutation(DjangoFormMutation):
 
         try:
             UserStatus.verify(token)
-             # TODO: Translate this.
+            # TODO: Translate this.
             return cls(message=_("Account verified successfully!"))
         except UserAlreadyVerified:
             return cls(
@@ -200,7 +203,7 @@ class VerifyAccountMutation(DjangoFormMutation):
                     {
                         "field": "__all__",
                         "messages": [
-                             # TODO: Translate this.
+                            # TODO: Translate this.
                             _("Invalid token. Please request new activation link.")
                         ],
                     }
@@ -220,9 +223,7 @@ class ResendVerificationEmailMutation(DjangoFormMutation):
         form_class = EmailForm
 
     @classmethod
-    def perform_mutate(
-        cls, form: EmailForm, info: ResolveInfo, **kwargs: JsonDict
-    ):
+    def perform_mutate(cls, form: EmailForm, info: ResolveInfo, **kwargs: JsonDict):
         email = form.cleaned_data.get("email")
 
         try:
@@ -236,22 +237,14 @@ class ResendVerificationEmailMutation(DjangoFormMutation):
                 errors=[
                     {
                         "field": "__all__",
-                        "messages": [
-                             # TODO: Translate this.
-                            _("A user with the provided email was not found.")
-                        ],
+                        "messages": [USER_NOT_FOUND_WITH_PROVIDED_EMAIL_MESSAGE],
                     }
                 ]
             )
 
         except SMTPException:
             return cls(
-                errors=[
-                    {
-                        "field": "__all__",
-                        "messages": [ACTIVATION_EMAIL_ERROR_MESSAGE],
-                    }
-                ]
+                errors=[{"field": "__all__", "messages": [EMAIL_ERROR_MESSAGE],}]
             )
 
         except UserAlreadyVerified:
@@ -263,6 +256,74 @@ class ResendVerificationEmailMutation(DjangoFormMutation):
                     }
                 ]
             )
+
+
+class SendPasswordResetEmailMutation(DjangoFormMutation):
+    """
+    Send password reset email.
+    For non verified users, send an activation
+    email instead.
+    An error is returned ff a user with the provided email is not found.
+    """
+
+    message = graphene.String()
+
+    class Meta:
+        form_class = EmailForm
+
+    @classmethod
+    def perform_mutate(cls, form: EmailForm, info: ResolveInfo, **kwargs: JsonDict):
+        email = form.cleaned_data.get("email")
+
+        try:
+            user = get_user_by_email(email)
+            user.status.send_password_reset_email(info, [email])
+            # TODO: Translate this.
+            return cls(
+                message=_(
+                    "Please check your email. A password reset link has been sent!"
+                )
+            )
+
+        except ObjectDoesNotExist:
+            return cls(
+                errors=[
+                    {
+                        "field": "__all__",
+                        "messages": [USER_NOT_FOUND_WITH_PROVIDED_EMAIL_MESSAGE],
+                    }
+                ]
+            )
+
+        except SMTPException:
+            return cls(
+                errors=[{"field": "__all__", "messages": [EMAIL_ERROR_MESSAGE],}]
+            )
+
+        except UserNotVerified:
+            user = get_user_by_email(email)
+
+            try:
+                user.status.resend_activation_email(info)
+
+                return cls(
+                    errors=[
+                        # TODO: Translate this.
+                        {
+                            "field": "__all__",
+                            "messages": [
+                                _(
+                                    "Please verify your account. A new verification email was sent."
+                                )
+                            ],
+                        }
+                    ]
+                )
+
+            except SMTPException:
+                return cls(
+                    errors=[{"field": "__all__", "messages": [EMAIL_ERROR_MESSAGE],}]
+                )
 
 
 class LoginMutation(DjangoModelFormMutation):
@@ -431,6 +492,7 @@ class Mutation(graphene.ObjectType):
     register = RegisterMutation.Field()
     verify_account = VerifyAccountMutation.Field()
     resend_verification = ResendVerificationEmailMutation.Field()
+    send_password_reset_email = SendPasswordResetEmailMutation.Field()
     login = LoginMutation.Field()
     update_user = UpdateUserMutation.Field()
     change_password = ChangePasswordMutation.Field()

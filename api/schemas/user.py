@@ -11,13 +11,16 @@ from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoFormMutation, DjangoModelFormMutation
 from graphene_django.types import ErrorType
 from graphql import GraphQLError, ResolveInfo
+from graphql_auth.constants import TokenAction
 from graphql_auth.exceptions import (
     TokenScopeError,
     UserAlreadyVerified,
     UserNotVerified,
 )
 from graphql_auth.models import UserStatus
+from graphql_auth.settings import graphql_auth_settings
 from graphql_auth.shortcuts import get_user_by_email
+from graphql_auth.utils import get_token_paylod, revoke_user_refresh_token
 from graphql_jwt.decorators import login_required, token_auth
 from mypy.types import JsonDict
 
@@ -27,8 +30,9 @@ from api.forms.user import (
     EmailForm,
     LoginForm,
     RegisterForm,
+    SetPasswordForm,
+    TokenForm,
     UpdateUserForm,
-    VerifyAccountForm,
 )
 from api.schemas.course import CourseObjectType
 from api.schemas.resource import ResourceObjectType
@@ -162,12 +166,10 @@ class VerifyAccountMutation(DjangoFormMutation):
     message = graphene.String()
 
     class Meta:
-        form_class = VerifyAccountForm
+        form_class = TokenForm
 
     @classmethod
-    def perform_mutate(
-        cls, form: VerifyAccountForm, info: ResolveInfo, **kwargs: JsonDict
-    ):
+    def perform_mutate(cls, form: TokenForm, info: ResolveInfo, **kwargs: JsonDict):
         token = form.cleaned_data.get("token")
 
         try:
@@ -324,6 +326,66 @@ class SendPasswordResetEmailMutation(DjangoFormMutation):
                 return cls(
                     errors=[{"field": "__all__", "messages": [EMAIL_ERROR_MESSAGE],}]
                 )
+
+
+class ResetPasswordMutation(DjangoFormMutation):
+    """
+    Change user's password without old password.
+    Receive the token that was sent by email.
+    If token and new passwords are valid, update
+    user's password and in case of using refresh
+    tokens, revoke all of them.
+    """
+
+    message = graphene.String()
+
+    class Meta:
+        form_class = SetPasswordForm
+
+    @classmethod
+    def perform_mutate(cls, form: EmailForm, info: ResolveInfo, **kwargs: JsonDict):
+        token = form.cleaned_data.get("token")
+        password = form.cleaned_data.get("new_password")
+
+        try:
+            payload = get_token_paylod(
+                token,
+                TokenAction.PASSWORD_RESET,
+                graphql_auth_settings.EXPIRATION_PASSWORD_RESET_TOKEN,
+            )
+
+            user = get_user_model().objects.get(**payload)
+            revoke_user_refresh_token(user)
+            user = get_user_model().objects.set_password(user=user, password=password)
+            return cls(
+                message=_("Password updated successfully!")
+            )  # TODO: Translate this.
+
+        except SignatureExpired:
+            return cls(
+                errors=[
+                    {
+                        "field": "__all__",
+                        "messages": [
+                            # TODO: Translate this.
+                            _("Token expired. Please request new password reset link.")
+                        ],
+                    }
+                ]
+            )
+
+        except (BadSignature, TokenScopeError):
+            return cls(
+                errors=[
+                    {
+                        "field": "__all__",
+                        "messages": [
+                            # TODO: Translate this.
+                            _("Invalid token. Please request new password reset link.")
+                        ],
+                    }
+                ]
+            )
 
 
 class LoginMutation(DjangoModelFormMutation):
@@ -493,6 +555,7 @@ class Mutation(graphene.ObjectType):
     verify_account = VerifyAccountMutation.Field()
     resend_verification = ResendVerificationEmailMutation.Field()
     send_password_reset_email = SendPasswordResetEmailMutation.Field()
+    reset_password = ResetPasswordMutation.Field()
     login = LoginMutation.Field()
     update_user = UpdateUserMutation.Field()
     change_password = ChangePasswordMutation.Field()

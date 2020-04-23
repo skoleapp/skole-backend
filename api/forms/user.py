@@ -33,8 +33,14 @@ class RegisterForm(forms.ModelForm):
             raise forms.ValidationError(_("Invalid beta register code."))
 
 
-class VerifyAccountForm(forms.Form):
-    token = forms.CharField()
+class TokenForm(forms.Form):
+    """
+    We don't make the token required because we don't want
+    to return error messages for that specific field but rather
+    general error messages as the token is always a hidden field.
+    """
+
+    token = forms.CharField(required=False)
 
 
 class EmailForm(forms.Form):
@@ -58,18 +64,16 @@ class LoginForm(forms.ModelForm):
             user = cast(User, user)
 
             if not user:
-                raise forms.ValidationError(AUTH_ERROR_MESSAGE, code="authentication")
+                raise forms.ValidationError(AUTH_ERROR_MESSAGE)
 
             if user.is_superuser:
-                raise forms.ValidationError(
-                    _("Cannot log in as superuser."), code="authentication"
-                )
+                raise forms.ValidationError(_("Cannot log in as superuser."))
 
             self.cleaned_data["user"] = user
             return self.cleaned_data
 
         except get_user_model().DoesNotExist:
-            raise forms.ValidationError(AUTH_ERROR_MESSAGE, code="authentication")
+            raise forms.ValidationError(AUTH_ERROR_MESSAGE)
 
 
 class UpdateUserForm(forms.ModelForm):
@@ -125,6 +129,22 @@ class ChangePasswordForm(forms.ModelForm):
             raise forms.ValidationError(_("Incorrect old password."))
 
         return old_password
+
+
+class SetPasswordForm(TokenForm):
+    new_password = forms.CharField(min_length=settings.PASSWORD_MIN_LENGTH)
+    confirm_new_password = forms.CharField()
+
+    def clean_confirm_new_password(self):
+        password1 = self.cleaned_data.get("new_password")
+        password2 = self.cleaned_data.get("confirm_new_password")
+
+        if password1 and password2:
+            if password1 != password2:
+                # TODO: Translate this
+                raise forms.ValidationError(_("Passwords do not match."))
+
+        return password2
 
 
 class DeleteUserForm(forms.ModelForm):

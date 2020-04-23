@@ -13,6 +13,7 @@
     title: ""
     bio: ""
     avatar: ""
+    is_active: True
     is_staff: true
     is_superuser: true
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -26,6 +27,7 @@
     title: ""
     bio: ""
     avatar: uploads/avatars/test_avatar.jpg
+    is_active: True
     is_staff: false
     is_superuser: false
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -39,6 +41,7 @@
     title: ""
     bio: ""
     avatar: ""
+    is_active: True
     is_staff: false
     is_superuser: false
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -52,6 +55,7 @@
     title: ""
     bio: ""
     avatar: ""
+    is_active: True
     is_staff: false
     is_superuser: false
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -65,6 +69,7 @@
     title: ""
     bio: ""
     avatar: ""
+    is_active: True
     is_staff: false
     is_superuser: false
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -78,6 +83,7 @@
     title: ""
     bio: ""
     avatar: ""
+    is_active: True
     is_staff: false
     is_superuser: false
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -91,6 +97,7 @@
     title: ""
     bio: ""
     avatar: ""
+    is_active: True
     is_staff: false
     is_superuser: false
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -104,6 +111,7 @@
     title: ""
     bio: ""
     avatar: ""
+    is_active: True
     is_staff: false
     is_superuser: false
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -117,6 +125,7 @@
     title: ""
     bio: ""
     avatar: ""
+    is_active: True
     is_staff: false
     is_superuser: false
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -130,6 +139,7 @@
     title: ""
     bio: ""
     avatar: ""
+    is_active: True
     is_staff: false
     is_superuser: false
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -143,6 +153,7 @@
     title: ""
     bio: ""
     avatar: ""
+    is_active: True
     is_staff: false
     is_superuser: false
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -156,6 +167,7 @@
     title: ""
     bio: ""
     avatar: ""
+    is_active: True
     is_staff: false
     is_superuser: false
     modified: 2020-01-01 12:00:00.000000+00:00

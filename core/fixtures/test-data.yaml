@@ -14,7 +14,6 @@
     bio: ""
     avatar: ""
     is_staff: true
-    is_active: true
     is_superuser: true
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
@@ -28,7 +27,6 @@
     bio: ""
     avatar: uploads/avatars/test_avatar.jpg
     is_staff: false
-    is_active: true
     is_superuser: false
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
@@ -42,7 +40,6 @@
     bio: ""
     avatar: ""
     is_staff: false
-    is_active: true
     is_superuser: false
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
@@ -56,7 +53,6 @@
     bio: ""
     avatar: ""
     is_staff: false
-    is_active: true
     is_superuser: false
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
@@ -70,7 +66,6 @@
     bio: ""
     avatar: ""
     is_staff: false
-    is_active: true
     is_superuser: false
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
@@ -84,7 +79,6 @@
     bio: ""
     avatar: ""
     is_staff: false
-    is_active: true
     is_superuser: false
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
@@ -98,7 +92,6 @@
     bio: ""
     avatar: ""
     is_staff: false
-    is_active: true
     is_superuser: false
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
@@ -112,7 +105,6 @@
     bio: ""
     avatar: ""
     is_staff: false
-    is_active: true
     is_superuser: false
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
@@ -126,7 +118,6 @@
     bio: ""
     avatar: ""
     is_staff: false
-    is_active: true
     is_superuser: false
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
@@ -140,7 +131,6 @@
     bio: ""
     avatar: ""
     is_staff: false
-    is_active: true
     is_superuser: false
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
@@ -154,7 +144,6 @@
     bio: ""
     avatar: ""
     is_staff: false
-    is_active: true
     is_superuser: false
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
@@ -168,7 +157,6 @@
     bio: ""
     avatar: ""
     is_staff: false
-    is_active: true
     is_superuser: false
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00

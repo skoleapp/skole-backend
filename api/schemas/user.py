@@ -68,7 +68,6 @@ class UserObjectType(DjangoObjectType):
             "avatar",
             "avatar_thumbnail",
             "created",
-            "is_active",
             "is_staff",
             "course_count",
             "resource_count",
@@ -216,7 +215,7 @@ class VerifyAccountMutation(DjangoFormMutation):
 class ResendVerificationEmailMutation(DjangoFormMutation):
     """
     Sends activation email again.
-    An error is returned ff a user with the provided email is not found.
+    An error is returned if a user with the provided email is not found.
     """
 
     message = graphene.String()
@@ -265,7 +264,7 @@ class SendPasswordResetEmailMutation(DjangoFormMutation):
     Send password reset email.
     For non verified users, send an activation
     email instead.
-    An error is returned ff a user with the provided email is not found.
+    An error is returned if a user with the provided email is not found.
     """
 
     message = graphene.String()

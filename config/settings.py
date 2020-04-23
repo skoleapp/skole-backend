@@ -144,10 +144,8 @@ GRAPHQL_AUTH = {
     "EMAIL_FROM": os.environ.get(
         "DEFAULT_FROM_EMAIL", ""
     ),  # FIXME: This is not working for some reason.
-    "SEND_ACTIVATION_EMAIL": True,
     "ACTIVATION_PATH_ON_EMAIL": "activate-account",
     "PASSWORD_RESET_PATH_ON_EMAIL": "reset-password",
-    "ALLOW_DELETE_ACCOUNT": False,
 }
 
 # Templates

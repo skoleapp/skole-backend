@@ -51,6 +51,7 @@ class UserObjectType(DjangoObjectType):
     score = graphene.Int()
     avatar = graphene.String()
     avatar_thumbnail = graphene.String()
+    verified = graphene.Boolean()
     course_count = graphene.Int()
     resource_count = graphene.Int()
     starred_courses = graphene.List(CourseObjectType)

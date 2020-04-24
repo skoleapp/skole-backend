@@ -45,26 +45,36 @@ class EmailForm(forms.Form):
 
 
 class LoginForm(forms.ModelForm):
-    username = forms.CharField()
+    username_or_email = forms.CharField()
     password = forms.CharField()
 
     class Meta:
         model = get_user_model()
-        fields = ("username", "password")
+        fields = ("username_or_email", "password")
 
     def clean(self) -> JsonDict:
-        username = self.cleaned_data.get("username")
+        username_or_email = self.cleaned_data.get("username_or_email")
         password = self.cleaned_data.get("password")
 
+        if "@" in username_or_email:
+            kwargs = {"email": username_or_email}
+        else:
+            kwargs = {"username": username_or_email}
+
         try:
-            existing_user = get_user_model().objects.get(username=username)
+            existing_user = get_user_model().objects.get(**kwargs)
             if not existing_user.is_active:
-                raise forms.ValidationError(_("This account has been deactivated!")) # TODO: Translate this.
+                raise forms.ValidationError(
+                    _("This account has been deactivated!")
+                )  # TODO: Translate this.
         except User.DoesNotExist:
             pass
 
         try:
-            user = authenticate(username=username, password=password)
+            user = authenticate(
+                username=get_user_model().objects.get(**kwargs).username, password=password
+            )
+
             user = cast(User, user)
 
             if not user:

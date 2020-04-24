@@ -1,6 +1,7 @@
 from django.apps import apps
 from django.contrib import admin
 from django.contrib.auth import get_user_model
+from graphql_auth.models import UserStatus
 from parler.models import TranslatedFieldsModelMixin
 
 core = apps.get_app_config("core")
@@ -10,6 +11,7 @@ for model_name, model in core.models.items():
         admin.site.register(model)
 
 admin.site.register(get_user_model())
+admin.site.register(UserStatus)
 admin.site.site_header = "Skole Administration"
 
 # We monkey patch the method here so that it's used for every single translated model.

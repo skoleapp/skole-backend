@@ -68,7 +68,7 @@ class UserObjectType(DjangoObjectType):
             "avatar",
             "avatar_thumbnail",
             "created",
-            "is_active",
+            "verified",
             "course_count",
             "resource_count",
             "votes",
@@ -103,8 +103,14 @@ class UserObjectType(DjangoObjectType):
     def resolve_avatar_thumbnail(self, info: ResolveInfo) -> str:
         return self.avatar_thumbnail.url if self.avatar_thumbnail else ""
 
-    def resolve_is_active(self, info: ResolveInfo) -> str:
-        return info.context.user.is_active
+    def resolve_verified(self, info: ResolveInfo) -> Optional[bool]:
+        # We resolve this here rather than on model level
+        # as we don't want to know the verification status
+        # for anyone else as the user making the request.
+        if self.id == info.context.user.pk:
+            return info.context.user.status.verified
+        else:
+            return None
 
     def resolve_starred_courses(self, info: ResolveInfo) -> "QuerySet[Course]":
         return Course.objects.filter(stars__user__pk=self.pk)

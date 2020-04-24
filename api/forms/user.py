@@ -57,6 +57,13 @@ class LoginForm(forms.ModelForm):
         password = self.cleaned_data.get("password")
 
         try:
+            existing_user = get_user_model().objects.get(username=username)
+            if not existing_user.is_active:
+                raise forms.ValidationError(_("This account has been deactivated!")) # TODO: Translate this.
+        except User.DoesNotExist:
+            pass
+
+        try:
             user = authenticate(username=username, password=password)
             user = cast(User, user)
 

@@ -4,7 +4,7 @@ import graphene
 from django.utils.translation import gettext as _
 from graphql import ResolveInfo
 
-from api.utils.decorators import login_required
+from api.utils.decorators import login_required_mutation
 from api.utils.forms import DeleteObjectForm
 
 
@@ -34,7 +34,7 @@ class DeleteMutationMixin:
         return kwargs
 
     @classmethod
-    @login_required
+    @login_required_mutation
     def perform_mutate(
         cls, form: DeleteObjectForm, info: ResolveInfo
     ) -> "DeleteMutationMixin":

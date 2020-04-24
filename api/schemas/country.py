@@ -4,9 +4,9 @@ import graphene
 from django.db.models import QuerySet
 from graphene_django import DjangoObjectType
 from graphql import ResolveInfo
+from graphql_jwt.decorators import login_required
 
 from api.utils.common import get_obj_or_none
-from api.utils.decorators import login_required
 from core.models import Country
 
 

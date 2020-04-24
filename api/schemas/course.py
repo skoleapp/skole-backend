@@ -5,10 +5,11 @@ from django.db.models import QuerySet
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphql import GraphQLError, ResolveInfo
+from graphql_jwt.decorators import login_required
 
 from api.forms.course import CreateCourseForm, DeleteCourseForm
 from api.utils.common import get_obj_or_none
-from api.utils.decorators import login_required
+from api.utils.decorators import login_required_mutation
 from api.utils.delete import DeleteMutationMixin
 from api.utils.pagination import PaginationMixin, get_paginator
 from api.utils.starred import StarredMixin
@@ -48,7 +49,7 @@ class CreateCourseMutation(DjangoModelFormMutation):
         exclude_fields = ("id",)
 
     @classmethod
-    @login_required
+    @login_required_mutation
     def perform_mutate(
         cls, form: CreateCourseForm, info: ResolveInfo
     ) -> "CreateCourseMutation":

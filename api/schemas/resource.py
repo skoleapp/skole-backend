@@ -4,12 +4,13 @@ import graphene
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphql import ResolveInfo
+from graphql_jwt.decorators import login_required
 
 from api.forms.resource import (CreateResourceForm, DeleteResourceForm,
                                 UpdateResourceForm)
 from api.schemas.school import SchoolObjectType
 from api.utils.common import get_obj_or_none
-from api.utils.decorators import login_required
+from api.utils.decorators import login_required_mutation
 from api.utils.delete import DeleteMutationMixin
 from api.utils.file import FileMixin
 from api.utils.messages import NOT_OWNER_MESSAGE
@@ -52,7 +53,7 @@ class CreateResourceMutation(FileMixin, DjangoModelFormMutation):
         exclude_fields = ("id",)
 
     @classmethod
-    @login_required
+    @login_required_mutation
     def perform_mutate(
         cls, form: CreateResourceForm, info: ResolveInfo
     ) -> "CreateResourceMutation":
@@ -70,7 +71,7 @@ class UpdateResourceMutation(DjangoModelFormMutation):
         form_class = UpdateResourceForm
 
     @classmethod
-    @login_required
+    @login_required_mutation
     def perform_mutate(
         cls, form: UpdateResourceForm, info: ResolveInfo
     ) -> "UpdateResourceMutation":

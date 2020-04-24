@@ -4,7 +4,7 @@ from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphql import ResolveInfo
 
 from api.forms.starred import StarForm
-from api.utils.decorators import login_required
+from api.utils.decorators import verification_required_mutation
 from core.models.starred import Starred
 
 
@@ -21,7 +21,7 @@ class StarredMutation(DjangoModelFormMutation):
         exclude_fields = ("id",)
 
     @classmethod
-    @login_required
+    @verification_required_mutation
     def perform_mutate(cls, form: StarForm, info: ResolveInfo) -> "StarredMutation":
         assert info.context is not None
         starred = Starred.objects.perform_star(

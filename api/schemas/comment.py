@@ -5,10 +5,11 @@ from django.utils.translation import gettext as _
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphql import GraphQLError, ResolveInfo
+from graphql_jwt.decorators import login_required
 
 from api.forms.comment import CreateCommentForm, DeleteCommentForm, UpdateCommentForm
 from api.utils.common import get_obj_or_none
-from api.utils.decorators import login_required
+from api.utils.decorators import verification_required_mutation
 from api.utils.delete import DeleteMutationMixin
 from api.utils.file import FileMixin
 from api.utils.messages import NOT_OWNER_MESSAGE
@@ -45,7 +46,7 @@ class CreateCommentMutation(FileMixin, DjangoModelFormMutation):
         exclude_fields = ("id",)
 
     @classmethod
-    @login_required
+    @verification_required_mutation
     def perform_mutate(
         cls, form: CreateCommentForm, info: ResolveInfo
     ) -> "CreateCommentMutation":
@@ -69,7 +70,7 @@ class UpdateCommentMutation(DjangoModelFormMutation):
         form_class = UpdateCommentForm
 
     @classmethod
-    @login_required
+    @verification_required_mutation
     def perform_mutate(
         cls, form: UpdateCommentForm, info: ResolveInfo
     ) -> "UpdateCommentMutation":

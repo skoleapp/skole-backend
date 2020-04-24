@@ -21,7 +21,7 @@ from graphql_auth.models import UserStatus
 from graphql_auth.settings import graphql_auth_settings
 from graphql_auth.shortcuts import get_user_by_email
 from graphql_auth.utils import get_token_paylod, revoke_user_refresh_token
-from graphql_jwt.decorators import token_auth
+from graphql_jwt.decorators import login_required, token_auth
 from mypy.types import JsonDict
 
 from api.forms.user import (
@@ -36,7 +36,7 @@ from api.forms.user import (
 )
 from api.schemas.course import CourseObjectType
 from api.schemas.resource import ResourceObjectType
-from api.utils.decorators import login_required, verification_required
+from api.utils.decorators import verification_required_mutation
 from api.utils.file import FileMixin
 from api.utils.messages import (
     ACCOUNT_ALREADY_VERIFIED_MESSAGE,
@@ -477,8 +477,7 @@ class ChangePasswordMutation(DjangoModelFormMutation):
         return {"data": input, "instance": info.context.user}
 
     @classmethod
-    @verification_required
-    @login_required
+    @verification_required_mutation
     def perform_mutate(
         cls, form: ChangePasswordForm, info: ResolveInfo
     ) -> "ChangePasswordMutation":
@@ -509,8 +508,7 @@ class DeleteUserMutation(DjangoModelFormMutation):
         return {"data": input, "instance": info.context.user}
 
     @classmethod
-    @verification_required
-    @login_required
+    @verification_required_mutation
     def perform_mutate(
         cls, form: DeleteUserForm, info: ResolveInfo
     ) -> "DeleteUserMutation":
@@ -530,8 +528,7 @@ class UpdateUserMutation(FileMixin, DjangoModelFormMutation):
         exclude_fields = ("id",)
 
     @classmethod
-    @verification_required
-    @login_required
+    @verification_required_mutation
     def perform_mutate(
         cls, form: UpdateUserForm, info: ResolveInfo
     ) -> "UpdateUserMutation":
@@ -601,7 +598,7 @@ class Query(graphene.ObjectType):
 class Mutation(graphene.ObjectType):
     register = RegisterMutation.Field()
     verify_account = VerifyAccountMutation.Field()
-    resend_verification = ResendVerificationEmailMutation.Field()
+    resend_verification_email = ResendVerificationEmailMutation.Field()
     send_password_reset_email = SendPasswordResetEmailMutation.Field()
     reset_password = ResetPasswordMutation.Field()
     login = LoginMutation.Field()

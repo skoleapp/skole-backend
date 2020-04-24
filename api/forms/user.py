@@ -140,7 +140,7 @@ class ChangePasswordForm(forms.ModelForm):
 
     def clean_old_password(self) -> None:
         old_password = self.cleaned_data["old_password"]
-        print("old", old_password)
+
         if not self.instance.check_password(old_password):
             raise forms.ValidationError(_("Incorrect old password."))
 

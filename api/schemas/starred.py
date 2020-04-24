@@ -2,9 +2,9 @@ import graphene
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphql import ResolveInfo
-from graphql_jwt.decorators import login_required
 
 from api.forms.starred import StarForm
+from api.utils.decorators import login_required
 from core.models.starred import Starred
 
 

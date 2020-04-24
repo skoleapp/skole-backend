@@ -21,7 +21,7 @@ from graphql_auth.models import UserStatus
 from graphql_auth.settings import graphql_auth_settings
 from graphql_auth.shortcuts import get_user_by_email
 from graphql_auth.utils import get_token_paylod, revoke_user_refresh_token
-from graphql_jwt.decorators import login_required, token_auth
+from graphql_jwt.decorators import token_auth
 from mypy.types import JsonDict
 
 from api.forms.user import (
@@ -36,6 +36,7 @@ from api.forms.user import (
 )
 from api.schemas.course import CourseObjectType
 from api.schemas.resource import ResourceObjectType
+from api.utils.decorators import login_required, verification_required
 from api.utils.file import FileMixin
 from api.utils.messages import (
     ACCOUNT_ALREADY_VERIFIED_MESSAGE,
@@ -126,13 +127,12 @@ class PaginatedUserObjectType(PaginationMixin, graphene.ObjectType):
 
 class RegisterMutation(DjangoModelFormMutation):
     """
-    Register user with fields defined in `RegisterForm`.
-    Check if there is no user with that email.
-    If it exists, it does not register the user.
-    When creating the user, it also creates a `UserStatus`
+    Register new user. Check if there is an existing user
+    with that email or username. Check that account is not
+    deactivated. When creating the user, also create `UserStatus`
     related to that user, making it possible to track
     if the user is archived, verified and has a secondary email.
-    Send account verification email.
+    After successful registration send account verification email.
     """
 
     message = graphene.String()
@@ -168,10 +168,9 @@ class RegisterMutation(DjangoModelFormMutation):
 
 class VerifyAccountMutation(DjangoFormMutation):
     """
-    Verify user account.
-    Receive the token that was sent by email.
-    If the token is valid, make the user verified
-    by making the `user.status.verified` field true.
+    Verify user account. Receive the token that was
+    sent by email. If the token is valid, verify the
+    user by making the `user.status.verified` field `True`.
     """
 
     message = graphene.String()
@@ -229,8 +228,8 @@ class VerifyAccountMutation(DjangoFormMutation):
 
 class ResendVerificationEmailMutation(DjangoFormMutation):
     """
-    Sends activation email again.
-    An error is returned if a user with the provided email is not found.
+    Sends activation email again. Return error if
+    a user with the provided email is not found.
     """
 
     message = graphene.String()
@@ -278,10 +277,9 @@ class ResendVerificationEmailMutation(DjangoFormMutation):
 
 class SendPasswordResetEmailMutation(DjangoFormMutation):
     """
-    Send password reset email.
-    For non verified users, send an activation
-    email instead.
-    An error is returned if a user with the provided email is not found.
+    Send password reset email. For non verified users,
+    send an activation email instead. Return error
+    if a user with the provided email is not found.
     """
 
     message = graphene.String()
@@ -299,11 +297,7 @@ class SendPasswordResetEmailMutation(DjangoFormMutation):
             user = get_user_by_email(email)
             user.status.send_password_reset_email(info, [email])
             # TODO: Translate this.
-            return cls(
-                message=_(
-                    "Password reset link sent successfully!"
-                )
-            )
+            return cls(message=_("Password reset link sent successfully!"))
 
         except ObjectDoesNotExist:
             return cls(
@@ -350,9 +344,8 @@ class ResetPasswordMutation(DjangoFormMutation):
     """
     Change user's password without old password.
     Receive the token that was sent by email.
-    If token and new passwords are valid, update
-    user's password and in case of using refresh
-    tokens, revoke all of them.
+    Revoke refresh token and thus require the
+    user to log in with his new password.
     """
 
     message = graphene.String()
@@ -376,7 +369,9 @@ class ResetPasswordMutation(DjangoFormMutation):
 
             user = get_user_model().objects.get(**payload)
             revoke_user_refresh_token(user)
-            user = get_user_model().objects.set_password(user=user, password=new_password)
+            user = get_user_model().objects.set_password(
+                user=user, password=new_password
+            )
             return cls(
                 message=_("Password updated successfully!")
             )  # TODO: Translate this.
@@ -419,8 +414,13 @@ class ResetPasswordMutation(DjangoFormMutation):
 
 
 class LoginMutation(DjangoModelFormMutation):
-    user = graphene.Field(UserObjectType)
+    """
+    Obtain JSON web token and user information.
+    Not verified users can still login.
+    """
+
     token = graphene.String()
+    user = graphene.Field(UserObjectType)
     message = graphene.String()
 
     class Meta:
@@ -460,6 +460,8 @@ class LoginMutation(DjangoModelFormMutation):
 
 
 class ChangePasswordMutation(DjangoModelFormMutation):
+    """Change account password when user knows the old password. User must be verified."""
+
     message = graphene.String()
 
     class Meta:
@@ -475,18 +477,23 @@ class ChangePasswordMutation(DjangoModelFormMutation):
         return {"data": input, "instance": info.context.user}
 
     @classmethod
+    @verification_required
     @login_required
     def perform_mutate(
         cls, form: ChangePasswordForm, info: ResolveInfo
     ) -> "ChangePasswordMutation":
         assert info.context is not None
         new_password = form.cleaned_data["new_password"]
-        get_user_model().objects.set_password(user=info.context.user, password=new_password)
+        get_user_model().objects.set_password(
+            user=info.context.user, password=new_password
+        )
         # TODO: Translate this.
         return cls(message=_("Password changed successfully!"))
 
 
 class DeleteUserMutation(DjangoModelFormMutation):
+    """Delete account permanently. User must be verified and confirm his password."""
+
     message = graphene.String()
 
     class Meta:
@@ -502,16 +509,20 @@ class DeleteUserMutation(DjangoModelFormMutation):
         return {"data": input, "instance": info.context.user}
 
     @classmethod
+    @verification_required
     @login_required
     def perform_mutate(
         cls, form: DeleteUserForm, info: ResolveInfo
     ) -> "DeleteUserMutation":
         assert info.context is not None
-        info.context.user.delete()
+        user = info.context.user
+        user.delete()
         return cls(message=_("User deleted successfully."))
 
 
 class UpdateUserMutation(FileMixin, DjangoModelFormMutation):
+    """Update user model fields. User must be verified."""
+
     user = graphene.Field(UserObjectType)
 
     class Meta:
@@ -519,6 +530,7 @@ class UpdateUserMutation(FileMixin, DjangoModelFormMutation):
         exclude_fields = ("id",)
 
     @classmethod
+    @verification_required
     @login_required
     def perform_mutate(
         cls, form: UpdateUserForm, info: ResolveInfo

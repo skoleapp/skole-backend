@@ -146,12 +146,12 @@ GRAPHQL_AUTH = {
     ),  # FIXME: This is not working for some reason.
     "ACTIVATION_PATH_ON_EMAIL": "account/verify",
     "PASSWORD_RESET_PATH_ON_EMAIL": "account/reset-password",
-    "EMAIL_SUBJECT_ACTIVATION": "email/activation_subject.txt",
-    "EMAIL_SUBJECT_ACTIVATION_RESEND": "email/activation_subject.txt",
-    "EMAIL_SUBJECT_PASSWORD_RESET": "email/password_reset_subject.txt",
-    "EMAIL_TEMPLATE_ACTIVATION": "email/activation_email.html",
-    "EMAIL_TEMPLATE_ACTIVATION_RESEND": "email/activation_email.html",
-    "EMAIL_TEMPLATE_PASSWORD_RESET": "email/password_reset_email.html",
+    "EMAIL_SUBJECT_ACTIVATION": "email/verify-account-subject.txt",
+    "EMAIL_SUBJECT_ACTIVATION_RESEND": "email/verify-account-subject.txt",
+    "EMAIL_SUBJECT_PASSWORD_RESET": "email/reset-password-subject.txt",
+    "EMAIL_TEMPLATE_ACTIVATION": "email/verify-account-email.html",
+    "EMAIL_TEMPLATE_ACTIVATION_RESEND": "email/verify-account-email.html",
+    "EMAIL_TEMPLATE_PASSWORD_RESET": "email/reset-password-email.html",
 }
 
 # Templates

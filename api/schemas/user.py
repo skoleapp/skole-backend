@@ -135,11 +135,12 @@ class RegisterMutation(DjangoModelFormMutation):
     Send account verification email.
     """
 
-    user = graphene.Field(UserObjectType)
+    message = graphene.String()
 
     class Meta:
         form_class = RegisterForm
         exclude_fields = ("id",)
+        return_field_name = "message"
 
     @classmethod
     def perform_mutate(
@@ -162,7 +163,7 @@ class RegisterMutation(DjangoModelFormMutation):
                 errors=[{"field": "__all__", "messages": [EMAIL_ERROR_MESSAGE],}]
             )
 
-        return cls(user=user)
+        return cls(message=_("Registered new user successfully!"))
 
 
 class VerifyAccountMutation(DjangoFormMutation):
@@ -188,6 +189,7 @@ class VerifyAccountMutation(DjangoFormMutation):
             UserStatus.verify(token)
             # TODO: Translate this.
             return cls(message=_("Account verified successfully!"))
+
         except UserAlreadyVerified:
             return cls(
                 errors=[
@@ -299,7 +301,7 @@ class SendPasswordResetEmailMutation(DjangoFormMutation):
             # TODO: Translate this.
             return cls(
                 message=_(
-                    "Please check your email. A password reset link has been sent!"
+                    "Password reset link sent successfully!"
                 )
             )
 
@@ -331,7 +333,7 @@ class SendPasswordResetEmailMutation(DjangoFormMutation):
                             "field": "__all__",
                             "messages": [
                                 _(
-                                    "Please verify your account. A new verification email was sent."
+                                    "You must verify your account before resetting your password. A new verification email was sent. Please check your inbox and verify your account."
                                 )
                             ],
                         }
@@ -363,7 +365,7 @@ class ResetPasswordMutation(DjangoFormMutation):
         cls, form: EmailForm, info: ResolveInfo, **kwargs: JsonDict
     ) -> "ResetPasswordMutation":
         token = form.cleaned_data.get("token")
-        password = form.cleaned_data.get("new_password")
+        new_password = form.cleaned_data.get("new_password")
 
         try:
             payload = get_token_paylod(
@@ -374,10 +376,20 @@ class ResetPasswordMutation(DjangoFormMutation):
 
             user = get_user_model().objects.get(**payload)
             revoke_user_refresh_token(user)
-            user = get_user_model().objects.set_password(user=user, password=password)
+            user = get_user_model().objects.set_password(user=user, password=new_password)
             return cls(
                 message=_("Password updated successfully!")
             )  # TODO: Translate this.
+
+        except ObjectDoesNotExist:
+            return cls(
+                errors=[
+                    {
+                        "field": "__all__",
+                        "messages": _("This account has been removed."),
+                    }
+                ]
+            )
 
         except SignatureExpired:
             return cls(
@@ -409,6 +421,7 @@ class ResetPasswordMutation(DjangoFormMutation):
 class LoginMutation(DjangoModelFormMutation):
     user = graphene.Field(UserObjectType)
     token = graphene.String()
+    message = graphene.String()
 
     class Meta:
         form_class = LoginForm
@@ -442,15 +455,17 @@ class LoginMutation(DjangoModelFormMutation):
     def perform_mutate(
         cls, form: LoginForm, info: ResolveInfo, user: User, **kwargs: JsonDict
     ) -> "LoginMutation":
-        return cls(user=user)
+        # TODO: Translate this.
+        return cls(user=user, message=_("Logged in successfully!"))
 
 
 class ChangePasswordMutation(DjangoModelFormMutation):
-    user = graphene.Field(UserObjectType)
+    message = graphene.String()
 
     class Meta:
         form_class = ChangePasswordForm
         exclude_fields = ("id",)
+        return_field_name = "message"
 
     @classmethod
     def get_form_kwargs(
@@ -465,7 +480,10 @@ class ChangePasswordMutation(DjangoModelFormMutation):
         cls, form: ChangePasswordForm, info: ResolveInfo
     ) -> "ChangePasswordMutation":
         assert info.context is not None
-        return cls(user=info.context.user)
+        new_password = form.cleaned_data["new_password"]
+        get_user_model().objects.set_password(user=info.context.user, password=new_password)
+        # TODO: Translate this.
+        return cls(message=_("Password changed successfully!"))
 
 
 class DeleteUserMutation(DjangoModelFormMutation):

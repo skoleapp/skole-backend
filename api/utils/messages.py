@@ -1,6 +1,6 @@
 from django.utils.translation import gettext_lazy as _
 
-AUTH_ERROR_MESSAGE = _("Invalid username/email or password.") # TODO: Translate this
+AUTH_ERROR_MESSAGE = _("Invalid username/email or password.")  # TODO: Translate this
 NOT_OWNER_MESSAGE = _("You are not the owner of this object.")
 EMAIL_ERROR_MESSAGE = _("Error while sending email.")  # TODO: Translate this.
 

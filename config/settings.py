@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     "django.contrib.sites",
     "corsheaders",
     "graphene_django",
+    "graphql_jwt.refresh_token",
     "imagekit",
     "django_s3_storage",
     "parler",

@@ -8,9 +8,14 @@ from graphql_jwt.decorators import login_required
 
 from skole.forms.comment import CreateCommentForm, DeleteCommentForm, UpdateCommentForm
 from skole.models import Comment
-from skole.utils.constants import MutationErrors
+from skole.utils.constants import Messages, MutationErrors
 from skole.utils.decorators import verification_required_mutation
-from skole.utils.mixins import DeleteMutationMixin, FileMutationMixin, VoteMixin
+from skole.utils.mixins import (
+    DeleteMutationMixin,
+    FileMutationMixin,
+    MessageMixin,
+    VoteMixin,
+)
 from skole.utils.shortcuts import get_obj_or_none
 
 
@@ -37,7 +42,7 @@ class CommentObjectType(VoteMixin, DjangoObjectType):
         return self.attachment.url if self.attachment else ""
 
 
-class CreateCommentMutation(FileMutationMixin, DjangoModelFormMutation):
+class CreateCommentMutation(FileMutationMixin, MessageMixin, DjangoModelFormMutation):
     class Meta:
         form_class = CreateCommentForm
         exclude_fields = ("id",)
@@ -58,10 +63,10 @@ class CreateCommentMutation(FileMutationMixin, DjangoModelFormMutation):
 
         # Query the new comment to get the annotated reply count.
         comment = Comment.objects.get(pk=comment.pk)
-        return cls(comment=comment)
+        return cls(comment=comment, message=Messages.MESSAGE_SENT)
 
 
-class UpdateCommentMutation(DjangoModelFormMutation):
+class UpdateCommentMutation(MessageMixin, DjangoModelFormMutation):
     comment = graphene.Field(CommentObjectType)
 
     class Meta:
@@ -86,12 +91,16 @@ class UpdateCommentMutation(DjangoModelFormMutation):
                 form.cleaned_data["attachment"] = comment.attachment
 
         Comment.objects.update_comment(comment, **form.cleaned_data)
-        return cls(comment=comment)
+        return cls(comment=comment, message=Messages.COMMENT_UPDATED)
 
 
 class DeleteCommentMutation(DeleteMutationMixin, DjangoModelFormMutation):
     class Meta(DeleteMutationMixin.Meta):
         form_class = DeleteCommentForm
+
+    @staticmethod
+    def get_success_message() -> str:
+        return Messages.COMMENT_DELETED
 
 
 class Query(graphene.ObjectType):

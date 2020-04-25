@@ -3,7 +3,7 @@ from parler.models import TranslatableModel, TranslatedFields
 
 
 class Subject(TranslatableModel):
-    """Models one studiable subject, e.g. Computer Engineering."""
+    """Models one studyable subject, e.g. Computer Engineering."""
 
     translations = TranslatedFields(name=models.CharField(max_length=100))
 

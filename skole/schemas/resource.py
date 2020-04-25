@@ -10,10 +10,10 @@ from skole.forms.resource import (CreateResourceForm, DeleteResourceForm,
                                   UpdateResourceForm)
 from skole.models import Resource
 from skole.schemas.school import SchoolObjectType
-from skole.utils.constants import MutationErrors
+from skole.utils.constants import Messages, MutationErrors
 from skole.utils.decorators import login_required_mutation
 from skole.utils.mixins import (DeleteMutationMixin, FileMutationMixin,
-                                StarredMixin, VoteMixin)
+                                MessageMixin, StarredMixin, VoteMixin)
 from skole.utils.shortcuts import get_obj_or_none
 
 
@@ -45,7 +45,7 @@ class ResourceObjectType(VoteMixin, StarredMixin, DjangoObjectType):
         return self.course.school
 
 
-class CreateResourceMutation(FileMutationMixin, DjangoModelFormMutation):
+class CreateResourceMutation(FileMutationMixin, MessageMixin, DjangoModelFormMutation):
     class Meta:
         form_class = CreateResourceForm
         exclude_fields = ("id",)
@@ -61,10 +61,10 @@ class CreateResourceMutation(FileMutationMixin, DjangoModelFormMutation):
             #  and would thus also be a duplicate key.
             **form.cleaned_data, user=info.context.user # type: ignore[misc]
         )
-        return cls(resource=resource)
+        return cls(resource=resource, message=Messages.RESOURCE_CREATED)
 
 
-class UpdateResourceMutation(DjangoModelFormMutation):
+class UpdateResourceMutation(MessageMixin, DjangoModelFormMutation):
     class Meta:
         form_class = UpdateResourceForm
 
@@ -80,12 +80,16 @@ class UpdateResourceMutation(DjangoModelFormMutation):
             return cls(errors=MutationErrors.NOT_OWNER)
 
         Resource.objects.update_resource(resource, **form.cleaned_data)
-        return cls(resource=resource)
+        return cls(resource=resource, message=Messages.RESOURCE_UPDATED)
 
 
 class DeleteResourceMutation(DeleteMutationMixin, DjangoModelFormMutation):
     class Meta(DeleteMutationMixin.Meta):
         form_class = DeleteResourceForm
+
+    @staticmethod
+    def get_success_message() -> str:
+        return Messages.RESOURCE_DELETED
 
 
 class Query(graphene.ObjectType):

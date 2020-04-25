@@ -5,6 +5,7 @@ from graphql import ResolveInfo
 
 from skole.forms.starred import StarForm
 from skole.models import Starred
+from skole.utils.constants import Messages
 from skole.utils.decorators import verification_required_mutation
 
 
@@ -19,6 +20,10 @@ class StarredMutation(DjangoModelFormMutation):
     class Meta:
         form_class = StarForm
         exclude_fields = ("id",)
+
+    @staticmethod
+    def get_success_message() -> str:
+        return Messages.COURSE_DELETED
 
     @classmethod
     @verification_required_mutation

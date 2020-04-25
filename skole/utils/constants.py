@@ -35,8 +35,14 @@ class Messages:
     PASSWORD_UPDATED = _("Password updated successfully!")
     LOGGED_IN = _("Logged in successfully!")
     USER_DELETED = _("User deleted successfully!")
-    OBJECT_DELETED = _("Object deleted successfully!")
     USER_UPDATED = _("User details updated successfully!")
+    COURSE_CREATED = _("Course created successfully!")
+    COURSE_DELETED = _("Course deleted successfully!")
+    RESOURCE_DELETED = _("Resource deleted successfully!")
+    RESOURCE_CREATED = _("Resource created successfully!")
+    RESOURCE_UPDATED = _("Resource updated successfully!")
+    COMMENT_UPDATED = _("Comment updated successfully!")
+    COMMENT_DELETED = _("Comment deleted successfully!")
 
 
 class MutationErrors:
@@ -111,6 +117,9 @@ class MutationErrors:
                 )
             ],
         }
+    ]
+    VOTE_OWN_CONTENT = [
+        {"field": "__all__", "messages": [_("You cannot vote your own content.")],}
     ]
 
 

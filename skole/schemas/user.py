@@ -99,7 +99,7 @@ class UserObjectType(DjangoObjectType):
         # We resolve this here rather than on model level
         # as we don't want to know the verification status
         # for anyone else as the user making the request.
-        if self.id == info.context.user.pk:
+        if self.pk == info.context.user.pk:
             return info.context.user.verified
         else:
             return None

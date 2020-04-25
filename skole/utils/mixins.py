@@ -6,15 +6,18 @@ from mypy.types import JsonDict
 
 from skole.models import Starred, Vote
 from skole.schemas.vote import VoteObjectType
-from skole.utils.constants import Messages
 from skole.utils.decorators import login_required_mutation
 from skole.utils.forms import DeleteObjectForm
 
 
-class DeleteMutationMixin:
-    """A base class for all delete mutations."""
+class MessageMixin:
+    """A mixin that provides a mutation a message field in the response."""
 
     message = graphene.String()
+
+
+class DeleteMutationMixin(MessageMixin):
+    """A base class for all delete mutations."""
 
     class Meta:
         return_field_name = "message"
@@ -43,10 +46,11 @@ class DeleteMutationMixin:
     ) -> "DeleteMutationMixin":
         obj = form.cleaned_data.get("target")
         obj.delete()
+
         # Ignore: Mypy doesn't know that this function will actually be used in a class
-        #  deriving from DjangoModelFormMutation, where this type of calling cls with
-        #  a graphene field name makes sense.
-        return cls(message=Messages.OBJECT_DELETED)  # type: ignore[call-arg]
+        # deriving from DjangoModelFormMutation, where this type of calling cls with
+        # a graphene field name makes sense.
+        return cls(message=cls.get_success_message())  # type: ignore [call-arg, attr-defined]
 
 
 class VoteMixin:
@@ -110,6 +114,8 @@ class FileMutationMixin:
 
 
 class PaginationMixin:
+    """A mixin that provides a query all the fields required for pagination."""
+
     page = graphene.Int()
     pages = graphene.Int()
     has_next = graphene.Boolean()

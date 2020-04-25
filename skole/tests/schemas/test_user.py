@@ -202,7 +202,7 @@ class UserSchemaTests(SchemaTestCase):
         # Email taken.
         res = self.mutate_register(email="testuser2@test.com")
         message = res["errors"][0]["messages"][0]
-        assert "User with this Email already exists." == message
+        assert ValidationErrors.EMAIL_TAKEN == message
 
         # Invalid beta code.
         res = self.mutate_register(code="invalid")
@@ -326,12 +326,12 @@ class UserSchemaTests(SchemaTestCase):
         # Email is already taken.
         res = self.mutate_update_user(email="root@root.com")
         assert len(res["errors"]) == 1
-        assert "email" in res["errors"][0]["messages"][0]
+        assert res["errors"][0]["messages"][0] == ValidationErrors.EMAIL_TAKEN
         assert res["user"] is None
 
         res = self.mutate_update_user(username="testuser3")
         assert len(res["errors"]) == 1
-        assert "username" in res["errors"][0]["messages"][0]
+        assert res["errors"][0]["messages"][0] == ValidationErrors.USERNAME_TAKEN
         assert res["user"] is None
 
         # Check that nothing has changed.
@@ -345,7 +345,7 @@ class UserSchemaTests(SchemaTestCase):
         # Delete the logged in testuser2.
         res = self.mutate_delete_user()
         assert res["errors"] is None
-        assert "deleted" in res["message"]
+        assert res["message"] == Messages.USER_DELETED
 
         # Test that the user cannot be found anymore.
         assert get_user_model().objects.filter(pk=2).count() == 0
@@ -353,7 +353,7 @@ class UserSchemaTests(SchemaTestCase):
     def test_user_delete_error(self) -> None:
         # Delete the logged in testuser2.
         res = self.mutate_delete_user(password="wrongpass")
-        assert "password" in res["errors"][0]["messages"][0]
+        assert res["errors"][0]["messages"][0] == ValidationErrors.INVALID_PASSWORD
 
         # Test that the user didn't get deleted.
         assert get_user_model().objects.filter(pk=2).count() == 1

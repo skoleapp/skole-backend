@@ -5,6 +5,7 @@ from graphql import ResolveInfo
 
 from skole.forms.vote import CreateVoteForm
 from skole.models.vote import Vote
+from skole.utils.constants import MutationErrors
 from skole.utils.decorators import verification_required_mutation
 
 
@@ -27,9 +28,15 @@ class VoteMutation(DjangoModelFormMutation):
     @verification_required_mutation
     def perform_mutate(cls, form: CreateVoteForm, info: ResolveInfo) -> "VoteMutation":
         assert info.context is not None
+        target = form.cleaned_data.get("target")
+
+        if hasattr(target, "user") and target.user == info.context.user:
+            return cls(errors=MutationErrors.VOTE_OWN_CONTENT)
+
         vote, target_score = Vote.objects.perform_vote(
             user=info.context.user, **form.cleaned_data
         )
+
         return cls(vote=vote, target_score=target_score)
 
 

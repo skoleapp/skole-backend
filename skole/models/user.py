@@ -10,13 +10,12 @@ from django.core.mail import send_mail
 from django.db import models
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
-from django.utils.translation import gettext_lazy as _
 from graphql import ResolveInfo
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
 from mypy.types import JsonDict
 
-from skole.utils.constants import TokenAction
+from skole.utils.constants import TokenAction, ValidationErrors
 from skole.utils.exceptions import UserAlreadyVerified, UserNotVerified
 from skole.utils.token import get_token, get_token_payload
 from skole.utils.validators import ValidateFileSizeAndType
@@ -91,22 +90,29 @@ class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(
         max_length=30,
         unique=True,
-        error_messages={"unique": _("This username is taken.")},
+        error_messages={"unique": ValidationErrors.USERNAME_TAKEN},
     )
-    email = models.EmailField(unique=True)
+
+    email = models.EmailField(
+        unique=True, error_messages={"unique": ValidationErrors.EMAIL_TAKEN},
+    )
+
     title = models.CharField(max_length=100, blank=True)
     bio = models.TextField(max_length=2000, blank=True)
+
     avatar = models.ImageField(
         upload_to="uploads/avatars",
         blank=True,
         validators=[ValidateFileSizeAndType(2, ["image/jpeg", "image/png"])],
     )
+
     avatar_thumbnail = ImageSpecField(
         source="avatar",
         processors=[ResizeToFill(100, 100)],
         format="JPEG",
         options={"quality": 60},
     )
+
     score = models.IntegerField(default=0)
     created = models.DateTimeField(auto_now_add=True)
     verified = models.BooleanField(default=False)
@@ -128,12 +134,12 @@ class User(AbstractBaseUser, PermissionsMixin):
         context: JsonDict,
         recipient_list: Optional[List[str]] = None,
     ) -> None:
-        _subject = render_to_string(subject, context).replace("\n", " ").strip()
+        subject = render_to_string(subject, context).replace("\n", " ").strip()
         html_message = render_to_string(template, context)
         message = strip_tags(html_message)
 
         send_mail(
-            subject=_subject,
+            subject=subject,
             from_email=settings.AUTH_EMAIL_FROM,
             message=message,
             html_message=html_message,

@@ -3,8 +3,6 @@ from typing import Optional, Tuple
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.db import models
-from django.utils.translation import gettext as _
-from graphql import GraphQLError
 
 from skole.models.comment import Comment
 from skole.models.course import Course
@@ -20,9 +18,6 @@ class VoteManager(models.Manager):  # type: ignore[type-arg]
         self, user: User, status: int, target: VotableModel
     ) -> Tuple[Optional["Vote"], int]:
         """Automatically create a new vote or delete one if it already exists."""
-
-        if hasattr(target, "user") and target.user == user:
-            raise GraphQLError(_("You can't vote for your own content."))
 
         if isinstance(target, Comment):
             multiplier = VoteConstants.SCORE_COMMENT_MULTIPLIER
@@ -41,7 +36,6 @@ class VoteManager(models.Manager):  # type: ignore[type-arg]
             status = -status
         # Ignore: Mypy doesn't know that `target` always the `user` attribute.
         get_user_model().objects.change_score(target.user, status * multiplier)  # type: ignore[arg-type]
-
         return vote, target.score
 
     def check_existing_vote(

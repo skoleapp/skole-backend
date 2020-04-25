@@ -9,10 +9,11 @@ from graphql_jwt.decorators import login_required
 
 from skole.forms.course import CreateCourseForm, DeleteCourseForm
 from skole.models import Course
-from skole.utils.constants import GraphQLErrors
+from skole.utils.constants import GraphQLErrors, Messages
 from skole.utils.decorators import login_required_mutation
 from skole.utils.mixins import (
     DeleteMutationMixin,
+    MessageMixin,
     PaginationMixin,
     StarredMixin,
     VoteMixin,
@@ -45,7 +46,7 @@ class PaginatedCourseObjectType(PaginationMixin, graphene.ObjectType):
     objects = graphene.List(CourseObjectType)
 
 
-class CreateCourseMutation(DjangoModelFormMutation):
+class CreateCourseMutation(MessageMixin, DjangoModelFormMutation):
     course = graphene.Field(CourseObjectType)
 
     class Meta:
@@ -59,12 +60,16 @@ class CreateCourseMutation(DjangoModelFormMutation):
     ) -> "CreateCourseMutation":
         assert info.context is not None
         course = Course.objects.create(user=info.context.user, **form.cleaned_data)
-        return cls(course=course)
+        return cls(course=course, message=Messages.COURSE_CREATED)
 
 
 class DeleteCourseMutation(DeleteMutationMixin, DjangoModelFormMutation):
     class Meta(DeleteMutationMixin.Meta):
         form_class = DeleteCourseForm
+
+    @staticmethod
+    def get_success_message() -> str:
+        return Messages.COURSE_DELETED
 
 
 class Query(graphene.ObjectType):

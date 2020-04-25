@@ -3,7 +3,7 @@ Pillow==7.1.1
 PyYAML==5.3.1
 dj-database-url==0.5.0
 django-cors-headers==3.2.1
-django-graphql-auth==0.3.9
+django-graphql-jwt==0.3.1
 django-imagekit==4.0.2
 django-parler==2.0.1
 django-s3-storage==0.13.0

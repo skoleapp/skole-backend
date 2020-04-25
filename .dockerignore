@@ -1,7 +1,6 @@
 *
-!api
 !config
-!core
+!skole
 !static
 !manage.py
 !requirements.txt

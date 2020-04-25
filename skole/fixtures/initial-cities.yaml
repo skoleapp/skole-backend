@@ -1,0 +1,418 @@
+- model: skole.CityTranslation
+  pk: 1
+  fields:
+    language_code: en
+    name: Turku
+    master: 1
+- model: skole.CityTranslation
+  pk: 2
+  fields:
+    language_code: fi
+    name: Turku
+    master: 1
+- model: skole.CityTranslation
+  pk: 3
+  fields:
+    language_code: sv
+    name: Åbo
+    master: 1
+- model: skole.CityTranslation
+  pk: 4
+  fields:
+    language_code: en
+    name: Tampere
+    master: 2
+- model: skole.CityTranslation
+  pk: 5
+  fields:
+    language_code: fi
+    name: Tampere
+    master: 2
+- model: skole.CityTranslation
+  pk: 6
+  fields:
+    language_code: sv
+    name: Tammerfors
+    master: 2
+- model: skole.CityTranslation
+  pk: 7
+  fields:
+    language_code: en
+    name: Espoo
+    master: 3
+- model: skole.CityTranslation
+  pk: 8
+  fields:
+    language_code: fi
+    name: Espoo
+    master: 3
+- model: skole.CityTranslation
+  pk: 9
+  fields:
+    language_code: sv
+    name: Esbo
+    master: 3
+- model: skole.CityTranslation
+  pk: 10
+  fields:
+    language_code: en
+    name: Helsinki
+    master: 4
+- model: skole.CityTranslation
+  pk: 11
+  fields:
+    language_code: fi
+    name: Helsinki
+    master: 4
+- model: skole.CityTranslation
+  pk: 12
+  fields:
+    language_code: sv
+    name: Helsingfors
+    master: 4
+- model: skole.CityTranslation
+  pk: 13
+  fields:
+    language_code: en
+    name: Pori
+    master: 5
+- model: skole.CityTranslation
+  pk: 14
+  fields:
+    language_code: fi
+    name: Pori
+    master: 5
+- model: skole.CityTranslation
+  pk: 15
+  fields:
+    language_code: sv
+    name: Björneborg
+    master: 5
+- model: skole.CityTranslation
+  pk: 16
+  fields:
+    language_code: en
+    name: Vaasa
+    master: 6
+- model: skole.CityTranslation
+  pk: 17
+  fields:
+    language_code: fi
+    name: Vaasa
+    master: 6
+- model: skole.CityTranslation
+  pk: 18
+  fields:
+    language_code: sv
+    name: Vasa
+    master: 6
+- model: skole.CityTranslation
+  pk: 19
+  fields:
+    language_code: en
+    name: Jyväskylä
+    master: 7
+- model: skole.CityTranslation
+  pk: 20
+  fields:
+    language_code: fi
+    name: Jyväskylä
+    master: 7
+- model: skole.CityTranslation
+  pk: 21
+  fields:
+    language_code: sv
+    name: Jyväskylä
+    master: 7
+- model: skole.CityTranslation
+  pk: 22
+  fields:
+    language_code: en
+    name: Oulu
+    master: 8
+- model: skole.CityTranslation
+  pk: 23
+  fields:
+    language_code: fi
+    name: Oulu
+    master: 8
+- model: skole.CityTranslation
+  pk: 24
+  fields:
+    language_code: sv
+    name: Uleåborg
+    master: 8
+- model: skole.CityTranslation
+  pk: 25
+  fields:
+    language_code: en
+    name: Rovaniemi
+    master: 9
+- model: skole.CityTranslation
+  pk: 26
+  fields:
+    language_code: fi
+    name: Rovaniemi
+    master: 9
+- model: skole.CityTranslation
+  pk: 27
+  fields:
+    language_code: sv
+    name: Rovaniemi
+    master: 9
+- model: skole.CityTranslation
+  pk: 28
+  fields:
+    language_code: en
+    name: Lappeenranta
+    master: 10
+- model: skole.CityTranslation
+  pk: 29
+  fields:
+    language_code: fi
+    name: Lappeenranta
+    master: 10
+- model: skole.CityTranslation
+  pk: 30
+  fields:
+    language_code: sv
+    name: Villmanstrand
+    master: 10
+- model: skole.CityTranslation
+  pk: 31
+  fields:
+    language_code: en
+    name: Joensuu
+    master: 11
+- model: skole.CityTranslation
+  pk: 32
+  fields:
+    language_code: fi
+    name: Joensuu
+    master: 11
+- model: skole.CityTranslation
+  pk: 33
+  fields:
+    language_code: sv
+    name: Joensuu
+    master: 11
+- model: skole.CityTranslation
+  pk: 34
+  fields:
+    language_code: en
+    name: Maarianhamina
+    master: 12
+- model: skole.CityTranslation
+  pk: 35
+  fields:
+    language_code: fi
+    name: Maarianhamina
+    master: 12
+- model: skole.CityTranslation
+  pk: 36
+  fields:
+    language_code: sv
+    name: Mariehamn
+    master: 12
+- model: skole.CityTranslation
+  pk: 37
+  fields:
+    language_code: en
+    name: Kokkola
+    master: 13
+- model: skole.CityTranslation
+  pk: 38
+  fields:
+    language_code: fi
+    name: Kokkola
+    master: 13
+- model: skole.CityTranslation
+  pk: 39
+  fields:
+    language_code: sv
+    name: Karleby
+    master: 13
+- model: skole.CityTranslation
+  pk: 40
+  fields:
+    language_code: en
+    name: Hämeenlinna
+    master: 14
+- model: skole.CityTranslation
+  pk: 41
+  fields:
+    language_code: fi
+    name: Hämeenlinna
+    master: 14
+- model: skole.CityTranslation
+  pk: 42
+  fields:
+    language_code: sv
+    name: Tavastehus
+    master: 14
+- model: skole.CityTranslation
+  pk: 43
+  fields:
+    language_code: en
+    name: Kouvola
+    master: 15
+- model: skole.CityTranslation
+  pk: 44
+  fields:
+    language_code: fi
+    name: Kouvola
+    master: 15
+- model: skole.CityTranslation
+  pk: 45
+  fields:
+    language_code: sv
+    name: Kouvola
+    master: 15
+- model: skole.CityTranslation
+  pk: 46
+  fields:
+    language_code: en
+    name: Kajaani
+    master: 16
+- model: skole.CityTranslation
+  pk: 47
+  fields:
+    language_code: fi
+    name: Kajaani
+    master: 16
+- model: skole.CityTranslation
+  pk: 48
+  fields:
+    language_code: sv
+    name: Kajana
+    master: 16
+- model: skole.CityTranslation
+  pk: 49
+  fields:
+    language_code: en
+    name: Lahti
+    master: 17
+- model: skole.CityTranslation
+  pk: 50
+  fields:
+    language_code: fi
+    name: Lahti
+    master: 17
+- model: skole.CityTranslation
+  pk: 51
+  fields:
+    language_code: sv
+    name: Lahtis
+    master: 17
+- model: skole.CityTranslation
+  pk: 52
+  fields:
+    language_code: en
+    name: Kuopio
+    master: 18
+- model: skole.CityTranslation
+  pk: 53
+  fields:
+    language_code: fi
+    name: Kuopio
+    master: 18
+- model: skole.CityTranslation
+  pk: 54
+  fields:
+    language_code: sv
+    name: Kuopio
+    master: 18
+- model: skole.CityTranslation
+  pk: 55
+  fields:
+    language_code: en
+    name: Seinäjoki
+    master: 19
+- model: skole.CityTranslation
+  pk: 56
+  fields:
+    language_code: fi
+    name: Seinäjoki
+    master: 19
+- model: skole.CityTranslation
+  pk: 57
+  fields:
+    language_code: sv
+    name: Seinäjoki
+    master: 19
+- model: skole.City
+  pk: 1
+  fields:
+    country: 1
+- model: skole.City
+  pk: 2
+  fields:
+    country: 1
+- model: skole.City
+  pk: 3
+  fields:
+    country: 1
+- model: skole.City
+  pk: 4
+  fields:
+    country: 1
+- model: skole.City
+  pk: 5
+  fields:
+    country: 1
+- model: skole.City
+  pk: 6
+  fields:
+    country: 1
+- model: skole.City
+  pk: 7
+  fields:
+    country: 1
+- model: skole.City
+  pk: 8
+  fields:
+    country: 1
+- model: skole.City
+  pk: 9
+  fields:
+    country: 1
+- model: skole.City
+  pk: 10
+  fields:
+    country: 1
+- model: skole.City
+  pk: 11
+  fields:
+    country: 1
+- model: skole.City
+  pk: 12
+  fields:
+    country: 1
+- model: skole.City
+  pk: 13
+  fields:
+    country: 1
+- model: skole.City
+  pk: 14
+  fields:
+    country: 1
+- model: skole.City
+  pk: 15
+  fields:
+    country: 1
+- model: skole.City
+  pk: 16
+  fields:
+    country: 1
+- model: skole.City
+  pk: 17
+  fields:
+    country: 1
+- model: skole.City
+  pk: 18
+  fields:
+    country: 1
+- model: skole.City
+  pk: 19
+  fields:
+    country: 1

@@ -10,7 +10,7 @@ input ChangePasswordMutationInput {
 }
 
 type ChangePasswordMutationPayload {
-  user: UserObjectType
+  message: String
   errors: [ErrorType]
   clientMutationId: String
 }
@@ -173,7 +173,7 @@ type ErrorType {
 }
 
 input LoginMutationInput {
-  username: String!
+  usernameOrEmail: String!
   password: String!
   clientMutationId: String
 }
@@ -182,6 +182,7 @@ type LoginMutationPayload {
   user: UserObjectType
   errors: [ErrorType]
   token: String
+  message: String
   clientMutationId: String
 }
 
@@ -189,6 +190,10 @@ type Mutation {
   performStar(input: StarredMutationInput!): StarredMutationPayload
   performVote(input: VoteMutationInput!): VoteMutationPayload
   register(input: RegisterMutationInput!): RegisterMutationPayload
+  verifyAccount(input: VerifyAccountMutationInput!): VerifyAccountMutationPayload
+  resendVerificationEmail(input: ResendVerificationEmailMutationInput!): ResendVerificationEmailMutationPayload
+  sendPasswordResetEmail(input: SendPasswordResetEmailMutationInput!): SendPasswordResetEmailMutationPayload
+  resetPassword(input: ResetPasswordMutationInput!): ResetPasswordMutationPayload
   login(input: LoginMutationInput!): LoginMutationPayload
   updateUser(input: UpdateUserMutationInput!): UpdateUserMutationPayload
   changePassword(input: ChangePasswordMutationInput!): ChangePasswordMutationPayload
@@ -246,14 +251,41 @@ type Query {
 
 input RegisterMutationInput {
   username: String!
+  email: String!
   password: String!
   code: String!
   clientMutationId: String
 }
 
 type RegisterMutationPayload {
-  user: UserObjectType
+  message: String
   errors: [ErrorType]
+  clientMutationId: String
+}
+
+input ResendVerificationEmailMutationInput {
+  email: String!
+  clientMutationId: String
+}
+
+type ResendVerificationEmailMutationPayload {
+  email: String!
+  errors: [ErrorType]
+  message: String
+  clientMutationId: String
+}
+
+input ResetPasswordMutationInput {
+  token: String
+  newPassword: String!
+  clientMutationId: String
+}
+
+type ResetPasswordMutationPayload {
+  token: String
+  newPassword: String!
+  errors: [ErrorType]
+  message: String
   clientMutationId: String
 }
 
@@ -297,6 +329,18 @@ type SchoolTypeObjectType {
   name: String
 }
 
+input SendPasswordResetEmailMutationInput {
+  email: String!
+  clientMutationId: String
+}
+
+type SendPasswordResetEmailMutationPayload {
+  email: String!
+  errors: [ErrorType]
+  message: String
+  clientMutationId: String
+}
+
 input StarredMutationInput {
   course: ID
   resource: ID
@@ -317,9 +361,6 @@ type SubjectObjectType {
 input UpdateCommentMutationInput {
   text: String
   attachment: String
-  course: ID
-  resource: ID
-  comment: ID
   id: ID
   clientMutationId: String
 }
@@ -332,7 +373,6 @@ type UpdateCommentMutationPayload {
 
 input UpdateResourceMutationInput {
   title: String!
-  file: String
   resourceType: ID!
   date: Date
   id: ID
@@ -347,7 +387,7 @@ type UpdateResourceMutationPayload {
 
 input UpdateUserMutationInput {
   username: String!
-  email: String
+  email: String!
   title: String
   bio: String
   avatar: String
@@ -369,6 +409,7 @@ type UserObjectType {
   avatar: String
   score: Int
   created: DateTime!
+  verified: Boolean
   createdCourses: [CourseObjectType!]!
   createdResources: [ResourceObjectType!]!
   votes: [VoteObjectType!]!
@@ -377,6 +418,18 @@ type UserObjectType {
   resourceCount: Int
   starredCourses: [CourseObjectType]
   starredResources: [ResourceObjectType]
+}
+
+input VerifyAccountMutationInput {
+  token: String
+  clientMutationId: String
+}
+
+type VerifyAccountMutationPayload {
+  token: String
+  errors: [ErrorType]
+  message: String
+  clientMutationId: String
 }
 
 input VoteMutationInput {

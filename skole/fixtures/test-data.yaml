@@ -1,0 +1,1116 @@
+- model: sites.site
+  pk: 1
+  fields:
+    domain: localhost:3001
+    name: Skole
+
+- model: skole.User
+  pk: 1
+  fields:
+    username: root
+    email: root@root.com
+    password: pbkdf2_sha256$150000$gxz3raENC7JU$5ZWSBCqPqjox2VwHG5RHuu2UnaGCBt7rbO2QX5E7LAY= # root
+    title: ""
+    bio: ""
+    avatar: ""
+    verified: True
+    is_active: True
+    is_staff: true
+    is_superuser: true
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.User
+  pk: 2
+  fields:
+    username: testuser2
+    email: testuser2@test.com
+    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4= # password
+    title: ""
+    bio: ""
+    avatar: uploads/avatars/test_avatar.jpg
+    verified: True
+    is_active: True
+    is_staff: false
+    is_superuser: false
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.User
+  pk: 3
+  fields:
+    username: testuser3
+    email: testuser3@test.com
+    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4= # password
+    title: ""
+    bio: ""
+    avatar: ""
+    verified: True
+    is_active: True
+    is_staff: false
+    is_superuser: false
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.User
+  pk: 4
+  fields:
+    username: testuser4
+    email: testuser4@test.com
+    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4= # password
+    title: ""
+    bio: ""
+    avatar: ""
+    verified: True
+    is_active: True
+    is_staff: false
+    is_superuser: false
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.User
+  pk: 5
+  fields:
+    username: testuser5
+    email: testuser5@test.com
+    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4= # password
+    title: ""
+    bio: ""
+    avatar: ""
+    verified: True
+    is_active: True
+    is_staff: false
+    is_superuser: false
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.User
+  pk: 6
+  fields:
+    username: testuser6
+    email: testuser6@test.com
+    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4= # password
+    title: ""
+    bio: ""
+    avatar: ""
+    verified: True
+    is_active: True
+    is_staff: false
+    is_superuser: false
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.User
+  pk: 7
+  fields:
+    username: testuser7
+    email: testuser7@test.com
+    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4= # password
+    title: ""
+    bio: ""
+    avatar: ""
+    verified: True
+    is_active: True
+    is_staff: false
+    is_superuser: false
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.User
+  pk: 8
+  fields:
+    username: testuser8
+    email: testuser8@test.com
+    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4= # password
+    title: ""
+    bio: ""
+    avatar: ""
+    verified: True
+    is_active: True
+    is_staff: false
+    is_superuser: false
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.User
+  pk: 9
+  fields:
+    username: testuser9
+    email: testuser9@test.com
+    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4= # password
+    title: ""
+    bio: ""
+    avatar: ""
+    verified: True
+    is_active: True
+    is_staff: false
+    is_superuser: false
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.User
+  pk: 10
+  fields:
+    username: testuser10
+    email: testuser10@test.com
+    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4= # password
+    title: ""
+    bio: ""
+    avatar: ""
+    verified: True
+    is_active: True
+    is_staff: false
+    is_superuser: false
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.User
+  pk: 11
+  fields:
+    username: testuser11
+    email: testuser11@test.com
+    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4= # password
+    title: ""
+    bio: ""
+    avatar: ""
+    verified: True
+    is_active: True
+    is_staff: false
+    is_superuser: false
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.User
+  pk: 12
+  fields:
+    username: testuser12
+    email: testuser12@test.com
+    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4= # password
+    title: ""
+    bio: ""
+    avatar: ""
+    verified: True
+    is_active: True
+    is_staff: false
+    is_superuser: false
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+
+- model: skole.CountryTranslation
+  pk: 1
+  fields:
+    master: 1
+    language_code: en
+    name: Finland
+- model: skole.CountryTranslation
+  pk: 2
+  fields:
+    master: 1
+    language_code: fi
+    name: Suomi
+- model: skole.CountryTranslation
+  pk: 3
+  fields:
+    master: 1
+    language_code: sv
+    name: Finland
+
+- model: skole.Country
+  pk: 1
+  fields: {}
+
+- model: skole.CityTranslation
+  pk: 1
+  fields:
+    master: 1
+    language_code: en
+    name: Turku
+- model: skole.CityTranslation
+  pk: 2
+  fields:
+    master: 1
+    language_code: fi
+    name: Turku
+- model: skole.CityTranslation
+  pk: 3
+  fields:
+    master: 1
+    language_code: sv
+    name: Åbo
+- model: skole.CityTranslation
+  pk: 4
+  fields:
+    master: 2
+    language_code: en
+    name: Helsinki
+- model: skole.CityTranslation
+  pk: 5
+  fields:
+    master: 2
+    language_code: fi
+    name: Helsinki
+- model: skole.CityTranslation
+  pk: 6
+  fields:
+    master: 2
+    language_code: sv
+    name: Helsingfors
+- model: skole.CityTranslation
+  pk: 7
+  fields:
+    master: 3
+    language_code: en
+    name: Espoo
+- model: skole.CityTranslation
+  pk: 8
+  fields:
+    master: 3
+    language_code: fi
+    name: Espoo
+- model: skole.CityTranslation
+  pk: 9
+  fields:
+    master: 3
+    language_code: sv
+    name: Esbo
+- model: skole.CityTranslation
+  pk: 10
+  fields:
+    master: 4
+    language_code: en
+    name: Tampere
+- model: skole.CityTranslation
+  pk: 11
+  fields:
+    master: 4
+    language_code: fi
+    name: Tampere
+- model: skole.CityTranslation
+  pk: 12
+  fields:
+    master: 4
+    language_code: sv
+    name: Tammerfors
+- model: skole.CityTranslation
+  pk: 13
+  fields:
+    master: 5
+    language_code: en
+    name: Raisio
+- model: skole.CityTranslation
+  pk: 14
+  fields:
+    master: 5
+    language_code: fi
+    name: Raisio
+- model: skole.CityTranslation
+  pk: 15
+  fields:
+    master: 5
+    language_code: sv
+    name: Reso
+
+- model: skole.City
+  pk: 1
+  fields:
+    country: 1
+- model: skole.City
+  pk: 2
+  fields:
+    country: 1
+- model: skole.City
+  pk: 3
+  fields:
+    country: 1
+- model: skole.City
+  pk: 4
+  fields:
+    country: 1
+- model: skole.City
+  pk: 5
+  fields:
+    country: 1
+
+- model: skole.SchoolTypeTranslation
+  pk: 1
+  fields:
+    master: 1
+    language_code: en
+    name: University
+- model: skole.SchoolTypeTranslation
+  pk: 2
+  fields:
+    master: 1
+    language_code: fi
+    name: Yliopisto
+- model: skole.SchoolTypeTranslation
+  pk: 3
+  fields:
+    master: 1
+    language_code: sv
+    name: Universitet
+- model: skole.SchoolTypeTranslation
+  pk: 4
+  fields:
+    master: 2
+    language_code: en
+    name: University of Applied Sciences
+- model: skole.SchoolTypeTranslation
+  pk: 5
+  fields:
+    master: 2
+    language_code: fi
+    name: Ammattikorkekoulu
+- model: skole.SchoolTypeTranslation
+  pk: 6
+  fields:
+    master: 2
+    language_code: sv
+    name: Yrkeshögskolan
+- model: skole.SchoolTypeTranslation
+  pk: 7
+  fields:
+    master: 3
+    language_code: en
+    name: High School
+- model: skole.SchoolTypeTranslation
+  pk: 8
+  fields:
+    master: 3
+    language_code: fi
+    name: Lukio
+- model: skole.SchoolTypeTranslation
+  pk: 9
+  fields:
+    master: 3
+    language_code: sv
+    name: Gymnasium
+
+- model: skole.SchoolType
+  pk: 1
+  fields: {}
+- model: skole.SchoolType
+  pk: 2
+  fields: {}
+- model: skole.SchoolType
+  pk: 3
+  fields: {}
+
+- model: skole.SchoolTranslation
+  pk: 1
+  fields:
+    master: 1
+    language_code: en
+    name: University of Turku
+- model: skole.SchoolTranslation
+  pk: 2
+  fields:
+    master: 1
+    language_code: fi
+    name: Turun yliopisto
+- model: skole.SchoolTranslation
+  pk: 3
+  fields:
+    master: 1
+    language_code: sv
+    name: Åbo universitet
+- model: skole.SchoolTranslation
+  pk: 4
+  fields:
+    master: 2
+    language_code: en
+    name: Aalto University
+- model: skole.SchoolTranslation
+  pk: 5
+  fields:
+    master: 2
+    language_code: fi
+    name: Aalto-yliopisto
+- model: skole.SchoolTranslation
+  pk: 6
+  fields:
+    master: 2
+    language_code: sv
+    name: Aalto-universitetet
+- model: skole.SchoolTranslation
+  pk: 7
+  fields:
+    master: 3
+    language_code: en
+    name: University of Tampere
+- model: skole.SchoolTranslation
+  pk: 8
+  fields:
+    master: 3
+    language_code: fi
+    name: Tampereen yliopisto
+- model: skole.SchoolTranslation
+  pk: 9
+  fields:
+    master: 3
+    language_code: sv
+    name: Tammerfors universitet
+- model: skole.SchoolTranslation
+  pk: 10
+  fields:
+    master: 4
+    language_code: en
+    name: Turku University of Applied Sciences
+- model: skole.SchoolTranslation
+  pk: 11
+  fields:
+    master: 4
+    language_code: fi
+    name: Turun ammattikorkeakoulu
+- model: skole.SchoolTranslation
+  pk: 12
+  fields:
+    master: 4
+    language_code: sv
+    name: Åbo yrkeshögskola
+- model: skole.SchoolTranslation
+  pk: 13
+  fields:
+    master: 5
+    language_code: en
+    name: Metropolia University of Applied Sciences
+- model: skole.SchoolTranslation
+  pk: 14
+  fields:
+    master: 5
+    language_code: fi
+    name: Metropolia ammattikorkeakoulu
+- model: skole.SchoolTranslation
+  pk: 15
+  fields:
+    master: 5
+    language_code: sv
+    name: Metropolia yrkeshögskola
+- model: skole.SchoolTranslation
+  pk: 16
+  fields:
+    master: 6
+    language_code: en
+    name: Raision lukio
+- model: skole.SchoolTranslation
+  pk: 17
+  fields:
+    master: 6
+    language_code: fi
+    name: Raision lukio
+- model: skole.SchoolTranslation
+  pk: 18
+  fields:
+    master: 6
+    language_code: sv
+    name: Raision lukio
+
+- model: skole.School
+  pk: 1
+  fields:
+    school_type: 1
+    city: 1
+- model: skole.School
+  pk: 2
+  fields:
+    school_type: 1
+    city: 3
+- model: skole.School
+  pk: 3
+  fields:
+    school_type: 1
+    city: 4
+- model: skole.School
+  pk: 4
+  fields:
+    school_type: 2
+    city: 1
+- model: skole.School
+  pk: 5
+  fields:
+    school_type: 2
+    city: 2
+- model: skole.School
+  pk: 6
+  fields:
+    school_type: 3
+    city: 5
+
+- model: skole.SubjectTranslation
+  pk: 1
+  fields:
+    master: 1
+    language_code: en
+    name: Computer Engineering
+- model: skole.SubjectTranslation
+  pk: 2
+  fields:
+    master: 1
+    language_code: fi
+    name: Tietotekniikka
+- model: skole.SubjectTranslation
+  pk: 3
+  fields:
+    master: 1
+    language_code: sv
+    name: Datateknologi
+- model: skole.SubjectTranslation
+  pk: 4
+  fields:
+    master: 2
+    language_code: en
+    name: Computer Science
+- model: skole.SubjectTranslation
+  pk: 5
+  fields:
+    master: 2
+    language_code: fi
+    name: Tietojenkäsittelytiede
+- model: skole.SubjectTranslation
+  pk: 6
+  fields:
+    master: 2
+    language_code: sv
+    name: Informasjonsteknologi
+- model: skole.SubjectTranslation
+  pk: 7
+  fields:
+    master: 3
+    language_code: en
+    name: Chemistry
+- model: skole.SubjectTranslation
+  pk: 8
+  fields:
+    master: 3
+    language_code: fi
+    name: Kemia
+- model: skole.SubjectTranslation
+  pk: 9
+  fields:
+    master: 3
+    language_code: sv
+    name: Kemi
+- model: skole.SubjectTranslation
+  pk: 10
+  fields:
+    master: 4
+    language_code: en
+    name: Economy
+- model: skole.SubjectTranslation
+  pk: 11
+  fields:
+    master: 4
+    language_code: fi
+    name: Taloustiede
+- model: skole.SubjectTranslation
+  pk: 12
+  fields:
+    master: 4
+    language_code: sv
+    name: Ekonomi
+
+- model: skole.Subject
+  pk: 1
+  fields: {}
+- model: skole.Subject
+  pk: 2
+  fields: {}
+- model: skole.Subject
+  pk: 3
+  fields: {}
+- model: skole.Subject
+  pk: 4
+  fields: {}
+
+- model: skole.Course
+  pk: 1
+  fields:
+    name: Test Engineering Course 1
+    code: TEST0001
+    subject: 1
+    school: 1
+    user: 2
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Course
+  pk: 2
+  fields:
+    name: Test Engineering Course 2
+    code: TEST0002
+    subject: 1
+    school: 1
+    user: 3
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Course
+  pk: 3
+  fields:
+    name: Test Engineering Course 3
+    code: TEST0003
+    subject: 1
+    school: 1
+    user: 4
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Course
+  pk: 4
+  fields:
+    name: Test Engineering Course 4
+    code: TEST0004
+    subject: 1
+    school: 1
+    user: 2
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Course
+  pk: 5
+  fields:
+    name: Test Engineering Course 5
+    code: TEST0005
+    subject: 1
+    school: 1
+    user: 3
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Course
+  pk: 6
+  fields:
+    name: Test Engineering Course 6
+    code: TEST0006
+    subject: 1
+    school: 1
+    user: 4
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Course
+  pk: 7
+  fields:
+    name: Test Engineering Course 7
+    code: TEST0007
+    subject: 1
+    school: 1
+    user: 2
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Course
+  pk: 8
+  fields:
+    name: Test Engineering Course 8
+    code: TEST0008
+    subject: 1
+    school: 1
+    user: 2
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Course
+  pk: 9
+  fields:
+    name: Test Engineering Course 9
+    code: TEST0009
+    subject: 1
+    school: 1
+    user: 3
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Course
+  pk: 10
+  fields:
+    name: Test Engineering Course 10
+    code: TEST00010
+    subject: 1
+    school: 1
+    user: 4
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Course
+  pk: 11
+  fields:
+    name: Test Engineering Course 11
+    code: TEST00011
+    subject: 1
+    school: 1
+    user: 3
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Course
+  pk: 12
+  fields:
+    name: Test Engineering Course 12
+    code: TEST00012
+    subject: 1
+    school: 1
+    user: 4
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+
+- model: skole.ResourceTypeTranslation
+  pk: 1
+  fields:
+    master: 1
+    language_code: en
+    name: Exam
+- model: skole.ResourceTypeTranslation
+  pk: 2
+  fields:
+    master: 1
+    language_code: fi
+    name: Tentti
+- model: skole.ResourceTypeTranslation
+  pk: 3
+  fields:
+    master: 1
+    language_code: sv
+    name: Tentamen
+- model: skole.ResourceTypeTranslation
+  pk: 4
+  fields:
+    master: 2
+    language_code: en
+    name: Exercise
+- model: skole.ResourceTypeTranslation
+  pk: 5
+  fields:
+    master: 2
+    language_code: fi
+    name: Harjoitustehtävä
+- model: skole.ResourceTypeTranslation
+  pk: 6
+  fields:
+    master: 2
+    language_code: sv
+    name: Uppgift
+- model: skole.ResourceTypeTranslation
+  pk: 7
+  fields:
+    master: 3
+    language_code: en
+    name: Note
+- model: skole.ResourceTypeTranslation
+  pk: 8
+  fields:
+    master: 3
+    language_code: fi
+    name: Muistiinpano
+- model: skole.ResourceTypeTranslation
+  pk: 9
+  fields:
+    master: 3
+    language_code: sv
+    name: Minnesanteckning
+- model: skole.ResourceTypeTranslation
+  pk: 10
+  fields:
+    master: 4
+    language_code: en
+    name: Other
+- model: skole.ResourceTypeTranslation
+  pk: 11
+  fields:
+    master: 4
+    language_code: fi
+    name: Muu
+- model: skole.ResourceTypeTranslation
+  pk: 12
+  fields:
+    master: 4
+    language_code: sv
+    name: Annat
+
+- model: skole.ResourceType
+  pk: 1
+  fields: {}
+- model: skole.ResourceType
+  pk: 2
+  fields: {}
+- model: skole.ResourceType
+  pk: 3
+  fields: {}
+- model: skole.ResourceType
+  pk: 4
+  fields: {}
+
+- model: skole.Resource
+  pk: 1
+  fields:
+    resource_type: 1
+    title: Sample exam 1
+    file: uploads/resources/test_resource.pdf
+    date: 2012-12-12
+    course: 1
+    user: 2
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Resource
+  pk: 2
+  fields:
+    resource_type: 1
+    title: Sample exam 2
+    file: uploads/resources/test_resource.pdf
+    date: 2012-12-12
+    course: 1
+    user: 3
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Resource
+  pk: 3
+  fields:
+    resource_type: 2
+    title: Sample exercise
+    file: uploads/resources/test_resource.pdf
+    date: 2012-12-12
+    course: 1
+    user: 4
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+
+- model: skole.Comment
+  pk: 1
+  fields:
+    text: Starting comment for the thread on a resource.
+    attachment: uploads/attachments/test_attachment.png
+    resource: 1
+    course: null
+    comment: null
+    user: 2
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Comment
+  pk: 2
+  fields:
+    text: Second comment of the thread.
+    attachment: ""
+    resource: 1
+    course: null
+    comment: null
+    user: 3
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Comment
+  pk: 3
+  fields:
+    text: ""
+    attachment: uploads/attachments/test_attachment.png
+    resource: 1
+    course: null
+    comment: null
+    user: 4
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Comment
+  pk: 4
+  fields:
+    text: Comment 1 to a course
+    attachment: ""
+    resource: null
+    course: 1
+    comment: null
+    user: 2
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Comment
+  pk: 5
+  fields:
+    text: Comment 2 to a course
+    attachment: ""
+    resource: null
+    course: 1
+    comment: null
+    user: 2
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Comment
+  pk: 6
+  fields:
+    text: Comment 3 to a course
+    attachment: ""
+    resource: null
+    course: 1
+    comment: null
+    user: 2
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Comment
+  pk: 7
+  fields:
+    text: Comment 4 to a course
+    attachment: ""
+    resource: null
+    course: 1
+    comment: null
+    user: 2
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Comment
+  pk: 8
+  fields:
+    text: Comment 5 to a course
+    attachment: ""
+    resource: null
+    course: 1
+    comment: null
+    user: 2
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Comment
+  pk: 9
+  fields:
+    text: Comment 6 to a course
+    attachment: ""
+    resource: null
+    course: 1
+    comment: null
+    user: 2
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Comment
+  pk: 10
+  fields:
+    text: Comment 7 to a course
+    attachment: ""
+    resource: null
+    course: 1
+    comment: null
+    user: 2
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Comment
+  pk: 11
+  fields:
+    text: Comment 8 to a course
+    attachment: ""
+    resource: null
+    course: 1
+    comment: null
+    user: 2
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Comment
+  pk: 12
+  fields:
+    text: First reply to a comment.
+    attachment: ""
+    resource: null
+    course: null
+    comment: 4
+    user: 2
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Comment
+  pk: 13
+  fields:
+    text: Second reply to a comment.
+    attachment: ""
+    resource: null
+    course: null
+    comment: 4
+    user: 2
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Comment
+  pk: 14
+  fields:
+    text: Third reply to a comment.
+    attachment: ""
+    resource: null
+    course: null
+    comment: 4
+    user: 2
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Comment
+  pk: 15
+  fields:
+    text: 4th reply to a comment.
+    attachment: ""
+    resource: null
+    course: null
+    comment: 4
+    user: 2
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Comment
+  pk: 16
+  fields:
+    text: 5th reply to a comment.
+    attachment: ""
+    resource: null
+    course: null
+    comment: 4
+    user: 2
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Comment
+  pk: 17
+  fields:
+    text: 6th reply to a comment.
+    attachment: ""
+    resource: null
+    course: null
+    comment: 4
+    user: 2
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Comment
+  pk: 18
+  fields:
+    text: 7th reply to a comment.
+    attachment: ""
+    resource: null
+    course: null
+    comment: 4
+    user: 2
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Comment
+  pk: 19
+  fields:
+    text: 8th reply to a comment.
+    attachment: ""
+    resource: null
+    course: null
+    comment: 4
+    user: 2
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Comment
+  pk: 20
+  fields:
+    text: 9th reply to a comment.
+    attachment: ""
+    resource: null
+    course: null
+    comment: 4
+    user: 2
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Comment
+  pk: 22
+  fields:
+    text: 11th reply to a comment.
+    attachment: ""
+    resource: null
+    course: null
+    comment: 4
+    user: 2
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+
+- model: skole.Vote
+  pk: 1
+  fields:
+    comment: 1
+    course: null
+    resource: null
+    status: 1
+    user: 2
+- model: skole.Vote
+  pk: 2
+  fields:
+    comment: 1
+    course: null
+    resource: null
+    status: 1
+    user: 3
+- model: skole.Vote
+  pk: 3
+  fields:
+    comment: 1
+    course: null
+    resource: null
+    status: -1
+    user: 4
+
+- model: skole.BetaCode
+  pk: 1
+  fields:
+    code: TEST
+    usages: 100

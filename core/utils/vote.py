@@ -1,8 +1,0 @@
-SCORE_RESOURCE_MULTIPLIER = 10
-SCORE_COURSE_MULTIPLIER = 5
-SCORE_COMMENT_MULTIPLIER = 1
-
-VOTE_STATUS = (
-    (1, "upvote"),
-    (-1, "downvote"),
-)

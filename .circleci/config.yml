@@ -13,4 +13,4 @@ jobs:
           name: "Run type-check and tests"
           command: >
             docker-compose -f docker-compose.circleci.yml
-            run --rm backend sh -c "mypy . && pytest tests"
+            run --rm backend sh -c "mypy . && pytest skole/tests"

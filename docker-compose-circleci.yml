@@ -10,6 +10,8 @@ services:
       - POSTGRES_DB=skole
       - POSTGRES_USER=username
       - POSTGRES_PASSWORD=password
+    logging:
+      driver: none
 
   backend:
     container_name: backend

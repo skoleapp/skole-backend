@@ -21,9 +21,13 @@ RUN apk add --update-cache --no-cache --virtual .tmp-build-deps \
 
 USER user
 
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+
 
 FROM dev AS circleci
 
 COPY --chown=user:user . .
 
-CMD black --check --exclude 'migrations/.*|schemas/resource.py' . && mypy . && pytest --verbose tests
+CMD black --check --exclude 'migrations/.*|schemas/resource.py' . \
+    && mypy . \
+    && pytest --verbose tests

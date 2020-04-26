@@ -30,7 +30,7 @@ class Messages:
     MESSAGE_SENT = _("Message sent successfully.")
     USER_REGISTERED = _("Registered new user successfully!")
     ACCOUNT_VERIFIED = _("Account verified successfully!")
-    VERIFICATION_EMAIL_SENT = _("Verification email sent successfully!")
+    VERIFICATION_EMAIL_SENT = _("Verification link sent successfully!")
     PASSWORD_RESET_EMAIL_SENT = _("Password reset link sent successfully!")
     PASSWORD_UPDATED = _("Password updated successfully!")
     LOGGED_IN = _("Logged in successfully!")
@@ -73,7 +73,9 @@ class MutationErrors:
         {
             "field": "__all__",
             "messages": [
-                _("User with the provided email was not found. Please check you email.")
+                _(
+                    "User with the provided email was not found. Please check you email address."
+                )
             ],
         }
     ]
@@ -82,7 +84,7 @@ class MutationErrors:
             "field": "__all__",
             "messages": [
                 _(
-                    "You must verify your account before resetting your password. A new verification email was sent. Please check your inbox and verify your account."
+                    "You must verify your account before resetting your password. A new verification email was sent. Please check your email."
                 )
             ],
         }

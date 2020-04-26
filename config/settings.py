@@ -114,7 +114,7 @@ USE_L10N = True
 USE_TZ = True
 LANGUAGE_CODE = "en"
 LANGUAGES = (("en", _("English")), ("fi", _("Finnish")), ("sv", _("Swedish")))
-LOCALE_PATHS = (os.path.join(BASE_DIR, "skole", "locale"),)
+LOCALE_PATHS = (os.path.join(BASE_DIR, "locale"),)
 
 # Graphene settings
 GRAPHENE = {

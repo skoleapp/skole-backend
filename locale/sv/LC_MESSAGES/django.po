@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-26 15:46+0000\n"
+"POT-Creation-Date: 2020-04-26 16:07+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -44,11 +44,11 @@ msgstr "Felaktig beta-kod."
 
 #: skole/utils/constants.py:13
 msgid "This account has been deactivated!"
-msgstr ""
+msgstr "Detta konto har inaktiverats!"
 
 #: skole/utils/constants.py:14
 msgid "Invalid username/email or password."
-msgstr ""
+msgstr "Ogiltigt användarnamn / e-postadress eller lösenord."
 
 #: skole/utils/constants.py:15
 msgid "Cannot log in as superuser."
@@ -56,15 +56,15 @@ msgstr "Kan inte logga in som superanvändare."
 
 #: skole/utils/constants.py:16
 msgid "Invalid old password."
-msgstr ""
+msgstr "Ogiltigt gammalt lösenord."
 
 #: skole/utils/constants.py:17
 msgid "Invalid password."
-msgstr ""
+msgstr "Felaktigt lösenord."
 
 #: skole/utils/constants.py:18
 msgid "Mutation needs exactly one target."
-msgstr "Mutation innehåller för många mål."
+msgstr "Mutationen innehåller för många mål."
 
 #: skole/utils/constants.py:19
 msgid "You are not the owner of this object."
@@ -72,19 +72,19 @@ msgstr "Du är inte ägare av detta objekt."
 
 #: skole/utils/constants.py:23
 msgid "Invalid ordering value."
-msgstr ""
+msgstr "Ogiltigt sorteringsvärde."
 
 #: skole/utils/constants.py:24
 msgid "This account has already been verified."
-msgstr ""
+msgstr "Det här kontot har redan verifierats."
 
 #: skole/utils/constants.py:25
 msgid "This account is not verified."
-msgstr ""
+msgstr "Det här kontot har inte verifierats"
 
 #: skole/utils/constants.py:26
 msgid "This token is not intended for this use."
-msgstr ""
+msgstr "Detta token är inte avsett för detta bruk."
 
 #: skole/utils/constants.py:30
 msgid "Message sent successfully."
@@ -92,63 +92,63 @@ msgstr "Meddelandet har skickats."
 
 #: skole/utils/constants.py:31
 msgid "Registered new user successfully!"
-msgstr ""
+msgstr "Ny användare registrerad framgångsrikt!"
 
 #: skole/utils/constants.py:32
 msgid "Account verified successfully!"
-msgstr ""
+msgstr "Kontot har verifierats!"
 
 #: skole/utils/constants.py:33
 msgid "Verification link sent successfully!"
-msgstr ""
+msgstr "Verifieringslänken har skickats!"
 
 #: skole/utils/constants.py:34
 msgid "Password reset link sent successfully!"
-msgstr ""
+msgstr "Länk till återställning av lösenord har skickats!"
 
 #: skole/utils/constants.py:35
 msgid "Password updated successfully!"
-msgstr ""
+msgstr "Lösenordet har uppdaterats!"
 
 #: skole/utils/constants.py:36
 msgid "Logged in successfully!"
-msgstr "Meddelandet har skickats."
+msgstr "Inloggad!"
 
 #: skole/utils/constants.py:37
 msgid "User deleted successfully!"
-msgstr ""
+msgstr "Användaren raderad!"
 
 #: skole/utils/constants.py:38
 msgid "User details updated successfully!"
-msgstr ""
+msgstr "Användarinformation uppdaterad framgångsrikt!"
 
 #: skole/utils/constants.py:39
 msgid "Course created successfully!"
-msgstr ""
+msgstr "Kurs skapad!"
 
 #: skole/utils/constants.py:40
 msgid "Course deleted successfully!"
-msgstr ""
+msgstr "Kurs raderad!"
 
 #: skole/utils/constants.py:41
 msgid "Resource deleted successfully!"
-msgstr ""
+msgstr "Resurs raderad!"
 
 #: skole/utils/constants.py:42
 msgid "Resource created successfully!"
-msgstr ""
+msgstr "Resurs skapad!"
 
 #: skole/utils/constants.py:43
 msgid "Resource updated successfully!"
-msgstr ""
+msgstr "Resurs har uppdaterats!"
 
 #: skole/utils/constants.py:44
 msgid "Comment updated successfully!"
-msgstr ""
+msgstr "Kommentaren har uppdaterats!"
 
 #: skole/utils/constants.py:45
 msgid "Comment deleted successfully!"
-msgstr ""
+msgstr "Kommentaren raderad!"
 
 #: skole/utils/constants.py:52
 msgid "Comment must include either text or attachment."
@@ -160,48 +160,54 @@ msgstr "Fel vid sändning av meddelande."
 
 #: skole/utils/constants.py:63
 msgid "Token expired. Please request new verification link."
-msgstr ""
+msgstr "Token har löpt ut. Begär ny verifieringslänk."
 
 #: skole/utils/constants.py:69
 msgid "Invalid token. Please request new verification link."
-msgstr ""
+msgstr "Ogiltigt token. Begär ny verifieringslänk."
 
 #: skole/utils/constants.py:77
 msgid ""
 "User with the provided email was not found. Please check you email address."
 msgstr ""
+"Användare med den medföljande e-postadressen hittades inte. Kontrollera din "
+"e-postadress."
 
 #: skole/utils/constants.py:87
 msgid ""
 "You must verify your account before resetting your password. A new "
 "verification email was sent. Please check your email."
 msgstr ""
+"Du måste verifiera ditt konto innan du återställer ditt lösenord. Ett "
+"nyttverifieringsmail skickades. Kontrollera din e-postadress."
 
 #: skole/utils/constants.py:93
 msgid "This account has been removed."
-msgstr ""
+msgstr "Det här kontot har tagits bort."
 
 #: skole/utils/constants.py:98
 msgid "Token expired. Please request new password reset link."
-msgstr ""
+msgstr "Token har löpt ut. Be om ny länk för återställning av lösenord."
 
 #: skole/utils/constants.py:104
 msgid "Invalid token. Please request new password reset link."
-msgstr ""
+msgstr "Ogiltigt token. Be om ny länk till återställning av lösenord."
 
 #: skole/utils/constants.py:110
 msgid "This action is only allowed for authenticated users."
-msgstr ""
+msgstr "Den här åtgärden är endast tillåten för autentiserade användare."
 
 #: skole/utils/constants.py:118
 msgid ""
 "This action is only allowed for users who have verified their accounts. "
 "Please verify your account."
 msgstr ""
+"Den här åtgärden är endast tillåten för användare som har verifierat sina "
+"konton.Bekräfta ditt konto."
 
 #: skole/utils/constants.py:124
 msgid "You cannot vote your own content."
-msgstr "Du kan inte rösta för ditt eget innehåll."
+msgstr "Du kan inte rösta på ditt eget innehåll."
 
 #: skole/utils/validators.py:35
 msgid "File is too large, maximum allowed is {}MB"

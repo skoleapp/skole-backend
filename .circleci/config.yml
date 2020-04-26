@@ -10,7 +10,8 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "Run type-check and tests"
+          name: "Run linter, type-check, and tests"
           command: >
-            docker-compose -f docker-compose.circleci.yml
-            run --rm backend sh -c "mypy . && pytest skole/tests"
+            docker-compose -f docker-compose.circleci.yml run --rm backend sh -c "
+              black --check --exclude 'migrations/.*|schemas/resource.py' . && mypy . && pytest tests
+            "

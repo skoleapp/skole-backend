@@ -16,11 +16,10 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      target: circleci
     environment:
       - DEBUG=1
       - SECRET_KEY=skole
       - DATABASE_URL=postgres://username:password@db:5432/skole
-    volumes:
-      - .:/home/user/app
     depends_on:
       - db

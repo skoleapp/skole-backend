@@ -1,8 +1,8 @@
-FROM python:3.8.2-alpine3.11
+FROM python:3.8.2-alpine3.11 AS dev
 
 RUN adduser --disabled-password user
 WORKDIR /home/user/app
-RUN chown user:user /home/user/app
+RUN chown -R user:user /home/user/app
 
 ENV PATH="/home/user/.local/bin:${PATH}"
 ENV PYTHONUNBUFFERED=1
@@ -20,3 +20,8 @@ RUN apk add --update-cache --no-cache --virtual .tmp-build-deps \
     && apk del .tmp-build-deps
 
 USER user
+
+
+FROM dev AS circleci
+
+COPY --chown=user:user . .

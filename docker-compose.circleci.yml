@@ -1,17 +1,6 @@
-version: "3"
+version: "3.7"
 
 services:
-  backend:
-    container_name: backend
-    build: .
-    environment:
-      - DEBUG=1
-      - SECRET_KEY=skole
-      - DATABASE_URL=postgres://username:password@db:5432/skole
-    volumes:
-      - .:/app
-    depends_on:
-      - db
   db:
     container_name: db
     image: postgres:12.0-alpine
@@ -21,3 +10,17 @@ services:
       - POSTGRES_DB=skole
       - POSTGRES_USER=username
       - POSTGRES_PASSWORD=password
+
+  backend:
+    container_name: backend
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - DEBUG=1
+      - SECRET_KEY=skole
+      - DATABASE_URL=postgres://username:password@db:5432/skole
+    volumes:
+      - .:/home/user/app
+    depends_on:
+      - db

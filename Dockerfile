@@ -30,4 +30,4 @@ COPY --chown=user:user . .
 
 CMD black --check --exclude 'migrations/.*|schemas/resource.py' . \
     && mypy . \
-    && pytest --verbose tests
+    && pytest --verbose skole/tests

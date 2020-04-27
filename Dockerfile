@@ -28,6 +28,6 @@ FROM dev AS circleci
 
 COPY --chown=user:user . .
 
-CMD black --check --diff --exclude 'migrations/.*|schemas/resource.py' . \
+CMD black --check --diff --exclude migrations/.* . \
     && mypy . \
     && pytest --verbose skole/tests

@@ -6,14 +6,22 @@ from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphql import ResolveInfo
 from graphql_jwt.decorators import login_required
 
-from skole.forms.resource import (CreateResourceForm, DeleteResourceForm,
-                                  UpdateResourceForm)
+from skole.forms.resource import (
+    CreateResourceForm,
+    DeleteResourceForm,
+    UpdateResourceForm,
+)
 from skole.models import Resource
 from skole.schemas.school import SchoolObjectType
 from skole.utils.constants import Messages, MutationErrors
 from skole.utils.decorators import login_required_mutation
-from skole.utils.mixins import (DeleteMutationMixin, FileMutationMixin,
-                                MessageMixin, StarredMixin, VoteMixin)
+from skole.utils.mixins import (
+    DeleteMutationMixin,
+    FileMutationMixin,
+    MessageMixin,
+    StarredMixin,
+    VoteMixin,
+)
 from skole.utils.shortcuts import get_obj_or_none
 
 
@@ -57,9 +65,10 @@ class CreateResourceMutation(FileMutationMixin, MessageMixin, DjangoModelFormMut
     ) -> "CreateResourceMutation":
         assert info.context is not None
         resource = Resource.objects.create_resource(
-            #  Mypy somehow thinks that the user was already in the cleaned_data,
-            #  and would thus also be a duplicate key.
-            **form.cleaned_data, user=info.context.user # type: ignore[misc]
+            **form.cleaned_data,
+            # Ignore: Mypy somehow thinks that the user was already in the cleaned_data,
+            #   and would thus also be a duplicate keyword argument.
+            user=info.context.user,  # type: ignore[misc]
         )
         return cls(resource=resource, message=Messages.RESOURCE_CREATED)
 

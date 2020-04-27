@@ -30,7 +30,7 @@ try:
         .decode("utf-8")
     )
 except urllib.error.URLError:
-    # We were not in an EC2 instance.
+    # We were not in an EC2 instance, no need to do anything.
     pass
 
 
@@ -114,13 +114,13 @@ USE_L10N = True
 USE_TZ = True
 LANGUAGE_CODE = "en"
 LANGUAGES = (("en", _("English")), ("fi", _("Finnish")), ("sv", _("Swedish")))
-LOCALE_PATHS = (os.path.join(BASE_DIR, "locale"),)
+LOCALE_PATHS = [os.path.join(BASE_DIR, "skole/locale")]
 
 # Graphene settings
 GRAPHENE = {
     "SCHEMA": "skole.schemas.schema.schema",
     "SCHEMA_OUTPUT": "schema.graphql",
-    "MIDDLEWARE": ["graphql_jwt.middleware.JSONWebTokenMiddleware",],
+    "MIDDLEWARE": ["graphql_jwt.middleware.JSONWebTokenMiddleware"],
 }
 
 # GraphQL JWT settings
@@ -138,7 +138,7 @@ EXPIRATION_PASSWORD_RESET_TOKEN = timedelta(hours=1)
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, "skole" "templates")],
+        "DIRS": [os.path.join(BASE_DIR, "skole/templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [

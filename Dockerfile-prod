@@ -1,33 +1,29 @@
-FROM python:3.8.2-alpine3.11 AS dev
+FROM python:3.8.2-alpine3.11
 
 RUN adduser --disabled-password user
 WORKDIR /home/user/app
-RUN chown -R user:user /home/user/app
+RUN chown user:user /home/user/app
 
 ENV PATH="/home/user/.local/bin:${PATH}"
 ENV PYTHONUNBUFFERED=1
-ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONOPTIMIZE=1
 
 RUN apk add --update-cache --no-cache postgresql-client gettext jpeg-dev libmagic
 
 COPY --chown=user:user requirements.txt .
-COPY --chown=user:user requirements-dev.txt .
 
 RUN apk add --update-cache --no-cache --virtual .tmp-build-deps \
         gcc libc-dev linux-headers postgresql-dev musl-dev zlib zlib-dev \
     && su user -c 'pip install --user --no-cache-dir --upgrade pip' \
-    && su user -c 'pip install --user --no-cache-dir -r requirements.txt -r requirements-dev.txt' \
+    && su user -c 'pip install --user --no-cache-dir -r requirements.txt' \
     && apk del .tmp-build-deps
 
 USER user
 
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
-
-
-FROM dev AS circleci
-
 COPY --chown=user:user . .
 
-CMD black --check --diff --exclude migrations/.* . \
-    && mypy . \
-    && pytest --verbose --cov-report=html --cov=. skole/tests
+CMD python manage.py wait_for_db \
+    && python manage.py migrate \
+    && python manage.py collectstatic --noinput \
+    && python manage.py compilemessages \
+    && gunicorn --log-level info --access-logfile '-' --workers 3 --bind 0.0.0.0:8000 config.wsgi

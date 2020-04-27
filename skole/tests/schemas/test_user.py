@@ -117,8 +117,8 @@ class UserSchemaTests(SchemaTestCase):
         title: str = "",
         bio: str = "",
         avatar: str = "",
-        school: str = "",
-        subject: str = "",
+        school: str = "1",
+        subject: str = "1",
     ) -> JsonDict:
         return self.execute_input_mutation(
             input_type="UpdateUserMutationInput!",
@@ -231,18 +231,22 @@ class UserSchemaTests(SchemaTestCase):
 
     def test_user(self) -> None:
         # Own user.
-        user2 = self.query_user(id=2)
-        assert user2["id"] == "2"
-        assert user2["username"] == "testuser2"
-        assert user2["email"] == "testuser2@test.com"
-        assert user2["verified"]
+        user1 = self.query_user(id=2)
+        assert user1["id"] == "2"
+        assert user1["username"] == "testuser2"
+        assert user1["email"] == "testuser2@test.com"
+        assert user1["verified"]
+        assert user1["school"] == {"id": "1"}
+        assert user1["school"] == {"id": "1"}
 
         # Random user.
-        user1 = self.query_user(id=3)
-        assert user1["id"] == "3"
-        assert user1["username"] == "testuser3"
-        assert user1["email"] == ""
-        assert user1["verified"] is None
+        user2 = self.query_user(id=3)
+        assert user2["id"] == "3"
+        assert user2["username"] == "testuser3"
+        assert user2["email"] == ""
+        assert user2["verified"] is None
+        assert user2["school"] is None
+        assert user2["school"] is None
 
         # ID not found.
         assert self.query_user(id=999) is None
@@ -274,8 +278,8 @@ class UserSchemaTests(SchemaTestCase):
         new_email = "newmail@email.com"
         new_title = "My new Title."
         new_bio = "My new bio."
-        new_school = "1"
-        new_subject = "1"
+        new_school = "2"
+        new_subject = "2"
 
         res = self.mutate_update_user(
             username=new_username,

@@ -120,12 +120,12 @@ class User(AbstractBaseUser, PermissionsMixin):
         options={"quality": 60},
     )
 
-    school = models.OneToOneField(
-        School, on_delete=models.SET_NULL, related_name="user", null=True, blank=True
+    school = models.ForeignKey(
+        School, on_delete=models.SET_NULL, related_name="users", null=True, blank=True
     )
 
-    subject = models.OneToOneField(
-        Subject, on_delete=models.SET_NULL, related_name="user", null=True, blank=True
+    subject = models.ForeignKey(
+        Subject, on_delete=models.SET_NULL, related_name="users", null=True, blank=True
     )
 
     score = models.IntegerField(default=0)

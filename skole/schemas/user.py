@@ -24,7 +24,7 @@ from skole.forms.user import (
     TokenForm,
     UpdateUserForm,
 )
-from skole.models import BetaCode, Course, Resource, User
+from skole.models import BetaCode, Course, Resource, School, Subject, User
 from skole.schemas.course import CourseObjectType
 from skole.schemas.resource import ResourceObjectType
 from skole.schemas.school import SchoolObjectType
@@ -106,6 +106,14 @@ class UserObjectType(DjangoObjectType):
             return info.context.user.verified
         else:
             return None
+
+    def resolve_school(self, info: ResolveInfo) -> "School":
+        assert info.context is not None
+        return self.school if self.pk == info.context.user.pk else None
+
+    def resolve_subject(self, info: ResolveInfo) -> "Subject":
+        assert info.context is not None
+        return self.subject if self.pk == info.context.user.pk else None
 
     def resolve_starred_courses(self, info: ResolveInfo) -> "QuerySet[Course]":
         return Course.objects.filter(stars__user__pk=self.pk)

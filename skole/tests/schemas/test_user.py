@@ -338,7 +338,10 @@ class UserSchemaTests(SchemaTestCase):
         assert self.query_user_me() == user_old
 
     def test_update_user_avatar(self) -> None:
-        # TODO: implement
+        # TODO: Implement these:
+        # Add avatar.
+        # Change avatar.
+        # Remove avatar.
         pass
 
     def test_user_delete_ok(self) -> None:

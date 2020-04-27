@@ -11,10 +11,11 @@ if TYPE_CHECKING:
 
 
 def get_token(user: "User", action: str, **kwargs: Any) -> str:
-    username = user.username
+    username = user.get_username()
 
     if hasattr(username, "pk"):
-        username = username.pk
+        # Ignore: Some weird shit: https://github.com/flavors/django-graphql-jwt/blob/master/graphql_jwt/utils.py#L17
+        username = username.pk  # type: ignore [attr-defined]
 
     payload = {"username": username, "action": action}
 
@@ -26,7 +27,8 @@ def get_token(user: "User", action: str, **kwargs: Any) -> str:
 
 
 def revoke_user_refresh_tokens(user: "User") -> None:
-    refresh_tokens = user.refresh_tokens.all()
+    # Ignore: Mypy doesn't pick up the `refresh_tokens` relation from `graphql_jwt`.
+    refresh_tokens = user.refresh_tokens.all()  # type: ignore
 
     for refresh_token in refresh_tokens:
         try:

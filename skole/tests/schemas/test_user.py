@@ -146,7 +146,7 @@ class UserSchemaTests(SchemaTestCase):
         email: str = "testuser2@test.com",
         title: str = "",
         bio: str = "",
-        avatar: str = "media/uploads/avatars/test_avatar.jpg",
+        avatar: str = "",
     ) -> JsonDict:
         return self.execute_input_mutation(
             input_type="UpdateUserMutationInput!",

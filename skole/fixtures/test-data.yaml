@@ -27,7 +27,7 @@
     password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4= # password
     title: ""
     bio: ""
-    avatar: uploads/avatars/test_avatar.jpg
+    avatar: ""
     verified: True
     is_active: True
     is_staff: false

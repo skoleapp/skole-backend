@@ -44,11 +44,11 @@ msgstr "Virheellinen beta-rekisteröitymiskoodi."
 
 #: skole/utils/constants.py:13
 msgid "This account has been deactivated!"
-msgstr ""
+msgstr "Tämä tili on poistettu käytöstä!"
 
 #: skole/utils/constants.py:14
 msgid "Invalid username/email or password."
-msgstr "Käyttäjätunnus ja salasana eivät täsmää."
+msgstr "Käyttäjätunnus/sähköposti ja salasana eivät täsmää."
 
 #: skole/utils/constants.py:15
 msgid "Cannot log in as superuser."

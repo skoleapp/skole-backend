@@ -30,4 +30,4 @@ COPY --chown=user:user . .
 
 CMD black --check --diff --exclude migrations/.* . \
     && mypy . \
-    && pytest --verbose skole/tests
+    && pytest --verbose --cov-report=html --cov=. skole/tests

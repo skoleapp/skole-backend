@@ -127,14 +127,17 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# Pycharm
+# End of https://www.gitignore.io/api/python
+
+# PyCharm
 .idea/**/*.iml
 .idea/shelf
 .idea/tasks.xml
 .idea/usage.statistics.xml
 .idea/workspace.xml
 
-# End of https://www.gitignore.io/api/python
+# VSCode
+.vscode
 
 # Ignore every media file except these three.
 media/*
@@ -149,6 +152,3 @@ media/uploads/resources/*
 !media/uploads/attachments/test_attachment.png
 !media/uploads/avatars/test_avatar.jpg
 !media/uploads/resources/test_resource.pdf
-
-# VSCode
-.vscode

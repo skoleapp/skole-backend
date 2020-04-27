@@ -1,10 +1,9 @@
 [run]
 branch = True
 omit =
-  *apps.py,
-  *manage.py,
-  *migrations/*,
-  *settings.py,
-  *tests/*,
-  *urls.py,
-  *wsgi.py,
+  */migrations/*,
+  */tests/*,
+  */__init__.py,
+  */apps.py,
+  */manage.py,
+  */wsgi.py,

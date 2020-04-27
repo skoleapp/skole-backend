@@ -68,7 +68,7 @@ def test_manager_create_existing(db: fixture) -> None:
 
     for target in targets:
         vote, target_score = Vote.objects.perform_vote(user=user, status=status, target=target)  # type: ignore[arg-type]
-        assert vote == None
+        assert vote is None
         assert target_score == 0
 
 

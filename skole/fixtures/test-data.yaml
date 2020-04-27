@@ -43,7 +43,7 @@
     title: ""
     bio: ""
     avatar: ""
-    verified: True
+    verified: False
     is_active: True
     is_staff: false
     is_superuser: false

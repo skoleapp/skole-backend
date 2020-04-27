@@ -20,6 +20,9 @@ from skole.utils.exceptions import UserAlreadyVerified, UserNotVerified
 from skole.utils.token import get_token, get_token_payload
 from skole.utils.validators import ValidateFileSizeAndType
 
+from .school import School
+from .subject import Subject
+
 
 # Ignore: Mypy expects Managers to have a generic type,
 #  this doesn't actually work, so we ignore it.
@@ -48,12 +51,16 @@ class UserManager(BaseUserManager):  # type: ignore[type-arg]
         title: str,
         bio: str,
         avatar: Union[UploadedFile, str],
+        school: Optional[School],
+        subject: Optional[Subject],
     ) -> "User":
         user.username = username
         user.email = self.normalize_email(email)
         user.title = title
         user.bio = bio
         user.avatar = avatar
+        user.school = school
+        user.subject = subject
         user.save()
         return user
 
@@ -111,6 +118,14 @@ class User(AbstractBaseUser, PermissionsMixin):
         processors=[ResizeToFill(100, 100)],
         format="JPEG",
         options={"quality": 60},
+    )
+
+    school = models.OneToOneField(
+        School, on_delete=models.SET_NULL, related_name="user", null=True, blank=True
+    )
+
+    subject = models.OneToOneField(
+        Subject, on_delete=models.SET_NULL, related_name="user", null=True, blank=True
     )
 
     score = models.IntegerField(default=0)

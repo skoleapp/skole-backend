@@ -1,0 +1,21 @@
+- model: skole.CountryTranslation
+  pk: 1
+  fields:
+    language_code: en
+    name: Finland
+    master: 1
+- model: skole.CountryTranslation
+  pk: 2
+  fields:
+    language_code: fi
+    name: Suomi
+    master: 1
+- model: skole.CountryTranslation
+  pk: 3
+  fields:
+    language_code: sv
+    name: Finland
+    master: 1
+- model: skole.Country
+  pk: 1
+  fields: {}

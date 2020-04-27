@@ -1,0 +1,1910 @@
+- model: skole.Course
+  pk: 1
+  fields:
+    name: "3D Integration and System on Package"
+    code: "ETT_2065"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 2
+  fields:
+    name: "Advanced Course on Databases"
+    code: "TKO_5510"
+    subject: 18
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 3
+  fields:
+    name: "Advanced Course on Operating Systems"
+    code: "TKO_8925"
+    subject: 18
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 4
+  fields:
+    name: "Algebran peruskurssi I"
+    code: "MATE_5060"
+    subject: 43
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 5
+  fields:
+    name: "Algebran peruskurssi II"
+    code: "MATE_5061"
+    subject: 43
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 6
+  fields:
+    name: "Algorithm Design"
+    code: "TKO_3108"
+    subject: 18
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 7
+  fields:
+    name: "Algorithms for Computer Games"
+    code: "TKO_5710"
+    subject: 18
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 8
+  fields:
+    name: "Algoritmien ja ohjelmoinnin peruskurssi"
+    code: "TKO_2038"
+    subject: 18
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 9
+  fields:
+    name: "Algoritmien suunnittelu ja analysointi"
+    code: "TKO_5500"
+    subject: 18
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 10
+  fields:
+    name: "Algoritminen matematiikka"
+    code: "MATE_5074"
+    subject: 43
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 11
+  fields:
+    name: "Analogiaelektroniikan suunnittelu- ja simulointikurssi"
+    code: "DTEK_2002"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 12
+  fields:
+    name: "Analogiaelektroniikka I"
+    code: "ETT_1001"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 13
+  fields:
+    name: "Analog IC Design"
+    code: "ETT_3001"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 14
+  fields:
+    name: "Asiakas-palvelin sovellukset ja käyttöliittymät"
+    code: "TKO_5086"
+    subject: 18
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 15
+  fields:
+    name: "Business Case Analysis"
+    code: "DTEK_8013"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 16
+  fields:
+    name: "C++"
+    code: "TKO_5533"
+    subject: 18
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 17
+  fields:
+    name: "Code Optimization"
+    code: "ÅA_455304"
+    subject: 18
+    school: 3
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 18
+  fields:
+    name: "Coding Theory I"
+    code: "MATE_5274"
+    subject: 43
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 19
+  fields:
+    name: "Convolutional Codes"
+    code: "MATE_5085"
+    subject: 43
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 20
+  fields:
+    name: "Cryptography I"
+    code: "DTEK_0"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 21
+  fields:
+    name: "C++ sulautettuihin järjestelmiin"
+    code: "DTEK_1017"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 22
+  fields:
+    name: "Data Analysys and Knowledge Discovery"
+    code: "TKO_3103"
+    subject: 18
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 23
+  fields:
+    name: "Data Mining"
+    code: "TKO_5437"
+    subject: 18
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 24
+  fields:
+    name: "Declarative Programming"
+    code: "DTEK_24"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 25
+  fields:
+    name: "Designing Object Oriented Software"
+    code: "TKO_2016"
+    subject: 18
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 26
+  fields:
+    name: "Device Mismatch in IC"
+    code: "ETT_3034"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 27
+  fields:
+    name: "Differentiaaliyhtälöt"
+    code: "SMAT_5045"
+    subject: 43
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 28
+  fields:
+    name: "Digitaalinen piiritekniikka"
+    code: "ETT_2001"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 29
+  fields:
+    name: "Digitaalinen signaalinkäsittely"
+    code: "ETT_2026"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 30
+  fields:
+    name: "Digitaalisen äänenkäsittelyn perusteet"
+    code: "TKO_5287"
+    subject: 18
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 31
+  fields:
+    name: "Digitaalisen kuvankäsittelyn perusteet"
+    code: "TKO_5094"
+    subject: 18
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 32
+  fields:
+    name: "Digitaalisen tiedonsiirron standardit ja konvergenssi"
+    code: "ETT_2040"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 33
+  fields:
+    name: "Digitaalisen videonkäsittelyn perusteet"
+    code: "TKO_5109"
+    subject: 18
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 34
+  fields:
+    name: "Digitaaliset tietoliikennejärjestelmät"
+    code: "ETT_3005"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 35
+  fields:
+    name: "Digitaalisuunnittelu"
+    code: "DTEK_1200"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 36
+  fields:
+    name: "Digitaalisuunnittelun perusteet"
+    code: "ETT_1003"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 37
+  fields:
+    name: "Digital business"
+    code: "TJ_93221"
+    subject: 22
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 38
+  fields:
+    name: "Digital communication systems"
+    code: "ETT_3005"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 39
+  fields:
+    name: "Digital Systems Engineering"
+    code: "ETT_3048"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 40
+  fields:
+    name: "Diskreetti Matematiikka"
+    code: "MATE_5206"
+    subject: 43
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 41
+  fields:
+    name: "Diskreetti Matematiikka I"
+    code: "MATE_5260"
+    subject: 43
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 42
+  fields:
+    name: "Diskreetti Matematiikka II"
+    code: "MATE_5261"
+    subject: 43
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 43
+  fields:
+    name: "Electronics Packaging Technology"
+    code: ""
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 44
+  fields:
+    name: "Elektroniikan komponentit ja materiaalit"
+    code: "DTEK_2001"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 45
+  fields:
+    name: "Elektroniikan perusteet I"
+    code: "ETT_1009"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 46
+  fields:
+    name: "Elektroniikan perusteet II"
+    code: "ETT_2037"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 47
+  fields:
+    name: "Elektroniikan perusteet III"
+    code: "ETT_2059"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 48
+  fields:
+    name: "Elektroniikan tuotantotekniikka"
+    code: ""
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 49
+  fields:
+    name: "Elektroniikkajärjestelmät"
+    code: "ETT_2068"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 50
+  fields:
+    name: "Elektroniset laitteistot ja kestävä kehitys"
+    code: "ETT_2066"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 51
+  fields:
+    name: "Embedded Systems Design"
+    code: "DTEK_8019"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 52
+  fields:
+    name: "Energy efficient embedded electronics"
+    code: "DTEK_1057"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 53
+  fields:
+    name: "Error Correction Coding"
+    code: "ETT_3062"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 54
+  fields:
+    name: "Firewall and ips technology"
+    code: "DTEK_8063"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 55
+  fields:
+    name: "Foundations of cryptography"
+    code: "MATE_5089"
+    subject: 43
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 56
+  fields:
+    name: "FPGA Prototyping"
+    code: "DTEK_8048"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 57
+  fields:
+    name: "From Product Idea to R&amp;D Plan"
+    code: "DTEK_8010"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 58
+  fields:
+    name: "Funktioteoria"
+    code: "MATE_5033"
+    subject: 43
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 59
+  fields:
+    name: "Fundamentals of Information Theory"
+    code: "ETT_3061"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 60
+  fields:
+    name: "Fysiikan matemaattiset apuneuvot 1"
+    code: "FYS_5002"
+    subject: 53
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 61
+  fields:
+    name: "Fysiikan peruskurssi 1"
+    code: "UFYS_1006"
+    subject: 53
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 62
+  fields:
+    name: "Fysiikan peruskurssi 2"
+    code: "UFYS_1007"
+    subject: 53
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 63
+  fields:
+    name: "Fysiikan peruskurssi 3"
+    code: "UFYS_1008"
+    subject: 53
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 64
+  fields:
+    name: "Fysiikan peruskurssi 4"
+    code: "UFYS_1009"
+    subject: 53
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 65
+  fields:
+    name: "Fysiikka I"
+    code: "FYS_4348"
+    subject: 53
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 66
+  fields:
+    name: "Fysiikka II"
+    code: "FYS_4349"
+    subject: 53
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 67
+  fields:
+    name: "Graph Theory"
+    code: "MATE_5230"
+    subject: 43
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 68
+  fields:
+    name: "Grundkurs i Reglering och Instrumentering"
+    code: "KTF_3072"
+    subject: 14
+    school: 3
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 69
+  fields:
+    name: "Hajautettujen sovellusten muodostamistekniikat"
+    code: "TKO_2014"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 70
+  fields:
+    name: "Hajautetut ohjelmistojärjestelmät"
+    code: "DTEK_1047"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 71
+  fields:
+    name: "HDL Based Design"
+    code: "ETT_2006"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 72
+  fields:
+    name: "Implementation of Development Project"
+    code: "DTEK_8011"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 73
+  fields:
+    name: "Industrial Design"
+    code: "DTEK_8008"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 74
+  fields:
+    name: "Insinöörimatematiikka A"
+    code: "MATE_5398"
+    subject: 43
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 75
+  fields:
+    name: "Insinöörimatematiikka B"
+    code: "MATE_5399"
+    subject: 43
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 76
+  fields:
+    name: "Insinöörimatematiikka C"
+    code: "MATE_5400"
+    subject: 43
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 77
+  fields:
+    name: "Insinöörimatematiikka D"
+    code: "MATE_5401"
+    subject: 43
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 78
+  fields:
+    name: "Insinöörimatematiikka I"
+    code: "MATE_5247"
+    subject: 43
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 79
+  fields:
+    name: "Insinöörimatematiikka I A"
+    code: "MATE_5281"
+    subject: 43
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 80
+  fields:
+    name: "Insinöörimatematiikka I B"
+    code: "MATE_5282"
+    subject: 43
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 81
+  fields:
+    name: "Insinöörimatematiikka II"
+    code: "MATE_5249"
+    subject: 43
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 82
+  fields:
+    name: "Insinöörimatematiikka II A"
+    code: "MATE_5283"
+    subject: 43
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 83
+  fields:
+    name: "Insinöörimatematiikka II B"
+    code: "MATE_5284"
+    subject: 43
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 84
+  fields:
+    name: "Introduction to Project Leadership"
+    code: "DTEK_8049"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 85
+  fields:
+    name: "Järjestelmäohjelmointi C++-kielellä"
+    code: "DTEK_2003"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 86
+  fields:
+    name: "Johdatus automaattien teoriaan"
+    code: "DTEK_0"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 87
+  fields:
+    name: "Johdatus elektroniikkaan"
+    code: "ETT_1011"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 88
+  fields:
+    name: "Johdatus informaatioteknologiaan"
+    code: "TKO_2001"
+    subject: 18
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 89
+  fields:
+    name: "Johdatus informaatioteknologiaan 1"
+    code: "TKO_2082"
+    subject: 18
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 90
+  fields:
+    name: "Johdatus informaatioteknologiaan 2"
+    code: "TKO_2083"
+    subject: 18
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 91
+  fields:
+    name: "Johdatus laskettavuuteen"
+    code: "MATE_6005"
+    subject: 43
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 92
+  fields:
+    name: "Johdatus tekoälyyn"
+    code: "TKO_2015"
+    subject: 18
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 93
+  fields:
+    name: "Johdatus tietojärjestelmätieteeseen"
+    code: "TKO_5555"
+    subject: 18
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 94
+  fields:
+    name: "Johdatus tietojenkäsittelytieteeseen I"
+    code: ""
+    subject: 18
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 95
+  fields:
+    name: "Johdatus todennäköisyyslaskentaan ja tilastotieteeseen"
+    code: "TILM_3554"
+    subject: 43
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 96
+  fields:
+    name: "Käyttöjärjestelmät"
+    code: "TKO_8924"
+    subject: 18
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 97
+  fields:
+    name: "Käyttöliittymätekniikat"
+    code: "TKO_2013"
+    subject: 18
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 98
+  fields:
+    name: "Kombinatoriikka"
+    code: "MATE_5039"
+    subject: 43
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 99
+  fields:
+    name: "Konveksi analyysi ja optimointi"
+    code: "SMAT_5016"
+    subject: 43
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 100
+  fields:
+    name: "Kryptografia I"
+    code: "MATE_5296"
+    subject: 43
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 101
+  fields:
+    name: "Lähdekoodin ja tiedon pakkaus"
+    code: ""
+    subject: 18
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 102
+  fields:
+    name: "Liiketoimintaosaaminen"
+    code: ""
+    subject: 22
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 103
+  fields:
+    name: "Lineaariset järjestelmät ja piirit"
+    code: "ETT_2067"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 104
+  fields:
+    name: "Linux and system programming"
+    code: "TKO_5084"
+    subject: 18
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 105
+  fields:
+    name: "Logiikka"
+    code: "MATE_5114"
+    subject: 43
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 106
+  fields:
+    name: "Lukuteoria"
+    code: "MATE_5123"
+    subject: 43
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 107
+  fields:
+    name: "Machine Learning and Neural networks"
+    code: "TKO_3102"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 108
+  fields:
+    name: "Matemaattinen mallintaminen"
+    code: "SMAT_5215"
+    subject: 43
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 109
+  fields:
+    name: "Matemaattinen optimointi I"
+    code: "MATE_5108"
+    subject: 43
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 110
+  fields:
+    name: "Matemaattinen optimointi II"
+    code: "SMAT_5109"
+    subject: 43
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 111
+  fields:
+    name: "Matematisk Modellering"
+    code: "KTF_3636"
+    subject: 43
+    school: 3
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 112
+  fields:
+    name: "MHP-ohjelmointi"
+    code: "TKO_2034"
+    subject: 18
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 113
+  fields:
+    name: "Microsensors"
+    code: "ETT_3008"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 114
+  fields:
+    name: "Mikroprosessoripohjaiset järjestelmät"
+    code: "ETT_2039"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 115
+  fields:
+    name: "Mikroprosessorit"
+    code: "ETT_1004"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 116
+  fields:
+    name: "Mixed Mode IC Design"
+    code: "ETT_2028"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 117
+  fields:
+    name: "Modelling parallel systems"
+    code: "DTEK_36"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 118
+  fields:
+    name: "MPEG-4"
+    code: "ÅA_453301"
+    subject: 14
+    school: 3
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 119
+  fields:
+    name: "Multimedia databases"
+    code: "TKO_5436"
+    subject: 18
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 120
+  fields:
+    name: "Multimedia Signal Processing"
+    code: "DTEK_8050"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 121
+  fields:
+    name: "Multiplayer Computer Games"
+    code: "TKO_5725"
+    subject: 18
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 122
+  fields:
+    name: "Multiprocessor Architectures"
+    code: "ETT_2062"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 123
+  fields:
+    name: "Ohjelmistoarkkitehtuurit"
+    code: "TKO_5707"
+    subject: 18
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 124
+  fields:
+    name: "Ohjelmistotestaus"
+    code: "TKO_2032"
+    subject: 18
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 125
+  fields:
+    name: "Ohjelmistotuotannon jatkokurssi"
+    code: "DTEK_2005"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 126
+  fields:
+    name: "Ohjelmistotuotannon peruskurssi"
+    code: "DTEK_1201"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 127
+  fields:
+    name: "Ohjelmistotuotanto"
+    code: "TKO_5353"
+    subject: 18
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 128
+  fields:
+    name: "Ohjelmointi I"
+    code: "TKO_5439"
+    subject: 18
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 129
+  fields:
+    name: "Ohjelmointi II"
+    code: "TKO_5440"
+    subject: 18
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 130
+  fields:
+    name: "Olio-ohjelmoinnin jatkokurssi"
+    code: "TKO_5278"
+    subject: 18
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 131
+  fields:
+    name: "Olio-ohjelmoinnin perusteet"
+    code: "TKO_2005"
+    subject: 18
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 132
+  fields:
+    name: "Opiskelun ja työelämän tietotekniikka"
+    code: "DTEK_1043"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 133
+  fields:
+    name: "Optimointialgoritmit"
+    code: ""
+    subject: 18
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 134
+  fields:
+    name: "Optoelektroniikka"
+    code: "FYS_4432"
+    subject: 53
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 135
+  fields:
+    name: "Osittaisdifferentiaaliyhtälöt"
+    code: "SMAT_5035"
+    subject: 43
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 136
+  fields:
+    name: "Piiriteoria"
+    code: "ETT_1005"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 137
+  fields:
+    name: "Processreglering"
+    code: "KTF_3085"
+    subject: 14
+    school: 3
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 138
+  fields:
+    name: "Programming of Embedded Systems"
+    code: "ÅA_453502"
+    subject: 14
+    school: 3
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 139
+  fields:
+    name: "Project Management"
+    code: "DTEK_8005"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 140
+  fields:
+    name: "Puheviestintä"
+    code: "KIPV_3331"
+    subject: 20
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 141
+  fields:
+    name: "Puolijohteiden perusteet"
+    code: "ETT_2027"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 142
+  fields:
+    name: "Radiotekniikan perusteet"
+    code: "ETT_2021"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 143
+  fields:
+    name: "Real-time Systems"
+    code: "DTEK_8018"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 144
+  fields:
+    name: "Reconfigurable Computing"
+    code: "ETT_3053"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 145
+  fields:
+    name: "Reglerteknik"
+    code: ""
+    subject: 14
+    school: 3
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 146
+  fields:
+    name: "RF Analog IC Design"
+    code: "ETT_3047"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 147
+  fields:
+    name: "Säteilyn käyttö ja turvallisuus"
+    code: "FFYS_6019"
+    subject: 53
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 148
+  fields:
+    name: "Semiconductor technology"
+    code: "ETT_2012"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 149
+  fields:
+    name: "SoC Design"
+    code: "ETT_2014"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 150
+  fields:
+    name: "Software architectures"
+    code: ""
+    subject: 18
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 151
+  fields:
+    name: "Software Engineering for Global Enterprises"
+    code: "DTEK_8064"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 152
+  fields:
+    name: "Software Product Development"
+    code: "DTEK_2004"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 153
+  fields:
+    name: "Sopimuspohjainen olio-ohjelmointi"
+    code: "TKO_2039"
+    subject: 18
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 154
+  fields:
+    name: "Sulautettujen järjestelmien perusteet"
+    code: "DTEK_2007"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 155
+  fields:
+    name: "Sulautetut prosessorijärjestelmät"
+    code: "DTEK_1019"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 156
+  fields:
+    name: "Systeemi- ja säätötekniikan perusteet"
+    code: "TKO_5581"
+    subject: 18
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 157
+  fields:
+    name: "System Modelling with SystemC"
+    code: "DTEK_1018"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 158
+  fields:
+    name: "System Verification"
+    code: "ETT_2061"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 159
+  fields:
+    name: "System Verification and Design for Testability"
+    code: "DTEK_8028"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 160
+  fields:
+    name: "Tähtitieteen historia"
+    code: "TÄHT_5003"
+    subject: 53
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 161
+  fields:
+    name: "Technological Systems, Foresight and Societal Change"
+    code: "DTEK_0"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 162
+  fields:
+    name: "Tekstin- ja kielenhuollon harjoituskurssi"
+    code: ""
+    subject: 20
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 163
+  fields:
+    name: "Teollisuustalous"
+    code: "DTEK_1003"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 164
+  fields:
+    name: "Tiedonsiirron perusteet"
+    code: "DTEK_1039"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 165
+  fields:
+    name: "Tietojärjestelmän käyttöönotto"
+    code: "TKO_5089"
+    subject: 18
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 166
+  fields:
+    name: "Tietojärjestelmän mallintaminen"
+    code: "TKO_2008"
+    subject: 18
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 167
+  fields:
+    name: "Tietojärjestelmätiede"
+    code: ""
+    subject: 18
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 168
+  fields:
+    name: "Tietojärjestelmät ja työ"
+    code: "TKO_5097"
+    subject: 18
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 169
+  fields:
+    name: "Tietojenkäsittely ja yhteiskunta"
+    code: "TKO_8922"
+    subject: 18
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 170
+  fields:
+    name: "Tietokannat"
+    code: "TKO_5505"
+    subject: 18
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 171
+  fields:
+    name: "Tietokannat 1"
+    code: "TKO_2009"
+    subject: 18
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 172
+  fields:
+    name: "Tietokannat 2"
+    code: "TKO_2010"
+    subject: 18
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 173
+  fields:
+    name: "Tietokantojen perusteet 1"
+    code: "DTEK_0"
+    subject: 18
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 174
+  fields:
+    name: "Tietokonearkkitehtuurit"
+    code: "ETT_2015"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 175
+  fields:
+    name: "Tietokonearkkitehtuurit ja käyttöjärjestelmät"
+    code: "DTEK_0"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 176
+  fields:
+    name: "Tietokone työvälineenä"
+    code: "TKO_5098"
+    subject: 18
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 177
+  fields:
+    name: "Tietokoneverkot"
+    code: "TKO_5364"
+    subject: 18
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 178
+  fields:
+    name: "Tietoliikenneteoria"
+    code: "ETT_2017"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 179
+  fields:
+    name: "Tietorakenteet ja algoritmit"
+    code: "TKO_5509"
+    subject: 18
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 180
+  fields:
+    name: "Tietorakenteet ja algoritmit 1"
+    code: "TKO_2011"
+    subject: 18
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 181
+  fields:
+    name: "Tietorakenteet ja algoritmit 2"
+    code: "TKO_2012"
+    subject: 18
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 182
+  fields:
+    name: "Tietotekninen algebra"
+    code: "MATE_5259"
+    subject: 43
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 183
+  fields:
+    name: "Tietoverkkotekniikat"
+    code: "DTEK_1050"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 184
+  fields:
+    name: "Tietoverkot ja tietoturva"
+    code: "DTEK_1015"
+    subject: 14
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 185
+  fields:
+    name: "Tilastollisen päättelyn peruskurssi"
+    code: "TILM_0"
+    subject: 43
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 186
+  fields:
+    name: "Tilastotieteen peruskurssi c, tilastollisia malleja"
+    code: "TILM_3511"
+    subject: 43
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 187
+  fields:
+    name: "Todennäköisyyslaskenta sivuaineopiskelijoille"
+    code: "TILM_3568"
+    subject: 43
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 188
+  fields:
+    name: "Usean muuttujan funktiot"
+    code: "MATE_5021"
+    subject: 43
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 189
+  fields:
+    name: "Variaatiolaskenta"
+    code: "SMAT_5213"
+    subject: 43
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 190
+  fields:
+    name: "Web-ohjelmointi"
+    code: "TKO_5110"
+    subject: 18
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"
+- model: skole.Course
+  pk: 191
+  fields:
+    name: "XML Technologies and Applications"
+    code: "TKO_5726"
+    subject: 18
+    school: 1
+    user: null
+    modified: "2020-03-15 12:00:00.000000+00:00"
+    created: "2020-03-15 12:00:00.000000+00:00"

@@ -1,0 +1,897 @@
+- model: skole.SchoolTranslation
+  pk: 1
+  fields:
+    language_code: en
+    name: University of Turku
+    master: 1
+- model: skole.SchoolTranslation
+  pk: 2
+  fields:
+    language_code: fi
+    name: Turun yliopisto
+    master: 1
+- model: skole.SchoolTranslation
+  pk: 3
+  fields:
+    language_code: sv
+    name: University of Turku
+    master: 1
+- model: skole.SchoolTranslation
+  pk: 4
+  fields:
+    language_code: en
+    name: Turku University of Applied Sciences
+    master: 2
+- model: skole.SchoolTranslation
+  pk: 5
+  fields:
+    language_code: fi
+    name: Turun Ammattikorkeakoulu
+    master: 2
+- model: skole.SchoolTranslation
+  pk: 6
+  fields:
+    language_code: sv
+    name: Turku University of Applied Sciences
+    master: 2
+- model: skole.SchoolTranslation
+  pk: 7
+  fields:
+    language_code: en
+    name: Åbo Akademi
+    master: 3
+- model: skole.SchoolTranslation
+  pk: 8
+  fields:
+    language_code: fi
+    name: Åbo Akademi
+    master: 3
+- model: skole.SchoolTranslation
+  pk: 9
+  fields:
+    language_code: sv
+    name: Åbo Akademi
+    master: 3
+- model: skole.SchoolTranslation
+  pk: 10
+  fields:
+    language_code: en
+    name: Diakonia University of Applied Sciences
+    master: 4
+- model: skole.SchoolTranslation
+  pk: 11
+  fields:
+    language_code: fi
+    name: Diakonia ammattikorkeakoulu
+    master: 4
+- model: skole.SchoolTranslation
+  pk: 12
+  fields:
+    language_code: sv
+    name: Diaconia University of Applied Sciences
+    master: 4
+- model: skole.SchoolTranslation
+  pk: 13
+  fields:
+    language_code: en
+    name: Novia University of Applied Sciences
+    master: 5
+- model: skole.SchoolTranslation
+  pk: 14
+  fields:
+    language_code: fi
+    name: Novia University of Applied Sciences
+    master: 5
+- model: skole.SchoolTranslation
+  pk: 15
+  fields:
+    language_code: sv
+    name: Yrkeshögskolan Novia
+    master: 5
+- model: skole.SchoolTranslation
+  pk: 16
+  fields:
+    language_code: en
+    name: Humak University of Applied Sciences
+    master: 6
+- model: skole.SchoolTranslation
+  pk: 17
+  fields:
+    language_code: fi
+    name: Humanistinen ammattikorkeakoulu
+    master: 6
+- model: skole.SchoolTranslation
+  pk: 18
+  fields:
+    language_code: sv
+    name: Humak University of Applied Sciences
+    master: 6
+- model: skole.SchoolTranslation
+  pk: 19
+  fields:
+    language_code: en
+    name: Tampere University
+    master: 7
+- model: skole.SchoolTranslation
+  pk: 20
+  fields:
+    language_code: fi
+    name: Tampereen yliopisto
+    master: 7
+- model: skole.SchoolTranslation
+  pk: 21
+  fields:
+    language_code: sv
+    name: Tampere University
+    master: 7
+- model: skole.SchoolTranslation
+  pk: 22
+  fields:
+    language_code: en
+    name: Tampere University of Applied Sciences
+    master: 8
+- model: skole.SchoolTranslation
+  pk: 23
+  fields:
+    language_code: fi
+    name: Tampereen ammattikorkeakoulu
+    master: 8
+- model: skole.SchoolTranslation
+  pk: 24
+  fields:
+    language_code: sv
+    name: Tampere University of Applied Sciences
+    master: 8
+- model: skole.SchoolTranslation
+  pk: 25
+  fields:
+    language_code: en
+    name: Police University College
+    master: 9
+- model: skole.SchoolTranslation
+  pk: 26
+  fields:
+    language_code: fi
+    name: Poliisiammattikorkeakoulu
+    master: 9
+- model: skole.SchoolTranslation
+  pk: 27
+  fields:
+    language_code: sv
+    name: Polisyrkeshögskolan
+    master: 9
+- model: skole.SchoolTranslation
+  pk: 28
+  fields:
+    language_code: en
+    name: Aalto University
+    master: 10
+- model: skole.SchoolTranslation
+  pk: 29
+  fields:
+    language_code: fi
+    name: Aalto yliopisto
+    master: 10
+- model: skole.SchoolTranslation
+  pk: 30
+  fields:
+    language_code: sv
+    name: Aalto Universitet
+    master: 10
+- model: skole.SchoolTranslation
+  pk: 31
+  fields:
+    language_code: en
+    name: Metropolia University of Applied Sciences
+    master: 11
+- model: skole.SchoolTranslation
+  pk: 32
+  fields:
+    language_code: fi
+    name: Metropolia ammattikorkeakoulu
+    master: 11
+- model: skole.SchoolTranslation
+  pk: 33
+  fields:
+    language_code: sv
+    name: Metropolia University of Applied Sciences
+    master: 11
+- model: skole.SchoolTranslation
+  pk: 34
+  fields:
+    language_code: en
+    name: Laurea University of Applied Sciences
+    master: 12
+- model: skole.SchoolTranslation
+  pk: 35
+  fields:
+    language_code: fi
+    name: Laurea ammattikorkeakoulu
+    master: 12
+- model: skole.SchoolTranslation
+  pk: 36
+  fields:
+    language_code: sv
+    name: Laurea University of Applied Sciences
+    master: 12
+- model: skole.SchoolTranslation
+  pk: 37
+  fields:
+    language_code: en
+    name: University of Helsinki
+    master: 13
+- model: skole.SchoolTranslation
+  pk: 38
+  fields:
+    language_code: fi
+    name: Helsingin yliopisto
+    master: 13
+- model: skole.SchoolTranslation
+  pk: 39
+  fields:
+    language_code: sv
+    name: Helsingfros Universitet
+    master: 13
+- model: skole.SchoolTranslation
+  pk: 40
+  fields:
+    language_code: en
+    name: University of the Arts Helsinki
+    master: 14
+- model: skole.SchoolTranslation
+  pk: 41
+  fields:
+    language_code: fi
+    name: Taide yliopisto
+    master: 14
+- model: skole.SchoolTranslation
+  pk: 42
+  fields:
+    language_code: sv
+    name: UKonstuniversitetet
+    master: 14
+- model: skole.SchoolTranslation
+  pk: 43
+  fields:
+    language_code: en
+    name: Haaga-Helia University of Applied Sciences
+    master: 15
+- model: skole.SchoolTranslation
+  pk: 44
+  fields:
+    language_code: fi
+    name: Haaga-Helia ammattikorkeakoulu
+    master: 15
+- model: skole.SchoolTranslation
+  pk: 45
+  fields:
+    language_code: sv
+    name: Haaga-Helia University of Applied Sciences
+    master: 15
+- model: skole.SchoolTranslation
+  pk: 46
+  fields:
+    language_code: en
+    name: Hanken School of Economics
+    master: 16
+- model: skole.SchoolTranslation
+  pk: 47
+  fields:
+    language_code: fi
+    name: Hanken
+    master: 16
+- model: skole.SchoolTranslation
+  pk: 48
+  fields:
+    language_code: sv
+    name: Hanken Universitet
+    master: 16
+- model: skole.SchoolTranslation
+  pk: 49
+  fields:
+    language_code: en
+    name: National Defence University
+    master: 17
+- model: skole.SchoolTranslation
+  pk: 50
+  fields:
+    language_code: fi
+    name: Maanpuolustuskorkeakoulu
+    master: 17
+- model: skole.SchoolTranslation
+  pk: 51
+  fields:
+    language_code: sv
+    name: Försvarshögskolan
+    master: 17
+- model: skole.SchoolTranslation
+  pk: 52
+  fields:
+    language_code: en
+    name: Arcada University of Applied Sciences
+    master: 18
+- model: skole.SchoolTranslation
+  pk: 53
+  fields:
+    language_code: fi
+    name: Arcada ammattikorkeakoulu
+    master: 18
+- model: skole.SchoolTranslation
+  pk: 54
+  fields:
+    language_code: sv
+    name: Arcada University of Applied Sciences
+    master: 18
+- model: skole.SchoolTranslation
+  pk: 55
+  fields:
+    language_code: en
+    name: HELBUS Helsinki School of Business
+    master: 19
+- model: skole.SchoolTranslation
+  pk: 56
+  fields:
+    language_code: fi
+    name: HELBUS Helsinki School of Business
+    master: 19
+- model: skole.SchoolTranslation
+  pk: 57
+  fields:
+    language_code: sv
+    name: HELBUS Helsinki School of Business
+    master: 19
+- model: skole.SchoolTranslation
+  pk: 58
+  fields:
+    language_code: en
+    name: Satakunta University of Applied Sciences
+    master: 20
+- model: skole.SchoolTranslation
+  pk: 59
+  fields:
+    language_code: fi
+    name: Satakunnan ammattikorkeakoulu
+    master: 20
+- model: skole.SchoolTranslation
+  pk: 60
+  fields:
+    language_code: sv
+    name: Satakunta University of Applied Sciences
+    master: 20
+- model: skole.SchoolTranslation
+  pk: 61
+  fields:
+    language_code: en
+    name: University of Vaasa
+    master: 21
+- model: skole.SchoolTranslation
+  pk: 62
+  fields:
+    language_code: fi
+    name: Vaasan yliopisto
+    master: 21
+- model: skole.SchoolTranslation
+  pk: 63
+  fields:
+    language_code: sv
+    name: University of Vaasa
+    master: 21
+- model: skole.SchoolTranslation
+  pk: 64
+  fields:
+    language_code: en
+    name: Vaasa University of Applied Sciences
+    master: 22
+- model: skole.SchoolTranslation
+  pk: 65
+  fields:
+    language_code: fi
+    name: Vaasan ammattikorkeakoulu
+    master: 22
+- model: skole.SchoolTranslation
+  pk: 66
+  fields:
+    language_code: sv
+    name: Vaasa University of Applied Sciences
+    master: 22
+- model: skole.SchoolTranslation
+  pk: 67
+  fields:
+    language_code: en
+    name: University of Jyväskylä
+    master: 23
+- model: skole.SchoolTranslation
+  pk: 68
+  fields:
+    language_code: fi
+    name: Jyväskylän yliopisto
+    master: 23
+- model: skole.SchoolTranslation
+  pk: 69
+  fields:
+    language_code: sv
+    name: University of Jyväskylä
+    master: 23
+- model: skole.SchoolTranslation
+  pk: 70
+  fields:
+    language_code: en
+    name: JAMK University of Applied Sciences
+    master: 24
+- model: skole.SchoolTranslation
+  pk: 71
+  fields:
+    language_code: fi
+    name: Jyväskylän ammattikorkeakoulu
+    master: 24
+- model: skole.SchoolTranslation
+  pk: 72
+  fields:
+    language_code: sv
+    name: JAMK University of Applied Sciences
+    master: 24
+- model: skole.SchoolTranslation
+  pk: 73
+  fields:
+    language_code: en
+    name: University of Oulu
+    master: 25
+- model: skole.SchoolTranslation
+  pk: 74
+  fields:
+    language_code: fi
+    name: Oulun yliopisto
+    master: 25
+- model: skole.SchoolTranslation
+  pk: 75
+  fields:
+    language_code: sv
+    name: University of Oulu
+    master: 25
+- model: skole.SchoolTranslation
+  pk: 76
+  fields:
+    language_code: en
+    name: Oulu University of Applied Sciences
+    master: 26
+- model: skole.SchoolTranslation
+  pk: 77
+  fields:
+    language_code: fi
+    name: Oulun ammattikorkeakoulu
+    master: 26
+- model: skole.SchoolTranslation
+  pk: 78
+  fields:
+    language_code: sv
+    name: Oulu University of Applied Sciences
+    master: 26
+- model: skole.SchoolTranslation
+  pk: 79
+  fields:
+    language_code: en
+    name: University of Lapland
+    master: 27
+- model: skole.SchoolTranslation
+  pk: 80
+  fields:
+    language_code: fi
+    name: Lapin yliopisto
+    master: 27
+- model: skole.SchoolTranslation
+  pk: 81
+  fields:
+    language_code: sv
+    name: University of Lapland
+    master: 27
+- model: skole.SchoolTranslation
+  pk: 82
+  fields:
+    language_code: en
+    name: Lapland University of Applied Sciences
+    master: 28
+- model: skole.SchoolTranslation
+  pk: 83
+  fields:
+    language_code: fi
+    name: Lapin ammattikorkeakoulu
+    master: 28
+- model: skole.SchoolTranslation
+  pk: 84
+  fields:
+    language_code: sv
+    name: Lapland University of Applied Sciences
+    master: 28
+- model: skole.SchoolTranslation
+  pk: 85
+  fields:
+    language_code: en
+    name: LUT University
+    master: 29
+- model: skole.SchoolTranslation
+  pk: 86
+  fields:
+    language_code: fi
+    name: Lappeenrannan yliopisto LUT
+    master: 29
+- model: skole.SchoolTranslation
+  pk: 87
+  fields:
+    language_code: sv
+    name: LUT University
+    master: 29
+- model: skole.SchoolTranslation
+  pk: 88
+  fields:
+    language_code: en
+    name: LAB University of Applied Sciences
+    master: 30
+- model: skole.SchoolTranslation
+  pk: 89
+  fields:
+    language_code: fi
+    name: Lahden ammattikorkeakoulu LAB
+    master: 30
+- model: skole.SchoolTranslation
+  pk: 90
+  fields:
+    language_code: sv
+    name: LAB University of Applied Sciences
+    master: 30
+- model: skole.SchoolTranslation
+  pk: 91
+  fields:
+    language_code: en
+    name: University of Eastern Finland
+    master: 31
+- model: skole.SchoolTranslation
+  pk: 92
+  fields:
+    language_code: fi
+    name: Itä-Suomen yliopisto
+    master: 31
+- model: skole.SchoolTranslation
+  pk: 93
+  fields:
+    language_code: sv
+    name: University of Eastern Finland
+    master: 31
+- model: skole.SchoolTranslation
+  pk: 94
+  fields:
+    language_code: en
+    name: Karelia University of Applied Sciences
+    master: 32
+- model: skole.SchoolTranslation
+  pk: 95
+  fields:
+    language_code: fi
+    name: Karelia ammattikorkeakoulu
+    master: 32
+- model: skole.SchoolTranslation
+  pk: 96
+  fields:
+    language_code: sv
+    name: Karelia University of Applied Sciences
+    master: 32
+- model: skole.SchoolTranslation
+  pk: 97
+  fields:
+    language_code: en
+    name: Åland University of Applied Sciences
+    master: 33
+- model: skole.SchoolTranslation
+  pk: 98
+  fields:
+    language_code: fi
+    name: Ahvenanmaan ammattikorkeakoulu
+    master: 33
+- model: skole.SchoolTranslation
+  pk: 99
+  fields:
+    language_code: sv
+    name: Högskolan på Åland
+    master: 33
+- model: skole.SchoolTranslation
+  pk: 100
+  fields:
+    language_code: en
+    name: Centria University of Applied Sciences
+    master: 34
+- model: skole.SchoolTranslation
+  pk: 101
+  fields:
+    language_code: fi
+    name: Centria ammattikorkeakoulu
+    master: 34
+- model: skole.SchoolTranslation
+  pk: 102
+  fields:
+    language_code: sv
+    name: Centria University of Applied Sciences
+    master: 34
+- model: skole.SchoolTranslation
+  pk: 103
+  fields:
+    language_code: en
+    name: Häme University of Applied Sciences
+    master: 35
+- model: skole.SchoolTranslation
+  pk: 104
+  fields:
+    language_code: fi
+    name: Hämeen ammattikorkeakoulu
+    master: 35
+- model: skole.SchoolTranslation
+  pk: 105
+  fields:
+    language_code: sv
+    name: Häme University of Applied Sciences
+    master: 35
+- model: skole.SchoolTranslation
+  pk: 106
+  fields:
+    language_code: en
+    name: South-Eastern Finland University of Applied Sciences – Xamk
+    master: 36
+- model: skole.SchoolTranslation
+  pk: 107
+  fields:
+    language_code: fi
+    name: Kaakkois-Suomen ammattikorkeakoulu – Xamk
+    master: 36
+- model: skole.SchoolTranslation
+  pk: 108
+  fields:
+    language_code: sv
+    name: South-Eastern Finland University of Applied Sciences – Xamk
+    master: 36
+- model: skole.SchoolTranslation
+  pk: 109
+  fields:
+    language_code: en
+    name: Kajaani University of Applied Sciences
+    master: 37
+- model: skole.SchoolTranslation
+  pk: 110
+  fields:
+    language_code: fi
+    name: Kajaanin ammattikorkeakoulu
+    master: 37
+- model: skole.SchoolTranslation
+  pk: 111
+  fields:
+    language_code: sv
+    name: Kajaani University of Applied Sciences
+    master: 37
+- model: skole.SchoolTranslation
+  pk: 112
+  fields:
+    language_code: en
+    name: Savonia University of Applied Sciences
+    master: 38
+- model: skole.SchoolTranslation
+  pk: 113
+  fields:
+    language_code: fi
+    name: Savonia ammattikorkeakoulu
+    master: 38
+- model: skole.SchoolTranslation
+  pk: 114
+  fields:
+    language_code: sv
+    name: Savonia University of Applied Sciences
+    master: 38
+- model: skole.SchoolTranslation
+  pk: 115
+  fields:
+    language_code: en
+    name: Seinäjoki University of Applied Sciences
+    master: 39
+- model: skole.SchoolTranslation
+  pk: 116
+  fields:
+    language_code: fi
+    name: Seinäjoen ammattikorkeakoulu
+    master: 39
+- model: skole.SchoolTranslation
+  pk: 117
+  fields:
+    language_code: sv
+    name: Seinäjoki University of Applied Sciences
+    master: 39
+- model: skole.School
+  pk: 1
+  fields:
+    school_type: 1
+    city: 1
+- model: skole.School
+  pk: 2
+  fields:
+    school_type: 2
+    city: 1
+- model: skole.School
+  pk: 3
+  fields:
+    school_type: 1
+    city: 1
+- model: skole.School
+  pk: 4
+  fields:
+    school_type: 2
+    city: 1
+- model: skole.School
+  pk: 5
+  fields:
+    school_type: 2
+    city: 1
+- model: skole.School
+  pk: 6
+  fields:
+    school_type: 2
+    city: 1
+- model: skole.School
+  pk: 7
+  fields:
+    school_type: 1
+    city: 2
+- model: skole.School
+  pk: 8
+  fields:
+    school_type: 2
+    city: 2
+- model: skole.School
+  pk: 9
+  fields:
+    school_type: 2
+    city: 2
+- model: skole.School
+  pk: 10
+  fields:
+    school_type: 1
+    city: 3
+- model: skole.School
+  pk: 11
+  fields:
+    school_type: 2
+    city: 4
+- model: skole.School
+  pk: 12
+  fields:
+    school_type: 2
+    city: 3
+- model: skole.School
+  pk: 13
+  fields:
+    school_type: 1
+    city: 4
+- model: skole.School
+  pk: 14
+  fields:
+    school_type: 1
+    city: 4
+- model: skole.School
+  pk: 15
+  fields:
+    school_type: 2
+    city: 4
+- model: skole.School
+  pk: 16
+  fields:
+    school_type: 1
+    city: 4
+- model: skole.School
+  pk: 17
+  fields:
+    school_type: 1
+    city: 4
+- model: skole.School
+  pk: 18
+  fields:
+    school_type: 2
+    city: 4
+- model: skole.School
+  pk: 19
+  fields:
+    school_type: 1
+    city: 4
+- model: skole.School
+  pk: 20
+  fields:
+    school_type: 2
+    city: 5
+- model: skole.School
+  pk: 21
+  fields:
+    school_type: 1
+    city: 6
+- model: skole.School
+  pk: 22
+  fields:
+    school_type: 2
+    city: 6
+- model: skole.School
+  pk: 23
+  fields:
+    school_type: 1
+    city: 7
+- model: skole.School
+  pk: 24
+  fields:
+    school_type: 2
+    city: 7
+- model: skole.School
+  pk: 25
+  fields:
+    school_type: 1
+    city: 8
+- model: skole.School
+  pk: 26
+  fields:
+    school_type: 2
+    city: 8
+- model: skole.School
+  pk: 27
+  fields:
+    school_type: 1
+    city: 9
+- model: skole.School
+  pk: 28
+  fields:
+    school_type: 2
+    city: 9
+- model: skole.School
+  pk: 29
+  fields:
+    school_type: 1
+    city: 10
+- model: skole.School
+  pk: 30
+  fields:
+    school_type: 2
+    city: 17
+- model: skole.School
+  pk: 31
+  fields:
+    school_type: 1
+    city: 11
+- model: skole.School
+  pk: 32
+  fields:
+    school_type: 2
+    city: 11
+- model: skole.School
+  pk: 33
+  fields:
+    school_type: 2
+    city: 12
+- model: skole.School
+  pk: 34
+  fields:
+    school_type: 2
+    city: 13
+- model: skole.School
+  pk: 35
+  fields:
+    school_type: 2
+    city: 14
+- model: skole.School
+  pk: 36
+  fields:
+    school_type: 2
+    city: 15
+- model: skole.School
+  pk: 37
+  fields:
+    school_type: 2
+    city: 16
+- model: skole.School
+  pk: 38
+  fields:
+    school_type: 2
+    city: 18
+- model: skole.School
+  pk: 39
+  fields:
+    school_type: 2
+    city: 19

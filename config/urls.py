@@ -5,7 +5,7 @@ from django.contrib import admin
 from django.urls import path
 from django.views.decorators.csrf import csrf_exempt
 
-from api.views import CustomGraphQLView, health_check
+from skole.views import CustomGraphQLView, health_check
 
 urlpatterns = [
     # FIXME: make frontend work without exempt.

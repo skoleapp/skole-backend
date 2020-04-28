@@ -143,3 +143,8 @@ class Ranks:
     MASTER = _("Master")
     DOCTOR = _("Doctor")
     PROFESSOR = _("Professor")
+
+
+class Badges:
+    ADMIN = _("Admin")
+    MODERATOR = _("Moderator")

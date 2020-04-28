@@ -15,7 +15,7 @@ from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
 from mypy.types import JsonDict
 
-from skole.utils.constants import TokenAction, ValidationErrors, Ranks
+from skole.utils.constants import TokenAction, ValidationErrors, Ranks, Badges
 from skole.utils.exceptions import UserAlreadyVerified, UserNotVerified
 from skole.utils.token import get_token, get_token_payload
 from skole.utils.validators import ValidateFileSizeAndType
@@ -235,3 +235,12 @@ class User(AbstractBaseUser, PermissionsMixin):
             return Ranks.DOCTOR
         else:
             return Ranks.PROFESSOR
+
+    @property
+    def badge(self) -> Optional[str]:
+        if self.is_superuser:
+            return Badges.ADMIN
+        elif self.is_staff:
+            return Badges.MODERATOR
+
+        return None

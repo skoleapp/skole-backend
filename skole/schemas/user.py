@@ -46,6 +46,8 @@ class UserObjectType(DjangoObjectType):
     resource_count = graphene.Int()
     school = graphene.Field(SchoolObjectType)
     subject = graphene.Field(SubjectObjectType)
+    rank = graphene.String()
+    badge = graphene.String()
     starred_courses = graphene.List(CourseObjectType)
     starred_resources = graphene.List(ResourceObjectType)
 

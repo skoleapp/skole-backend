@@ -15,7 +15,7 @@ from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
 from mypy.types import JsonDict
 
-from skole.utils.constants import TokenAction, ValidationErrors
+from skole.utils.constants import TokenAction, ValidationErrors, Ranks
 from skole.utils.exceptions import UserAlreadyVerified, UserNotVerified
 from skole.utils.token import get_token, get_token_payload
 from skole.utils.validators import ValidateFileSizeAndType
@@ -219,3 +219,19 @@ class User(AbstractBaseUser, PermissionsMixin):
         template = settings.EMAIL_TEMPLATE_PASSWORD_RESET
         subject = settings.EMAIL_SUBJECT_PASSWORD_RESET
         return self.send(subject, template, email_context, *args, **kwargs)
+
+
+    @property
+    def rank(self) -> str:
+        if self.score < 100:
+            return Ranks.FRESHMAN
+        elif self.score < 250:
+            return Ranks.TUTOR
+        elif self.score < 500:
+            return Ranks.MENTOR
+        elif self.score < 1250:
+            return Ranks.MASTER
+        elif self.score < 2000:
+            return Ranks.DOCTOR
+        else:
+            return Ranks.PROFESSOR

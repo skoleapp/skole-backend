@@ -134,3 +134,12 @@ class VoteConstants:
         (1, "upvote"),
         (-1, "downvote"),
     )
+
+
+class Ranks:
+    FRESHMAN = _("Freshman")
+    TUTOR = _("Tutor")
+    MENTOR = _("Mentor")
+    MASTER = _("Master")
+    DOCTOR = _("Doctor")
+    PROFESSOR = _("Professor")

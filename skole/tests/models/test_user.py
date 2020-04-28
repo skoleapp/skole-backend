@@ -88,7 +88,7 @@ def test_change_score(db: fixture) -> None:
     assert user.score == 0
 
 
-def test_verify_user(db: fixture) -> None:
+def test_verify_user() -> None:
     # TODO: Implement.
     pass
 
@@ -106,3 +106,22 @@ def test_resend_verification_email() -> None:
 def test_send_password_reset_email() -> None:
     # TODO: Implement.
     pass
+
+def test_rank(db: fixture) -> None:
+    testuser2 = User.objects.get(pk=2)
+    assert testuser2.rank == "Freshman"
+
+    testuser3 = User.objects.get(pk=3)
+    assert testuser3.rank == "Tutor"
+
+    testuser4 = User.objects.get(pk=4)
+    assert testuser4.rank == "Mentor"
+
+    testuser5 = User.objects.get(pk=5)
+    assert testuser5.rank == "Master"
+
+    testuser6 = User.objects.get(pk=6)
+    assert testuser6.rank == "Doctor"
+
+    testuser7 = User.objects.get(pk=7)
+    assert testuser7.rank == "Professor"

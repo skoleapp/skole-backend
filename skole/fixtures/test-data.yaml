@@ -462,6 +462,7 @@
     created: 2020-01-01 12:00:00.000000+00:00
     school: 1
     subject: 1
+    score: 0 # Freshman.
 - model: skole.User
   pk: 3
   fields:
@@ -479,6 +480,7 @@
     created: 2020-01-01 12:00:00.000000+00:00
     school: 1
     subject: 1
+    score: 100 # Tutor.
 - model: skole.User
   pk: 4
   fields:
@@ -494,6 +496,7 @@
     is_superuser: false
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
+    score: 250 # Mentor.
 - model: skole.User
   pk: 5
   fields:
@@ -509,6 +512,7 @@
     is_superuser: false
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
+    score: 500 # Master.
 - model: skole.User
   pk: 6
   fields:
@@ -524,6 +528,7 @@
     is_superuser: false
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
+    score: 1250 # Doctor.
 - model: skole.User
   pk: 7
   fields:
@@ -539,6 +544,7 @@
     is_superuser: false
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
+    score: 2000 # Professor.
 - model: skole.User
   pk: 8
   fields:
@@ -841,7 +847,7 @@
     file: uploads/resources/test_resource.pdf
     date: 2012-12-12
     course: 1
-    user: 3
+    user: 8
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
 - model: skole.Resource
@@ -886,7 +892,7 @@
     resource: 1
     course: null
     comment: null
-    user: 4
+    user: 9
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
 - model: skole.Comment

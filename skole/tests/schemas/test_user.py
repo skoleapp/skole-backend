@@ -22,9 +22,11 @@ class UserSchemaTests(SchemaTestCase):
             created
             verified
             rank
-            badge
             courseCount
             resourceCount
+            badges {
+                id
+            }
             school {
                 id
             }
@@ -239,7 +241,6 @@ class UserSchemaTests(SchemaTestCase):
         assert user1["email"] == "testuser2@test.com"
         assert user1["verified"]
         assert user1["rank"] == "Freshman"
-        assert user1["badge"] == "Moderator"
         assert user1["school"] == {"id": "1"}
         assert user1["school"] == {"id": "1"}
 
@@ -250,7 +251,6 @@ class UserSchemaTests(SchemaTestCase):
         assert user2["email"] == ""
         assert user2["verified"] is None
         assert user2["rank"] == "Tutor"
-        assert user2["badge"] is None
         assert user2["school"] is None
         assert user2["school"] is None
 

@@ -11,3 +11,4 @@ from .starred import Starred
 from .subject import Subject
 from .user import User
 from .vote import Vote
+from .badge import Badge

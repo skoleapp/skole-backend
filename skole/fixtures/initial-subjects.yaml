@@ -1204,6 +1204,7 @@
     language_code: sv
     name: Ungdomsarbete
     master: 67
+
 - model: skole.Subject
   pk: 1
   fields: {}

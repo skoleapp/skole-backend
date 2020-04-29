@@ -24,11 +24,12 @@ from skole.forms.user import (
     TokenForm,
     UpdateUserForm,
 )
-from skole.models import BetaCode, Course, Resource, School, Subject, User
+from skole.models import BetaCode, Course, Resource, School, Subject, User, Badge
 from skole.schemas.course import CourseObjectType
 from skole.schemas.resource import ResourceObjectType
 from skole.schemas.school import SchoolObjectType
 from skole.schemas.subject import SubjectObjectType
+from skole.schemas.badge import BadgeObjectType
 from skole.utils.constants import Messages, MutationErrors, TokenAction
 from skole.utils.decorators import verification_required_mutation
 from skole.utils.exceptions import TokenScopeError, UserAlreadyVerified, UserNotVerified
@@ -47,7 +48,7 @@ class UserObjectType(DjangoObjectType):
     school = graphene.Field(SchoolObjectType)
     subject = graphene.Field(SubjectObjectType)
     rank = graphene.String()
-    badge = graphene.String()
+    badges = graphene.List(BadgeObjectType)
     starred_courses = graphene.List(CourseObjectType)
     starred_resources = graphene.List(ResourceObjectType)
 
@@ -123,6 +124,8 @@ class UserObjectType(DjangoObjectType):
     def resolve_starred_resources(self, info: ResolveInfo) -> "QuerySet[Resource]":
         return Resource.objects.filter(stars__user__pk=self.pk)
 
+    def resolve_badges(self, info: ResolveInfo) -> "QuerySet[Badge]":
+        return self.badges.all()
 
 class RegisterMutation(DjangoModelFormMutation):
     """

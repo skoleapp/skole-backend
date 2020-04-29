@@ -700,6 +700,7 @@
     language_code: sv
     name: Seinäjoki University of Applied Sciences
     master: 39
+
 - model: skole.School
   pk: 1
   fields:

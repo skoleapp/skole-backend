@@ -1,6 +1,9 @@
 from django.utils.translation import gettext_lazy as _
 
 
+class Admin:
+    SITE_HEADER = _("Skole Administration")
+
 class TokenAction:
     VERIFICATION = "verification"
     PASSWORD_RESET = "password_reset"
@@ -143,8 +146,3 @@ class Ranks:
     MASTER = _("Master")
     DOCTOR = _("Doctor")
     PROFESSOR = _("Professor")
-
-
-class Badges:
-    ADMIN = _("Admin")
-    MODERATOR = _("Moderator")

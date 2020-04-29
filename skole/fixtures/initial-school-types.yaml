@@ -34,6 +34,7 @@
     language_code: sv
     name: Yrkeshögskola
     master: 2
+
 - model: skole.SchoolType
   pk: 1
   fields: {}

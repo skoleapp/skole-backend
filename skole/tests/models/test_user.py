@@ -125,13 +125,3 @@ def test_rank(db: fixture) -> None:
 
     testuser7 = User.objects.get(pk=7)
     assert testuser7.rank == "Professor"
-
-def test_badge(db: fixture) -> None:
-    root_user = User.objects.get(pk=1)
-    assert root_user.badge == "Admin"
-
-    testuser2 = User.objects.get(pk=2)
-    assert testuser2.badge == "Moderator"
-
-    testuser3 = User.objects.get(pk=3)
-    assert testuser3.badge is None

@@ -116,6 +116,15 @@ LANGUAGE_CODE = "en"
 LANGUAGES = (("en", _("English")), ("fi", _("Finnish")), ("sv", _("Swedish")))
 LOCALE_PATHS = [os.path.join(BASE_DIR, "skole/locale")]
 
+# Parler settings
+PARLER_LANGUAGES = {
+    SITE_ID: (
+        {'code': 'en',},
+        {'code': 'fi',},
+        {'code': 'sv',},
+    )
+}
+
 # Graphene settings
 GRAPHENE = {
     "SCHEMA": "skole.schemas.schema.schema",

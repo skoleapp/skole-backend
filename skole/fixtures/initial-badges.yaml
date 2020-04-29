@@ -1,0 +1,50 @@
+- model: skole.BadgeTranslation
+  pk: 1
+  fields:
+    master: 1
+    language_code: en
+    name: Staff
+    description: Skole staff.
+- model: skole.BadgeTranslation
+  pk: 2
+  fields:
+    master: 1
+    language_code: fi
+    name: Henkilöstö
+    description: Skolen henkilöstö.
+- model: skole.BadgeTranslation
+  pk: 2
+  fields:
+    master: 1
+    language_code: sv
+    name: Bricka
+    description: Skole-personalen.
+
+- model: skole.BadgeTranslation
+  pk: 3
+  fields:
+    master: 2
+    language_code: en
+    name: Moderator
+    description: Moderator.
+- model: skole.BadgeTranslation
+  pk: 3
+  fields:
+    master: 2
+    language_code: fi
+    name: Moderaattori
+    description: Moderaattori.
+- model: skole.BadgeTranslation
+  pk: 4
+  fields:
+    master: 2
+    language_code: sv
+    name: Moderatorn
+    description: Moderatorn.
+
+- model: skole.Badge
+  pk: 1
+    fields: {}
+- model: skole.Badge
+  pk: 2
+    fields: {}

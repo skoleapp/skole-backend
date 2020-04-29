@@ -5,6 +5,7 @@ from django.core.exceptions import ValidationError
 from django.db.models.fields.files import FieldFile
 from django.utils.deconstruct import deconstructible
 from django.utils.translation import gettext_lazy as _
+from skole.utils.constants import ValidationErrors
 
 
 @deconstructible
@@ -32,14 +33,14 @@ class ValidateFileSizeAndType:
         # We multiply by 1_000_000 to convert megabytes to bytes.
         if file.size > 1_000_000 * self.limit:
             raise ValidationError(
-                _("File is too large, maximum allowed is {}MB").format(self.limit)
+                ValidationErrors.FILE_TOO_LARGE.format(self.limit)
             )
 
         # Reading the first 1024 bytes will be enough to determine the file type.
         file_type = magic.from_buffer(file.read(1024), mime=True)
         if file_type not in self.types:
             raise ValidationError(
-                _("Invalid file type, allowed types are: {}").format(
+                ValidationErrors.INVALID_FILE_TYPE.format(
                     ", ".join(self.types)
                 )
             )

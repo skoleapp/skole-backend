@@ -18,7 +18,6 @@ class BetaCodeManager(models.Manager):  # type: ignore[type-arg]
 class BetaCode(models.Model):
     code = models.CharField(max_length=8, unique=True)
     usages = models.IntegerField(validators=[MinValueValidator(1)])
-
     objects = BetaCodeManager()
 
     def __str__(self) -> str:

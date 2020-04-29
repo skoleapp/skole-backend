@@ -46,9 +46,11 @@ class Starred(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="stars"
     )
+
     course = models.ForeignKey(
         Course, on_delete=models.CASCADE, null=True, blank=True, related_name="stars"
     )
+
     resource = models.ForeignKey(
         Resource, on_delete=models.CASCADE, null=True, blank=True, related_name="stars"
     )

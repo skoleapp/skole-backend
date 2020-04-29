@@ -13,8 +13,8 @@ class School(TranslatableModel):
     school_type = models.ForeignKey(
         SchoolType, on_delete=models.PROTECT, related_name="schools"
     )
-    city = models.ForeignKey(City, on_delete=models.PROTECT, related_name="schools")
 
+    city = models.ForeignKey(City, on_delete=models.PROTECT, related_name="schools")
     translations = TranslatedFields(name=models.CharField(max_length=100))
 
     def __str__(self) -> str:

@@ -4,6 +4,13 @@ from django.utils.translation import gettext_lazy as _
 class Admin:
     SITE_HEADER = _("Skole Administration")
 
+
+class Languages:
+    ENGLISH = _("English")
+    FINNISH = _("Finnish")
+    SWEDISH = _("Swedish")
+
+
 class TokenAction:
     VERIFICATION = "verification"
     PASSWORD_RESET = "password_reset"
@@ -20,6 +27,8 @@ class ValidationErrors:
     INVALID_PASSWORD = _("Invalid password.")
     MUTATION_INVALID_TARGET = _("Mutation needs exactly one target.")
     NOT_OWNER = _("You are not the owner of this object.")
+    FILE_TOO_LARGE = _("File is too large, maximum allowed is {} MB")
+    INVALID_FILE_TYPE = _("Invalid file type, allowed types are: {}")
 
 
 class GraphQLErrors:

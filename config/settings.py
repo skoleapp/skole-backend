@@ -2,12 +2,8 @@ import os
 import urllib.error
 import urllib.request
 from datetime import timedelta
-
+from skole.utils.constants import Languages
 import dj_database_url
-
-# We use this instead of the real gettext to avoid a circular import
-# https://django-book.readthedocs.io/en/latest/chapter19.html
-_ = lambda s: s
 
 # General Django settings
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -113,8 +109,8 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 LANGUAGE_CODE = "en"
-LANGUAGES = (("en", _("English")), ("fi", _("Finnish")), ("sv", _("Swedish")))
-LOCALE_PATHS = [os.path.join(BASE_DIR, "skole/locale")]
+LANGUAGES = (("en", Languages.ENGLISH), ("fi", Languages.FINNISH), ("sv", Languages.SWEDISH))
+LOCALE_PATHS = [os.path.join(BASE_DIR, "skole", "locale")]
 
 # Parler settings
 PARLER_LANGUAGES = {
@@ -147,7 +143,7 @@ EXPIRATION_PASSWORD_RESET_TOKEN = timedelta(hours=1)
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, "skole/templates")],
+        "DIRS": [os.path.join(BASE_DIR, "skole", "templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [

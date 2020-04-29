@@ -24,15 +24,15 @@ msgstr "Skolen hallinta"
 
 #: skole/utils/constants.py:9
 msgid "English"
-msgstr "englanti"
+msgstr "Englanti"
 
 #: skole/utils/constants.py:10
 msgid "Finnish"
-msgstr "suomi"
+msgstr "Suomi"
 
 #: skole/utils/constants.py:11
 msgid "Swedish"
-msgstr "ruotsi"
+msgstr "Ruotsi"
 
 #: skole/utils/constants.py:20
 msgid "This username is taken."

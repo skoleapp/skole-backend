@@ -1,8 +1,9 @@
 from django.contrib.auth import get_user_model
 from mypy.types import JsonDict
-
+from typing import cast
 from skole.tests.utils import SchemaTestCase
 from skole.utils.constants import Messages, ValidationErrors
+from skole.models import User
 
 
 class UserSchemaTests(SchemaTestCase):
@@ -121,8 +122,8 @@ class UserSchemaTests(SchemaTestCase):
         title: str = "",
         bio: str = "",
         avatar: str = "",
-        school: str = "1",
-        subject: str = "1",
+        school: str = "",
+        subject: str = "",
     ) -> JsonDict:
         return self.execute_input_mutation(
             input_type="UpdateUserMutationInput!",
@@ -274,7 +275,18 @@ class UserSchemaTests(SchemaTestCase):
     def test_update_user_ok(self) -> None:
         # Fine to not change anything.
         user = self.query_user_me()
-        res = self.mutate_update_user()
+
+        user_fields = {
+            "username": user["username"],
+            "email": user["email"],
+            "title": user["title"],
+            "bio": user["bio"],
+            "avatar": user["avatar"],
+            "school": user["school"]["id"],
+            "subject": user["subject"]["id"],
+        }
+
+        res = self.mutate_update_user(**user_fields)
         assert res["errors"] is None
         assert res["user"] == user
         assert res["message"] == Messages.USER_UPDATED

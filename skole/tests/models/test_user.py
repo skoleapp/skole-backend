@@ -1,6 +1,6 @@
 from pytest import fixture
 
-from skole.models import User
+from skole.models import School, Subject, User
 
 
 def test_str(db: fixture) -> None:
@@ -45,8 +45,18 @@ def test_update_user(db: fixture) -> None:
     title = "new title"
     bio = "new bio"
     avatar = ""
+    school = School.objects.get(pk=1)
+    subject = Subject.objects.get(pk=1)
+
     User.objects.update_user(
-        user=user, email=email, username=username, title=title, bio=bio, avatar=avatar,
+        user=user,
+        email=email,
+        username=username,
+        title=title,
+        bio=bio,
+        avatar=avatar,
+        school=school,
+        subject=subject,
     )
 
     assert user.username == username
@@ -54,11 +64,65 @@ def test_update_user(db: fixture) -> None:
     assert user.title == title
     assert user.bio == bio
     assert user.avatar == avatar
+    assert user.school == school
+    assert user.subject == subject
 
 
 def test_set_password(db: fixture) -> None:
     user = User.objects.get(pk=2)
     new_pass = "new pass"
     User.objects.set_password(user, new_pass)
-
     assert user.check_password(new_pass)
+
+
+def test_change_score(db: fixture) -> None:
+    user = User.objects.get(pk=2)
+    assert user.score == 0
+
+    # Increment.
+    User.objects.change_score(user=user, score=1)
+    assert user.score == 1
+
+    # Decrement
+    User.objects.change_score(user=user, score=-1)
+    assert user.score == 0
+
+
+def test_verify_user() -> None:
+    # TODO: Implement.
+    pass
+
+
+def test_send_verification_email() -> None:
+    # TODO: Implement.
+    pass
+
+
+def test_resend_verification_email() -> None:
+    # TODO: Implement.
+    pass
+
+
+def test_send_password_reset_email() -> None:
+    # TODO: Implement.
+    pass
+
+
+def test_rank(db: fixture) -> None:
+    testuser2 = User.objects.get(pk=2)
+    assert testuser2.rank == "Freshman"
+
+    testuser3 = User.objects.get(pk=3)
+    assert testuser3.rank == "Tutor"
+
+    testuser4 = User.objects.get(pk=4)
+    assert testuser4.rank == "Mentor"
+
+    testuser5 = User.objects.get(pk=5)
+    assert testuser5.rank == "Master"
+
+    testuser6 = User.objects.get(pk=6)
+    assert testuser6.rank == "Doctor"
+
+    testuser7 = User.objects.get(pk=7)
+    assert testuser7.rank == "Professor"

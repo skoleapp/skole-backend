@@ -70,7 +70,9 @@ class Comment(models.Model):
         null=True,
         related_name="comments",
     )
+
     text = models.TextField(max_length=10000, blank=True)
+
     attachment = models.ImageField(
         upload_to="uploads/attachments",
         blank=True,
@@ -80,6 +82,7 @@ class Comment(models.Model):
     course = models.ForeignKey(
         Course, on_delete=models.CASCADE, null=True, blank=True, related_name="comments"
     )
+
     resource = models.ForeignKey(
         Resource,
         on_delete=models.CASCADE,
@@ -87,6 +90,7 @@ class Comment(models.Model):
         blank=True,
         related_name="comments",
     )
+
     comment = models.ForeignKey(
         "Comment",
         on_delete=models.CASCADE,
@@ -97,7 +101,6 @@ class Comment(models.Model):
 
     modified = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
-
     objects = CommentManager()
 
     def __str__(self) -> str:

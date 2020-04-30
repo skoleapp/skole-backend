@@ -1,5 +1,5 @@
 from smtplib import SMTPException
-from typing import Any, Literal, Optional
+from typing import Any, Optional
 
 import graphene
 from django.conf import settings
@@ -10,7 +10,7 @@ from django.db.models import QuerySet
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoFormMutation, DjangoModelFormMutation
 from graphene_django.types import ErrorType
-from graphql import GraphQLError, ResolveInfo
+from graphql import ResolveInfo
 from graphql_jwt.decorators import login_required, token_auth
 from mypy.types import JsonDict
 
@@ -24,14 +24,16 @@ from skole.forms.user import (
     TokenForm,
     UpdateUserForm,
 )
-from skole.models import BetaCode, Course, Resource, User
+from skole.models import Badge, BetaCode, Course, Resource, School, Subject, User
+from skole.schemas.badge import BadgeObjectType
 from skole.schemas.course import CourseObjectType
 from skole.schemas.resource import ResourceObjectType
-from skole.utils.constants import GraphQLErrors, Messages, MutationErrors, TokenAction
+from skole.schemas.school import SchoolObjectType
+from skole.schemas.subject import SubjectObjectType
+from skole.utils.constants import Messages, MutationErrors, TokenAction
 from skole.utils.decorators import verification_required_mutation
 from skole.utils.exceptions import TokenScopeError, UserAlreadyVerified, UserNotVerified
-from skole.utils.mixins import FileMutationMixin, PaginationMixin
-from skole.utils.pagination import get_paginator
+from skole.utils.mixins import FileMutationMixin
 from skole.utils.token import get_token_payload, revoke_user_refresh_tokens
 
 
@@ -43,6 +45,10 @@ class UserObjectType(DjangoObjectType):
     verified = graphene.Boolean()
     course_count = graphene.Int()
     resource_count = graphene.Int()
+    school = graphene.Field(SchoolObjectType)
+    subject = graphene.Field(SubjectObjectType)
+    rank = graphene.String()
+    badges = graphene.List(BadgeObjectType)
     starred_courses = graphene.List(CourseObjectType)
     starred_resources = graphene.List(ResourceObjectType)
 
@@ -104,15 +110,22 @@ class UserObjectType(DjangoObjectType):
         else:
             return None
 
+    def resolve_school(self, info: ResolveInfo) -> "School":
+        assert info.context is not None
+        return self.school if self.pk == info.context.user.pk else None
+
+    def resolve_subject(self, info: ResolveInfo) -> "Subject":
+        assert info.context is not None
+        return self.subject if self.pk == info.context.user.pk else None
+
     def resolve_starred_courses(self, info: ResolveInfo) -> "QuerySet[Course]":
         return Course.objects.filter(stars__user__pk=self.pk)
 
     def resolve_starred_resources(self, info: ResolveInfo) -> "QuerySet[Resource]":
         return Resource.objects.filter(stars__user__pk=self.pk)
 
-
-class PaginatedUserObjectType(PaginationMixin, graphene.ObjectType):
-    objects = graphene.List(UserObjectType)
+    def resolve_badges(self, info: ResolveInfo) -> "QuerySet[Badge]":
+        return self.badges.all()
 
 
 class RegisterMutation(DjangoModelFormMutation):
@@ -428,45 +441,8 @@ class UpdateUserMutation(FileMutationMixin, DjangoModelFormMutation):
 
 
 class Query(graphene.ObjectType):
-    users = graphene.Field(
-        PaginatedUserObjectType,
-        page=graphene.Int(),
-        page_size=graphene.Int(),
-        username=graphene.String(),
-        ordering=graphene.String(),
-    )
-
     user = graphene.Field(UserObjectType, id=graphene.ID())
     user_me = graphene.Field(UserObjectType)
-
-    @login_required
-    def resolve_users(
-        self,
-        info: ResolveInfo,
-        page: int = 1,
-        page_size: int = 10,
-        username: Optional[str] = None,
-        ordering: Literal["username", "-username", "score", "-score"] = "username",
-    ) -> graphene.ObjectType:
-        qs = get_user_model().objects.filter(is_superuser=False)
-
-        if username is not None:
-            qs = qs.filter(username__icontains=username)
-
-        if ordering not in {
-            "username",
-            "-username",
-            "score",
-            "-score",
-        }:
-            raise GraphQLError(GraphQLErrors.INVALID_ORDERING)
-
-        if ordering not in {"username", "-username"}:
-            # When ordering by score we also first order by the username.
-            qs = qs.order_by("username")
-        qs = qs.order_by(ordering)
-
-        return get_paginator(qs, page_size, page, PaginatedUserObjectType)
 
     @login_required
     def resolve_user(

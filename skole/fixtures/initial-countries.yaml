@@ -16,6 +16,7 @@
     language_code: sv
     name: Finland
     master: 1
+
 - model: skole.Country
   pk: 1
   fields: {}

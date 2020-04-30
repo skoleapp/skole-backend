@@ -1,5 +1,3 @@
-from typing import Optional
-
 from django.contrib.auth import get_user_model
 from mypy.types import JsonDict
 
@@ -23,8 +21,18 @@ class UserSchemaTests(SchemaTestCase):
             avatarThumbnail
             created
             verified
+            rank
             courseCount
             resourceCount
+            badges {
+                id
+            }
+            school {
+                id
+            }
+            subject {
+                id
+            }
             votes {
                 id
             }
@@ -42,40 +50,6 @@ class UserSchemaTests(SchemaTestCase):
             }
         }
     """
-
-    def query_users(
-        self,
-        page: int = 1,
-        page_size: int = 10,
-        username: Optional[str] = None,
-        ordering: Optional[str] = None,
-    ) -> JsonDict:
-        variables = {
-            "page": page,
-            "pageSize": page_size,
-            "username": username,
-            "ordering": ordering,
-        }
-
-        # language=GraphQL
-        graphql = (
-            self.user_fields
-            + """
-            query Users($page: Int, $pageSize: Int, $username: String, $ordering: String) {
-                users(page: $page, pageSize: $pageSize, username: $username, ordering: $ordering) {
-                    count
-                    page
-                    pages
-                    hasNext
-                    hasPrev
-                    objects {
-                        ...userFields
-                    }
-                }
-            }
-        """
-        )
-        return self.execute(graphql, variables=variables)["users"]
 
     def query_user(self, id: int) -> JsonDict:
         variables = {"id": id}
@@ -147,6 +121,8 @@ class UserSchemaTests(SchemaTestCase):
         title: str = "",
         bio: str = "",
         avatar: str = "",
+        school: str = "",
+        subject: str = "",
     ) -> JsonDict:
         return self.execute_input_mutation(
             input_type="UpdateUserMutationInput!",
@@ -157,6 +133,8 @@ class UserSchemaTests(SchemaTestCase):
                 "title": title,
                 "bio": bio,
                 "avatar": avatar,
+                "school": school,
+                "subject": subject,
             },
             result="user { ...userFields } message",
             fragment=self.user_fields,
@@ -256,40 +234,35 @@ class UserSchemaTests(SchemaTestCase):
         assert res["errors"][0]["messages"][0] == ValidationErrors.AUTH_ERROR
 
     def test_user(self) -> None:
-        user = self.query_user(id=2)
-        assert user["id"] == "2"
-        assert user["username"] == "testuser2"
+        # Own user.
+        user1 = self.query_user(id=2)
+        assert user1["id"] == "2"
+        assert user1["username"] == "testuser2"
+        assert user1["email"] == "testuser2@test.com"
+        assert user1["verified"]
+        assert user1["rank"] == "Freshman"
+        assert user1["school"] == {"id": "1"}
+        assert user1["school"] == {"id": "1"}
+
+        # Random user.
+        user2 = self.query_user(id=3)
+        assert user2["id"] == "3"
+        assert user2["username"] == "testuser3"
+        assert user2["email"] == ""
+        assert user2["verified"] is None
+        assert user2["rank"] == "Tutor"
+        assert user2["school"] is None
+        assert user2["school"] is None
 
         # ID not found.
         assert self.query_user(id=999) is None
-
-    def test_users(self) -> None:
-        # Default ordering is lexicographic (=not numeric!) by username.
-        users = self.query_users(page_size=999)
-        assert len(users["objects"]) == 11
-        assert users["objects"][0]["username"] == "testuser10"
-        assert users["objects"][9]["username"] == "testuser8"
-        assert users["objects"][10]["username"] == "testuser9"
-
-        # Change page size.
-        users = self.query_users(page_size=3)
-        assert len(users["objects"]) == 3
-
-        # Get second page.
-        users = self.query_users(page_size=3, page=2)
-        assert len(users["objects"]) == 3
-        assert users["page"] == 2
-        assert users["objects"][0]["username"] == "testuser2"
-
-        # Can't see emails of the users.
-        users = self.query_users(page_size=999)
-        assert any(user["email"] != "" for user in users["objects"])
 
     def test_user_me(self) -> None:
         user = self.query_user_me()
         assert user["id"] == "2"
         assert user["username"] == "testuser2"
         assert user["email"] == "testuser2@test.com"
+        assert user["verified"]
 
         # Shouldn't work without auth.
         self.authenticated = False
@@ -301,7 +274,18 @@ class UserSchemaTests(SchemaTestCase):
     def test_update_user_ok(self) -> None:
         # Fine to not change anything.
         user = self.query_user_me()
-        res = self.mutate_update_user()
+
+        user_fields = {
+            "username": user["username"],
+            "email": user["email"],
+            "title": user["title"],
+            "bio": user["bio"],
+            "avatar": user["avatar"],
+            "school": user["school"]["id"],
+            "subject": user["subject"]["id"],
+        }
+
+        res = self.mutate_update_user(**user_fields)
         assert res["errors"] is None
         assert res["user"] == user
         assert res["message"] == Messages.USER_UPDATED
@@ -310,14 +294,26 @@ class UserSchemaTests(SchemaTestCase):
         new_username = "newusername"
         new_email = "newmail@email.com"
         new_title = "My new Title."
+        new_bio = "My new bio."
+        new_school = "2"
+        new_subject = "2"
+
         res = self.mutate_update_user(
-            username=new_username, email=new_email, title=new_title
+            username=new_username,
+            email=new_email,
+            title=new_title,
+            bio=new_bio,
+            school=new_school,
+            subject=new_subject,
         )
+
         assert res["errors"] is None
         assert res["user"]["username"] == new_username
         assert res["user"]["email"] == new_email
         assert res["user"]["title"] == new_title
-        assert res["user"]["bio"] == ""
+        assert res["user"]["bio"] == new_bio
+        assert res["user"]["school"] == {"id": new_school}
+        assert res["user"]["school"] == {"id": new_subject}
         assert res["message"] == Messages.USER_UPDATED
 
     def test_update_user_error(self) -> None:

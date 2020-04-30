@@ -98,7 +98,7 @@ class UpdateUserForm(forms.ModelForm):
 
     class Meta:
         model = get_user_model()
-        fields = ("username", "email", "title", "bio", "avatar")
+        fields = ("username", "email", "title", "bio", "avatar", "school", "subject")
 
     def clean_avatar(self) -> str:
         # Ignore: Mypy considers files as optional but they're always at least an empty MultiValueDict.

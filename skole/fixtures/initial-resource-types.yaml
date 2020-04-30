@@ -70,6 +70,7 @@
     language_code: sv
     name: Annat
     master: 4
+
 - model: skole.ResourceType
   pk: 1
   fields: {}

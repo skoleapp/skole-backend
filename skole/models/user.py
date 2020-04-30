@@ -15,10 +15,13 @@ from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
 from mypy.types import JsonDict
 
-from skole.utils.constants import TokenAction, ValidationErrors
+from skole.utils.constants import Ranks, TokenAction, ValidationErrors
 from skole.utils.exceptions import UserAlreadyVerified, UserNotVerified
 from skole.utils.token import get_token, get_token_payload
 from skole.utils.validators import ValidateFileSizeAndType
+
+from .school import School
+from .subject import Subject
 
 
 # Ignore: Mypy expects Managers to have a generic type,
@@ -48,12 +51,16 @@ class UserManager(BaseUserManager):  # type: ignore[type-arg]
         title: str,
         bio: str,
         avatar: Union[UploadedFile, str],
+        school: Optional[School],
+        subject: Optional[Subject],
     ) -> "User":
         user.username = username
         user.email = self.normalize_email(email)
         user.title = title
         user.bio = bio
         user.avatar = avatar
+        user.school = school
+        user.subject = subject
         user.save()
         return user
 
@@ -111,6 +118,14 @@ class User(AbstractBaseUser, PermissionsMixin):
         processors=[ResizeToFill(100, 100)],
         format="JPEG",
         options={"quality": 60},
+    )
+
+    school = models.ForeignKey(
+        School, on_delete=models.SET_NULL, related_name="users", null=True, blank=True
+    )
+
+    subject = models.ForeignKey(
+        Subject, on_delete=models.SET_NULL, related_name="users", null=True, blank=True
     )
 
     score = models.IntegerField(default=0)
@@ -204,3 +219,18 @@ class User(AbstractBaseUser, PermissionsMixin):
         template = settings.EMAIL_TEMPLATE_PASSWORD_RESET
         subject = settings.EMAIL_SUBJECT_PASSWORD_RESET
         return self.send(subject, template, email_context, *args, **kwargs)
+
+    @property
+    def rank(self) -> str:
+        if self.score < 100:
+            return Ranks.FRESHMAN
+        elif self.score < 250:
+            return Ranks.TUTOR
+        elif self.score < 500:
+            return Ranks.MENTOR
+        elif self.score < 1250:
+            return Ranks.MASTER
+        elif self.score < 2000:
+            return Ranks.DOCTOR
+        else:
+            return Ranks.PROFESSOR

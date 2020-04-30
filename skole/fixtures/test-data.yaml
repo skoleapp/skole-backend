@@ -4,187 +4,6 @@
     domain: localhost:3001
     name: Skole
 
-- model: skole.User
-  pk: 1
-  fields:
-    username: root
-    email: root@root.com
-    password: pbkdf2_sha256$150000$gxz3raENC7JU$5ZWSBCqPqjox2VwHG5RHuu2UnaGCBt7rbO2QX5E7LAY= # root
-    title: ""
-    bio: ""
-    avatar: ""
-    verified: True
-    is_active: True
-    is_staff: true
-    is_superuser: true
-    modified: 2020-01-01 12:00:00.000000+00:00
-    created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.User
-  pk: 2
-  fields:
-    username: testuser2
-    email: testuser2@test.com
-    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4= # password
-    title: ""
-    bio: ""
-    avatar: ""
-    verified: True
-    is_active: True
-    is_staff: false
-    is_superuser: false
-    modified: 2020-01-01 12:00:00.000000+00:00
-    created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.User
-  pk: 3
-  fields:
-    username: testuser3
-    email: testuser3@test.com
-    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4= # password
-    title: ""
-    bio: ""
-    avatar: ""
-    verified: True
-    is_active: True
-    is_staff: false
-    is_superuser: false
-    modified: 2020-01-01 12:00:00.000000+00:00
-    created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.User
-  pk: 4
-  fields:
-    username: testuser4
-    email: testuser4@test.com
-    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4= # password
-    title: ""
-    bio: ""
-    avatar: ""
-    verified: True
-    is_active: True
-    is_staff: false
-    is_superuser: false
-    modified: 2020-01-01 12:00:00.000000+00:00
-    created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.User
-  pk: 5
-  fields:
-    username: testuser5
-    email: testuser5@test.com
-    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4= # password
-    title: ""
-    bio: ""
-    avatar: ""
-    verified: True
-    is_active: True
-    is_staff: false
-    is_superuser: false
-    modified: 2020-01-01 12:00:00.000000+00:00
-    created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.User
-  pk: 6
-  fields:
-    username: testuser6
-    email: testuser6@test.com
-    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4= # password
-    title: ""
-    bio: ""
-    avatar: ""
-    verified: True
-    is_active: True
-    is_staff: false
-    is_superuser: false
-    modified: 2020-01-01 12:00:00.000000+00:00
-    created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.User
-  pk: 7
-  fields:
-    username: testuser7
-    email: testuser7@test.com
-    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4= # password
-    title: ""
-    bio: ""
-    avatar: ""
-    verified: True
-    is_active: True
-    is_staff: false
-    is_superuser: false
-    modified: 2020-01-01 12:00:00.000000+00:00
-    created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.User
-  pk: 8
-  fields:
-    username: testuser8
-    email: testuser8@test.com
-    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4= # password
-    title: ""
-    bio: ""
-    avatar: ""
-    verified: True
-    is_active: True
-    is_staff: false
-    is_superuser: false
-    modified: 2020-01-01 12:00:00.000000+00:00
-    created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.User
-  pk: 9
-  fields:
-    username: testuser9
-    email: testuser9@test.com
-    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4= # password
-    title: ""
-    bio: ""
-    avatar: ""
-    verified: True
-    is_active: True
-    is_staff: false
-    is_superuser: false
-    modified: 2020-01-01 12:00:00.000000+00:00
-    created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.User
-  pk: 10
-  fields:
-    username: testuser10
-    email: testuser10@test.com
-    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4= # password
-    title: ""
-    bio: ""
-    avatar: ""
-    verified: True
-    is_active: True
-    is_staff: false
-    is_superuser: false
-    modified: 2020-01-01 12:00:00.000000+00:00
-    created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.User
-  pk: 11
-  fields:
-    username: testuser11
-    email: testuser11@test.com
-    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4= # password
-    title: ""
-    bio: ""
-    avatar: ""
-    verified: True
-    is_active: True
-    is_staff: false
-    is_superuser: false
-    modified: 2020-01-01 12:00:00.000000+00:00
-    created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.User
-  pk: 12
-  fields:
-    username: testuser12
-    email: testuser12@test.com
-    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4= # password
-    title: ""
-    bio: ""
-    avatar: ""
-    verified: True
-    is_active: True
-    is_staff: false
-    is_superuser: false
-    modified: 2020-01-01 12:00:00.000000+00:00
-    created: 2020-01-01 12:00:00.000000+00:00
-
 - model: skole.CountryTranslation
   pk: 1
   fields:
@@ -611,6 +430,197 @@
   pk: 4
   fields: {}
 
+- model: skole.User
+  pk: 1
+  fields:
+    username: root
+    email: root@root.com
+    password: pbkdf2_sha256$150000$gxz3raENC7JU$5ZWSBCqPqjox2VwHG5RHuu2UnaGCBt7rbO2QX5E7LAY= # root
+    title: ""
+    bio: ""
+    avatar: ""
+    verified: True
+    is_active: True
+    is_staff: true
+    is_superuser: true
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.User
+  pk: 2
+  fields:
+    username: testuser2
+    email: testuser2@test.com
+    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4= # password
+    title: ""
+    bio: ""
+    avatar: ""
+    verified: True
+    is_active: True
+    is_staff: False
+    is_superuser: false
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+    school: 1
+    subject: 1
+    score: 0 # Freshman.
+- model: skole.User
+  pk: 3
+  fields:
+    username: testuser3
+    email: testuser3@test.com
+    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4= # password
+    title: ""
+    bio: ""
+    avatar: ""
+    verified: False
+    is_active: True
+    is_staff: false
+    is_superuser: false
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+    school: 1
+    subject: 1
+    score: 100 # Tutor.
+- model: skole.User
+  pk: 4
+  fields:
+    username: testuser4
+    email: testuser4@test.com
+    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4= # password
+    title: ""
+    bio: ""
+    avatar: ""
+    verified: True
+    is_active: True
+    is_staff: false
+    is_superuser: false
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+    score: 250 # Mentor.
+- model: skole.User
+  pk: 5
+  fields:
+    username: testuser5
+    email: testuser5@test.com
+    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4= # password
+    title: ""
+    bio: ""
+    avatar: ""
+    verified: True
+    is_active: True
+    is_staff: false
+    is_superuser: false
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+    score: 500 # Master.
+- model: skole.User
+  pk: 6
+  fields:
+    username: testuser6
+    email: testuser6@test.com
+    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4= # password
+    title: ""
+    bio: ""
+    avatar: ""
+    verified: True
+    is_active: True
+    is_staff: false
+    is_superuser: false
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+    score: 1250 # Doctor.
+- model: skole.User
+  pk: 7
+  fields:
+    username: testuser7
+    email: testuser7@test.com
+    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4= # password
+    title: ""
+    bio: ""
+    avatar: ""
+    verified: True
+    is_active: True
+    is_staff: false
+    is_superuser: false
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+    score: 2000 # Professor.
+- model: skole.User
+  pk: 8
+  fields:
+    username: testuser8
+    email: testuser8@test.com
+    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4= # password
+    title: ""
+    bio: ""
+    avatar: ""
+    verified: True
+    is_active: True
+    is_staff: false
+    is_superuser: false
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.User
+  pk: 9
+  fields:
+    username: testuser9
+    email: testuser9@test.com
+    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4= # password
+    title: ""
+    bio: ""
+    avatar: ""
+    verified: True
+    is_active: True
+    is_staff: false
+    is_superuser: false
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.User
+  pk: 10
+  fields:
+    username: testuser10
+    email: testuser10@test.com
+    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4= # password
+    title: ""
+    bio: ""
+    avatar: ""
+    verified: True
+    is_active: True
+    is_staff: false
+    is_superuser: false
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.User
+  pk: 11
+  fields:
+    username: testuser11
+    email: testuser11@test.com
+    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4= # password
+    title: ""
+    bio: ""
+    avatar: ""
+    verified: True
+    is_active: True
+    is_staff: false
+    is_superuser: false
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.User
+  pk: 12
+  fields:
+    username: testuser12
+    email: testuser12@test.com
+    password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4= # password
+    title: ""
+    bio: ""
+    avatar: ""
+    verified: True
+    is_active: True
+    is_staff: false
+    is_superuser: false
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+
 - model: skole.Course
   pk: 1
   fields:
@@ -837,7 +847,7 @@
     file: uploads/resources/test_resource.pdf
     date: 2012-12-12
     course: 1
-    user: 3
+    user: 8
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
 - model: skole.Resource
@@ -882,7 +892,7 @@
     resource: 1
     course: null
     comment: null
-    user: 4
+    user: 9
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
 - model: skole.Comment

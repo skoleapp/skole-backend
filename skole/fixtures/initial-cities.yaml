@@ -340,6 +340,7 @@
     language_code: sv
     name: Seinäjoki
     master: 19
+
 - model: skole.City
   pk: 1
   fields:

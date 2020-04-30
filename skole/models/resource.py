@@ -60,17 +60,22 @@ class Resource(models.Model):
 
     resource_type = models.ForeignKey(ResourceType, on_delete=models.PROTECT)
     title = models.CharField(max_length=100)
+
     file = models.FileField(
         upload_to="uploads/resources",
         blank=True,
         max_length=500,
         validators=[ValidateFileSizeAndType(5, ["application/pdf"])],
     )
+
     date = models.DateField(default=datetime.date.today, blank=True)
+
     course = models.ForeignKey(
         Course, on_delete=models.CASCADE, related_name="resources"
     )
+
     downloads = models.PositiveIntegerField(default=0)
+
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,
@@ -78,9 +83,9 @@ class Resource(models.Model):
         blank=True,
         related_name="created_resources",
     )
+
     modified = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
-
     objects = ResourceManager()
 
     def __str__(self) -> str:

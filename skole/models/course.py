@@ -18,10 +18,13 @@ class Course(models.Model):
 
     name = models.CharField(max_length=200)
     code = models.CharField(max_length=30, blank=True)
+
     subject = models.ForeignKey(
         Subject, on_delete=models.CASCADE, related_name="courses", null=True, blank=True
     )
+
     school = models.ForeignKey(School, on_delete=models.CASCADE, related_name="courses")
+
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,
@@ -32,7 +35,6 @@ class Course(models.Model):
 
     modified = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
-
     objects = CourseManager()
 
     def __str__(self) -> str:

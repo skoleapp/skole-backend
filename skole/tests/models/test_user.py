@@ -15,12 +15,23 @@ def test_create_user(db: fixture) -> None:
     username = "testusername"
     email = "test@email.com"
     password = "password"
-    user = User.objects.create_user(username=username, email=email, password=password)
+    school = School.objects.get(pk=1)
+    subject = Subject.objects.get(pk=1)
+
+    user = User.objects.create_user(
+        username=username,
+        email=email,
+        school=school,
+        subject=subject,
+        password=password,
+    )
 
     assert not user.is_staff
     assert not user.is_superuser
     assert user.username == username
-    assert user.email == "test@email.com"
+    assert user.email == email
+    assert user.school == school
+    assert user.subject == subject
     assert user.check_password(password)
 
 

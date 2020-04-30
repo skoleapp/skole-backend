@@ -88,6 +88,8 @@ class UserSchemaTests(SchemaTestCase):
         self,
         username: str = "newuser",
         email: str = "newemail@test.com",
+        school: str = "1",
+        subject: str = "1",
         password: str = "password",
         code: str = "TEST",
     ) -> JsonDict:
@@ -97,6 +99,8 @@ class UserSchemaTests(SchemaTestCase):
             input={
                 "username": username,
                 "email": email,
+                "school": school,
+                "subject": subject,
                 "password": password,
                 "code": code,
             },
@@ -121,8 +125,8 @@ class UserSchemaTests(SchemaTestCase):
         title: str = "",
         bio: str = "",
         avatar: str = "",
-        school: str = "",
-        subject: str = "",
+        school: str = "1",
+        subject: str = "1",
     ) -> JsonDict:
         return self.execute_input_mutation(
             input_type="UpdateUserMutationInput!",
@@ -274,18 +278,7 @@ class UserSchemaTests(SchemaTestCase):
     def test_update_user_ok(self) -> None:
         # Fine to not change anything.
         user = self.query_user_me()
-
-        user_fields = {
-            "username": user["username"],
-            "email": user["email"],
-            "title": user["title"],
-            "bio": user["bio"],
-            "avatar": user["avatar"],
-            "school": user["school"]["id"],
-            "subject": user["subject"]["id"],
-        }
-
-        res = self.mutate_update_user(**user_fields)
+        res = self.mutate_update_user()
         assert res["errors"] is None
         assert res["user"] == user
         assert res["message"] == Messages.USER_UPDATED

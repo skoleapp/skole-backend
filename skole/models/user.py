@@ -28,9 +28,21 @@ from .subject import Subject
 #  this doesn't actually work, so we ignore it.
 #  https://gitter.im/mypy-django/Lobby?at=5de6bd09d75ad3721d4a58ba
 class UserManager(BaseUserManager):  # type: ignore[type-arg]
-    def create_user(self, username: str, email: str, password: str) -> "User":
-        user = self.model(username=username, email=self.normalize_email(email))
-        user.avatar = None
+    def create_user(
+        self,
+        username: str,
+        email: str,
+        school: Optional[School],
+        subject: Optional[Subject],
+        password: str,
+    ) -> "User":
+        user = self.model(
+            username=username,
+            email=self.normalize_email(email),
+            school=school,
+            subject=subject,
+        )
+
         user.set_password(password)
         user.save()
         return user
@@ -109,8 +121,9 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     avatar = models.ImageField(
         upload_to="uploads/avatars",
-        blank=True,
         validators=[ValidateFileSizeAndType(2, ["image/jpeg", "image/png"])],
+        blank=True,
+        default=None,
     )
 
     avatar_thumbnail = ImageSpecField(

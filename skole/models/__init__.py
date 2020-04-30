@@ -1,3 +1,4 @@
+from .badge import Badge
 from .beta_code import BetaCode
 from .city import City
 from .comment import Comment
@@ -11,4 +12,3 @@ from .starred import Starred
 from .subject import Subject
 from .user import User
 from .vote import Vote
-from .badge import Badge

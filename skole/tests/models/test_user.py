@@ -107,6 +107,7 @@ def test_send_password_reset_email() -> None:
     # TODO: Implement.
     pass
 
+
 def test_rank(db: fixture) -> None:
     testuser2 = User.objects.get(pk=2)
     assert testuser2.rank == "Freshman"

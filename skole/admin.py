@@ -1,9 +1,22 @@
-from django.apps import apps
 from django.contrib import admin
 from django.contrib.auth import get_user_model
 from parler.admin import TranslatableAdmin
-from parler.models import TranslatableModel, TranslatedFieldsModelMixin
-from skole.models import Badge, BetaCode, City, Comment, Country, Course, ResourceType, Resource, SchoolType, School, Starred, Subject, Vote
+from parler.models import TranslatedFieldsModelMixin
+
+from skole.models import (
+    Badge,
+    BetaCode,
+    City,
+    Comment,
+    Country,
+    Course,
+    ResourceType,
+    School,
+    SchoolType,
+    Starred,
+    Subject,
+    Vote,
+)
 from skole.utils.constants import Admin
 
 admin.site.site_header = Admin.SITE_HEADER

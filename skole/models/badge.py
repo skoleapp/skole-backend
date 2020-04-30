@@ -1,6 +1,6 @@
-from parler.models import TranslatableModel, TranslatedFields
-from django.db import models
 from django.conf import settings
+from django.db import models
+from parler.models import TranslatableModel, TranslatedFields
 
 
 class Badge(TranslatableModel):
@@ -10,7 +10,7 @@ class Badge(TranslatableModel):
 
     translations = TranslatedFields(
         name=models.CharField(max_length=100),
-        description=models.TextField(max_length=2000, blank=True)
+        description=models.TextField(max_length=2000, blank=True),
     )
 
     def __str__(self) -> str:

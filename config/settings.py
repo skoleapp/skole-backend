@@ -2,8 +2,10 @@ import os
 import urllib.error
 import urllib.request
 from datetime import timedelta
-from skole.utils.constants import Languages
+
 import dj_database_url
+
+from skole.utils.constants import Languages
 
 # General Django settings
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -109,17 +111,15 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 LANGUAGE_CODE = "en"
-LANGUAGES = (("en", Languages.ENGLISH), ("fi", Languages.FINNISH), ("sv", Languages.SWEDISH))
+LANGUAGES = (
+    ("en", Languages.ENGLISH),
+    ("fi", Languages.FINNISH),
+    ("sv", Languages.SWEDISH),
+)
 LOCALE_PATHS = [os.path.join(BASE_DIR, "skole", "locale")]
 
 # Parler settings
-PARLER_LANGUAGES = {
-    SITE_ID: (
-        {'code': 'en',},
-        {'code': 'fi',},
-        {'code': 'sv',},
-    )
-}
+PARLER_LANGUAGES = {SITE_ID: ({"code": "en",}, {"code": "fi",}, {"code": "sv",},)}
 
 # Graphene settings
 GRAPHENE = {

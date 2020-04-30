@@ -106,6 +106,7 @@ class Query(graphene.ObjectType):
         ordering: Literal["name", "-name", "score", "-score"] = "name",
     ) -> graphene.ObjectType:
         """Filter courses based on the query parameters."""
+
         qs = Course.objects.all()
 
         if course_name is not None:

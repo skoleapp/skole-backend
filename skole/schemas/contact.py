@@ -20,13 +20,11 @@ class ContactMutation(MessageMixin, DjangoFormMutation):
     @classmethod
     def perform_mutate(cls, form: ContactForm, info: ResolveInfo) -> "ContactMutation":
         subject = form.cleaned_data.get("subject")
-        name = form.cleaned_data.get("name")
         email = form.cleaned_data.get("email")
         message = form.cleaned_data.get("message")
 
         context = {
             "subject": subject,
-            "name": name if name != "" else "Anonymous User",
             "message": message,
         }
 
@@ -53,4 +51,4 @@ class ContactMutation(MessageMixin, DjangoFormMutation):
 
 
 class Mutation(graphene.ObjectType):
-    create_message = ContactMutation.Field()
+    create_contact_message = ContactMutation.Field()

@@ -4,7 +4,7 @@ from skole.utils.constants import GraphQLErrors
 
 
 class GraphQLAuthError(Exception):
-    default_message = None
+    default_message: Optional[str] = None
 
     def __init__(self, message: Optional[str] = None) -> None:
         if message is None:
@@ -14,15 +14,12 @@ class GraphQLAuthError(Exception):
 
 
 class UserAlreadyVerified(GraphQLAuthError):
-    # Ignore: Mypy expects a `None` type default message
-    default_message = GraphQLErrors.ALREADY_VERIFIED  # type: ignore [assignment]
+    default_message = GraphQLErrors.ALREADY_VERIFIED
 
 
 class UserNotVerified(GraphQLAuthError):
-    # Ignore: Mypy expects a `None` type default message
-    default_message = GraphQLErrors.NOT_VERIFIED  # type: ignore [assignment]
+    default_message = GraphQLErrors.NOT_VERIFIED
 
 
 class TokenScopeError(GraphQLAuthError):
-    # Ignore: Mypy expects a `None` type default message
-    default_message = GraphQLErrors.TOKEN_SCOPE_ERROR  # type: ignore [assignment]
+    default_message = GraphQLErrors.TOKEN_SCOPE_ERROR

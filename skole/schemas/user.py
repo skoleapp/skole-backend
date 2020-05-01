@@ -179,13 +179,12 @@ class VerifyAccountMutation(DjangoFormMutation):
 
     @classmethod
     def perform_mutate(
-        cls, form: TokenForm, info: ResolveInfo, **kwargs: JsonDict
+        cls, form: TokenForm, info: ResolveInfo,
     ) -> "VerifyAccountMutation":
         token = form.cleaned_data.get("token")
 
         try:
             get_user_model().objects.verify_user(token)
-            # TODO: Translate this.
             return cls(message=Messages.ACCOUNT_VERIFIED)
 
         except UserAlreadyVerified:
@@ -211,7 +210,7 @@ class ResendVerificationEmailMutation(DjangoFormMutation):
 
     @classmethod
     def perform_mutate(
-        cls, form: EmailForm, info: ResolveInfo, **kwargs: JsonDict
+        cls, form: EmailForm, info: ResolveInfo,
     ) -> "ResendVerificationEmailMutation":
         email = form.cleaned_data.get("email")
 
@@ -244,7 +243,7 @@ class SendPasswordResetEmailMutation(DjangoFormMutation):
 
     @classmethod
     def perform_mutate(
-        cls, form: EmailForm, info: ResolveInfo, **kwargs: JsonDict
+        cls, form: EmailForm, info: ResolveInfo,
     ) -> "SendPasswordResetEmailMutation":
         email = form.cleaned_data.get("email")
 
@@ -285,7 +284,7 @@ class ResetPasswordMutation(DjangoFormMutation):
 
     @classmethod
     def perform_mutate(
-        cls, form: EmailForm, info: ResolveInfo, **kwargs: JsonDict
+        cls, form: EmailForm, info: ResolveInfo,
     ) -> "ResetPasswordMutation":
         token = form.cleaned_data.get("token")
         new_password = form.cleaned_data.get("new_password")
@@ -357,7 +356,6 @@ class LoginMutation(DjangoModelFormMutation):
     def perform_mutate(
         cls, form: LoginForm, info: ResolveInfo, user: User, **kwargs: JsonDict
     ) -> "LoginMutation":
-        # TODO: Translate this.
         return cls(user=user, message=Messages.LOGGED_IN)
 
 

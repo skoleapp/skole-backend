@@ -22,7 +22,7 @@ class ValidationErrors:
     INVALID_BETA_CODE = _("Invalid beta code.")
     ACCOUNT_DEACTIVATED = _("This account has been deactivated!")
     AUTH_ERROR = _("Invalid username/email or password.")
-    SUPERUSER_LOGIN = _("Cannot log in as superuser.")
+    SUPERUSER_LOGIN = _("Cannot log in at this time.")
     INVALID_OLD_PASSWORD = _("Invalid old password.")
     INVALID_PASSWORD = _("Invalid password.")
     MUTATION_INVALID_TARGET = _("Mutation needs exactly one target.")

@@ -81,7 +81,6 @@ class LoginForm(forms.ModelForm):
                 raise forms.ValidationError(ValidationErrors.AUTH_ERROR)
 
             if user.is_superuser:
-                # TODO: Maybe remove this as it allows users to phish superuser credentials.
                 raise forms.ValidationError(ValidationErrors.SUPERUSER_LOGIN)
 
             self.cleaned_data["user"] = user

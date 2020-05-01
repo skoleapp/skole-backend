@@ -173,10 +173,10 @@ class User(AbstractBaseUser, PermissionsMixin):
             "user": self,
             "request": info.context,
             "token": token,
-            "port": info.context.get_port(),  # type: ignore [union-attr]
+            "port": info.context.get_port(),
             "site_name": site.name,
             "domain": site.domain,
-            "protocol": "https" if info.context.is_secure() else "http",  # type: ignore [union-attr]
+            "protocol": "https" if info.context.is_secure() else "http",
             "path": path,
             "timestamp": time.time(),
         }

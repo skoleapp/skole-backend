@@ -5,7 +5,6 @@ from graphql import ResolveInfo
 from mypy.types import JsonDict
 
 from skole.models import Starred, Vote
-from skole.schemas.vote import VoteObjectType
 from skole.utils.constants import MutationErrors
 from skole.utils.forms import DeleteObjectForm
 
@@ -104,7 +103,7 @@ class VoteMixin:
     """Adds a query for querying the vote status of the item for the current user."""
 
     score = graphene.Int()
-    vote = graphene.Field(VoteObjectType)
+    vote = graphene.Field("skole.schemas.vote.VoteObjectType")
 
     def resolve_vote(self, info: ResolveInfo) -> Optional[int]:
         """Return current user's vote if it exists."""

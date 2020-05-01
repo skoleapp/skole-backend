@@ -6,11 +6,11 @@ from graphql import ResolveInfo
 from skole.forms.comment import CreateCommentForm, DeleteCommentForm, UpdateCommentForm
 from skole.models import Comment
 from skole.utils.constants import Messages, MutationErrors
-from skole.utils.decorators import verification_required_mutation
 from skole.utils.mixins import (
     DeleteMutationMixin,
     FileMutationMixin,
     MessageMixin,
+    VerificationRequiredMutationMixin,
     VoteMixin,
 )
 
@@ -38,13 +38,17 @@ class CommentObjectType(VoteMixin, DjangoObjectType):
         return self.attachment.url if self.attachment else ""
 
 
-class CreateCommentMutation(FileMutationMixin, MessageMixin, DjangoModelFormMutation):
+class CreateCommentMutation(
+    VerificationRequiredMutationMixin,
+    FileMutationMixin,
+    MessageMixin,
+    DjangoModelFormMutation,
+):
     class Meta:
         form_class = CreateCommentForm
         exclude_fields = ("id",)
 
     @classmethod
-    @verification_required_mutation
     def perform_mutate(
         cls, form: CreateCommentForm, info: ResolveInfo
     ) -> "CreateCommentMutation":
@@ -62,14 +66,15 @@ class CreateCommentMutation(FileMutationMixin, MessageMixin, DjangoModelFormMuta
         return cls(comment=comment, message=Messages.MESSAGE_SENT)
 
 
-class UpdateCommentMutation(MessageMixin, DjangoModelFormMutation):
+class UpdateCommentMutation(
+    VerificationRequiredMutationMixin, MessageMixin, DjangoModelFormMutation
+):
     comment = graphene.Field(CommentObjectType)
 
     class Meta:
         form_class = UpdateCommentForm
 
     @classmethod
-    @verification_required_mutation
     def perform_mutate(
         cls, form: UpdateCommentForm, info: ResolveInfo
     ) -> "UpdateCommentMutation":

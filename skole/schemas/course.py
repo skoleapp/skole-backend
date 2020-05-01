@@ -10,9 +10,9 @@ from graphql_jwt.decorators import login_required
 from skole.forms.course import CreateCourseForm, DeleteCourseForm
 from skole.models import Course
 from skole.utils.constants import GraphQLErrors, Messages
-from skole.utils.decorators import login_required_mutation
 from skole.utils.mixins import (
     DeleteMutationMixin,
+    LoginRequiredMutationMixin,
     MessageMixin,
     PaginationMixin,
     StarredMixin,
@@ -46,7 +46,9 @@ class PaginatedCourseObjectType(PaginationMixin, graphene.ObjectType):
     objects = graphene.List(CourseObjectType)
 
 
-class CreateCourseMutation(MessageMixin, DjangoModelFormMutation):
+class CreateCourseMutation(
+    LoginRequiredMutationMixin, MessageMixin, DjangoModelFormMutation
+):
     course = graphene.Field(CourseObjectType)
 
     class Meta:
@@ -54,7 +56,6 @@ class CreateCourseMutation(MessageMixin, DjangoModelFormMutation):
         exclude_fields = ("id",)
 
     @classmethod
-    @login_required_mutation
     def perform_mutate(
         cls, form: CreateCourseForm, info: ResolveInfo
     ) -> "CreateCourseMutation":

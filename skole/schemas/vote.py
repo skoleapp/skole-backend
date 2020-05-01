@@ -6,7 +6,7 @@ from graphql import ResolveInfo
 from skole.forms.vote import CreateVoteForm
 from skole.models.vote import Vote
 from skole.utils.constants import MutationErrors
-from skole.utils.decorators import verification_required_mutation
+from skole.utils.mixins import VerificationRequiredMutationMixin
 
 
 class VoteObjectType(DjangoObjectType):
@@ -17,7 +17,7 @@ class VoteObjectType(DjangoObjectType):
         fields = ("id", "user", "status", "comment", "course", "resource")
 
 
-class VoteMutation(DjangoModelFormMutation):
+class VoteMutation(VerificationRequiredMutationMixin, DjangoModelFormMutation):
     target_score = graphene.Int()
 
     class Meta:
@@ -25,7 +25,6 @@ class VoteMutation(DjangoModelFormMutation):
         exclude_fields = ("id",)
 
     @classmethod
-    @verification_required_mutation
     def perform_mutate(cls, form: CreateVoteForm, info: ResolveInfo) -> "VoteMutation":
         assert info.context is not None
         target = form.cleaned_data.get("target")

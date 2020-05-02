@@ -88,7 +88,7 @@ class Query(graphene.ObjectType):
         ordering=graphene.String(),
     )
 
-    courses = graphene.List(CourseObjectType)
+    courses = graphene.List(CourseObjectType, school=graphene.ID())
     course = graphene.Field(CourseObjectType, id=graphene.ID())
 
     @login_required
@@ -141,8 +141,15 @@ class Query(graphene.ObjectType):
         return get_paginator(qs, page_size, page, PaginatedCourseObjectType)
 
     @login_required
-    def resolve_courses(self, info: ResolveInfo) -> "QuerySet[Course]":
-        return Course.objects.order_by("name")
+    def resolve_courses(
+        self, info: ResolveInfo, school: Optional[int] = None,
+    ) -> "QuerySet[Course]":
+        qs = Course.objects.order_by("name")
+
+        if school is not None:
+            qs = qs.filter(school__pk=school)
+
+        return qs
 
     @login_required
     def resolve_course(

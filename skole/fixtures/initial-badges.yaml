@@ -44,7 +44,7 @@
 
 - model: skole.Badge
   pk: 1
-    fields: {}
+  fields: {}
 - model: skole.Badge
   pk: 2
-    fields: {}
+  fields: {}

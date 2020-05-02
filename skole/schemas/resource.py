@@ -14,10 +14,10 @@ from skole.forms.resource import (
 from skole.models import Resource
 from skole.schemas.school import SchoolObjectType
 from skole.utils.constants import Messages, MutationErrors
-from skole.utils.decorators import login_required_mutation
 from skole.utils.mixins import (
     DeleteMutationMixin,
     FileMutationMixin,
+    LoginRequiredMutationMixin,
     MessageMixin,
     StarredMixin,
     VoteMixin,
@@ -53,13 +53,14 @@ class ResourceObjectType(VoteMixin, StarredMixin, DjangoObjectType):
         return self.course.school
 
 
-class CreateResourceMutation(FileMutationMixin, MessageMixin, DjangoModelFormMutation):
+class CreateResourceMutation(
+    LoginRequiredMutationMixin, FileMutationMixin, MessageMixin, DjangoModelFormMutation
+):
     class Meta:
         form_class = CreateResourceForm
         exclude_fields = ("id",)
 
     @classmethod
-    @login_required_mutation
     def perform_mutate(
         cls, form: CreateResourceForm, info: ResolveInfo
     ) -> "CreateResourceMutation":
@@ -73,12 +74,13 @@ class CreateResourceMutation(FileMutationMixin, MessageMixin, DjangoModelFormMut
         return cls(resource=resource, message=Messages.RESOURCE_CREATED)
 
 
-class UpdateResourceMutation(MessageMixin, DjangoModelFormMutation):
+class UpdateResourceMutation(
+    LoginRequiredMutationMixin, MessageMixin, DjangoModelFormMutation
+):
     class Meta:
         form_class = UpdateResourceForm
 
     @classmethod
-    @login_required_mutation
     def perform_mutate(
         cls, form: UpdateResourceForm, info: ResolveInfo
     ) -> "UpdateResourceMutation":

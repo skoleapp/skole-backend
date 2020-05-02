@@ -1,13 +1,60 @@
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Type, TypeVar
 
 import graphene
 from graphql import ResolveInfo
 from mypy.types import JsonDict
 
 from skole.models import Starred, Vote
-from skole.schemas.vote import VoteObjectType
-from skole.utils.decorators import login_required_mutation
+from skole.utils.constants import MutationErrors
 from skole.utils.forms import DeleteObjectForm
+
+T = TypeVar("T", bound=graphene.Mutation)
+
+
+class LoginRequiredMutationMixin:
+    """Mixin for a mutation that needs a user to be logged in to use.
+
+    Should be the first class in the inheritance list,
+    at least before the graphql mutation class, e.g. DjangoModelFormMutation.
+    """
+
+    @classmethod
+    def mutate(cls: Type[T], root: Any, info: ResolveInfo, input: JsonDict) -> T:
+        assert info.context is not None
+
+        if not info.context.user.is_authenticated:
+            return cls(errors=MutationErrors.AUTH_REQUIRED)
+
+        # Ignore: Mypy throws 'Unsupported argument 2 for "super"'.
+        #   This works fine when the mixin is subclassed with a mutation class.
+        return super().mutate(root, info, input)  # type: ignore[misc]
+
+
+class VerificationRequiredMutationMixin:
+    """Mixin for a mutation that needs a user to be verified (and logged in) to use.
+
+    Should be the first class in the inheritance list,
+    at least before the graphql mutation class, e.g. DjangoModelFormMutation.
+    """
+
+    @classmethod
+    def mutate(cls: Type[T], root: Any, info: ResolveInfo, input: JsonDict) -> T:
+        assert info.context is not None
+        user = info.context.user
+
+        if not user.is_authenticated:
+            return cls(errors=MutationErrors.AUTH_REQUIRED)
+
+        # By checking the authentication first, we avoid and error when AnonymousUser
+        # doesn't have the verified attribute. This is also the reason why we cannot
+        # make this a subclass of LoginRequiredMutationMixin, since then we would first
+        # try to check verification here and face the same problem.
+
+        if not user.verified:
+            return cls(errors=MutationErrors.VERIFICATION_REQUIRED)
+
+        # Ignore: Same as above.
+        return super().mutate(root, info, input)  # type: ignore[misc]
 
 
 class MessageMixin:
@@ -16,7 +63,7 @@ class MessageMixin:
     message = graphene.String()
 
 
-class DeleteMutationMixin(MessageMixin):
+class DeleteMutationMixin(LoginRequiredMutationMixin, MessageMixin):
     """A base class for all delete mutations."""
 
     class Meta:
@@ -40,7 +87,6 @@ class DeleteMutationMixin(MessageMixin):
         return kwargs
 
     @classmethod
-    @login_required_mutation
     def perform_mutate(
         cls, form: DeleteObjectForm, info: ResolveInfo
     ) -> "DeleteMutationMixin":
@@ -54,11 +100,13 @@ class DeleteMutationMixin(MessageMixin):
 
 
 class VoteMixin:
+    """Adds a query for querying the vote status of the item for the current user."""
+
     score = graphene.Int()
-    vote = graphene.Field(VoteObjectType)
+    vote = graphene.Field("skole.schemas.vote.VoteObjectType")
 
     def resolve_vote(self, info: ResolveInfo) -> Optional[int]:
-        """Resolve current user's vote if it exists."""
+        """Return current user's vote if it exists."""
 
         assert info.context is not None
         user = info.context.user
@@ -74,10 +122,12 @@ class VoteMixin:
 
 
 class StarredMixin:
+    """Adds a query if the currently logged in user has starred the item."""
+
     starred = graphene.Boolean()
 
     def resolve_starred(self, info: ResolveInfo) -> bool:
-        """Check whether user has starred the current item."""
+        """Return True if the current user has starred the item, otherwise False."""
 
         assert info.context is not None
         user = info.context.user
@@ -93,8 +143,7 @@ class StarredMixin:
 
 
 class FileMutationMixin:
-    """
-    A mixin for passing the files of the request to the model form
+    """A mixin for passing the files of the request to the model form
     so that he validation can be done there.
     """
 

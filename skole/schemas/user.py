@@ -31,9 +31,8 @@ from skole.schemas.resource import ResourceObjectType
 from skole.schemas.school import SchoolObjectType
 from skole.schemas.subject import SubjectObjectType
 from skole.utils.constants import Messages, MutationErrors, TokenAction
-from skole.utils.decorators import verification_required_mutation
 from skole.utils.exceptions import TokenScopeError, UserAlreadyVerified, UserNotVerified
-from skole.utils.mixins import FileMutationMixin
+from skole.utils.mixins import FileMutationMixin, VerificationRequiredMutationMixin
 from skole.utils.token import get_token_payload, revoke_user_refresh_tokens
 
 
@@ -179,13 +178,12 @@ class VerifyAccountMutation(DjangoFormMutation):
 
     @classmethod
     def perform_mutate(
-        cls, form: TokenForm, info: ResolveInfo, **kwargs: JsonDict
+        cls, form: TokenForm, info: ResolveInfo,
     ) -> "VerifyAccountMutation":
         token = form.cleaned_data.get("token")
 
         try:
             get_user_model().objects.verify_user(token)
-            # TODO: Translate this.
             return cls(message=Messages.ACCOUNT_VERIFIED)
 
         except UserAlreadyVerified:
@@ -211,7 +209,7 @@ class ResendVerificationEmailMutation(DjangoFormMutation):
 
     @classmethod
     def perform_mutate(
-        cls, form: EmailForm, info: ResolveInfo, **kwargs: JsonDict
+        cls, form: EmailForm, info: ResolveInfo,
     ) -> "ResendVerificationEmailMutation":
         email = form.cleaned_data.get("email")
 
@@ -244,7 +242,7 @@ class SendPasswordResetEmailMutation(DjangoFormMutation):
 
     @classmethod
     def perform_mutate(
-        cls, form: EmailForm, info: ResolveInfo, **kwargs: JsonDict
+        cls, form: EmailForm, info: ResolveInfo,
     ) -> "SendPasswordResetEmailMutation":
         email = form.cleaned_data.get("email")
 
@@ -285,7 +283,7 @@ class ResetPasswordMutation(DjangoFormMutation):
 
     @classmethod
     def perform_mutate(
-        cls, form: EmailForm, info: ResolveInfo, **kwargs: JsonDict
+        cls, form: EmailForm, info: ResolveInfo,
     ) -> "ResetPasswordMutation":
         token = form.cleaned_data.get("token")
         new_password = form.cleaned_data.get("new_password")
@@ -357,11 +355,12 @@ class LoginMutation(DjangoModelFormMutation):
     def perform_mutate(
         cls, form: LoginForm, info: ResolveInfo, user: User, **kwargs: JsonDict
     ) -> "LoginMutation":
-        # TODO: Translate this.
         return cls(user=user, message=Messages.LOGGED_IN)
 
 
-class ChangePasswordMutation(DjangoModelFormMutation):
+class ChangePasswordMutation(
+    VerificationRequiredMutationMixin, DjangoModelFormMutation
+):
     """Change account password when user knows the old password. User must be verified."""
 
     message = graphene.String()
@@ -379,7 +378,6 @@ class ChangePasswordMutation(DjangoModelFormMutation):
         return {"data": input, "instance": info.context.user}
 
     @classmethod
-    @verification_required_mutation
     def perform_mutate(
         cls, form: ChangePasswordForm, info: ResolveInfo
     ) -> "ChangePasswordMutation":
@@ -393,7 +391,7 @@ class ChangePasswordMutation(DjangoModelFormMutation):
         return cls(message=Messages.PASSWORD_UPDATED)
 
 
-class DeleteUserMutation(DjangoModelFormMutation):
+class DeleteUserMutation(VerificationRequiredMutationMixin, DjangoModelFormMutation):
     """Delete account permanently. User must be verified and confirm his password."""
 
     message = graphene.String()
@@ -411,7 +409,6 @@ class DeleteUserMutation(DjangoModelFormMutation):
         return {"data": input, "instance": info.context.user}
 
     @classmethod
-    @verification_required_mutation
     def perform_mutate(
         cls, form: DeleteUserForm, info: ResolveInfo
     ) -> "DeleteUserMutation":
@@ -421,7 +418,9 @@ class DeleteUserMutation(DjangoModelFormMutation):
         return cls(message=Messages.USER_DELETED)
 
 
-class UpdateUserMutation(FileMutationMixin, DjangoModelFormMutation):
+class UpdateUserMutation(
+    VerificationRequiredMutationMixin, FileMutationMixin, DjangoModelFormMutation
+):
     """Update user model fields. User must be verified."""
 
     user = graphene.Field(UserObjectType)
@@ -432,7 +431,6 @@ class UpdateUserMutation(FileMutationMixin, DjangoModelFormMutation):
         exclude_fields = ("id",)
 
     @classmethod
-    @verification_required_mutation
     def perform_mutate(
         cls, form: UpdateUserForm, info: ResolveInfo
     ) -> "UpdateUserMutation":

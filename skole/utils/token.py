@@ -13,10 +13,6 @@ if TYPE_CHECKING:
 def get_token(user: "User", action: str, **kwargs: Any) -> str:
     username = user.get_username()
 
-    if hasattr(username, "pk"):
-        # Ignore: Some weird shit: https://github.com/flavors/django-graphql-jwt/blob/master/graphql_jwt/utils.py#L17
-        username = username.pk  # type: ignore [attr-defined]
-
     payload = {"username": username, "action": action}
 
     if kwargs:

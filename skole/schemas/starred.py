@@ -6,7 +6,7 @@ from graphql import ResolveInfo
 from skole.forms.starred import StarForm
 from skole.models import Starred
 from skole.utils.constants import Messages
-from skole.utils.decorators import verification_required_mutation
+from skole.utils.mixins import VerificationRequiredMutationMixin
 
 
 class StarredObjectType(DjangoObjectType):
@@ -14,7 +14,7 @@ class StarredObjectType(DjangoObjectType):
         model = Starred
 
 
-class StarredMutation(DjangoModelFormMutation):
+class StarredMutation(VerificationRequiredMutationMixin, DjangoModelFormMutation):
     starred = graphene.Boolean()
 
     class Meta:
@@ -26,7 +26,6 @@ class StarredMutation(DjangoModelFormMutation):
         return Messages.COURSE_DELETED
 
     @classmethod
-    @verification_required_mutation
     def perform_mutate(cls, form: StarForm, info: ResolveInfo) -> "StarredMutation":
         assert info.context is not None
         starred = Starred.objects.perform_star(

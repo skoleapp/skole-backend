@@ -1,28 +1,20 @@
-from typing import Optional
-
 from skole.utils.constants import GraphQLErrors
 
 
-class GraphQLAuthError(Exception):
-    default_message = None
+class _BaseGraphQLAuthError(Exception):
+    message: str
 
-    def __init__(self, message: Optional[str] = None) -> None:
-        if message is None:
-            message = self.default_message
-
-        super().__init__(message)
+    def __init__(self) -> None:
+        super().__init__(self.message)
 
 
-class UserAlreadyVerified(GraphQLAuthError):
-    # Ignore: Mypy expects a `None` type default message
-    default_message = GraphQLErrors.ALREADY_VERIFIED  # type: ignore [assignment]
+class UserAlreadyVerified(_BaseGraphQLAuthError):
+    message = GraphQLErrors.ALREADY_VERIFIED
 
 
-class UserNotVerified(GraphQLAuthError):
-    # Ignore: Mypy expects a `None` type default message
-    default_message = GraphQLErrors.NOT_VERIFIED  # type: ignore [assignment]
+class UserNotVerified(_BaseGraphQLAuthError):
+    message = GraphQLErrors.NOT_VERIFIED
 
 
-class TokenScopeError(GraphQLAuthError):
-    # Ignore: Mypy expects a `None` type default message
-    default_message = GraphQLErrors.TOKEN_SCOPE_ERROR  # type: ignore [assignment]
+class TokenScopeError(_BaseGraphQLAuthError):
+    message = GraphQLErrors.TOKEN_SCOPE_ERROR

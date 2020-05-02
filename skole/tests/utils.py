@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from graphene_django.utils.testing import GraphQLTestCase
 from mypy.types import JsonDict
 
-from skole.schemas.schema import schema
+from skole.schema import schema
 
 
 class SchemaTestCase(GraphQLTestCase):

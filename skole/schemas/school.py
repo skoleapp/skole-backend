@@ -4,7 +4,6 @@ import graphene
 from django.db.models import QuerySet
 from graphene_django import DjangoObjectType
 from graphql import ResolveInfo
-from graphql_jwt.decorators import login_required
 
 from skole.models import School
 from skole.schemas.subject import SubjectObjectType
@@ -34,7 +33,6 @@ class SchoolObjectType(DjangoObjectType):
             "course_count",
         )
 
-    @login_required
     def resolve_country(self, info: ResolveInfo) -> str:
         return self.city.country
 
@@ -43,14 +41,12 @@ class Query(graphene.ObjectType):
     schools = graphene.List(SchoolObjectType)
     school = graphene.Field(SchoolObjectType, id=graphene.ID())
 
-    @login_required
     def resolve_schools(self, info: ResolveInfo) -> "QuerySet[School]":
         assert info.context is not None
         return School.objects.translated(info.context.LANGUAGE_CODE).order_by(
             "translations__name"
         )
 
-    @login_required
     def resolve_school(
         self, info: ResolveInfo, id: Optional[int] = None
     ) -> Optional[School]:

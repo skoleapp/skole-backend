@@ -151,6 +151,8 @@ class RegisterMutation(DjangoModelFormMutation):
             username=form.cleaned_data["username"],
             email=form.cleaned_data["email"],
             password=form.cleaned_data["password"],
+            school=form.cleaned_data["school"],
+            subject=form.cleaned_data["subject"],
         )
 
         code = form.cleaned_data["code"]

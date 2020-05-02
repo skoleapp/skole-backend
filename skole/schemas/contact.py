@@ -26,8 +26,8 @@ class ContactMutation(MessageMixin, DjangoFormMutation):
 
         context = {
             "subject": subject,
-            "name": name if name != "" else "Anonymous User",
             "message": message,
+            "name": name if name != "" else "-",
         }
 
         subject_template = settings.EMAIL_SUBJECT_CONTACT
@@ -53,4 +53,4 @@ class ContactMutation(MessageMixin, DjangoFormMutation):
 
 
 class Mutation(graphene.ObjectType):
-    create_message = ContactMutation.Field()
+    create_contact_message = ContactMutation.Field()

@@ -123,7 +123,7 @@ PARLER_LANGUAGES = {SITE_ID: ({"code": "en",}, {"code": "fi",}, {"code": "sv",},
 
 # Graphene settings
 GRAPHENE = {
-    "SCHEMA": "skole.schemas.schema.schema",
+    "SCHEMA": "skole.schema.schema",
     "SCHEMA_OUTPUT": "schema.graphql",
     "MIDDLEWARE": ["graphql_jwt.middleware.JSONWebTokenMiddleware"],
 }

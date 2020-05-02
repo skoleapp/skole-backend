@@ -1,10 +1,7 @@
-from typing import Optional
-
 import graphene
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphql import ResolveInfo
-from graphql_jwt.decorators import login_required
 
 from skole.forms.comment import CreateCommentForm, DeleteCommentForm, UpdateCommentForm
 from skole.models import Comment
@@ -16,7 +13,6 @@ from skole.utils.mixins import (
     MessageMixin,
     VoteMixin,
 )
-from skole.utils.shortcuts import get_obj_or_none
 
 
 class CommentObjectType(VoteMixin, DjangoObjectType):
@@ -101,16 +97,6 @@ class DeleteCommentMutation(DeleteMutationMixin, DjangoModelFormMutation):
     @staticmethod
     def get_success_message() -> str:
         return Messages.COMMENT_DELETED
-
-
-class Query(graphene.ObjectType):
-    comment = graphene.Field(CommentObjectType, id=graphene.ID())
-
-    @login_required
-    def resolve_comment(
-        self, info: ResolveInfo, id: Optional[int] = None
-    ) -> Optional[Comment]:
-        return get_obj_or_none(Comment, id)
 
 
 class Mutation(graphene.ObjectType):

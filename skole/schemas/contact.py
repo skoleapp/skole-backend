@@ -20,12 +20,14 @@ class ContactMutation(MessageMixin, DjangoFormMutation):
     @classmethod
     def perform_mutate(cls, form: ContactForm, info: ResolveInfo) -> "ContactMutation":
         subject = form.cleaned_data.get("subject")
+        name = form.cleaned_data.get("name")
         email = form.cleaned_data.get("email")
         message = form.cleaned_data.get("message")
 
         context = {
             "subject": subject,
             "message": message,
+            "name": name if name != "" else "-",
         }
 
         subject_template = settings.EMAIL_SUBJECT_CONTACT

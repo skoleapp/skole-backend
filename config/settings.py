@@ -18,7 +18,7 @@ AUTH_USER_MODEL = "skole.User"
 SITE_ID = 1
 
 # This is used to allow AWS ELB health checks access the backend.
-# https://gist.github.com/dryan/8271687
+# Taken from: https://gist.github.com/dryan/8271687
 try:
     ALLOWED_HOSTS.append(
         urllib.request.urlopen(
@@ -40,8 +40,8 @@ CORS_ORIGIN_ALLOW_ALL = bool(DEBUG)
 # Static and media settings
 MEDIA_ROOT = "media"
 STATIC_ROOT = "static"
-MEDIA_URL = "media/"
-STATIC_URL = "/static/"
+MEDIA_URL = "media/"  # On purpose no prefix slash.
+STATIC_URL = "/static/"  # On purpose prefix slash.
 
 # Database settings
 DATABASES = {"default": dj_database_url.config()}
@@ -176,7 +176,10 @@ if not DEBUG:
     STATICFILES_STORAGE = "django_s3_storage.storage.StaticS3Storage"
 
 # Email settings
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+if not DEBUG:
+    EMAIL_BACKEND = "django_amazon_ses.EmailBackend"
+else:
+    EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587

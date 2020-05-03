@@ -184,9 +184,6 @@ EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", default="")
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", default="")
 
 # Custom email settings
-AUTH_EMAIL_FROM = os.environ.get(
-    "AUTH_EMAIL_FROM", default=""
-)  # FIXME: Not working currently.
 VERIFICATION_PATH_ON_EMAIL = "account/verify-account"
 PASSWORD_RESET_PATH_ON_EMAIL = "account/reset-password"
 EMAIL_SUBJECT_VERIFICATION = "email/verify-account-subject.txt"

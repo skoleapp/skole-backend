@@ -8,7 +8,6 @@ from django.views.decorators.csrf import csrf_exempt
 from skole.views import CustomGraphQLView, health_check
 
 urlpatterns = [
-    # FIXME: make frontend work without exempt.
     path(
         "graphql/",
         csrf_exempt(CustomGraphQLView.as_view(graphiql=bool(settings.DEBUG))),

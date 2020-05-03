@@ -156,27 +156,25 @@ TEMPLATES = [
     },
 ]
 
-# S3 storage settings
 if not DEBUG:
-    AWS_S3_KEY_PREFIX = "media"
-    AWS_S3_BUCKET_NAME = os.environ.get("AWS_S3_BUCKET_NAME")
-    AWS_S3_BUCKET_AUTH = True
-
-    AWS_S3_KEY_PREFIX_STATIC = "static"
-    AWS_S3_BUCKET_NAME_STATIC = os.environ.get("AWS_S3_BUCKET_NAME_STATIC")
-    AWS_S3_BUCKET_AUTH_STATIC = True
-
-    AWS_S3_MAX_AGE_SECONDS = 1800
-
-    AWS_REGION = os.environ.get("AWS_REGION")
+    # AWS credential settings
+    AWS_REGION = os.environ.get("AWS_REGION")  # django-s3-storage uses this value.
+    AWS_DEFAULT_REGION = AWS_REGION  # django-amazon-ses uses this value.
     AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
     AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
 
+    # S3 storage settings
+    AWS_S3_KEY_PREFIX = "media"
+    AWS_S3_BUCKET_NAME = os.environ.get("AWS_S3_BUCKET_NAME")
+    AWS_S3_BUCKET_AUTH = True
+    AWS_S3_KEY_PREFIX_STATIC = "static"
+    AWS_S3_BUCKET_NAME_STATIC = os.environ.get("AWS_S3_BUCKET_NAME_STATIC")
+    AWS_S3_BUCKET_AUTH_STATIC = True
+    AWS_S3_MAX_AGE_SECONDS = 1800
     DEFAULT_FILE_STORAGE = "django_s3_storage.storage.S3Storage"
     STATICFILES_STORAGE = "django_s3_storage.storage.StaticS3Storage"
 
-# Email settings
-if not DEBUG:
+    # Email settings
     EMAIL_BACKEND = "django_amazon_ses.EmailBackend"
 else:
     EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"

@@ -174,17 +174,20 @@ if not DEBUG:
     DEFAULT_FILE_STORAGE = "django_s3_storage.storage.S3Storage"
     STATICFILES_STORAGE = "django_s3_storage.storage.StaticS3Storage"
 
-    # Email settings
+# Email settings
+if not DEBUG:
     EMAIL_BACKEND = "django_amazon_ses.EmailBackend"
 else:
     EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = "smtp.gmail.com"
-EMAIL_USE_TLS = True
-EMAIL_PORT = 587
-EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", default="")
-EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", default="")
+    EMAIL_HOST = "smtp.gmail.com"
+    EMAIL_USE_TLS = True
+    EMAIL_PORT = 587
+    EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", default="")
+    EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", default="")
 
 # Custom email settings
+EMAIL_AUTH_FROM = os.environ.get("EMAIL_AUTH_FROM", default="")
+EMAIL_CONTACT_TO = os.environ.get("EMAIL_CONTACT_TO", default="")
 VERIFICATION_PATH_ON_EMAIL = "account/verify-account"
 PASSWORD_RESET_PATH_ON_EMAIL = "account/reset-password"
 EMAIL_SUBJECT_VERIFICATION = "email/verify-account-subject.txt"

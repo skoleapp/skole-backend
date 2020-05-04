@@ -1,4 +1,4 @@
-Django==3.0.5
+Django==3.0.6
 Pillow==7.1.1
 PyYAML==5.3.1
 dj-database-url==0.5.0

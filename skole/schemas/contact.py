@@ -43,7 +43,7 @@ class ContactMutation(MessageMixin, DjangoFormMutation):
                 from_email=email,
                 message=message,
                 html_message=html_message,
-                recipient_list=[settings.EMAIL_HOST_USER],
+                recipient_list=[settings.EMAIL_CONTACT_TO],
                 fail_silently=False,
             )
 

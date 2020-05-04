@@ -169,7 +169,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
         send_mail(
             subject=subject,
-            from_email=settings.EMAIL_HOST_USER,
+            from_email=settings.EMAIL_AUTH_FROM,
             message=message,
             html_message=html_message,
             recipient_list=(recipient_list or [self.email]),

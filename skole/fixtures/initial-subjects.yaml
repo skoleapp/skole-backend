@@ -236,7 +236,7 @@
   pk: 40
   fields:
     language_code: en
-    name: Computer engineer
+    name: Computer Engineering
     master: 14
 - model: skole.SubjectTranslation
   pk: 41

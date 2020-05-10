@@ -19,11 +19,18 @@ class SchoolSchemaTests(SchemaTestCase):
             courses {
               id
             }
-            subjectCount
-            courseCount
-            schoolType
-            country
-            city
+            schoolType {
+                id
+                name
+            }
+            country {
+                id
+                name
+            }
+            city {
+                id
+                name
+            }
         }
     """
 
@@ -64,19 +71,19 @@ class SchoolSchemaTests(SchemaTestCase):
     def test_schools(self) -> None:
         schools = self.query_schools()
         assert len(schools) == 6
-        assert schools[0]["id"] == "2"
-        assert schools[0]["name"] == "Aalto University"
-        assert schools[0]["schoolType"] == "University"
-        assert schools[0]["city"] == "Espoo"
-        assert schools[5]["id"] == "1"
-        assert schools[5]["name"] == "University of Turku"
-        assert schools[5]["schoolType"] == "University"
-        assert schools[5]["city"] == "Turku"
 
     def test_school(self) -> None:
         school = self.query_school(id=1)
         assert school["id"] == "1"
         assert school["name"] == "University of Turku"
+        assert school["schoolType"]["id"] == "1"
+        assert school["schoolType"]["name"] == "University"
+        assert school["city"]["id"] == "1"
+        assert school["city"]["name"] == "Turku"
+        assert school["country"]["id"] == "1"
+        assert school["country"]["name"] == "Finland"
+        assert len(school["subjects"]) == 1
+        assert len(school["courses"]) == 12
 
         # ID not found.
         assert self.query_school(id=999) is None

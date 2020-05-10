@@ -160,7 +160,7 @@ class RegisterMutation(DjangoModelFormMutation):
         try:
             user.send_verification_email(info)
         except SMTPException:
-            return cls(errors=MutationErrors.EMAIL_ERROR)
+            return cls(errors=MutationErrors.REGISTER_EMAIL_ERROR)
 
         return cls(message=Messages.USER_REGISTERED)
 

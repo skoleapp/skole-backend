@@ -6,18 +6,19 @@ from graphene_django import DjangoObjectType
 from graphql import ResolveInfo
 
 from skole.models import School
+from skole.schemas.city import CityObjectType
+from skole.schemas.country import CountryObjectType
+from skole.schemas.school_type import SchoolTypeObjectType
 from skole.schemas.subject import SubjectObjectType
 from skole.utils.shortcuts import get_obj_or_none
 
 
 class SchoolObjectType(DjangoObjectType):
     name = graphene.String()
-    school_type = graphene.String()
-    city = graphene.String()
-    country = graphene.String()
+    school_type = graphene.Field(SchoolTypeObjectType)
+    city = graphene.Field(CityObjectType)
+    country = graphene.Field(CountryObjectType)
     subjects = graphene.List(SubjectObjectType)
-    subject_count = graphene.Int()
-    course_count = graphene.Int()
 
     class Meta:
         model = School
@@ -29,8 +30,6 @@ class SchoolObjectType(DjangoObjectType):
             "country",
             "subjects",
             "courses",
-            "subject_count",
-            "course_count",
         )
 
     def resolve_country(self, info: ResolveInfo) -> str:

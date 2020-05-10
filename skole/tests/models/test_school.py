@@ -14,13 +14,3 @@ def test_str(db: fixture) -> None:
 def test_subjects(db: fixture) -> None:
     school = School.objects.get(pk=1)
     assert school.subjects.get(pk=1).name == "Computer Engineering"
-
-
-def test_subject_count(db: fixture) -> None:
-    school = School.objects.get(pk=1)
-    assert school.subject_count
-
-
-def test_course_count(db: fixture) -> None:
-    school = School.objects.get(pk=1)
-    assert school.course_count == 12

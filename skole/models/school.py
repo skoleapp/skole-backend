@@ -24,12 +24,3 @@ class School(TranslatableModel):
     def subjects(self) -> "QuerySet[Subject]":
         # Ignore: Mypy does not recognize the relation between schools and subjects.
         return Subject.objects.filter(courses__in=self.courses.all()).distinct()  # type: ignore[attr-defined]
-
-    @property
-    def subject_count(self) -> int:
-        return self.courses.values("subject").distinct().count()
-
-    @property
-    def course_count(self) -> int:
-        # Ignore: Mypy does not recognize the relation between schools and courses.
-        return self.courses.count()  # type: ignore[attr-defined]

@@ -66,7 +66,16 @@ class MutationErrors:
     ]
     NOT_OWNER = [{"field": "__all__", "messages": [ValidationErrors.NOT_OWNER],}]
     EMAIL_ERROR = [{"field": "__all__", "messages": [_("Error while sending email.")],}]
-    REGISTER_EMAIL_ERROR = [{"field": "__all__", "messages": [_("Your account has been registered but we encountered an error while sending email. You may still log in using your credentials. Please try verifying your account later.")],}]
+    REGISTER_EMAIL_ERROR = [
+        {
+            "field": "__all__",
+            "messages": [
+                _(
+                    "Your account has been registered but we encountered an error while sending email. You may still log in using your credentials. Please try verifying your account later."
+                )
+            ],
+        }
+    ]
     ALREADY_VERIFIED = [
         {"field": "__all__", "messages": [GraphQLErrors.ALREADY_VERIFIED],}
     ]

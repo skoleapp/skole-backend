@@ -1,21 +1,21 @@
 import json
-from typing import Union
+from typing import Optional, Tuple, Union
 
-from django.core.handlers.wsgi import WSGIRequest
-from django.http import QueryDict
+from django.http import HttpRequest, QueryDict
 from django.http.response import HttpResponseBadRequest
+from django.utils.translation import gettext as _
 from graphene_django.views import GraphQLView, HttpError
 from mypy.types import JsonDict
 
 
 class CustomGraphQLView(GraphQLView):
-    """
-    The difference to the original `GraphQLView`
-    is that we can upload files.
-    src: https://stackoverflow.com/a/58059674
-    """
+    """This view should be used as the graphql endpoint of the app."""
 
-    def parse_body(self, request: WSGIRequest) -> Union[JsonDict, QueryDict]:
+    def parse_body(self, request: HttpRequest) -> Union[JsonDict, QueryDict]:
+        """The difference to the original `parse_body` is that we can upload files.
+
+        Source: https://stackoverflow.com/a/58059674
+        """
         content_type = self.get_content_type(request)
 
         if content_type == "application/graphql":
@@ -58,6 +58,66 @@ class CustomGraphQLView(GraphQLView):
             return request.POST
 
         return {}
+
+    def get_response(self, request, data, show_graphiql=False):
+        """Just like the normal `get_response`, but overridden to block mutations from superusers."""
+        query, variables, operation_name, id = self.get_graphql_params(request, data)
+
+        # Only changed thing in this method.
+        if request.user.is_superuser:
+            return self.superuser_error(request, operation_name, show_graphiql)
+
+        execution_result = self.execute_graphql_request(
+            request, data, query, variables, operation_name, show_graphiql
+        )
+
+        status_code = 200
+        if execution_result:
+            response = {}
+
+            if execution_result.errors:
+                response["errors"] = [
+                    self.format_error(e) for e in execution_result.errors
+                ]
+
+            if execution_result.invalid:
+                status_code = 400
+            else:
+                response["data"] = execution_result.data
+
+            if self.batch:
+                response["id"] = id
+                response["status"] = status_code
+
+            result = self.json_encode(request, response, pretty=show_graphiql)
+        else:
+            result = None
+
+        return result, status_code
+
+    def superuser_error(
+        self, request: HttpRequest, operation_name: Optional[str], show_graphiql: bool
+    ) -> Tuple[str, int]:
+        message = _("Cannot perform GraphQL queries as a superuser.")
+        if operation_name:
+            # The query was a mutation.
+
+            # `operation_name` is somehow PascalCased even though the mutation names
+            # that frontend is expecting to use to access the result are camelCased.
+            op_name_camelcase = operation_name[0].lower() + operation_name[1:]
+            response = {
+                "data": {
+                    op_name_camelcase: {
+                        "errors": [{"field": "__all__", "messages": [message]}],
+                    }
+                }
+            }
+        else:
+            # The query was a query.
+            response = {
+                "errors": [{"messages": [message]}],
+            }
+        return self.json_encode(request, response, pretty=show_graphiql), 200
 
 
 # Ignore: The types of the parameters and return values are too complex

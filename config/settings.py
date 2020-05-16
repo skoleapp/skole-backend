@@ -18,7 +18,7 @@ AUTH_USER_MODEL = "skole.User"
 SITE_ID = 1
 
 # This is used to allow AWS ELB health checks access the backend.
-# Taken from: https://gist.github.com/dryan/8271687
+# Source: https://gist.github.com/dryan/8271687
 try:
     ALLOWED_HOSTS.append(
         urllib.request.urlopen(

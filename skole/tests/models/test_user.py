@@ -36,8 +36,8 @@ def test_create_user(db: fixture) -> None:
 
 
 def test_create_superuser(db: fixture) -> None:
-    username = "testroot"
-    email = "root@email.com"
+    username = "testadmin"
+    email = "test@admin.com"
     password = "testpassword"
     user = User.objects.create_superuser(
         username=username, email=email, password=password

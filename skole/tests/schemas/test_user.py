@@ -313,7 +313,7 @@ class UserSchemaTests(SchemaTestCase):
         user_old = self.query_user_me()
 
         # Email is already taken.
-        res = self.mutate_update_user(email="root@root.com")
+        res = self.mutate_update_user(email="admin@admin.com")
         assert len(res["errors"]) == 1
         assert res["errors"][0]["messages"][0] == ValidationErrors.EMAIL_TAKEN
         assert res["user"] is None

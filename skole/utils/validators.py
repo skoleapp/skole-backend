@@ -12,7 +12,7 @@ from skole.utils.constants import ValidationErrors
 class ValidateFileSizeAndType:
     """A nice way to have validators which take arguments.
 
-    Taken from: https://stackoverflow.com/a/25768034
+    Source: https://stackoverflow.com/a/25768034
     """
 
     def __init__(self, limit: float, types: List[str]) -> None:

@@ -20,7 +20,7 @@ def test_create_and_update_resource(db: fixture, temp_media: fixture) -> None:
     resource_type = ResourceType.objects.get(pk=1)
     title = "title for resource"
     course = Course.objects.get(pk=1)
-    # The pdf bit pattern is taken from https://en.wikipedia.org/wiki/List_of_file_signatures
+    # Source for the pdf bit pattern: https://en.wikipedia.org/wiki/List_of_file_signatures
     file = SimpleUploadedFile("exam.pdf", b"\x25\x50\x44\x46\x2d")
     user = get_user_model().objects.get(pk=2)
     date = datetime.date(2020, 1, 1)

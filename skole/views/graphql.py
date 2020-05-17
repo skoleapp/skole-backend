@@ -59,7 +59,9 @@ class CustomGraphQLView(GraphQLView):
 
         return {}
 
-    def get_response(self, request, data, show_graphiql=False):
+    def get_response(
+        self, request: HttpRequest, data: JsonDict, show_graphiql: bool = False
+    ) -> Tuple[str, int]:
         """Just like the normal `get_response`, but overridden to block mutations from superusers."""
         query, variables, operation_name, id = self.get_graphql_params(request, data)
 
@@ -73,7 +75,7 @@ class CustomGraphQLView(GraphQLView):
 
         status_code = 200
         if execution_result:
-            response = {}
+            response: JsonDict = {}
 
             if execution_result.errors:
                 response["errors"] = [
@@ -105,7 +107,7 @@ class CustomGraphQLView(GraphQLView):
             # `operation_name` is somehow PascalCased even though the mutation names
             # that frontend is expecting to use to access the result are camelCased.
             op_name_camelcase = operation_name[0].lower() + operation_name[1:]
-            response = {
+            response: JsonDict = {
                 "data": {
                     op_name_camelcase: {
                         "errors": [{"field": "__all__", "messages": [message]}],

@@ -28,6 +28,7 @@ class ContactMutation(MessageMixin, DjangoFormMutation):
             "subject": subject,
             "message": message,
             "name": name if name != "" else "-",
+            "email": email,
         }
 
         subject_template = settings.EMAIL_SUBJECT_CONTACT
@@ -40,7 +41,7 @@ class ContactMutation(MessageMixin, DjangoFormMutation):
         try:
             send_mail(
                 subject=subject,
-                from_email=email,
+                from_email=settings.EMAIL_CONTACT_FROM,
                 message=message,
                 html_message=html_message,
                 recipient_list=[settings.EMAIL_CONTACT_TO],

@@ -187,6 +187,7 @@ else:
 
 # Custom email settings
 EMAIL_AUTH_FROM = os.environ.get("EMAIL_AUTH_FROM", default="")
+EMAIL_CONTACT_FROM = os.environ.get("EMAIL_CONTACT_FROM", default="")
 EMAIL_CONTACT_TO = os.environ.get("EMAIL_CONTACT_TO", default="")
 VERIFICATION_PATH_ON_EMAIL = "account/verify-account"
 PASSWORD_RESET_PATH_ON_EMAIL = "account/reset-password"

@@ -121,7 +121,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     avatar = models.ImageField(
         upload_to="uploads/avatars",
-        validators=[ValidateFileSizeAndType(2, ["image/jpeg", "image/png"])],
+        validators=[ValidateFileSizeAndType(2, [("image/jpeg", "jpeg"), ("image/png", "png")])],
         blank=True,
         default=None,
     )

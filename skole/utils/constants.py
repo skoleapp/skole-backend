@@ -29,6 +29,7 @@ class ValidationErrors:
     NOT_OWNER = _("You are not the owner of this object.")
     FILE_TOO_LARGE = _("File is too large, maximum allowed is {} MB")
     INVALID_FILE_TYPE = _("Invalid file type, allowed types are: {}")
+    INVALID_FILE_EXTENSION = _("File extension doesn't match the file type.")
 
 
 class GraphQLErrors:

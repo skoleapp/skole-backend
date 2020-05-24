@@ -65,7 +65,7 @@ class Resource(models.Model):
         upload_to="uploads/resources",
         blank=True,
         max_length=500,
-        validators=[ValidateFileSizeAndType(5, ["application/pdf"])],
+        validators=[ValidateFileSizeAndType(5, [("application/pdf", "pdf")])],
     )
 
     date = models.DateField(default=datetime.date.today, blank=True)

@@ -12,50 +12,16 @@ class SkoleGraphQLView(GraphQLView):
     def parse_body(self, request: HttpRequest) -> Union[JsonDict, QueryDict]:
         """The difference to the original `parse_body` is that we can upload files.
 
-        Source: https://stackoverflow.com/a/58059674
+        Source: https://github.com/lmcgartland/graphene-file-upload/blob/master/graphene_file_upload/django/__init__.py
         """
         content_type = self.get_content_type(request)
 
-        if content_type == "application/graphql":
-            return {"query": request.body.decode()}
-
-        elif content_type == "application/json":
-            try:
-                body = request.body.decode("utf-8")
-            except Exception as e:
-                raise HttpError(HttpResponseBadRequest(str(e)))
-
-            try:
-                request_json = json.loads(body)
-                if self.batch:
-                    assert isinstance(request_json, list), (
-                        "Batch requests should receive a list, but received {}."
-                    ).format(repr(request_json))
-                    assert (
-                        len(request_json) > 0
-                    ), "Received an empty list in the batch request."
-                else:
-                    assert isinstance(
-                        request_json, dict
-                    ), "The received data is not a valid JSON query."
-                return request_json
-            except AssertionError as e:
-                raise HttpError(HttpResponseBadRequest(str(e)))
-            except (TypeError, ValueError):
-                raise HttpError(HttpResponseBadRequest("POST body sent invalid JSON."))
-
-        # Added for graphql file uploads.
-        elif content_type == "multipart/form-data":
+        if content_type == "multipart/form-data":
             operations = json.loads(request.POST["operations"])
             files_map = json.loads(request.POST["map"])
             return _place_files_in_operations(operations, files_map, request.FILES)
-
-        elif content_type in [
-            "application/x-www-form-urlencoded",
-        ]:
-            return request.POST
-
-        return {}
+        else:
+            return super().parse_body(request)
 
 
 # Ignore: The types of the parameters and return values are too complex
@@ -88,4 +54,4 @@ def _place_file_in_operations(ops, path, obj):  # type: ignore[no-untyped-def]
         sub = _place_file_in_operations(ops[key], path[1:], obj)
         return {**ops, key: sub}
 
-    raise TypeError("Expected ops to be list or dict")
+    raise TypeError("Expected ops to be list or dict.")

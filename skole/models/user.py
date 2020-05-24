@@ -190,7 +190,7 @@ class User(AbstractBaseUser, PermissionsMixin):
             "port": info.context.get_port(),
             "site_name": site.name,
             "domain": site.domain,
-            "protocol": "https" if info.context.is_secure() else "http",
+            "protocol": "http" if settings.DEBUG else "https",
             "path": path,
             "timestamp": time.time(),
         }

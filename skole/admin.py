@@ -9,6 +9,7 @@ from skole.models import (
     Comment,
     Country,
     Course,
+    Resource,
     ResourceType,
     School,
     SchoolType,
@@ -25,6 +26,7 @@ admin.site.register(get_user_model())
 admin.site.register(BetaCode)
 admin.site.register(Comment)
 admin.site.register(Course)
+admin.site.register(Resource)
 admin.site.register(Starred)
 admin.site.register(Vote)
 

@@ -2,6 +2,7 @@ from datetime import timedelta
 from typing import TYPE_CHECKING, Any, Union
 
 from django.core import signing
+from graphql_jwt.exceptions import JSONWebTokenError
 from mypy.types import JsonDict
 
 from skole.utils.exceptions import TokenScopeError
@@ -29,7 +30,7 @@ def revoke_user_refresh_tokens(user: "User") -> None:
     for refresh_token in refresh_tokens:
         try:
             refresh_token.revoke()
-        except Exception:  # JSONWebTokenError
+        except JSONWebTokenError:
             pass
 
 

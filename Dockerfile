@@ -28,7 +28,10 @@ FROM dev AS circleci
 
 COPY --chown=user:user . .
 
-CMD black --check --diff --exclude migrations/.* . \
-    && docformatter --recursive --check --wrap-summaries 88 --wrap-descriptions 88 . \
+CMD autoflake --check --recursive --remove-all-unused-imports --ignore-init-module-imports . > /dev/null \
+        || { echo 'autoflake found unused imports!'; exit 1; } \
+    && isort --check --recursive . \
+    && black --check --diff --exclude migrations/.* . \
+    && docformatter --check --recursive --wrap-summaries 88 --wrap-descriptions 88 . \
     && mypy . \
     && pytest --verbose --cov-report=html --cov=. skole/tests

@@ -1,21 +1,20 @@
 import json
 from typing import Union
 
-from django.core.handlers.wsgi import WSGIRequest
-from django.http import QueryDict
+from django.http import HttpRequest, QueryDict
 from django.http.response import HttpResponseBadRequest
 from graphene_django.views import GraphQLView, HttpError
 from mypy.types import JsonDict
 
 
-class CustomGraphQLView(GraphQLView):
-    """
-    The difference to the original `GraphQLView`
-    is that we can upload files.
-    src: https://stackoverflow.com/a/58059674
-    """
+class SkoleGraphQLView(GraphQLView):
+    """This view should be used as the graphql endpoint of the app."""
 
-    def parse_body(self, request: WSGIRequest) -> Union[JsonDict, QueryDict]:
+    def parse_body(self, request: HttpRequest) -> Union[JsonDict, QueryDict]:
+        """The difference to the original `parse_body` is that we can upload files.
+
+        Source: https://stackoverflow.com/a/58059674
+        """
         content_type = self.get_content_type(request)
 
         if content_type == "application/graphql":

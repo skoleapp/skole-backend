@@ -3,6 +3,12 @@ schema {
   mutation: Mutation
 }
 
+type BadgeObjectType {
+  id: ID!
+  name: String
+  description: String
+}
+
 input ChangePasswordMutationInput {
   oldPassword: String!
   newPassword: String!
@@ -87,6 +93,7 @@ input CreateCommentMutationInput {
 type CreateCommentMutationPayload {
   comment: CommentObjectType
   errors: [ErrorType]
+  message: String
   clientMutationId: String
 }
 
@@ -101,6 +108,7 @@ input CreateCourseMutationInput {
 type CreateCourseMutationPayload {
   course: CourseObjectType
   errors: [ErrorType]
+  message: String
   clientMutationId: String
 }
 
@@ -116,6 +124,7 @@ input CreateResourceMutationInput {
 type CreateResourceMutationPayload {
   resource: ResourceObjectType
   errors: [ErrorType]
+  message: String
   clientMutationId: String
 }
 
@@ -203,7 +212,7 @@ type Mutation {
   deleteResource(input: DeleteResourceMutationInput!): DeleteResourceMutationPayload
   createCourse(input: CreateCourseMutationInput!): CreateCourseMutationPayload
   deleteCourse(input: DeleteCourseMutationInput!): DeleteCourseMutationPayload
-  createMessage(input: ContactMutationInput!): ContactMutationPayload
+  createContactMessage(input: ContactMutationInput!): ContactMutationPayload
   createComment(input: CreateCommentMutationInput!): CreateCommentMutationPayload
   updateComment(input: UpdateCommentMutationInput!): UpdateCommentMutationPayload
   deleteComment(input: DeleteCommentMutationInput!): DeleteCommentMutationPayload
@@ -218,17 +227,7 @@ type PaginatedCourseObjectType {
   objects: [CourseObjectType]
 }
 
-type PaginatedUserObjectType {
-  page: Int
-  pages: Int
-  hasNext: Boolean
-  hasPrev: Boolean
-  count: Int
-  objects: [UserObjectType]
-}
-
 type Query {
-  users(page: Int, pageSize: Int, username: String, ordering: String): PaginatedUserObjectType
   user(id: ID): UserObjectType
   userMe: UserObjectType
   subjects: [SubjectObjectType]
@@ -240,11 +239,10 @@ type Query {
   resourceTypes: [ResourceTypeObjectType]
   resource(id: ID): ResourceObjectType
   searchCourses(courseName: String, courseCode: String, subject: ID, school: ID, schoolType: ID, country: ID, city: ID, page: Int, pageSize: Int, ordering: String): PaginatedCourseObjectType
-  courses: [CourseObjectType]
+  courses(school: ID): [CourseObjectType]
   course(id: ID): CourseObjectType
   countries: [CountryObjectType]
   country(id: ID): CountryObjectType
-  comment(id: ID): CommentObjectType
   cities: [CityObjectType]
   city(id: ID): CityObjectType
 }
@@ -252,6 +250,8 @@ type Query {
 input RegisterMutationInput {
   username: String!
   email: String!
+  school: ID
+  subject: ID
   password: String!
   code: String!
   clientMutationId: String
@@ -314,14 +314,12 @@ type ResourceTypeObjectType {
 
 type SchoolObjectType {
   id: ID!
-  schoolType: String
-  city: String
+  schoolType: SchoolTypeObjectType
+  city: CityObjectType
   courses: [CourseObjectType!]!
   name: String
-  country: String
+  country: CountryObjectType
   subjects: [SubjectObjectType]
-  subjectCount: Int
-  courseCount: Int
 }
 
 type SchoolTypeObjectType {
@@ -368,6 +366,7 @@ input UpdateCommentMutationInput {
 type UpdateCommentMutationPayload {
   comment: CommentObjectType
   errors: [ErrorType]
+  message: String
   clientMutationId: String
 }
 
@@ -382,6 +381,7 @@ input UpdateResourceMutationInput {
 type UpdateResourceMutationPayload {
   resource: ResourceObjectType
   errors: [ErrorType]
+  message: String
   clientMutationId: String
 }
 
@@ -391,12 +391,15 @@ input UpdateUserMutationInput {
   title: String
   bio: String
   avatar: String
+  school: ID
+  subject: ID
   clientMutationId: String
 }
 
 type UpdateUserMutationPayload {
   user: UserObjectType
   errors: [ErrorType]
+  message: String
   clientMutationId: String
 }
 
@@ -416,6 +419,10 @@ type UserObjectType {
   avatarThumbnail: String
   courseCount: Int
   resourceCount: Int
+  school: SchoolObjectType
+  subject: SubjectObjectType
+  rank: String
+  badges: [BadgeObjectType]
   starredCourses: [CourseObjectType]
   starredResources: [ResourceObjectType]
 }

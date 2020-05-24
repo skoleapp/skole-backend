@@ -17,6 +17,7 @@
       <w>fmap</w>
       <w>fobjs</w>
       <w>graphene</w>
+      <w>graphiql</w>
       <w>healthcheck</w>
       <w>healthz</w>
       <w>hostnames</w>

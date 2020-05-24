@@ -5,12 +5,12 @@ from django.contrib import admin
 from django.urls import path
 from django.views.decorators.csrf import csrf_exempt
 
-from skole.views import CustomGraphQLView, health_check
+from skole.views import SkoleGraphQLView, health_check
 
 urlpatterns = [
     path(
         "graphql/",
-        csrf_exempt(CustomGraphQLView.as_view(graphiql=bool(settings.DEBUG))),
+        csrf_exempt(SkoleGraphQLView.as_view(graphiql=bool(settings.DEBUG))),
     ),
     path("healthz/", health_check),
 ]
@@ -18,5 +18,4 @@ urlpatterns = [
 urlpatterns += i18n_patterns(path("admin/", admin.site.urls))
 
 if settings.DEBUG:
-    # Static files are handled with the staticfiles app.
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -25,8 +25,8 @@ class SchemaTestCase(GraphQLTestCase):
 
     def execute(self, graphql: str, **kwargs: Any) -> JsonDict:
         """Run a GraphQL query, if `should_error` attribute is False assert that status
-        code was 200 (=syntax was ok) and that the result didn't have an "error" section
-        if `should_error` is True, we assert that the result does contain "error".
+        code was 200 (=syntax was ok) and that the result didn't have "error" section.
+        If `should_error` is True, we assert that the result does contain "error".
 
         Args:
             graphql: The query that will be executed
@@ -111,8 +111,7 @@ class SchemaTestCase(GraphQLTestCase):
 
     def assert_field_fragment_matches_schema(self, field_fragment: str) -> None:
         """Assert that the given fragment contains all the fields that are actually
-        queryable on that object type its defined for.
-        """
+        queryable on that object type its defined for."""
         # language=GraphQL
         graphql = """
             query IntrospectAllFields($name: String!) {

@@ -14,8 +14,8 @@ T = TypeVar("T", bound=graphene.Mutation)
 class LoginRequiredMutationMixin:
     """Mixin for a mutation that needs a user to be logged in to use.
 
-    Should be the first class in the inheritance list,
-    at least before the graphql mutation class, e.g. DjangoModelFormMutation.
+    Should be the first class in the inheritance list, at least before the graphql
+    mutation class, e.g. DjangoModelFormMutation.
     """
 
     @classmethod
@@ -33,8 +33,8 @@ class LoginRequiredMutationMixin:
 class VerificationRequiredMutationMixin:
     """Mixin for a mutation that needs a user to be verified (and logged in) to use.
 
-    Should be the first class in the inheritance list,
-    at least before the graphql mutation class, e.g. DjangoModelFormMutation.
+    Should be the first class in the inheritance list, at least before the graphql
+    mutation class, e.g. DjangoModelFormMutation.
     """
 
     @classmethod
@@ -144,9 +144,8 @@ class StarredMixin:
 
 
 class FileMutationMixin:
-    """A mixin for passing the files of the request to the model form
-    so that he validation can be done there.
-    """
+    """A mixin for passing the files of the request to the model form so that he
+    validation can be done there."""
 
     @classmethod
     def get_form_kwargs(

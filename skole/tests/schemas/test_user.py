@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from mypy.types import JsonDict
 
-from skole.tests.utils import SchemaTestCase
+from skole.tests.helpers import SchemaTestCase
 from skole.utils.constants import Messages, ValidationErrors
 
 

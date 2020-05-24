@@ -2,7 +2,7 @@ from typing import List
 
 from mypy.types import JsonDict
 
-from skole.tests.utils import SchemaTestCase
+from skole.tests.helpers import SchemaTestCase
 
 
 class SchoolTypeSchemaTests(SchemaTestCase):

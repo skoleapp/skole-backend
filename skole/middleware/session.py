@@ -5,7 +5,7 @@ from django.http import HttpRequest, HttpResponse
 class SkoleSessionMiddleware(SessionMiddleware):
     """Middleware for ignoring session authentication on the graphql endpoint.
 
-    Source: https://stackoverflow.com/a/4054339/
+    Source: https://stackoverflow.com/a/4054339
     """
 
     def process_request(self, request: HttpRequest) -> None:

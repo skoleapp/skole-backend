@@ -93,9 +93,10 @@ class DeleteMutationMixin(LoginRequiredMutationMixin, MessageMixin):
         obj = form.cleaned_data.get("target")
         obj.delete()
 
-        # Ignore: Mypy doesn't know that this function will actually be used in a class
-        # deriving from DjangoModelFormMutation, where this type of calling cls with
-        # a graphene field name makes sense.
+        # Ignore 1: Mypy doesn't know that this function will actually be used in a class
+        #   deriving from DjangoModelFormMutation, where this type of calling cls with
+        #   a graphene field name makes sense.
+        # Ignore 2: `get_success_message` will be defined in the baseclass.
         return cls(message=cls.get_success_message())  # type: ignore [call-arg, attr-defined]
 
 

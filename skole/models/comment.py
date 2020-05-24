@@ -76,7 +76,9 @@ class Comment(models.Model):
     attachment = models.ImageField(
         upload_to="uploads/attachments",
         blank=True,
-        validators=[ValidateFileSizeAndType(3, [("image/jpeg", "jpeg"), ("image/png", "png")])],
+        validators=[
+            ValidateFileSizeAndType(3, [("image/jpeg", "jpeg"), ("image/png", "png")])
+        ],
     )
 
     course = models.ForeignKey(

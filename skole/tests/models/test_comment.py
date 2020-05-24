@@ -2,7 +2,6 @@ import re
 
 import pytest
 from django.contrib.auth import get_user_model
-from django.core.exceptions import ValidationError
 from django.core.files.uploadedfile import SimpleUploadedFile
 from pytest import fixture
 
@@ -53,17 +52,6 @@ def test_manager_create_ok(db: fixture, temp_media: fixture) -> None:
                 assert getattr(comment, attr) == target
             else:
                 assert getattr(comment, attr) is None
-
-
-def test_manager_create_invalid_filetype(db: fixture, temp_media: fixture) -> None:
-    user = get_user_model().objects.get(pk=2)
-    target = Course.objects.get(pk=1)
-    invalid_file = SimpleUploadedFile("not_an_image.txt", b"file contents")
-
-    with pytest.raises(ValidationError):
-        comment = Comment.objects.create_comment(
-            user=user, text="foo", attachment=invalid_file, target=target,
-        )
 
 
 def test_manager_create_bad_target(db: fixture) -> None:

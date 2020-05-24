@@ -2,8 +2,7 @@ import json
 from typing import Union
 
 from django.http import HttpRequest, QueryDict
-from django.http.response import HttpResponseBadRequest
-from graphene_django.views import GraphQLView, HttpError
+from graphene_django.views import GraphQLView
 from mypy.types import JsonDict
 
 

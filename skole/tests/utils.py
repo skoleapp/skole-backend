@@ -41,7 +41,11 @@ class SchemaTestCase(GraphQLTestCase):
         # Token is for testuser2, hardcoded since always getting a fresh one with
         # a login mutation takes time and slows down the tests.
         if self.authenticated:
-            token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InRlc3R1c2VyMiIsImV4cCI6MTU4NzMwNDgyMCwib3JpZ0lhdCI6MTU4NjcwMDAyMH0.1ikCSgWk2Giic-dyn0ZUa30aXMpd8b7jSUbYfze9oFA"
+            token = (
+                "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6In"
+                "Rlc3R1c2VyMiIsImV4cCI6MTU4NzMwNDgyMCwib3JpZ0lhdCI6MTU4N"
+                "jcwMDAyMH0.1ikCSgWk2Giic-dyn0ZUa30aXMpd8b7jSUbYfze9oFA"
+            )
             headers = {"HTTP_AUTHORIZATION": f"JWT {token}"}
         else:
             headers = {}

@@ -1,12 +1,14 @@
-from typing import cast
+from typing import Union, cast
 
 from django import forms
 from django.conf import settings
 from django.contrib.auth import authenticate, get_user_model
+from django.core.files.uploadedfile import UploadedFile
 from mypy.types import JsonDict
 
 from skole.models import BetaCode, User
 from skole.utils.constants import ValidationErrors
+from skole.utils.shortcuts import clean_file_field
 
 
 class RegisterForm(forms.ModelForm):
@@ -99,34 +101,8 @@ class UpdateUserForm(forms.ModelForm):
         model = get_user_model()
         fields = ("username", "email", "title", "bio", "avatar", "school", "subject")
 
-    def clean_avatar(self) -> str:
-        # Ignore: Mypy considers files as optional but they're always at least an empty MultiValueDict.
-        if avatar := self.files.get("1", None):  # type: ignore [union-attr]
-            return avatar  # New avatar.
-        elif self.cleaned_data["avatar"] == "":
-            return ""  # Avatar deleted.
-        else:
-            return self.instance.avatar  # Avatar not modified.
-
-    def clean_username(self) -> str:
-        username = self.cleaned_data["username"]
-        if (
-            get_user_model()
-            .objects.exclude(pk=self.instance.pk)
-            .filter(username__iexact=username)
-        ):
-            raise forms.ValidationError(ValidationErrors.USERNAME_TAKEN)
-        return username
-
-    def clean_email(self) -> str:
-        email = self.cleaned_data["email"]
-        if email != "" and (
-            get_user_model()
-            .objects.exclude(pk=self.instance.pk)
-            .filter(email__iexact=email)
-        ):
-            raise forms.ValidationError(ValidationErrors.EMAIL_TAKEN)
-        return email
+    def clean_avatar(self) -> Union[UploadedFile, str]:
+        return clean_file_field(self, "avatar")
 
 
 class ChangePasswordForm(forms.ModelForm):

@@ -1,7 +1,11 @@
+from typing import Union
+
 from django import forms
+from django.core.files.uploadedfile import UploadedFile
 
 from skole.models import Comment
 from skole.utils.forms import DeleteObjectForm, TargetForm
+from skole.utils.shortcuts import clean_file_field
 
 
 class CreateCommentForm(TargetForm):
@@ -15,12 +19,8 @@ class CreateCommentForm(TargetForm):
             "comment",
         )
 
-    def clean_attachment(self) -> str:
-        # Ignore: Mypy considers files as optional but they're always at least an empty MultiValueDict.
-        if attachment := self.files.get("1", None):  # type: ignore [union-attr]
-            return attachment
-        else:
-            return self.cleaned_data["attachment"]
+    def clean_attachment(self) -> Union[UploadedFile, str]:
+        return clean_file_field(self, "attachment")
 
 
 class UpdateCommentForm(forms.ModelForm):

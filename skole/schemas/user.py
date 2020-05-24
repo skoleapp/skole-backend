@@ -431,6 +431,15 @@ class UpdateUserMutation(
         exclude_fields = ("id",)
 
     @classmethod
+    def get_form_kwargs(
+        cls, root: Any, info: ResolveInfo, **input: JsonDict
+    ) -> JsonDict:
+        assert info.context is not None
+        form_kwargs = super().get_form_kwargs(root, info, **input)
+        form_kwargs["instance"] = info.context.user
+        return form_kwargs
+
+    @classmethod
     def perform_mutate(
         cls, form: UpdateUserForm, info: ResolveInfo
     ) -> "UpdateUserMutation":

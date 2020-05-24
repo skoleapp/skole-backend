@@ -158,8 +158,6 @@ class FileMutationMixin:
         #   together with a DjangoModelFormMutation.
         form_kwargs = super().get_form_kwargs(root, info, **input)  # type: ignore[misc]
         form_kwargs["files"] = info.context.FILES
-        if info.context.user:
-            form_kwargs["instance"] = info.context.user
         return form_kwargs
 
 

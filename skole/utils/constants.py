@@ -65,8 +65,8 @@ class MutationErrors:
             "messages": [_("Comment must include either text or attachment.")],
         }
     ]
-    NOT_OWNER = [{"field": "__all__", "messages": [ValidationErrors.NOT_OWNER],}]
-    EMAIL_ERROR = [{"field": "__all__", "messages": [_("Error while sending email.")],}]
+    NOT_OWNER = [{"field": "__all__", "messages": [ValidationErrors.NOT_OWNER]}]
+    EMAIL_ERROR = [{"field": "__all__", "messages": [_("Error while sending email.")]}]
     REGISTER_EMAIL_ERROR = [
         {
             "field": "__all__",
@@ -78,7 +78,7 @@ class MutationErrors:
         }
     ]
     ALREADY_VERIFIED = [
-        {"field": "__all__", "messages": [GraphQLErrors.ALREADY_VERIFIED],}
+        {"field": "__all__", "messages": [GraphQLErrors.ALREADY_VERIFIED]}
     ]
     TOKEN_EXPIRED_VERIFY = [
         {
@@ -113,7 +113,7 @@ class MutationErrors:
         }
     ]
     ACCOUNT_REMOVED = [
-        {"field": "__all__", "messages": [_("This account has been removed.")],}
+        {"field": "__all__", "messages": [_("This account has been removed.")]}
     ]
     TOKEN_EXPIRED_RESET_PASSWORD = [
         {
@@ -144,7 +144,7 @@ class MutationErrors:
         }
     ]
     VOTE_OWN_CONTENT = [
-        {"field": "__all__", "messages": [_("You cannot vote your own content.")],}
+        {"field": "__all__", "messages": [_("You cannot vote your own content.")]}
     ]
 
 

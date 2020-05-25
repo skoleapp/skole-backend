@@ -33,5 +33,6 @@ CMD autoflake --check --recursive --remove-all-unused-imports --ignore-init-modu
     && isort --check-only --diff --recursive . \
     && docformatter --check --recursive --wrap-summaries=88 --wrap-descriptions=88 . \
     && black --check --diff . \
+    && flake8 . \
     && mypy . \
     && pytest --verbose --cov-report=html --cov=. skole/tests

@@ -150,7 +150,7 @@ class UserSchemaTests(SchemaTestCase):
         return self.execute_input_mutation(
             input_type="ChangePasswordMutationInput!",
             op_name="changePassword",
-            input={"oldPassword": old_password, "newPassword": new_password,},
+            input={"oldPassword": old_password, "newPassword": new_password},
             result="message",
         )
 

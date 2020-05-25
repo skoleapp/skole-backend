@@ -82,9 +82,9 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
-    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",},
-    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",},
-    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
+    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
+    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
+    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
 
 # Custom validation settings
@@ -119,7 +119,7 @@ LANGUAGES = (
 LOCALE_PATHS = [os.path.join(BASE_DIR, "skole", "locale")]
 
 # Parler settings
-PARLER_LANGUAGES = {SITE_ID: ({"code": "en",}, {"code": "fi",}, {"code": "sv",},)}
+PARLER_LANGUAGES = {SITE_ID: ({"code": "en"}, {"code": "fi"}, {"code": "sv"})}
 
 # Graphene settings
 GRAPHENE = {

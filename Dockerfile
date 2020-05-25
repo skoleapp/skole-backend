@@ -28,9 +28,7 @@ FROM dev AS circleci
 
 COPY --chown=user:user . .
 
-CMD autoflake --check --recursive --remove-all-unused-imports --ignore-init-module-imports . > /dev/null \
-        || { echo 'autoflake found unused imports!'; exit 1; } \
-    && isort --check-only --diff --recursive . \
+CMD isort --check-only --diff --recursive . \
     && docformatter --check --recursive --wrap-summaries=88 --wrap-descriptions=88 . \
     && black --check --diff . \
     && flake8 . \

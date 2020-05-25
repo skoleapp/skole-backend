@@ -31,7 +31,7 @@ def test_manager_create_ok(db: fixture, temp_media: fixture) -> None:
 
     for target in targets:
         # Somehow the file needs to be created on each iteration of the loop, otherwise
-        # the file type will be appication/x-empty on the second iteratios.
+        # the file type will be application/x-empty on the second iterations.
         # Source for the jpeg bit pattern: https://en.wikipedia.org/wiki/List_of_file_signatures
         attachment = SimpleUploadedFile("image.jpeg", b"\xff\xd8\xff")
         comment = Comment.objects.create_comment(
@@ -43,7 +43,7 @@ def test_manager_create_ok(db: fixture, temp_media: fixture) -> None:
 
         # Filenames after the first created comment will have a random glob to make them unique.
         assert re.match(
-            r"^uploads/attachments/image\w*\.jpeg$", comment.attachment.name
+            r"^media/uploads/attachments/image\w*\.jpeg$", comment.attachment.url
         )
 
         # Check that only one foreign key reference is active.

@@ -2,10 +2,10 @@ from typing import List
 
 from mypy.types import JsonDict
 
-from skole.tests.helpers import SchemaTestCase
+from skole.tests.helpers import SkoleSchemaTestCase
 
 
-class SchoolSchemaTests(SchemaTestCase):
+class SchoolSchemaTests(SkoleSchemaTestCase):
     authenticated = True
 
     # language=GraphQL
@@ -44,7 +44,7 @@ class SchoolSchemaTests(SchemaTestCase):
                     ...schoolFields
                 }
             }
-        """
+            """
         )
         return self.execute(graphql)["schools"]
 
@@ -60,7 +60,7 @@ class SchoolSchemaTests(SchemaTestCase):
                     ...schoolFields
                 }
             }
-        """
+            """
         )
         return self.execute(graphql, variables=variables)["school"]
 

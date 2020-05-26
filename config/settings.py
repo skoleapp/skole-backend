@@ -178,17 +178,16 @@ if not DEBUG:
 if not DEBUG:
     EMAIL_BACKEND = "django_amazon_ses.EmailBackend"
 else:
-    EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-    EMAIL_HOST = "smtp.gmail.com"
-    EMAIL_USE_TLS = True
-    EMAIL_PORT = 587
-    EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", default="")
-    EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", default="")
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 # Custom email settings
-EMAIL_AUTH_FROM = os.environ.get("EMAIL_AUTH_FROM", default="")
-EMAIL_CONTACT_FROM = os.environ.get("EMAIL_CONTACT_FROM", default="")
-EMAIL_CONTACT_TO = os.environ.get("EMAIL_CONTACT_TO", default="")
+EMAIL_AUTH_FROM = os.environ.get("EMAIL_AUTH_FROM", default="auth.sender@test.com")
+EMAIL_CONTACT_FROM = os.environ.get(
+    "EMAIL_CONTACT_FROM", default="contact.sender@test.com"
+)
+EMAIL_CONTACT_TO = os.environ.get(
+    "EMAIL_CONTACT_TO", default="contact.recipent@test.com"
+)
 VERIFICATION_PATH_ON_EMAIL = "account/verify-account"
 PASSWORD_RESET_PATH_ON_EMAIL = "account/reset-password"
 EMAIL_SUBJECT_VERIFICATION = "email/verify-account-subject.txt"

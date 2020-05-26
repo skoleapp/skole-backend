@@ -12,10 +12,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DEBUG = int(os.environ.get("DEBUG", default=0))
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", default="").split()
 SECRET_KEY = os.environ.get("SECRET_KEY")
+SITE_ID = os.environ.get("SITE_ID", default=1)
 ROOT_URLCONF = "config.urls"
 WSGI_APPLICATION = "config.wsgi.application"
 AUTH_USER_MODEL = "skole.User"
-SITE_ID = 1
 
 # This is used to allow AWS ELB health checks access the backend.
 # Source: https://gist.github.com/dryan/8271687

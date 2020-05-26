@@ -1,11 +1,15 @@
+import re
+from typing import Optional, Sequence, Tuple
+
 from django.contrib.auth import get_user_model
+from django.core.files.uploadedfile import UploadedFile
 from mypy.types import JsonDict
 
-from skole.tests.utils import SchemaTestCase
+from skole.tests.helpers import SkoleSchemaTestCase
 from skole.utils.constants import Messages, ValidationErrors
 
 
-class UserSchemaTests(SchemaTestCase):
+class UserSchemaTests(SkoleSchemaTestCase):
     authenticated = True
 
     # language=GraphQL
@@ -63,7 +67,7 @@ class UserSchemaTests(SchemaTestCase):
                     ...userFields
                 }
             }
-        """
+            """
         )
         return self.execute(graphql, variables=variables)["user"]
 
@@ -77,7 +81,7 @@ class UserSchemaTests(SchemaTestCase):
                     ...userFields
                 }
             }
-        """
+            """
         )
         res = self.execute(graphql)
         if self.should_error:
@@ -127,6 +131,8 @@ class UserSchemaTests(SchemaTestCase):
         avatar: str = "",
         school: str = "1",
         subject: str = "1",
+        *,
+        file_data: Optional[Sequence[Tuple[str, UploadedFile]]] = None,
     ) -> JsonDict:
         return self.execute_input_mutation(
             input_type="UpdateUserMutationInput!",
@@ -142,6 +148,7 @@ class UserSchemaTests(SchemaTestCase):
             },
             result="user { ...userFields } message",
             fragment=self.user_fields,
+            file_data=file_data,
         )
 
     def mutate_change_password(
@@ -150,7 +157,7 @@ class UserSchemaTests(SchemaTestCase):
         return self.execute_input_mutation(
             input_type="ChangePasswordMutationInput!",
             op_name="changePassword",
-            input={"oldPassword": old_password, "newPassword": new_password,},
+            input={"oldPassword": old_password, "newPassword": new_password},
             result="message",
         )
 
@@ -327,11 +334,21 @@ class UserSchemaTests(SchemaTestCase):
         assert self.query_user_me() == user_old
 
     def test_update_user_avatar(self) -> None:
-        # TODO: Implement these:
-        # Add avatar.
-        # Change avatar.
-        # Remove avatar.
-        pass
+        # No avatar at the beginning.
+        assert self.query_user_me()["avatar"] == ""
+
+        # Set an avatar.
+        with open("media/uploads/avatars/test_avatar.jpg", "rb") as f:
+            avatar = UploadedFile(f)
+            res = self.mutate_update_user(file_data=[("avatar", avatar)])
+
+        file_url = res["user"]["avatar"]
+        assert re.match(r"^media/uploads/avatars/test_avatar\w*\.jpg$", file_url)
+        assert self.query_user_me()["avatar"] == file_url
+
+        # Delete the avatar.
+        res = self.mutate_update_user(avatar="")
+        assert res["user"]["avatar"] == ""
 
     def test_user_delete_ok(self) -> None:
         # Delete the logged in testuser2.

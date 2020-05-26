@@ -28,6 +28,9 @@ FROM dev AS circleci
 
 COPY --chown=user:user . .
 
-CMD black --check --diff --exclude migrations/.* . \
+CMD isort --check-only --diff --recursive . \
+    && docformatter --check --recursive --wrap-summaries=88 --wrap-descriptions=88 . \
+    && black --check --diff . \
+    && flake8 . \
     && mypy . \
     && pytest --verbose --cov-report=html --cov=. skole/tests

@@ -46,7 +46,6 @@ class CreateCommentMutation(
 ):
     class Meta:
         form_class = CreateCommentForm
-        exclude_fields = ("id",)
 
     @classmethod
     def perform_mutate(
@@ -67,7 +66,10 @@ class CreateCommentMutation(
 
 
 class UpdateCommentMutation(
-    VerificationRequiredMutationMixin, MessageMixin, DjangoModelFormMutation
+    VerificationRequiredMutationMixin,
+    FileMutationMixin,
+    MessageMixin,
+    DjangoModelFormMutation,
 ):
     comment = graphene.Field(CommentObjectType)
 
@@ -78,18 +80,11 @@ class UpdateCommentMutation(
     def perform_mutate(
         cls, form: UpdateCommentForm, info: ResolveInfo
     ) -> "UpdateCommentMutation":
-        comment = Comment.objects.get(pk=form.cleaned_data.pop("id"))
         assert info.context is not None
+        comment = form.instance
 
         if comment.user != info.context.user:
             return cls(errors=MutationErrors.NOT_OWNER)
-
-        # Don't allow changing attachment to anything but a File or ""
-        if form.cleaned_data["attachment"] != "":
-            if file := info.context.FILES.get("1"):
-                form.cleaned_data["attachment"] = file
-            else:
-                form.cleaned_data["attachment"] = comment.attachment
 
         Comment.objects.update_comment(comment, **form.cleaned_data)
         return cls(comment=comment, message=Messages.COMMENT_UPDATED)

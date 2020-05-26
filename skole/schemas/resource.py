@@ -75,7 +75,7 @@ class CreateResourceMutation(
 
 
 class UpdateResourceMutation(
-    LoginRequiredMutationMixin, MessageMixin, DjangoModelFormMutation
+    LoginRequiredMutationMixin, FileMutationMixin, MessageMixin, DjangoModelFormMutation
 ):
     class Meta:
         form_class = UpdateResourceForm

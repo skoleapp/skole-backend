@@ -11,7 +11,7 @@ class TargetForm(forms.ModelForm):
 
     def clean(self) -> Dict[str, str]:
         """Ensure that the created object has exactly one foreign key it targets."""
-        cleaned_data = self.cleaned_data
+        cleaned_data = super().clean()
 
         targets: Dict[str, Optional[int]] = {
             "course": None,

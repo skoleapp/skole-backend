@@ -8,12 +8,11 @@ from graphql_jwt.utils import get_credentials
 
 
 class SkoleAuthBackend(JSONWebTokenBackend):
-    """
-    Only difference from the original `JSONWebTokenBackend`
-    is that it does not raise error when `get_user_by_token`
-    fails. Main advantage is to let the mutation handle the
-    authentication error. Instead of raising GraphQL errors
-    with ugly tracebacks we can return form error messages etc.
+    """Only difference from the original `JSONWebTokenBackend` is that it does not raise
+    error when `get_user_by_token` fails.
+
+    Main advantage is to let the mutation handle the authentication error. Instead of
+    raising GraphQL errors with ugly tracebacks we can return form error messages etc.
     """
 
     def authenticate(

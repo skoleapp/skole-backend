@@ -14,8 +14,8 @@ T = TypeVar("T", bound=graphene.Mutation)
 class LoginRequiredMutationMixin:
     """Mixin for a mutation that needs a user to be logged in to use.
 
-    Should be the first class in the inheritance list,
-    at least before the graphql mutation class, e.g. DjangoModelFormMutation.
+    Should be the first class in the inheritance list, at least before the graphql
+    mutation class, e.g. DjangoModelFormMutation.
     """
 
     @classmethod
@@ -33,8 +33,8 @@ class LoginRequiredMutationMixin:
 class VerificationRequiredMutationMixin:
     """Mixin for a mutation that needs a user to be verified (and logged in) to use.
 
-    Should be the first class in the inheritance list,
-    at least before the graphql mutation class, e.g. DjangoModelFormMutation.
+    Should be the first class in the inheritance list, at least before the graphql
+    mutation class, e.g. DjangoModelFormMutation.
     """
 
     @classmethod
@@ -93,9 +93,10 @@ class DeleteMutationMixin(LoginRequiredMutationMixin, MessageMixin):
         obj = form.cleaned_data.get("target")
         obj.delete()
 
-        # Ignore: Mypy doesn't know that this function will actually be used in a class
-        # deriving from DjangoModelFormMutation, where this type of calling cls with
-        # a graphene field name makes sense.
+        # Ignore 1: Mypy doesn't know that this function will actually be used in a class
+        #   deriving from DjangoModelFormMutation, where this type of calling cls with
+        #   a graphene field name makes sense.
+        # Ignore 2: `get_success_message` will be defined in the baseclass.
         return cls(message=cls.get_success_message())  # type: ignore [call-arg, attr-defined]
 
 
@@ -143,9 +144,8 @@ class StarredMixin:
 
 
 class FileMutationMixin:
-    """A mixin for passing the files of the request to the model form
-    so that he validation can be done there.
-    """
+    """A mixin for passing the files of the request to the model form so that he
+    validation can be done there."""
 
     @classmethod
     def get_form_kwargs(
@@ -157,8 +157,6 @@ class FileMutationMixin:
         #   together with a DjangoModelFormMutation.
         form_kwargs = super().get_form_kwargs(root, info, **input)  # type: ignore[misc]
         form_kwargs["files"] = info.context.FILES
-        if info.context.user:
-            form_kwargs["instance"] = info.context.user
         return form_kwargs
 
 

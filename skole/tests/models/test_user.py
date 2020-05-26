@@ -99,24 +99,24 @@ def test_change_score(db: fixture) -> None:
     assert user.score == 0
 
 
-def test_verify_user() -> None:
-    # TODO: Implement.
-    pass
-
-
-def test_send_verification_email() -> None:
-    # TODO: Implement.
-    pass
-
-
-def test_resend_verification_email() -> None:
-    # TODO: Implement.
-    pass
-
-
-def test_send_password_reset_email() -> None:
-    # TODO: Implement.
-    pass
+# def test_verify_user() -> None:
+#     # TODO: Implement.
+#     pass
+#
+#
+# def test_send_verification_email() -> None:
+#     # TODO: Implement.
+#     pass
+#
+#
+# def test_resend_verification_email() -> None:
+#     # TODO: Implement.
+#     pass
+#
+#
+# def test_send_password_reset_email() -> None:
+#     # TODO: Implement.
+#     pass
 
 
 def test_rank(db: fixture) -> None:

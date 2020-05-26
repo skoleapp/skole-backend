@@ -39,7 +39,6 @@ class CommentManager(models.Manager):  # type: ignore[type-arg]
         comment.user = user
         comment.text = text
         comment.attachment = attachment
-        comment.full_clean()
         comment.save()
         return comment
 
@@ -48,7 +47,6 @@ class CommentManager(models.Manager):  # type: ignore[type-arg]
     ) -> "Comment":
         comment.text = text
         comment.attachment = attachment
-        comment.full_clean()
         comment.save()
         return comment
 
@@ -76,7 +74,9 @@ class Comment(models.Model):
     attachment = models.ImageField(
         upload_to="uploads/attachments",
         blank=True,
-        validators=[ValidateFileSizeAndType(3, ["image/jpeg", "image/png"])],
+        validators=[
+            ValidateFileSizeAndType(3, [("image/jpeg", "jpeg"), ("image/png", "png")])
+        ],
     )
 
     course = models.ForeignKey(

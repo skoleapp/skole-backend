@@ -2,7 +2,6 @@ import re
 
 import pytest
 from django.contrib.auth import get_user_model
-from django.core.exceptions import ValidationError
 from django.core.files.uploadedfile import SimpleUploadedFile
 from pytest import fixture
 
@@ -32,7 +31,7 @@ def test_manager_create_ok(db: fixture, temp_media: fixture) -> None:
 
     for target in targets:
         # Somehow the file needs to be created on each iteration of the loop, otherwise
-        # the file type will be appication/x-empty on the second iteratios.
+        # the file type will be application/x-empty on the second iterations.
         # Source for the jpeg bit pattern: https://en.wikipedia.org/wiki/List_of_file_signatures
         attachment = SimpleUploadedFile("image.jpeg", b"\xff\xd8\xff")
         comment = Comment.objects.create_comment(
@@ -44,7 +43,7 @@ def test_manager_create_ok(db: fixture, temp_media: fixture) -> None:
 
         # Filenames after the first created comment will have a random glob to make them unique.
         assert re.match(
-            r"^uploads/attachments/image\w*\.jpeg$", comment.attachment.name
+            r"^media/uploads/attachments/image\w*\.jpeg$", comment.attachment.url
         )
 
         # Check that only one foreign key reference is active.
@@ -55,22 +54,11 @@ def test_manager_create_ok(db: fixture, temp_media: fixture) -> None:
                 assert getattr(comment, attr) is None
 
 
-def test_manager_create_invalid_filetype(db: fixture, temp_media: fixture) -> None:
-    user = get_user_model().objects.get(pk=2)
-    target = Course.objects.get(pk=1)
-    invalid_file = SimpleUploadedFile("not_an_image.txt", b"file contents")
-
-    with pytest.raises(ValidationError):
-        comment = Comment.objects.create_comment(
-            user=user, text="foo", attachment=invalid_file, target=target,
-        )
-
-
 def test_manager_create_bad_target(db: fixture) -> None:
     user = get_user_model().objects.get(pk=2)
     bad_target = user
     with pytest.raises(TypeError):
-        comment = Comment.objects.create_comment(
+        Comment.objects.create_comment(
             user=user, text="foo", attachment=None, target=bad_target
         )
 

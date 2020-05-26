@@ -16,6 +16,7 @@ def django_db_setup(django_db_setup: fixture, django_db_blocker: fixture) -> Non
 @fixture
 def temp_media() -> Generator[None, None, None]:
     """Use this fixture to make all created media be temporary.
+
     Reference: https://www.caktusgroup.com/blog/2013/06/26/media-root-and-django-tests/
     """
     original_media_root = settings.MEDIA_ROOT

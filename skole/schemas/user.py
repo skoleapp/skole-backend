@@ -74,10 +74,8 @@ class UserObjectType(DjangoObjectType):
         )
 
     def resolve_email(self, info: ResolveInfo) -> str:
-        """
-        Return email only if authenticated and querying
-        through userMe query or user query with own ID.
-        """
+        """Return email only if authenticated and querying through userMe query or user
+        query with own ID."""
         assert info.context is not None
         user = info.context.user
 
@@ -128,11 +126,11 @@ class UserObjectType(DjangoObjectType):
 
 
 class RegisterMutation(DjangoModelFormMutation):
-    """
-    Register new user. Check if there is an existing user
-    with that email or username. Check that account is not
-    deactivated. By default set the user a unverified.
-    After successful registration send account verification email.
+    """Register new user.
+
+    Check if there is an existing user with that email or username. Check that account
+    is not deactivated. By default set the user a unverified. After successful
+    registration send account verification email.
     """
 
     message = graphene.String()
@@ -166,10 +164,8 @@ class RegisterMutation(DjangoModelFormMutation):
 
 
 class VerifyAccountMutation(DjangoFormMutation):
-    """
-    Receive the token that was sent by email.
-    If the token is valid, verify the user's account.
-    """
+    """Receive the token that was sent by email, if the token is valid, verify the
+    user's account."""
 
     message = graphene.String()
 
@@ -197,9 +193,9 @@ class VerifyAccountMutation(DjangoFormMutation):
 
 
 class ResendVerificationEmailMutation(DjangoFormMutation):
-    """
-    Sends verification email again. Return error if
-    a user with the provided email is not found.
+    """Sends verification email again.
+
+    Return error if a user with the provided email is not found.
     """
 
     message = graphene.String()
@@ -229,10 +225,10 @@ class ResendVerificationEmailMutation(DjangoFormMutation):
 
 
 class SendPasswordResetEmailMutation(DjangoFormMutation):
-    """
-    Send password reset email. For non verified users,
-    send an verification email instead. Return error
-    if a user with the provided email is not found.
+    """Send password reset email.
+
+    For non verified users, send an verification email instead. Return error if a user
+    with the provided email is not found.
     """
 
     message = graphene.String()
@@ -269,10 +265,9 @@ class SendPasswordResetEmailMutation(DjangoFormMutation):
 
 
 class ResetPasswordMutation(DjangoFormMutation):
-    """
-    Change user's password without old password.
-    Receive the token that was sent by email.
-    Revoke refresh token and thus require the
+    """Change user's password without old password.
+
+    Receive the token that was sent by email. Revoke refresh token and thus require the
     user to log in with his new password.
     """
 
@@ -314,8 +309,8 @@ class ResetPasswordMutation(DjangoFormMutation):
 
 
 class LoginMutation(DjangoModelFormMutation):
-    """
-    Obtain JSON web token and user information.
+    """Obtain JSON web token and user information.
+
     Not verified users can still login.
     """
 
@@ -361,7 +356,10 @@ class LoginMutation(DjangoModelFormMutation):
 class ChangePasswordMutation(
     VerificationRequiredMutationMixin, DjangoModelFormMutation
 ):
-    """Change account password when user knows the old password. User must be verified."""
+    """Change account password when user knows the old password.
+
+    User must be verified.
+    """
 
     message = graphene.String()
 
@@ -392,7 +390,10 @@ class ChangePasswordMutation(
 
 
 class DeleteUserMutation(VerificationRequiredMutationMixin, DjangoModelFormMutation):
-    """Delete account permanently. User must be verified and confirm his password."""
+    """Delete account permanently.
+
+    The user must be verified and must confirm his password.
+    """
 
     message = graphene.String()
 
@@ -421,7 +422,10 @@ class DeleteUserMutation(VerificationRequiredMutationMixin, DjangoModelFormMutat
 class UpdateUserMutation(
     VerificationRequiredMutationMixin, FileMutationMixin, DjangoModelFormMutation
 ):
-    """Update user model fields. User must be verified."""
+    """Update some user model fields.
+
+    The user must be verified.
+    """
 
     user = graphene.Field(UserObjectType)
     message = graphene.String()
@@ -429,6 +433,15 @@ class UpdateUserMutation(
     class Meta:
         form_class = UpdateUserForm
         exclude_fields = ("id",)
+
+    @classmethod
+    def get_form_kwargs(
+        cls, root: Any, info: ResolveInfo, **input: JsonDict
+    ) -> JsonDict:
+        assert info.context is not None
+        form_kwargs = super().get_form_kwargs(root, info, **input)
+        form_kwargs["instance"] = info.context.user
+        return form_kwargs
 
     @classmethod
     def perform_mutate(

@@ -1,3 +1,5 @@
+from typing import Any, Dict, Tuple, Type, TypeVar, cast
+
 from django.utils.translation import gettext_lazy as _
 
 
@@ -58,94 +60,53 @@ class Messages:
     COMMENT_DELETED = _("Comment deleted successfully!")
 
 
-class MutationErrors:
-    COMMENT_EMPTY = [
-        {
-            "field": "__all__",
-            "messages": [_("Comment must include either text or attachment.")],
-        }
-    ]
-    NOT_OWNER = [{"field": "__all__", "messages": [ValidationErrors.NOT_OWNER]}]
-    EMAIL_ERROR = [{"field": "__all__", "messages": [_("Error while sending email.")]}]
-    REGISTER_EMAIL_ERROR = [
-        {
-            "field": "__all__",
-            "messages": [
-                _(
-                    "Your account has been registered but we encountered an error while sending email. You may still log in using your credentials. Please try verifying your account later."
-                )
-            ],
-        }
-    ]
-    ALREADY_VERIFIED = [
-        {"field": "__all__", "messages": [GraphQLErrors.ALREADY_VERIFIED]}
-    ]
-    TOKEN_EXPIRED_VERIFY = [
-        {
-            "field": "__all__",
-            "messages": [_("Token expired. Please request new verification link.")],
-        }
-    ]
-    INVALID_TOKEN_VERIFY = [
-        {
-            "field": "__all__",
-            "messages": [_("Invalid token. Please request new verification link.")],
-        }
-    ]
-    USER_NOT_FOUND_WITH_EMAIL = [
-        {
-            "field": "__all__",
-            "messages": [
-                _(
-                    "User with the provided email was not found. Please check you email address."
-                )
-            ],
-        }
-    ]
-    NOT_VERIFIED_RESET_PASSWORD = [
-        {
-            "field": "__all__",
-            "messages": [
-                _(
-                    "You must verify your account before resetting your password. A new verification email was sent. Please check your email."
-                )
-            ],
-        }
-    ]
-    ACCOUNT_REMOVED = [
-        {"field": "__all__", "messages": [_("This account has been removed.")]}
-    ]
-    TOKEN_EXPIRED_RESET_PASSWORD = [
-        {
-            "field": "__all__",
-            "messages": [_("Token expired. Please request new password reset link.")],
-        }
-    ]
-    INVALID_TOKEN_RESET_PASSWORD = [
-        {
-            "field": "__all__",
-            "messages": [_("Invalid token. Please request new password reset link.")],
-        }
-    ]
-    AUTH_REQUIRED = [
-        {
-            "field": "__all__",
-            "messages": [_("This action is only allowed for authenticated users.")],
-        }
-    ]
-    VERIFICATION_REQUIRED = [
-        {
-            "field": "__all__",
-            "messages": [
-                _(
-                    "This action is only allowed for users who have verified their accounts. Please verify your account."
-                )
-            ],
-        }
-    ]
-    VOTE_OWN_CONTENT = [
-        {"field": "__all__", "messages": [_("You cannot vote your own content.")]}
-    ]
+T = TypeVar("T", bound="_MutationErrorsMeta")
+
+
+class _MutationErrorsMeta(type):
+    def __new__(
+        mcs: Type[T], name: str, bases: Tuple[type, ...], dct: Dict[str, Any]
+    ) -> T:
+        """Add the GraphQL form error structure for all class attributes."""
+        for key, value in dct.items():
+            if not (key.startswith("__") and key.endswith("__")):
+                # Don't want to affect __magic__ attrs.
+                dct[key] = [{"field": "__all__", "messages": [value]}]
+        return cast(T, super().__new__(mcs, name, bases, dct))
+
+
+class MutationErrors(metaclass=_MutationErrorsMeta):
+    COMMENT_EMPTY = _("Comment must include either text or attachment.")
+    NOT_OWNER = ValidationErrors.NOT_OWNER
+    EMAIL_ERROR = _("Error while sending email.")
+    REGISTER_EMAIL_ERROR = _(
+        "Your account has been registered but we encountered"
+        " an error while sending email. You may still log in using your credentials."
+        " Please try verifying your account later."
+    )
+    ALREADY_VERIFIED = GraphQLErrors.ALREADY_VERIFIED
+    TOKEN_EXPIRED_VERIFY = _("Token expired. Please request new verification link.")
+    INVALID_TOKEN_VERIFY = _("Invalid token. Please request new verification link.")
+    USER_NOT_FOUND_WITH_EMAIL = _(
+        "User with the provided email was not found. Please check you email address."
+    )
+    NOT_VERIFIED_RESET_PASSWORD = _(
+        "You must verify your account before resetting your password."
+        " A new verification email was sent. Please check your email."
+    )
+    ACCOUNT_REMOVED = _("This account has been removed.")
+    TOKEN_EXPIRED_RESET_PASSWORD = _(
+        "Token expired. Please request new password reset link."
+    )
+    INVALID_TOKEN_RESET_PASSWORD = _(
+        "Invalid token. Please request new password reset link."
+    )
+    AUTH_REQUIRED = _("This action is only allowed for authenticated users.")
+    VERIFICATION_REQUIRED = _(
+        "This action is only allowed for users who have verified their accounts."
+        " Please verify your account."
+    )
+    VOTE_OWN_CONTENT = _("You cannot vote your own content.")
 
 
 class VoteConstants:

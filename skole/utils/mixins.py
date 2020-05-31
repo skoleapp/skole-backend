@@ -46,7 +46,7 @@ class VerificationRequiredMutationMixin:
             return cls(errors=MutationErrors.AUTH_REQUIRED)
 
         # By checking the authentication first, we avoid and error when AnonymousUser
-        # doesn't have the verified attribute. This is also the reason why we cannot
+        # doesn't have the `verified` attribute. This is also the reason why we cannot
         # make this a subclass of LoginRequiredMutationMixin, since then we would first
         # try to check verification here and face the same problem.
 

@@ -156,7 +156,7 @@ TEMPLATES = [
     },
 ]
 
-if not DEBUG:
+if not DEBUG:  # pragma: no cover
     # AWS credential settings
     AWS_REGION = os.environ.get("AWS_REGION")  # django-s3-storage uses this value.
     AWS_DEFAULT_REGION = AWS_REGION  # django-amazon-ses uses this value.
@@ -175,7 +175,7 @@ if not DEBUG:
     STATICFILES_STORAGE = "django_s3_storage.storage.StaticS3Storage"
 
 # Email settings
-if not DEBUG:
+if not DEBUG:  # pragma: no cover
     EMAIL_BACKEND = "django_amazon_ses.EmailBackend"
 else:
     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"

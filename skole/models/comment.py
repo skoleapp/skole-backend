@@ -13,7 +13,7 @@ from .course import Course
 from .resource import Resource
 from .user import User
 
-if TYPE_CHECKING:
+if TYPE_CHECKING:  # pragma: no cover
     # To avoid circular import.
     from skole.utils.types import CommentableModel
 

@@ -107,11 +107,11 @@ class UserObjectType(DjangoObjectType):
         else:
             return None
 
-    def resolve_school(self, info: ResolveInfo) -> "School":
+    def resolve_school(self, info: ResolveInfo) -> Optional["School"]:
         assert info.context is not None
         return self.school if self.pk == info.context.user.pk else None
 
-    def resolve_subject(self, info: ResolveInfo) -> "Subject":
+    def resolve_subject(self, info: ResolveInfo) -> Optional["Subject"]:
         assert info.context is not None
         return self.subject if self.pk == info.context.user.pk else None
 

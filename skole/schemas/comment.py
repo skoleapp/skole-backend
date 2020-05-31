@@ -30,6 +30,7 @@ class CommentObjectType(VoteMixin, DjangoObjectType):
             "comment",
             "reply_comments",
             "reply_count",
+            "score",
             "modified",
             "created",
         )
@@ -46,6 +47,7 @@ class CreateCommentMutation(
 ):
     class Meta:
         form_class = CreateCommentForm
+        exclude_fields = ("id",)
 
     @classmethod
     def perform_mutate(

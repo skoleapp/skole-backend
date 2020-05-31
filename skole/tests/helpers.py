@@ -14,8 +14,9 @@ class SkoleSchemaTestCase(GraphQLTestCase):
 
     Attributes:
         authenticated: When True a JWT token is sent with all the requests.
-        should_error: Can be set to True for individual tests, for making
-            that test pass when the request errors.
+        should_error: Can be set to True for individual tests, for making that test pass
+            when the request fails and the response has a top level "errors" section.
+            Note that when form mutations error out, they don't have this.
     """
 
     GRAPHQL_SCHEMA = schema
@@ -23,6 +24,52 @@ class SkoleSchemaTestCase(GraphQLTestCase):
 
     authenticated: bool = False
     should_error: bool = False
+
+    def query(
+        self,
+        query: str,
+        op_name: Optional[str] = None,
+        input_data: Optional[JsonDict] = None,
+        variables: Optional[JsonDict] = None,
+        headers: Optional[JsonDict] = None,
+        file_data: Optional[Sequence[Tuple[str, UploadedFile]]] = None,
+    ) -> HttpResponse:
+        """Overridden to allow uploading files with a multipart/form-data POST.
+
+        See parent's docstring for more info.
+        """
+        body: JsonDict = {"query": query}
+        if op_name:
+            body["operation_name"] = op_name
+        if variables:
+            body["variables"] = variables
+        if input_data:
+            if variables in body:
+                body["variables"]["input"] = input_data
+            else:
+                body["variables"] = {"input": input_data}
+
+        extra = headers or {}
+
+        if file_data:
+            # This imitates the way Apollo Client places files in a GraphQL query.
+            variable_map = {}
+            file_dict = {}
+            for i, (field, file) in enumerate(file_data, start=1):
+                variable_map[str(i)] = [f"variables.input.{field}"]
+                file_dict[str(i)] = file
+
+            data: Union[JsonDict, str] = {
+                "operations": json.dumps(body),
+                "map": json.dumps(variable_map),
+                **file_dict,
+            }
+
+        else:
+            data = json.dumps(body)
+            extra.update({"content_type": "application/json"})
+
+        return self._client.post(path=self.GRAPHQL_URL, data=data, **extra)
 
     def execute(self, graphql: str, **kwargs: Any) -> JsonDict:
         """Run a GraphQL query, if `should_error` attribute is False assert that status
@@ -114,52 +161,6 @@ class SkoleSchemaTestCase(GraphQLTestCase):
             return res
         return res[op_name]  # Convenience to get straight to the result object.
 
-    def query(
-        self,
-        query: str,
-        op_name: Optional[str] = None,
-        input_data: Optional[JsonDict] = None,
-        variables: Optional[JsonDict] = None,
-        headers: Optional[JsonDict] = None,
-        file_data: Optional[Sequence[Tuple[str, UploadedFile]]] = None,
-    ) -> HttpResponse:
-        """Overridden to allow uploading files with a multipart/form-data POST.
-
-        See parent's docstring for more info.
-        """
-        body: JsonDict = {"query": query}
-        if op_name:
-            body["operation_name"] = op_name
-        if variables:
-            body["variables"] = variables
-        if input_data:
-            if variables in body:
-                body["variables"]["input"] = input_data
-            else:
-                body["variables"] = {"input": input_data}
-
-        extra = headers or {}
-
-        if file_data:
-            # This imitates the way Apollo Client places handles files in a GraphQL query.
-            variable_map = {}
-            file_dict = {}
-            for i, (field, file) in enumerate(file_data, start=1):
-                variable_map[str(i)] = [f"variables.input.{field}"]
-                file_dict[str(i)] = file
-
-            data: Union[JsonDict, str] = {
-                "operations": json.dumps(body),
-                "map": json.dumps(variable_map),
-                **file_dict,
-            }
-
-        else:
-            data = json.dumps(body)
-            extra.update({"content_type": "application/json"})
-
-        return self._client.post(path=self.GRAPHQL_URL, data=data, **extra)
-
     def assertResponseNoErrors(self, resp: HttpResponse) -> None:
         """Overridden and re-ordered to immediately see the errors if there were any.
 
@@ -168,6 +169,18 @@ class SkoleSchemaTestCase(GraphQLTestCase):
         content = json.loads(resp.content)
         self.assertNotIn("errors", content)
         self.assertEqual(resp.status_code, 200)
+
+    def assertResponseHasErrors(self, resp: HttpResponse) -> None:
+        """Overridden to do more thorough checking.
+
+        See parent's docstring for more info.
+        """
+        content = json.loads(resp.content)
+        self.assertIn("errors", content)
+        for key, value in content["data"].items():
+            # "data" should have only keys with no values content.
+            assert isinstance(key, str)
+            assert value is None
 
     def assert_field_fragment_matches_schema(self, field_fragment: str) -> None:
         """Assert that the given fragment contains all the fields that are actually
@@ -186,4 +199,4 @@ class SkoleSchemaTestCase(GraphQLTestCase):
         res = self.execute(graphql, variables={"name": object_type})
 
         for field in res["__type"]["fields"]:
-            assert field["name"] in field_fragment
+            self.assertIn(field["name"], field_fragment)

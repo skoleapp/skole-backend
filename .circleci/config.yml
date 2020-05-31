@@ -10,9 +10,9 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "Run linter, type-check, and tests"
+          name: "Run linters, type-check, and tests"
           command: >
             docker-compose -f docker-compose-circleci.yml up --abort-on-container-exit
-            && docker cp backend:/home/user/app/htmlcov .
+            && docker cp backend-circleci:/home/user/app/htmlcov .
       - store_artifacts:
           path: htmlcov

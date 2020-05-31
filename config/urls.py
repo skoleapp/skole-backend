@@ -17,5 +17,6 @@ urlpatterns = [
 
 urlpatterns += i18n_patterns(path("admin/", admin.site.urls))
 
-if settings.DEBUG:
+# Pragma: Lazy settings access makes it so this never true when running coverage.
+if settings.DEBUG:  # pragma: no cover
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

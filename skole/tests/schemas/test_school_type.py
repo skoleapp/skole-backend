@@ -53,6 +53,7 @@ class SchoolTypeSchemaTests(SkoleSchemaTestCase):
     def test_school_types(self) -> None:
         school_types = self.query_school_types()
         assert len(school_types) == 3
+        # SchoolTypes should be ordered by IDs.
         assert school_types[0] == self.query_school_type(id=1)
         assert school_types[0]["id"] == "1"
         assert school_types[0]["name"] == "University"

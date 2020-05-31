@@ -54,6 +54,7 @@ class SubjectSchemaTests(SkoleSchemaTestCase):
         subjects = self.query_subjects()
         assert len(subjects) == 4
         # Subjects should be ordered alphabetically.
+        assert subjects[0] == self.query_subject(id=3)
         assert subjects[0]["id"] == "3"
         assert subjects[0]["name"] == "Chemistry"
         assert subjects[1]["id"] == "1"

@@ -53,6 +53,7 @@ class SchoolTypeSchemaTests(SkoleSchemaTestCase):
     def test_school_types(self) -> None:
         school_types = self.query_school_types()
         assert len(school_types) == 3
+        assert school_types[0] == self.query_school_type(id=1)
         assert school_types[0]["id"] == "1"
         assert school_types[0]["name"] == "University"
         assert school_types[1]["id"] == "2"
@@ -63,5 +64,4 @@ class SchoolTypeSchemaTests(SkoleSchemaTestCase):
         assert res["id"] == "1"
         assert res["name"] == "University"
 
-        # ID not found.
         assert self.query_school_type(id=999) is None

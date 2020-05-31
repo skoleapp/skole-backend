@@ -30,6 +30,7 @@ class CommentObjectType(VoteMixin, DjangoObjectType):
             "comment",
             "reply_comments",
             "reply_count",
+            "score",
             "modified",
             "created",
         )

@@ -46,6 +46,7 @@ class CreateCommentMutation(
 ):
     class Meta:
         form_class = CreateCommentForm
+        exclude_fields = ("id",)
 
     @classmethod
     def perform_mutate(

@@ -36,4 +36,4 @@ CMD { python manage.py graphql_schema --out=compare.graphql \
     && black --check --diff . \
     && flake8 . \
     && mypy . \
-    && pytest --verbose --cov-report=html --cov=. skole/tests
+    && pytest --verbose --cov-report=html --cov=. .

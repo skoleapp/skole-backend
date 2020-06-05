@@ -15,13 +15,13 @@ def test_str(db: fixture) -> None:
 
 
 def test_manager_create_ok(db: fixture) -> None:
-    user = get_user_model().objects.get(pk=1)
+    user = get_user_model().objects.get(pk=3)  # testuser3
     status = 1
 
     targets = (
-        Course.objects.get(pk=1),
-        Resource.objects.get(pk=2),
-        Comment.objects.get(pk=3),
+        Course.objects.get(pk=1),  # from testuser2
+        Resource.objects.get(pk=2),  # from testuser8
+        Comment.objects.get(pk=3),  # from testuser9
     )
 
     for target in targets:
@@ -33,15 +33,15 @@ def test_manager_create_ok(db: fixture) -> None:
 
         if vote.course is not None:
             course = Course.objects.get(pk=target.pk)
-            assert target_score == course.score == 1  # type: ignore [attr-defined]
+            assert target_score == course.score == 1
             assert course.user.score == target_score * VoteConstants.SCORE_COURSE_MULTIPLIER  # type: ignore [union-attr]
         elif vote.resource is not None:
             resource = Resource.objects.get(pk=target.pk)
-            assert target_score == resource.score == 1  # type: ignore [attr-defined]
+            assert target_score == resource.score == 1
             assert resource.user.score == target_score * VoteConstants.SCORE_RESOURCE_MULTIPLIER  # type: ignore [union-attr]
         elif vote.comment is not None:
             comment = Comment.objects.get(pk=target.pk)
-            assert target_score == comment.score == 1  # type: ignore [attr-defined]
+            assert target_score == comment.score == 1
             assert comment.user.score == target_score * VoteConstants.SCORE_COMMENT_MULTIPLIER  # type: ignore [union-attr]
 
         # Check that only one foreign key reference is active.
@@ -76,4 +76,4 @@ def test_manager_create_bad_target(db: fixture) -> None:
     user = get_user_model().objects.get(pk=2)
     bad_target = user
     with pytest.raises(TypeError):
-        vote, _ = Vote.objects.perform_vote(user=user, status=1, target=bad_target)  # type: ignore[arg-type]
+        Vote.objects.perform_vote(user=user, status=1, target=bad_target)  # type: ignore[arg-type]

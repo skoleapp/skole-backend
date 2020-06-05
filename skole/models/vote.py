@@ -1,4 +1,4 @@
-from typing import Optional, Tuple
+from typing import Literal, Optional, Tuple
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -9,13 +9,14 @@ from skole.models.course import Course
 from skole.models.resource import Resource
 from skole.models.user import User
 from skole.utils.constants import VoteConstants
+from skole.utils.shortcuts import refresh_all_fields
 from skole.utils.types import VotableModel
 
 
 # Ignore: See explanation in UserManager.
 class VoteManager(models.Manager):  # type: ignore[type-arg]
     def perform_vote(
-        self, user: User, status: int, target: VotableModel
+        self, user: User, status: Literal[1, -1], target: VotableModel
     ) -> Tuple[Optional["Vote"], int]:
         """Automatically create a new vote or delete one if it already exists."""
 
@@ -34,8 +35,13 @@ class VoteManager(models.Manager):  # type: ignore[type-arg]
         if not vote:
             # We invert the status to revert the affect of the vote to the user's score.
             status = -status
-        # Ignore: Mypy doesn't know that `target` always the `user` attribute.
-        get_user_model().objects.change_score(target.user, status * multiplier)  # type: ignore[arg-type]
+
+        assert target.user is not None
+        get_user_model().objects.change_score(target.user, status * multiplier)
+
+        # Have to query the object again since `score` is an annotation.
+        target = refresh_all_fields(target)
+
         return vote, target.score
 
     def check_existing_vote(

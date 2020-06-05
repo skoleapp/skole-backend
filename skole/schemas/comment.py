@@ -62,8 +62,6 @@ class CreateCommentMutation(
             user=info.context.user, **form.cleaned_data
         )
 
-        # Query the new comment to get the annotated reply count.
-        comment = Comment.objects.get(pk=comment.pk)
         return cls(comment=comment, message=Messages.MESSAGE_SENT)
 
 

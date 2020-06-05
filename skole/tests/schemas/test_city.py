@@ -31,7 +31,7 @@ class CitySchemaTests(SkoleSchemaTestCase):
         )
         return self.execute(graphql)["cities"]
 
-    def query_city(self, id: ID) -> JsonDict:
+    def query_city(self, *, id: ID) -> JsonDict:
         variables = {"id": id}
 
         # language=GraphQL

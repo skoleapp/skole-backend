@@ -56,7 +56,7 @@ class UserSchemaTests(SkoleSchemaTestCase):
         }
     """
 
-    def query_user(self, id: ID) -> JsonDict:
+    def query_user(self, *, id: ID) -> JsonDict:
         variables = {"id": id}
 
         # language=GraphQL
@@ -91,6 +91,7 @@ class UserSchemaTests(SkoleSchemaTestCase):
 
     def mutate_register(
         self,
+        *,
         username: str = "newuser",
         email: str = "newemail@test.com",
         school: ID = 1,
@@ -113,7 +114,7 @@ class UserSchemaTests(SkoleSchemaTestCase):
         )
 
     def mutate_login(
-        self, username_or_email: str = "testuser2", password: str = "password"
+        self, *, username_or_email: str = "testuser2", password: str = "password"
     ) -> JsonDict:
         return self.execute_input_mutation(
             input_type="LoginMutationInput!",
@@ -125,6 +126,7 @@ class UserSchemaTests(SkoleSchemaTestCase):
 
     def mutate_update_user(
         self,
+        *,
         username: str = "testuser2",
         email: str = "testuser2@test.com",
         title: str = "",
@@ -132,7 +134,6 @@ class UserSchemaTests(SkoleSchemaTestCase):
         avatar: str = "",
         school: ID = 1,
         subject: ID = 1,
-        *,
         file_data: Optional[Sequence[Tuple[str, UploadedFile]]] = None,
     ) -> JsonDict:
         return self.execute_input_mutation(
@@ -153,7 +154,7 @@ class UserSchemaTests(SkoleSchemaTestCase):
         )
 
     def mutate_change_password(
-        self, old_password: str = "password", new_password: str = "newpassword"
+        self, *, old_password: str = "password", new_password: str = "newpassword"
     ) -> JsonDict:
         return self.execute_input_mutation(
             input_type="ChangePasswordMutationInput!",
@@ -162,7 +163,7 @@ class UserSchemaTests(SkoleSchemaTestCase):
             result="message",
         )
 
-    def mutate_delete_user(self, password: str = "password") -> JsonDict:
+    def mutate_delete_user(self, *, password: str = "password") -> JsonDict:
         return self.execute_input_mutation(
             input_type="DeleteUserMutationInput!",
             op_name="deleteUser",

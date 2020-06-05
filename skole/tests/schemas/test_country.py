@@ -31,7 +31,7 @@ class CountrySchemaTests(SkoleSchemaTestCase):
         )
         return self.execute(graphql)["countries"]
 
-    def query_country(self, id: ID) -> JsonDict:
+    def query_country(self, *, id: ID) -> JsonDict:
         variables = {"id": id}
 
         # language=GraphQL

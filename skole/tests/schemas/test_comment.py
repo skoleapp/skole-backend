@@ -41,7 +41,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         }
     """
 
-    def mutate_delete_comment(self, id: ID) -> JsonDict:
+    def mutate_delete_comment(self, *, id: ID) -> JsonDict:
         return self.execute_input_mutation(
             input_type="DeleteCommentMutationInput!",
             op_name="deleteComment",

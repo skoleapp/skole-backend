@@ -31,7 +31,7 @@ class SubjectSchemaTests(SkoleSchemaTestCase):
         )
         return self.execute(graphql)["subjects"]
 
-    def query_subject(self, id: ID) -> JsonDict:
+    def query_subject(self, *, id: ID) -> JsonDict:
         variables = {"id": id}
 
         # language=GraphQL

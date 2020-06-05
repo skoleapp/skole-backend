@@ -31,7 +31,7 @@ class SchoolTypeSchemaTests(SkoleSchemaTestCase):
         )
         return self.execute(graphql)["schoolTypes"]
 
-    def query_school_type(self, id: ID) -> JsonDict:
+    def query_school_type(self, *, id: ID) -> JsonDict:
         variables = {"id": id}
 
         # language=GraphQL

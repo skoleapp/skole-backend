@@ -1,4 +1,4 @@
-from typing import Literal, Optional
+from typing import Optional, get_args
 
 import graphene
 from django.db.models import QuerySet
@@ -20,7 +20,7 @@ from skole.utils.mixins import (
 )
 from skole.utils.pagination import get_paginator
 from skole.utils.shortcuts import get_obj_or_none
-from skole.utils.types import ID
+from skole.utils.types import ID, CourseOrderingOption
 
 
 class CourseObjectType(VoteMixin, StarredMixin, DjangoObjectType):
@@ -105,7 +105,7 @@ class Query(graphene.ObjectType):
         city: ID = None,
         page: int = 1,
         page_size: int = 10,
-        ordering: Literal["name", "-name", "score", "-score"] = "name",
+        ordering: CourseOrderingOption = "name",
     ) -> graphene.ObjectType:
         """Filter courses based on the query parameters."""
 
@@ -126,12 +126,8 @@ class Query(graphene.ObjectType):
         if city is not None:
             qs = qs.filter(school__city__pk=city)
 
-        if ordering not in {
-            "name",
-            "-name",
-            "score",
-            "-score",
-        }:
+        # Ignore: Mypy doesn't like the usage of get_args at runtime.
+        if ordering not in get_args(CourseOrderingOption):  # type: ignore[misc]
             raise GraphQLError(GraphQLErrors.INVALID_ORDERING)
 
         if ordering not in {"name", "-name"}:

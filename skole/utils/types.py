@@ -7,6 +7,8 @@ CommentableModel = Union[Comment, Course, Resource]
 PaginableModel = Union[Course, Resource, User]
 VotableModel = Union[Comment, Course, Resource]
 
+CourseOrderingOption = Literal["name", "-name", "score", "-score"]
+
 ID = Union[str, int, None]
 """A type representing a GraphQL ID in Python code.
 

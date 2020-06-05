@@ -1,3 +1,4 @@
+import datetime
 import json
 from typing import Any, Optional, Sequence, Tuple, Union
 
@@ -77,7 +78,7 @@ class SkoleSchemaTestCase(GraphQLTestCase):
         If `should_error` is True, we assert that the result does contain "error".
 
         Args:
-            graphql: The query that will be executed
+            graphql: The query that will be executed.
             **kwargs: `header` kwarg will get merged with the possible token header.
                 Other kwargs are passed straight to self.query().
 
@@ -125,7 +126,7 @@ class SkoleSchemaTestCase(GraphQLTestCase):
 
         Args:
             input_type: Name of the GraphQL input type object.
-            op_name: Name of the mutation.
+            op_name: Name of the mutation in the schema.
             input: The arguments going into the input argument of the mutation.
             result: GraphQL snippet of the fields which want to be queried from the result.
             fragment: Extra GraphQL snippet which will be inserted before the mutation query.
@@ -200,3 +201,24 @@ class SkoleSchemaTestCase(GraphQLTestCase):
 
         for field in res["__type"]["fields"]:
             self.assertIn(field["name"], field_fragment)
+
+
+def is_iso_datetime(datetime_string: str, /) -> bool:
+    """Return True if the given string is a valid ISO-format datetime, otherwise False.
+
+    Examples:
+        >>> is_iso_datetime("2020-01-01T12:00:00+00:00")
+        True
+        >>> is_iso_datetime("2020-01-01")
+        False
+        >>> is_iso_datetime("T12:00:00+00:00")
+        False
+        >>> is_iso_datetime("foobar")
+        False
+    """
+    try:
+        datetime.datetime.strptime(datetime_string, "%Y-%m-%dT%H:%M:%S%z")
+    except ValueError:
+        return False
+    else:
+        return True

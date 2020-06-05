@@ -7,6 +7,7 @@ from graphql import ResolveInfo
 
 from skole.models import SchoolType
 from skole.utils.shortcuts import get_obj_or_none
+from skole.utils.types import ID
 
 
 class SchoolTypeObjectType(DjangoObjectType):
@@ -25,6 +26,6 @@ class Query(graphene.ObjectType):
         return SchoolType.objects.all()
 
     def resolve_school_type(
-        self, info: ResolveInfo, id: Optional[int] = None
+        self, info: ResolveInfo, id: ID = None
     ) -> Optional[SchoolType]:
         return get_obj_or_none(SchoolType, id)

@@ -34,6 +34,7 @@ from skole.utils.constants import Messages, MutationErrors, TokenAction
 from skole.utils.exceptions import TokenScopeError, UserAlreadyVerified, UserNotVerified
 from skole.utils.mixins import FileMutationMixin, VerificationRequiredMutationMixin
 from skole.utils.token import get_token_payload, revoke_user_refresh_tokens
+from skole.utils.types import ID
 
 
 class UserObjectType(DjangoObjectType):
@@ -458,9 +459,7 @@ class Query(graphene.ObjectType):
     user_me = graphene.Field(UserObjectType)
 
     @login_required
-    def resolve_user(
-        self, info: ResolveInfo, id: Optional[int] = None
-    ) -> Optional[User]:
+    def resolve_user(self, info: ResolveInfo, id: ID = None) -> Optional[User]:
         try:
             # Ignore: get() isn't typed to receive None, even if that doesn't give error.
             return get_user_model().objects.filter(is_superuser=False).get(pk=id)  # type: ignore[misc]

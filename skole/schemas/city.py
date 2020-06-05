@@ -7,6 +7,7 @@ from graphql import ResolveInfo
 
 from skole.models import City
 from skole.utils.shortcuts import get_obj_or_none
+from skole.utils.types import ID
 
 
 class CityObjectType(DjangoObjectType):
@@ -27,7 +28,5 @@ class Query(graphene.ObjectType):
             "translations__name"
         )
 
-    def resolve_city(
-        self, info: ResolveInfo, id: Optional[int] = None
-    ) -> Optional[City]:
+    def resolve_city(self, info: ResolveInfo, id: ID = None) -> Optional[City]:
         return get_obj_or_none(City, id)

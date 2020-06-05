@@ -7,6 +7,7 @@ from graphql import ResolveInfo
 
 from skole.models import Subject
 from skole.utils.shortcuts import get_obj_or_none
+from skole.utils.types import ID
 
 
 class SubjectObjectType(DjangoObjectType):
@@ -27,7 +28,5 @@ class Query(graphene.ObjectType):
             "translations__name"
         )
 
-    def resolve_subject(
-        self, info: ResolveInfo, id: Optional[int] = None
-    ) -> Optional[Subject]:
+    def resolve_subject(self, info: ResolveInfo, id: ID = None) -> Optional[Subject]:
         return get_obj_or_none(Subject, id)

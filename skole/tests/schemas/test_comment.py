@@ -3,6 +3,7 @@ from mypy.types import JsonDict
 from skole.models import Comment
 from skole.tests.helpers import SkoleSchemaTestCase
 from skole.utils.constants import Messages, ValidationErrors
+from skole.utils.types import ID
 
 
 class CommentSchemaTests(SkoleSchemaTestCase):
@@ -40,7 +41,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         }
     """
 
-    def mutate_delete_comment(self, id: int) -> JsonDict:
+    def mutate_delete_comment(self, id: ID) -> JsonDict:
         return self.execute_input_mutation(
             input_type="DeleteCommentMutationInput!",
             op_name="deleteComment",

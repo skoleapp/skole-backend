@@ -106,7 +106,7 @@ class VoteMixin:
     score = graphene.Int()
     vote = graphene.Field("skole.schemas.vote.VoteObjectType")
 
-    def resolve_vote(self, info: ResolveInfo) -> Optional[int]:
+    def resolve_vote(self, info: ResolveInfo) -> Optional[Vote]:
         """Return current user's vote if it exists."""
 
         assert info.context is not None

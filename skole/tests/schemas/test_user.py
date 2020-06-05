@@ -7,6 +7,7 @@ from mypy.types import JsonDict
 
 from skole.tests.helpers import SkoleSchemaTestCase
 from skole.utils.constants import Messages, ValidationErrors
+from skole.utils.types import ID
 
 
 class UserSchemaTests(SkoleSchemaTestCase):
@@ -55,7 +56,7 @@ class UserSchemaTests(SkoleSchemaTestCase):
         }
     """
 
-    def query_user(self, id: int) -> JsonDict:
+    def query_user(self, id: ID) -> JsonDict:
         variables = {"id": id}
 
         # language=GraphQL
@@ -92,8 +93,8 @@ class UserSchemaTests(SkoleSchemaTestCase):
         self,
         username: str = "newuser",
         email: str = "newemail@test.com",
-        school: str = "1",
-        subject: str = "1",
+        school: ID = 1,
+        subject: ID = 1,
         password: str = "password",
         code: str = "TEST",
     ) -> JsonDict:
@@ -129,8 +130,8 @@ class UserSchemaTests(SkoleSchemaTestCase):
         title: str = "",
         bio: str = "",
         avatar: str = "",
-        school: str = "1",
-        subject: str = "1",
+        school: ID = 1,
+        subject: ID = 1,
         *,
         file_data: Optional[Sequence[Tuple[str, UploadedFile]]] = None,
     ) -> JsonDict:

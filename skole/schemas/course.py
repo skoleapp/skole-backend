@@ -20,6 +20,7 @@ from skole.utils.mixins import (
 )
 from skole.utils.pagination import get_paginator
 from skole.utils.shortcuts import get_obj_or_none
+from skole.utils.types import ID
 
 
 class CourseObjectType(VoteMixin, StarredMixin, DjangoObjectType):
@@ -97,11 +98,11 @@ class Query(graphene.ObjectType):
         info: ResolveInfo,
         course_name: Optional[str] = None,
         course_code: Optional[str] = None,
-        subject: Optional[int] = None,
-        school: Optional[int] = None,
-        school_type: Optional[int] = None,
-        country: Optional[int] = None,
-        city: Optional[int] = None,
+        subject: ID = None,
+        school: ID = None,
+        school_type: ID = None,
+        country: ID = None,
+        city: ID = None,
         page: int = 1,
         page_size: int = 10,
         ordering: Literal["name", "-name", "score", "-score"] = "name",
@@ -142,7 +143,7 @@ class Query(graphene.ObjectType):
 
     @login_required
     def resolve_courses(
-        self, info: ResolveInfo, school: Optional[int] = None,
+        self, info: ResolveInfo, school: ID = None,
     ) -> "QuerySet[Course]":
         qs = Course.objects.order_by("name")
 
@@ -152,9 +153,7 @@ class Query(graphene.ObjectType):
         return qs
 
     @login_required
-    def resolve_course(
-        self, info: ResolveInfo, id: Optional[int] = None
-    ) -> Optional[Course]:
+    def resolve_course(self, info: ResolveInfo, id: ID = None) -> Optional[Course]:
         return get_obj_or_none(Course, id)
 
 

@@ -3,7 +3,7 @@ from typing import TYPE_CHECKING, Optional, Union
 from django.conf import settings
 from django.core.files.uploadedfile import UploadedFile
 from django.db import models
-from django.db.models import Count, Sum
+from django.db.models import Sum, Value
 from django.db.models.functions import Coalesce
 from django.db.models.query import QuerySet
 
@@ -51,12 +51,8 @@ class CommentManager(models.Manager):  # type: ignore[type-arg]
         return comment
 
     def get_queryset(self) -> "QuerySet[Comment]":
-        return (
-            super()
-            .get_queryset()
-            .annotate(reply_count=Count("reply_comments"))
-            .order_by("-reply_count", "id")
-        )
+        qs = super().get_queryset()
+        return qs.annotate(score=Coalesce(Sum("votes__status"), Value(0)))
 
 
 class Comment(models.Model):
@@ -103,6 +99,9 @@ class Comment(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     objects = CommentManager()
 
+    # This value gets annotated in the manager's get_queryset.
+    score: int
+
     def __str__(self) -> str:
         if self.text and len(self.text) > 40:
             return f"{self.text[:40]}..."
@@ -112,7 +111,3 @@ class Comment(models.Model):
             return f"Attachment Comment: {self.pk}"
         else:
             raise ValueError("Invalid comment with neither text nor attachment.")
-
-    @property
-    def score(self) -> int:
-        return self.votes.aggregate(score=Coalesce(Sum("status"), 0))["score"]

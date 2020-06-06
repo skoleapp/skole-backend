@@ -1,3 +1,4 @@
+import datetime
 import json
 from typing import Any, Optional, Sequence, Tuple, Union
 
@@ -13,17 +14,13 @@ class SkoleSchemaTestCase(GraphQLTestCase):
     """Base class for all schema tests.
 
     Attributes:
-        authenticated: When True a JWT token is sent with all the requests.
-        should_error: Can be set to True for individual tests, for making that test pass
-            when the request fails and the response has a top level "errors" section.
-            Note that when form mutations error out, they don't have this.
+        authenticated: When True a user JWT token is sent with all the requests.
     """
 
     GRAPHQL_SCHEMA = schema
     fixtures = ["test-data.yaml"]
 
     authenticated: bool = False
-    should_error: bool = False
 
     def query(
         self,
@@ -36,7 +33,9 @@ class SkoleSchemaTestCase(GraphQLTestCase):
     ) -> HttpResponse:
         """Overridden to allow uploading files with a multipart/form-data POST.
 
-        See parent's docstring for more info.
+        This should probably not be used on its own, but instead should be called
+        through `self.execute` or `self.execute_input_mutation`. See also parent's
+        docstring for more info.
         """
         body: JsonDict = {"query": query}
         if op_name:
@@ -71,18 +70,23 @@ class SkoleSchemaTestCase(GraphQLTestCase):
 
         return self._client.post(path=self.GRAPHQL_URL, data=data, **extra)
 
-    def execute(self, graphql: str, **kwargs: Any) -> JsonDict:
-        """Run a GraphQL query, if `should_error` attribute is False assert that status
+    def execute(
+        self, graphql: str, *, assert_error: bool = False, **kwargs: Any
+    ) -> JsonDict:
+        """Run a GraphQL query, if `assert_error` parameter is False assert that status
         code was 200 (=syntax was ok) and that the result didn't have "error" section.
-        If `should_error` is True, we assert that the result does contain "error".
+        If `assert_error` is True, we assert that the result does contain "error".
 
         Args:
-            graphql: The query that will be executed
+            graphql: The query that will be executed.
+            assert_error: Can be set to True for making that execution pass when
+                the request fails and the response has a top level "errors" section.
+                Note that when form mutations error out, they don't have this section.
             **kwargs: `header` kwarg will get merged with the possible token header.
                 Other kwargs are passed straight to self.query().
 
         Returns:
-            The resulting JSON "data" section if `should_error` is False.
+            The resulting JSON "data" section if `assert_error` is False.
             Otherwise returns both the "error" and "data" sections.
         """
 
@@ -104,7 +108,7 @@ class SkoleSchemaTestCase(GraphQLTestCase):
         #   popped from the `kwargs`.
         response = self.query(graphql, **kwargs, headers=headers)  # type: ignore[misc]
 
-        if self.should_error:
+        if assert_error:
             self.assertResponseHasErrors(response)
             return json.loads(response.content)
         else:
@@ -120,12 +124,13 @@ class SkoleSchemaTestCase(GraphQLTestCase):
         result: str,
         fragment: str = "",
         file_data: Optional[Sequence[Tuple[str, UploadedFile]]] = None,
+        assert_error: bool = False,
     ) -> JsonDict:
         """Shortcut for running a mutation which takes only an input argument.
 
         Args:
             input_type: Name of the GraphQL input type object.
-            op_name: Name of the mutation.
+            op_name: Name of the mutation in the schema.
             input: The arguments going into the input argument of the mutation.
             result: GraphQL snippet of the fields which want to be queried from the result.
             fragment: Extra GraphQL snippet which will be inserted before the mutation query.
@@ -134,9 +139,11 @@ class SkoleSchemaTestCase(GraphQLTestCase):
                 By passing these the self.query() will automatically use the correct
                 multipart/form-data content-type. It will also automatically handle all
                 of the inserting of the files into the request body.
+            assert_error: Whether the result should contain a top level "errors" section.
+                Form mutation errors never have this.
 
         Returns:
-            The resulting JSON "data".op_name section if `should_error` is False.
+            The resulting JSON "data".op_name section if `assert_error` is False.
             Otherwise returns both the "error" and "data" sections.
         """
 
@@ -155,9 +162,13 @@ class SkoleSchemaTestCase(GraphQLTestCase):
             """
         )
         res = self.execute(
-            graphql, input_data=input, op_name=op_name, file_data=file_data
+            graphql=graphql,
+            input_data=input,
+            op_name=op_name,
+            file_data=file_data,
+            assert_error=assert_error,
         )
-        if self.should_error:
+        if assert_error:
             return res
         return res[op_name]  # Convenience to get straight to the result object.
 
@@ -177,12 +188,13 @@ class SkoleSchemaTestCase(GraphQLTestCase):
         """
         content = json.loads(resp.content)
         self.assertIn("errors", content)
-        for key, value in content["data"].items():
-            # "data" should have only keys with no values content.
-            assert isinstance(key, str)
-            assert value is None
+        if "data" in content:
+            # If there is a "data" section it should have only keys with empty values.
+            for key, value in content["data"].items():
+                assert isinstance(key, str)
+                assert value is None
 
-    def assert_field_fragment_matches_schema(self, field_fragment: str) -> None:
+    def assert_field_fragment_matches_schema(self, field_fragment: str, /) -> None:
         """Assert that the given fragment contains all the fields that are actually
         queryable on that object type its defined for."""
         # language=GraphQL
@@ -200,3 +212,24 @@ class SkoleSchemaTestCase(GraphQLTestCase):
 
         for field in res["__type"]["fields"]:
             self.assertIn(field["name"], field_fragment)
+
+
+def is_iso_datetime(datetime_string: str, /) -> bool:
+    """Return True if the given string is a valid ISO-format datetime, otherwise False.
+
+    Examples:
+        >>> is_iso_datetime("2020-01-01T12:00:00+00:00")
+        True
+        >>> is_iso_datetime("2020-01-01")
+        False
+        >>> is_iso_datetime("T12:00:00+00:00")
+        False
+        >>> is_iso_datetime("foobar")
+        False
+    """
+    try:
+        datetime.datetime.strptime(datetime_string, "%Y-%m-%dT%H:%M:%S%z")
+    except ValueError:
+        return False
+    else:
+        return True

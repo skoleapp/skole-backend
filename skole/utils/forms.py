@@ -4,6 +4,7 @@ from django import forms
 
 from skole.models import User
 from skole.utils.constants import ValidationErrors
+from skole.utils.types import ID
 
 
 class TargetForm(forms.ModelForm):
@@ -13,7 +14,7 @@ class TargetForm(forms.ModelForm):
         """Ensure that the created object has exactly one foreign key it targets."""
         cleaned_data = super().clean()
 
-        targets: Dict[str, Optional[int]] = {
+        targets: Dict[str, ID] = {
             "course": None,
             "comment": None,
             "resource": None,

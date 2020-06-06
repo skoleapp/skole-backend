@@ -4,8 +4,9 @@ from typing import Optional
 from django.conf import settings
 from django.core.files.uploadedfile import UploadedFile
 from django.db import models
-from django.db.models import Sum
+from django.db.models import Sum, Value
 from django.db.models.functions import Coalesce
+from django.db.models.query import QuerySet
 
 from skole.utils.validators import ValidateFileSizeAndType
 
@@ -52,6 +53,10 @@ class ResourceManager(models.Manager):  # type: ignore[type-arg]
         resource.save()
         return resource
 
+    def get_queryset(self) -> "QuerySet[Resource]":
+        qs = super().get_queryset()
+        return qs.annotate(score=Coalesce(Sum("votes__status"), Value(0)))
+
 
 class Resource(models.Model):
     """Models one user-uploaded resource."""
@@ -86,9 +91,8 @@ class Resource(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     objects = ResourceManager()
 
+    # This value gets annotated in the manager's get_queryset.
+    score: int
+
     def __str__(self) -> str:
         return f"{self.title}"
-
-    @property
-    def score(self) -> int:
-        return self.votes.aggregate(score=Coalesce(Sum("status"), 0))["score"]

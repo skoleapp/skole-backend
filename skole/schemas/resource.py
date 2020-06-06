@@ -23,6 +23,7 @@ from skole.utils.mixins import (
     VoteMixin,
 )
 from skole.utils.shortcuts import get_obj_or_none
+from skole.utils.types import ID
 
 
 class ResourceObjectType(VoteMixin, StarredMixin, DjangoObjectType):
@@ -107,9 +108,7 @@ class Query(graphene.ObjectType):
     resource = graphene.Field(ResourceObjectType, id=graphene.ID())
 
     @login_required
-    def resolve_resource(
-        self, info: ResolveInfo, id: Optional[int] = None
-    ) -> Optional[Resource]:
+    def resolve_resource(self, info: ResolveInfo, id: ID = None) -> Optional[Resource]:
         return get_obj_or_none(Resource, id)
 
 

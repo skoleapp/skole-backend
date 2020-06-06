@@ -11,6 +11,7 @@ from skole.schemas.country import CountryObjectType
 from skole.schemas.school_type import SchoolTypeObjectType
 from skole.schemas.subject import SubjectObjectType
 from skole.utils.shortcuts import get_obj_or_none
+from skole.utils.types import ID
 
 
 class SchoolObjectType(DjangoObjectType):
@@ -46,7 +47,5 @@ class Query(graphene.ObjectType):
             "translations__name"
         )
 
-    def resolve_school(
-        self, info: ResolveInfo, id: Optional[int] = None
-    ) -> Optional[School]:
+    def resolve_school(self, info: ResolveInfo, id: ID = None) -> Optional[School]:
         return get_obj_or_none(School, id)

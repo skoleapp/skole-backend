@@ -1,4 +1,4 @@
-from typing import Literal, Optional
+from typing import Optional, get_args
 
 import graphene
 from django.db.models import QuerySet
@@ -20,11 +20,10 @@ from skole.utils.mixins import (
 )
 from skole.utils.pagination import get_paginator
 from skole.utils.shortcuts import get_obj_or_none
+from skole.utils.types import ID, CourseOrderingOption
 
 
 class CourseObjectType(VoteMixin, StarredMixin, DjangoObjectType):
-    resource_count = graphene.Int()
-
     class Meta:
         model = Course
         fields = (
@@ -38,7 +37,6 @@ class CourseObjectType(VoteMixin, StarredMixin, DjangoObjectType):
             "created",
             "resources",
             "comments",
-            "resource_count",
         )
 
 
@@ -97,14 +95,14 @@ class Query(graphene.ObjectType):
         info: ResolveInfo,
         course_name: Optional[str] = None,
         course_code: Optional[str] = None,
-        subject: Optional[int] = None,
-        school: Optional[int] = None,
-        school_type: Optional[int] = None,
-        country: Optional[int] = None,
-        city: Optional[int] = None,
+        subject: ID = None,
+        school: ID = None,
+        school_type: ID = None,
+        country: ID = None,
+        city: ID = None,
         page: int = 1,
         page_size: int = 10,
-        ordering: Literal["name", "-name", "score", "-score"] = "name",
+        ordering: CourseOrderingOption = "name",
     ) -> graphene.ObjectType:
         """Filter courses based on the query parameters."""
 
@@ -125,12 +123,8 @@ class Query(graphene.ObjectType):
         if city is not None:
             qs = qs.filter(school__city__pk=city)
 
-        if ordering not in {
-            "name",
-            "-name",
-            "score",
-            "-score",
-        }:
+        # Ignore: Mypy doesn't like the usage of get_args at runtime.
+        if ordering not in get_args(CourseOrderingOption):  # type: ignore[misc]
             raise GraphQLError(GraphQLErrors.INVALID_ORDERING)
 
         if ordering not in {"name", "-name"}:
@@ -142,7 +136,7 @@ class Query(graphene.ObjectType):
 
     @login_required
     def resolve_courses(
-        self, info: ResolveInfo, school: Optional[int] = None,
+        self, info: ResolveInfo, school: ID = None,
     ) -> "QuerySet[Course]":
         qs = Course.objects.order_by("name")
 
@@ -152,9 +146,7 @@ class Query(graphene.ObjectType):
         return qs
 
     @login_required
-    def resolve_course(
-        self, info: ResolveInfo, id: Optional[int] = None
-    ) -> Optional[Course]:
+    def resolve_course(self, info: ResolveInfo, id: ID = None) -> Optional[Course]:
         return get_obj_or_none(Course, id)
 
 

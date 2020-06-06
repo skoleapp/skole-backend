@@ -16,8 +16,6 @@ from skole.utils.mixins import (
 
 
 class CommentObjectType(VoteMixin, DjangoObjectType):
-    reply_count = graphene.Int()
-
     class Meta:
         model = Comment
         fields = (
@@ -29,7 +27,6 @@ class CommentObjectType(VoteMixin, DjangoObjectType):
             "resource",
             "comment",
             "reply_comments",
-            "reply_count",
             "score",
             "modified",
             "created",
@@ -62,8 +59,6 @@ class CreateCommentMutation(
             user=info.context.user, **form.cleaned_data
         )
 
-        # Query the new comment to get the annotated reply count.
-        comment = Comment.objects.get(pk=comment.pk)
         return cls(comment=comment, message=Messages.MESSAGE_SENT)
 
 

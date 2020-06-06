@@ -3,6 +3,7 @@ from typing import List
 from mypy.types import JsonDict
 
 from skole.tests.helpers import SkoleSchemaTestCase
+from skole.utils.types import ID
 
 
 class CountrySchemaTests(SkoleSchemaTestCase):
@@ -30,7 +31,7 @@ class CountrySchemaTests(SkoleSchemaTestCase):
         )
         return self.execute(graphql)["countries"]
 
-    def query_country(self, id: int) -> JsonDict:
+    def query_country(self, *, id: ID) -> JsonDict:
         variables = {"id": id}
 
         # language=GraphQL

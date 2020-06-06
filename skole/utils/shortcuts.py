@@ -4,10 +4,12 @@ from django import forms
 from django.core.files.uploadedfile import UploadedFile
 from django.db import models
 
+from skole.utils.types import ID
+
 T = TypeVar("T", bound=models.Model)
 
 
-def get_obj_or_none(model: Type[T], pk: Optional[int] = None) -> Optional[T]:
+def get_obj_or_none(model: Type[T], pk: ID = None) -> Optional[T]:
     """Used as a helper function to return None instead of raising a GraphQLError."""
 
     try:
@@ -34,3 +36,12 @@ def clean_file_field(
     else:
         # Field not modified.
         return getattr(form.instance, field_name)
+
+
+def full_refresh_from_db(instance: T, /) -> T:
+    """Return the same object instance but re-query it from the database.
+
+    This is like Django's `refresh_from_db,` but this also recalculates the values of
+    `get_queryset` annotations and aggregations.
+    """
+    return instance.__class__.objects.get(pk=instance.pk)

@@ -3,6 +3,7 @@ from typing import List
 from mypy.types import JsonDict
 
 from skole.tests.helpers import SkoleSchemaTestCase
+from skole.utils.types import ID
 
 
 class SchoolTypeSchemaTests(SkoleSchemaTestCase):
@@ -30,7 +31,7 @@ class SchoolTypeSchemaTests(SkoleSchemaTestCase):
         )
         return self.execute(graphql)["schoolTypes"]
 
-    def query_school_type(self, id: int) -> JsonDict:
+    def query_school_type(self, *, id: ID) -> JsonDict:
         variables = {"id": id}
 
         # language=GraphQL

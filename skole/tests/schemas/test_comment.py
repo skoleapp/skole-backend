@@ -3,6 +3,7 @@ from mypy.types import JsonDict
 from skole.models import Comment
 from skole.tests.helpers import SkoleSchemaTestCase
 from skole.utils.constants import Messages, ValidationErrors
+from skole.utils.types import ID
 
 
 class CommentSchemaTests(SkoleSchemaTestCase):
@@ -40,12 +41,13 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         }
     """
 
-    def mutate_delete_comment(self, id: int) -> JsonDict:
+    def mutate_delete_comment(self, *, id: ID, assert_error: bool = False) -> JsonDict:
         return self.execute_input_mutation(
             input_type="DeleteCommentMutationInput!",
             op_name="deleteComment",
             input={"id": id},
             result="message",
+            assert_error=assert_error,
         )
 
     def test_field_fragment(self) -> None:
@@ -58,10 +60,8 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         assert res["message"] == Messages.COMMENT_DELETED
         assert not Comment.objects.filter(pk=1)
 
-        self.should_error = True
-        res = self.mutate_delete_comment(id=1)
+        res = self.mutate_delete_comment(id=1, assert_error=True)
         assert res["errors"][0]["message"] == "Comment matching query does not exist."
 
-        self.should_error = False
         res = self.mutate_delete_comment(id=2)
         assert res["errors"][0]["messages"][0] == ValidationErrors.NOT_OWNER

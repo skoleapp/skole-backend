@@ -4,7 +4,8 @@ from mypy.types import JsonDict
 
 from skole.models import Course, User, Vote
 from skole.tests.helpers import SkoleSchemaTestCase, is_iso_datetime
-from skole.utils.constants import GraphQLErrors
+from skole.utils.constants import GraphQLErrors, Messages, MutationErrors
+from skole.utils.shortcuts import get_obj_or_none
 from skole.utils.types import ID, CourseOrderingOption
 
 
@@ -56,6 +57,7 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         ordering: Optional[CourseOrderingOption] = None,
+        assert_error: bool = False,
     ) -> JsonDict:
         variables = {
             "courseName": course_name,
@@ -91,26 +93,28 @@ class CourseSchemaTests(SkoleSchemaTestCase):
             }
             """
         )
-        res = self.execute(graphql, variables=variables)
-        if self.should_error:
+        res = self.execute(graphql, variables=variables, assert_error=assert_error)
+        if assert_error:
             return res
         return res["searchCourses"]
 
-    def query_courses(self) -> List[JsonDict]:
+    def query_courses(self, *, school: ID = None) -> List[JsonDict]:
+        variables = {"school": school}
+
         # language=GraphQL
         graphql = (
             self.course_fields
             + """
-            query Courses {
-                courses {
+            query Courses($school: ID) {
+                courses(school: $school) {
                     ...courseFields
                 }
             }
             """
         )
-        return self.execute(graphql)["courses"]
+        return self.execute(graphql, variables=variables)["courses"]
 
-    def query_course(self, *, id: int) -> JsonDict:
+    def query_course(self, *, id: ID) -> JsonDict:
         variables = {"id": id}
 
         # language=GraphQL
@@ -126,9 +130,71 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         )
         return self.execute(graphql, variables=variables)["course"]
 
+    def mutate_create_course(
+        self,
+        *,
+        name: str = "test course",
+        code: str = "code0001",
+        subject: ID = 1,
+        school: ID = 1,
+        assert_error: bool = False,
+    ) -> JsonDict:
+        return self.execute_input_mutation(
+            input_type="CreateCourseMutationInput!",
+            op_name="createCourse",
+            input={"name": name, "code": code, "subject": subject, "school": school},
+            result="course { ...courseFields }",
+            fragment=self.course_fields,
+            assert_error=assert_error,
+        )
+
+    def mutate_delete_course(self, *, id: ID, assert_error: bool = False) -> JsonDict:
+        return self.execute_input_mutation(
+            input_type="DeleteCourseMutationInput!",
+            op_name="deleteCourse",
+            input={"id": id},
+            result="message",
+            assert_error=assert_error,
+        )
+
     def test_field_fragment(self) -> None:
         self.authenticated = False
         self.assert_field_fragment_matches_schema(self.course_fields)
+
+    def test_create_course(self) -> None:
+        res = self.mutate_create_course()
+        assert res["errors"] is None
+        course = res["course"]
+        assert course["id"] == "13"
+        assert course["name"] == "test course"
+        assert course["code"] == "code0001"
+
+        # School is required.
+        self.mutate_create_course(school=None, assert_error=True)
+
+        # Subject is not required.
+        res = self.mutate_create_course(subject=None)
+        assert res["course"]["id"] == "14"
+
+        # Can omit name but not code.
+        res = self.mutate_create_course(code="")
+        assert res["course"]["id"] == "15"
+        res = self.mutate_create_course(name="")
+        assert res["errors"][0]["messages"][0] == "This field is required."
+        assert res["course"] is None
+
+    def test_delete_course(self) -> None:
+        res = self.mutate_delete_course(id=1)
+        assert res["message"] == Messages.COURSE_DELETED
+        assert get_obj_or_none(Course, 1) is None
+
+        # Can't delete the same course again.
+        res = self.mutate_delete_course(id=1, assert_error=True)
+        assert res["errors"][0]["message"] == "Course matching query does not exist."
+
+        # Can't delete an other user's course.
+        res = self.mutate_delete_course(id=2)
+        assert res["errors"] == MutationErrors.NOT_OWNER
 
     def test_search_courses(self) -> None:
         # When searching courses the default ordering is by names, so the order will be:
@@ -140,9 +206,7 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         # Test Engineering Course 3
         # ...
         # ...
-        assert self.query_search_courses(ordering=None) == self.query_search_courses(
-            ordering="name"
-        )
+        assert self.query_search_courses() == self.query_search_courses(ordering="name")
 
         page_size = 4
         page = 1
@@ -224,8 +288,23 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         res = self.query_search_courses(subject=999, school=999, country=999)
         assert res["count"] == 0
 
-        self.should_error = True
-        res = self.query_search_courses(ordering="badvalue")  # type: ignore[arg-type]
+        res = self.query_search_courses(
+            course_name="Test Engineering",
+            course_code="2",
+            subject=1,
+            school=1,
+            school_type=1,
+            country=1,
+            city=1,
+            page=1,
+            page_size=2,
+            ordering="-name",
+        )
+        assert res["count"] == len(res["objects"]) == 2
+        assert res["objects"][0]["code"] == "TEST0002"
+        assert res["objects"][1]["code"] == "TEST00012"
+
+        res = self.query_search_courses(ordering="badvalue", assert_error=True)  # type: ignore[arg-type]
         assert res["errors"][0]["message"] == GraphQLErrors.INVALID_ORDERING
 
     def test_courses(self) -> None:
@@ -239,6 +318,9 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         assert courses[1]["id"] == "10"
         assert courses[1]["name"] == "Test Engineering Course 10"
         assert courses[1]["code"] == "TEST00010"
+
+        # All test courses are from the same school.
+        assert self.query_courses() == self.query_courses(school=1)
 
     def test_course(self) -> None:
         course = self.query_course(id=1)

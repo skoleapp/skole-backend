@@ -72,7 +72,7 @@ class UserSchemaTests(SkoleSchemaTestCase):
         )
         return self.execute(graphql, variables=variables)["user"]
 
-    def query_user_me(self) -> JsonDict:
+    def query_user_me(self, assert_error: bool = False) -> JsonDict:
         # language=GraphQL
         graphql = (
             self.user_fields
@@ -84,8 +84,8 @@ class UserSchemaTests(SkoleSchemaTestCase):
             }
             """
         )
-        res = self.execute(graphql)
-        if self.should_error:
+        res = self.execute(graphql, assert_error=assert_error)
+        if assert_error:
             return res
         return res["userMe"]
 
@@ -279,8 +279,7 @@ class UserSchemaTests(SkoleSchemaTestCase):
 
         # Shouldn't work without auth.
         self.authenticated = False
-        self.should_error = True
-        res = self.query_user_me()
+        res = self.query_user_me(assert_error=True)
         assert "permission" in res["errors"][0]["message"]
         assert res["data"] == {"userMe": None}
 
@@ -352,7 +351,7 @@ class UserSchemaTests(SkoleSchemaTestCase):
         res = self.mutate_update_user(avatar="")
         assert res["user"]["avatar"] == ""
 
-    def test_user_delete_ok(self) -> None:
+    def test_delete_user_ok(self) -> None:
         # Delete the logged in testuser2.
         res = self.mutate_delete_user()
         assert res["errors"] is None
@@ -361,7 +360,7 @@ class UserSchemaTests(SkoleSchemaTestCase):
         # Test that the user cannot be found anymore.
         assert get_user_model().objects.filter(pk=2).count() == 0
 
-    def test_user_delete_error(self) -> None:
+    def test_delete_user_error(self) -> None:
         # Delete the logged in testuser2.
         res = self.mutate_delete_user(password="wrongpass")
         assert res["errors"][0]["messages"][0] == ValidationErrors.INVALID_PASSWORD

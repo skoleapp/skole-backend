@@ -80,7 +80,7 @@ class DeleteMutationMixin(LoginRequiredMutationMixin, MessageMixin):
 
         if pk:
             # Ignore: Mypy can't see the _meta attribute.
-            instance = cls._meta.model._default_manager.get(pk=pk)  # type: ignore[attr-defined]
+            instance = cls._meta.model.objects.get(pk=pk)  # type: ignore[attr-defined]
             kwargs["instance"] = instance
             kwargs["user"] = info.context.user
 

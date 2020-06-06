@@ -38,7 +38,7 @@ def clean_file_field(
         return getattr(form.instance, field_name)
 
 
-def refresh_all_fields(instance: T, /) -> T:
+def full_refresh_from_db(instance: T, /) -> T:
     """Return the same object instance but re-query it from the database.
 
     This is like Django's `refresh_from_db,` but this also recalculates the values of

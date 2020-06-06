@@ -9,7 +9,7 @@ from skole.models.course import Course
 from skole.models.resource import Resource
 from skole.models.user import User
 from skole.utils.constants import VoteConstants
-from skole.utils.shortcuts import refresh_all_fields
+from skole.utils.shortcuts import full_refresh_from_db
 from skole.utils.types import VotableModel
 
 
@@ -40,7 +40,7 @@ class VoteManager(models.Manager):  # type: ignore[type-arg]
         get_user_model().objects.change_score(target.user, status * multiplier)
 
         # Have to query the object again since `score` is an annotation.
-        target = refresh_all_fields(target)
+        target = full_refresh_from_db(target)
 
         return vote, target.score
 

@@ -111,7 +111,3 @@ class Comment(models.Model):
             return f"Attachment Comment: {self.pk}"
         else:
             raise ValueError("Invalid comment with neither text nor attachment.")
-
-    @property
-    def reply_count(self) -> int:
-        return self.reply_comments.count()

@@ -24,8 +24,6 @@ from skole.utils.types import ID, CourseOrderingOption
 
 
 class CourseObjectType(VoteMixin, StarredMixin, DjangoObjectType):
-    resource_count = graphene.Int()
-
     class Meta:
         model = Course
         fields = (
@@ -39,7 +37,6 @@ class CourseObjectType(VoteMixin, StarredMixin, DjangoObjectType):
             "created",
             "resources",
             "comments",
-            "resource_count",
         )
 
 

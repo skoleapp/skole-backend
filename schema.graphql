@@ -39,7 +39,6 @@ type CommentObjectType {
   replyComments: [CommentObjectType!]!
   score: Int
   vote: VoteObjectType
-  replyCount: Int
 }
 
 input ContactMutationInput {
@@ -78,7 +77,6 @@ type CourseObjectType {
   starred: Boolean
   score: Int
   vote: VoteObjectType
-  resourceCount: Int
 }
 
 input CreateCommentMutationInput {

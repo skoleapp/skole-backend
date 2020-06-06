@@ -33,7 +33,6 @@ class CourseSchemaTests(SkoleSchemaTestCase):
             comments {
                 id
             }
-            resourceCount
             score
             vote {
                 status

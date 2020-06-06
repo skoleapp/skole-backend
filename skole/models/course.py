@@ -43,7 +43,3 @@ class Course(models.Model):
 
     def __str__(self) -> str:
         return f"{self.name} {self.code}" if self.code else self.name
-
-    @property
-    def resource_count(self) -> int:
-        return self.resources.count()

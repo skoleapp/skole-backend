@@ -9,7 +9,7 @@ from skole.utils.constants import Languages
 
 # General Django settings
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DEBUG = int(os.environ.get("DEBUG", default=0))
+DEBUG = bool(int(os.environ.get("DEBUG", default=0)))
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", default="").split()
 SECRET_KEY = os.environ.get("SECRET_KEY")
 SITE_ID = os.environ.get("SITE_ID", default=1)
@@ -35,7 +35,7 @@ except urllib.error.URLError:
 # CORS settings
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_WHITELIST = os.environ.get("CORS_ORIGIN_WHITELIST", default="").split()
-CORS_ORIGIN_ALLOW_ALL = bool(DEBUG)
+CORS_ORIGIN_ALLOW_ALL = DEBUG
 
 # Static and media settings
 MEDIA_ROOT = "media"
@@ -88,7 +88,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # Custom validation settings
-PASSWORD_MIN_LENGTH = 6
+PASSWORD_MIN_LENGTH = 8
 USERNAME_MIN_LENGTH = 3
 
 # Authentication backend settings

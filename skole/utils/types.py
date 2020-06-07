@@ -14,8 +14,8 @@ ID = Union[str, int, None]
 
 Variables with this type should not be used as normal string or integers.
 Should not be confused with `graphene.ID()`.
-Can also be a value that is used to a Django model by its pk,
-since those work with integers and strings.
+Can also be a value that is used to a query Django model by its pk,
+since e.g. `.get(pk=id)` works fine with integers and strings.
 
 Examples:
     >>> var: ID = 0  # mypy: ok

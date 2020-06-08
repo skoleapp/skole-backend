@@ -335,6 +335,8 @@ class UserSchemaTests(SkoleSchemaTestCase):
         assert self.query_user_me() == user_old
 
     def test_update_user_avatar(self) -> None:
+        file_pattern = re.compile(r"^media/uploads/avatars/test_avatar\w*\.jpg$")
+
         # No avatar at the beginning.
         assert self.query_user_me()["avatar"] == ""
 
@@ -342,14 +344,28 @@ class UserSchemaTests(SkoleSchemaTestCase):
         with open("media/uploads/avatars/test_avatar.jpg", "rb") as f:
             avatar = UploadedFile(f)
             res = self.mutate_update_user(file_data=[("avatar", avatar)])
-
         file_url = res["user"]["avatar"]
-        assert re.match(r"^media/uploads/avatars/test_avatar\w*\.jpg$", file_url)
+        assert re.match(file_pattern, file_url)
         assert self.query_user_me()["avatar"] == file_url
+
+        # Update some other fields, avatar should stay when sending the old value.
+        new_title = "new title"
+        new_bio = "new bio"
+        res = self.mutate_update_user(title=new_title, bio=new_bio, avatar=file_url)
+        assert re.match(file_pattern, res["user"]["avatar"])
+        assert res["user"]["title"] == new_title
+        assert res["user"]["bio"] == new_bio
+
+        # Setting avatar to some random value shouldn't change it,
+        # and it also shouldn't give any errors.
+        res = self.mutate_update_user(avatar="badvalue")
+        assert res["errors"] is None
+        assert re.match(file_pattern, res["user"]["avatar"])
 
         # Delete the avatar.
         res = self.mutate_update_user(avatar="")
         assert res["user"]["avatar"] == ""
+        assert self.query_user_me()["avatar"] == ""
 
     def test_delete_user_ok(self) -> None:
         # Delete the logged in testuser2.

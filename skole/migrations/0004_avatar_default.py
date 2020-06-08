@@ -14,6 +14,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='user',
             name='avatar',
-            field=models.ImageField(blank=True, default=None, upload_to='uploads/avatars', validators=[skole.utils.validators.ValidateFileSizeAndType(2, ['image/jpeg', 'image/png'])]),
+            field=models.ImageField(blank=True, default=None, upload_to='uploads/avatars', validators=[skole.utils.validators.ValidateFileSizeAndType(2, [('image/jpeg', 'jpeg'), ('image/png', 'png')])]),
         ),
     ]

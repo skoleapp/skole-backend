@@ -1,7 +1,12 @@
 from mypy.types import JsonDict
 
-from skole.models import Comment
-from skole.tests.helpers import SkoleSchemaTestCase
+from skole.models import Comment, Course, Resource
+from skole.tests.helpers import (
+    FileData,
+    SkoleSchemaTestCase,
+    get_form_error,
+    get_graphql_error,
+)
 from skole.utils.constants import Messages, ValidationErrors
 from skole.utils.types import ID
 
@@ -61,7 +66,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         assert not Comment.objects.filter(pk=1)
 
         res = self.mutate_delete_comment(id=1, assert_error=True)
-        assert res["errors"][0]["message"] == "Comment matching query does not exist."
+        assert get_graphql_error(res) == "Comment matching query does not exist."
 
         res = self.mutate_delete_comment(id=2)
-        assert res["errors"][0]["messages"][0] == ValidationErrors.NOT_OWNER
+        assert get_form_error(res) == ValidationErrors.NOT_OWNER

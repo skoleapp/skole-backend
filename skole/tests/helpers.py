@@ -216,6 +216,22 @@ class SkoleSchemaTestCase(GraphQLTestCase):
             self.assertIn(field["name"], field_fragment)
 
 
+def get_form_error(res: JsonDict, /) -> str:
+    """Return the first error message from a result containing a form mutation error."""
+    try:
+        return res["errors"][0]["messages"][0]
+    except (KeyError, TypeError):
+        assert False, f"`res` didn't contain a form mutation error: \n{res}"
+
+
+def get_graphql_error(res: JsonDict, /) -> str:
+    """Return the first error message from a result containing a GraphQL error."""
+    try:
+        return res["errors"][0]["message"]
+    except (KeyError, TypeError):
+        assert False, f"`res` didn't contain a GraphQL error: \n{res}"
+
+
 def is_iso_datetime(datetime_string: str, /) -> bool:
     """Return True if the given string is a valid ISO-format datetime, otherwise False.
 

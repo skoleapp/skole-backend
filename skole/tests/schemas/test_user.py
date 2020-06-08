@@ -4,7 +4,12 @@ from django.contrib.auth import get_user_model
 from django.core.files.uploadedfile import UploadedFile
 from mypy.types import JsonDict
 
-from skole.tests.helpers import FileData, SkoleSchemaTestCase
+from skole.tests.helpers import (
+    FileData,
+    SkoleSchemaTestCase,
+    get_form_error,
+    get_graphql_error,
+)
 from skole.utils.constants import Messages, ValidationErrors
 from skole.utils.types import ID
 
@@ -186,28 +191,23 @@ class UserSchemaTests(SkoleSchemaTestCase):
 
         # Username taken.
         res = self.mutate_register(username="testuser2")
-        message = res["errors"][0]["messages"][0]
-        assert ValidationErrors.USERNAME_TAKEN == message
+        assert ValidationErrors.USERNAME_TAKEN == get_form_error(res)
 
         # Email taken.
         res = self.mutate_register(email="testuser2@test.com")
-        message = res["errors"][0]["messages"][0]
-        assert ValidationErrors.EMAIL_TAKEN == message
+        assert ValidationErrors.EMAIL_TAKEN == get_form_error(res)
 
         # Invalid beta code.
         res = self.mutate_register(code="invalid")
-        message = res["errors"][0]["messages"][0]
-        assert message == ValidationErrors.INVALID_BETA_CODE
+        assert get_form_error(res) == ValidationErrors.INVALID_BETA_CODE
 
         # Too short username.
         res = self.mutate_register(username="to")
-        message = res["errors"][0]["messages"][0]
-        assert "Ensure this value has at least" in message
+        assert "Ensure this value has at least" in get_form_error(res)
 
         # Too short password.
         res = self.mutate_register(password="short")
-        message = res["errors"][0]["messages"][0]
-        assert "Ensure this value has at least" in message
+        assert "Ensure this value has at least" in get_form_error(res)
 
     def test_login_ok_with_username(self) -> None:
         self.authenticated = False
@@ -233,17 +233,17 @@ class UserSchemaTests(SkoleSchemaTestCase):
         # Invalid username.
         res = self.mutate_login(username_or_email="badusername")
         assert res["token"] is None
-        assert res["errors"][0]["messages"][0] == ValidationErrors.AUTH_ERROR
+        assert get_form_error(res) == ValidationErrors.AUTH_ERROR
 
         # Invalid email.
         res = self.mutate_login(username_or_email="bademail@test.com")
         assert res["token"] is None
-        assert res["errors"][0]["messages"][0] == ValidationErrors.AUTH_ERROR
+        assert get_form_error(res) == ValidationErrors.AUTH_ERROR
 
         # Invalid password.
         res = self.mutate_login(password="wrongpass")
         assert res["token"] is None
-        assert res["errors"][0]["messages"][0] == ValidationErrors.AUTH_ERROR
+        assert get_form_error(res) == ValidationErrors.AUTH_ERROR
 
     def test_user(self) -> None:
         # Own user.
@@ -279,7 +279,7 @@ class UserSchemaTests(SkoleSchemaTestCase):
         # Shouldn't work without auth.
         self.authenticated = False
         res = self.query_user_me(assert_error=True)
-        assert "permission" in res["errors"][0]["message"]
+        assert "permission" in get_graphql_error(res)
         assert res["data"] == {"userMe": None}
 
     def test_update_user_ok(self) -> None:
@@ -322,12 +322,12 @@ class UserSchemaTests(SkoleSchemaTestCase):
         # Email is already taken.
         res = self.mutate_update_user(email="admin@admin.com")
         assert len(res["errors"]) == 1
-        assert res["errors"][0]["messages"][0] == ValidationErrors.EMAIL_TAKEN
+        assert get_form_error(res) == ValidationErrors.EMAIL_TAKEN
         assert res["user"] is None
 
         res = self.mutate_update_user(username="testuser3")
         assert len(res["errors"]) == 1
-        assert res["errors"][0]["messages"][0] == ValidationErrors.USERNAME_TAKEN
+        assert get_form_error(res) == ValidationErrors.USERNAME_TAKEN
         assert res["user"] is None
 
         # Check that nothing has changed.
@@ -378,7 +378,7 @@ class UserSchemaTests(SkoleSchemaTestCase):
     def test_delete_user_error(self) -> None:
         # Delete the logged in testuser2.
         res = self.mutate_delete_user(password="wrongpass")
-        assert res["errors"][0]["messages"][0] == ValidationErrors.INVALID_PASSWORD
+        assert get_form_error(res) == ValidationErrors.INVALID_PASSWORD
 
         # Test that the user didn't get deleted.
         assert get_user_model().objects.filter(pk=2).count() == 1
@@ -393,4 +393,4 @@ class UserSchemaTests(SkoleSchemaTestCase):
 
     def test_change_password_error(self) -> None:
         res = self.mutate_change_password(old_password="badpass")
-        assert res["errors"][0]["messages"][0] == ValidationErrors.INVALID_OLD_PASSWORD
+        assert get_form_error(res) == ValidationErrors.INVALID_OLD_PASSWORD

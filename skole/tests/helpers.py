@@ -9,6 +9,8 @@ from mypy.types import JsonDict
 
 from skole.schema import schema
 
+FileData = Optional[Sequence[Tuple[str, UploadedFile]]]
+
 
 class SkoleSchemaTestCase(GraphQLTestCase):
     """Base class for all schema tests.
@@ -29,7 +31,7 @@ class SkoleSchemaTestCase(GraphQLTestCase):
         input_data: Optional[JsonDict] = None,
         variables: Optional[JsonDict] = None,
         headers: Optional[JsonDict] = None,
-        file_data: Optional[Sequence[Tuple[str, UploadedFile]]] = None,
+        file_data: FileData = None,
     ) -> HttpResponse:
         """Overridden to allow uploading files with a multipart/form-data POST.
 
@@ -123,7 +125,7 @@ class SkoleSchemaTestCase(GraphQLTestCase):
         input: JsonDict,
         result: str,
         fragment: str = "",
-        file_data: Optional[Sequence[Tuple[str, UploadedFile]]] = None,
+        file_data: FileData = None,
         assert_error: bool = False,
     ) -> JsonDict:
         """Shortcut for running a mutation which takes only an input argument.

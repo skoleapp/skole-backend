@@ -1,11 +1,10 @@
 import re
-from typing import Optional, Sequence, Tuple
 
 from django.contrib.auth import get_user_model
 from django.core.files.uploadedfile import UploadedFile
 from mypy.types import JsonDict
 
-from skole.tests.helpers import SkoleSchemaTestCase
+from skole.tests.helpers import FileData, SkoleSchemaTestCase
 from skole.utils.constants import Messages, ValidationErrors
 from skole.utils.types import ID
 
@@ -134,7 +133,7 @@ class UserSchemaTests(SkoleSchemaTestCase):
         avatar: str = "",
         school: ID = 1,
         subject: ID = 1,
-        file_data: Optional[Sequence[Tuple[str, UploadedFile]]] = None,
+        file_data: FileData = None,
     ) -> JsonDict:
         return self.execute_input_mutation(
             input_type="UpdateUserMutationInput!",

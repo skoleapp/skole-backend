@@ -7,7 +7,6 @@ from skole.utils.types import ID
 
 
 class CountrySchemaTests(SkoleSchemaTestCase):
-    authenticated = True
 
     # language=GraphQL
     country_fields = """
@@ -48,7 +47,7 @@ class CountrySchemaTests(SkoleSchemaTestCase):
         return self.execute(graphql, variables=variables)["country"]
 
     def test_field_fragment(self) -> None:
-        self.authenticated = False
+        self.authenticated_user = None
         self.assert_field_fragment_matches_schema(self.country_fields)
 
     def test_countries(self) -> None:

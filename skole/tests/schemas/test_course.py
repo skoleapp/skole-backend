@@ -15,7 +15,7 @@ from skole.utils.types import ID, CourseOrderingOption
 
 
 class CourseSchemaTests(SkoleSchemaTestCase):
-    authenticated = True
+    authenticated_user: Optional[int] = 2
 
     # language=GraphQL
     course_fields = """
@@ -162,7 +162,7 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         )
 
     def test_field_fragment(self) -> None:
-        self.authenticated = False
+        self.authenticated_user = None
         self.assert_field_fragment_matches_schema(self.course_fields)
 
     def test_create_course(self) -> None:

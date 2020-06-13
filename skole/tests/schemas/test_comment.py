@@ -1,3 +1,5 @@
+from typing import Optional
+
 from mypy.types import JsonDict
 
 from skole.models import Comment, Course, Resource
@@ -12,7 +14,7 @@ from skole.utils.types import ID
 
 
 class CommentSchemaTests(SkoleSchemaTestCase):
-    authenticated = True
+    authenticated_user: Optional[int] = 2
 
     # language=GraphQL
     comment_fields = """
@@ -92,7 +94,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         )
 
     def test_field_fragment(self) -> None:
-        self.authenticated = False
+        self.authenticated_user = None
         self.assert_field_fragment_matches_schema(self.comment_fields)
 
     def test_create_comment(self) -> None:

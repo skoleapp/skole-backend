@@ -2,9 +2,11 @@ import datetime
 import json
 from typing import Any, Optional, Sequence, Tuple, Union
 
+from django.contrib.auth import get_user_model
 from django.core.files.uploadedfile import UploadedFile
 from django.http import HttpResponse
-from graphene_django.utils.testing import GraphQLTestCase
+from graphene_django.utils import GraphQLTestCase
+from graphql_jwt.shortcuts import get_token
 from mypy.types import JsonDict
 
 from skole.schema import schema
@@ -16,13 +18,14 @@ class SkoleSchemaTestCase(GraphQLTestCase):
     """Base class for all schema tests.
 
     Attributes:
-        authenticated: When True a user JWT token is sent with all the requests.
+        authenticated_user: When set to a integer, a JWT token made for the
+            user with this pk is sent with all the requests.
     """
 
-    GRAPHQL_SCHEMA = schema
     fixtures = ["test-data.yaml"]
+    GRAPHQL_SCHEMA = schema
 
-    authenticated: bool = False
+    authenticated_user: Optional[int] = None
 
     def query(
         self,
@@ -92,14 +95,8 @@ class SkoleSchemaTestCase(GraphQLTestCase):
             Otherwise returns both the "error" and "data" sections.
         """
 
-        # Token is for testuser2, hardcoded since always getting a fresh one with
-        # a login mutation takes time and slows down the tests.
-        if self.authenticated:
-            token = (
-                "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6In"
-                "Rlc3R1c2VyMiIsImV4cCI6MTU4NzMwNDgyMCwib3JpZ0lhdCI6MTU4N"
-                "jcwMDAyMH0.1ikCSgWk2Giic-dyn0ZUa30aXMpd8b7jSUbYfze9oFA"
-            )
+        if self.authenticated_user:
+            token = get_token(get_user_model().objects.get(pk=self.authenticated_user))
             headers = {"HTTP_AUTHORIZATION": f"JWT {token}"}
         else:
             headers = {}

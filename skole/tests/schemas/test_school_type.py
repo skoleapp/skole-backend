@@ -7,7 +7,6 @@ from skole.utils.types import ID
 
 
 class SchoolTypeSchemaTests(SkoleSchemaTestCase):
-    authenticated = True
 
     # language=GraphQL
     school_type_fields = """
@@ -48,7 +47,7 @@ class SchoolTypeSchemaTests(SkoleSchemaTestCase):
         return self.execute(graphql, variables=variables)["schoolType"]
 
     def test_field_fragment(self) -> None:
-        self.authenticated = False
+        self.authenticated_user = None
         self.assert_field_fragment_matches_schema(self.school_type_fields)
 
     def test_school_types(self) -> None:

@@ -1,4 +1,5 @@
 import re
+from typing import Optional
 
 from django.contrib.auth import get_user_model
 from django.core.files.uploadedfile import UploadedFile
@@ -15,7 +16,7 @@ from skole.utils.types import ID
 
 
 class UserSchemaTests(SkoleSchemaTestCase):
-    authenticated = True
+    authenticated_user: Optional[int] = 2
 
     # language=GraphQL
     user_fields = """
@@ -176,18 +177,18 @@ class UserSchemaTests(SkoleSchemaTestCase):
         )
 
     def test_field_fragment(self) -> None:
-        self.authenticated = False
+        self.authenticated_user = None
         self.assert_field_fragment_matches_schema(self.user_fields)
 
     def test_register_ok(self) -> None:
-        self.authenticated = False
+        self.authenticated_user = None
 
         res = self.mutate_register()
         assert res["errors"] is None
         assert res["message"] == Messages.USER_REGISTERED
 
     def test_register_error(self) -> None:
-        self.authenticated = False
+        self.authenticated_user = None
 
         # Username taken.
         res = self.mutate_register(username="testuser2")
@@ -210,7 +211,7 @@ class UserSchemaTests(SkoleSchemaTestCase):
         assert "Ensure this value has at least" in get_form_error(res)
 
     def test_login_ok_with_username(self) -> None:
-        self.authenticated = False
+        self.authenticated_user = None
 
         res = self.mutate_login()
         assert isinstance(res["token"], str)
@@ -219,7 +220,7 @@ class UserSchemaTests(SkoleSchemaTestCase):
         assert res["message"] == Messages.LOGGED_IN
 
     def test_login_ok_with_email(self) -> None:
-        self.authenticated = False
+        self.authenticated_user = None
 
         res = self.mutate_login(username_or_email="testuser2@test.com")
         assert isinstance(res["token"], str)
@@ -228,7 +229,7 @@ class UserSchemaTests(SkoleSchemaTestCase):
         assert res["message"] == Messages.LOGGED_IN
 
     def test_login_error(self) -> None:
-        self.authenticated = False
+        self.authenticated_user = None
 
         # Invalid username.
         res = self.mutate_login(username_or_email="badusername")
@@ -256,7 +257,7 @@ class UserSchemaTests(SkoleSchemaTestCase):
         assert user1["school"] == {"id": "1"}
         assert user1["school"] == {"id": "1"}
 
-        # Random user.
+        # Some other user.
         user2 = self.query_user(id=3)
         assert user2["id"] == "3"
         assert user2["username"] == "testuser3"
@@ -277,7 +278,7 @@ class UserSchemaTests(SkoleSchemaTestCase):
         assert user["verified"]
 
         # Shouldn't work without auth.
-        self.authenticated = False
+        self.authenticated_user = None
         res = self.query_user_me(assert_error=True)
         assert "permission" in get_graphql_error(res)
         assert res["data"] == {"userMe": None}

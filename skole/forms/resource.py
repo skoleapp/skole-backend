@@ -9,6 +9,8 @@ from skole.utils.shortcuts import clean_file_field
 
 
 class CreateResourceForm(forms.ModelForm):
+    file = forms.CharField(required=False)
+
     class Meta:
         model = Resource
         fields = ("title", "file", "resource_type", "course", "date")
@@ -21,8 +23,6 @@ class UpdateResourceForm(forms.ModelForm):
     class Meta:
         model = Resource
         fields = ("id", "title", "resource_type", "date")
-
-    clean_file = CreateResourceForm.clean_file
 
 
 class DeleteResourceForm(DeleteObjectForm):

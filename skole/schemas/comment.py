@@ -52,9 +52,6 @@ class CreateCommentMutation(
     ) -> "CreateCommentMutation":
         assert info.context is not None
 
-        if form.cleaned_data["attachment"] == "" and form.cleaned_data["text"] == "":
-            return cls(errors=MutationErrors.COMMENT_EMPTY)
-
         comment = Comment.objects.create_comment(
             user=info.context.user, **form.cleaned_data
         )

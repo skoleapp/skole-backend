@@ -32,6 +32,7 @@ class ValidationErrors:
     FILE_TOO_LARGE = _("File is too large, maximum allowed is {} MB")
     INVALID_FILE_TYPE = _("Invalid file type, allowed types are: {}")
     INVALID_FILE_EXTENSION = _("File extension doesn't match the file type.")
+    COMMENT_EMPTY = _("Comment must include either text or attachment.")
 
 
 class GraphQLErrors:
@@ -76,7 +77,6 @@ class _MutationErrorsMeta(type):
 
 
 class MutationErrors(metaclass=_MutationErrorsMeta):
-    COMMENT_EMPTY = _("Comment must include either text or attachment.")
     NOT_OWNER = ValidationErrors.NOT_OWNER
     EMAIL_ERROR = _("Error while sending email.")
     REGISTER_EMAIL_ERROR = _(

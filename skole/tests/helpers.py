@@ -1,5 +1,6 @@
 import datetime
 import json
+import re
 from typing import Any, Optional, Sequence, Tuple, Union
 
 from django.contrib.auth import get_user_model
@@ -248,3 +249,20 @@ def is_iso_datetime(datetime_string: str, /) -> bool:
         return False
     else:
         return True
+
+
+def is_slug_match(file_path: str, url_with_slug: str) -> bool:
+    """Return True if the two paths match each other with an optional slug.
+
+    Examples:
+        >>> is_slug_match("media/test/foo.jpg", "media/test/fooXfa123.jpg")
+        True
+        >>> is_slug_match("media/test/foo.jpg", "media/test/foo.jpg")
+        True
+        >>> is_slug_match("media/test/foo.jpg", "media/test/foo-bar.jpg")
+        False
+        >>> is_slug_match("media/test/foo.jpg", "foo.jpg")
+        False
+    """
+    path, extension = file_path.rsplit(".", 1)
+    return bool(re.match(fr"^{path}\w*\.{extension}$", url_with_slug))

@@ -1,4 +1,3 @@
-import re
 from typing import Optional
 
 from django.contrib.auth import get_user_model
@@ -10,6 +9,7 @@ from skole.tests.helpers import (
     SkoleSchemaTestCase,
     get_form_error,
     get_graphql_error,
+    is_slug_match,
 )
 from skole.utils.constants import Messages, ValidationErrors
 from skole.utils.types import ID
@@ -335,24 +335,24 @@ class UserSchemaTests(SkoleSchemaTestCase):
         assert self.query_user_me() == user_old
 
     def test_update_user_avatar(self) -> None:
-        file_pattern = re.compile(r"^media/uploads/avatars/test_avatar\w*\.jpg$")
-
+        file_path = "media/uploads/avatars/test_avatar.jpg"
         # No avatar at the beginning.
         assert self.query_user_me()["avatar"] == ""
 
         # Set an avatar.
-        with open("media/uploads/avatars/test_avatar.jpg", "rb") as f:
+        with open(file_path, "rb") as f:
             avatar = UploadedFile(f)
             res = self.mutate_update_user(file_data=[("avatar", avatar)])
+
         file_url = res["user"]["avatar"]
-        assert re.match(file_pattern, file_url)
+        assert is_slug_match(file_path, file_url)
         assert self.query_user_me()["avatar"] == file_url
 
         # Update some other fields, avatar should stay when sending the old value.
         new_title = "new title"
         new_bio = "new bio"
         res = self.mutate_update_user(title=new_title, bio=new_bio, avatar=file_url)
-        assert re.match(file_pattern, res["user"]["avatar"])
+        assert is_slug_match(file_path, res["user"]["avatar"])
         assert res["user"]["title"] == new_title
         assert res["user"]["bio"] == new_bio
 
@@ -360,12 +360,14 @@ class UserSchemaTests(SkoleSchemaTestCase):
         # and it also shouldn't give any errors.
         res = self.mutate_update_user(avatar="badvalue")
         assert res["errors"] is None
-        assert re.match(file_pattern, res["user"]["avatar"])
+        assert is_slug_match(file_path, res["user"]["avatar"])
 
         # Delete the avatar.
+        assert get_user_model().objects.get(pk=2).avatar
         res = self.mutate_update_user(avatar="")
         assert res["user"]["avatar"] == ""
         assert self.query_user_me()["avatar"] == ""
+        assert not get_user_model().objects.get(pk=2).avatar
 
     def test_delete_user_ok(self) -> None:
         # Delete the logged in testuser2.

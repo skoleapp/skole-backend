@@ -1,11 +1,11 @@
 import datetime
-import re
 
 from django.contrib.auth import get_user_model
 from django.core.files.uploadedfile import SimpleUploadedFile
 from pytest import fixture
 
 from skole.models import Course, Resource, ResourceType
+from skole.tests.helpers import is_slug_match
 
 
 def test_str(db: fixture) -> None:
@@ -37,7 +37,7 @@ def test_create_and_update_resource(db: fixture, temp_media: fixture) -> None:
     assert resource1.course == course
     assert resource1.user == user
     assert resource1.date == date
-    assert re.match(r"^media/uploads/resources/exam\w*\.pdf$", resource1.file.url)
+    assert is_slug_match("media/uploads/resources/exam.pdf", resource1.file.url)
 
     # Somehow the file needs to be created for validation to work.
     file = SimpleUploadedFile("exam.pdf", b"\x25\x50\x44\x46\x2d")

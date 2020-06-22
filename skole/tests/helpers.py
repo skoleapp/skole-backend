@@ -19,7 +19,7 @@ class SkoleSchemaTestCase(GraphQLTestCase):
     """Base class for all schema tests.
 
     Attributes:
-        authenticated_user: When set to a integer, a JWT token made for the
+        authenticated_user: When set to an integer, a JWT token made for the
             user with this pk is sent with all the requests.
     """
 

@@ -3,14 +3,19 @@ from typing import List, Optional
 from mypy.types import JsonDict
 
 from skole.models import Course, User, Vote
-from skole.tests.helpers import SkoleSchemaTestCase, is_iso_datetime
+from skole.tests.helpers import (
+    SkoleSchemaTestCase,
+    get_form_error,
+    get_graphql_error,
+    is_iso_datetime,
+)
 from skole.utils.constants import GraphQLErrors, Messages, MutationErrors
 from skole.utils.shortcuts import get_obj_or_none
 from skole.utils.types import ID, CourseOrderingOption
 
 
 class CourseSchemaTests(SkoleSchemaTestCase):
-    authenticated = True
+    authenticated_user: Optional[int] = 2
 
     # language=GraphQL
     course_fields = """
@@ -157,7 +162,7 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         )
 
     def test_field_fragment(self) -> None:
-        self.authenticated = False
+        self.authenticated_user = None
         self.assert_field_fragment_matches_schema(self.course_fields)
 
     def test_create_course(self) -> None:
@@ -179,7 +184,7 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         res = self.mutate_create_course(code="")
         assert res["course"]["id"] == "15"
         res = self.mutate_create_course(name="")
-        assert res["errors"][0]["messages"][0] == "This field is required."
+        assert get_form_error(res) == "This field is required."
         assert res["course"] is None
 
     def test_delete_course(self) -> None:
@@ -189,7 +194,7 @@ class CourseSchemaTests(SkoleSchemaTestCase):
 
         # Can't delete the same course again.
         res = self.mutate_delete_course(id=1, assert_error=True)
-        assert res["errors"][0]["message"] == "Course matching query does not exist."
+        assert get_graphql_error(res) == "Course matching query does not exist."
 
         # Can't delete an other user's course.
         res = self.mutate_delete_course(id=2)
@@ -304,7 +309,7 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         assert res["objects"][1]["code"] == "TEST00012"
 
         res = self.query_search_courses(ordering="badvalue", assert_error=True)  # type: ignore[arg-type]
-        assert res["errors"][0]["message"] == GraphQLErrors.INVALID_ORDERING
+        assert get_graphql_error(res) == GraphQLErrors.INVALID_ORDERING
 
     def test_courses(self) -> None:
         courses = self.query_courses()

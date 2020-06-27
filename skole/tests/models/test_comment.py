@@ -1,11 +1,10 @@
-import re
-
 import pytest
 from django.contrib.auth import get_user_model
 from django.core.files.uploadedfile import SimpleUploadedFile
 from pytest import fixture
 
 from skole.models import Comment, Course, Resource
+from skole.tests.helpers import is_slug_match
 
 
 def test_str(db: fixture) -> None:
@@ -42,8 +41,8 @@ def test_manager_create_ok(db: fixture, temp_media: fixture) -> None:
         assert comment.text == text
 
         # Filenames after the first created comment will have a random glob to make them unique.
-        assert re.match(
-            r"^media/uploads/attachments/image\w*\.jpeg$", comment.attachment.url
+        assert is_slug_match(
+            "media/uploads/attachments/image.jpeg", comment.attachment.url
         )
 
         # Check that only one foreign key reference is active.

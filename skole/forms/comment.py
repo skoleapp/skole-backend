@@ -4,31 +4,33 @@ from django import forms
 from django.core.files.uploadedfile import UploadedFile
 
 from skole.models import Comment
+from skole.utils.constants import ValidationErrors
 from skole.utils.forms import DeleteObjectForm, TargetForm
 from skole.utils.shortcuts import clean_file_field
 
 
-class CreateCommentForm(TargetForm):
-    class Meta:
-        model = Comment
-        fields = (
-            "text",
-            "attachment",
-            "course",
-            "resource",
-            "comment",
-        )
+class _BaseCommentForm(forms.ModelForm):
+    attachment = forms.CharField(required=False)
 
     def clean_attachment(self) -> Union[UploadedFile, str]:
-        return clean_file_field(self, "attachment")
+        attachment = clean_file_field(self, "attachment")
+
+        if self.cleaned_data["text"] == "" and attachment == "":
+            raise forms.ValidationError(ValidationErrors.COMMENT_EMPTY)
+
+        return attachment
 
 
-class UpdateCommentForm(forms.ModelForm):
+class CreateCommentForm(TargetForm, _BaseCommentForm):
+    class Meta:
+        model = Comment
+        fields = ("text", "attachment", "course", "resource", "comment")
+
+
+class UpdateCommentForm(_BaseCommentForm):
     class Meta:
         model = Comment
         fields = ("id", "text", "attachment")
-
-    clean_attachment = CreateCommentForm.clean_attachment
 
 
 class DeleteCommentForm(DeleteObjectForm):

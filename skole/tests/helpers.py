@@ -1,26 +1,32 @@
 import datetime
 import json
+import re
 from typing import Any, Optional, Sequence, Tuple, Union
 
+from django.contrib.auth import get_user_model
 from django.core.files.uploadedfile import UploadedFile
 from django.http import HttpResponse
-from graphene_django.utils.testing import GraphQLTestCase
+from graphene_django.utils import GraphQLTestCase
+from graphql_jwt.shortcuts import get_token
 from mypy.types import JsonDict
 
 from skole.schema import schema
+
+FileData = Optional[Sequence[Tuple[str, UploadedFile]]]
 
 
 class SkoleSchemaTestCase(GraphQLTestCase):
     """Base class for all schema tests.
 
     Attributes:
-        authenticated: When True a user JWT token is sent with all the requests.
+        authenticated_user: When set to an integer, a JWT token made for the
+            user with this pk is sent with all the requests.
     """
 
-    GRAPHQL_SCHEMA = schema
     fixtures = ["test-data.yaml"]
+    GRAPHQL_SCHEMA = schema
 
-    authenticated: bool = False
+    authenticated_user: Optional[int] = None
 
     def query(
         self,
@@ -29,7 +35,7 @@ class SkoleSchemaTestCase(GraphQLTestCase):
         input_data: Optional[JsonDict] = None,
         variables: Optional[JsonDict] = None,
         headers: Optional[JsonDict] = None,
-        file_data: Optional[Sequence[Tuple[str, UploadedFile]]] = None,
+        file_data: FileData = None,
     ) -> HttpResponse:
         """Overridden to allow uploading files with a multipart/form-data POST.
 
@@ -90,14 +96,8 @@ class SkoleSchemaTestCase(GraphQLTestCase):
             Otherwise returns both the "error" and "data" sections.
         """
 
-        # Token is for testuser2, hardcoded since always getting a fresh one with
-        # a login mutation takes time and slows down the tests.
-        if self.authenticated:
-            token = (
-                "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6In"
-                "Rlc3R1c2VyMiIsImV4cCI6MTU4NzMwNDgyMCwib3JpZ0lhdCI6MTU4N"
-                "jcwMDAyMH0.1ikCSgWk2Giic-dyn0ZUa30aXMpd8b7jSUbYfze9oFA"
-            )
+        if self.authenticated_user:
+            token = get_token(get_user_model().objects.get(pk=self.authenticated_user))
             headers = {"HTTP_AUTHORIZATION": f"JWT {token}"}
         else:
             headers = {}
@@ -123,7 +123,7 @@ class SkoleSchemaTestCase(GraphQLTestCase):
         input: JsonDict,
         result: str,
         fragment: str = "",
-        file_data: Optional[Sequence[Tuple[str, UploadedFile]]] = None,
+        file_data: FileData = None,
         assert_error: bool = False,
     ) -> JsonDict:
         """Shortcut for running a mutation which takes only an input argument.
@@ -214,6 +214,22 @@ class SkoleSchemaTestCase(GraphQLTestCase):
             self.assertIn(field["name"], field_fragment)
 
 
+def get_form_error(res: JsonDict, /) -> str:
+    """Return the first error message from a result containing a form mutation error."""
+    try:
+        return res["errors"][0]["messages"][0]
+    except (KeyError, TypeError):
+        assert False, f"`res` didn't contain a form mutation error: \n{res}"
+
+
+def get_graphql_error(res: JsonDict, /) -> str:
+    """Return the first error message from a result containing a GraphQL error."""
+    try:
+        return res["errors"][0]["message"]
+    except (KeyError, TypeError):
+        assert False, f"`res` didn't contain a GraphQL error: \n{res}"
+
+
 def is_iso_datetime(datetime_string: str, /) -> bool:
     """Return True if the given string is a valid ISO-format datetime, otherwise False.
 
@@ -233,3 +249,20 @@ def is_iso_datetime(datetime_string: str, /) -> bool:
         return False
     else:
         return True
+
+
+def is_slug_match(file_path: str, url_with_slug: str) -> bool:
+    """Return True if the two paths match each other with an optional slug.
+
+    Examples:
+        >>> is_slug_match("media/test/foo.jpg", "media/test/fooXfa123.jpg")
+        True
+        >>> is_slug_match("media/test/foo.jpg", "media/test/foo.jpg")
+        True
+        >>> is_slug_match("media/test/foo.jpg", "media/test/foo-bar.jpg")
+        False
+        >>> is_slug_match("media/test/foo.jpg", "foo.jpg")
+        False
+    """
+    path, extension = file_path.rsplit(".", 1)
+    return bool(re.match(fr"^{path}\w*\.{extension}$", url_with_slug))

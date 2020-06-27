@@ -45,3 +45,36 @@ def full_refresh_from_db(instance: T, /) -> T:
     `get_queryset` annotations and aggregations.
     """
     return instance.__class__.objects.get(pk=instance.pk)
+
+
+def validate_is_first_inherited(parent: type, subclass: type) -> None:
+    """Validate that the first inherited class of `subclass` is `parent`.
+
+    Can be used in any class's __init_subclass__ method to validate that the class in
+    question is the first class that is ever inherited.
+
+    Examples:
+        >>> class Foo:
+        ...     def __init_subclass__(cls) -> None:
+        ...         validate_is_first_inherited(Foo, cls)
+        ...         super().__init_subclass__()
+        >>> class Bar: pass
+        >>> class Ok1(Foo, Bar): pass
+        >>> class Ok2(Foo): pass
+        >>> class Ok3(Ok2): pass
+        >>> class Fail(Bar, Foo): pass
+        Traceback (most recent call last):
+            ...
+        TypeError: Foo needs to be the first inherited class.
+    """
+    assert issubclass(subclass, parent)
+
+    while True:
+        try:
+            if subclass.__bases__[0] is parent:
+                return
+        except (AttributeError, IndexError):
+            break
+        subclass = subclass.__bases__[0]
+
+    raise TypeError(f"{parent.__name__} needs to be the first inherited class.")

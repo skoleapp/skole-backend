@@ -6,7 +6,6 @@ from skole.tests.helpers import SkoleSchemaTestCase
 
 
 class ResourceTypeSchemaTests(SkoleSchemaTestCase):
-    authenticated = True
 
     # language=GraphQL
     resource_type_fields = """
@@ -31,7 +30,7 @@ class ResourceTypeSchemaTests(SkoleSchemaTestCase):
         return self.execute(graphql)["resourceTypes"]
 
     def test_field_fragment(self) -> None:
-        self.authenticated = False
+        self.authenticated_user = None
         self.assert_field_fragment_matches_schema(self.resource_type_fields)
 
     def test_resource_types(self) -> None:

@@ -7,6 +7,7 @@ from mypy.types import JsonDict
 from skole.models import Starred, Vote
 from skole.utils.constants import MutationErrors
 from skole.utils.forms import DeleteObjectForm
+from skole.utils.shortcuts import validate_is_first_inherited
 
 T = TypeVar("T", bound=graphene.Mutation)
 
@@ -14,8 +15,7 @@ T = TypeVar("T", bound=graphene.Mutation)
 class LoginRequiredMutationMixin:
     """Mixin for a mutation that needs a user to be logged in to use.
 
-    Should be the first class in the inheritance list, at least before the graphql
-    mutation class, e.g. DjangoModelFormMutation.
+    Should be the first class in the inheritance list.
     """
 
     @classmethod
@@ -29,12 +29,15 @@ class LoginRequiredMutationMixin:
         #   This works fine when the mixin is subclassed with a mutation class.
         return super().mutate(root, info, input)  # type: ignore[misc]
 
+    def __init_subclass__(cls) -> None:
+        validate_is_first_inherited(LoginRequiredMutationMixin, cls)
+        super().__init_subclass__()
+
 
 class VerificationRequiredMutationMixin:
     """Mixin for a mutation that needs a user to be verified (and logged in) to use.
 
-    Should be the first class in the inheritance list, at least before the graphql
-    mutation class, e.g. DjangoModelFormMutation.
+    Should be the first class in the inheritance list.
     """
 
     @classmethod
@@ -55,6 +58,10 @@ class VerificationRequiredMutationMixin:
 
         # Ignore: Same as above.
         return super().mutate(root, info, input)  # type: ignore[misc]
+
+    def __init_subclass__(cls) -> None:
+        validate_is_first_inherited(VerificationRequiredMutationMixin, cls)
+        super().__init_subclass__()
 
 
 class MessageMixin:

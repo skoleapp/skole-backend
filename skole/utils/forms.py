@@ -4,15 +4,21 @@ from django import forms
 
 from skole.models import User
 from skole.utils.constants import ValidationErrors
+from skole.utils.shortcuts import validate_is_first_inherited
 from skole.utils.types import ID
 
 
 class TargetForm(forms.ModelForm):
-    """A base class for forms that require a single object as a target."""
+    """A base class for forms that require a single object as a target.
 
-    def clean(self) -> Dict[str, str]:
+    Should be the first class in the inheritance list.
+    """
+
+    def clean(self) -> Dict[str, Any]:
         """Ensure that the created object has exactly one foreign key it targets."""
-        cleaned_data = super().clean()
+
+        # Ignore: `clean` will be defined when this mixin is used.
+        cleaned_data = super().clean()  # type: ignore[misc]
 
         targets: Dict[str, ID] = {
             "course": None,
@@ -31,6 +37,10 @@ class TargetForm(forms.ModelForm):
 
         cleaned_data["target"] = target_list[0]
         return cleaned_data
+
+    def __init_subclass__(cls) -> None:
+        validate_is_first_inherited(TargetForm, cls)
+        super().__init_subclass__()
 
 
 class DeleteObjectForm(forms.ModelForm):

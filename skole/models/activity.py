@@ -1,10 +1,9 @@
 from django.conf import settings
 from django.db import models
+from parler.models import TranslatableModel, TranslatedFields
 
-from .activity_type import ActivityType
 
-
-class Activity(models.Model):
+class Activity(TranslatableModel):
     """Models a single activity of a users activity feed."""
 
     # A user who's activity feed this activity belongs to.
@@ -20,9 +19,9 @@ class Activity(models.Model):
         null=True,
     )
 
-    activity_type = models.ForeignKey(
-        ActivityType, on_delete=models.PROTECT, related_name="activities"
+    translations = TranslatedFields(
+        description=models.CharField(max_length=2000),
     )
 
     def __str__(self) -> str:
-        return self.activity_type
+        return f"{self.description}"

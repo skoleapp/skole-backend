@@ -1,5 +1,4 @@
 from .activity import Activity
-from .activity_type import ActivityType
 from .badge import Badge
 from .beta_code import BetaCode
 from .city import City

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-31 18:24+0000\n"
+"POT-Creation-Date: 2020-07-07 16:38+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Skole\n"
@@ -81,89 +81,89 @@ msgstr "Virheellinen tiedostotyyppi, sallittuja on: {}"
 msgid "File extension doesn't match the file type."
 msgstr "Filändelsen matchar inte filtypen."
 
-#: skole/utils/constants.py:38
+#: skole/utils/constants.py:35
+msgid "Comment must include either text or attachment."
+msgstr "Kommentissa tulee olla tekstiä tai liite."
+
+#: skole/utils/constants.py:39
 msgid "Invalid ordering value."
 msgstr "Virheellin järjestyarvo."
 
-#: skole/utils/constants.py:39
+#: skole/utils/constants.py:40
 msgid "This account has already been verified."
 msgstr "Tämä tili on jo vahvistettu."
 
-#: skole/utils/constants.py:40
+#: skole/utils/constants.py:41
 msgid "This account is not verified."
 msgstr "Tätä tiliä ei ole vahvistettu."
 
-#: skole/utils/constants.py:41
+#: skole/utils/constants.py:42
 msgid "This token is not intended for this use."
 msgstr "Token ei ole tarkoitettu tähän käyttötarkoitukseen."
 
-#: skole/utils/constants.py:45
+#: skole/utils/constants.py:46
 msgid "Message sent successfully."
 msgstr "Viesti lähetetty onnistuneesti."
 
-#: skole/utils/constants.py:46
+#: skole/utils/constants.py:47
 msgid "Registered new user successfully!"
 msgstr "Uusi käyttäjä rekisteröity onnistuneesti."
 
-#: skole/utils/constants.py:47
+#: skole/utils/constants.py:48
 msgid "Account verified successfully!"
 msgstr "Tili vahvistettu onnistuneesti."
 
-#: skole/utils/constants.py:48
+#: skole/utils/constants.py:49
 msgid "Verification link sent successfully!"
 msgstr "Vahvistuslinkki lähetetty onnistuneesti."
 
-#: skole/utils/constants.py:49
+#: skole/utils/constants.py:50
 msgid "Password reset link sent successfully!"
 msgstr "Salasanan nollauslinkki lähetetty onnistuneesti."
 
-#: skole/utils/constants.py:50
+#: skole/utils/constants.py:51
 msgid "Password updated successfully!"
 msgstr "Salasana päivitetty onnistuneesti."
 
-#: skole/utils/constants.py:51
+#: skole/utils/constants.py:52
 msgid "Logged in successfully!"
 msgstr "Kirjauduttu sisään onnistuneesti."
 
-#: skole/utils/constants.py:52
+#: skole/utils/constants.py:53
 msgid "User deleted successfully!"
 msgstr "Käyttäjä poistettu onnistuneesti."
 
-#: skole/utils/constants.py:53
+#: skole/utils/constants.py:54
 msgid "User details updated successfully!"
 msgstr "Käyttäjätiedot päivitetty onnistuneesti."
 
-#: skole/utils/constants.py:54
+#: skole/utils/constants.py:55
 msgid "Course created successfully!"
 msgstr "Kurssi luotu onnistuneesti."
 
-#: skole/utils/constants.py:55
+#: skole/utils/constants.py:56
 msgid "Course deleted successfully!"
 msgstr "Kurssi poistettu onnistuneesti."
 
-#: skole/utils/constants.py:56
+#: skole/utils/constants.py:57
 msgid "Resource deleted successfully!"
 msgstr "Resurssi poistettu onnistuneesti."
 
-#: skole/utils/constants.py:57
+#: skole/utils/constants.py:58
 msgid "Resource created successfully!"
 msgstr "Resurssi luotu onnistuneesti."
 
-#: skole/utils/constants.py:58
+#: skole/utils/constants.py:59
 msgid "Resource updated successfully!"
 msgstr "Resurssi päivitetty onnistuneesti."
 
-#: skole/utils/constants.py:59
+#: skole/utils/constants.py:60
 msgid "Comment updated successfully!"
 msgstr "Kommentti päivitetty onnistuneesti."
 
-#: skole/utils/constants.py:60
+#: skole/utils/constants.py:61
 msgid "Comment deleted successfully!"
 msgstr "Kommentti poistettu onnistuneesti."
-
-#: skole/utils/constants.py:79
-msgid "Comment must include either text or attachment."
-msgstr "Kommentissa tulee olla tekstiä tai liite."
 
 #: skole/utils/constants.py:81
 msgid "Error while sending email."
@@ -252,3 +252,15 @@ msgstr "Tohtori"
 #: skole/utils/constants.py:129
 msgid "Professor"
 msgstr "Professori"
+
+#: skole/utils/constants.py:141
+msgid "replied on your comment."
+msgstr "vastasi kommenttiisi."
+
+#: skole/utils/constants.py:142
+msgid "commented on your course."
+msgstr "kommentoi kurssiasi."
+
+#: skole/utils/constants.py:143
+msgid "commented on your resource."
+msgstr "kommentoi resurssiasi."

@@ -9,12 +9,13 @@ from skole.utils.constants import ActivityDescriptions
 
 # Create activities for comment replies, course and resource comments.
 @receiver(post_save, sender=Comment)
-def create_activity_for_comment_reply(
+def create_activity(
     sender: Comment, instance: Comment, created: bool, **kwargs: Any
 ) -> None:
     if created:
         target_user = instance.user
 
+        # Reply comment.
         if instance.comment and instance.comment.user != target_user:
             Activity.objects.create(
                 user=instance.comment.user,
@@ -25,6 +26,7 @@ def create_activity_for_comment_reply(
                 description=ActivityDescriptions.COMMENT_REPLY,
             )
 
+        # Course comment.
         elif instance.course and instance.course.user != target_user:
             Activity.objects.create(
                 user=instance.course.user,
@@ -35,6 +37,7 @@ def create_activity_for_comment_reply(
                 description=ActivityDescriptions.COURSE_COMMENT,
             )
 
+        # Resource comment.
         elif instance.resource and instance.resource.user != target_user:
             Activity.objects.create(
                 user=instance.resource.user,

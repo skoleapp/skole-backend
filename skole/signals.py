@@ -4,7 +4,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 from skole.models import Activity, Comment
-from skole.utils.constants import Activities
+from skole.utils.constants import ActivityDescriptions
 
 
 # Create activities for comment replies, course and resource comments.
@@ -19,19 +19,28 @@ def create_activity_for_comment_reply(
             Activity.objects.create(
                 user=instance.comment.user,
                 target_user=target_user,
-                description=Activities.COMMENT_REPLY,
+                course=instance.comment.course,
+                resource=instance.comment.resource,
+                comment=instance.comment,
+                description=ActivityDescriptions.COMMENT_REPLY,
             )
 
         elif instance.course and instance.course.user != target_user:
             Activity.objects.create(
                 user=instance.course.user,
                 target_user=target_user,
-                description=Activities.COURSE_COMMENT,
+                course=instance.course,
+                resource=None,
+                comment=instance,
+                description=ActivityDescriptions.COURSE_COMMENT,
             )
 
         elif instance.resource and instance.resource.user != target_user:
             Activity.objects.create(
                 user=instance.resource.user,
                 target_user=target_user,
-                description=Activities.RESOURCE_COMMENT,
+                course=None,
+                resource=instance.resource,
+                comment=instance,
+                description=ActivityDescriptions.RESOURCE_COMMENT,
             )

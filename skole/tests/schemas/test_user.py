@@ -57,6 +57,16 @@ class UserSchemaTests(SkoleSchemaTestCase):
                 targetUser {
                     id
                     username
+                    avatarThumbnail
+                }
+                course {
+                    id
+                }
+                resource {
+                    id
+                }
+                comment {
+                    id
                 }
                 description
             }

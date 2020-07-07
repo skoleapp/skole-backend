@@ -129,7 +129,7 @@ class Ranks:
     PROFESSOR = _("Professor")
 
 
-class Activities:
+class ActivityDescriptions:
     """Activity descriptions are either appendixes to the target user or they can
     contain the whole description if we at some point make an activity that involves no
     target user.

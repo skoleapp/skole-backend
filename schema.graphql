@@ -5,6 +5,9 @@ schema {
 
 type ActivityObjectType {
   targetUser: UserObjectType
+  course: CourseObjectType
+  resource: ResourceObjectType
+  comment: CommentObjectType
   description: String
 }
 
@@ -416,9 +419,9 @@ type UserObjectType {
   score: Int
   created: DateTime!
   verified: Boolean
-  activity: [ActivityObjectType]
   createdCourses: [CourseObjectType!]!
   createdResources: [ResourceObjectType!]!
+  activity: [ActivityObjectType]
   avatarThumbnail: String
   school: SchoolObjectType
   subject: SubjectObjectType

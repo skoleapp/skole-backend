@@ -9,4 +9,4 @@ class ActivityObjectType(DjangoObjectType):
 
     class Meta:
         model = Activity
-        fields = ("target_user", "description")
+        fields = ("target_user", "course", "resource", "comment", "description")

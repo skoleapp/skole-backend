@@ -32,8 +32,6 @@ class UserSchemaTests(SkoleSchemaTestCase):
             created
             verified
             rank
-            courseCount
-            resourceCount
             badges {
                 id
             }
@@ -41,9 +39,6 @@ class UserSchemaTests(SkoleSchemaTestCase):
                 id
             }
             subject {
-                id
-            }
-            votes {
                 id
             }
             createdCourses {
@@ -57,6 +52,23 @@ class UserSchemaTests(SkoleSchemaTestCase):
             }
             starredResources {
                 id
+            }
+            activity {
+                targetUser {
+                    id
+                    username
+                    avatarThumbnail
+                }
+                course {
+                    id
+                }
+                resource {
+                    id
+                }
+                comment {
+                    id
+                }
+                description
             }
         }
     """
@@ -255,17 +267,28 @@ class UserSchemaTests(SkoleSchemaTestCase):
         assert user1["verified"]
         assert user1["rank"] == "Freshman"
         assert user1["school"] == {"id": "1"}
-        assert user1["school"] == {"id": "1"}
+        assert user1["subject"] == {"id": "1"}
+        assert len(user1["badges"]) == 0
+        assert len(user1["createdCourses"]) == 4
+        assert len(user1["createdResources"]) == 1
+        assert len(user1["starredCourses"]) == 0
+        assert len(user1["starredResources"]) == 0
+        assert len(user1["activity"]) == 4
 
         # Some other user.
         user2 = self.query_user(id=3)
         assert user2["id"] == "3"
         assert user2["username"] == "testuser3"
-        assert user2["email"] == ""
-        assert user2["verified"] is None
+        assert user2["email"] == ""  # Private field.
+        assert user2["verified"] is None  # Private field.
         assert user2["rank"] == "Tutor"
-        assert user2["school"] is None
-        assert user2["school"] is None
+        assert user2["school"] is None  # Private field.
+        assert len(user2["badges"]) == 0
+        assert len(user2["createdCourses"]) == 4
+        assert len(user2["createdResources"]) == 0
+        assert user2["starredCourses"] is None  # Private field.
+        assert user2["starredResources"] is None  # Private field.
+        assert user2["activity"] is None  # Private field.
 
         # ID not found.
         assert self.query_user(id=999) is None
@@ -276,6 +299,15 @@ class UserSchemaTests(SkoleSchemaTestCase):
         assert user["username"] == "testuser2"
         assert user["email"] == "testuser2@test.com"
         assert user["verified"]
+        assert user["rank"] == "Freshman"
+        assert user["school"] == {"id": "1"}
+        assert user["subject"] == {"id": "1"}
+        assert len(user["badges"]) == 0
+        assert len(user["createdCourses"]) == 4
+        assert len(user["createdResources"]) == 1
+        assert len(user["starredCourses"]) == 0
+        assert len(user["starredResources"]) == 0
+        assert len(user["activity"]) == 4
 
         # Shouldn't work without auth.
         self.authenticated_user = None

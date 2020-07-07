@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-31 18:24+0000\n"
+"POT-Creation-Date: 2020-07-07 16:38+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Skole\n"
@@ -81,89 +81,89 @@ msgstr "Ogiltig filtyp, tillåtna typer är: {}"
 msgid "File extension doesn't match the file type."
 msgstr "Tiedostopääte ja tiedostotyyppi eivät täsmää."
 
-#: skole/utils/constants.py:38
+#: skole/utils/constants.py:35
+msgid "Comment must include either text or attachment."
+msgstr "Kommentaren måste innehålla antingen text eller bilaga."
+
+#: skole/utils/constants.py:39
 msgid "Invalid ordering value."
 msgstr "Ogiltigt sorteringsvärde."
 
-#: skole/utils/constants.py:39
+#: skole/utils/constants.py:40
 msgid "This account has already been verified."
 msgstr "Det här kontot har redan verifierats."
 
-#: skole/utils/constants.py:40
+#: skole/utils/constants.py:41
 msgid "This account is not verified."
 msgstr "Det här kontot har inte verifierats"
 
-#: skole/utils/constants.py:41
+#: skole/utils/constants.py:42
 msgid "This token is not intended for this use."
 msgstr "Detta token är inte avsett för detta bruk."
 
-#: skole/utils/constants.py:45
+#: skole/utils/constants.py:46
 msgid "Message sent successfully."
 msgstr "Meddelandet har skickats."
 
-#: skole/utils/constants.py:46
+#: skole/utils/constants.py:47
 msgid "Registered new user successfully!"
 msgstr "Ny användare registrerad framgångsrikt!"
 
-#: skole/utils/constants.py:47
+#: skole/utils/constants.py:48
 msgid "Account verified successfully!"
 msgstr "Kontot har verifierats!"
 
-#: skole/utils/constants.py:48
+#: skole/utils/constants.py:49
 msgid "Verification link sent successfully!"
 msgstr "Verifieringslänken har skickats!"
 
-#: skole/utils/constants.py:49
+#: skole/utils/constants.py:50
 msgid "Password reset link sent successfully!"
 msgstr "Länk till återställning av lösenord har skickats!"
 
-#: skole/utils/constants.py:50
+#: skole/utils/constants.py:51
 msgid "Password updated successfully!"
 msgstr "Lösenordet har uppdaterats!"
 
-#: skole/utils/constants.py:51
+#: skole/utils/constants.py:52
 msgid "Logged in successfully!"
 msgstr "Inloggad!"
 
-#: skole/utils/constants.py:52
+#: skole/utils/constants.py:53
 msgid "User deleted successfully!"
 msgstr "Användaren raderad!"
 
-#: skole/utils/constants.py:53
+#: skole/utils/constants.py:54
 msgid "User details updated successfully!"
 msgstr "Användarinformation uppdaterad framgångsrikt!"
 
-#: skole/utils/constants.py:54
+#: skole/utils/constants.py:55
 msgid "Course created successfully!"
 msgstr "Kurs skapad!"
 
-#: skole/utils/constants.py:55
+#: skole/utils/constants.py:56
 msgid "Course deleted successfully!"
 msgstr "Kurs raderad!"
 
-#: skole/utils/constants.py:56
+#: skole/utils/constants.py:57
 msgid "Resource deleted successfully!"
 msgstr "Resurs raderad!"
 
-#: skole/utils/constants.py:57
+#: skole/utils/constants.py:58
 msgid "Resource created successfully!"
 msgstr "Resurs skapad!"
 
-#: skole/utils/constants.py:58
+#: skole/utils/constants.py:59
 msgid "Resource updated successfully!"
 msgstr "Resurs har uppdaterats!"
 
-#: skole/utils/constants.py:59
+#: skole/utils/constants.py:60
 msgid "Comment updated successfully!"
 msgstr "Kommentaren har uppdaterats!"
 
-#: skole/utils/constants.py:60
+#: skole/utils/constants.py:61
 msgid "Comment deleted successfully!"
 msgstr "Kommentaren raderad!"
-
-#: skole/utils/constants.py:79
-msgid "Comment must include either text or attachment."
-msgstr "Kommentaren måste innehålla antingen text eller bilaga."
 
 #: skole/utils/constants.py:81
 msgid "Error while sending email."
@@ -253,3 +253,15 @@ msgstr "Doktor"
 #: skole/utils/constants.py:129
 msgid "Professor"
 msgstr "Professor"
+
+#: skole/utils/constants.py:141
+msgid "replied on your comment."
+msgstr "svarade på din kommentar"
+
+#: skole/utils/constants.py:142
+msgid "commented on your course."
+msgstr "kommenterade din kurs."
+
+#: skole/utils/constants.py:143
+msgid "commented on your resource."
+msgstr "kommenterade din resurs."

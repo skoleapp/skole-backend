@@ -8,7 +8,7 @@ class Activity(TranslatableModel):
 
     # A user who's activity feed this activity belongs to.
     user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="activities"
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="activity"
     )
 
     # A user who creates the activity, e.g. user replying to a comment.

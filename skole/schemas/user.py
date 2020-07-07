@@ -24,7 +24,17 @@ from skole.forms.user import (
     TokenForm,
     UpdateUserForm,
 )
-from skole.models import Badge, BetaCode, Course, Resource, School, Subject, User
+from skole.models import (
+    Activity,
+    Badge,
+    BetaCode,
+    Course,
+    Resource,
+    School,
+    Subject,
+    User,
+)
+from skole.schemas.activity import ActivityObjectType
 from skole.schemas.badge import BadgeObjectType
 from skole.schemas.course import CourseObjectType
 from skole.schemas.resource import ResourceObjectType
@@ -51,6 +61,7 @@ class UserObjectType(DjangoObjectType):
     badges = graphene.List(BadgeObjectType)
     starred_courses = graphene.List(CourseObjectType)
     starred_resources = graphene.List(ResourceObjectType)
+    activity = graphene.List(ActivityObjectType)
 
     class Meta:
         model = get_user_model()
@@ -72,6 +83,7 @@ class UserObjectType(DjangoObjectType):
             "starred_resources",
             "created_courses",
             "created_resources",
+            "activity"
         )
 
     def resolve_email(self, info: ResolveInfo) -> str:
@@ -124,6 +136,14 @@ class UserObjectType(DjangoObjectType):
 
     def resolve_badges(self, info: ResolveInfo) -> "QuerySet[Badge]":
         return self.badges.all()
+
+    # Only return activity if user is querying his own profile.
+    def resolve_activity(self, info: ResolveInfo) -> Optional["QuerySet[Activity]"]:
+        assert info.context is not None
+        if self.pk == info.context.user.pk:
+            return self.activity.all()
+        else:
+            return None
 
 
 class RegisterMutation(DjangoModelFormMutation):

@@ -53,8 +53,6 @@ class UserObjectType(DjangoObjectType):
     avatar = graphene.String()
     avatar_thumbnail = graphene.String()
     verified = graphene.Boolean()
-    course_count = graphene.Int()
-    resource_count = graphene.Int()
     school = graphene.Field(SchoolObjectType)
     subject = graphene.Field(SubjectObjectType)
     rank = graphene.String()
@@ -76,8 +74,6 @@ class UserObjectType(DjangoObjectType):
             "avatar_thumbnail",
             "created",
             "verified",
-            "course_count",
-            "resource_count",
             "votes",
             "starred_courses",
             "starred_resources",
@@ -86,9 +82,8 @@ class UserObjectType(DjangoObjectType):
             "activity"
         )
 
+    # Only return email if user is querying his own profile.
     def resolve_email(self, info: ResolveInfo) -> str:
-        """Return email only if authenticated and querying through userMe query or user
-        query with own ID."""
         assert info.context is not None
         user = info.context.user
 
@@ -97,42 +92,46 @@ class UserObjectType(DjangoObjectType):
         else:
             return ""
 
-    def resolve_course_count(self, info: ResolveInfo) -> int:
-        return self.created_courses.count()
-
-    def resolve_resource_count(self, info: ResolveInfo) -> int:
-        return self.created_resources.count()
-
     def resolve_avatar(self, info: ResolveInfo) -> str:
         return self.avatar.url if self.avatar else ""
 
     def resolve_avatar_thumbnail(self, info: ResolveInfo) -> str:
         return self.avatar_thumbnail.url if self.avatar_thumbnail else ""
 
+    # Only return verification status if user is querying his own profile.
     def resolve_verified(self, info: ResolveInfo) -> Optional[bool]:
         assert info.context is not None
 
-        # We resolve this here rather than on model level
-        # as we don't want to know the verification status
-        # for anyone else as the user making the request.
         if self.pk == info.context.user.pk:
             return info.context.user.verified
         else:
             return None
 
+    # Only return school if user is querying his own profile.
     def resolve_school(self, info: ResolveInfo) -> Optional["School"]:
         assert info.context is not None
         return self.school if self.pk == info.context.user.pk else None
 
+    # Only return subject if user is querying his own profile.
     def resolve_subject(self, info: ResolveInfo) -> Optional["Subject"]:
         assert info.context is not None
         return self.subject if self.pk == info.context.user.pk else None
 
-    def resolve_starred_courses(self, info: ResolveInfo) -> "QuerySet[Course]":
-        return Course.objects.filter(stars__user__pk=self.pk)
+    # Only return starred courses if user is querying his own profile.
+    def resolve_starred_courses(self, info: ResolveInfo) -> Optional["QuerySet[Course]"]:
+        assert info.context is not None
+        if self.pk == info.context.user.pk:
+            return Course.objects.filter(stars__user__pk=self.pk)
+        else:
+            return None
 
-    def resolve_starred_resources(self, info: ResolveInfo) -> "QuerySet[Resource]":
-        return Resource.objects.filter(stars__user__pk=self.pk)
+    # Only return starred resources if user is querying his own profile.
+    def resolve_starred_resources(self, info: ResolveInfo) -> Optional["QuerySet[Resource]"]:
+        assert info.context is not None
+        if self.pk == info.context.user.pk:
+            return Resource.objects.filter(stars__user__pk=self.pk)
+        else:
+            return None
 
     def resolve_badges(self, info: ResolveInfo) -> "QuerySet[Badge]":
         return self.badges.all()

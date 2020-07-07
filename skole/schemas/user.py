@@ -78,7 +78,7 @@ class UserObjectType(DjangoObjectType):
             "starred_resources",
             "created_courses",
             "created_resources",
-            "activity"
+            "activity",
         )
 
     # Only return email if user is querying his own profile.
@@ -117,7 +117,9 @@ class UserObjectType(DjangoObjectType):
         return self.subject if self.pk == info.context.user.pk else None
 
     # Only return starred courses if user is querying his own profile.
-    def resolve_starred_courses(self, info: ResolveInfo) -> Optional["QuerySet[Course]"]:
+    def resolve_starred_courses(
+        self, info: ResolveInfo
+    ) -> Optional["QuerySet[Course]"]:
         assert info.context is not None
         if self.pk == info.context.user.pk:
             return Course.objects.filter(stars__user__pk=self.pk)
@@ -125,7 +127,9 @@ class UserObjectType(DjangoObjectType):
             return None
 
     # Only return starred resources if user is querying his own profile.
-    def resolve_starred_resources(self, info: ResolveInfo) -> Optional["QuerySet[Resource]"]:
+    def resolve_starred_resources(
+        self, info: ResolveInfo
+    ) -> Optional["QuerySet[Resource]"]:
         assert info.context is not None
         if self.pk == info.context.user.pk:
             return Resource.objects.filter(stars__user__pk=self.pk)

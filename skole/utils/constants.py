@@ -130,10 +130,12 @@ class Ranks:
 
 
 class Activities:
-    """
-    Activity descriptions are either appendixes to the target user or they can contain
-    the whole description if we at some point make an activity that involves no target user.
-    By doing this we can show the target user as a link in the frontend.
+    """Activity descriptions are either appendixes to the target user or they can
+    contain the whole description if we at some point make an activity that involves no
+    target user.
+
+    By having the description and target user as separate entities we can show the
+    target user as a link in the frontend.
     """
 
     COMMENT_REPLY = _("replied on your comment.")

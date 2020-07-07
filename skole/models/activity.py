@@ -20,9 +20,7 @@ class Activity(TranslatableModel):
         null=True,
     )
 
-    translations = TranslatedFields(
-        description=models.CharField(max_length=2000),
-    )
+    translations = TranslatedFields(description=models.CharField(max_length=2000),)
 
     def __str__(self) -> str:
         if self.target_user:

@@ -3,6 +3,11 @@ schema {
   mutation: Mutation
 }
 
+type ActivityObjectType {
+  targetUser: UserObjectType
+  description: String
+}
+
 type BadgeObjectType {
   id: ID!
   name: String
@@ -411,12 +416,10 @@ type UserObjectType {
   score: Int
   created: DateTime!
   verified: Boolean
+  activity: [ActivityObjectType]
   createdCourses: [CourseObjectType!]!
   createdResources: [ResourceObjectType!]!
-  votes: [VoteObjectType!]!
   avatarThumbnail: String
-  courseCount: Int
-  resourceCount: Int
   school: SchoolObjectType
   subject: SubjectObjectType
   rank: String

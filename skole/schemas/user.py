@@ -74,7 +74,6 @@ class UserObjectType(DjangoObjectType):
             "avatar_thumbnail",
             "created",
             "verified",
-            "votes",
             "starred_courses",
             "starred_resources",
             "created_courses",

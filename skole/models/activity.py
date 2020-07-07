@@ -12,6 +12,7 @@ class Activity(TranslatableModel):
     )
 
     # A user who creates the activity, e.g. user replying to a comment.
+    # This field is nullable in case we want to make activities that do not involve a target user and are only defined by the description.
     target_user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
@@ -24,4 +25,7 @@ class Activity(TranslatableModel):
     )
 
     def __str__(self) -> str:
+        if self.target_user:
+            return f"{self.target_user.username} {self.description}"
+
         return f"{self.description}"

@@ -54,6 +54,8 @@ class UserSchemaTests(SkoleSchemaTestCase):
                 id
             }
             activity {
+                name
+                description
                 targetUser {
                     id
                     username
@@ -68,7 +70,6 @@ class UserSchemaTests(SkoleSchemaTestCase):
                 comment {
                     id
                 }
-                description
             }
         }
     """
@@ -273,7 +274,7 @@ class UserSchemaTests(SkoleSchemaTestCase):
         assert len(user1["createdResources"]) == 1
         assert len(user1["starredCourses"]) == 0
         assert len(user1["starredResources"]) == 0
-        assert len(user1["activity"]) == 4
+        assert len(user1["activity"]) == 0
 
         # Some other user.
         user2 = self.query_user(id=3)
@@ -307,7 +308,7 @@ class UserSchemaTests(SkoleSchemaTestCase):
         assert len(user["createdResources"]) == 1
         assert len(user["starredCourses"]) == 0
         assert len(user["starredResources"]) == 0
-        assert len(user["activity"]) == 4
+        assert len(user["activity"]) == 0
 
         # Shouldn't work without auth.
         self.authenticated_user = None

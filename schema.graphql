@@ -8,6 +8,7 @@ type ActivityObjectType {
   course: CourseObjectType
   resource: ResourceObjectType
   comment: CommentObjectType
+  name: String
   description: String
 }
 

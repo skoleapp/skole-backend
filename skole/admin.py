@@ -3,6 +3,8 @@ from django.contrib.auth import get_user_model
 from parler.admin import TranslatableAdmin
 
 from skole.models import (
+    Activity,
+    ActivityType,
     Badge,
     BetaCode,
     City,
@@ -29,6 +31,7 @@ admin.site.register(Course)
 admin.site.register(Resource)
 admin.site.register(Starred)
 admin.site.register(Vote)
+admin.site.register(Activity)
 
 # Translated models.
 admin.site.register(Badge, TranslatableAdmin)
@@ -38,3 +41,4 @@ admin.site.register(ResourceType, TranslatableAdmin)
 admin.site.register(SchoolType, TranslatableAdmin)
 admin.site.register(School, TranslatableAdmin)
 admin.site.register(Subject, TranslatableAdmin)
+admin.site.register(ActivityType, TranslatableAdmin)

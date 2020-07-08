@@ -8,3 +8,11 @@ def test_str(db: fixture) -> None:
     activity_type = ActivityType.objects.get(pk=1)
     test_activity = Activity.objects.create(user=user, activity_type=activity_type)
     assert str(test_activity) == str(activity_type)
+
+
+def test_mark_read(db: fixture) -> None:
+    pass
+
+
+def test_mark_all_as_read(db: fixture) -> None:
+    pass

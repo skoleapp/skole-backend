@@ -5,6 +5,26 @@ from .activity_type import ActivityType
 from .comment import Comment
 from .course import Course
 from .resource import Resource
+from .user import User
+
+
+class ActivityManager(models.Manager):
+    @staticmethod
+    def mark_read(activity: "Activity", read: bool) -> "Activity":
+        activity.read = read
+        activity.save()
+        return activity
+
+    @staticmethod
+    def mark_all_as_read(user: User) -> "QuerySet[Activity]":
+        qs = self.object.filter(user=user).update(read=False)
+
+        print(qs)
+
+        for item in qs:
+            item.save()
+
+        return qs
 
 
 class Activity(models.Model):
@@ -31,6 +51,8 @@ class Activity(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True,)
     resource = models.ForeignKey(Resource, on_delete=models.CASCADE, null=True,)
     comment = models.ForeignKey(Comment, on_delete=models.CASCADE, null=True,)
+    read = models.BooleanField(default=False)
+    objects = ActivityManager()
 
     def __str__(self) -> str:
         return f"{self.activity_type}"

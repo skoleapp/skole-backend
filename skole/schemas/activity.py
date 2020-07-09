@@ -18,6 +18,7 @@ class ActivityObjectType(DjangoObjectType):
     class Meta:
         model = Activity
         fields = (
+            "id",
             "description",
             "read",
             "target_user",

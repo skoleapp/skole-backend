@@ -4,6 +4,7 @@ schema {
 }
 
 type ActivityObjectType {
+  id: ID!
   targetUser: UserObjectType
   course: CourseObjectType
   resource: ResourceObjectType

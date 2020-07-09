@@ -12,6 +12,7 @@ class ActivitySchemaTests(SkoleSchemaTestCase):
     # language=GraphQL
     activity_fields = """
         fragment activityFields on ActivityObjectType {
+            id
             description
             read
             targetUser {
@@ -108,12 +109,14 @@ class ActivitySchemaTests(SkoleSchemaTestCase):
 
         res = self.mutate_mark_all_activities_read()
 
+        assert res["activity"][0]["id"] == str(test_activity1.pk)
         assert res["activity"][0]["description"] == activity_type1.description
         assert res["activity"][0]["read"]
         assert res["activity"][0]["course"] is None
         assert res["activity"][0]["resource"]["id"] == str(resource1.pk)
         assert res["activity"][0]["comment"]["id"] == str(comment1.pk)
 
+        assert res["activity"][1]["id"] == str(test_activity2.pk)
         assert res["activity"][1]["description"] == activity_type2.description
         assert res["activity"][1]["read"]
         assert res["activity"][1]["course"] is None

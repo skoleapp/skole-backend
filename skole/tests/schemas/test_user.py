@@ -54,6 +54,7 @@ class UserSchemaTests(SkoleSchemaTestCase):
                 id
             }
             activity {
+                id
                 description
                 targetUser {
                     id

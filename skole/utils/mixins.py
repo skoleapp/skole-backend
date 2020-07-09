@@ -72,7 +72,7 @@ class MessageMixin:
 
 
 class FormErrorMixin:
-    """A mixin that provides form-like error return fields to non-form mutations."""
+    """A mixin that provides form like error return fields to non-form mutations."""
 
     errors = graphene.List(ErrorType)
 

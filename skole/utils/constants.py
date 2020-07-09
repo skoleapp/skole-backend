@@ -130,6 +130,8 @@ class Ranks:
 
 
 class ActivityTypes:
+    """These are only used in activity signal to verify that the activity type matches the correct name."""
+
     COMMENT_REPLY = "comment_reply"
     COURSE_COMMENT = "course_comment"
     RESOURCE_COMMENT = "resource_comment"

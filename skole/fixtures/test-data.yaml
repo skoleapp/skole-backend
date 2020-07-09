@@ -1162,19 +1162,19 @@
     language_code: sv
     description: kommenterade din kurs.
 - model: skole.ActivityTypeTranslation
-  pk: 4
+  pk: 7
   fields:
     master: 3
     language_code: en
     description: commented on your resource.
 - model: skole.ActivityTypeTranslation
-  pk: 5
+  pk: 8
   fields:
     master: 3
     language_code: fi
     description: kommentoi resurssiasi.
 - model: skole.ActivityTypeTranslation
-  pk: 6
+  pk: 9
   fields:
     master: 3
     language_code: sv

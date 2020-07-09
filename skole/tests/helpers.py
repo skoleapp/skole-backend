@@ -172,6 +172,48 @@ class SkoleSchemaTestCase(GraphQLTestCase):
             return res
         return res[op_name]  # Convenience to get straight to the result object.
 
+    def execute_non_input_mutation(
+        self,
+        *,
+        op_name: str,
+        result: str,
+        fragment: str = "",
+        assert_error: bool = False,
+    ) -> JsonDict:
+        """Shortcut for running a mutation which takes no input as an argument.
+
+        Args:
+            op_name: Name of the mutation in the schema.
+            result: GraphQL snippet of the fields which want to be queried from the result.
+            fragment: Extra GraphQL snippet which will be inserted before the mutation query.
+                Useful for providing a GraphQL fragment which can then used in `result.`
+            assert_error: Whether the result should contain a top level "errors" section.
+                Form mutation errors never have this.
+
+        Returns:
+            The resulting JSON "data".op_name section if `assert_error` is False.
+            Otherwise returns both the "error" and "data" sections.
+        """
+
+        graphql = (
+            fragment
+            + f"""
+            mutation {{
+                {op_name} {{
+                    errors {{
+                        field
+                        messages
+                    }}
+                    {result}
+                }}
+            }}
+            """
+        )
+        res = self.execute(graphql=graphql, op_name=op_name, assert_error=assert_error,)
+        if assert_error:
+            return res
+        return res[op_name]  # Convenience to get straight to the result object.
+
     def assertResponseNoErrors(self, resp: HttpResponse) -> None:
         """Overridden and re-ordered to immediately see the errors if there were any.
 

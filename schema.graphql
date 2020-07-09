@@ -9,7 +9,6 @@ type ActivityObjectType {
   resource: ResourceObjectType
   comment: CommentObjectType
   read: Boolean
-  name: String
   description: String
 }
 

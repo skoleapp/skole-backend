@@ -12,7 +12,6 @@ class ActivitySchemaTests(SkoleSchemaTestCase):
     # language=GraphQL
     activity_fields = """
         fragment activityFields on ActivityObjectType {
-            name
             description
             read
             targetUser {
@@ -32,11 +31,11 @@ class ActivitySchemaTests(SkoleSchemaTestCase):
         }
     """
 
-    def mutate_mark_activity_read(self, *, id: str, read: bool) -> JsonDict:
+    def mutate_mark_activity_read(self, id: str, read: bool) -> JsonDict:
         return self.execute_input_mutation(
             input_type="MarkActivityReadMutationInput!",
             op_name="markActivityRead",
-            input={"id": id, "read": read, },
+            input={"id": id, "read": read},
             result="activity { ...activityFields }",
             fragment=self.activity_fields,
         )
@@ -65,7 +64,6 @@ class ActivitySchemaTests(SkoleSchemaTestCase):
 
         # Test marking activity as read.
         res = self.mutate_mark_activity_read(id=test_activity.pk, read=True)
-        assert res["activity"]["name"] == activity_type.name
         assert res["activity"]["description"] == activity_type.description
         assert res["activity"]["read"]
         assert res["activity"]["course"]["id"] == str(course.pk)
@@ -74,7 +72,6 @@ class ActivitySchemaTests(SkoleSchemaTestCase):
 
         # Test marking activity as not read.
         res = self.mutate_mark_activity_read(id=test_activity.pk, read=False)
-        assert res["activity"]["name"] == activity_type.name
         assert res["activity"]["description"] == activity_type.description
         assert not res["activity"]["read"]
         assert res["activity"]["course"]["id"] == str(course.pk)
@@ -111,14 +108,12 @@ class ActivitySchemaTests(SkoleSchemaTestCase):
 
         res = self.mutate_mark_all_activities_read()
 
-        assert res["activity"][0]["name"] == activity_type1.name
         assert res["activity"][0]["description"] == activity_type1.description
         assert res["activity"][0]["read"]
         assert res["activity"][0]["course"] is None
         assert res["activity"][0]["resource"]["id"] == str(resource1.pk)
         assert res["activity"][0]["comment"]["id"] == str(comment1.pk)
 
-        assert res["activity"][1]["name"] == activity_type2.name
         assert res["activity"][1]["description"] == activity_type2.description
         assert res["activity"][1]["read"]
         assert res["activity"][1]["course"] is None

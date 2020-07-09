@@ -12,14 +12,12 @@ from skole.utils.mixins import FormErrorMixin, LoginRequiredMutationMixin
 
 
 class ActivityObjectType(DjangoObjectType):
-    name = graphene.String()
     description = graphene.String()
     read = graphene.Boolean()
 
     class Meta:
         model = Activity
         fields = (
-            "name",
             "description",
             "read",
             "target_user",

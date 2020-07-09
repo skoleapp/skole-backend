@@ -81,6 +81,8 @@ class ActivitySchemaTests(SkoleSchemaTestCase):
         assert res["activity"]["resource"] is None
         assert res["activity"]["comment"]["id"] == str(comment.pk)
 
+        test_activity.delete()
+
     def test_mark_all_activities_read(self) -> None:
         testuser2 = User.objects.get(pk=2)
         resource1 = Resource.objects.get(pk=1)
@@ -122,3 +124,6 @@ class ActivitySchemaTests(SkoleSchemaTestCase):
         assert res["activities"][1]["course"] is None
         assert res["activities"][1]["resource"]["id"] == str(resource2.pk)
         assert res["activities"][1]["comment"]["id"] == str(comment2.pk)
+
+        test_activity1.delete()
+        test_activity2.delete()

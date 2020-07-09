@@ -11,12 +11,14 @@ from .user import User
 
 # Ignore: See explanation in UserManager.
 class ActivityManager(models.Manager):  # type: ignore[type-arg]
+    # Change read status for a single activity.
     @staticmethod
     def mark_read(activity: "Activity", read: bool) -> "Activity":
         activity.read = read
         activity.save()
         return activity
 
+    # Mark all activities as read for a user.
     def mark_all_as_read(self, user: User) -> "QuerySet[Activity]":
         qs = self.filter(user=user)
 

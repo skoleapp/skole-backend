@@ -62,14 +62,14 @@ class MarkAllActivitiesReadMutation(
 ):
     """Mark all activities of the given user as read."""
 
-    activities = graphene.List(ActivityObjectType)
+    activity = graphene.List(ActivityObjectType)
 
     # Ignore: Mypy expects the signature to match LoginRequiredMutationMixin's signature.
     @classmethod
     def mutate(cls, root: Any, info: ResolveInfo) -> "MarkAllActivitiesReadMutation":  # type: ignore[override]
         assert info.context is not None
-        activities = Activity.objects.mark_all_as_read(user=info.context.user)
-        return cls(activities=activities)
+        activity = Activity.objects.mark_all_as_read(user=info.context.user)
+        return cls(activity=activity)
 
 
 class Mutation(graphene.ObjectType):

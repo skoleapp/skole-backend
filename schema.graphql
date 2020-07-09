@@ -217,7 +217,7 @@ type MarkActivityReadMutationPayload {
 
 type MarkAllActivitiesReadMutation {
   errors: [ErrorType]
-  activities: [ActivityObjectType]
+  activity: [ActivityObjectType]
 }
 
 type Mutation {

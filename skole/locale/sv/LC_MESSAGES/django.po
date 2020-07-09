@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-08 14:09+0000\n"
+"POT-Creation-Date: 2020-07-09 07:44+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Skole\n"
@@ -253,12 +253,3 @@ msgstr "Doktor"
 #: skole/utils/constants.py:129
 msgid "Professor"
 msgstr "Professor"
-
-#~ msgid "replied on your comment."
-#~ msgstr "svarade på din kommentar"
-
-#~ msgid "commented on your course."
-#~ msgstr "kommenterade din kurs."
-
-#~ msgid "commented on your resource."
-#~ msgstr "kommenterade din resurs."

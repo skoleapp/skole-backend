@@ -143,7 +143,7 @@ class UserObjectType(DjangoObjectType):
     def resolve_activity(self, info: ResolveInfo) -> Optional["QuerySet[Activity]"]:
         assert info.context is not None
         if self.pk == info.context.user.pk:
-            return self.activity.all()
+            return self.activity.order_by("-read")
         else:
             return None
 

@@ -4,10 +4,12 @@ schema {
 }
 
 type ActivityObjectType {
+  id: ID!
   targetUser: UserObjectType
   course: CourseObjectType
   resource: ResourceObjectType
   comment: CommentObjectType
+  read: Boolean
   description: String
 }
 
@@ -201,6 +203,23 @@ type LoginMutationPayload {
   clientMutationId: String
 }
 
+input MarkActivityReadMutationInput {
+  read: Boolean
+  id: ID
+  clientMutationId: String
+}
+
+type MarkActivityReadMutationPayload {
+  activity: ActivityObjectType
+  errors: [ErrorType]
+  clientMutationId: String
+}
+
+type MarkAllActivitiesReadMutation {
+  errors: [ErrorType]
+  activity: [ActivityObjectType]
+}
+
 type Mutation {
   performStar(input: StarredMutationInput!): StarredMutationPayload
   performVote(input: VoteMutationInput!): VoteMutationPayload
@@ -222,6 +241,8 @@ type Mutation {
   createComment(input: CreateCommentMutationInput!): CreateCommentMutationPayload
   updateComment(input: UpdateCommentMutationInput!): UpdateCommentMutationPayload
   deleteComment(input: DeleteCommentMutationInput!): DeleteCommentMutationPayload
+  markActivityRead(input: MarkActivityReadMutationInput!): MarkActivityReadMutationPayload
+  markAllActivitiesRead: MarkAllActivitiesReadMutation
 }
 
 type PaginatedCourseObjectType {

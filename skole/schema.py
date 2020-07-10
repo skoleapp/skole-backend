@@ -1,5 +1,6 @@
 import graphene
 
+import skole.schemas.activity
 import skole.schemas.city
 import skole.schemas.comment
 import skole.schemas.contact
@@ -30,6 +31,7 @@ class Query(
 
 
 class Mutation(
+    skole.schemas.activity.Mutation,
     skole.schemas.comment.Mutation,
     skole.schemas.contact.Mutation,
     skole.schemas.course.Mutation,

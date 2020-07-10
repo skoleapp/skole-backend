@@ -1,6 +1,7 @@
 from typing import Any, Dict, Optional, Type, TypeVar
 
 import graphene
+from graphene_django.types import ErrorType
 from graphql import ResolveInfo
 from mypy.types import JsonDict
 
@@ -68,6 +69,12 @@ class MessageMixin:
     """A mixin that provides a mutation a message field in the response."""
 
     message = graphene.String()
+
+
+class FormErrorMixin:
+    """A mixin that provides form like error return fields to non-form mutations."""
+
+    errors = graphene.List(ErrorType)
 
 
 class DeleteMutationMixin(LoginRequiredMutationMixin, MessageMixin):

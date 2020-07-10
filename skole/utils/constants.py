@@ -129,15 +129,10 @@ class Ranks:
     PROFESSOR = _("Professor")
 
 
-class ActivityDescriptions:
-    """Activity descriptions are either appendixes to the target user or they can
-    contain the whole description if we at some point make an activity that involves no
-    target user.
+class ActivityTypes:
+    """These are only used in activity signal to verify that the activity type matches
+    the correct fixture."""
 
-    By having the description and target user as separate entities we can show the
-    target user as a link in the frontend.
-    """
-
-    COMMENT_REPLY = _("replied on your comment.")
-    COURSE_COMMENT = _("commented on your course.")
-    RESOURCE_COMMENT = _("commented on your resource.")
+    COMMENT_REPLY = "comment_reply"
+    COURSE_COMMENT = "course_comment"
+    RESOURCE_COMMENT = "resource_comment"

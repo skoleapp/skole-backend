@@ -1,13 +1,35 @@
 from django.conf import settings
 from django.db import models
-from parler.models import TranslatableModel, TranslatedFields
+from django.db.models import QuerySet
 
+from .activity_type import ActivityType
 from .comment import Comment
 from .course import Course
 from .resource import Resource
+from .user import User
 
 
-class Activity(TranslatableModel):
+# Ignore: See explanation in UserManager.
+class ActivityManager(models.Manager):  # type: ignore[type-arg]
+    # Change read status for a single activity.
+    @staticmethod
+    def mark_read(activity: "Activity", read: bool) -> "Activity":
+        activity.read = read
+        activity.save()
+        return activity
+
+    # Mark all activities as read for a user.
+    def mark_all_as_read(self, user: User) -> "QuerySet[Activity]":
+        qs = self.filter(user=user)
+
+        for item in qs:
+            item.read = True
+            item.save()
+
+        return qs
+
+
+class Activity(models.Model):
     """Models a single activity of a users activity feed."""
 
     # A user who's activity feed this activity belongs to.
@@ -24,18 +46,19 @@ class Activity(TranslatableModel):
         related_name="target_activities",
     )
 
-    course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True,)
+    activity_type = models.ForeignKey(
+        ActivityType, on_delete=models.PROTECT, related_name="activities"
+    )
 
-    resource = models.ForeignKey(Resource, on_delete=models.CASCADE, null=True,)
-
-    # Currently all activities are related to comments so technically this would not have to be nullable.
-    # However, if we decide to add other types of activities than comment notifications, this field would have to be nullable.
-    comment = models.ForeignKey(Comment, on_delete=models.CASCADE, null=True,)
-
-    translations = TranslatedFields(description=models.CharField(max_length=2000),)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True, blank=True,)
+    resource = models.ForeignKey(
+        Resource, on_delete=models.CASCADE, null=True, blank=True,
+    )
+    comment = models.ForeignKey(
+        Comment, on_delete=models.CASCADE, null=True, blank=True,
+    )
+    read = models.BooleanField(default=False)
+    objects = ActivityManager()
 
     def __str__(self) -> str:
-        if self.target_user:
-            return f"{self.target_user.username} {self.description}"
-
-        return f"{self.description}"
+        return f"{self.activity_type.name}"

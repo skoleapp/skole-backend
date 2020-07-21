@@ -8,6 +8,7 @@ from skole.utils.shortcuts import validate_is_first_inherited
 from skole.utils.types import ID
 
 
+@validate_is_first_inherited
 class TargetForm(forms.ModelForm):
     """A base class for forms that require a single object as a target.
 
@@ -37,10 +38,6 @@ class TargetForm(forms.ModelForm):
 
         cleaned_data["target"] = target_list[0]
         return cleaned_data
-
-    def __init_subclass__(cls) -> None:
-        validate_is_first_inherited(TargetForm, cls)
-        super().__init_subclass__()
 
 
 class DeleteObjectForm(forms.ModelForm):

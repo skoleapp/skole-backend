@@ -198,7 +198,6 @@ input LoginMutationInput {
 type LoginMutationPayload {
   user: UserObjectType
   errors: [ErrorType]
-  token: String
   message: String
   clientMutationId: String
 }

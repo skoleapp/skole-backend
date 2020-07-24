@@ -4,13 +4,16 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 from django.views.decorators.csrf import csrf_exempt
+from graphql_jwt.decorators import jwt_cookie
 
 from skole.views import SkoleGraphQLView, health_check
 
 urlpatterns = [
     path(
         "graphql/",
-        csrf_exempt(SkoleGraphQLView.as_view(graphiql=bool(settings.DEBUG))),
+        csrf_exempt(
+            jwt_cookie(SkoleGraphQLView.as_view(graphiql=bool(settings.DEBUG)))
+        ),
     ),
     path("healthz/", health_check),
 ]

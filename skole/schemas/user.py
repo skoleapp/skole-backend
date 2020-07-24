@@ -328,7 +328,6 @@ class LoginMutation(DjangoModelFormMutation):
     Not verified users can still login.
     """
 
-    token = graphene.String()
     user = graphene.Field(UserObjectType)
     message = graphene.String()
 

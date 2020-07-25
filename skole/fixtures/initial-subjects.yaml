@@ -332,7 +332,7 @@
   pk: 56
   fields:
     language_code: fi
-    name: Rahoitus
+    name: Laskentatoimi ja rahoitus
     master: 19
 - model: skole.SubjectTranslation
   pk: 57
@@ -1204,6 +1204,96 @@
     language_code: sv
     name: Ungdomsarbete
     master: 67
+- model: skole.SubjectTranslation
+  pk: 202
+  fields:
+    language_code: en
+    name: Management
+    master: 68
+- model: skole.SubjectTranslation
+  pk: 203
+  fields:
+    language_code: fi
+    name: Johtaminen
+    master: 68
+- model: skole.SubjectTranslation
+  pk: 204
+  fields:
+    language_code: sv
+    name: Förvaltning
+    master: 68
+- model: skole.SubjectTranslation
+  pk: 205
+  fields:
+    language_code: en
+    name: International Management
+    master: 69
+- model: skole.SubjectTranslation
+  pk: 206
+  fields:
+    language_code: fi
+    name: Kansainvälinen johtaminen
+    master: 69
+- model: skole.SubjectTranslation
+  pk: 207
+  fields:
+    language_code: sv
+    name: Internationell förvaltning
+    master: 69
+- model: skole.SubjectTranslation
+  pk: 208
+  fields:
+    language_code: en
+    name: Economic Geography
+    master: 70
+- model: skole.SubjectTranslation
+  pk: 207
+  fields:
+    language_code: fi
+    name: Talousmaantiede
+    master: 70
+- model: skole.SubjectTranslation
+  pk: 208
+  fields:
+    language_code: sv
+    name: Ekonomisk geografi
+    master: 70
+- model: skole.SubjectTranslation
+  pk: 209
+  fields:
+    language_code: en
+    name: Information Systems Science
+    master: 71
+- model: skole.SubjectTranslation
+  pk: 209
+  fields:
+    language_code: fi
+    name: Tietojärjestelmätiede
+    master: 71
+- model: skole.SubjectTranslation
+  pk: 210
+  fields:
+    language_code: sv
+    name: Informationssystemvetenskap
+    master: 71
+- model: skole.SubjectTranslation
+  pk: 211
+  fields:
+    language_code: en
+    name: Supply Chain Management
+    master: 72
+- model: skole.SubjectTranslation
+  pk: 212
+  fields:
+    language_code: fi
+    name: Toimitusketjujen johtaminen
+    master: 72
+- model: skole.SubjectTranslation
+  pk: 213
+  fields:
+    language_code: sv
+    name: Ledning av leveranskedjan
+    master: 72
 
 - model: skole.Subject
   pk: 1
@@ -1405,4 +1495,19 @@
   fields: {}
 - model: skole.Subject
   pk: 67
+  fields: {}
+- model: skole.Subject
+  pk: 68
+  fields: {}
+- model: skole.Subject
+  pk: 69
+  fields: {}
+- model: skole.Subject
+  pk: 70
+  fields: {}
+- model: skole.Subject
+  pk: 71
+  fields: {}
+- model: skole.Subject
+  pk: 72
   fields: {}

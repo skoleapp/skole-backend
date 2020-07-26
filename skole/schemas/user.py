@@ -27,7 +27,6 @@ from skole.forms.user import (
 from skole.models import (
     Activity,
     Badge,
-    BetaCode,
     Course,
     Resource,
     School,
@@ -176,7 +175,7 @@ class RegisterMutation(DjangoModelFormMutation):
         )
 
         code = form.cleaned_data["code"]
-        BetaCode.objects.decrement_usages(code)
+        code.decrement_usages()
 
         try:
             user.send_verification_email(info)

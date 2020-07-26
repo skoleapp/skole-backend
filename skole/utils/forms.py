@@ -18,8 +18,7 @@ class TargetForm(forms.ModelForm):
     def clean(self) -> Dict[str, Any]:
         """Ensure that the created object has exactly one foreign key it targets."""
 
-        # Ignore: `clean` will be defined when this mixin is used.
-        cleaned_data = super().clean()  # type: ignore[misc]
+        cleaned_data = super().clean()
 
         targets: Dict[str, ID] = {
             "course": None,

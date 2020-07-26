@@ -123,8 +123,7 @@ class Query(graphene.ObjectType):
         if city is not None:
             qs = qs.filter(school__city__pk=city)
 
-        # Ignore: Mypy doesn't like the usage of get_args at runtime.
-        if ordering not in get_args(CourseOrderingOption):  # type: ignore[misc]
+        if ordering not in get_args(CourseOrderingOption):
             raise GraphQLError(GraphQLErrors.INVALID_ORDERING)
 
         if ordering not in {"name", "-name"}:

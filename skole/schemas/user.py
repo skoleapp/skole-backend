@@ -483,8 +483,7 @@ class Query(graphene.ObjectType):
     @login_required
     def resolve_user(self, info: ResolveInfo, id: ID = None) -> Optional[User]:
         try:
-            # Ignore: get() isn't typed to receive None, even if that doesn't give error.
-            return get_user_model().objects.filter(is_superuser=False).get(pk=id)  # type: ignore[misc]
+            return get_user_model().objects.filter(is_superuser=False).get(pk=id)
         except User.DoesNotExist:
             return None
 

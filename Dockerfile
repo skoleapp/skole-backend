@@ -36,4 +36,16 @@ CMD { python manage.py graphql_schema --out=compare.graphql \
     && black --check --diff . \
     && flake8 . \
     && mypy . \
-    && pytest --verbose --cov-report=html --cov=. .
+    && pytest --verbose --cov-report=html --cov=. . \
+    && python manage.py migrate \
+    && python manage.py loaddata \
+        initial-badges.yaml \
+        initial-beta-codes.yaml \
+        initial-cities.yaml \
+        initial-countries.yaml \
+        initial-courses.yaml \
+        initial-resource-types.yaml \
+        initial-resources.yaml \
+        initial-school-types.yaml \
+        initial-schools.yaml \
+        initial-subjects.yaml

@@ -1,9 +1,10 @@
 from django.core.validators import MinValueValidator
 from django.db import models
 
+from skole.models.base import SkoleModel
 
 
-class BetaCode(models.Model):
+class BetaCode(SkoleModel):
     code = models.CharField(max_length=8, unique=True)
     usages = models.IntegerField(validators=[MinValueValidator(1)])
 

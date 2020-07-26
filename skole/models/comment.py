@@ -9,6 +9,7 @@ from django.db.models.query import QuerySet
 
 from skole.utils.validators import ValidateFileSizeAndType
 
+from .base import SkoleManager, SkoleModel
 from .course import Course
 from .resource import Resource
 from .user import User
@@ -18,8 +19,7 @@ if TYPE_CHECKING:  # pragma: no cover
     from skole.utils.types import CommentableModel
 
 
-# Ignore: See explanation in UserManager.
-class CommentManager(models.Manager):  # type: ignore[type-arg]
+class CommentManager(SkoleManager):
     def create_comment(
         self,
         user: User,
@@ -55,7 +55,7 @@ class CommentManager(models.Manager):  # type: ignore[type-arg]
         return qs.annotate(score=Coalesce(Sum("votes__status"), Value(0)))
 
 
-class Comment(models.Model):
+class Comment(SkoleModel):
     """Models one comment posted on a comment thread."""
 
     user = models.ForeignKey(
@@ -97,7 +97,9 @@ class Comment(models.Model):
 
     modified = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
-    objects = CommentManager()
+
+    # Ignore: Mypy somehow thinks that this is incompatible with the super class.
+    objects = CommentManager()  # type: ignore[assignment]
 
     # This value gets annotated in the manager's get_queryset.
     score: int

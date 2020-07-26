@@ -3,18 +3,18 @@ from django.db import models
 from django.db.models import QuerySet, Sum, Value
 from django.db.models.functions import Coalesce
 
+from .base import SkoleManager, SkoleModel
 from .school import School
 from .subject import Subject
 
 
-# Ignore: See explanation in UserManager.
-class CourseManager(models.Manager):  # type: ignore[type-arg]
+class CourseManager(SkoleManager):
     def get_queryset(self) -> "QuerySet[Course]":
         qs = super().get_queryset()
         return qs.annotate(score=Coalesce(Sum("votes__status"), Value(0)))
 
 
-class Course(models.Model):
+class Course(SkoleModel):
     """Models one course."""
 
     name = models.CharField(max_length=200)
@@ -36,7 +36,9 @@ class Course(models.Model):
 
     modified = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
-    objects = CourseManager()
+
+    # Ignore: Mypy somehow thinks that this is incompatible with the super class.
+    objects = CourseManager()  # type: ignore[assignment]
 
     # This value gets annotated in the manager's get_queryset.
     score: int

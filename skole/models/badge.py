@@ -2,8 +2,10 @@ from django.conf import settings
 from django.db import models
 from parler.models import TranslatableModel, TranslatedFields
 
+from .base import SkoleModel
 
-class Badge(TranslatableModel):
+
+class Badge(SkoleModel, TranslatableModel):
     """Models a badge awarded for a user, e.g `Moderator`."""
 
     user = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="badges")

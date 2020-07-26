@@ -3,13 +3,13 @@ from typing import Optional, Union
 from django.conf import settings
 from django.db import models
 
+from .base import SkoleManager, SkoleModel
 from .course import Course
 from .resource import Resource
 from .user import User
 
 
-# Ignore: See explanation in UserManager.
-class StarredManager(models.Manager):  # type: ignore[type-arg]
+class StarredManager(SkoleManager):
     def perform_star(
         self, user: User, target: Union[Course, Resource]
     ) -> Optional["Starred"]:
@@ -28,8 +28,7 @@ class StarredManager(models.Manager):  # type: ignore[type-arg]
         self, user: User, **target: Union[Course, Resource]
     ) -> Optional["Starred"]:
         try:
-            # Ignore: user.stars not yet defined.
-            starred = user.stars.get(**target)  # type: ignore [attr-defined]
+            starred = user.stars.get(**target)
             starred.delete()
             return None
 
@@ -40,7 +39,7 @@ class StarredManager(models.Manager):  # type: ignore[type-arg]
             return starred
 
 
-class Starred(models.Model):
+class Starred(SkoleModel):
     """Models a user's starred course or resource."""
 
     user = models.ForeignKey(
@@ -55,7 +54,8 @@ class Starred(models.Model):
         Resource, on_delete=models.CASCADE, null=True, blank=True, related_name="stars"
     )
 
-    objects = StarredManager()
+    # Ignore: Mypy somehow thinks that this is incompatible with the super class.
+    objects = StarredManager()  # type: ignore[assignment]
 
     class Meta:
         unique_together = ("user", "course", "resource")

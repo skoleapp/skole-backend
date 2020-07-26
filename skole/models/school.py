@@ -1,13 +1,14 @@
 from django.db import models
 from django.db.models import QuerySet
-from parler.models import TranslatableModel, TranslatedFields
+from parler.models import TranslatedFields
 
+from .base import TranslatableSkoleModel
 from .city import City
 from .school_type import SchoolType
 from .subject import Subject
 
 
-class School(TranslatableModel):
+class School(TranslatableSkoleModel):
     """Models one school on the platform."""
 
     school_type = models.ForeignKey(

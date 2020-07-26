@@ -1247,49 +1247,49 @@
     name: Economic Geography
     master: 70
 - model: skole.SubjectTranslation
-  pk: 207
+  pk: 209
   fields:
     language_code: fi
     name: Talousmaantiede
     master: 70
 - model: skole.SubjectTranslation
-  pk: 208
+  pk: 210
   fields:
     language_code: sv
     name: Ekonomisk geografi
     master: 70
 - model: skole.SubjectTranslation
-  pk: 209
+  pk: 211
   fields:
     language_code: en
     name: Information Systems Science
     master: 71
 - model: skole.SubjectTranslation
-  pk: 209
+  pk: 212
   fields:
     language_code: fi
     name: Tietojärjestelmätiede
     master: 71
 - model: skole.SubjectTranslation
-  pk: 210
+  pk: 213
   fields:
     language_code: sv
     name: Informationssystemvetenskap
     master: 71
 - model: skole.SubjectTranslation
-  pk: 211
+  pk: 214
   fields:
     language_code: en
     name: Supply Chain Management
     master: 72
 - model: skole.SubjectTranslation
-  pk: 212
+  pk: 215
   fields:
     language_code: fi
     name: Toimitusketjujen johtaminen
     master: 72
 - model: skole.SubjectTranslation
-  pk: 213
+  pk: 216
   fields:
     language_code: sv
     name: Ledning av leveranskedjan

@@ -99,7 +99,7 @@ class DeleteMutationMixin(LoginRequiredMutationMixin, MessageMixin):
         cls, form: DeleteObjectForm, info: ResolveInfo
     ) -> "DeleteMutationMixin":
         obj = form.cleaned_data.get("target")
-        obj.delete()
+        obj.soft_delete()
 
         # Ignore 1: Mypy doesn't know that this function will actually be used in a class
         #   deriving from DjangoModelFormMutation, where this type of calling cls with

@@ -437,7 +437,7 @@ class DeleteUserMutation(VerificationRequiredMutationMixin, DjangoModelFormMutat
     ) -> "DeleteUserMutation":
         assert info.context is not None
         user = info.context.user
-        user.delete()
+        user.soft_delete()
         return cls(message=Messages.USER_DELETED)
 
 

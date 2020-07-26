@@ -7,7 +7,7 @@ from skole.utils.forms import DeleteObjectForm
 class CreateCourseForm(forms.ModelForm):
     class Meta:
         model = Course
-        fields = ("name", "code", "subject", "school")
+        fields = ("name", "code", "subjects", "school")
 
 
 class DeleteCourseForm(DeleteObjectForm):

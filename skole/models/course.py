@@ -20,9 +20,7 @@ class Course(SkoleModel):
     name = models.CharField(max_length=200)
     code = models.CharField(max_length=30, blank=True)
 
-    subject = models.ForeignKey(
-        Subject, on_delete=models.CASCADE, related_name="courses", null=True, blank=True
-    )
+    subjects = models.ManyToManyField(Subject, related_name="courses", blank=True)
 
     school = models.ForeignKey(School, on_delete=models.CASCADE, related_name="courses")
 

@@ -24,15 +24,7 @@ from skole.forms.user import (
     TokenForm,
     UpdateUserForm,
 )
-from skole.models import (
-    Activity,
-    Badge,
-    Course,
-    Resource,
-    School,
-    Subject,
-    User,
-)
+from skole.models import Activity, Badge, Course, Resource, School, Subject, User
 from skole.schemas.activity import ActivityObjectType
 from skole.schemas.badge import BadgeObjectType
 from skole.schemas.course import CourseObjectType

@@ -77,7 +77,7 @@ type CourseObjectType {
   id: ID!
   name: String!
   code: String!
-  subject: SubjectObjectType
+  subjects: [SubjectObjectType!]!
   school: SchoolObjectType!
   user: UserObjectType
   modified: DateTime!
@@ -108,7 +108,7 @@ type CreateCommentMutationPayload {
 input CreateCourseMutationInput {
   name: String!
   code: String
-  subject: ID
+  subjects: [ID]
   school: ID!
   clientMutationId: String
 }

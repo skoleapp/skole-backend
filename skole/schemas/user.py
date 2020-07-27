@@ -24,16 +24,7 @@ from skole.forms.user import (
     TokenForm,
     UpdateUserForm,
 )
-from skole.models import (
-    Activity,
-    Badge,
-    BetaCode,
-    Course,
-    Resource,
-    School,
-    Subject,
-    User,
-)
+from skole.models import Activity, Badge, Course, Resource, School, Subject, User
 from skole.schemas.activity import ActivityObjectType
 from skole.schemas.badge import BadgeObjectType
 from skole.schemas.course import CourseObjectType
@@ -176,7 +167,7 @@ class RegisterMutation(DjangoModelFormMutation):
         )
 
         code = form.cleaned_data["code"]
-        BetaCode.objects.decrement_usages(code)
+        code.decrement_usages()
 
         try:
             user.send_verification_email(info)
@@ -438,7 +429,7 @@ class DeleteUserMutation(VerificationRequiredMutationMixin, DjangoModelFormMutat
     ) -> "DeleteUserMutation":
         assert info.context is not None
         user = info.context.user
-        user.delete()
+        user.soft_delete()
         return cls(message=Messages.USER_DELETED)
 
 
@@ -483,8 +474,7 @@ class Query(graphene.ObjectType):
     @login_required
     def resolve_user(self, info: ResolveInfo, id: ID = None) -> Optional[User]:
         try:
-            # Ignore: get() isn't typed to receive None, even if that doesn't give error.
-            return get_user_model().objects.filter(is_superuser=False).get(pk=id)  # type: ignore[misc]
+            return get_user_model().objects.filter(is_superuser=False).get(pk=id)
         except User.DoesNotExist:
             return None
 

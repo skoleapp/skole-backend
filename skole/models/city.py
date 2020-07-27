@@ -1,10 +1,11 @@
 from django.db import models
-from parler.models import TranslatableModel, TranslatedFields
+from parler.models import TranslatedFields
 
+from .base import TranslatableSkoleModel
 from .country import Country
 
 
-class City(TranslatableModel):
+class City(TranslatableSkoleModel):
     """Models one city, e.g. Turku or Helsinki."""
 
     country = models.ForeignKey(

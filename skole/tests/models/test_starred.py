@@ -53,4 +53,4 @@ def test_manager_create_bad_target(db: fixture) -> None:
     user = get_user_model().objects.get(pk=2)
     bad_target = user
     with pytest.raises(TypeError):
-        Starred.objects.perform_star(user=user, target=bad_target)  # type: ignore[arg-type]
+        Starred.objects.perform_star(user=user, target=bad_target)

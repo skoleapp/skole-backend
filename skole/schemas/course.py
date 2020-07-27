@@ -30,7 +30,7 @@ class CourseObjectType(VoteMixin, StarredMixin, DjangoObjectType):
             "id",
             "name",
             "code",
-            "subject",
+            "subjects",
             "school",
             "user",
             "modified",
@@ -58,7 +58,9 @@ class CreateCourseMutation(
         cls, form: CreateCourseForm, info: ResolveInfo
     ) -> "CreateCourseMutation":
         assert info.context is not None
+        subjects = form.cleaned_data.pop("subjects", [])
         course = Course.objects.create(user=info.context.user, **form.cleaned_data)
+        course.subjects.set(subjects)
         return cls(course=course, message=Messages.COURSE_CREATED)
 
 
@@ -113,7 +115,7 @@ class Query(graphene.ObjectType):
         if course_code is not None:
             qs = qs.filter(code__icontains=course_code)
         if subject is not None:
-            qs = qs.filter(subject__pk=subject)
+            qs = qs.filter(subjects__pk=subject)
         if school is not None:
             qs = qs.filter(school__pk=school)
         if school_type is not None:
@@ -123,8 +125,7 @@ class Query(graphene.ObjectType):
         if city is not None:
             qs = qs.filter(school__city__pk=city)
 
-        # Ignore: Mypy doesn't like the usage of get_args at runtime.
-        if ordering not in get_args(CourseOrderingOption):  # type: ignore[misc]
+        if ordering not in get_args(CourseOrderingOption):
             raise GraphQLError(GraphQLErrors.INVALID_ORDERING)
 
         if ordering not in {"name", "-name"}:

@@ -38,7 +38,7 @@ def test_activity_for_comment_reply(db: fixture) -> None:
     user = cast(User, own_reply_comment.comment.user)  # type: ignore[union-attr]
 
     with pytest.raises(Activity.DoesNotExist):
-        Activity.objects.get(user=user, target_user=own_reply_comment.user)  # type: ignore[union-attr]
+        Activity.objects.get(user=user, target_user=own_reply_comment.user)
 
 
 def test_activity_for_course_comment(db: fixture) -> None:
@@ -56,7 +56,7 @@ def test_activity_for_course_comment(db: fixture) -> None:
 
     # Ignore: Course is an optional field to a comment, but we now that this comment is targeted a course in the fixtures.
     Activity.objects.get(
-        user=user,  # type: ignore[union-attr]
+        user=user,
         target_user=comment.user,
         course=comment.course,
         resource=comment.resource,
@@ -71,11 +71,9 @@ def test_activity_for_course_comment(db: fixture) -> None:
     )
 
     # Ignore 1: Mypy thinks that the course is optional but we now that this comment is attached to a course.
-    # Ignore 2: comment is an optional union attribute to a comment so it might not have the 'user' defined.
-    # In this case we now that this comment targets another comment, however.
     user = cast(User, own_course_comment.course.user)  # type: ignore[union-attr]
     with pytest.raises(Activity.DoesNotExist):
-        Activity.objects.get(user=user, target_user=own_course_comment.user)  # type: ignore[union-attr]
+        Activity.objects.get(user=user, target_user=own_course_comment.user)
 
 
 def test_activity_for_resource_comment(db: fixture) -> None:
@@ -90,9 +88,8 @@ def test_activity_for_resource_comment(db: fixture) -> None:
     # Ignore: Mypy thinks that the resource is optional but we now that this comment is attached to a resource.
     user = cast(User, comment.resource.user)  # type: ignore[union-attr]
 
-    # Ignore: Resource is an optional field to a comment, but we now that this comment is targeted a resource in the fixtures.
     Activity.objects.get(
-        user=user,  # type: ignore[union-attr]
+        user=user,
         target_user=comment.user,
         course=comment.course,
         resource=comment.resource,
@@ -107,8 +104,6 @@ def test_activity_for_resource_comment(db: fixture) -> None:
     )
 
     # Ignore 1: Mypy thinks that the resource is optional but we now that this comment is attached to a resource.
-    # Ignore 2: comment is an optional union attribute to a comment so it might not have the 'user' defined.
-    # In this case we now that this comment targets another comment, however.
     user = cast(User, own_resource_comment.resource.user)  # type: ignore[union-attr]
     with pytest.raises(Activity.DoesNotExist):
-        Activity.objects.get(user=user, target_user=own_resource_comment.user)  # type: ignore[union-attr]
+        Activity.objects.get(user=user, target_user=own_resource_comment.user)

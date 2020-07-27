@@ -34,7 +34,7 @@ def test_manager_create_ok(db: fixture, temp_media: fixture) -> None:
         # Source for the jpeg bit pattern: https://en.wikipedia.org/wiki/List_of_file_signatures
         attachment = SimpleUploadedFile("image.jpeg", b"\xff\xd8\xff")
         comment = Comment.objects.create_comment(
-            user=user, text=text, attachment=attachment, target=target  # type: ignore[arg-type]
+            user=user, text=text, attachment=attachment, target=target
         )
 
         assert comment.user == user

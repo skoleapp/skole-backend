@@ -1,8 +1,10 @@
 from django.db import models
-from parler.models import TranslatableModel, TranslatedFields
+from parler.models import TranslatedFields
+
+from skole.models.base import TranslatableSkoleModel
 
 
-class Subject(TranslatableModel):
+class Subject(TranslatableSkoleModel):
     """Models one studyable subject, e.g. Computer Engineering."""
 
     translations = TranslatedFields(name=models.CharField(max_length=100))

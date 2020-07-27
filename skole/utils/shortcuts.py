@@ -6,10 +6,11 @@ from django.db import models
 
 from skole.utils.types import ID
 
-T = TypeVar("T", bound=models.Model)
+M = TypeVar("M", bound=models.Model)
+T = TypeVar("T", bound=type)
 
 
-def get_obj_or_none(model: Type[T], pk: ID = None) -> Optional[T]:
+def get_obj_or_none(model: Type[M], pk: ID = None) -> Optional[M]:
     """Used as a helper function to return None instead of raising a GraphQLError."""
 
     try:
@@ -38,7 +39,7 @@ def clean_file_field(
         return getattr(form.instance, field_name)
 
 
-def full_refresh_from_db(instance: T, /) -> T:
+def full_refresh_from_db(instance: M, /) -> M:
     """Return the same object instance but re-query it from the database.
 
     This is like Django's `refresh_from_db,` but this also recalculates the values of
@@ -47,17 +48,17 @@ def full_refresh_from_db(instance: T, /) -> T:
     return instance.__class__.objects.get(pk=instance.pk)
 
 
-def validate_is_first_inherited(parent: type, subclass: type) -> None:
-    """Validate that the first inherited class of `subclass` is `parent`.
+def validate_is_first_inherited(decorated: T) -> T:
+    """Add as a decorator to a class to ensure that it's the first class ever inherited.
 
-    Can be used in any class's __init_subclass__ method to validate that the class in
-    question is the first class that is ever inherited.
+    Caution: Does not work when a class has overridden __init_subclass__ in a way
+    that does not call super(). This is the case with
+    all graphene types: https://github.com/graphql-python/graphene/issues/1233
 
     Examples:
-        >>> class Foo:
-        ...     def __init_subclass__(cls) -> None:
-        ...         validate_is_first_inherited(Foo, cls)
-        ...         super().__init_subclass__()
+        >>> @validate_is_first_inherited
+        ... class Foo:
+        ...     pass
         >>> class Bar: pass
         >>> class Ok1(Foo, Bar): pass
         >>> class Ok2(Foo): pass
@@ -67,14 +68,25 @@ def validate_is_first_inherited(parent: type, subclass: type) -> None:
             ...
         TypeError: Foo needs to be the first inherited class.
     """
-    assert issubclass(subclass, parent)
 
-    while True:
-        try:
-            if subclass.__bases__[0] is parent:
-                return
-        except (AttributeError, IndexError):
-            break
-        subclass = subclass.__bases__[0]
+    def init_subclass_with_validation(cls: type) -> None:
+        # Ignore: even though T is defined with bound=type, Mypy gives the error:
+        #   Argument 1 for "super" must be a type object; got "T"
+        super(decorated, cls).__init_subclass__()  # type: ignore[misc]
+        found = False
+        while True:
+            try:
+                if cls.__bases__[0] is decorated:
+                    found = True
+                    break
+            except (AttributeError, IndexError):
+                break
+            cls = cls.__bases__[0]
+        if not found:
+            raise TypeError(
+                f"{decorated.__name__} needs to be the first inherited class."
+            )
 
-    raise TypeError(f"{parent.__name__} needs to be the first inherited class.")
+    # Ignore: Mypy doesn't like assigning to a method.
+    decorated.__init_subclass__ = classmethod(init_subclass_with_validation)  # type: ignore[assignment]
+    return decorated

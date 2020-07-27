@@ -34,15 +34,24 @@ def test_manager_create_ok(db: fixture) -> None:
         if vote.course is not None:
             course = Course.objects.get(pk=target.pk)
             assert target_score == course.score == 1
-            assert course.user.score == target_score * VoteConstants.SCORE_COURSE_MULTIPLIER  # type: ignore [union-attr]
+            assert (
+                course.user.score
+                == target_score * VoteConstants.SCORE_COURSE_MULTIPLIER
+            )
         elif vote.resource is not None:
             resource = Resource.objects.get(pk=target.pk)
             assert target_score == resource.score == 1
-            assert resource.user.score == target_score * VoteConstants.SCORE_RESOURCE_MULTIPLIER  # type: ignore [union-attr]
+            assert (
+                resource.user.score
+                == target_score * VoteConstants.SCORE_RESOURCE_MULTIPLIER
+            )
         elif vote.comment is not None:
             comment = Comment.objects.get(pk=target.pk)
             assert target_score == comment.score == 1
-            assert comment.user.score == target_score * VoteConstants.SCORE_COMMENT_MULTIPLIER  # type: ignore [union-attr]
+            assert (
+                comment.user.score
+                == target_score * VoteConstants.SCORE_COMMENT_MULTIPLIER
+            )
 
         # Check that only one foreign key reference is active.
         for attr in ("course", "resource", "comment"):
@@ -65,6 +74,7 @@ def test_manager_create_existing(db: fixture) -> None:
     for target in targets:
         vote, target_score = Vote.objects.perform_vote(user=user, status=status, target=target)  # type: ignore[arg-type]
         assert vote is not None
+        assert target_score == 1
 
     for target in targets:
         vote, target_score = Vote.objects.perform_vote(user=user, status=status, target=target)  # type: ignore[arg-type]
@@ -76,4 +86,4 @@ def test_manager_create_bad_target(db: fixture) -> None:
     user = get_user_model().objects.get(pk=2)
     bad_target = user
     with pytest.raises(TypeError):
-        Vote.objects.perform_vote(user=user, status=1, target=bad_target)  # type: ignore[arg-type]
+        Vote.objects.perform_vote(user=user, status=1, target=bad_target)

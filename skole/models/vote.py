@@ -4,6 +4,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.db import models
 
+from skole.models.base import SkoleManager, SkoleModel
 from skole.models.comment import Comment
 from skole.models.course import Course
 from skole.models.resource import Resource
@@ -13,8 +14,7 @@ from skole.utils.shortcuts import full_refresh_from_db
 from skole.utils.types import VotableModel
 
 
-# Ignore: See explanation in UserManager.
-class VoteManager(models.Manager):  # type: ignore[type-arg]
+class VoteManager(SkoleManager):
     def perform_vote(
         self, user: User, status: Literal[1, -1], target: VotableModel
     ) -> Tuple[Optional["Vote"], int]:
@@ -63,7 +63,7 @@ class VoteManager(models.Manager):  # type: ignore[type-arg]
         return vote
 
 
-class Vote(models.Model):
+class Vote(SkoleModel):
     """Models one vote on either comment, course or resource."""
 
     user = models.ForeignKey(
@@ -84,7 +84,8 @@ class Vote(models.Model):
         Resource, on_delete=models.CASCADE, null=True, blank=True, related_name="votes"
     )
 
-    objects = VoteManager()
+    # Ignore: Mypy somehow thinks that this is incompatible with the super class.
+    objects = VoteManager()  # type: ignore[assignment]
 
     class Meta:
         unique_together = ("user", "comment", "course", "resource")

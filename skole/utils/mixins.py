@@ -13,6 +13,7 @@ from skole.utils.shortcuts import validate_is_first_inherited
 T = TypeVar("T", bound=graphene.Mutation)
 
 
+@validate_is_first_inherited
 class LoginRequiredMutationMixin:
     """Mixin for a mutation that needs a user to be logged in to use.
 
@@ -30,11 +31,8 @@ class LoginRequiredMutationMixin:
         #   This works fine when the mixin is subclassed with a mutation class.
         return super().mutate(root, info, input)  # type: ignore[misc]
 
-    def __init_subclass__(cls) -> None:
-        validate_is_first_inherited(LoginRequiredMutationMixin, cls)
-        super().__init_subclass__()
 
-
+@validate_is_first_inherited
 class VerificationRequiredMutationMixin:
     """Mixin for a mutation that needs a user to be verified (and logged in) to use.
 
@@ -59,10 +57,6 @@ class VerificationRequiredMutationMixin:
 
         # Ignore: Same as above.
         return super().mutate(root, info, input)  # type: ignore[misc]
-
-    def __init_subclass__(cls) -> None:
-        validate_is_first_inherited(VerificationRequiredMutationMixin, cls)
-        super().__init_subclass__()
 
 
 class MessageMixin:
@@ -105,7 +99,7 @@ class DeleteMutationMixin(LoginRequiredMutationMixin, MessageMixin):
         cls, form: DeleteObjectForm, info: ResolveInfo
     ) -> "DeleteMutationMixin":
         obj = form.cleaned_data.get("target")
-        obj.delete()
+        obj.soft_delete()
 
         # Ignore 1: Mypy doesn't know that this function will actually be used in a class
         #   deriving from DjangoModelFormMutation, where this type of calling cls with

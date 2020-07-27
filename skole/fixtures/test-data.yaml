@@ -626,7 +626,7 @@
   fields:
     name: Test Engineering Course 1
     code: TEST0001
-    subject: 1
+    subjects: [1]
     school: 1
     user: 2
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -636,7 +636,7 @@
   fields:
     name: Test Engineering Course 2
     code: TEST0002
-    subject: 1
+    subjects: [1]
     school: 1
     user: 3
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -646,7 +646,7 @@
   fields:
     name: Test Engineering Course 3
     code: TEST0003
-    subject: 1
+    subjects: [1]
     school: 1
     user: 4
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -656,7 +656,7 @@
   fields:
     name: Test Engineering Course 4
     code: TEST0004
-    subject: 1
+    subjects: [1]
     school: 1
     user: 2
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -666,7 +666,7 @@
   fields:
     name: Test Engineering Course 5
     code: TEST0005
-    subject: 1
+    subjects: [1]
     school: 1
     user: 3
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -676,7 +676,7 @@
   fields:
     name: Test Engineering Course 6
     code: TEST0006
-    subject: 1
+    subjects: [1]
     school: 1
     user: 4
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -686,7 +686,7 @@
   fields:
     name: Test Engineering Course 7
     code: TEST0007
-    subject: 1
+    subjects: [1]
     school: 1
     user: 2
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -696,7 +696,7 @@
   fields:
     name: Test Engineering Course 8
     code: TEST0008
-    subject: 1
+    subjects: [1]
     school: 1
     user: 2
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -706,7 +706,7 @@
   fields:
     name: Test Engineering Course 9
     code: TEST0009
-    subject: 1
+    subjects: [1]
     school: 1
     user: 3
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -716,7 +716,7 @@
   fields:
     name: Test Engineering Course 10
     code: TEST00010
-    subject: 1
+    subjects: [1]
     school: 1
     user: 4
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -726,7 +726,7 @@
   fields:
     name: Test Engineering Course 11
     code: TEST00011
-    subject: 1
+    subjects: [1]
     school: 1
     user: 3
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -736,7 +736,7 @@
   fields:
     name: Test Engineering Course 12
     code: TEST00012
-    subject: 1
+    subjects: [1]
     school: 1
     user: 4
     modified: 2020-01-01 12:00:00.000000+00:00

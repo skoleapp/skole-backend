@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import List, Optional, Sequence
 
 from mypy.types import JsonDict
 
@@ -23,7 +23,7 @@ class CourseSchemaTests(SkoleSchemaTestCase):
             id
             name
             code
-            subject {
+            subjects {
                 id
             }
             school {
@@ -139,14 +139,14 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         *,
         name: str = "test course",
         code: str = "code0001",
-        subject: ID = 1,
+        subjects: Sequence[ID] = (1,),
         school: ID = 1,
         assert_error: bool = False,
     ) -> JsonDict:
         return self.execute_input_mutation(
             input_type="CreateCourseMutationInput!",
             op_name="createCourse",
-            input={"name": name, "code": code, "subject": subject, "school": school},
+            input={"name": name, "code": code, "subjects": subjects, "school": school},
             result="course { ...courseFields }",
             fragment=self.course_fields,
             assert_error=assert_error,
@@ -176,8 +176,8 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         # School is required.
         self.mutate_create_course(school=None, assert_error=True)
 
-        # Subject is not required.
-        res = self.mutate_create_course(subject=None)
+        # Subjects are not required.
+        res = self.mutate_create_course(subjects=[])
         assert res["course"]["id"] == "14"
 
         # Can omit name but not code.
@@ -331,7 +331,7 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         assert course["id"] == "1"
         assert course["name"] == "Test Engineering Course 1"
         assert course["code"] == "TEST0001"
-        assert course["subject"] == {"id": "1"}
+        assert course["subjects"] == [{"id": "1"}]
         assert course["school"] == {"id": "1"}
         assert course["user"] == {"id": "2"}
         assert is_iso_datetime(course["modified"])

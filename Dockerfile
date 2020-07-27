@@ -1,4 +1,4 @@
-FROM python:3.8.3-alpine3.11 AS dev
+FROM python:3.8.5-alpine3.12 AS dev
 
 RUN adduser --disabled-password user
 WORKDIR /home/user/app
@@ -31,9 +31,22 @@ COPY --chown=user:user . .
 CMD { python manage.py graphql_schema --out=compare.graphql \
         && diff schema.graphql compare.graphql \
         && rm compare.graphql; } \
-    && isort --check-only --diff --recursive . \
+    && python manage.py makemigrations --check \
+    && isort --check-only --diff . \
     && docformatter --check --recursive --wrap-summaries=88 --wrap-descriptions=88 . \
     && black --check --diff . \
     && flake8 . \
     && mypy . \
-    && pytest --verbose --cov-report=html --cov=. .
+    && pytest --verbose --cov-report=html --cov=. . \
+    && python manage.py migrate \
+    && python manage.py loaddata \
+        initial-badges.yaml \
+        initial-beta-codes.yaml \
+        initial-cities.yaml \
+        initial-countries.yaml \
+        initial-courses.yaml \
+        initial-resource-types.yaml \
+        initial-resources.yaml \
+        initial-school-types.yaml \
+        initial-schools.yaml \
+        initial-subjects.yaml

@@ -114,8 +114,8 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         assert comment["text"] == text
         assert Comment.objects.count() == old_count + 1
         assert Comment.objects.get(pk=2).reply_comments.count() == 1
-        assert Comment.objects.get(pk=2).reply_comments.first().text == text  # type: ignore[union-attr]
-        assert Comment.objects.get(pk=2).reply_comments.first().pk == int(comment["id"])  # type: ignore[union-attr]
+        assert Comment.objects.get(pk=2).reply_comments.first().text == text
+        assert Comment.objects.get(pk=2).reply_comments.first().pk == int(comment["id"])
 
         # Create a comment to a resource.
         res = self.mutate_create_comment(text=text, resource=2)
@@ -123,8 +123,8 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         assert comment["text"] == text
         assert Comment.objects.count() == old_count + 2
         assert Resource.objects.get(pk=2).comments.count() == 1
-        assert Resource.objects.get(pk=2).comments.first().text == text  # type: ignore[union-attr]
-        assert Resource.objects.get(pk=2).comments.first().pk == int(comment["id"])  # type: ignore[union-attr]
+        assert Resource.objects.get(pk=2).comments.first().text == text
+        assert Resource.objects.get(pk=2).comments.first().pk == int(comment["id"])
 
         # Create a comment to a course.
         res = self.mutate_create_comment(text=text, course=2)
@@ -132,8 +132,8 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         assert comment["text"] == text
         assert Comment.objects.count() == old_count + 3
         assert Course.objects.get(pk=2).comments.count() == 1
-        assert Course.objects.get(pk=2).comments.first().text == text  # type: ignore[union-attr]
-        assert Course.objects.get(pk=2).comments.first().pk == int(comment["id"])  # type: ignore[union-attr]
+        assert Course.objects.get(pk=2).comments.first().text == text
+        assert Course.objects.get(pk=2).comments.first().pk == int(comment["id"])
 
         # Can't create a comment with 2 targets.
         res = self.mutate_create_comment(text=text, course=1, resource=1)

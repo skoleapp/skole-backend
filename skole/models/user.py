@@ -20,14 +20,13 @@ from skole.utils.exceptions import UserAlreadyVerified, UserNotVerified
 from skole.utils.token import get_token, get_token_payload
 from skole.utils.validators import ValidateFileSizeAndType
 
+from .base import SkoleManager, SkoleModel
 from .school import School
 from .subject import Subject
 
 
-# Ignore: Mypy expects Managers to have a generic type,
-#  this doesn't actually work, so we ignore it.
-#  https://gitter.im/mypy-django/Lobby?at=5de6bd09d75ad3721d4a58ba
-class UserManager(BaseUserManager):  # type: ignore[type-arg]
+# Ignore: See explanation in SkoleManager.
+class UserManager(SkoleManager, BaseUserManager):  # type: ignore[type-arg]
     def create_user(
         self,
         username: str,
@@ -103,7 +102,7 @@ class UserManager(BaseUserManager):  # type: ignore[type-arg]
             raise UserAlreadyVerified
 
 
-class User(AbstractBaseUser, PermissionsMixin):
+class User(SkoleModel, AbstractBaseUser, PermissionsMixin):
     """Models one user on the platform."""
 
     username = models.CharField(
@@ -149,7 +148,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     modified = models.DateTimeField(auto_now=True)
-    objects = UserManager()
+
+    # Ignore: Mypy somehow thinks that this is incompatible with the super class.
+    objects = UserManager()  # type: ignore[assignment]
 
     USERNAME_FIELD = "username"
     EMAIL_FIELD = "email"

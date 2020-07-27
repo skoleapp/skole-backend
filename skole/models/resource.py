@@ -10,13 +10,13 @@ from django.db.models.query import QuerySet
 
 from skole.utils.validators import ValidateFileSizeAndType
 
+from .base import SkoleManager, SkoleModel
 from .course import Course
 from .resource_type import ResourceType
 from .user import User
 
 
-# Ignore: See explanation in UserManager.
-class ResourceManager(models.Manager):  # type: ignore[type-arg]
+class ResourceManager(SkoleManager):
     def create_resource(
         self,
         resource_type: ResourceType,
@@ -58,7 +58,7 @@ class ResourceManager(models.Manager):  # type: ignore[type-arg]
         return qs.annotate(score=Coalesce(Sum("votes__status"), Value(0)))
 
 
-class Resource(models.Model):
+class Resource(SkoleModel):
     """Models one user-uploaded resource."""
 
     resource_type = models.ForeignKey(ResourceType, on_delete=models.PROTECT)
@@ -89,7 +89,9 @@ class Resource(models.Model):
 
     modified = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
-    objects = ResourceManager()
+
+    # Ignore: Mypy somehow thinks that this is incompatible with the super class.
+    objects = ResourceManager()  # type: ignore[assignment]
 
     # This value gets annotated in the manager's get_queryset.
     score: int

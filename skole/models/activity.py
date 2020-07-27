@@ -3,14 +3,14 @@ from django.db import models
 from django.db.models import QuerySet
 
 from .activity_type import ActivityType
+from .base import SkoleManager, SkoleModel
 from .comment import Comment
 from .course import Course
 from .resource import Resource
 from .user import User
 
 
-# Ignore: See explanation in UserManager.
-class ActivityManager(models.Manager):  # type: ignore[type-arg]
+class ActivityManager(SkoleManager):
     # Change read status for a single activity.
     @staticmethod
     def mark_read(activity: "Activity", read: bool) -> "Activity":
@@ -29,7 +29,7 @@ class ActivityManager(models.Manager):  # type: ignore[type-arg]
         return qs
 
 
-class Activity(models.Model):
+class Activity(SkoleModel):
     """Models a single activity of a users activity feed."""
 
     # A user who's activity feed this activity belongs to.
@@ -58,7 +58,9 @@ class Activity(models.Model):
         Comment, on_delete=models.CASCADE, null=True, blank=True,
     )
     read = models.BooleanField(default=False)
-    objects = ActivityManager()
+
+    # Ignore: Mypy somehow thinks that this is incompatible with the super class.
+    objects = ActivityManager()  # type: ignore[assignment]
 
     def __str__(self) -> str:
         return f"{self.activity_type.name}"

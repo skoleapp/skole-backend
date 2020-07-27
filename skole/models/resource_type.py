@@ -1,8 +1,10 @@
 from django.db import models
-from parler.models import TranslatableModel, TranslatedFields
+from parler.models import TranslatedFields
+
+from skole.models.base import TranslatableSkoleModel
 
 
-class ResourceType(TranslatableModel):
+class ResourceType(TranslatableSkoleModel):
     """Models one type of resource, e.g. an exam or a note."""
 
     translations = TranslatedFields(name=models.CharField(max_length=100))

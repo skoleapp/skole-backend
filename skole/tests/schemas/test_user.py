@@ -138,7 +138,7 @@ class UserSchemaTests(SkoleSchemaTestCase):
             input_type="LoginMutationInput!",
             op_name="login",
             input={"usernameOrEmail": username_or_email, "password": password},
-            result="user { ...userFields } token message",
+            result="user { ...userFields } message",
             fragment=self.user_fields,
         )
 
@@ -227,7 +227,6 @@ class UserSchemaTests(SkoleSchemaTestCase):
         self.authenticated_user = None
 
         res = self.mutate_login()
-        assert isinstance(res["token"], str)
         assert res["user"]["email"] == "testuser2@test.com"
         assert res["user"]["username"] == "testuser2"
         assert res["message"] == Messages.LOGGED_IN
@@ -236,7 +235,6 @@ class UserSchemaTests(SkoleSchemaTestCase):
         self.authenticated_user = None
 
         res = self.mutate_login(username_or_email="testuser2@test.com")
-        assert isinstance(res["token"], str)
         assert res["user"]["email"] == "testuser2@test.com"
         assert res["user"]["username"] == "testuser2"
         assert res["message"] == Messages.LOGGED_IN
@@ -246,17 +244,14 @@ class UserSchemaTests(SkoleSchemaTestCase):
 
         # Invalid username.
         res = self.mutate_login(username_or_email="badusername")
-        assert res["token"] is None
         assert get_form_error(res) == ValidationErrors.AUTH_ERROR
 
         # Invalid email.
         res = self.mutate_login(username_or_email="bademail@test.com")
-        assert res["token"] is None
         assert get_form_error(res) == ValidationErrors.AUTH_ERROR
 
         # Invalid password.
         res = self.mutate_login(password="wrongpass")
-        assert res["token"] is None
         assert get_form_error(res) == ValidationErrors.AUTH_ERROR
 
     def test_user(self) -> None:

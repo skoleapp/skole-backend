@@ -1,4 +1,4 @@
-from typing import Optional, Type, TypeVar, Union
+from typing import Any, Optional, Type, TypeVar, Union
 
 from django import forms
 from django.core.files.uploadedfile import UploadedFile
@@ -7,7 +7,7 @@ from django.db import models
 from skole.utils.types import ID
 
 M = TypeVar("M", bound=models.Model)
-T = TypeVar("T", bound=type)
+T = TypeVar("T", bound=Any)
 
 
 def get_obj_or_none(model: Type[M], pk: ID = None) -> Optional[M]:
@@ -48,7 +48,7 @@ def full_refresh_from_db(instance: M, /) -> M:
     return instance.__class__.objects.get(pk=instance.pk)
 
 
-def validate_is_first_inherited(decorated: T) -> T:
+def validate_is_first_inherited(decorated: Type[T]) -> Type[T]:
     """Add as a decorator to a class to ensure that it's the first class ever inherited.
 
     Caution: Does not work when a class has overridden __init_subclass__ in a way
@@ -69,10 +69,8 @@ def validate_is_first_inherited(decorated: T) -> T:
         TypeError: Foo needs to be the first inherited class.
     """
 
-    def init_subclass_with_validation(cls: type) -> None:
-        # Ignore: even though T is defined with bound=type, Mypy gives the error:
-        #   Argument 1 for "super" must be a type object; got "T"
-        super(decorated, cls).__init_subclass__()  # type: ignore[misc]
+    def init_subclass_with_validation(cls: Type[Any]) -> None:
+        super(decorated, cls).__init_subclass__()
         found = False
         while True:
             try:
@@ -87,6 +85,5 @@ def validate_is_first_inherited(decorated: T) -> T:
                 f"{decorated.__name__} needs to be the first inherited class."
             )
 
-    # Ignore: Mypy doesn't like assigning to a method.
-    decorated.__init_subclass__ = classmethod(init_subclass_with_validation)  # type: ignore[assignment]
+    setattr(decorated, "__init_subclass__", classmethod(init_subclass_with_validation))
     return decorated

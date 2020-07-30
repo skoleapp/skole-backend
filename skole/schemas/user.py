@@ -11,6 +11,7 @@ from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoFormMutation, DjangoModelFormMutation
 from graphene_django.types import ErrorType
 from graphql import ResolveInfo
+from graphql_jwt import DeleteJSONWebTokenCookie
 from graphql_jwt.decorators import login_required, token_auth
 from mypy.types import JsonDict
 
@@ -366,6 +367,14 @@ class LoginMutation(DjangoModelFormMutation):
         return cls(user=user, message=Messages.LOGGED_IN)
 
 
+class LogoutMutation(DeleteJSONWebTokenCookie):
+    """Delete JSON web token cookie and logout.
+
+    This sets the `Set-Cookie` header so that the JWT token cookie gets automatically
+    deleted in frontend.
+    """
+
+
 class ChangePasswordMutation(
     VerificationRequiredMutationMixin, DjangoModelFormMutation
 ):
@@ -490,6 +499,7 @@ class Mutation(graphene.ObjectType):
     send_password_reset_email = SendPasswordResetEmailMutation.Field()
     reset_password = ResetPasswordMutation.Field()
     login = LoginMutation.Field()
+    logout = LogoutMutation.Field()
     update_user = UpdateUserMutation.Field()
     change_password = ChangePasswordMutation.Field()
     delete_user = DeleteUserMutation.Field()

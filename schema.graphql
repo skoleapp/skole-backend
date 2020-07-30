@@ -202,6 +202,10 @@ type LoginMutationPayload {
   clientMutationId: String
 }
 
+type LogoutMutation {
+  deleted: Boolean!
+}
+
 input MarkActivityReadMutationInput {
   read: Boolean
   id: ID
@@ -228,6 +232,7 @@ type Mutation {
   sendPasswordResetEmail(input: SendPasswordResetEmailMutationInput!): SendPasswordResetEmailMutationPayload
   resetPassword(input: ResetPasswordMutationInput!): ResetPasswordMutationPayload
   login(input: LoginMutationInput!): LoginMutationPayload
+  logout: LogoutMutation
   updateUser(input: UpdateUserMutationInput!): UpdateUserMutationPayload
   changePassword(input: ChangePasswordMutationInput!): ChangePasswordMutationPayload
   deleteUser(input: DeleteUserMutationInput!): DeleteUserMutationPayload

@@ -7,7 +7,9 @@ from django.contrib.auth import get_user_model
 from django.core.files.uploadedfile import UploadedFile
 from django.http import HttpResponse
 from graphene_django.utils import GraphQLTestCase
+from graphql_jwt.settings import jwt_settings
 from graphql_jwt.shortcuts import get_token
+from graphql_jwt.utils import delete_cookie
 from mypy.types import JsonDict
 
 from skole.schema import schema
@@ -107,6 +109,9 @@ class SkoleSchemaTestCase(GraphQLTestCase):
         # Ignore: Mypy thinks its getting multiple values for `headers`, but they are
         #   popped from the `kwargs`.
         response = self.query(graphql, **kwargs, headers=headers)  # type: ignore[misc]
+
+        if not self.authenticated_user:
+            delete_cookie(response, jwt_settings.JWT_COOKIE_NAME)
 
         if assert_error:
             self.assertResponseHasErrors(response)

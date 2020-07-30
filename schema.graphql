@@ -198,9 +198,12 @@ input LoginMutationInput {
 type LoginMutationPayload {
   user: UserObjectType
   errors: [ErrorType]
-  token: String
   message: String
   clientMutationId: String
+}
+
+type LogoutMutation {
+  deleted: Boolean!
 }
 
 input MarkActivityReadMutationInput {
@@ -229,6 +232,7 @@ type Mutation {
   sendPasswordResetEmail(input: SendPasswordResetEmailMutationInput!): SendPasswordResetEmailMutationPayload
   resetPassword(input: ResetPasswordMutationInput!): ResetPasswordMutationPayload
   login(input: LoginMutationInput!): LoginMutationPayload
+  logout: LogoutMutation
   updateUser(input: UpdateUserMutationInput!): UpdateUserMutationPayload
   changePassword(input: ChangePasswordMutationInput!): ChangePasswordMutationPayload
   deleteUser(input: DeleteUserMutationInput!): DeleteUserMutationPayload

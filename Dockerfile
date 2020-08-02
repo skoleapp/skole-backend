@@ -2,7 +2,7 @@ FROM python:3.8.5-alpine3.12 AS dev
 
 RUN adduser --disabled-password user
 WORKDIR /home/user/app
-RUN chown --recursive user:user /home/user/app
+RUN chown user:user /home/user/app
 
 ENV PATH="/home/user/.local/bin:${PATH}"
 ENV PYTHONUNBUFFERED=1

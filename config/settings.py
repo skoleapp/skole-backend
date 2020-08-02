@@ -90,6 +90,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # Custom validation settings
 PASSWORD_MIN_LENGTH = 8
 USERNAME_MIN_LENGTH = 3
+# Make sure to edit constants.ValidationErrors.INVALID_USERNAME if you change this.
+USERNAME_REGEX = r"[A-Za-z0-9ÅÄÖåäö_]+"
 
 # Authentication backend settings
 AUTHENTICATION_BACKENDS = [

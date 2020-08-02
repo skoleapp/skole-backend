@@ -71,10 +71,7 @@ class LoginForm(forms.ModelForm):
         except get_user_model().DoesNotExist:
             raise forms.ValidationError(ValidationErrors.AUTH_ERROR)
 
-        user = authenticate(
-            username=user.username,
-            password=password,
-        )
+        user = authenticate(username=user.username, password=password)
 
         if not user:
             raise forms.ValidationError(ValidationErrors.AUTH_ERROR)

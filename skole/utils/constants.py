@@ -33,6 +33,9 @@ class ValidationErrors:
     INVALID_FILE_TYPE = _("Invalid file type, allowed types are: {}")
     INVALID_FILE_EXTENSION = _("File extension doesn't match the file type.")
     COMMENT_EMPTY = _("Comment must include either text or attachment.")
+    INVALID_USERNAME = _(
+        "Usernames can only contain letters, numbers, and underscores."
+    )
 
 
 class GraphQLErrors:

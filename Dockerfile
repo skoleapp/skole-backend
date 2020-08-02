@@ -38,6 +38,7 @@ CMD { python manage.py graphql_schema --out=compare.graphql \
     && flake8 . \
     && mypy . \
     && pytest --verbose --cov-report=html --cov=. . \
+    && python manage.py compilemessages \
     && python manage.py migrate \
     && python manage.py loaddata \
         initial-badges.yaml \

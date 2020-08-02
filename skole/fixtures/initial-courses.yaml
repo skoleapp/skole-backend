@@ -2,7 +2,7 @@
   pk: 1
   fields:
     name: "3D Integration and System on Package"
-    code: "ETT_2065"
+    code: "ETT2065"
     subjects: [14]
     school: 1
     user: null
@@ -32,7 +32,7 @@
   pk: 4
   fields:
     name: "Algebran peruskurssi I"
-    code: "MATE_5060"
+    code: "MATE5060"
     subjects: [43]
     school: 1
     user: null
@@ -42,7 +42,7 @@
   pk: 5
   fields:
     name: "Algebran peruskurssi II"
-    code: "MATE_5061"
+    code: "MATE5061"
     subjects: [43]
     school: 1
     user: null
@@ -92,7 +92,7 @@
   pk: 10
   fields:
     name: "Algoritminen matematiikka"
-    code: "MATE_5074"
+    code: "MATE5074"
     subjects: [43]
     school: 1
     user: null
@@ -102,7 +102,7 @@
   pk: 11
   fields:
     name: "Analogiaelektroniikan suunnittelu- ja simulointikurssi"
-    code: "DTEK_2002"
+    code: "DTEK2002"
     subjects: [14]
     school: 1
     user: null
@@ -112,7 +112,7 @@
   pk: 12
   fields:
     name: "Analogiaelektroniikka I"
-    code: "ETT_1001"
+    code: "ETT1001"
     subjects: [14]
     school: 1
     user: null
@@ -122,7 +122,7 @@
   pk: 13
   fields:
     name: "Analog IC Design"
-    code: "ETT_3001"
+    code: "ETT3001"
     subjects: [14]
     school: 1
     user: null
@@ -142,7 +142,7 @@
   pk: 15
   fields:
     name: "Business Case Analysis"
-    code: "DTEK_8013"
+    code: "DTEK8013"
     subjects: [14]
     school: 1
     user: null
@@ -162,7 +162,7 @@
   pk: 17
   fields:
     name: "Code Optimization"
-    code: "ÅA_455304"
+    code: "ÅA455304"
     subjects: [18]
     school: 3
     user: null
@@ -172,7 +172,7 @@
   pk: 18
   fields:
     name: "Coding Theory I"
-    code: "MATE_5274"
+    code: "MATE5274"
     subjects: [43]
     school: 1
     user: null
@@ -182,7 +182,7 @@
   pk: 19
   fields:
     name: "Convolutional Codes"
-    code: "MATE_5085"
+    code: "MATE5085"
     subjects: [43]
     school: 1
     user: null
@@ -192,7 +192,7 @@
   pk: 20
   fields:
     name: "Cryptography I"
-    code: "DTEK_0"
+    code: "MATE5396"
     subjects: [14]
     school: 1
     user: null
@@ -202,7 +202,7 @@
   pk: 21
   fields:
     name: "C++ sulautettuihin järjestelmiin"
-    code: "DTEK_1017"
+    code: "DTEK1017"
     subjects: [14]
     school: 1
     user: null
@@ -232,7 +232,7 @@
   pk: 24
   fields:
     name: "Declarative Programming"
-    code: "DTEK_24"
+    code: "DTEK24"
     subjects: [14]
     school: 1
     user: null
@@ -252,7 +252,7 @@
   pk: 26
   fields:
     name: "Device Mismatch in IC"
-    code: "ETT_3034"
+    code: "ETT3034"
     subjects: [14]
     school: 1
     user: null
@@ -262,7 +262,7 @@
   pk: 27
   fields:
     name: "Differentiaaliyhtälöt"
-    code: "SMAT_5045"
+    code: "SMAT5045"
     subjects: [43]
     school: 1
     user: null
@@ -272,7 +272,7 @@
   pk: 28
   fields:
     name: "Digitaalinen piiritekniikka"
-    code: "ETT_2001"
+    code: "ETT2001"
     subjects: [14]
     school: 1
     user: null
@@ -282,7 +282,7 @@
   pk: 29
   fields:
     name: "Digitaalinen signaalinkäsittely"
-    code: "ETT_2026"
+    code: "ETT2026"
     subjects: [14]
     school: 1
     user: null
@@ -312,7 +312,7 @@
   pk: 32
   fields:
     name: "Digitaalisen tiedonsiirron standardit ja konvergenssi"
-    code: "ETT_2040"
+    code: "ETT2040"
     subjects: [14]
     school: 1
     user: null
@@ -332,7 +332,7 @@
   pk: 34
   fields:
     name: "Digitaaliset tietoliikennejärjestelmät"
-    code: "ETT_3005"
+    code: "ETT3005"
     subjects: [14]
     school: 1
     user: null
@@ -342,7 +342,7 @@
   pk: 35
   fields:
     name: "Digitaalisuunnittelu"
-    code: "DTEK_1200"
+    code: "DTEK1200"
     subjects: [14]
     school: 1
     user: null
@@ -352,7 +352,7 @@
   pk: 36
   fields:
     name: "Digitaalisuunnittelun perusteet"
-    code: "ETT_1003"
+    code: "ETT1003"
     subjects: [14]
     school: 1
     user: null
@@ -362,7 +362,7 @@
   pk: 37
   fields:
     name: "Digital business"
-    code: "TJ_93221"
+    code: "TJ93221"
     subjects: [22]
     school: 1
     user: null
@@ -372,7 +372,7 @@
   pk: 38
   fields:
     name: "Digital communication systems"
-    code: "ETT_3005"
+    code: "ETT3005"
     subjects: [14]
     school: 1
     user: null
@@ -382,7 +382,7 @@
   pk: 39
   fields:
     name: "Digital Systems Engineering"
-    code: "ETT_3048"
+    code: "ETT3048"
     subjects: [14]
     school: 1
     user: null
@@ -392,7 +392,7 @@
   pk: 40
   fields:
     name: "Diskreetti Matematiikka"
-    code: "MATE_5206"
+    code: "MATE5206"
     subjects: [43]
     school: 1
     user: null
@@ -402,7 +402,7 @@
   pk: 41
   fields:
     name: "Diskreetti Matematiikka I"
-    code: "MATE_5260"
+    code: "MATE5260"
     subjects: [43]
     school: 1
     user: null
@@ -412,7 +412,7 @@
   pk: 42
   fields:
     name: "Diskreetti Matematiikka II"
-    code: "MATE_5261"
+    code: "MATE5261"
     subjects: [43]
     school: 1
     user: null
@@ -432,7 +432,7 @@
   pk: 44
   fields:
     name: "Elektroniikan komponentit ja materiaalit"
-    code: "DTEK_2001"
+    code: "DTEK2001"
     subjects: [14]
     school: 1
     user: null
@@ -442,7 +442,7 @@
   pk: 45
   fields:
     name: "Elektroniikan perusteet I"
-    code: "ETT_1009"
+    code: "ETT1009"
     subjects: [14]
     school: 1
     user: null
@@ -452,7 +452,7 @@
   pk: 46
   fields:
     name: "Elektroniikan perusteet II"
-    code: "ETT_2037"
+    code: "ETT2037"
     subjects: [14]
     school: 1
     user: null
@@ -462,7 +462,7 @@
   pk: 47
   fields:
     name: "Elektroniikan perusteet III"
-    code: "ETT_2059"
+    code: "ETT2059"
     subjects: [14]
     school: 1
     user: null
@@ -482,7 +482,7 @@
   pk: 49
   fields:
     name: "Elektroniikkajärjestelmät"
-    code: "ETT_2068"
+    code: "ETT2068"
     subjects: [14]
     school: 1
     user: null
@@ -492,7 +492,7 @@
   pk: 50
   fields:
     name: "Elektroniset laitteistot ja kestävä kehitys"
-    code: "ETT_2066"
+    code: "ETT2066"
     subjects: [14]
     school: 1
     user: null
@@ -502,7 +502,7 @@
   pk: 51
   fields:
     name: "Embedded Systems Design"
-    code: "DTEK_8019"
+    code: "DTEK8019"
     subjects: [14]
     school: 1
     user: null
@@ -512,7 +512,7 @@
   pk: 52
   fields:
     name: "Energy efficient embedded electronics"
-    code: "DTEK_1057"
+    code: "DTEK1057"
     subjects: [14]
     school: 1
     user: null
@@ -522,7 +522,7 @@
   pk: 53
   fields:
     name: "Error Correction Coding"
-    code: "ETT_3062"
+    code: "ETT3062"
     subjects: [14]
     school: 1
     user: null
@@ -532,7 +532,7 @@
   pk: 54
   fields:
     name: "Firewall and ips technology"
-    code: "DTEK_8063"
+    code: "DTEK8063"
     subjects: [14]
     school: 1
     user: null
@@ -542,7 +542,7 @@
   pk: 55
   fields:
     name: "Foundations of cryptography"
-    code: "MATE_5089"
+    code: "MATE5089"
     subjects: [43]
     school: 1
     user: null
@@ -552,7 +552,7 @@
   pk: 56
   fields:
     name: "FPGA Prototyping"
-    code: "DTEK_8048"
+    code: "DTEK8048"
     subjects: [14]
     school: 1
     user: null
@@ -562,7 +562,7 @@
   pk: 57
   fields:
     name: "From Product Idea to R&amp;D Plan"
-    code: "DTEK_8010"
+    code: "DTEK8010"
     subjects: [14]
     school: 1
     user: null
@@ -572,7 +572,7 @@
   pk: 58
   fields:
     name: "Funktioteoria"
-    code: "MATE_5033"
+    code: "MATE5033"
     subjects: [43]
     school: 1
     user: null
@@ -582,7 +582,7 @@
   pk: 59
   fields:
     name: "Fundamentals of Information Theory"
-    code: "ETT_3061"
+    code: "ETT3061"
     subjects: [14]
     school: 1
     user: null
@@ -592,7 +592,7 @@
   pk: 60
   fields:
     name: "Fysiikan matemaattiset apuneuvot 1"
-    code: "FYS_5002"
+    code: "FYS5002"
     subjects: [53]
     school: 1
     user: null
@@ -602,7 +602,7 @@
   pk: 61
   fields:
     name: "Fysiikan peruskurssi 1"
-    code: "UFYS_1006"
+    code: "UFYS1006"
     subjects: [53]
     school: 1
     user: null
@@ -612,7 +612,7 @@
   pk: 62
   fields:
     name: "Fysiikan peruskurssi 2"
-    code: "UFYS_1007"
+    code: "UFYS1007"
     subjects: [53]
     school: 1
     user: null
@@ -622,7 +622,7 @@
   pk: 63
   fields:
     name: "Fysiikan peruskurssi 3"
-    code: "UFYS_1008"
+    code: "UFYS1008"
     subjects: [53]
     school: 1
     user: null
@@ -632,7 +632,7 @@
   pk: 64
   fields:
     name: "Fysiikan peruskurssi 4"
-    code: "UFYS_1009"
+    code: "UFYS1009"
     subjects: [53]
     school: 1
     user: null
@@ -642,7 +642,7 @@
   pk: 65
   fields:
     name: "Fysiikka I"
-    code: "FYS_4348"
+    code: "FYS4348"
     subjects: [53]
     school: 1
     user: null
@@ -652,7 +652,7 @@
   pk: 66
   fields:
     name: "Fysiikka II"
-    code: "FYS_4349"
+    code: "FYS4349"
     subjects: [53]
     school: 1
     user: null
@@ -662,7 +662,7 @@
   pk: 67
   fields:
     name: "Graph Theory"
-    code: "MATE_5230"
+    code: "MATE5230"
     subjects: [43]
     school: 1
     user: null
@@ -672,7 +672,7 @@
   pk: 68
   fields:
     name: "Grundkurs i Reglering och Instrumentering"
-    code: "KTF_3072"
+    code: "KTF3072"
     subjects: [14]
     school: 3
     user: null
@@ -692,7 +692,7 @@
   pk: 70
   fields:
     name: "Hajautetut ohjelmistojärjestelmät"
-    code: "DTEK_1047"
+    code: "DTEK1047"
     subjects: [14]
     school: 1
     user: null
@@ -702,7 +702,7 @@
   pk: 71
   fields:
     name: "HDL Based Design"
-    code: "ETT_2006"
+    code: "ETT2006"
     subjects: [14]
     school: 1
     user: null
@@ -712,7 +712,7 @@
   pk: 72
   fields:
     name: "Implementation of Development Project"
-    code: "DTEK_8011"
+    code: "DTEK8011"
     subjects: [14]
     school: 1
     user: null
@@ -722,7 +722,7 @@
   pk: 73
   fields:
     name: "Industrial Design"
-    code: "DTEK_8008"
+    code: "DTEK8008"
     subjects: [14]
     school: 1
     user: null
@@ -732,7 +732,7 @@
   pk: 74
   fields:
     name: "Insinöörimatematiikka A"
-    code: "MATE_5398"
+    code: "MATE5398"
     subjects: [43]
     school: 1
     user: null
@@ -742,7 +742,7 @@
   pk: 75
   fields:
     name: "Insinöörimatematiikka B"
-    code: "MATE_5399"
+    code: "MATE5399"
     subjects: [43]
     school: 1
     user: null
@@ -752,7 +752,7 @@
   pk: 76
   fields:
     name: "Insinöörimatematiikka C"
-    code: "MATE_5400"
+    code: "MATE5400"
     subjects: [43]
     school: 1
     user: null
@@ -762,7 +762,7 @@
   pk: 77
   fields:
     name: "Insinöörimatematiikka D"
-    code: "MATE_5401"
+    code: "MATE5401"
     subjects: [43]
     school: 1
     user: null
@@ -772,7 +772,7 @@
   pk: 78
   fields:
     name: "Insinöörimatematiikka I"
-    code: "MATE_5247"
+    code: "MATE5247"
     subjects: [43]
     school: 1
     user: null
@@ -782,7 +782,7 @@
   pk: 79
   fields:
     name: "Insinöörimatematiikka I A"
-    code: "MATE_5281"
+    code: "MATE5281"
     subjects: [43]
     school: 1
     user: null
@@ -792,7 +792,7 @@
   pk: 80
   fields:
     name: "Insinöörimatematiikka I B"
-    code: "MATE_5282"
+    code: "MATE5282"
     subjects: [43]
     school: 1
     user: null
@@ -802,7 +802,7 @@
   pk: 81
   fields:
     name: "Insinöörimatematiikka II"
-    code: "MATE_5249"
+    code: "MATE5249"
     subjects: [43]
     school: 1
     user: null
@@ -812,7 +812,7 @@
   pk: 82
   fields:
     name: "Insinöörimatematiikka II A"
-    code: "MATE_5283"
+    code: "MATE5283"
     subjects: [43]
     school: 1
     user: null
@@ -822,7 +822,7 @@
   pk: 83
   fields:
     name: "Insinöörimatematiikka II B"
-    code: "MATE_5284"
+    code: "MATE5284"
     subjects: [43]
     school: 1
     user: null
@@ -832,7 +832,7 @@
   pk: 84
   fields:
     name: "Introduction to Project Leadership"
-    code: "DTEK_8049"
+    code: "DTEK8049"
     subjects: [14]
     school: 1
     user: null
@@ -842,7 +842,7 @@
   pk: 85
   fields:
     name: "Järjestelmäohjelmointi C++-kielellä"
-    code: "DTEK_2003"
+    code: "DTEK2003"
     subjects: [14]
     school: 1
     user: null
@@ -852,7 +852,7 @@
   pk: 86
   fields:
     name: "Johdatus automaattien teoriaan"
-    code: "DTEK_0"
+    code: "MATE5353"
     subjects: [14]
     school: 1
     user: null
@@ -862,7 +862,7 @@
   pk: 87
   fields:
     name: "Johdatus elektroniikkaan"
-    code: "ETT_1011"
+    code: "ETT1011"
     subjects: [14]
     school: 1
     user: null
@@ -902,7 +902,7 @@
   pk: 91
   fields:
     name: "Johdatus laskettavuuteen"
-    code: "MATE_6005"
+    code: "MATE6005"
     subjects: [43]
     school: 1
     user: null
@@ -942,7 +942,7 @@
   pk: 95
   fields:
     name: "Johdatus todennäköisyyslaskentaan ja tilastotieteeseen"
-    code: "TILM_3554"
+    code: "TILM3554"
     subjects: [43]
     school: 1
     user: null
@@ -972,7 +972,7 @@
   pk: 98
   fields:
     name: "Kombinatoriikka"
-    code: "MATE_5039"
+    code: "MATE5039"
     subjects: [43]
     school: 1
     user: null
@@ -982,7 +982,7 @@
   pk: 99
   fields:
     name: "Konveksi analyysi ja optimointi"
-    code: "SMAT_5016"
+    code: "SMAT5016"
     subjects: [43]
     school: 1
     user: null
@@ -992,7 +992,7 @@
   pk: 100
   fields:
     name: "Kryptografia I"
-    code: "MATE_5296"
+    code: "MATE5296"
     subjects: [43]
     school: 1
     user: null
@@ -1022,7 +1022,7 @@
   pk: 103
   fields:
     name: "Lineaariset järjestelmät ja piirit"
-    code: "ETT_2067"
+    code: "ETT2067"
     subjects: [14]
     school: 1
     user: null
@@ -1042,7 +1042,7 @@
   pk: 105
   fields:
     name: "Logiikka"
-    code: "MATE_5114"
+    code: "MATE5114"
     subjects: [43]
     school: 1
     user: null
@@ -1052,7 +1052,7 @@
   pk: 106
   fields:
     name: "Lukuteoria"
-    code: "MATE_5123"
+    code: "MATE5123"
     subjects: [43]
     school: 1
     user: null
@@ -1072,7 +1072,7 @@
   pk: 108
   fields:
     name: "Matemaattinen mallintaminen"
-    code: "SMAT_5215"
+    code: "SMAT5215"
     subjects: [43]
     school: 1
     user: null
@@ -1082,7 +1082,7 @@
   pk: 109
   fields:
     name: "Matemaattinen optimointi I"
-    code: "MATE_5108"
+    code: "MATE5108"
     subjects: [43]
     school: 1
     user: null
@@ -1092,7 +1092,7 @@
   pk: 110
   fields:
     name: "Matemaattinen optimointi II"
-    code: "SMAT_5109"
+    code: "SMAT5109"
     subjects: [43]
     school: 1
     user: null
@@ -1102,7 +1102,7 @@
   pk: 111
   fields:
     name: "Matematisk Modellering"
-    code: "KTF_3636"
+    code: "KTF3636"
     subjects: [43]
     school: 3
     user: null
@@ -1122,7 +1122,7 @@
   pk: 113
   fields:
     name: "Microsensors"
-    code: "ETT_3008"
+    code: "ETT3008"
     subjects: [14]
     school: 1
     user: null
@@ -1132,7 +1132,7 @@
   pk: 114
   fields:
     name: "Mikroprosessoripohjaiset järjestelmät"
-    code: "ETT_2039"
+    code: "ETT2039"
     subjects: [14]
     school: 1
     user: null
@@ -1142,7 +1142,7 @@
   pk: 115
   fields:
     name: "Mikroprosessorit"
-    code: "ETT_1004"
+    code: "ETT1004"
     subjects: [14]
     school: 1
     user: null
@@ -1152,7 +1152,7 @@
   pk: 116
   fields:
     name: "Mixed Mode IC Design"
-    code: "ETT_2028"
+    code: "ETT2028"
     subjects: [14]
     school: 1
     user: null
@@ -1162,7 +1162,7 @@
   pk: 117
   fields:
     name: "Modelling parallel systems"
-    code: "DTEK_36"
+    code: "DTEK36"
     subjects: [14]
     school: 1
     user: null
@@ -1172,7 +1172,7 @@
   pk: 118
   fields:
     name: "MPEG-4"
-    code: "ÅA_453301"
+    code: "ÅA453301"
     subjects: [14]
     school: 3
     user: null
@@ -1192,7 +1192,7 @@
   pk: 120
   fields:
     name: "Multimedia Signal Processing"
-    code: "DTEK_8050"
+    code: "DTEK8050"
     subjects: [14]
     school: 1
     user: null
@@ -1212,7 +1212,7 @@
   pk: 122
   fields:
     name: "Multiprocessor Architectures"
-    code: "ETT_2062"
+    code: "ETT2062"
     subjects: [14]
     school: 1
     user: null
@@ -1242,7 +1242,7 @@
   pk: 125
   fields:
     name: "Ohjelmistotuotannon jatkokurssi"
-    code: "DTEK_2005"
+    code: "DTEK2005"
     subjects: [14]
     school: 1
     user: null
@@ -1252,7 +1252,7 @@
   pk: 126
   fields:
     name: "Ohjelmistotuotannon peruskurssi"
-    code: "DTEK_1201"
+    code: "DTEK1201"
     subjects: [14]
     school: 1
     user: null
@@ -1312,7 +1312,7 @@
   pk: 132
   fields:
     name: "Opiskelun ja työelämän tietotekniikka"
-    code: "DTEK_1043"
+    code: "DTEK1043"
     subjects: [14]
     school: 1
     user: null
@@ -1332,7 +1332,7 @@
   pk: 134
   fields:
     name: "Optoelektroniikka"
-    code: "FYS_4432"
+    code: "FYS4432"
     subjects: [53]
     school: 1
     user: null
@@ -1342,7 +1342,7 @@
   pk: 135
   fields:
     name: "Osittaisdifferentiaaliyhtälöt"
-    code: "SMAT_5035"
+    code: "SMAT5035"
     subjects: [43]
     school: 1
     user: null
@@ -1352,7 +1352,7 @@
   pk: 136
   fields:
     name: "Piiriteoria"
-    code: "ETT_1005"
+    code: "ETT1005"
     subjects: [14]
     school: 1
     user: null
@@ -1362,7 +1362,7 @@
   pk: 137
   fields:
     name: "Processreglering"
-    code: "KTF_3085"
+    code: "KTF3085"
     subjects: [14]
     school: 3
     user: null
@@ -1372,7 +1372,7 @@
   pk: 138
   fields:
     name: "Programming of Embedded Systems"
-    code: "ÅA_453502"
+    code: "ÅA453502"
     subjects: [14]
     school: 3
     user: null
@@ -1382,7 +1382,7 @@
   pk: 139
   fields:
     name: "Project Management"
-    code: "DTEK_8005"
+    code: "DTEK8005"
     subjects: [14]
     school: 1
     user: null
@@ -1392,7 +1392,7 @@
   pk: 140
   fields:
     name: "Puheviestintä"
-    code: "KIPV_3331"
+    code: "KIPV3331"
     subjects: [20]
     school: 1
     user: null
@@ -1402,7 +1402,7 @@
   pk: 141
   fields:
     name: "Puolijohteiden perusteet"
-    code: "ETT_2027"
+    code: "ETT2027"
     subjects: [14]
     school: 1
     user: null
@@ -1412,7 +1412,7 @@
   pk: 142
   fields:
     name: "Radiotekniikan perusteet"
-    code: "ETT_2021"
+    code: "ETT2021"
     subjects: [14]
     school: 1
     user: null
@@ -1422,7 +1422,7 @@
   pk: 143
   fields:
     name: "Real-time Systems"
-    code: "DTEK_8018"
+    code: "DTEK8018"
     subjects: [14]
     school: 1
     user: null
@@ -1432,7 +1432,7 @@
   pk: 144
   fields:
     name: "Reconfigurable Computing"
-    code: "ETT_3053"
+    code: "ETT3053"
     subjects: [14]
     school: 1
     user: null
@@ -1452,7 +1452,7 @@
   pk: 146
   fields:
     name: "RF Analog IC Design"
-    code: "ETT_3047"
+    code: "ETT3047"
     subjects: [14]
     school: 1
     user: null
@@ -1462,7 +1462,7 @@
   pk: 147
   fields:
     name: "Säteilyn käyttö ja turvallisuus"
-    code: "FFYS_6019"
+    code: "FFYS6019"
     subjects: [53]
     school: 1
     user: null
@@ -1472,7 +1472,7 @@
   pk: 148
   fields:
     name: "Semiconductor technology"
-    code: "ETT_2012"
+    code: "ETT2012"
     subjects: [14]
     school: 1
     user: null
@@ -1482,7 +1482,7 @@
   pk: 149
   fields:
     name: "SoC Design"
-    code: "ETT_2014"
+    code: "ETT2014"
     subjects: [14]
     school: 1
     user: null
@@ -1502,7 +1502,7 @@
   pk: 151
   fields:
     name: "Software Engineering for Global Enterprises"
-    code: "DTEK_8064"
+    code: "DTEK8064"
     subjects: [14]
     school: 1
     user: null
@@ -1512,7 +1512,7 @@
   pk: 152
   fields:
     name: "Software Product Development"
-    code: "DTEK_2004"
+    code: "DTEK2004"
     subjects: [14]
     school: 1
     user: null
@@ -1532,7 +1532,7 @@
   pk: 154
   fields:
     name: "Sulautettujen järjestelmien perusteet"
-    code: "DTEK_2007"
+    code: "DTEK2007"
     subjects: [14]
     school: 1
     user: null
@@ -1542,7 +1542,7 @@
   pk: 155
   fields:
     name: "Sulautetut prosessorijärjestelmät"
-    code: "DTEK_1019"
+    code: "DTEK1019"
     subjects: [14]
     school: 1
     user: null
@@ -1562,7 +1562,7 @@
   pk: 157
   fields:
     name: "System Modelling with SystemC"
-    code: "DTEK_1018"
+    code: "DTEK1018"
     subjects: [14]
     school: 1
     user: null
@@ -1572,7 +1572,7 @@
   pk: 158
   fields:
     name: "System Verification"
-    code: "ETT_2061"
+    code: "ETT2061"
     subjects: [14]
     school: 1
     user: null
@@ -1582,7 +1582,7 @@
   pk: 159
   fields:
     name: "System Verification and Design for Testability"
-    code: "DTEK_8028"
+    code: "DTEK8028"
     subjects: [14]
     school: 1
     user: null
@@ -1592,7 +1592,7 @@
   pk: 160
   fields:
     name: "Tähtitieteen historia"
-    code: "TÄHT_5003"
+    code: "TÄHT5003"
     subjects: [53]
     school: 1
     user: null
@@ -1602,7 +1602,7 @@
   pk: 161
   fields:
     name: "Technological Systems, Foresight and Societal Change"
-    code: "DTEK_0"
+    code: "DTEK0046"
     subjects: [14]
     school: 1
     user: null
@@ -1622,7 +1622,7 @@
   pk: 163
   fields:
     name: "Teollisuustalous"
-    code: "DTEK_1003"
+    code: "DTEK1003"
     subjects: [14]
     school: 1
     user: null
@@ -1632,7 +1632,7 @@
   pk: 164
   fields:
     name: "Tiedonsiirron perusteet"
-    code: "DTEK_1039"
+    code: "DTEK1039"
     subjects: [14]
     school: 1
     user: null
@@ -1722,7 +1722,7 @@
   pk: 173
   fields:
     name: "Tietokantojen perusteet 1"
-    code: "DTEK_0"
+    code: "TKO_3122"
     subjects: [18]
     school: 1
     user: null
@@ -1732,7 +1732,7 @@
   pk: 174
   fields:
     name: "Tietokonearkkitehtuurit"
-    code: "ETT_2015"
+    code: "ETT2015"
     subjects: [14]
     school: 1
     user: null
@@ -1742,7 +1742,7 @@
   pk: 175
   fields:
     name: "Tietokonearkkitehtuurit ja käyttöjärjestelmät"
-    code: "DTEK_0"
+    code: "DTEK1051"
     subjects: [14]
     school: 1
     user: null
@@ -1772,7 +1772,7 @@
   pk: 178
   fields:
     name: "Tietoliikenneteoria"
-    code: "ETT_2017"
+    code: "ETT2017"
     subjects: [14]
     school: 1
     user: null
@@ -1812,7 +1812,7 @@
   pk: 182
   fields:
     name: "Tietotekninen algebra"
-    code: "MATE_5259"
+    code: "MATE5259"
     subjects: [43]
     school: 1
     user: null
@@ -1822,7 +1822,7 @@
   pk: 183
   fields:
     name: "Tietoverkkotekniikat"
-    code: "DTEK_1050"
+    code: "DTEK1050"
     subjects: [14]
     school: 1
     user: null
@@ -1832,7 +1832,7 @@
   pk: 184
   fields:
     name: "Tietoverkot ja tietoturva"
-    code: "DTEK_1015"
+    code: "DTEK1015"
     subjects: [14]
     school: 1
     user: null
@@ -1842,7 +1842,7 @@
   pk: 185
   fields:
     name: "Tilastollisen päättelyn peruskurssi"
-    code: "TILM_0"
+    code: "TILM0"
     subjects: [43]
     school: 1
     user: null
@@ -1852,7 +1852,7 @@
   pk: 186
   fields:
     name: "Tilastotieteen peruskurssi c, tilastollisia malleja"
-    code: "TILM_3511"
+    code: "TILM3511"
     subjects: [43]
     school: 1
     user: null
@@ -1862,7 +1862,7 @@
   pk: 187
   fields:
     name: "Todennäköisyyslaskenta sivuaineopiskelijoille"
-    code: "TILM_3568"
+    code: "TILM3568"
     subjects: [43]
     school: 1
     user: null
@@ -1872,7 +1872,7 @@
   pk: 188
   fields:
     name: "Usean muuttujan funktiot"
-    code: "MATE_5021"
+    code: "MATE5021"
     subjects: [43]
     school: 1
     user: null
@@ -1882,7 +1882,7 @@
   pk: 189
   fields:
     name: "Variaatiolaskenta"
-    code: "SMAT_5213"
+    code: "SMAT5213"
     subjects: [43]
     school: 1
     user: null

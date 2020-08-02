@@ -130,10 +130,16 @@ def test_rank(db: fixture) -> None:
     assert testuser4.rank == "Mentor"
 
     testuser5 = User.objects.get(pk=5)
-    assert testuser5.rank == "Master"
+    assert testuser5.rank == "Bachelor"
 
     testuser6 = User.objects.get(pk=6)
-    assert testuser6.rank == "Doctor"
+    assert testuser6.rank == "Master"
 
     testuser7 = User.objects.get(pk=7)
-    assert testuser7.rank == "Professor"
+    assert testuser7.rank == "Doctor"
+
+    testuser8 = User.objects.get(pk=8)
+    assert testuser8.rank == "Professor"
+
+    testuser9 = User.objects.get(pk=9)
+    assert testuser9.score == 0 and testuser9.rank == "Freshman"

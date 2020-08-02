@@ -127,6 +127,7 @@ class Ranks:
     FRESHMAN = _("Freshman")
     TUTOR = _("Tutor")
     MENTOR = _("Mentor")
+    BACHELOR = _("Bachelor")
     MASTER = _("Master")
     DOCTOR = _("Doctor")
     PROFESSOR = _("Professor")

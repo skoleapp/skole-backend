@@ -249,9 +249,11 @@ class User(SkoleModel, AbstractBaseUser, PermissionsMixin):
             return Ranks.TUTOR
         elif self.score < 500:
             return Ranks.MENTOR
-        elif self.score < 1250:
-            return Ranks.MASTER
+        elif self.score < 1000:
+            return Ranks.BACHELOR
         elif self.score < 2000:
+            return Ranks.MASTER
+        elif self.score < 5000:
             return Ranks.DOCTOR
         else:
             return Ranks.PROFESSOR

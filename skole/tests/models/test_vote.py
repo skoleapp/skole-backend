@@ -20,7 +20,7 @@ def test_manager_create_ok(db: fixture) -> None:
 
     targets = (
         Course.objects.get(pk=1),  # from testuser2
-        Resource.objects.get(pk=2),  # from testuser8
+        Resource.objects.get(pk=2),  # from testuser10
         Comment.objects.get(pk=3),  # from testuser9
     )
 

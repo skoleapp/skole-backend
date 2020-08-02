@@ -1294,6 +1294,3156 @@
     language_code: sv
     name: Ledning av leveranskedjan
     master: 72
+- model: skole.SubjectTranslation
+  pk: 217
+  fields:
+    language_code: en
+    name: French
+    master: 73
+- model: skole.SubjectTranslation
+  pk: 218
+  fields:
+    language_code: fi
+    name: Ranska
+    master: 73
+# - model: skole.SubjectTranslation
+#   pk: 219
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 73
+- model: skole.SubjectTranslation
+  pk: 220
+  fields:
+    language_code: en
+    name: German
+    master: 74
+- model: skole.SubjectTranslation
+  pk: 221
+  fields:
+    language_code: fi
+    name: Saksa
+    master: 74
+# - model: skole.SubjectTranslation
+#   pk: 222
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 74
+- model: skole.SubjectTranslation
+  pk: 223
+  fields:
+    language_code: en
+    name: Finnish
+    master: 75
+- model: skole.SubjectTranslation
+  pk: 224
+  fields:
+    language_code: fi
+    name: Suomi
+    master: 75
+# - model: skole.SubjectTranslation
+#   pk: 225
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 75
+- model: skole.SubjectTranslation
+  pk: 226
+  fields:
+    language_code: en
+    name: International Business
+    master: 76
+- model: skole.SubjectTranslation
+  pk: 227
+  fields:
+    language_code: fi
+    name: Kansainvälinen liiketoiminta
+    master: 76
+# - model: skole.SubjectTranslation
+#   pk: 228
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 76
+- model: skole.SubjectTranslation
+  pk: 229
+  fields:
+    language_code: en
+    name: Entrepreneurship
+    master: 77
+- model: skole.SubjectTranslation
+  pk: 230
+  fields:
+    language_code: fi
+    name: Yrittäjyys
+    master: 77
+# - model: skole.SubjectTranslation
+#   pk: 231
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 77
+- model: skole.SubjectTranslation
+  pk: 232
+  fields:
+    language_code: en
+    name: English
+    master: 78
+- model: skole.SubjectTranslation
+  pk: 233
+  fields:
+    language_code: fi
+    name: Englannin kieli
+    master: 78
+# - model: skole.SubjectTranslation
+#   pk: 234
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 78
+- model: skole.SubjectTranslation
+  pk: 235
+  fields:
+    language_code: en
+    name: Asian Studies
+    master: 79
+- model: skole.SubjectTranslation
+  pk: 236
+  fields:
+    language_code: fi
+    name: Asian Studies
+    master: 79
+# - model: skole.SubjectTranslation
+#   pk: 237
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 79
+- model: skole.SubjectTranslation
+  pk: 238
+  fields:
+    language_code: en
+    name: Business Law
+    master: 80
+- model: skole.SubjectTranslation
+  pk: 239
+  fields:
+    language_code: fi
+    name: Yritysjuridiikka
+    master: 80
+# - model: skole.SubjectTranslation
+#   pk: 240
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 80
+- model: skole.SubjectTranslation
+  pk: 241
+  fields:
+    language_code: en
+    name: Business and Innovation Development
+    master: 81
+- model: skole.SubjectTranslation
+  pk: 242
+  fields:
+    language_code: fi
+    name: Business and Innovation Development
+    master: 81
+# - model: skole.SubjectTranslation
+#   pk: 243
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 81
+- model: skole.SubjectTranslation
+  pk: 244
+  fields:
+    language_code: en
+    name: Futures Studies
+    master: 82
+- model: skole.SubjectTranslation
+  pk: 245
+  fields:
+    language_code: fi
+    name: Tulevaisuudentutkimus
+    master: 82
+# - model: skole.SubjectTranslation
+#   pk: 246
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 82
+- model: skole.SubjectTranslation
+  pk: 247
+  fields:
+    language_code: en
+    name: Management and Organisation
+    master: 83
+- model: skole.SubjectTranslation
+  pk: 248
+  fields:
+    language_code: fi
+    name: Johtaminen ja organisointi
+    master: 83
+# - model: skole.SubjectTranslation
+#   pk: 249
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 83
+- model: skole.SubjectTranslation
+  pk: 250
+  fields:
+    language_code: en
+    name: Spanish
+    master: 84
+- model: skole.SubjectTranslation
+  pk: 251
+  fields:
+    language_code: fi
+    name: Espanja
+    master: 84
+# - model: skole.SubjectTranslation
+#   pk: 252
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 84
+- model: skole.SubjectTranslation
+  pk: 253
+  fields:
+    language_code: en
+    name: General Practice
+    master: 85
+- model: skole.SubjectTranslation
+  pk: 254
+  fields:
+    language_code: fi
+    name: Yleislääketiede
+    master: 85
+# - model: skole.SubjectTranslation
+#   pk: 255
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 85
+- model: skole.SubjectTranslation
+  pk: 256
+  fields:
+    language_code: en
+    name: Physiology
+    master: 86
+- model: skole.SubjectTranslation
+  pk: 257
+  fields:
+    language_code: fi
+    name: Fysiologia
+    master: 86
+# - model: skole.SubjectTranslation
+#   pk: 258
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 86
+- model: skole.SubjectTranslation
+  pk: 259
+  fields:
+    language_code: en
+    name: Internal Medicine
+    master: 87
+- model: skole.SubjectTranslation
+  pk: 260
+  fields:
+    language_code: fi
+    name: Sisätautioppi
+    master: 87
+# - model: skole.SubjectTranslation
+#   pk: 261
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 87
+- model: skole.SubjectTranslation
+  pk: 262
+  fields:
+    language_code: en
+    name: Cell Biology and Anatomy
+    master: 88
+- model: skole.SubjectTranslation
+  pk: 263
+  fields:
+    language_code: fi
+    name: Solubiologia ja anatomia
+    master: 88
+# - model: skole.SubjectTranslation
+#   pk: 264
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 88
+- model: skole.SubjectTranslation
+  pk: 265
+  fields:
+    language_code: en
+    name: Business Spanish
+    master: 89
+- model: skole.SubjectTranslation
+  pk: 266
+  fields:
+    language_code: fi
+    name: Espanjan kieli ja liikeviestintä
+    master: 89
+# - model: skole.SubjectTranslation
+#   pk: 267
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 89
+- model: skole.SubjectTranslation
+  pk: 268
+  fields:
+    language_code: en
+    name: Dermatology and Venereal Diseases
+    master: 90
+- model: skole.SubjectTranslation
+  pk: 269
+  fields:
+    language_code: fi
+    name: Iho- ja sukupuolitautioppi
+    master: 90
+# - model: skole.SubjectTranslation
+#   pk: 270
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 90
+- model: skole.SubjectTranslation
+  pk: 271
+  fields:
+    language_code: en
+    name: Psychiatry
+    master: 91
+- model: skole.SubjectTranslation
+  pk: 272
+  fields:
+    language_code: fi
+    name: Psykiatria
+    master: 91
+# - model: skole.SubjectTranslation
+#   pk: 273
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 91
+- model: skole.SubjectTranslation
+  pk: 274
+  fields:
+    language_code: en
+    name: Speech Comm.
+    master: 92
+- model: skole.SubjectTranslation
+  pk: 275
+  fields:
+    language_code: fi
+    name: Puheviestintä
+    master: 92
+# - model: skole.SubjectTranslation
+#   pk: 276
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 92
+- model: skole.SubjectTranslation
+  pk: 277
+  fields:
+    language_code: en
+    name: Pulmonary Diseases
+    master: 93
+- model: skole.SubjectTranslation
+  pk: 278
+  fields:
+    language_code: fi
+    name: Keuhkosairausoppi
+    master: 93
+# - model: skole.SubjectTranslation
+#   pk: 279
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 93
+- model: skole.SubjectTranslation
+  pk: 280
+  fields:
+    language_code: en
+    name: Pulmonary Diseases and Clinical Allergology
+    master: 94
+- model: skole.SubjectTranslation
+  pk: 281
+  fields:
+    language_code: fi
+    name: Keuhkosairausoppi ja kliininen allergologia
+    master: 94
+# - model: skole.SubjectTranslation
+#   pk: 282
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 94
+- model: skole.SubjectTranslation
+  pk: 283
+  fields:
+    language_code: en
+    name: Surgery
+    master: 95
+- model: skole.SubjectTranslation
+  pk: 284
+  fields:
+    language_code: fi
+    name: Kirurgia
+    master: 95
+# - model: skole.SubjectTranslation
+#   pk: 285
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 95
+- model: skole.SubjectTranslation
+  pk: 286
+  fields:
+    language_code: en
+    name: Pharmacology and Clinical Pharmacology
+    master: 96
+- model: skole.SubjectTranslation
+  pk: 287
+  fields:
+    language_code: fi
+    name: Farmakologia ja kliininen farmakologia
+    master: 96
+# - model: skole.SubjectTranslation
+#   pk: 288
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 96
+- model: skole.SubjectTranslation
+  pk: 289
+  fields:
+    language_code: en
+    name: Obstetrics and Gynaecology
+    master: 97
+- model: skole.SubjectTranslation
+  pk: 290
+  fields:
+    language_code: fi
+    name: Synnytys- ja naistentautioppi
+    master: 97
+# - model: skole.SubjectTranslation
+#   pk: 291
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 97
+- model: skole.SubjectTranslation
+  pk: 292
+  fields:
+    language_code: en
+    name: Orthopaedics and Traumatology
+    master: 98
+- model: skole.SubjectTranslation
+  pk: 293
+  fields:
+    language_code: fi
+    name: Ortopedia ja traumatologia
+    master: 98
+# - model: skole.SubjectTranslation
+#   pk: 294
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 98
+- model: skole.SubjectTranslation
+  pk: 295
+  fields:
+    language_code: en
+    name: Anaesthesiology and Intensive Care
+    master: 99
+- model: skole.SubjectTranslation
+  pk: 296
+  fields:
+    language_code: fi
+    name: Anestesiologia ja tehohoito
+    master: 99
+# - model: skole.SubjectTranslation
+#   pk: 297
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 99
+- model: skole.SubjectTranslation
+  pk: 298
+  fields:
+    language_code: en
+    name: Clinical Physiology and Isotope Medicine
+    master: 100
+- model: skole.SubjectTranslation
+  pk: 299
+  fields:
+    language_code: fi
+    name: Kliininen fysiologia ja isotooppilääketiede
+    master: 100
+# - model: skole.SubjectTranslation
+#   pk: 300
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 100
+- model: skole.SubjectTranslation
+  pk: 301
+  fields:
+    language_code: en
+    name: Pathology
+    master: 101
+- model: skole.SubjectTranslation
+  pk: 302
+  fields:
+    language_code: fi
+    name: Patologia
+    master: 101
+# - model: skole.SubjectTranslation
+#   pk: 303
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 101
+- model: skole.SubjectTranslation
+  pk: 304
+  fields:
+    language_code: en
+    name: Neurology
+    master: 102
+- model: skole.SubjectTranslation
+  pk: 305
+  fields:
+    language_code: fi
+    name: Neurologia
+    master: 102
+# - model: skole.SubjectTranslation
+#   pk: 306
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 102
+- model: skole.SubjectTranslation
+  pk: 307
+  fields:
+    language_code: en
+    name: Physical and Rehabilitation Medicine
+    master: 103
+- model: skole.SubjectTranslation
+  pk: 308
+  fields:
+    language_code: fi
+    name: Fysiatria
+    master: 103
+# - model: skole.SubjectTranslation
+#   pk: 309
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 103
+- model: skole.SubjectTranslation
+  pk: 310
+  fields:
+    language_code: en
+    name: Swedish
+    master: 104
+- model: skole.SubjectTranslation
+  pk: 311
+  fields:
+    language_code: fi
+    name: Ruotsi
+    master: 104
+# - model: skole.SubjectTranslation
+#   pk: 312
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 104
+- model: skole.SubjectTranslation
+  pk: 313
+  fields:
+    language_code: en
+    name: Public Health Science
+    master: 105
+- model: skole.SubjectTranslation
+  pk: 314
+  fields:
+    language_code: fi
+    name: Kansanterveystiede
+    master: 105
+# - model: skole.SubjectTranslation
+#   pk: 315
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 105
+- model: skole.SubjectTranslation
+  pk: 316
+  fields:
+    language_code: en
+    name: Child Psychiatry
+    master: 106
+- model: skole.SubjectTranslation
+  pk: 317
+  fields:
+    language_code: fi
+    name: Lastenpsykiatria
+    master: 106
+# - model: skole.SubjectTranslation
+#   pk: 318
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 106
+- model: skole.SubjectTranslation
+  pk: 319
+  fields:
+    language_code: en
+    name: Forensic Medicine
+    master: 107
+- model: skole.SubjectTranslation
+  pk: 320
+  fields:
+    language_code: fi
+    name: Oikeuslääketiede
+    master: 107
+# - model: skole.SubjectTranslation
+#   pk: 321
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 107
+- model: skole.SubjectTranslation
+  pk: 322
+  fields:
+    language_code: en
+    name: Occupational Health
+    master: 108
+- model: skole.SubjectTranslation
+  pk: 323
+  fields:
+    language_code: fi
+    name: Työterveyshuolto
+    master: 108
+# - model: skole.SubjectTranslation
+#   pk: 324
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 108
+- model: skole.SubjectTranslation
+  pk: 325
+  fields:
+    language_code: en
+    name: Nursing Science
+    master: 109
+- model: skole.SubjectTranslation
+  pk: 326
+  fields:
+    language_code: fi
+    name: Hoitotiede
+    master: 109
+# - model: skole.SubjectTranslation
+#   pk: 327
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 109
+- model: skole.SubjectTranslation
+  pk: 328
+  fields:
+    language_code: en
+    name: Medical Biochemistry and Genetics
+    master: 110
+- model: skole.SubjectTranslation
+  pk: 329
+  fields:
+    language_code: fi
+    name: Lääketieteellinen biokemia ja genetiikka
+    master: 110
+# - model: skole.SubjectTranslation
+#   pk: 330
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 110
+- model: skole.SubjectTranslation
+  pk: 331
+  fields:
+    language_code: en
+    name: Biostatistics
+    master: 111
+- model: skole.SubjectTranslation
+  pk: 332
+  fields:
+    language_code: fi
+    name: Biostatistiikka
+    master: 111
+# - model: skole.SubjectTranslation
+#   pk: 333
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 111
+- model: skole.SubjectTranslation
+  pk: 334
+  fields:
+    language_code: en
+    name: Ophthalmology
+    master: 112
+- model: skole.SubjectTranslation
+  pk: 335
+  fields:
+    language_code: fi
+    name: Silmätautioppi
+    master: 112
+# - model: skole.SubjectTranslation
+#   pk: 336
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 112
+- model: skole.SubjectTranslation
+  pk: 337
+  fields:
+    language_code: en
+    name: Italian
+    master: 113
+- model: skole.SubjectTranslation
+  pk: 338
+  fields:
+    language_code: fi
+    name: Italia
+    master: 113
+# - model: skole.SubjectTranslation
+#   pk: 339
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 113
+- model: skole.SubjectTranslation
+  pk: 340
+  fields:
+    language_code: en
+    name: Bioinformatics
+    master: 114
+- model: skole.SubjectTranslation
+  pk: 341
+  fields:
+    language_code: fi
+    name: Bioinformatics
+    master: 114
+# - model: skole.SubjectTranslation
+#   pk: 342
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 114
+- model: skole.SubjectTranslation
+  pk: 343
+  fields:
+    language_code: en
+    name: Biochemistry
+    master: 115
+- model: skole.SubjectTranslation
+  pk: 344
+  fields:
+    language_code: fi
+    name: Biokemia
+    master: 115
+# - model: skole.SubjectTranslation
+#   pk: 345
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 115
+- model: skole.SubjectTranslation
+  pk: 346
+  fields:
+    language_code: en
+    name: Statistics
+    master: 116
+- model: skole.SubjectTranslation
+  pk: 347
+  fields:
+    language_code: fi
+    name: Tilastotiede
+    master: 116
+# - model: skole.SubjectTranslation
+#   pk: 348
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 116
+- model: skole.SubjectTranslation
+  pk: 349
+  fields:
+    language_code: en
+    name: Ecology and Evolutionary Biology
+    master: 117
+- model: skole.SubjectTranslation
+  pk: 350
+  fields:
+    language_code: fi
+    name: Ekologia ja evoluutiobiologia
+    master: 117
+# - model: skole.SubjectTranslation
+#   pk: 351
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 117
+- model: skole.SubjectTranslation
+  pk: 352
+  fields:
+    language_code: en
+    name: Environmental Science
+    master: 118
+- model: skole.SubjectTranslation
+  pk: 353
+  fields:
+    language_code: fi
+    name: Ympäristötiede
+    master: 118
+# - model: skole.SubjectTranslation
+#   pk: 354
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 118
+- model: skole.SubjectTranslation
+  pk: 355
+  fields:
+    language_code: en
+    name: Molecular Plant Biology
+    master: 119
+- model: skole.SubjectTranslation
+  pk: 356
+  fields:
+    language_code: fi
+    name: Solu- ja molekyylibiologia
+    master: 119
+# - model: skole.SubjectTranslation
+#   pk: 357
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 119
+- model: skole.SubjectTranslation
+  pk: 358
+  fields:
+    language_code: en
+    name: Astrobiology
+    master: 120
+- model: skole.SubjectTranslation
+  pk: 359
+  fields:
+    language_code: fi
+    name: Astrobiologia
+    master: 120
+# - model: skole.SubjectTranslation
+#   pk: 360
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 120
+- model: skole.SubjectTranslation
+  pk: 361
+  fields:
+    language_code: en
+    name: Physics
+    master: 121
+- model: skole.SubjectTranslation
+  pk: 362
+  fields:
+    language_code: fi
+    name: Fysiikka
+    master: 121
+# - model: skole.SubjectTranslation
+#   pk: 363
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 121
+- model: skole.SubjectTranslation
+  pk: 364
+  fields:
+    language_code: en
+    name: Molecular Plant Biology
+    master: 122
+- model: skole.SubjectTranslation
+  pk: 365
+  fields:
+    language_code: fi
+    name: Molekulaarinen kasvibiologia
+    master: 122
+# - model: skole.SubjectTranslation
+#   pk: 366
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 122
+- model: skole.SubjectTranslation
+  pk: 367
+  fields:
+    language_code: en
+    name: Business Competence
+    master: 123
+- model: skole.SubjectTranslation
+  pk: 368
+  fields:
+    language_code: fi
+    name: Liiketoimintaosaaminen
+    master: 123
+# - model: skole.SubjectTranslation
+#   pk: 369
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 123
+- model: skole.SubjectTranslation
+  pk: 370
+  fields:
+    language_code: en
+    name: Finnish Language and Business Communication
+    master: 124
+- model: skole.SubjectTranslation
+  pk: 371
+  fields:
+    language_code: fi
+    name: Suomen kieli ja talouselämän viestintä
+    master: 124
+# - model: skole.SubjectTranslation
+#   pk: 372
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 124
+- model: skole.SubjectTranslation
+  pk: 373
+  fields:
+    language_code: en
+    name: Business English
+    master: 125
+- model: skole.SubjectTranslation
+  pk: 374
+  fields:
+    language_code: fi
+    name: Englannin kieli ja liikeviestintä
+    master: 125
+# - model: skole.SubjectTranslation
+#   pk: 375
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 125
+- model: skole.SubjectTranslation
+  pk: 376
+  fields:
+    language_code: en
+    name: Industrial Management
+    master: 126
+- model: skole.SubjectTranslation
+  pk: 377
+  fields:
+    language_code: fi
+    name: Teollisuustalous
+    master: 126
+# - model: skole.SubjectTranslation
+#   pk: 378
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 126
+- model: skole.SubjectTranslation
+  pk: 379
+  fields:
+    language_code: en
+    name: Quantitative Methods in Management
+    master: 127
+- model: skole.SubjectTranslation
+  pk: 380
+  fields:
+    language_code: fi
+    name: Taloustieteiden kvantitatiiviset menetelmät
+    master: 127
+# - model: skole.SubjectTranslation
+#   pk: 381
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 127
+- model: skole.SubjectTranslation
+  pk: 382
+  fields:
+    language_code: en
+    name: Japanese
+    master: 128
+- model: skole.SubjectTranslation
+  pk: 383
+  fields:
+    language_code: fi
+    name: Japani
+    master: 128
+# - model: skole.SubjectTranslation
+#   pk: 384
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 128
+- model: skole.SubjectTranslation
+  pk: 385
+  fields:
+    language_code: en
+    name: Molecular Systems Biology
+    master: 129
+- model: skole.SubjectTranslation
+  pk: 386
+  fields:
+    language_code: fi
+    name: Molecular Systems Biology
+    master: 129
+# - model: skole.SubjectTranslation
+#   pk: 387
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 129
+- model: skole.SubjectTranslation
+  pk: 388
+  fields:
+    language_code: en
+    name: Business French
+    master: 130
+- model: skole.SubjectTranslation
+  pk: 389
+  fields:
+    language_code: fi
+    name: Ranskan kieli ja liikeviestintä
+    master: 130
+# - model: skole.SubjectTranslation
+#   pk: 390
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 130
+- model: skole.SubjectTranslation
+  pk: 391
+  fields:
+    language_code: en
+    name: Educational Sciences
+    master: 131
+- model: skole.SubjectTranslation
+  pk: 392
+  fields:
+    language_code: fi
+    name: Kasvatustiede
+    master: 131
+# - model: skole.SubjectTranslation
+#   pk: 393
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 131
+- model: skole.SubjectTranslation
+  pk: 394
+  fields:
+    language_code: en
+    name: Adult Education
+    master: 132
+- model: skole.SubjectTranslation
+  pk: 395
+  fields:
+    language_code: fi
+    name: Aikuiskasvatustiede
+    master: 132
+# - model: skole.SubjectTranslation
+#   pk: 396
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 132
+- model: skole.SubjectTranslation
+  pk: 397
+  fields:
+    language_code: en
+    name: Special Education
+    master: 133
+- model: skole.SubjectTranslation
+  pk: 398
+  fields:
+    language_code: fi
+    name: Erityispedagogiikka
+    master: 133
+# - model: skole.SubjectTranslation
+#   pk: 399
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 133
+- model: skole.SubjectTranslation
+  pk: 400
+  fields:
+    language_code: en
+    name: Russian
+    master: 134
+- model: skole.SubjectTranslation
+  pk: 401
+  fields:
+    language_code: fi
+    name: Venäjä
+    master: 134
+# - model: skole.SubjectTranslation
+#   pk: 402
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 134
+- model: skole.SubjectTranslation
+  pk: 403
+  fields:
+    language_code: en
+    name: Finnish as a Foreign Language
+    master: 135
+- model: skole.SubjectTranslation
+  pk: 404
+  fields:
+    language_code: fi
+    name: Finnish as a Foreign Language
+    master: 135
+# - model: skole.SubjectTranslation
+#   pk: 405
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 135
+- model: skole.SubjectTranslation
+  pk: 406
+  fields:
+    language_code: en
+    name: East Asian Studies
+    master: 136
+- model: skole.SubjectTranslation
+  pk: 407
+  fields:
+    language_code: fi
+    name: East Asian Studies
+    master: 136
+# - model: skole.SubjectTranslation
+#   pk: 408
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 136
+- model: skole.SubjectTranslation
+  pk: 409
+  fields:
+    language_code: en
+    name: Political Science
+    master: 137
+- model: skole.SubjectTranslation
+  pk: 410
+  fields:
+    language_code: fi
+    name: Yleinen valtio-oppi
+    master: 137
+# - model: skole.SubjectTranslation
+#   pk: 411
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 137
+- model: skole.SubjectTranslation
+  pk: 412
+  fields:
+    language_code: en
+    name: Contemporary History
+    master: 138
+- model: skole.SubjectTranslation
+  pk: 413
+  fields:
+    language_code: fi
+    name: Poliittinen historia
+    master: 138
+# - model: skole.SubjectTranslation
+#   pk: 414
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 138
+- model: skole.SubjectTranslation
+  pk: 415
+  fields:
+    language_code: en
+    name: Didactics of Handicrafts
+    master: 139
+- model: skole.SubjectTranslation
+  pk: 416
+  fields:
+    language_code: fi
+    name: Käsityökasvatus
+    master: 139
+# - model: skole.SubjectTranslation
+#   pk: 417
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 139
+- model: skole.SubjectTranslation
+  pk: 418
+  fields:
+    language_code: en
+    name: Social Policy
+    master: 140
+- model: skole.SubjectTranslation
+  pk: 419
+  fields:
+    language_code: fi
+    name: Sosiaalipolitiikka
+    master: 140
+# - model: skole.SubjectTranslation
+#   pk: 420
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 140
+- model: skole.SubjectTranslation
+  pk: 421
+  fields:
+    language_code: en
+    name: Economic Sociology
+    master: 141
+- model: skole.SubjectTranslation
+  pk: 422
+  fields:
+    language_code: fi
+    name: Taloussosiologia
+    master: 141
+# - model: skole.SubjectTranslation
+#   pk: 423
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 141
+- model: skole.SubjectTranslation
+  pk: 424
+  fields:
+    language_code: en
+    name: History and Archaeology
+    master: 142
+- model: skole.SubjectTranslation
+  pk: 425
+  fields:
+    language_code: fi
+    name: Historia ja arkeologia
+    master: 142
+# - model: skole.SubjectTranslation
+#   pk: 426
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 142
+- model: skole.SubjectTranslation
+  pk: 427
+  fields:
+    language_code: en
+    name: Cultural History
+    master: 143
+- model: skole.SubjectTranslation
+  pk: 428
+  fields:
+    language_code: fi
+    name: Kulttuurihistoria
+    master: 143
+# - model: skole.SubjectTranslation
+#   pk: 429
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 143
+- model: skole.SubjectTranslation
+  pk: 430
+  fields:
+    language_code: en
+    name: Finnish History
+    master: 144
+- model: skole.SubjectTranslation
+  pk: 431
+  fields:
+    language_code: fi
+    name: Suomen historia
+    master: 144
+# - model: skole.SubjectTranslation
+#   pk: 432
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 144
+- model: skole.SubjectTranslation
+  pk: 433
+  fields:
+    language_code: en
+    name: European and World History
+    master: 145
+- model: skole.SubjectTranslation
+  pk: 434
+  fields:
+    language_code: fi
+    name: Yleinen historia
+    master: 145
+# - model: skole.SubjectTranslation
+#   pk: 435
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 145
+- model: skole.SubjectTranslation
+  pk: 436
+  fields:
+    language_code: en
+    name: Comparative Religion
+    master: 146
+- model: skole.SubjectTranslation
+  pk: 437
+  fields:
+    language_code: fi
+    name: Uskontotiede
+    master: 146
+# - model: skole.SubjectTranslation
+#   pk: 438
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 146
+- model: skole.SubjectTranslation
+  pk: 439
+  fields:
+    language_code: en
+    name: Folkloristics
+    master: 147
+- model: skole.SubjectTranslation
+  pk: 440
+  fields:
+    language_code: fi
+    name: Folkloristiikka
+    master: 147
+# - model: skole.SubjectTranslation
+#   pk: 441
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 147
+- model: skole.SubjectTranslation
+  pk: 442
+  fields:
+    language_code: en
+    name: Ethnology
+    master: 148
+- model: skole.SubjectTranslation
+  pk: 443
+  fields:
+    language_code: fi
+    name: Etnologia
+    master: 148
+# - model: skole.SubjectTranslation
+#   pk: 444
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 148
+- model: skole.SubjectTranslation
+  pk: 445
+  fields:
+    language_code: en
+    name: Life Philosophy
+    master: 149
+- model: skole.SubjectTranslation
+  pk: 446
+  fields:
+    language_code: fi
+    name: Elämänkatsomustieto
+    master: 149
+# - model: skole.SubjectTranslation
+#   pk: 447
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 149
+- model: skole.SubjectTranslation
+  pk: 448
+  fields:
+    language_code: en
+    name: Theoretical Physics
+    master: 150
+- model: skole.SubjectTranslation
+  pk: 449
+  fields:
+    language_code: fi
+    name: Teoreettinen fysiikka
+    master: 150
+# - model: skole.SubjectTranslation
+#   pk: 450
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 150
+- model: skole.SubjectTranslation
+  pk: 451
+  fields:
+    language_code: en
+    name: Astronomy
+    master: 151
+- model: skole.SubjectTranslation
+  pk: 452
+  fields:
+    language_code: fi
+    name: Tähtitiede
+    master: 151
+# - model: skole.SubjectTranslation
+#   pk: 453
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 151
+- model: skole.SubjectTranslation
+  pk: 454
+  fields:
+    language_code: en
+    name: Food Development
+    master: 152
+- model: skole.SubjectTranslation
+  pk: 455
+  fields:
+    language_code: fi
+    name: Elintarvikekehitys
+    master: 152
+# - model: skole.SubjectTranslation
+#   pk: 456
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 152
+- model: skole.SubjectTranslation
+  pk: 457
+  fields:
+    language_code: en
+    name: Biomedical Imaging
+    master: 153
+- model: skole.SubjectTranslation
+  pk: 458
+  fields:
+    language_code: fi
+    name: Biomedical Imaging
+    master: 153
+# - model: skole.SubjectTranslation
+#   pk: 459
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 153
+- model: skole.SubjectTranslation
+  pk: 460
+  fields:
+    language_code: en
+    name: Futures Studies
+    master: 154
+- model: skole.SubjectTranslation
+  pk: 461
+  fields:
+    language_code: fi
+    name: Futures Studies
+    master: 154
+# - model: skole.SubjectTranslation
+#   pk: 462
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 154
+- model: skole.SubjectTranslation
+  pk: 463
+  fields:
+    language_code: en
+    name: Musicology
+    master: 155
+- model: skole.SubjectTranslation
+  pk: 464
+  fields:
+    language_code: fi
+    name: Musiikkitiede
+    master: 155
+# - model: skole.SubjectTranslation
+#   pk: 465
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 155
+- model: skole.SubjectTranslation
+  pk: 466
+  fields:
+    language_code: en
+    name: Russian Studies
+    master: 156
+- model: skole.SubjectTranslation
+  pk: 467
+  fields:
+    language_code: fi
+    name: Venäjän kieli
+    master: 156
+# - model: skole.SubjectTranslation
+#   pk: 468
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 156
+- model: skole.SubjectTranslation
+  pk: 469
+  fields:
+    language_code: en
+    name: Finnish Literature
+    master: 157
+- model: skole.SubjectTranslation
+  pk: 470
+  fields:
+    language_code: fi
+    name: Kotimainen kirjallisuus
+    master: 157
+# - model: skole.SubjectTranslation
+#   pk: 471
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 157
+- model: skole.SubjectTranslation
+  pk: 472
+  fields:
+    language_code: en
+    name: Comparative Literature
+    master: 158
+- model: skole.SubjectTranslation
+  pk: 473
+  fields:
+    language_code: fi
+    name: Yleinen kirjallisuustiede
+    master: 158
+# - model: skole.SubjectTranslation
+#   pk: 474
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 158
+- model: skole.SubjectTranslation
+  pk: 475
+  fields:
+    language_code: en
+    name: Finnish and Finno-Ugric Languages
+    master: 159
+- model: skole.SubjectTranslation
+  pk: 476
+  fields:
+    language_code: fi
+    name: Suomen kieli ja suomalais-ugrilainen kielentutkimus
+    master: 159
+# - model: skole.SubjectTranslation
+#   pk: 477
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 159
+- model: skole.SubjectTranslation
+  pk: 478
+  fields:
+    language_code: en
+    name: Literature
+    master: 160
+- model: skole.SubjectTranslation
+  pk: 479
+  fields:
+    language_code: fi
+    name: Kirjallisuustieteet
+    master: 160
+# - model: skole.SubjectTranslation
+#   pk: 480
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 160
+- model: skole.SubjectTranslation
+  pk: 481
+  fields:
+    language_code: en
+    name: European Ethn. and Comp. Religion
+    master: 161
+- model: skole.SubjectTranslation
+  pk: 482
+  fields:
+    language_code: fi
+    name: Kansatiede ja uskontotiede
+    master: 161
+# - model: skole.SubjectTranslation
+#   pk: 483
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 161
+- model: skole.SubjectTranslation
+  pk: 484
+  fields:
+    language_code: en
+    name: European Ethnology
+    master: 162
+- model: skole.SubjectTranslation
+  pk: 485
+  fields:
+    language_code: fi
+    name: Kansatiede
+    master: 162
+# - model: skole.SubjectTranslation
+#   pk: 486
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 162
+- model: skole.SubjectTranslation
+  pk: 487
+  fields:
+    language_code: en
+    name: Romanian Language and Culture
+    master: 163
+- model: skole.SubjectTranslation
+  pk: 488
+  fields:
+    language_code: fi
+    name: Romanian kieli ja kulttuuri
+    master: 163
+# - model: skole.SubjectTranslation
+#   pk: 489
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 163
+- model: skole.SubjectTranslation
+  pk: 490
+  fields:
+    language_code: en
+    name: Scandinavian Languages
+    master: 164
+- model: skole.SubjectTranslation
+  pk: 491
+  fields:
+    language_code: fi
+    name: Pohjoismaiset kielet
+    master: 164
+# - model: skole.SubjectTranslation
+#   pk: 492
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 164
+- model: skole.SubjectTranslation
+  pk: 493
+  fields:
+    language_code: en
+    name: Sustainable Development
+    master: 165
+- model: skole.SubjectTranslation
+  pk: 494
+  fields:
+    language_code: fi
+    name: Kestävä kehitys
+    master: 165
+# - model: skole.SubjectTranslation
+#   pk: 495
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 165
+- model: skole.SubjectTranslation
+  pk: 496
+  fields:
+    language_code: en
+    name: Museology
+    master: 166
+- model: skole.SubjectTranslation
+  pk: 497
+  fields:
+    language_code: fi
+    name: Museologia
+    master: 166
+# - model: skole.SubjectTranslation
+#   pk: 498
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 166
+- model: skole.SubjectTranslation
+  pk: 499
+  fields:
+    language_code: en
+    name: Cultural and Experience Tourism
+    master: 167
+- model: skole.SubjectTranslation
+  pk: 500
+  fields:
+    language_code: fi
+    name: Kulttuuri- ja elämysmatkailu
+    master: 167
+# - model: skole.SubjectTranslation
+#   pk: 501
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 167
+- model: skole.SubjectTranslation
+  pk: 502
+  fields:
+    language_code: en
+    name: Greek Philology
+    master: 168
+- model: skole.SubjectTranslation
+  pk: 503
+  fields:
+    language_code: fi
+    name: Kreikkalainen filologia
+    master: 168
+# - model: skole.SubjectTranslation
+#   pk: 504
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 168
+- model: skole.SubjectTranslation
+  pk: 505
+  fields:
+    language_code: en
+    name: Applied Mathematics
+    master: 169
+- model: skole.SubjectTranslation
+  pk: 506
+  fields:
+    language_code: fi
+    name: Sovellettu matematiikka
+    master: 169
+# - model: skole.SubjectTranslation
+#   pk: 507
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 169
+- model: skole.SubjectTranslation
+  pk: 508
+  fields:
+    language_code: en
+    name: Biomedicine
+    master: 170
+- model: skole.SubjectTranslation
+  pk: 509
+  fields:
+    language_code: fi
+    name: Biolääketiede
+    master: 170
+# - model: skole.SubjectTranslation
+#   pk: 510
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 170
+- model: skole.SubjectTranslation
+  pk: 511
+  fields:
+    language_code: en
+    name: Cariology and Restorative Dentistry
+    master: 171
+- model: skole.SubjectTranslation
+  pk: 512
+  fields:
+    language_code: fi
+    name: Kariologia ja korjaava hammashoito
+    master: 171
+# - model: skole.SubjectTranslation
+#   pk: 513
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 171
+- model: skole.SubjectTranslation
+  pk: 514
+  fields:
+    language_code: en
+    name: Business Swedish
+    master: 172
+- model: skole.SubjectTranslation
+  pk: 515
+  fields:
+    language_code: fi
+    name: Ruotsin kieli ja liikeviestintä
+    master: 172
+# - model: skole.SubjectTranslation
+#   pk: 516
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 172
+- model: skole.SubjectTranslation
+  pk: 517
+  fields:
+    language_code: en
+    name: Business German
+    master: 173
+- model: skole.SubjectTranslation
+  pk: 518
+  fields:
+    language_code: fi
+    name: Saksan kieli ja liikeviestintä
+    master: 173
+# - model: skole.SubjectTranslation
+#   pk: 519
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 173
+- model: skole.SubjectTranslation
+  pk: 520
+  fields:
+    language_code: en
+    name: Business Russian
+    master: 174
+- model: skole.SubjectTranslation
+  pk: 521
+  fields:
+    language_code: fi
+    name: Venäjän kieli ja liikeviestintä
+    master: 174
+# - model: skole.SubjectTranslation
+#   pk: 522
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 174
+- model: skole.SubjectTranslation
+  pk: 523
+  fields:
+    language_code: en
+    name: Business Japanese
+    master: 175
+- model: skole.SubjectTranslation
+  pk: 524
+  fields:
+    language_code: fi
+    name: Japanin kieli ja liikeviestintä
+    master: 175
+# - model: skole.SubjectTranslation
+#   pk: 525
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 175
+- model: skole.SubjectTranslation
+  pk: 526
+  fields:
+    language_code: en
+    name: Business Chinese
+    master: 176
+- model: skole.SubjectTranslation
+  pk: 527
+  fields:
+    language_code: fi
+    name: Kiinan kieli ja liikeviestintä
+    master: 176
+# - model: skole.SubjectTranslation
+#   pk: 528
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 176
+- model: skole.SubjectTranslation
+  pk: 529
+  fields:
+    language_code: en
+    name: Community Dentistry
+    master: 177
+- model: skole.SubjectTranslation
+  pk: 530
+  fields:
+    language_code: fi
+    name: Sosiaalihammaslääketiede
+    master: 177
+# - model: skole.SubjectTranslation
+#   pk: 531
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 177
+- model: skole.SubjectTranslation
+  pk: 532
+  fields:
+    language_code: en
+    name: Prosthetic Dentistry
+    master: 178
+- model: skole.SubjectTranslation
+  pk: 533
+  fields:
+    language_code: fi
+    name: Hammasprotetiikka ja purentafysiologia
+    master: 178
+# - model: skole.SubjectTranslation
+#   pk: 534
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 178
+- model: skole.SubjectTranslation
+  pk: 535
+  fields:
+    language_code: en
+    name: Business Italian
+    master: 179
+- model: skole.SubjectTranslation
+  pk: 536
+  fields:
+    language_code: fi
+    name: Italian kieli ja liikeviestintä
+    master: 179
+# - model: skole.SubjectTranslation
+#   pk: 537
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 179
+- model: skole.SubjectTranslation
+  pk: 538
+  fields:
+    language_code: en
+    name: Oral Pathology and Oral Radiology
+    master: 180
+- model: skole.SubjectTranslation
+  pk: 539
+  fields:
+    language_code: fi
+    name: Suupatologia ja -radiologia
+    master: 180
+# - model: skole.SubjectTranslation
+#   pk: 540
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 180
+- model: skole.SubjectTranslation
+  pk: 541
+  fields:
+    language_code: en
+    name: Multilingual Business Communication
+    master: 181
+- model: skole.SubjectTranslation
+  pk: 542
+  fields:
+    language_code: fi
+    name: Monikielinen yritysviestintä
+    master: 181
+# - model: skole.SubjectTranslation
+#   pk: 543
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 181
+- model: skole.SubjectTranslation
+  pk: 544
+  fields:
+    language_code: en
+    name: Oral Development and Orthodontics
+    master: 182
+- model: skole.SubjectTranslation
+  pk: 545
+  fields:
+    language_code: fi
+    name: Hampaiston kehitys- ja oikomisoppi
+    master: 182
+# - model: skole.SubjectTranslation
+#   pk: 546
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 182
+- model: skole.SubjectTranslation
+  pk: 547
+  fields:
+    language_code: en
+    name: Biomaterials Science
+    master: 183
+- model: skole.SubjectTranslation
+  pk: 548
+  fields:
+    language_code: fi
+    name: Biomateriaalitiede
+    master: 183
+# - model: skole.SubjectTranslation
+#   pk: 549
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 183
+- model: skole.SubjectTranslation
+  pk: 550
+  fields:
+    language_code: en
+    name: Medical Physics
+    master: 184
+- model: skole.SubjectTranslation
+  pk: 551
+  fields:
+    language_code: fi
+    name: Lääketieteellinen fysiikka
+    master: 184
+# - model: skole.SubjectTranslation
+#   pk: 552
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 184
+- model: skole.SubjectTranslation
+  pk: 553
+  fields:
+    language_code: en
+    name: Periodontology
+    master: 185
+- model: skole.SubjectTranslation
+  pk: 554
+  fields:
+    language_code: fi
+    name: Parodontologia
+    master: 185
+# - model: skole.SubjectTranslation
+#   pk: 555
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 185
+- model: skole.SubjectTranslation
+  pk: 556
+  fields:
+    language_code: en
+    name: Oral and Maxillofacial Surgery
+    master: 186
+- model: skole.SubjectTranslation
+  pk: 557
+  fields:
+    language_code: fi
+    name: Suu- ja leukakirurgia
+    master: 186
+# - model: skole.SubjectTranslation
+#   pk: 558
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 186
+- model: skole.SubjectTranslation
+  pk: 559
+  fields:
+    language_code: en
+    name: Otorhinolaryngology - Head and Neck Surgery
+    master: 187
+- model: skole.SubjectTranslation
+  pk: 560
+  fields:
+    language_code: fi
+    name: Korva-
+    master: 187
+# - model: skole.SubjectTranslation
+#   pk: 561
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 187
+- model: skole.SubjectTranslation
+  pk: 562
+  fields:
+    language_code: en
+    name: Paediatrics
+    master: 188
+- model: skole.SubjectTranslation
+  pk: 563
+  fields:
+    language_code: fi
+    name: Lastentautioppi
+    master: 188
+# - model: skole.SubjectTranslation
+#   pk: 564
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 188
+- model: skole.SubjectTranslation
+  pk: 565
+  fields:
+    language_code: en
+    name: German
+    master: 189
+- model: skole.SubjectTranslation
+  pk: 566
+  fields:
+    language_code: fi
+    name: Saksan kieli
+    master: 189
+# - model: skole.SubjectTranslation
+#   pk: 567
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 189
+- model: skole.SubjectTranslation
+  pk: 568
+  fields:
+    language_code: en
+    name: Physiology and Genetics
+    master: 190
+- model: skole.SubjectTranslation
+  pk: 569
+  fields:
+    language_code: fi
+    name: Fysiologia ja genetiikka
+    master: 190
+# - model: skole.SubjectTranslation
+#   pk: 570
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 190
+- model: skole.SubjectTranslation
+  pk: 571
+  fields:
+    language_code: en
+    name: Latin Philology
+    master: 191
+- model: skole.SubjectTranslation
+  pk: 572
+  fields:
+    language_code: fi
+    name: Latinalainen filologia
+    master: 191
+# - model: skole.SubjectTranslation
+#   pk: 573
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 191
+- model: skole.SubjectTranslation
+  pk: 574
+  fields:
+    language_code: en
+    name: Gender Studies
+    master: 192
+- model: skole.SubjectTranslation
+  pk: 575
+  fields:
+    language_code: fi
+    name: Sukupuolentutkimus
+    master: 192
+# - model: skole.SubjectTranslation
+#   pk: 576
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 192
+- model: skole.SubjectTranslation
+  pk: 577
+  fields:
+    language_code: en
+    name: Gender Studies
+    master: 193
+- model: skole.SubjectTranslation
+  pk: 578
+  fields:
+    language_code: fi
+    name: Gender Studies
+    master: 193
+# - model: skole.SubjectTranslation
+#   pk: 579
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 193
+- model: skole.SubjectTranslation
+  pk: 580
+  fields:
+    language_code: en
+    name: Estonian Language and Culture
+    master: 194
+- model: skole.SubjectTranslation
+  pk: 581
+  fields:
+    language_code: fi
+    name: Viron kieli ja kulttuuri
+    master: 194
+# - model: skole.SubjectTranslation
+#   pk: 582
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 194
+- model: skole.SubjectTranslation
+  pk: 583
+  fields:
+    language_code: en
+    name: Cultural Management Studies
+    master: 195
+- model: skole.SubjectTranslation
+  pk: 584
+  fields:
+    language_code: fi
+    name: Kulttuurituotannon suunnittelu
+    master: 195
+# - model: skole.SubjectTranslation
+#   pk: 585
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 195
+- model: skole.SubjectTranslation
+  pk: 586
+  fields:
+    language_code: en
+    name: Digital Culture
+    master: 196
+- model: skole.SubjectTranslation
+  pk: 587
+  fields:
+    language_code: fi
+    name: Digitaalinen kulttuuri
+    master: 196
+# - model: skole.SubjectTranslation
+#   pk: 588
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 196
+- model: skole.SubjectTranslation
+  pk: 589
+  fields:
+    language_code: en
+    name: Cultural Heritage Studies
+    master: 197
+- model: skole.SubjectTranslation
+  pk: 590
+  fields:
+    language_code: fi
+    name: Kulttuuriperinnön tutkimus
+    master: 197
+# - model: skole.SubjectTranslation
+#   pk: 591
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 197
+- model: skole.SubjectTranslation
+  pk: 592
+  fields:
+    language_code: en
+    name: Landscape Studies
+    master: 198
+- model: skole.SubjectTranslation
+  pk: 593
+  fields:
+    language_code: fi
+    name: Maisemantutkimus
+    master: 198
+# - model: skole.SubjectTranslation
+#   pk: 594
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 198
+- model: skole.SubjectTranslation
+  pk: 595
+  fields:
+    language_code: en
+    name: Hungarian Language and Culture
+    master: 199
+- model: skole.SubjectTranslation
+  pk: 596
+  fields:
+    language_code: fi
+    name: Unkarin kieli ja kulttuuri
+    master: 199
+# - model: skole.SubjectTranslation
+#   pk: 597
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 199
+- model: skole.SubjectTranslation
+  pk: 598
+  fields:
+    language_code: en
+    name: Finnish Language and Culture
+    master: 200
+- model: skole.SubjectTranslation
+  pk: 599
+  fields:
+    language_code: fi
+    name: Suomen kieli ja kulttuuri (ei-äidinkielisille)
+    master: 200
+# - model: skole.SubjectTranslation
+#   pk: 600
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 200
+- model: skole.SubjectTranslation
+  pk: 601
+  fields:
+    language_code: en
+    name: Records and Archives Management
+    master: 201
+- model: skole.SubjectTranslation
+  pk: 602
+  fields:
+    language_code: fi
+    name: Arkistoala ja asiakirjahallinta
+    master: 201
+# - model: skole.SubjectTranslation
+#   pk: 603
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 201
+- model: skole.SubjectTranslation
+  pk: 604
+  fields:
+    language_code: en
+    name: Chinese
+    master: 202
+- model: skole.SubjectTranslation
+  pk: 605
+  fields:
+    language_code: fi
+    name: Kiina
+    master: 202
+# - model: skole.SubjectTranslation
+#   pk: 606
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 202
+- model: skole.SubjectTranslation
+  pk: 607
+  fields:
+    language_code: en
+    name: Classics
+    master: 203
+- model: skole.SubjectTranslation
+  pk: 608
+  fields:
+    language_code: fi
+    name: Klassilliset kielet ja antiikin kulttuuri
+    master: 203
+# - model: skole.SubjectTranslation
+#   pk: 609
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 203
+- model: skole.SubjectTranslation
+  pk: 610
+  fields:
+    language_code: en
+    name: Creative Writing
+    master: 204
+- model: skole.SubjectTranslation
+  pk: 611
+  fields:
+    language_code: fi
+    name: Luova kirjoittaminen
+    master: 204
+# - model: skole.SubjectTranslation
+#   pk: 612
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 204
+- model: skole.SubjectTranslation
+  pk: 613
+  fields:
+    language_code: en
+    name: Ecology
+    master: 205
+- model: skole.SubjectTranslation
+  pk: 614
+  fields:
+    language_code: fi
+    name: Ekologia
+    master: 205
+# - model: skole.SubjectTranslation
+#   pk: 615
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 205
+- model: skole.SubjectTranslation
+  pk: 616
+  fields:
+    language_code: en
+    name: Molecular Biotechnology and Diagnostics
+    master: 206
+- model: skole.SubjectTranslation
+  pk: 617
+  fields:
+    language_code: fi
+    name: Molekulaarinen biotekniikka ja diagnostiikka
+    master: 206
+# - model: skole.SubjectTranslation
+#   pk: 618
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 206
+- model: skole.SubjectTranslation
+  pk: 619
+  fields:
+    language_code: en
+    name: Educational Sciences
+    master: 207
+- model: skole.SubjectTranslation
+  pk: 620
+  fields:
+    language_code: fi
+    name: Educational Sciences
+    master: 207
+# - model: skole.SubjectTranslation
+#   pk: 621
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 207
+- model: skole.SubjectTranslation
+  pk: 622
+  fields:
+    language_code: en
+    name: Classical Archaeology
+    master: 208
+- model: skole.SubjectTranslation
+  pk: 623
+  fields:
+    language_code: fi
+    name: Klassillinen arkeologia
+    master: 208
+# - model: skole.SubjectTranslation
+#   pk: 624
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 208
+# - model: skole.SubjectTranslation
+#   pk: 625
+#   fields:
+#     language_code: en
+#     name:
+#     master: 209
+- model: skole.SubjectTranslation
+  pk: 626
+  fields:
+    language_code: fi
+    name: Nordic Cultural and Social Resilience
+    master: 209
+# - model: skole.SubjectTranslation
+#   pk: 627
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 209
+- model: skole.SubjectTranslation
+  pk: 628
+  fields:
+    language_code: en
+    name: Food Chemistry
+    master: 210
+- model: skole.SubjectTranslation
+  pk: 629
+  fields:
+    language_code: fi
+    name: Elintarvikekemia
+    master: 210
+# - model: skole.SubjectTranslation
+#   pk: 630
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 210
+- model: skole.SubjectTranslation
+  pk: 631
+  fields:
+    language_code: en
+    name: Asian Studies
+    master: 211
+- model: skole.SubjectTranslation
+  pk: 632
+  fields:
+    language_code: fi
+    name: Aasian opinnot
+    master: 211
+# - model: skole.SubjectTranslation
+#   pk: 633
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 211
+- model: skole.SubjectTranslation
+  pk: 634
+  fields:
+    language_code: en
+    name: Clinical Chemistry
+    master: 212
+- model: skole.SubjectTranslation
+  pk: 635
+  fields:
+    language_code: fi
+    name: Kliininen kemia
+    master: 212
+# - model: skole.SubjectTranslation
+#   pk: 636
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 212
+- model: skole.SubjectTranslation
+  pk: 637
+  fields:
+    language_code: en
+    name: Food Development
+    master: 213
+- model: skole.SubjectTranslation
+  pk: 638
+  fields:
+    language_code: fi
+    name: Food Development
+    master: 213
+# - model: skole.SubjectTranslation
+#   pk: 639
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 213
+- model: skole.SubjectTranslation
+  pk: 640
+  fields:
+    language_code: en
+    name: Bedrock Geology
+    master: 214
+- model: skole.SubjectTranslation
+  pk: 641
+  fields:
+    language_code: fi
+    name: Kallioperägeologia
+    master: 214
+# - model: skole.SubjectTranslation
+#   pk: 642
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 214
+- model: skole.SubjectTranslation
+  pk: 643
+  fields:
+    language_code: en
+    name: Geology and Mineralogy
+    master: 215
+- model: skole.SubjectTranslation
+  pk: 644
+  fields:
+    language_code: fi
+    name: Geologia ja mineralogia
+    master: 215
+# - model: skole.SubjectTranslation
+#   pk: 645
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 215
+- model: skole.SubjectTranslation
+  pk: 646
+  fields:
+    language_code: en
+    name: Quaternary Geology
+    master: 216
+- model: skole.SubjectTranslation
+  pk: 647
+  fields:
+    language_code: fi
+    name: Maaperägeologia
+    master: 216
+# - model: skole.SubjectTranslation
+#   pk: 648
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 216
+- model: skole.SubjectTranslation
+  pk: 649
+  fields:
+    language_code: en
+    name: Chemistry of Drug Development
+    master: 217
+- model: skole.SubjectTranslation
+  pk: 650
+  fields:
+    language_code: fi
+    name: Lääkekehityksen kemia
+    master: 217
+# - model: skole.SubjectTranslation
+#   pk: 651
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 217
+- model: skole.SubjectTranslation
+  pk: 652
+  fields:
+    language_code: en
+    name: Geoinformatics
+    master: 218
+- model: skole.SubjectTranslation
+  pk: 653
+  fields:
+    language_code: fi
+    name: Geoinformatiikka
+    master: 218
+# - model: skole.SubjectTranslation
+#   pk: 654
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 218
+- model: skole.SubjectTranslation
+  pk: 655
+  fields:
+    language_code: en
+    name: Anatomy
+    master: 219
+- model: skole.SubjectTranslation
+  pk: 656
+  fields:
+    language_code: fi
+    name: Anatomia
+    master: 219
+# - model: skole.SubjectTranslation
+#   pk: 657
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 219
+- model: skole.SubjectTranslation
+  pk: 658
+  fields:
+    language_code: en
+    name: Languages
+    master: 220
+- model: skole.SubjectTranslation
+  pk: 659
+  fields:
+    language_code: fi
+    name: Kielet
+    master: 220
+# - model: skole.SubjectTranslation
+#   pk: 660
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 220
+- model: skole.SubjectTranslation
+  pk: 661
+  fields:
+    language_code: en
+    name: Cardiology and Cardiovascular Medicine
+    master: 221
+- model: skole.SubjectTranslation
+  pk: 662
+  fields:
+    language_code: fi
+    name: Kardiologia ja kardiovaskulaarilääketiede
+    master: 221
+# - model: skole.SubjectTranslation
+#   pk: 663
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 221
+- model: skole.SubjectTranslation
+  pk: 664
+  fields:
+    language_code: en
+    name: Physical Geography
+    master: 222
+- model: skole.SubjectTranslation
+  pk: 665
+  fields:
+    language_code: fi
+    name: Luonnonmaantiede
+    master: 222
+# - model: skole.SubjectTranslation
+#   pk: 666
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 222
+- model: skole.SubjectTranslation
+  pk: 667
+  fields:
+    language_code: en
+    name: Human Geography
+    master: 223
+- model: skole.SubjectTranslation
+  pk: 668
+  fields:
+    language_code: fi
+    name: Ihmismaantiede
+    master: 223
+# - model: skole.SubjectTranslation
+#   pk: 669
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 223
+- model: skole.SubjectTranslation
+  pk: 670
+  fields:
+    language_code: en
+    name: Materials Science
+    master: 224
+- model: skole.SubjectTranslation
+  pk: 671
+  fields:
+    language_code: fi
+    name: Materiaalitiede
+    master: 224
+# - model: skole.SubjectTranslation
+#   pk: 672
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 224
+- model: skole.SubjectTranslation
+  pk: 673
+  fields:
+    language_code: en
+    name: Molecular Biotechnology and Diagnostics
+    master: 225
+- model: skole.SubjectTranslation
+  pk: 674
+  fields:
+    language_code: fi
+    name: Molecular Biotechnology and Diagnostics
+    master: 225
+# - model: skole.SubjectTranslation
+#   pk: 675
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 225
+- model: skole.SubjectTranslation
+  pk: 676
+  fields:
+    language_code: en
+    name: Astronomy
+    master: 226
+- model: skole.SubjectTranslation
+  pk: 677
+  fields:
+    language_code: fi
+    name: Astronomy
+    master: 226
+# - model: skole.SubjectTranslation
+#   pk: 678
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 226
+- model: skole.SubjectTranslation
+  pk: 679
+  fields:
+    language_code: en
+    name: Applied Geology
+    master: 227
+- model: skole.SubjectTranslation
+  pk: 680
+  fields:
+    language_code: fi
+    name: Soveltava geologia
+    master: 227
+# - model: skole.SubjectTranslation
+#   pk: 681
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 227
+- model: skole.SubjectTranslation
+  pk: 682
+  fields:
+    language_code: en
+    name: Discrete Matehmatics
+    master: 228
+- model: skole.SubjectTranslation
+  pk: 683
+  fields:
+    language_code: fi
+    name: Diskreetti matematiikka
+    master: 228
+# - model: skole.SubjectTranslation
+#   pk: 684
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 228
+- model: skole.SubjectTranslation
+  pk: 685
+  fields:
+    language_code: en
+    name: Mathematical Modelling
+    master: 229
+- model: skole.SubjectTranslation
+  pk: 686
+  fields:
+    language_code: fi
+    name: Matemaattinen mallintaminen
+    master: 229
+# - model: skole.SubjectTranslation
+#   pk: 687
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 229
+- model: skole.SubjectTranslation
+  pk: 688
+  fields:
+    language_code: en
+    name: Electronics
+    master: 230
+- model: skole.SubjectTranslation
+  pk: 689
+  fields:
+    language_code: fi
+    name: Elektroniikka
+    master: 230
+# - model: skole.SubjectTranslation
+#   pk: 690
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 230
+- model: skole.SubjectTranslation
+  pk: 691
+  fields:
+    language_code: en
+    name: Medical Microbiology and Immunology
+    master: 231
+- model: skole.SubjectTranslation
+  pk: 692
+  fields:
+    language_code: fi
+    name: Lääketieteellinen mikrobiologia ja immunologia
+    master: 231
+# - model: skole.SubjectTranslation
+#   pk: 693
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 231
+- model: skole.SubjectTranslation
+  pk: 694
+  fields:
+    language_code: en
+    name: Medical Biochemistry and Molecular Biology
+    master: 232
+- model: skole.SubjectTranslation
+  pk: 695
+  fields:
+    language_code: fi
+    name: Lääketieteellinen biokemia ja molekyylibiologia
+    master: 232
+# - model: skole.SubjectTranslation
+#   pk: 696
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 232
+- model: skole.SubjectTranslation
+  pk: 697
+  fields:
+    language_code: en
+    name: Korean
+    master: 233
+- model: skole.SubjectTranslation
+  pk: 698
+  fields:
+    language_code: fi
+    name: Korea
+    master: 233
+# - model: skole.SubjectTranslation
+#   pk: 699
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 233
+- model: skole.SubjectTranslation
+  pk: 700
+  fields:
+    language_code: en
+    name: Infectious Diseases
+    master: 234
+- model: skole.SubjectTranslation
+  pk: 701
+  fields:
+    language_code: fi
+    name: Infektiotautioppi
+    master: 234
+# - model: skole.SubjectTranslation
+#   pk: 702
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 234
+- model: skole.SubjectTranslation
+  pk: 703
+  fields:
+    language_code: en
+    name: Drug Discovery and Development
+    master: 235
+- model: skole.SubjectTranslation
+  pk: 704
+  fields:
+    language_code: fi
+    name: Drug Discovery and Development
+    master: 235
+# - model: skole.SubjectTranslation
+#   pk: 705
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 235
+- model: skole.SubjectTranslation
+  pk: 706
+  fields:
+    language_code: en
+    name: Cultural Production and Landscape Studies
+    master: 236
+- model: skole.SubjectTranslation
+  pk: 707
+  fields:
+    language_code: fi
+    name: Kulttuurituotanto ja maisemantutkimus
+    master: 236
+# - model: skole.SubjectTranslation
+#   pk: 708
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 236
+- model: skole.SubjectTranslation
+  pk: 709
+  fields:
+    language_code: en
+    name: Empowering Social Work
+    master: 237
+- model: skole.SubjectTranslation
+  pk: 710
+  fields:
+    language_code: fi
+    name: Kuntouttava sosiaalityö
+    master: 237
+# - model: skole.SubjectTranslation
+#   pk: 711
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 237
+- model: skole.SubjectTranslation
+  pk: 712
+  fields:
+    language_code: en
+    name: Communication Systems
+    master: 238
+- model: skole.SubjectTranslation
+  pk: 713
+  fields:
+    language_code: fi
+    name: Tietoliikennetekniikka
+    master: 238
+# - model: skole.SubjectTranslation
+#   pk: 714
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 238
+- model: skole.SubjectTranslation
+  pk: 715
+  fields:
+    language_code: en
+    name: Management Studies in Specialist Training
+    master: 239
+- model: skole.SubjectTranslation
+  pk: 716
+  fields:
+    language_code: fi
+    name: Moniammatilliset johtamisopinnot
+    master: 239
+# - model: skole.SubjectTranslation
+#   pk: 717
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 239
+- model: skole.SubjectTranslation
+  pk: 718
+  fields:
+    language_code: en
+    name: Finnish-Nordic Society and Culture
+    master: 240
+- model: skole.SubjectTranslation
+  pk: 719
+  fields:
+    language_code: fi
+    name: Finnish-Nordic Society and Culture
+    master: 240
+# - model: skole.SubjectTranslation
+#   pk: 720
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 240
+- model: skole.SubjectTranslation
+  pk: 721
+  fields:
+    language_code: en
+    name: Medical Genetics
+    master: 241
+- model: skole.SubjectTranslation
+  pk: 722
+  fields:
+    language_code: fi
+    name: Lääketieteellinen genetiikka
+    master: 241
+# - model: skole.SubjectTranslation
+#   pk: 723
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 241
+- model: skole.SubjectTranslation
+  pk: 724
+  fields:
+    language_code: en
+    name: Drug Development Science
+    master: 242
+- model: skole.SubjectTranslation
+  pk: 725
+  fields:
+    language_code: fi
+    name: Lääkekehitystiede
+    master: 242
+# - model: skole.SubjectTranslation
+#   pk: 726
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 242
+- model: skole.SubjectTranslation
+  pk: 727
+  fields:
+    language_code: en
+    name: North American Studies
+    master: 243
+- model: skole.SubjectTranslation
+  pk: 728
+  fields:
+    language_code: fi
+    name: North American Studies
+    master: 243
+# - model: skole.SubjectTranslation
+#   pk: 729
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 243
+- model: skole.SubjectTranslation
+  pk: 730
+  fields:
+    language_code: en
+    name: Evolutionary Biology
+    master: 244
+- model: skole.SubjectTranslation
+  pk: 731
+  fields:
+    language_code: fi
+    name: Evoluutiobiologia
+    master: 244
+# - model: skole.SubjectTranslation
+#   pk: 732
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 244
+- model: skole.SubjectTranslation
+  pk: 733
+  fields:
+    language_code: en
+    name: Finnish and Other Finno-Ugric Lang.
+    master: 245
+- model: skole.SubjectTranslation
+  pk: 734
+  fields:
+    language_code: fi
+    name: Suomi ja sen sukukielet
+    master: 245
+# - model: skole.SubjectTranslation
+#   pk: 735
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 245
+- model: skole.SubjectTranslation
+  pk: 736
+  fields:
+    language_code: en
+    name: Estonian
+    master: 246
+- model: skole.SubjectTranslation
+  pk: 737
+  fields:
+    language_code: fi
+    name: Viro
+    master: 246
+# - model: skole.SubjectTranslation
+#   pk: 738
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 246
+- model: skole.SubjectTranslation
+  pk: 739
+  fields:
+    language_code: en
+    name: Other Language
+    master: 247
+- model: skole.SubjectTranslation
+  pk: 740
+  fields:
+    language_code: fi
+    name: Muita kieliopintoja
+    master: 247
+# - model: skole.SubjectTranslation
+#   pk: 741
+#   fields:
+#     language_code: sv
+#     name:
+#     master: 247
 
 - model: skole.Subject
   pk: 1
@@ -1510,4 +4660,529 @@
   fields: {}
 - model: skole.Subject
   pk: 72
+  fields: {}
+- model: skole.Subject
+  pk: 73
+  fields: {}
+- model: skole.Subject
+  pk: 74
+  fields: {}
+- model: skole.Subject
+  pk: 75
+  fields: {}
+- model: skole.Subject
+  pk: 76
+  fields: {}
+- model: skole.Subject
+  pk: 77
+  fields: {}
+- model: skole.Subject
+  pk: 78
+  fields: {}
+- model: skole.Subject
+  pk: 79
+  fields: {}
+- model: skole.Subject
+  pk: 80
+  fields: {}
+- model: skole.Subject
+  pk: 81
+  fields: {}
+- model: skole.Subject
+  pk: 82
+  fields: {}
+- model: skole.Subject
+  pk: 83
+  fields: {}
+- model: skole.Subject
+  pk: 84
+  fields: {}
+- model: skole.Subject
+  pk: 85
+  fields: {}
+- model: skole.Subject
+  pk: 86
+  fields: {}
+- model: skole.Subject
+  pk: 87
+  fields: {}
+- model: skole.Subject
+  pk: 88
+  fields: {}
+- model: skole.Subject
+  pk: 89
+  fields: {}
+- model: skole.Subject
+  pk: 90
+  fields: {}
+- model: skole.Subject
+  pk: 91
+  fields: {}
+- model: skole.Subject
+  pk: 92
+  fields: {}
+- model: skole.Subject
+  pk: 93
+  fields: {}
+- model: skole.Subject
+  pk: 94
+  fields: {}
+- model: skole.Subject
+  pk: 95
+  fields: {}
+- model: skole.Subject
+  pk: 96
+  fields: {}
+- model: skole.Subject
+  pk: 97
+  fields: {}
+- model: skole.Subject
+  pk: 98
+  fields: {}
+- model: skole.Subject
+  pk: 99
+  fields: {}
+- model: skole.Subject
+  pk: 100
+  fields: {}
+- model: skole.Subject
+  pk: 101
+  fields: {}
+- model: skole.Subject
+  pk: 102
+  fields: {}
+- model: skole.Subject
+  pk: 103
+  fields: {}
+- model: skole.Subject
+  pk: 104
+  fields: {}
+- model: skole.Subject
+  pk: 105
+  fields: {}
+- model: skole.Subject
+  pk: 106
+  fields: {}
+- model: skole.Subject
+  pk: 107
+  fields: {}
+- model: skole.Subject
+  pk: 108
+  fields: {}
+- model: skole.Subject
+  pk: 109
+  fields: {}
+- model: skole.Subject
+  pk: 110
+  fields: {}
+- model: skole.Subject
+  pk: 111
+  fields: {}
+- model: skole.Subject
+  pk: 112
+  fields: {}
+- model: skole.Subject
+  pk: 113
+  fields: {}
+- model: skole.Subject
+  pk: 114
+  fields: {}
+- model: skole.Subject
+  pk: 115
+  fields: {}
+- model: skole.Subject
+  pk: 116
+  fields: {}
+- model: skole.Subject
+  pk: 117
+  fields: {}
+- model: skole.Subject
+  pk: 118
+  fields: {}
+- model: skole.Subject
+  pk: 119
+  fields: {}
+- model: skole.Subject
+  pk: 120
+  fields: {}
+- model: skole.Subject
+  pk: 121
+  fields: {}
+- model: skole.Subject
+  pk: 122
+  fields: {}
+- model: skole.Subject
+  pk: 123
+  fields: {}
+- model: skole.Subject
+  pk: 124
+  fields: {}
+- model: skole.Subject
+  pk: 125
+  fields: {}
+- model: skole.Subject
+  pk: 126
+  fields: {}
+- model: skole.Subject
+  pk: 127
+  fields: {}
+- model: skole.Subject
+  pk: 128
+  fields: {}
+- model: skole.Subject
+  pk: 129
+  fields: {}
+- model: skole.Subject
+  pk: 130
+  fields: {}
+- model: skole.Subject
+  pk: 131
+  fields: {}
+- model: skole.Subject
+  pk: 132
+  fields: {}
+- model: skole.Subject
+  pk: 133
+  fields: {}
+- model: skole.Subject
+  pk: 134
+  fields: {}
+- model: skole.Subject
+  pk: 135
+  fields: {}
+- model: skole.Subject
+  pk: 136
+  fields: {}
+- model: skole.Subject
+  pk: 137
+  fields: {}
+- model: skole.Subject
+  pk: 138
+  fields: {}
+- model: skole.Subject
+  pk: 139
+  fields: {}
+- model: skole.Subject
+  pk: 140
+  fields: {}
+- model: skole.Subject
+  pk: 141
+  fields: {}
+- model: skole.Subject
+  pk: 142
+  fields: {}
+- model: skole.Subject
+  pk: 143
+  fields: {}
+- model: skole.Subject
+  pk: 144
+  fields: {}
+- model: skole.Subject
+  pk: 145
+  fields: {}
+- model: skole.Subject
+  pk: 146
+  fields: {}
+- model: skole.Subject
+  pk: 147
+  fields: {}
+- model: skole.Subject
+  pk: 148
+  fields: {}
+- model: skole.Subject
+  pk: 149
+  fields: {}
+- model: skole.Subject
+  pk: 150
+  fields: {}
+- model: skole.Subject
+  pk: 151
+  fields: {}
+- model: skole.Subject
+  pk: 152
+  fields: {}
+- model: skole.Subject
+  pk: 153
+  fields: {}
+- model: skole.Subject
+  pk: 154
+  fields: {}
+- model: skole.Subject
+  pk: 155
+  fields: {}
+- model: skole.Subject
+  pk: 156
+  fields: {}
+- model: skole.Subject
+  pk: 157
+  fields: {}
+- model: skole.Subject
+  pk: 158
+  fields: {}
+- model: skole.Subject
+  pk: 159
+  fields: {}
+- model: skole.Subject
+  pk: 160
+  fields: {}
+- model: skole.Subject
+  pk: 161
+  fields: {}
+- model: skole.Subject
+  pk: 162
+  fields: {}
+- model: skole.Subject
+  pk: 163
+  fields: {}
+- model: skole.Subject
+  pk: 164
+  fields: {}
+- model: skole.Subject
+  pk: 165
+  fields: {}
+- model: skole.Subject
+  pk: 166
+  fields: {}
+- model: skole.Subject
+  pk: 167
+  fields: {}
+- model: skole.Subject
+  pk: 168
+  fields: {}
+- model: skole.Subject
+  pk: 169
+  fields: {}
+- model: skole.Subject
+  pk: 170
+  fields: {}
+- model: skole.Subject
+  pk: 171
+  fields: {}
+- model: skole.Subject
+  pk: 172
+  fields: {}
+- model: skole.Subject
+  pk: 173
+  fields: {}
+- model: skole.Subject
+  pk: 174
+  fields: {}
+- model: skole.Subject
+  pk: 175
+  fields: {}
+- model: skole.Subject
+  pk: 176
+  fields: {}
+- model: skole.Subject
+  pk: 177
+  fields: {}
+- model: skole.Subject
+  pk: 178
+  fields: {}
+- model: skole.Subject
+  pk: 179
+  fields: {}
+- model: skole.Subject
+  pk: 180
+  fields: {}
+- model: skole.Subject
+  pk: 181
+  fields: {}
+- model: skole.Subject
+  pk: 182
+  fields: {}
+- model: skole.Subject
+  pk: 183
+  fields: {}
+- model: skole.Subject
+  pk: 184
+  fields: {}
+- model: skole.Subject
+  pk: 185
+  fields: {}
+- model: skole.Subject
+  pk: 186
+  fields: {}
+- model: skole.Subject
+  pk: 187
+  fields: {}
+- model: skole.Subject
+  pk: 188
+  fields: {}
+- model: skole.Subject
+  pk: 189
+  fields: {}
+- model: skole.Subject
+  pk: 190
+  fields: {}
+- model: skole.Subject
+  pk: 191
+  fields: {}
+- model: skole.Subject
+  pk: 192
+  fields: {}
+- model: skole.Subject
+  pk: 193
+  fields: {}
+- model: skole.Subject
+  pk: 194
+  fields: {}
+- model: skole.Subject
+  pk: 195
+  fields: {}
+- model: skole.Subject
+  pk: 196
+  fields: {}
+- model: skole.Subject
+  pk: 197
+  fields: {}
+- model: skole.Subject
+  pk: 198
+  fields: {}
+- model: skole.Subject
+  pk: 199
+  fields: {}
+- model: skole.Subject
+  pk: 200
+  fields: {}
+- model: skole.Subject
+  pk: 201
+  fields: {}
+- model: skole.Subject
+  pk: 202
+  fields: {}
+- model: skole.Subject
+  pk: 203
+  fields: {}
+- model: skole.Subject
+  pk: 204
+  fields: {}
+- model: skole.Subject
+  pk: 205
+  fields: {}
+- model: skole.Subject
+  pk: 206
+  fields: {}
+- model: skole.Subject
+  pk: 207
+  fields: {}
+- model: skole.Subject
+  pk: 208
+  fields: {}
+- model: skole.Subject
+  pk: 209
+  fields: {}
+- model: skole.Subject
+  pk: 210
+  fields: {}
+- model: skole.Subject
+  pk: 211
+  fields: {}
+- model: skole.Subject
+  pk: 212
+  fields: {}
+- model: skole.Subject
+  pk: 213
+  fields: {}
+- model: skole.Subject
+  pk: 214
+  fields: {}
+- model: skole.Subject
+  pk: 215
+  fields: {}
+- model: skole.Subject
+  pk: 216
+  fields: {}
+- model: skole.Subject
+  pk: 217
+  fields: {}
+- model: skole.Subject
+  pk: 218
+  fields: {}
+- model: skole.Subject
+  pk: 219
+  fields: {}
+- model: skole.Subject
+  pk: 220
+  fields: {}
+- model: skole.Subject
+  pk: 221
+  fields: {}
+- model: skole.Subject
+  pk: 222
+  fields: {}
+- model: skole.Subject
+  pk: 223
+  fields: {}
+- model: skole.Subject
+  pk: 224
+  fields: {}
+- model: skole.Subject
+  pk: 225
+  fields: {}
+- model: skole.Subject
+  pk: 226
+  fields: {}
+- model: skole.Subject
+  pk: 227
+  fields: {}
+- model: skole.Subject
+  pk: 228
+  fields: {}
+- model: skole.Subject
+  pk: 229
+  fields: {}
+- model: skole.Subject
+  pk: 230
+  fields: {}
+- model: skole.Subject
+  pk: 231
+  fields: {}
+- model: skole.Subject
+  pk: 232
+  fields: {}
+- model: skole.Subject
+  pk: 233
+  fields: {}
+- model: skole.Subject
+  pk: 234
+  fields: {}
+- model: skole.Subject
+  pk: 235
+  fields: {}
+- model: skole.Subject
+  pk: 236
+  fields: {}
+- model: skole.Subject
+  pk: 237
+  fields: {}
+- model: skole.Subject
+  pk: 238
+  fields: {}
+- model: skole.Subject
+  pk: 239
+  fields: {}
+- model: skole.Subject
+  pk: 240
+  fields: {}
+- model: skole.Subject
+  pk: 241
+  fields: {}
+- model: skole.Subject
+  pk: 242
+  fields: {}
+- model: skole.Subject
+  pk: 243
+  fields: {}
+- model: skole.Subject
+  pk: 244
+  fields: {}
+- model: skole.Subject
+  pk: 245
+  fields: {}
+- model: skole.Subject
+  pk: 246
+  fields: {}
+- model: skole.Subject
+  pk: 247
   fields: {}

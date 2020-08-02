@@ -60,36 +60,32 @@ class LoginForm(forms.ModelForm):
         password = self.cleaned_data.get("password")
 
         if "@" in username_or_email:
-            kwargs = {"email": username_or_email}
+            query = {"email": username_or_email}
         else:
-            kwargs = {"username": username_or_email}
+            query = {"username": username_or_email}
 
         try:
-            existing_user = get_user_model().objects.get(**kwargs)
-            if not existing_user.is_active:
+            user = get_user_model().objects.get(**query)
+            if not user.is_active:
                 raise forms.ValidationError(ValidationErrors.ACCOUNT_DEACTIVATED)
-        except User.DoesNotExist:
-            pass
-
-        try:
-            user = authenticate(
-                username=get_user_model().objects.get(**kwargs).username,
-                password=password,
-            )
-
-            user = cast(User, user)
-
-            if not user:
-                raise forms.ValidationError(ValidationErrors.AUTH_ERROR)
-
-            if user.is_superuser:
-                raise forms.ValidationError(ValidationErrors.SUPERUSER_LOGIN)
-
-            self.cleaned_data["user"] = user
-            return self.cleaned_data
-
         except get_user_model().DoesNotExist:
             raise forms.ValidationError(ValidationErrors.AUTH_ERROR)
+
+        user = authenticate(
+            username=user.username,
+            password=password,
+        )
+
+        if not user:
+            raise forms.ValidationError(ValidationErrors.AUTH_ERROR)
+
+        user = cast(User, user)
+
+        if user.is_superuser:
+            raise forms.ValidationError(ValidationErrors.SUPERUSER_LOGIN)
+
+        self.cleaned_data["user"] = user
+        return self.cleaned_data
 
 
 class UpdateUserForm(forms.ModelForm):

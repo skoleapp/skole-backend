@@ -11,6 +11,8 @@ from skole.views import SkoleGraphQLView, health_check
 urlpatterns = [
     path(
         "graphql/",
+        # FIXME: must remove the exempt now that the JWT token comes from cookies:
+        #  https://django-graphql-jwt.domake.io/en/latest/authentication.html#per-cookie
         csrf_exempt(
             jwt_cookie(SkoleGraphQLView.as_view(graphiql=bool(settings.DEBUG)))
         ),

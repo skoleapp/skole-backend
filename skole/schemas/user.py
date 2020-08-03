@@ -329,7 +329,6 @@ class LoginMutation(DjangoModelFormMutation):
     Not verified users can still login.
     """
 
-    user = graphene.Field(UserObjectType)
     message = graphene.String()
 
     class Meta:
@@ -352,7 +351,6 @@ class LoginMutation(DjangoModelFormMutation):
                 root=root,
                 info=info,
                 password=password,
-                user=user,
                 username=user.username,
             )
         else:
@@ -362,9 +360,9 @@ class LoginMutation(DjangoModelFormMutation):
     @classmethod
     @token_auth
     def perform_mutate(
-        cls, form: LoginForm, info: ResolveInfo, user: User, **kwargs: JsonDict
+        cls, form: LoginForm, info: ResolveInfo, **kwargs: JsonDict
     ) -> "LoginMutation":
-        return cls(user=user, message=Messages.LOGGED_IN)
+        return cls(message=Messages.LOGGED_IN)
 
 
 class LogoutMutation(DeleteJSONWebTokenCookie):

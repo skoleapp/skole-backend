@@ -227,16 +227,12 @@ class UserSchemaTests(SkoleSchemaTestCase):
         self.authenticated_user = None
 
         res = self.mutate_login()
-        assert res["user"]["email"] == "testuser2@test.com"
-        assert res["user"]["username"] == "testuser2"
         assert res["message"] == Messages.LOGGED_IN
 
     def test_login_ok_with_email(self) -> None:
         self.authenticated_user = None
 
         res = self.mutate_login(username_or_email="testuser2@test.com")
-        assert res["user"]["email"] == "testuser2@test.com"
-        assert res["user"]["username"] == "testuser2"
         assert res["message"] == Messages.LOGGED_IN
 
     def test_login_error(self) -> None:

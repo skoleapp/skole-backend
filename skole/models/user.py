@@ -7,6 +7,7 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.files.uploadedfile import UploadedFile
 from django.core.mail import send_mail
+from django.core.validators import RegexValidator
 from django.db import models
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
@@ -109,6 +110,9 @@ class User(SkoleModel, AbstractBaseUser, PermissionsMixin):
         max_length=30,
         unique=True,
         error_messages={"unique": ValidationErrors.USERNAME_TAKEN},
+        validators=[
+            RegexValidator(settings.USERNAME_REGEX, ValidationErrors.INVALID_USERNAME)
+        ],
     )
 
     email = models.EmailField(
@@ -245,9 +249,11 @@ class User(SkoleModel, AbstractBaseUser, PermissionsMixin):
             return Ranks.TUTOR
         elif self.score < 500:
             return Ranks.MENTOR
-        elif self.score < 1250:
-            return Ranks.MASTER
+        elif self.score < 1000:
+            return Ranks.BACHELOR
         elif self.score < 2000:
+            return Ranks.MASTER
+        elif self.score < 5000:
             return Ranks.DOCTOR
         else:
             return Ranks.PROFESSOR

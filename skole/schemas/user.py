@@ -34,7 +34,11 @@ from skole.schemas.school import SchoolObjectType
 from skole.schemas.subject import SubjectObjectType
 from skole.utils.constants import Messages, MutationErrors, TokenAction
 from skole.utils.exceptions import TokenScopeError, UserAlreadyVerified, UserNotVerified
-from skole.utils.mixins import FileMutationMixin, VerificationRequiredMutationMixin
+from skole.utils.mixins import (
+    FileMutationMixin,
+    LoginRequiredMutationMixin,
+    VerificationRequiredMutationMixin,
+)
 from skole.utils.token import get_token_payload, revoke_user_refresh_tokens
 from skole.utils.types import ID
 
@@ -148,12 +152,11 @@ class RegisterMutation(DjangoModelFormMutation):
     registration send account verification email.
     """
 
-    message = graphene.String()
+    user = graphene.Field(UserObjectType)
 
     class Meta:
         form_class = RegisterForm
         exclude_fields = ("id",)
-        return_field_name = "message"
 
     @classmethod
     def perform_mutate(
@@ -163,8 +166,6 @@ class RegisterMutation(DjangoModelFormMutation):
             username=form.cleaned_data["username"],
             email=form.cleaned_data["email"],
             password=form.cleaned_data["password"],
-            school=form.cleaned_data["school"],
-            subject=form.cleaned_data["subject"],
         )
 
         code = form.cleaned_data["code"]
@@ -175,7 +176,7 @@ class RegisterMutation(DjangoModelFormMutation):
         except SMTPException:
             return cls(errors=MutationErrors.REGISTER_EMAIL_ERROR)
 
-        return cls(message=Messages.USER_REGISTERED)
+        return cls(user=user)
 
 
 class VerifyAccountMutation(DjangoFormMutation):
@@ -440,7 +441,7 @@ class DeleteUserMutation(VerificationRequiredMutationMixin, DjangoModelFormMutat
 
 
 class UpdateUserMutation(
-    VerificationRequiredMutationMixin, FileMutationMixin, DjangoModelFormMutation
+    LoginRequiredMutationMixin, FileMutationMixin, DjangoModelFormMutation
 ):
     """Update some user model fields.
 

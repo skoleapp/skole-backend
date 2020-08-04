@@ -112,8 +112,6 @@ class UserSchemaTests(SkoleSchemaTestCase):
         *,
         username: str = "newuser",
         email: str = "newemail@test.com",
-        school: ID = 1,
-        subject: ID = 1,
         password: str = "password",
         code: str = "TEST",
     ) -> JsonDict:
@@ -123,8 +121,6 @@ class UserSchemaTests(SkoleSchemaTestCase):
             input={
                 "username": username,
                 "email": email,
-                "school": school,
-                "subject": subject,
                 "password": password,
                 "code": code,
             },

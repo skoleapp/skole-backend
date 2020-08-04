@@ -31,15 +31,11 @@ class UserManager(SkoleManager, BaseUserManager):  # type: ignore[type-arg]
         self,
         username: str,
         email: str,
-        school: Optional[School],
-        subject: Optional[Subject],
         password: str,
     ) -> "User":
         user = self.model(
             username=username,
             email=self.normalize_email(email),
-            school=school,
-            subject=subject,
         )
 
         user.set_password(password)

@@ -48,7 +48,6 @@ class GraphQLErrors:
 
 class Messages:
     MESSAGE_SENT = _("Message sent successfully.")
-    USER_REGISTERED = _("Registered new user successfully!")
     ACCOUNT_VERIFIED = _("Account verified successfully!")
     VERIFICATION_EMAIL_SENT = _("Verification link sent successfully!")
     PASSWORD_RESET_EMAIL_SENT = _("Password reset link sent successfully!")

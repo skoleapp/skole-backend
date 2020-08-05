@@ -13,3 +13,4 @@ gunicorn==20.0.4
 mypy==0.782
 psycopg2==2.8.5
 python-magic==0.4.18
+requests==2.24.0

@@ -141,6 +141,9 @@ GRAPHQL_JWT = {
 EXPIRATION_VERIFICATION_TOKEN = timedelta(days=7)
 EXPIRATION_PASSWORD_RESET_TOKEN = timedelta(hours=1)
 
+# Cloudmersive settings
+CLOUDMERSIVE_API_KEY = os.environ.get("CLOUDMERSIVE_API_KEY")
+
 # Template settings
 TEMPLATES = [
     {

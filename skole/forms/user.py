@@ -3,7 +3,7 @@ from typing import Union, cast
 from django import forms
 from django.conf import settings
 from django.contrib.auth import authenticate, get_user_model
-from django.core.files.uploadedfile import UploadedFile
+from django.core.files import File
 from mypy.types import JsonDict
 
 from skole.models import BetaCode, User
@@ -94,7 +94,7 @@ class UpdateUserForm(forms.ModelForm):
         model = get_user_model()
         fields = ("username", "email", "title", "bio", "avatar", "school", "subject")
 
-    def clean_avatar(self) -> Union[UploadedFile, str]:
+    def clean_avatar(self) -> Union[File, str]:
         return clean_file_field(self, "avatar")
 
 

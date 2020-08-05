@@ -9,6 +9,11 @@ from pytest import fixture
 from skole.utils.types import Fixture
 
 
+def pytest_configure(config: Fixture) -> None:
+    # We really really do not want to call the API during tests.
+    settings.CLOUDMERSIVE_API_KEY = None
+
+
 @fixture(scope="session")
 def django_db_setup(django_db_setup: Fixture, django_db_blocker: Fixture) -> None:
     with django_db_blocker.unblock():

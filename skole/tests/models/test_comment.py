@@ -42,7 +42,7 @@ def test_manager_create_ok(db: Fixture, temp_media: Fixture) -> None:
 
         # Filenames after the first created comment will have a random glob to make them unique.
         assert is_slug_match(
-            "media/uploads/attachments/image.jpeg", comment.attachment.url
+            "/media/uploads/attachments/image.jpeg", comment.attachment.url
         )
 
         # Check that only one foreign key reference is active.

@@ -37,7 +37,7 @@ def test_create_and_update_resource(db: Fixture, temp_media: Fixture) -> None:
     assert resource1.course == course
     assert resource1.user == user
     assert resource1.date == date
-    assert is_slug_match("media/uploads/resources/exam.pdf", resource1.file.url)
+    assert is_slug_match("/media/uploads/resources/exam.pdf", resource1.file.url)
 
     # Somehow the file needs to be created for validation to work.
     file = SimpleUploadedFile("exam.pdf", b"\x25\x50\x44\x46\x2d")

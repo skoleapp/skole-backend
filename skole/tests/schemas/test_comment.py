@@ -160,7 +160,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
                 attachment="",
                 file_data=[("attachment", attachment)],
             )
-        assert is_slug_match(file_path, res["comment"]["attachment"])
+        assert is_slug_match("/" + file_path, res["comment"]["attachment"])
         assert res["comment"]["text"] == new_text
         assert res["comment"]["course"]["id"] == "1"
         assert res["comment"]["resource"] is None

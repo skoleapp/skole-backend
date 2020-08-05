@@ -40,8 +40,8 @@ CORS_ORIGIN_ALLOW_ALL = DEBUG
 # Static and media settings
 MEDIA_ROOT = "media"
 STATIC_ROOT = "static"
-MEDIA_URL = "media/"  # On purpose no prefix slash.
-STATIC_URL = "/static/"  # On purpose prefix slash.
+MEDIA_URL = "/media/"
+STATIC_URL = "/static/"
 
 # Database settings
 DATABASES = {"default": dj_database_url.config()}

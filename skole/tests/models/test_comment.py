@@ -1,13 +1,13 @@
 import pytest
 from django.contrib.auth import get_user_model
 from django.core.files.uploadedfile import SimpleUploadedFile
-from pytest import fixture
 
 from skole.models import Comment, Course, Resource
 from skole.tests.helpers import is_slug_match
+from skole.utils.types import Fixture
 
 
-def test_str(db: fixture) -> None:
+def test_str(db: Fixture) -> None:
     comment1 = Comment.objects.get(pk=1)
     assert str(comment1) == "Starting comment for the thread on a res..."
 
@@ -18,7 +18,7 @@ def test_str(db: fixture) -> None:
     assert str(comment3) == "Attachment Comment: 3"
 
 
-def test_manager_create_ok(db: fixture, temp_media: fixture) -> None:
+def test_manager_create_ok(db: Fixture, temp_media: Fixture) -> None:
     user = get_user_model().objects.get(pk=2)
     text = "A comment."
 
@@ -53,7 +53,7 @@ def test_manager_create_ok(db: fixture, temp_media: fixture) -> None:
                 assert getattr(comment, attr) is None
 
 
-def test_manager_create_bad_target(db: fixture) -> None:
+def test_manager_create_bad_target(db: Fixture) -> None:
     user = get_user_model().objects.get(pk=2)
     bad_target = user
     with pytest.raises(TypeError):
@@ -62,7 +62,7 @@ def test_manager_create_bad_target(db: fixture) -> None:
         )
 
 
-def test_manager_update_ok(db: fixture) -> None:
+def test_manager_update_ok(db: Fixture) -> None:
     comment = Comment.objects.get(pk=1)
     text = "new text"
     attachment = ""

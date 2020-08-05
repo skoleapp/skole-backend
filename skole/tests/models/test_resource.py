@@ -2,13 +2,13 @@ import datetime
 
 from django.contrib.auth import get_user_model
 from django.core.files.uploadedfile import SimpleUploadedFile
-from pytest import fixture
 
 from skole.models import Course, Resource, ResourceType
 from skole.tests.helpers import is_slug_match
+from skole.utils.types import Fixture
 
 
-def test_str(db: fixture) -> None:
+def test_str(db: Fixture) -> None:
     resource1 = Resource.objects.get(pk=1)
     assert str(resource1) == "Sample exam 1"
 
@@ -16,7 +16,7 @@ def test_str(db: fixture) -> None:
     assert str(resource2) == "Sample exam 2"
 
 
-def test_create_and_update_resource(db: fixture, temp_media: fixture) -> None:
+def test_create_and_update_resource(db: Fixture, temp_media: Fixture) -> None:
     resource_type = ResourceType.objects.get(pk=1)
     title = "title for resource"
     course = Course.objects.get(pk=1)

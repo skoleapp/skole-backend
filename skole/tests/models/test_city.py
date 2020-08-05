@@ -1,9 +1,8 @@
-from pytest import fixture
-
 from skole.models import City
+from skole.utils.types import Fixture
 
 
-def test_str(db: fixture) -> None:
+def test_str(db: Fixture) -> None:
     city1 = City.objects.get(pk=1)
     assert str(city1) == "Turku"
 

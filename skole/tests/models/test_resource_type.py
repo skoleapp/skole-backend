@@ -1,9 +1,8 @@
-from pytest import fixture
-
 from skole.models import ResourceType
+from skole.utils.types import Fixture
 
 
-def test_str(db: fixture) -> None:
+def test_str(db: Fixture) -> None:
     resource_type1 = ResourceType.objects.get(pk=1)
     assert str(resource_type1) == "Exam"
 

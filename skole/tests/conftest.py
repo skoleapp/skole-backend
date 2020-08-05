@@ -6,9 +6,11 @@ from django.conf import settings
 from django.core.management import call_command
 from pytest import fixture
 
+from skole.utils.types import Fixture
+
 
 @fixture(scope="session")
-def django_db_setup(django_db_setup: fixture, django_db_blocker: fixture) -> None:
+def django_db_setup(django_db_setup: Fixture, django_db_blocker: Fixture) -> None:
     with django_db_blocker.unblock():
         call_command("loaddata", "test-data.yaml")
 

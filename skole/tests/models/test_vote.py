@@ -1,12 +1,12 @@
 import pytest
 from django.contrib.auth import get_user_model
-from pytest import fixture
 
 from skole.models import Comment, Course, Resource, Vote
 from skole.utils.constants import VoteConstants
+from skole.utils.types import Fixture
 
 
-def test_str(db: fixture) -> None:
+def test_str(db: Fixture) -> None:
     vote1 = Vote.objects.get(pk=1)
     assert str(vote1) == "upvote, testuser2"
 
@@ -14,7 +14,7 @@ def test_str(db: fixture) -> None:
     assert str(vote2) == "upvote, testuser3"
 
 
-def test_manager_create_ok(db: fixture) -> None:
+def test_manager_create_ok(db: Fixture) -> None:
     user = get_user_model().objects.get(pk=3)  # testuser3
     status = 1
 
@@ -61,7 +61,7 @@ def test_manager_create_ok(db: fixture) -> None:
                 assert getattr(vote, attr) is None
 
 
-def test_manager_create_existing(db: fixture) -> None:
+def test_manager_create_existing(db: Fixture) -> None:
     user = get_user_model().objects.get(pk=1)
     status = 1
 
@@ -82,7 +82,7 @@ def test_manager_create_existing(db: fixture) -> None:
         assert target_score == 0
 
 
-def test_manager_create_bad_target(db: fixture) -> None:
+def test_manager_create_bad_target(db: Fixture) -> None:
     user = get_user_model().objects.get(pk=2)
     bad_target = user
     with pytest.raises(TypeError):

@@ -1,9 +1,8 @@
-from pytest import fixture
-
 from skole.models import School, Subject, User
+from skole.utils.types import Fixture
 
 
-def test_str(db: fixture) -> None:
+def test_str(db: Fixture) -> None:
     user2 = User.objects.get(pk=2)
     assert str(user2) == "testuser2"
 
@@ -11,7 +10,7 @@ def test_str(db: fixture) -> None:
     assert str(user3) == "testuser3"
 
 
-def test_create_user(db: fixture) -> None:
+def test_create_user(db: Fixture) -> None:
     username = "testusername"
     email = "test@email.com"
     password = "password"
@@ -35,7 +34,7 @@ def test_create_user(db: fixture) -> None:
     assert user.check_password(password)
 
 
-def test_create_superuser(db: fixture) -> None:
+def test_create_superuser(db: Fixture) -> None:
     username = "testadmin"
     email = "test@admin.com"
     password = "testpassword"
@@ -49,7 +48,7 @@ def test_create_superuser(db: fixture) -> None:
     assert user.check_password(password)
 
 
-def test_update_user(db: fixture) -> None:
+def test_update_user(db: Fixture) -> None:
     user = User.objects.get(pk=2)
     username = "newusername"
     email = "new@email.com"
@@ -79,14 +78,14 @@ def test_update_user(db: fixture) -> None:
     assert user.subject == subject
 
 
-def test_set_password(db: fixture) -> None:
+def test_set_password(db: Fixture) -> None:
     user = User.objects.get(pk=2)
     new_pass = "new pass"
     User.objects.set_password(user, new_pass)
     assert user.check_password(new_pass)
 
 
-def test_change_score(db: fixture) -> None:
+def test_change_score(db: Fixture) -> None:
     user = User.objects.get(pk=2)
     assert user.score == 0
 
@@ -119,7 +118,7 @@ def test_change_score(db: fixture) -> None:
 #     pass
 
 
-def test_rank(db: fixture) -> None:
+def test_rank(db: Fixture) -> None:
     testuser2 = User.objects.get(pk=2)
     assert testuser2.rank == "Freshman"
 

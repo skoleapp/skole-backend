@@ -1,9 +1,8 @@
-from pytest import fixture
-
 from skole.models import SchoolType
+from skole.utils.types import Fixture
 
 
-def test_str(db: fixture) -> None:
+def test_str(db: Fixture) -> None:
     school_type1 = SchoolType.objects.get(pk=1)
     assert str(school_type1) == "University"
 

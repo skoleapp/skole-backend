@@ -1,7 +1,7 @@
 from typing import Union
 
 from django import forms
-from django.core.files.uploadedfile import UploadedFile
+from django.core.files import File
 
 from skole.models import Comment
 from skole.utils.constants import ValidationErrors
@@ -12,7 +12,7 @@ from skole.utils.shortcuts import clean_file_field
 class _BaseCommentForm(forms.ModelForm):
     attachment = forms.CharField(required=False)
 
-    def clean_attachment(self) -> Union[UploadedFile, str]:
+    def clean_attachment(self) -> Union[File, str]:
         attachment = clean_file_field(self, "attachment")
 
         if self.cleaned_data["text"] == "" and attachment == "":

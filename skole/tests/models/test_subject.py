@@ -1,9 +1,8 @@
-from pytest import fixture
-
 from skole.models import Subject
+from skole.utils.types import Fixture
 
 
-def test_str(db: fixture) -> None:
+def test_str(db: Fixture) -> None:
     subject1 = Subject.objects.get(pk=1)
     assert str(subject1) == "Computer Engineering"
 

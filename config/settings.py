@@ -2,13 +2,15 @@ import os
 import urllib.error
 import urllib.request
 from datetime import timedelta
+from pathlib import Path
 
 import dj_database_url
+import requests
 
 from skole.utils.constants import Languages
 
 # General Django settings
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 DEBUG = bool(int(os.environ.get("DEBUG", default=0)))
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", default="").split()
 SECRET_KEY = os.environ.get("SECRET_KEY")
@@ -21,11 +23,9 @@ AUTH_USER_MODEL = "skole.User"
 # Source: https://gist.github.com/dryan/8271687
 try:
     ALLOWED_HOSTS.append(
-        urllib.request.urlopen(
+        requests.get(
             "http://169.254.169.254/latest/meta-data/local-ipv4", timeout=0.01
-        )
-        .read()
-        .decode("utf-8")
+        ).text
     )
 except urllib.error.URLError:
     # We were not in an EC2 instance, no need to do anything.
@@ -34,14 +34,16 @@ except urllib.error.URLError:
 
 # CORS settings
 CORS_ALLOW_CREDENTIALS = True
-CORS_ORIGIN_WHITELIST = os.environ.get("CORS_ORIGIN_WHITELIST", default="").split()
+CORS_ORIGIN_REGEX_WHITELIST = os.environ.get(
+    "CORS_ORIGIN_REGEX_WHITELIST", default=""
+).split()
 CORS_ORIGIN_ALLOW_ALL = DEBUG
 
 # Static and media settings
 MEDIA_ROOT = "media"
 STATIC_ROOT = "static"
-MEDIA_URL = "media/"  # On purpose no prefix slash.
-STATIC_URL = "/static/"  # On purpose prefix slash.
+MEDIA_URL = "/media/"
+STATIC_URL = "/static/"
 
 # Database settings
 DATABASES = {"default": dj_database_url.config()}
@@ -118,7 +120,7 @@ LANGUAGES = (
     ("fi", Languages.FINNISH),
     ("sv", Languages.SWEDISH),
 )
-LOCALE_PATHS = [os.path.join(BASE_DIR, "skole", "locale")]
+LOCALE_PATHS = [BASE_DIR / "skole" / "locale"]
 
 # Parler settings
 PARLER_LANGUAGES = {SITE_ID: ({"code": "en"}, {"code": "fi"}, {"code": "sv"})}
@@ -141,11 +143,14 @@ GRAPHQL_JWT = {
 EXPIRATION_VERIFICATION_TOKEN = timedelta(days=7)
 EXPIRATION_PASSWORD_RESET_TOKEN = timedelta(hours=1)
 
+# Cloudmersive settings
+CLOUDMERSIVE_API_KEY = os.environ.get("CLOUDMERSIVE_API_KEY")
+
 # Template settings
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, "skole", "templates")],
+        "DIRS": [BASE_DIR / "skole" / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [

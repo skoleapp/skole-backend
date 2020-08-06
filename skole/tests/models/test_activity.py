@@ -1,9 +1,8 @@
-from pytest import fixture
-
 from skole.models import Activity, ActivityType, User
+from skole.utils.types import Fixture
 
 
-def test_str(db: fixture) -> None:
+def test_str(db: Fixture) -> None:
     testuser2 = User.objects.get(pk=2)
     activity_type = ActivityType.objects.get(pk=1)
     test_activity = Activity.objects.create(user=testuser2, activity_type=activity_type)
@@ -11,7 +10,7 @@ def test_str(db: fixture) -> None:
     test_activity.delete()
 
 
-def test_mark_read(db: fixture) -> None:
+def test_mark_read(db: Fixture) -> None:
     testuser2 = User.objects.get(pk=2)
     activity_type = ActivityType.objects.get(pk=1)
     test_activity = Activity.objects.create(user=testuser2, activity_type=activity_type)
@@ -28,7 +27,7 @@ def test_mark_read(db: fixture) -> None:
     test_activity.delete()
 
 
-def test_mark_all_as_read(db: fixture) -> None:
+def test_mark_all_as_read(db: Fixture) -> None:
     testuser2 = User.objects.get(pk=2)
     activity_type = ActivityType.objects.get(pk=1)
     test_activity1 = Activity.objects.create(

@@ -1,5 +1,5 @@
 """This module contains all the custom type aliases that are used in the app."""
-from typing import Literal, Union
+from typing import Any, Literal, Union
 
 from skole.models import Comment, Course, Resource, User
 
@@ -27,5 +27,13 @@ Examples:
     >>> var: ID = -123  # mypy: ok, but should not be used
     >>> var: ID = graphene.ID()  # mypy: error!
     >>> var: ID = School()  # mypy: error!
+
+"""
+
+Fixture = Any
+"""A type representing the return value of a pytest fixture.
+
+Fixtures are just functions that are decorated with @pytest.fixture.
+Using this as the type of a parameter makes its purpose immediately clear.
 
 """

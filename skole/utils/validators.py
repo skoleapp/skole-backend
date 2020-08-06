@@ -1,5 +1,5 @@
 import mimetypes
-import os.path
+from pathlib import Path
 from typing import Sequence, Tuple
 
 import magic
@@ -44,6 +44,6 @@ class ValidateFileSizeAndType:
                 ValidationErrors.INVALID_FILE_TYPE.format(self.allowed_types)
             )
 
-        file_extension = os.path.splitext(file.name)[1].lower()
+        file_extension = Path(file.name).suffix.lower()
         if file_extension not in mimetypes.guess_all_extensions(file_type):
             raise ValidationError(ValidationErrors.INVALID_FILE_EXTENSION)

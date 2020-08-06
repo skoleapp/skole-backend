@@ -1,6 +1,4 @@
 import os
-import urllib.error
-import urllib.request
 from datetime import timedelta
 from pathlib import Path
 
@@ -27,7 +25,7 @@ try:
             "http://169.254.169.254/latest/meta-data/local-ipv4", timeout=0.01
         ).text
     )
-except urllib.error.URLError:
+except requests.exceptions.RequestException:
     # We were not in an EC2 instance, no need to do anything.
     pass
 

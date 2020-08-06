@@ -5,6 +5,7 @@ from datetime import timedelta
 from pathlib import Path
 
 import dj_database_url
+import requests
 
 from skole.utils.constants import Languages
 
@@ -22,11 +23,9 @@ AUTH_USER_MODEL = "skole.User"
 # Source: https://gist.github.com/dryan/8271687
 try:
     ALLOWED_HOSTS.append(
-        urllib.request.urlopen(
+        requests.get(
             "http://169.254.169.254/latest/meta-data/local-ipv4", timeout=0.01
-        )
-        .read()
-        .decode("utf-8")
+        ).text
     )
 except urllib.error.URLError:
     # We were not in an EC2 instance, no need to do anything.

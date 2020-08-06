@@ -2,13 +2,14 @@ import os
 import urllib.error
 import urllib.request
 from datetime import timedelta
+from pathlib import Path
 
 import dj_database_url
 
 from skole.utils.constants import Languages
 
 # General Django settings
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 DEBUG = bool(int(os.environ.get("DEBUG", default=0)))
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", default="").split()
 SECRET_KEY = os.environ.get("SECRET_KEY")
@@ -118,7 +119,7 @@ LANGUAGES = (
     ("fi", Languages.FINNISH),
     ("sv", Languages.SWEDISH),
 )
-LOCALE_PATHS = [os.path.join(BASE_DIR, "skole", "locale")]
+LOCALE_PATHS = [BASE_DIR / "skole" / "locale"]
 
 # Parler settings
 PARLER_LANGUAGES = {SITE_ID: ({"code": "en"}, {"code": "fi"}, {"code": "sv"})}
@@ -148,7 +149,7 @@ CLOUDMERSIVE_API_KEY = os.environ.get("CLOUDMERSIVE_API_KEY")
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, "skole", "templates")],
+        "DIRS": [BASE_DIR / "skole" / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [

@@ -34,7 +34,9 @@ except urllib.error.URLError:
 
 # CORS settings
 CORS_ALLOW_CREDENTIALS = True
-CORS_ORIGIN_WHITELIST = os.environ.get("CORS_ORIGIN_WHITELIST", default="").split()
+CORS_ORIGIN_REGEX_WHITELIST = os.environ.get(
+    "CORS_ORIGIN_REGEX_WHITELIST", default=""
+).split()
 CORS_ORIGIN_ALLOW_ALL = DEBUG
 
 # Static and media settings

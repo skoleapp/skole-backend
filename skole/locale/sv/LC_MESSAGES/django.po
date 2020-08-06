@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-06 01:32+0000\n"
+"POT-Creation-Date: 2020-08-06 15:38+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Skole\n"
@@ -90,8 +90,8 @@ msgid "Usernames can only contain letters, numbers, and underscores."
 msgstr "Användarnamn kan bara innehålla bokstäver, siffror och understreck."
 
 #: skole/utils/constants.py:39
-msgid "File could not be converted to a {}."
-msgstr "Filen kunde inte konverteras till en {}."
+msgid "File could not be converted to {} format."
+msgstr "Filen kunde inte konverteras till {}-format"
 
 #: skole/utils/constants.py:43
 msgid "Invalid ordering value."

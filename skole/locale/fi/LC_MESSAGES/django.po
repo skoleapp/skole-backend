@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-06 01:32+0000\n"
+"POT-Creation-Date: 2020-08-06 15:38+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Skole\n"
@@ -91,8 +91,8 @@ msgstr ""
 "Käyttäjänimi voi sisältää ainoastaan kirjaimia, numeroita ja alaviivoja."
 
 #: skole/utils/constants.py:39
-msgid "File could not be converted to a {}."
-msgstr "Tiedostoa ei pystynyt muuttamaan {}:ksi."
+msgid "File could not be converted to {} format."
+msgstr "Tiedostoa ei pystytty muuttamaan pdf muotoon."
 
 #: skole/utils/constants.py:43
 msgid "Invalid ordering value."

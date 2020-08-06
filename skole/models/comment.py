@@ -71,7 +71,7 @@ class Comment(SkoleModel):
         upload_to="uploads/attachments",
         blank=True,
         validators=[
-            ValidateFileSizeAndType(3, [("image/jpeg", "jpeg"), ("image/png", "png")])
+            ValidateFileSizeAndType(3, [("image/jpeg", "JPEG"), ("image/png", "PNG")])
         ],
     )
 

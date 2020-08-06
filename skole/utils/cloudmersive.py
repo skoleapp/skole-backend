@@ -31,4 +31,4 @@ def convert_to_pdf(file: UploadedFile) -> File:
     if res.status_code == 200:
         return ContentFile(res.content, f"{path.stem}.pdf")
 
-    raise forms.ValidationError(ValidationErrors.COULD_NOT_CONVERT_FILE.format("pdf"))
+    raise forms.ValidationError(ValidationErrors.COULD_NOT_CONVERT_FILE.format("PDF"))

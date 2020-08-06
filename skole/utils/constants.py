@@ -36,7 +36,7 @@ class ValidationErrors:
     INVALID_USERNAME = _(
         "Usernames can only contain letters, numbers, and underscores."
     )
-    COULD_NOT_CONVERT_FILE = _("File could not be converted to a {}.")
+    COULD_NOT_CONVERT_FILE = _("File could not be converted to {} format.")
 
 
 class GraphQLErrors:

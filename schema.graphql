@@ -281,8 +281,6 @@ type Query {
 input RegisterMutationInput {
   username: String!
   email: String!
-  school: ID
-  subject: ID
   password: String!
   code: String!
   clientMutationId: String

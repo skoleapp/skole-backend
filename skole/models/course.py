@@ -3,9 +3,8 @@ from django.db import models
 from django.db.models import QuerySet, Sum, Value
 from django.db.models.functions import Coalesce
 
-from .base import SkoleManager, SkoleModel
-from .school import School
-from .subject import Subject
+from skole.models.base import SkoleManager, SkoleModel
+from skole.models.subject import Subject
 
 
 class CourseManager(SkoleManager):
@@ -22,7 +21,9 @@ class Course(SkoleModel):
 
     subjects = models.ManyToManyField(Subject, related_name="courses", blank=True)
 
-    school = models.ForeignKey(School, on_delete=models.CASCADE, related_name="courses")
+    school = models.ForeignKey(
+        "skole.School", on_delete=models.CASCADE, related_name="courses"
+    )
 
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,

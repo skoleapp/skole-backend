@@ -3,10 +3,10 @@ from typing import Optional, Union
 from django.conf import settings
 from django.db import models
 
-from .base import SkoleManager, SkoleModel
-from .course import Course
-from .resource import Resource
-from .user import User
+from skole.models.base import SkoleManager, SkoleModel
+from skole.models.course import Course
+from skole.models.resource import Resource
+from skole.models.user import User
 
 
 class StarredManager(SkoleManager):
@@ -47,11 +47,19 @@ class Starred(SkoleModel):
     )
 
     course = models.ForeignKey(
-        Course, on_delete=models.CASCADE, null=True, blank=True, related_name="stars"
+        "skole.Course",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="stars",
     )
 
     resource = models.ForeignKey(
-        Resource, on_delete=models.CASCADE, null=True, blank=True, related_name="stars"
+        "skole.Resource",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="stars",
     )
 
     # Ignore: Mypy somehow thinks that this is incompatible with the super class.

@@ -7,12 +7,11 @@ from django.db.models import Sum, Value
 from django.db.models.functions import Coalesce
 from django.db.models.query import QuerySet
 
+from skole.models.base import SkoleManager, SkoleModel
+from skole.models.course import Course
+from skole.models.resource import Resource
+from skole.models.user import User
 from skole.utils.validators import ValidateFileSizeAndType
-
-from .base import SkoleManager, SkoleModel
-from .course import Course
-from .resource import Resource
-from .user import User
 
 if TYPE_CHECKING:  # pragma: no cover
     # To avoid circular import.
@@ -76,11 +75,15 @@ class Comment(SkoleModel):
     )
 
     course = models.ForeignKey(
-        Course, on_delete=models.CASCADE, null=True, blank=True, related_name="comments"
+        "skole.Course",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="comments",
     )
 
     resource = models.ForeignKey(
-        Resource,
+        "skole.Resource",
         on_delete=models.CASCADE,
         null=True,
         blank=True,
@@ -88,7 +91,7 @@ class Comment(SkoleModel):
     )
 
     comment = models.ForeignKey(
-        "Comment",
+        "skole.Comment",
         on_delete=models.CASCADE,
         null=True,
         blank=True,

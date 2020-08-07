@@ -8,12 +8,11 @@ from django.db.models import Sum, Value
 from django.db.models.functions import Coalesce
 from django.db.models.query import QuerySet
 
+from skole.models.base import SkoleManager, SkoleModel
+from skole.models.course import Course
+from skole.models.resource_type import ResourceType
+from skole.models.user import User
 from skole.utils.validators import ValidateFileSizeAndType
-
-from .base import SkoleManager, SkoleModel
-from .course import Course
-from .resource_type import ResourceType
-from .user import User
 
 
 class ResourceManager(SkoleManager):
@@ -61,7 +60,7 @@ class ResourceManager(SkoleManager):
 class Resource(SkoleModel):
     """Models one user-uploaded resource."""
 
-    resource_type = models.ForeignKey(ResourceType, on_delete=models.PROTECT)
+    resource_type = models.ForeignKey("skole.ResourceType", on_delete=models.PROTECT)
     title = models.CharField(max_length=100)
 
     file = models.FileField(
@@ -74,7 +73,7 @@ class Resource(SkoleModel):
     date = models.DateField(default=datetime.date.today, blank=True)
 
     course = models.ForeignKey(
-        Course, on_delete=models.CASCADE, related_name="resources"
+        "skole.Course", on_delete=models.CASCADE, related_name="resources"
     )
 
     downloads = models.PositiveIntegerField(default=0)

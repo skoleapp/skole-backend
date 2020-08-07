@@ -15,11 +15,7 @@ def test_create_user(db: Fixture) -> None:
     email = "test@email.com"
     password = "password"
 
-    user = User.objects.create_user(
-        username=username,
-        email=email,
-        password=password,
-    )
+    user = User.objects.create_user(username=username, email=email, password=password,)
 
     assert not user.is_staff
     assert not user.is_superuser

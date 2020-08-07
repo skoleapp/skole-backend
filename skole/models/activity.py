@@ -2,12 +2,8 @@ from django.conf import settings
 from django.db import models
 from django.db.models import QuerySet
 
-from .activity_type import ActivityType
-from .base import SkoleManager, SkoleModel
-from .comment import Comment
-from .course import Course
-from .resource import Resource
-from .user import User
+from skole.models.base import SkoleManager, SkoleModel
+from skole.models.user import User
 
 
 class ActivityManager(SkoleManager):
@@ -47,15 +43,17 @@ class Activity(SkoleModel):
     )
 
     activity_type = models.ForeignKey(
-        ActivityType, on_delete=models.PROTECT, related_name="activities"
+        "skole.ActivityType", on_delete=models.PROTECT, related_name="activities"
     )
 
-    course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True, blank=True,)
+    course = models.ForeignKey(
+        "skole.Course", on_delete=models.CASCADE, null=True, blank=True,
+    )
     resource = models.ForeignKey(
-        Resource, on_delete=models.CASCADE, null=True, blank=True,
+        "skole.Resource", on_delete=models.CASCADE, null=True, blank=True,
     )
     comment = models.ForeignKey(
-        Comment, on_delete=models.CASCADE, null=True, blank=True,
+        "skole.Comment", on_delete=models.CASCADE, null=True, blank=True,
     )
     read = models.BooleanField(default=False)
 

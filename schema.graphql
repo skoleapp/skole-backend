@@ -444,9 +444,9 @@ type UserObjectType {
   score: Int
   created: DateTime!
   verified: Boolean
+  activity: [ActivityObjectType]
   createdCourses: [CourseObjectType!]!
   createdResources: [ResourceObjectType!]!
-  activity: [ActivityObjectType]
   avatarThumbnail: String
   school: SchoolObjectType
   subject: SubjectObjectType

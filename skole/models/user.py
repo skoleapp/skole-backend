@@ -16,14 +16,13 @@ from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
 from mypy.types import JsonDict
 
+from skole.models.base import SkoleManager, SkoleModel
+from skole.models.school import School
+from skole.models.subject import Subject
 from skole.utils.constants import Ranks, TokenAction, ValidationErrors
 from skole.utils.exceptions import UserAlreadyVerified, UserNotVerified
 from skole.utils.token import get_token, get_token_payload
 from skole.utils.validators import ValidateFileSizeAndType
-
-from .base import SkoleManager, SkoleModel
-from .school import School
-from .subject import Subject
 
 
 # Ignore: See explanation in SkoleManager.
@@ -139,11 +138,19 @@ class User(SkoleModel, AbstractBaseUser, PermissionsMixin):
     )
 
     school = models.ForeignKey(
-        School, on_delete=models.SET_NULL, related_name="users", null=True, blank=True
+        "skole.School",
+        on_delete=models.SET_NULL,
+        related_name="users",
+        null=True,
+        blank=True,
     )
 
     subject = models.ForeignKey(
-        Subject, on_delete=models.SET_NULL, related_name="users", null=True, blank=True
+        "skole.Subject",
+        on_delete=models.SET_NULL,
+        related_name="users",
+        null=True,
+        blank=True,
     )
 
     score = models.IntegerField(default=0)

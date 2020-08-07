@@ -73,15 +73,27 @@ class Vote(SkoleModel):
     status = models.IntegerField(choices=VoteConstants.STATUS)
 
     comment = models.ForeignKey(
-        Comment, on_delete=models.CASCADE, null=True, blank=True, related_name="votes"
+        "skole.Comment",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="votes",
     )
 
     course = models.ForeignKey(
-        Course, on_delete=models.CASCADE, null=True, blank=True, related_name="votes"
+        "skole.Course",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="votes",
     )
 
     resource = models.ForeignKey(
-        Resource, on_delete=models.CASCADE, null=True, blank=True, related_name="votes"
+        "skole.Resource",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="votes",
     )
 
     # Ignore: Mypy somehow thinks that this is incompatible with the super class.

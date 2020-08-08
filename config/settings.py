@@ -132,10 +132,11 @@ GRAPHENE = {
 
 # GraphQL JWT settings
 GRAPHQL_JWT = {
+    "JWT_COOKIE_SAMESITE": os.environ.get("JWT_COOKIE_SAMESITE"),
+    "JWT_COOKIE_SECURE": not DEBUG,
     "JWT_VERIFY_EXPIRATION": not DEBUG,
     "JWT_EXPIRATION_DELTA": timedelta(days=7),
     "JWT_REFRESH_EXPIRATION_DELTA": timedelta(days=60),
-    "JWT_COOKIE_SAMESITE": os.environ.get("JWT_COOKIE_SAMESITE"),
 }
 
 # Custom GraphQL JWT settings

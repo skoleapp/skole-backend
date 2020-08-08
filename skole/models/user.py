@@ -27,20 +27,8 @@ from skole.utils.validators import ValidateFileSizeAndType
 
 # Ignore: See explanation in SkoleManager.
 class UserManager(SkoleManager, BaseUserManager):  # type: ignore[type-arg]
-    def create_user(
-        self,
-        username: str,
-        email: str,
-        school: Optional[School],
-        subject: Optional[Subject],
-        password: str,
-    ) -> "User":
-        user = self.model(
-            username=username,
-            email=self.normalize_email(email),
-            school=school,
-            subject=subject,
-        )
+    def create_user(self, username: str, email: str, password: str,) -> "User":
+        user = self.model(username=username, email=self.normalize_email(email),)
 
         user.set_password(password)
         user.save()

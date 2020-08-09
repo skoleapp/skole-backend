@@ -402,11 +402,11 @@ class ChangePasswordMutation(
 
 
 class DeleteUserMutation(
-    VerificationRequiredMutationMixin, MessageMixin, DjangoModelFormMutation
+    LoginRequiredMutationMixin, MessageMixin, DjangoModelFormMutation
 ):
     """Delete account permanently.
 
-    The user must be verified and must confirm his password.
+    The user must confirm his password.
     """
 
     class Meta:
@@ -434,10 +434,7 @@ class DeleteUserMutation(
 class UpdateUserMutation(
     LoginRequiredMutationMixin, FileMutationMixin, MessageMixin, DjangoModelFormMutation
 ):
-    """Update some user model fields.
-
-    The user must be verified.
-    """
+    """Update some user model fields."""
 
     user = graphene.Field(UserObjectType)
 

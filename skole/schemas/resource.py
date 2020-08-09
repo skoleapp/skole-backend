@@ -16,9 +16,9 @@ from skole.utils.constants import Messages, MutationErrors
 from skole.utils.mixins import (
     DeleteMutationMixin,
     FileMutationMixin,
-    LoginRequiredMutationMixin,
     MessageMixin,
     StarredMixin,
+    VerificationRequiredMutationMixin,
     VoteMixin,
 )
 from skole.utils.shortcuts import get_obj_or_none
@@ -54,7 +54,10 @@ class ResourceObjectType(VoteMixin, StarredMixin, DjangoObjectType):
 
 
 class CreateResourceMutation(
-    LoginRequiredMutationMixin, FileMutationMixin, MessageMixin, DjangoModelFormMutation
+    VerificationRequiredMutationMixin,
+    FileMutationMixin,
+    MessageMixin,
+    DjangoModelFormMutation,
 ):
     class Meta:
         form_class = CreateResourceForm
@@ -75,7 +78,10 @@ class CreateResourceMutation(
 
 
 class UpdateResourceMutation(
-    LoginRequiredMutationMixin, FileMutationMixin, MessageMixin, DjangoModelFormMutation
+    VerificationRequiredMutationMixin,
+    FileMutationMixin,
+    MessageMixin,
+    DjangoModelFormMutation,
 ):
     class Meta:
         form_class = UpdateResourceForm

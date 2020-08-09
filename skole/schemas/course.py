@@ -11,10 +11,10 @@ from skole.models import Course
 from skole.utils.constants import GraphQLErrors, Messages
 from skole.utils.mixins import (
     DeleteMutationMixin,
-    LoginRequiredMutationMixin,
     MessageMixin,
     PaginationMixin,
     StarredMixin,
+    VerificationRequiredMutationMixin,
     VoteMixin,
 )
 from skole.utils.pagination import get_paginator
@@ -44,7 +44,7 @@ class PaginatedCourseObjectType(PaginationMixin, graphene.ObjectType):
 
 
 class CreateCourseMutation(
-    LoginRequiredMutationMixin, MessageMixin, DjangoModelFormMutation
+    VerificationRequiredMutationMixin, MessageMixin, DjangoModelFormMutation
 ):
     course = graphene.Field(CourseObjectType)
 
@@ -127,9 +127,10 @@ class Query(graphene.ObjectType):
             raise GraphQLError(GraphQLErrors.INVALID_ORDERING)
 
         if ordering not in {"name", "-name"}:
-            # When ordering by score we also first order by the name.
-            qs = qs.order_by("name")
-        qs = qs.order_by(ordering)
+            # When ordering by score we also order by the name.
+            qs = qs.order_by(ordering, "name")
+        else:
+            qs = qs.order_by(ordering)
 
         return get_paginator(qs, page_size, page, PaginatedCourseObjectType)
 

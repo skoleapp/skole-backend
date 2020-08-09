@@ -11,10 +11,10 @@ from skole.models import Course
 from skole.utils.constants import GraphQLErrors, Messages
 from skole.utils.mixins import (
     DeleteMutationMixin,
-    LoginRequiredMutationMixin,
     MessageMixin,
     PaginationMixin,
     StarredMixin,
+    VerificationRequiredMutationMixin,
     VoteMixin,
 )
 from skole.utils.pagination import get_paginator
@@ -44,7 +44,7 @@ class PaginatedCourseObjectType(PaginationMixin, graphene.ObjectType):
 
 
 class CreateCourseMutation(
-    LoginRequiredMutationMixin, MessageMixin, DjangoModelFormMutation
+    VerificationRequiredMutationMixin, MessageMixin, DjangoModelFormMutation
 ):
     course = graphene.Field(CourseObjectType)
 

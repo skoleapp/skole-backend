@@ -12,15 +12,12 @@ from skole.utils.constants import ValidationErrors
 
 @deconstructible
 class ValidateFileSizeAndType:
-    """A nice way to have validators which take arguments.
-
-    Source: https://stackoverflow.com/a/25768034
-    """
+    """Use as a field validator to validate the the file type and size."""
 
     def __init__(self, limit: float, types: Sequence[Tuple[str, str]]) -> None:
         """
         Args:
-            limit: The maximum allowed file size in MB
+            limit: The maximum allowed file size in MB.
             types: Sequence of allowed file types as (mime, human_friendly_name) pairs.
                 Mime values should be from: https://www.iana.org/assignments/media-types/media-types.xhtml
         """
@@ -29,19 +26,20 @@ class ValidateFileSizeAndType:
         if not types:
             raise ValueError("Need to have at least one allowed file type.")
         self.limit = limit
-        self.mimes, human_friendly = (set(seq) for seq in zip(*types))
-        self.allowed_types = ", ".join(sorted(human_friendly))
+        self.mimes, human_friendlies = (set(seq) for seq in zip(*types))
+        self.allowed_types_text = ", ".join(sorted(human_friendlies))
 
     def __call__(self, file: FieldFile) -> None:
         # We multiply by 1_000_000 to convert megabytes to bytes.
         if file.size > 1_000_000 * self.limit:
             raise ValidationError(ValidationErrors.FILE_TOO_LARGE.format(self.limit))
 
-        # Reading the first 1024 bytes will be more than enough to determine the type.
-        file_type = magic.from_buffer(file.read(1024), mime=True)
+        # Reading the first 2048 bytes should be enough
+        # to determine the file type: https://github.com/ahupp/python-magic#usage
+        file_type = magic.from_buffer(file.read(2048), mime=True)
         if file_type not in self.mimes:
             raise ValidationError(
-                ValidationErrors.INVALID_FILE_TYPE.format(self.allowed_types)
+                ValidationErrors.INVALID_FILE_TYPE.format(self.allowed_types_text)
             )
 
         file_extension = Path(file.name).suffix.lower()

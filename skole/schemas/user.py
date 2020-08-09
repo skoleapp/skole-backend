@@ -468,7 +468,6 @@ class Query(graphene.ObjectType):
     user = graphene.Field(UserObjectType, id=graphene.ID())
     user_me = graphene.Field(UserObjectType)
 
-    @login_required
     def resolve_user(self, info: ResolveInfo, id: ID = None) -> Optional[User]:
         try:
             return get_user_model().objects.filter(is_superuser=False).get(pk=id)

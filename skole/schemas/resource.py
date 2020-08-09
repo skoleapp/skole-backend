@@ -4,7 +4,6 @@ import graphene
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphql import ResolveInfo
-from graphql_jwt.decorators import login_required
 
 from skole.forms.resource import (
     CreateResourceForm,
@@ -107,7 +106,6 @@ class DeleteResourceMutation(DeleteMutationMixin, DjangoModelFormMutation):
 class Query(graphene.ObjectType):
     resource = graphene.Field(ResourceObjectType, id=graphene.ID())
 
-    @login_required
     def resolve_resource(self, info: ResolveInfo, id: ID = None) -> Optional[Resource]:
         return get_obj_or_none(Resource, id)
 

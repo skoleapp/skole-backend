@@ -5,7 +5,6 @@ from django.db.models import QuerySet
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphql import GraphQLError, ResolveInfo
-from graphql_jwt.decorators import login_required
 
 from skole.forms.course import CreateCourseForm, DeleteCourseForm
 from skole.models import Course
@@ -91,7 +90,6 @@ class Query(graphene.ObjectType):
     courses = graphene.List(CourseObjectType, school=graphene.ID())
     course = graphene.Field(CourseObjectType, id=graphene.ID())
 
-    @login_required
     def resolve_search_courses(
         self,
         info: ResolveInfo,
@@ -135,7 +133,6 @@ class Query(graphene.ObjectType):
 
         return get_paginator(qs, page_size, page, PaginatedCourseObjectType)
 
-    @login_required
     def resolve_courses(
         self, info: ResolveInfo, school: ID = None,
     ) -> "QuerySet[Course]":
@@ -146,7 +143,6 @@ class Query(graphene.ObjectType):
 
         return qs
 
-    @login_required
     def resolve_course(self, info: ResolveInfo, id: ID = None) -> Optional[Course]:
         return get_obj_or_none(Course, id)
 

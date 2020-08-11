@@ -32,12 +32,12 @@ class VoteManager(SkoleManager):
         else:
             raise TypeError(f"Invalid target type for Vote: {type(target)}")
 
-        if not vote:
-            # We invert the status to revert the affect of the vote to the user's score.
-            status = -status
-
-        assert target.user is not None
-        get_user_model().objects.change_score(target.user, status * multiplier)
+        if target.user:
+            get_user_model().objects.change_score(
+                target.user,
+                # Invert the status to revert the affect to the user's score.
+                (status if vote else -status) * multiplier,
+            )
 
         # Have to query the object again since `score` is an annotation.
         target = full_refresh_from_db(target)

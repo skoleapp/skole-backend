@@ -246,7 +246,9 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         assert res["hasNext"] is False
         assert res["hasPrev"] is True
 
+        # The default sorting option is best first.
         res = self.query_search_courses()
+        assert res == self.query_search_courses(ordering="score")
         assert res["objects"][0]["id"] == "1"
         assert res["objects"][-1]["id"] == "7"
         assert len(res["objects"]) == 10
@@ -259,15 +261,15 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         course = Course.objects.get(pk=7)
         user = User.objects.get(pk=2)
         vote, score = Vote.objects.perform_vote(user=user, status=1, target=course)
-        res = self.query_search_courses(ordering="-score")
+        res = self.query_search_courses(ordering="score")
         assert res["objects"][0]["id"] == str(course.pk)
 
         # Vote down one course, so it now has the least score.
         course = Course.objects.get(pk=3)
         user = User.objects.get(pk=2)
         vote, score = Vote.objects.perform_vote(user=user, status=-1, target=course)
-        res = self.query_search_courses(ordering="score")
-        assert res["objects"][0]["id"] == str(course.pk)
+        res = self.query_search_courses(ordering="score", page_size=20)
+        assert res["objects"][-1]["id"] == str(course.pk)
 
         res = self.query_search_courses(course_name="Course 7")
         assert res["objects"][0]["id"] == "7"

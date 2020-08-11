@@ -1,7 +1,7 @@
 from typing import Optional, get_args
 
 import graphene
-from django.db.models import QuerySet
+from django.db.models import Count, F, QuerySet
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphql import GraphQLError, ResolveInfo
@@ -102,7 +102,7 @@ class Query(graphene.ObjectType):
         city: ID = None,
         page: int = 1,
         page_size: int = 10,
-        ordering: CourseOrderingOption = "name",
+        ordering: CourseOrderingOption = "best",
     ) -> graphene.ObjectType:
         """Filter courses based on the query parameters."""
 
@@ -126,10 +126,16 @@ class Query(graphene.ObjectType):
         if ordering not in get_args(CourseOrderingOption):
             raise GraphQLError(GraphQLErrors.INVALID_ORDERING)
 
-        if ordering not in {"name", "-name"}:
-            # When ordering by score we also order by the name.
-            qs = qs.order_by(ordering, "name")
-        else:
+        if ordering == "best":
+            # No deep logic in this, should just be a formula that makes
+            # the most sense for determining the most interesting courses.
+            # The ordering value should not be exposed to the frontend.
+            qs = qs.order_by(
+                -(3 * F("score") + 2 * Count("resources") + Count("comments")), "name"
+            )
+        elif ordering == "score":
+            qs = qs.order_by("-score", "name")
+        else:  # name or -name
             qs = qs.order_by(ordering)
 
         return get_paginator(qs, page_size, page, PaginatedCourseObjectType)

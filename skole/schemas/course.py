@@ -1,7 +1,7 @@
 from typing import Optional, get_args
 
 import graphene
-from django.db.models import Count, F, QuerySet
+from django.db.models import F, QuerySet
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphql import GraphQLError, ResolveInfo
@@ -131,7 +131,7 @@ class Query(graphene.ObjectType):
             # the most sense for determining the most interesting courses.
             # The ordering value should not be exposed to the frontend.
             qs = qs.order_by(
-                -(3 * F("score") + 2 * Count("resources") + Count("comments")), "name"
+                -(3 * F("score") + 2 * F("resource_count") + F("comment_count")), "name"
             )
         elif ordering == "score":
             qs = qs.order_by("-score", "name")

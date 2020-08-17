@@ -1,4 +1,6 @@
 import datetime
+import hashlib
+import inspect
 import json
 import re
 from typing import Any, Optional, Sequence, Tuple, Union
@@ -313,3 +315,11 @@ def is_slug_match(file_path: str, url_with_slug: str) -> bool:
     """
     path, extension = file_path.rsplit(".", 1)
     return bool(re.match(fr"^{path}\w*\.{extension}$", url_with_slug))
+
+
+def checksum(obj: Any) -> str:
+    """Return a stable 10 digit hex checksum for the given object.
+
+    Useful for testing if a source code of the object has changed.
+    """
+    return hashlib.shake_256(inspect.getsource(obj).encode()).hexdigest(10)

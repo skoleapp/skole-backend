@@ -1,2 +1,26 @@
 [tool.black]
-exclude = 'migrations/.*'
+exclude = "migrations/.*"
+
+[tool.coverage.run]
+branch = true
+omit = [
+  "*/migrations/*",
+  "*/tests/*",
+  "*/__init__.py",
+  "*/apps.py",
+  "*/manage.py",
+  "*/wsgi.py",
+]
+
+[tool.isort]
+include_trailing_comma = true
+line_length = 88
+multi_line_output = 3
+skip_glob = "*/migrations/*"
+
+[tool.pytest.ini_options]
+python_files = "test_*"
+python_classes = "*Tests"
+python_functions = "test_*"
+DJANGO_SETTINGS_MODULE = "config.settings"
+addopts = "--nomigrations --doctest-modules"

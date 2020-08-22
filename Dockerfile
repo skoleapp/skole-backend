@@ -13,7 +13,7 @@ COPY --chown=user:user requirements-dev.txt .
 
 RUN apk update \
     && apk add postgresql-client gettext jpeg-dev libmagic \
-    && apk add --virtual=/tmp/build_deps gcc libc-dev linux-headers postgresql-dev make musl-dev zlib zlib-dev \
+    && apk add --virtual=/tmp/build_deps gcc libc-dev linux-headers postgresql-dev musl-dev zlib zlib-dev \
     && su user -c 'pip install --user --no-cache-dir --upgrade --disable-pip-version-check pip' \
     && su user -c 'pip install --user --no-cache-dir -r requirements.txt -r requirements-dev.txt' \
     && apk del /tmp/build_deps && rm -rf /var/cache/apk/*

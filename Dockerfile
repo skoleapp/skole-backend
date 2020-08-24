@@ -7,6 +7,7 @@ RUN chown user:user /home/user/app
 ENV PATH="/home/user/.local/bin:${PATH}"
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONTRACEMALLOC=1
 
 COPY --chown=user:user requirements.txt .
 COPY --chown=user:user requirements-dev.txt .

@@ -70,7 +70,9 @@ MIDDLEWARE = [
     "skole.middleware.SkoleSessionMiddleware",
     "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
-    "django.middleware.csrf.CsrfViewMiddleware",
+    # FIXME: must enable middleware now that the JWT token comes from cookies:
+    #   https://django-graphql-jwt.domake.io/en/latest/authentication.html#per-cookie
+    # "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
@@ -95,7 +97,7 @@ USERNAME_REGEX = r"[A-Za-z0-9ÅÄÖåäö_]+"
 
 # Authentication backend settings
 AUTHENTICATION_BACKENDS = [
-    "skole.backends.SkoleAuthBackend",
+    "skole.backends.SkoleJSONWebTokenBackend",
     "django.contrib.auth.backends.ModelBackend",
 ]
 

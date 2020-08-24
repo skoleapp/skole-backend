@@ -16,10 +16,10 @@ def convert_to_pdf(file: UploadedFile) -> File:
         # No need to make an API call if the file is already a pdf,
         # the contents of this file will still validated so nothing
         # bad should be able to sneak through.
-
+        #
         # Someone also might not want to bother setting the API key when developing,
         # so let's not break the whole functionality just because it's not set.
-
+        #
         # We also set the key to be None during tests to avoid calling the API.
         return file
 

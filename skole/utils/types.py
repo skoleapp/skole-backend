@@ -1,5 +1,7 @@
 """This module contains all the custom type aliases that are used in the app."""
-from typing import Any, Literal, Union
+from typing import Any, List, Literal, Union
+
+from mypy.types import JsonDict
 
 from skole.models import Comment, Course, Resource, User
 
@@ -37,3 +39,5 @@ Fixtures are just functions that are decorated with @pytest.fixture.
 Using this as the type of a parameter makes its purpose immediately clear.
 
 """
+
+AnyJson = Union[JsonDict, List[JsonDict]]

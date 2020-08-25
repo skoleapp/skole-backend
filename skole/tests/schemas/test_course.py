@@ -248,7 +248,7 @@ class CourseSchemaTests(SkoleSchemaTestCase):
 
         # The default sorting option is best first.
         res = self.query_search_courses()
-        assert res == self.query_search_courses(ordering="score")
+        assert res == self.query_search_courses(ordering="best")
         assert res["objects"][0]["id"] == "1"
         assert res["objects"][-1]["id"] == "7"
         assert len(res["objects"]) == 10

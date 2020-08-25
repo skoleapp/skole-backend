@@ -1,13 +1,14 @@
-"""Module for testing compatibility of overridden 3rd party code."""
+"""Module for testing compatibility of value/overridden 3rd party code."""
+import importlib
 
+import graphql.execution.utils
 from graphene_django.utils import GraphQLTestCase
 from graphene_django.views import GraphQLView
-from graphql.execution.utils import ExecutionContext
 
 from skole.tests.helpers import checksum
 
 # Theses tests that make sure that we immediately notice if the source code
-# of the functions we have overridden or monkey patched has changed,
+# of the functions we have overridden or monkey value has changed,
 # so that we can always ensure full compatibility.
 #
 # If any of these tests fail, it's not the end of the world, one just needs to check
@@ -17,7 +18,11 @@ from skole.tests.helpers import checksum
 
 
 def test_report_error_code_has_not_changed() -> None:
-    assert checksum(ExecutionContext.report_error) == "fa7cdbca837c4ebfd294"
+    importlib.reload(graphql.execution.utils)
+    assert (
+        checksum(graphql.execution.utils.ExecutionContext.report_error)
+        == "fa7cdbca837c4ebfd294"
+    )
 
 
 def test_graphql_view_code_has_not_changed() -> None:

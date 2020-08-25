@@ -1,13 +1,15 @@
 from typing import Any, Optional
 
-from django.core.handlers.wsgi import WSGIRequest
+from django.http import HttpRequest
 from graphql_jwt.backends import JSONWebTokenBackend
 from graphql_jwt.exceptions import JSONWebTokenError
 from graphql_jwt.shortcuts import get_user_by_token
 from graphql_jwt.utils import get_credentials
 
+from skole.models import User
 
-class SkoleAuthBackend(JSONWebTokenBackend):
+
+class SkoleJSONWebTokenBackend(JSONWebTokenBackend):
     """Only difference from the original `JSONWebTokenBackend` is that it does not raise
     error when `get_user_by_token` fails.
 
@@ -16,8 +18,8 @@ class SkoleAuthBackend(JSONWebTokenBackend):
     """
 
     def authenticate(
-        self, request: Optional[WSGIRequest] = None, **kwargs: Any
-    ) -> None:
+        self, request: Optional[HttpRequest] = None, **kwargs: Any
+    ) -> Optional[User]:
         if request is None or getattr(request, "_jwt_token_auth", False):
             return None
 

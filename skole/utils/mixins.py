@@ -82,16 +82,9 @@ class DeleteMutationMixin(LoginRequiredMutationMixin, MessageMixin):
     def get_form_kwargs(
         cls, root: Any, info: ResolveInfo, **input: Dict[str, Any]
     ) -> Dict[str, Any]:
-        assert info.context is not None
-        kwargs = {"data": input}
-        pk = input.pop("id", None)
-
-        if pk:
-            # Ignore: Mypy can't see the _meta attribute.
-            instance = cls._meta.model.objects.get(pk=pk)  # type: ignore[attr-defined]
-            kwargs["instance"] = instance
-            kwargs["user"] = info.context.user
-
+        # Ignore: Will be defined when this is inherited.
+        kwargs = super().get_form_kwargs(root, info, **input)  # type: ignore[misc]
+        kwargs["user"] = getattr(info.context, "user", None)
         return kwargs
 
     @classmethod
@@ -105,7 +98,7 @@ class DeleteMutationMixin(LoginRequiredMutationMixin, MessageMixin):
         #   deriving from DjangoModelFormMutation, where this type of calling cls with
         #   a graphene field name makes sense.
         # Ignore 2: `get_success_message` will be defined in the baseclass.
-        return cls(message=cls.get_success_message())  # type: ignore [call-arg, attr-defined]
+        return cls(message=cls.get_success_message())  # type: ignore[call-arg, attr-defined]
 
 
 class VoteMixin:

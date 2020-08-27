@@ -1,4 +1,4 @@
-from typing import List, Optional, Sequence
+from typing import List, Optional, Sequence, cast
 
 from mypy.types import JsonDict
 
@@ -79,12 +79,16 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         graphql = (
             self.course_fields
             + """
-            query SearchCourses($courseName: String, $courseCode: String, $subject: ID,
-                                $school: ID, $schoolType: ID, $country: ID, $city: ID,
-                                $page: Int, $pageSize: Int, $ordering: String) {
-                searchCourses(courseName: $courseName, courseCode: $courseCode, subject: $subject,
-                              school: $school, schoolType: $schoolType, country: $country, city: $city,
-                              page: $page, pageSize: $pageSize, ordering: $ordering) {
+            query SearchCourses (
+                $courseName: String, $courseCode: String, $subject: ID,
+                $school: ID, $schoolType: ID, $country: ID,
+                $city: ID, $page: Int, $pageSize: Int, $ordering: String
+            ) {
+                searchCourses(
+                    courseName: $courseName, courseCode: $courseCode, subject: $subject,
+                    school: $school, schoolType: $schoolType, country: $country,
+                    city: $city, page: $page, pageSize: $pageSize, ordering: $ordering
+                ) {
                     page
                     pages
                     hasNext
@@ -97,10 +101,7 @@ class CourseSchemaTests(SkoleSchemaTestCase):
             }
             """
         )
-        res = self.execute(graphql, variables=variables, assert_error=assert_error)
-        if assert_error:
-            return res
-        return res["searchCourses"]
+        return self.execute(graphql, variables=variables, assert_error=assert_error)
 
     def query_courses(self, *, school: ID = None) -> List[JsonDict]:
         variables = {"school": school}
@@ -116,7 +117,7 @@ class CourseSchemaTests(SkoleSchemaTestCase):
             }
             """
         )
-        return self.execute(graphql, variables=variables)["courses"]
+        return cast(List[JsonDict], self.execute(graphql, variables=variables))
 
     def query_course(self, *, id: ID) -> JsonDict:
         variables = {"id": id}
@@ -132,7 +133,7 @@ class CourseSchemaTests(SkoleSchemaTestCase):
             }
             """
         )
-        return self.execute(graphql, variables=variables)["course"]
+        return self.execute(graphql, variables=variables)
 
     def mutate_create_course(
         self,

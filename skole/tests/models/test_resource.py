@@ -16,7 +16,7 @@ def test_str(db: Fixture) -> None:
     assert str(resource2) == "Sample exam 2"
 
 
-def test_create_and_update_resource(db: Fixture, temp_media: Fixture) -> None:
+def test_create_and_update_resource(db: Fixture) -> None:
     resource_type = ResourceType.objects.get(pk=1)
     title = "title for resource"
     course = Course.objects.get(pk=1)

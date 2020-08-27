@@ -16,22 +16,15 @@ def pytest_configure(config: Fixture) -> None:
 
 @fixture(scope="session")
 def django_db_setup(django_db_setup: Fixture, django_db_blocker: Fixture) -> None:
+    """Load test data fixtures for all non-class based tests as well."""
     with django_db_blocker.unblock():
         call_command("loaddata", "test-data.yaml")
 
 
-@fixture
+@fixture(scope="session", autouse=True)
 def temp_media() -> Generator[None, None, None]:
-    """Use this fixture to make all created media be temporary.
-
-    Reference: https://www.caktusgroup.com/blog/2013/06/26/media-root-and-django-tests/
-    """
-    original_media_root = settings.MEDIA_ROOT
-    original_file_storage = settings.DEFAULT_FILE_STORAGE
-    _temp_media = tempfile.mkdtemp()
-    settings.MEDIA_ROOT = _temp_media
-    settings.DEFAULT_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
+    """Make all created test media be temporary."""
+    temp_media = tempfile.mkdtemp()
+    settings.MEDIA_ROOT = temp_media
     yield
-    shutil.rmtree(_temp_media, ignore_errors=True)
-    settings.MEDIA_ROOT = original_media_root
-    settings.DEFAULT_FILE_STORAGE = original_file_storage
+    shutil.rmtree(temp_media, ignore_errors=True)

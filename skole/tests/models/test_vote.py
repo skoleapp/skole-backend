@@ -55,7 +55,7 @@ def test_manager_create_ok(db: Fixture) -> None:
 
         # Check that only one foreign key reference is active.
         for attr in ("course", "resource", "comment"):
-            if target.__class__.__name__.lower() == attr.replace("_", ""):
+            if target.__class__.__name__.lower() == attr:
                 assert getattr(vote, attr) == target
             else:
                 assert getattr(vote, attr) is None

@@ -2,7 +2,7 @@ import datetime
 from typing import Optional
 
 from django.conf import settings
-from django.core.files.uploadedfile import UploadedFile
+from django.core.files import File
 from django.db import models
 from django.db.models import Sum, Value
 from django.db.models.functions import Coalesce
@@ -21,7 +21,7 @@ class ResourceManager(SkoleManager):
         resource_type: ResourceType,
         title: str,
         course: Course,
-        file: UploadedFile,
+        file: File,
         user: User,
         date: Optional[datetime.date] = None,
     ) -> "Resource":

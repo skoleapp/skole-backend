@@ -1,6 +1,5 @@
 from typing import Optional
 
-from django.core.files.uploadedfile import UploadedFile
 from mypy.types import JsonDict
 
 from skole.models import Comment, Course, Resource
@@ -10,6 +9,7 @@ from skole.tests.helpers import (
     get_form_error,
     get_graphql_error,
     is_slug_match,
+    open_as_file,
 )
 from skole.utils.constants import Messages, ValidationErrors
 from skole.utils.types import ID
@@ -152,15 +152,14 @@ class CommentSchemaTests(SkoleSchemaTestCase):
     def test_update_comment(self) -> None:
         file_path = "media/uploads/attachments/test_attachment.png"
         new_text = "some new text"
-        with open(file_path, "rb") as f:
-            attachment = UploadedFile(f)
+        with open_as_file(file_path) as attachment:
             res = self.mutate_update_comment(
                 id=4,
                 text=new_text,
                 attachment="",
                 file_data=[("attachment", attachment)],
             )
-        assert is_slug_match("/" + file_path, res["comment"]["attachment"])
+        assert is_slug_match(file_path, res["comment"]["attachment"])
         assert res["comment"]["text"] == new_text
         assert res["comment"]["course"]["id"] == "1"
         assert res["comment"]["resource"] is None

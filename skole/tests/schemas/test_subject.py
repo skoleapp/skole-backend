@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, cast
 
 from mypy.types import JsonDict
 
@@ -28,7 +28,7 @@ class SubjectSchemaTests(SkoleSchemaTestCase):
             }
             """
         )
-        return self.execute(graphql)["subjects"]
+        return cast(List[JsonDict], self.execute(graphql))
 
     def query_subject(self, *, id: ID) -> JsonDict:
         variables = {"id": id}
@@ -44,7 +44,7 @@ class SubjectSchemaTests(SkoleSchemaTestCase):
             }
             """
         )
-        return self.execute(graphql, variables=variables)["subject"]
+        return self.execute(graphql, variables=variables)
 
     def test_field_fragment(self) -> None:
         self.authenticated_user = None

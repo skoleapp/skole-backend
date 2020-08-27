@@ -1,7 +1,7 @@
 from typing import TYPE_CHECKING, Optional, Union
 
 from django.conf import settings
-from django.core.files.uploadedfile import UploadedFile
+from django.core.files import File
 from django.db import models
 from django.db.models import Sum, Value
 from django.db.models.functions import Coalesce
@@ -23,7 +23,7 @@ class CommentManager(SkoleManager):
         self,
         user: User,
         text: str,
-        attachment: Optional[UploadedFile],
+        attachment: Optional[File],
         target: "CommentableModel",
     ) -> "Comment":
         if isinstance(target, Course):
@@ -42,7 +42,7 @@ class CommentManager(SkoleManager):
         return comment
 
     def update_comment(
-        self, comment: "Comment", text: str, attachment: Union[UploadedFile, str],
+        self, comment: "Comment", text: str, attachment: Union[File, str],
     ) -> "Comment":
         comment.text = text
         comment.attachment = attachment

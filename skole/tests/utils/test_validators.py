@@ -7,7 +7,7 @@ from skole.models import Comment, Course
 from skole.utils.types import Fixture
 
 
-def test_invalid_file_type(db: Fixture, temp_media: Fixture) -> None:
+def test_invalid_file_type(db: Fixture) -> None:
     user = get_user_model().objects.get(pk=2)
     target = Course.objects.get(pk=1)
     invalid_file = SimpleUploadedFile("not_an_image.txt", b"file contents")
@@ -18,7 +18,7 @@ def test_invalid_file_type(db: Fixture, temp_media: Fixture) -> None:
         ).full_clean()
 
 
-def test_invalid_file_extension(db: Fixture, temp_media: Fixture) -> None:
+def test_invalid_file_extension(db: Fixture) -> None:
     user = get_user_model().objects.get(pk=2)
     target = Course.objects.get(pk=1)
     actually_jpeg = SimpleUploadedFile("image.png", b"\xff\xd8\xff")
@@ -29,7 +29,7 @@ def test_invalid_file_extension(db: Fixture, temp_media: Fixture) -> None:
         ).full_clean()
 
 
-def test_too_large(db: Fixture, temp_media: Fixture) -> None:
+def test_too_large(db: Fixture) -> None:
     user = get_user_model().objects.get(pk=2)
     target = Course.objects.get(pk=1)
     small_enough = SimpleUploadedFile("image.jpeg", b"\xff\xd8\xff" * 1_000_000)

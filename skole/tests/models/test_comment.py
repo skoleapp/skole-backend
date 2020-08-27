@@ -18,7 +18,7 @@ def test_str(db: Fixture) -> None:
     assert str(comment3) == "Attachment Comment: 3"
 
 
-def test_manager_create_ok(db: Fixture, temp_media: Fixture) -> None:
+def test_manager_create_ok(db: Fixture) -> None:
     user = get_user_model().objects.get(pk=2)
     text = "A comment."
 
@@ -47,7 +47,7 @@ def test_manager_create_ok(db: Fixture, temp_media: Fixture) -> None:
 
         # Check that only one foreign key reference is active.
         for attr in ("course", "resource", "comment"):
-            if target.__class__.__name__.lower() == attr.replace("_", ""):
+            if target.__class__.__name__.lower() == attr:
                 assert getattr(comment, attr) == target
             else:
                 assert getattr(comment, attr) is None

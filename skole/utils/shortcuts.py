@@ -2,7 +2,6 @@ from typing import Any, Callable, Optional, Type, TypeVar, Union
 
 from django import forms
 from django.core.files import File
-from django.core.files.uploadedfile import UploadedFile
 from django.db import models
 
 from skole.utils.types import ID
@@ -23,7 +22,7 @@ def get_obj_or_none(model: Type[M], pk: ID = None) -> Optional[M]:
 def clean_file_field(
     form: forms.ModelForm,
     field_name: str,
-    conversion_func: Optional[Callable[[UploadedFile], File]] = None,
+    conversion_func: Optional[Callable[[File], File]] = None,
 ) -> Union[File, str]:
     """Use in a ModelForm to conveniently handle FileField clearing and updating.
 
@@ -33,7 +32,7 @@ def clean_file_field(
         conversion_func: Optional converter function to pass the file through,
             when the value has changed.
 
-    See CreateResourceForm.clean_file for example usage.
+    See `CreateResourceForm.clean_file` for example usage.
     """
     assert form.files is not None
 

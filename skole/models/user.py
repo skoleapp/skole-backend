@@ -5,7 +5,7 @@ from django.conf import settings
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.contrib.sites.shortcuts import get_current_site
-from django.core.files.uploadedfile import UploadedFile
+from django.core.files import File
 from django.core.mail import send_mail
 from django.core.validators import RegexValidator
 from django.db import models
@@ -49,7 +49,7 @@ class UserManager(SkoleManager, BaseUserManager):  # type: ignore[type-arg]
         email: str,
         title: str,
         bio: str,
-        avatar: Union[UploadedFile, str],
+        avatar: Union[File, str],
         school: Optional[School],
         subject: Optional[Subject],
     ) -> "User":

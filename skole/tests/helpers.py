@@ -3,24 +3,27 @@ import hashlib
 import inspect
 import json
 import re
-from typing import Any, Optional, Sequence, Tuple, Union
+from contextlib import contextmanager
+from pathlib import Path
+from typing import Any, Generator, Optional, Sequence, Tuple, Union
 
+from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.core.files.uploadedfile import UploadedFile
+from django.core.files import File
 from django.http import HttpResponse
-from graphene_django.utils import GraphQLTestCase
+from django.test import TestCase
 from graphql_jwt.settings import jwt_settings
 from graphql_jwt.shortcuts import get_token
 from graphql_jwt.utils import delete_cookie
 from mypy.types import JsonDict
 
-from skole.schema import schema
-
-FileData = Optional[Sequence[Tuple[str, UploadedFile]]]
+FileData = Optional[Sequence[Tuple[str, File]]]
 
 
-class SkoleSchemaTestCase(GraphQLTestCase):
+class SkoleSchemaTestCase(TestCase):
     """Base class for all schema tests.
+
+     Heavily inspired by `graphene_utils.testing.GraphQLTestCase`.
 
     Attributes:
         authenticated_user: When set to an integer, a JWT token made for the
@@ -28,7 +31,6 @@ class SkoleSchemaTestCase(GraphQLTestCase):
     """
 
     fixtures = ["test-data.yaml"]
-    GRAPHQL_SCHEMA = schema
 
     authenticated_user: Optional[int] = None
 
@@ -44,8 +46,28 @@ class SkoleSchemaTestCase(GraphQLTestCase):
         """Overridden to allow uploading files with a multipart/form-data POST.
 
         This should probably not be used on its own, but instead should be called
-        through `self.execute` or `self.execute_input_mutation`. See also parent's
-        docstring for more info.
+        through `self.execute` or `self.execute_input_mutation` etc.
+
+        Args:
+            query: GraphQL query to run.
+            op_name: If the query is a mutation or named query, you must
+                supply the op_name.  For anon queries ("{ ... }"),
+                should be None (default).
+            input_data: If provided, the $input variable in GraphQL will be set
+                to this value. If both ``input_data`` and ``variables``,
+                are provided, the ``input`` field in the ``variables``
+                dict will be overwritten with this value.
+            variables: If provided, the "variables" field in GraphQL will be
+                set to this value.
+            headers: If provided, the headers in POST request to GRAPHQL_URL
+                will be set to this value.
+            file_data: Files to the mutation as a sequence of (field_name, file) pairs.
+                By passing these the self.query() will automatically use the correct
+                multipart/form-data content-type. It will also automatically handle all
+                of the inserting of the files into the request body.
+
+        Returns:
+            Response object from the client.
         """
         body: JsonDict = {"query": query}
         if op_name:
@@ -78,7 +100,7 @@ class SkoleSchemaTestCase(GraphQLTestCase):
             data = json.dumps(body)
             extra.update({"content_type": "application/json"})
 
-        return self._client.post(path=self.GRAPHQL_URL, data=data, **extra)
+        return self.client.post(path="/graphql/", data=data, **extra)
 
     def execute(
         self, graphql: str, *, assert_error: bool = False, **kwargs: Any
@@ -93,11 +115,15 @@ class SkoleSchemaTestCase(GraphQLTestCase):
                 the request fails and the response has a top level "errors" section.
                 Note that when form mutations error out, they don't have this section.
             **kwargs: `header` kwarg will get merged with the possible token header.
-                Other kwargs are passed straight to self.query().
+                Other kwargs are passed straight to self.query, see also its docstring.
 
         Returns:
-            The resulting JSON "data" section if `assert_error` is False.
+            The resulting JSON data.op_name section if `assert_error` is False.
             Otherwise returns both the "error" and "data" sections.
+
+            Note: The return value is type hinted for simplicity to be a `JsonDict`,
+            but it can actually be `List[JsonDict]` in cases when we're fetching a list
+            of objects. In those cases we'll do a `cast()` before accessing the data.
         """
 
         if self.authenticated_user:
@@ -116,11 +142,13 @@ class SkoleSchemaTestCase(GraphQLTestCase):
             delete_cookie(response, jwt_settings.JWT_COOKIE_NAME)
 
         if assert_error:
-            self.assertResponseHasErrors(response)
+            self._assert_response_has_errors(response)
             return json.loads(response.content)
         else:
-            self.assertResponseNoErrors(response)
-            return json.loads(response.content)["data"]
+            self._assert_response_no_errors(response)
+            data = json.loads(response.content)["data"]
+            assert len(data) == 1, "This method only returns data from the first key."
+            return data.popitem()[1]
 
     def execute_input_mutation(
         self,
@@ -150,10 +178,9 @@ class SkoleSchemaTestCase(GraphQLTestCase):
                 Form mutation errors never have this.
 
         Returns:
-            The resulting JSON "data".op_name section if `assert_error` is False.
+            The resulting JSON data.op_name section if `assert_error` is False.
             Otherwise returns both the "error" and "data" sections.
         """
-
         graphql = (
             fragment
             + f"""
@@ -168,16 +195,13 @@ class SkoleSchemaTestCase(GraphQLTestCase):
             }}
             """
         )
-        res = self.execute(
+        return self.execute(
             graphql=graphql,
             input_data=input,
             op_name=op_name,
             file_data=file_data,
             assert_error=assert_error,
         )
-        if assert_error:
-            return res
-        return res[op_name]  # Convenience to get straight to the result object.
 
     def execute_non_input_mutation(
         self,
@@ -198,7 +222,7 @@ class SkoleSchemaTestCase(GraphQLTestCase):
                 Form mutation errors never have this.
 
         Returns:
-            The resulting JSON "data".op_name section if `assert_error` is False.
+            The resulting JSON data.op_name section if `assert_error` is False.
             Otherwise returns both the "error" and "data" sections.
         """
 
@@ -216,32 +240,7 @@ class SkoleSchemaTestCase(GraphQLTestCase):
             }}
             """
         )
-        res = self.execute(graphql=graphql, op_name=op_name, assert_error=assert_error,)
-        if assert_error:
-            return res
-        return res[op_name]  # Convenience to get straight to the result object.
-
-    def assertResponseNoErrors(self, resp: HttpResponse) -> None:
-        """Overridden and re-ordered to immediately see the errors if there were any.
-
-        See parent's docstring for more info.
-        """
-        content = json.loads(resp.content)
-        self.assertNotIn("errors", content)
-        self.assertEqual(resp.status_code, 200)
-
-    def assertResponseHasErrors(self, resp: HttpResponse) -> None:
-        """Overridden to do more thorough checking.
-
-        See parent's docstring for more info.
-        """
-        content = json.loads(resp.content)
-        self.assertIn("errors", content)
-        if "data" in content:
-            # If there is a "data" section it should have only keys with empty values.
-            for key, value in content["data"].items():
-                assert isinstance(key, str)
-                assert value is None
+        return self.execute(graphql=graphql, op_name=op_name, assert_error=assert_error)
 
     def assert_field_fragment_matches_schema(self, field_fragment: str, /) -> None:
         """Assert that the given fragment contains all the fields that are actually
@@ -259,8 +258,22 @@ class SkoleSchemaTestCase(GraphQLTestCase):
         object_type = field_fragment.split()[3]
         res = self.execute(graphql, variables={"name": object_type})
 
-        for field in res["__type"]["fields"]:
+        for field in res["fields"]:
             self.assertIn(field["name"], field_fragment)
+
+    def _assert_response_no_errors(self, response: HttpResponse) -> None:
+        content = json.loads(response.content)
+        self.assertNotIn("errors", content)
+        assert response.status_code == 200
+
+    def _assert_response_has_errors(self, response: HttpResponse) -> None:
+        content = json.loads(response.content)
+        self.assertIn("errors", content)
+        if "data" in content:
+            # If there is a "data" section it should only have keys with empty values.
+            for key, value in content["data"].items():
+                assert isinstance(key, str)
+                assert value is None
 
 
 def get_form_error(res: JsonDict, /) -> str:
@@ -303,18 +316,26 @@ def is_iso_datetime(datetime_string: str, /) -> bool:
 def is_slug_match(file_path: str, url_with_slug: str) -> bool:
     """Return True if the two paths match each other with an optional slug.
 
+    The paths will still match even if one of them is a relative path, and the other
+    is an absolute one (no prexix slash).
+
     Examples:
         >>> is_slug_match("/media/test/foo.jpg", "/media/test/fooXfa123.jpg")
         True
         >>> is_slug_match("/media/test/foo.jpg", "/media/test/foo.jpg")
+        True
+        >>> is_slug_match("media/test/foo.jpg", "/media/test/foo.jpg")
         True
         >>> is_slug_match("/media/test/foo.jpg", "/media/test/foo-bar.jpg")
         False
         >>> is_slug_match("/media/test/foo.jpg", "/foo.jpg")
         False
     """
+    # Can use Python 3.9's `str.removeprefix`.
+    if file_path.startswith("/"):
+        file_path = file_path[1:]
     path, extension = file_path.rsplit(".", 1)
-    return bool(re.match(fr"^{path}\w*\.{extension}$", url_with_slug))
+    return bool(re.match(fr"^/{path}\w*\.{extension}$", url_with_slug))
 
 
 def checksum(obj: Any) -> str:
@@ -323,3 +344,14 @@ def checksum(obj: Any) -> str:
     Useful for testing if a source code of the object has changed.
     """
     return hashlib.shake_256(inspect.getsource(obj).encode()).hexdigest(10)
+
+
+@contextmanager
+def open_as_file(path: Union[str, Path]) -> Generator[File, None, None]:
+    """Use as a contextmanager to open the file in the specified path as a Django
+    File."""
+    if not isinstance(path, Path):
+        path = Path(path)
+
+    with open(settings.BASE_DIR / path, "rb") as f:
+        yield File(f)

@@ -9,13 +9,13 @@ class _SkoleManagerMixin:
     def get_queryset(self) -> "QuerySet[SkoleModel]":
         """Hide all soft deleted objects from queries."""
 
-        # Ignore: Will be ok in subclasses.
+        # Ignore: Will be defined in subclasses.
         return super().get_queryset().exclude(deleted_at__isnull=False)  # type: ignore[misc]
 
 
 # Ignore: Mypy expects Managers to have a generic type,
-#  this doesn't actually work, so we ignore it.
-#  https://gitter.im/mypy-django/Lobby?at=5de6bd09d75ad3721d4a58ba
+#   this doesn't actually work, so we ignore it.
+#   https://gitter.im/mypy-django/Lobby?at=5de6bd09d75ad3721d4a58ba
 class SkoleManager(_SkoleManagerMixin, models.Manager):  # type: ignore[type-arg]
     """Base manager for all non-translatable models."""
 
@@ -62,10 +62,10 @@ class SkoleModel(_SkoleModelMixin, models.Model):
 class TranslatableSkoleModel(_SkoleModelMixin, parler.models.TranslatableModel):
     """Base model for all translatable models.
 
-    This inherits _SkoleModelMixin, instead of inheriting SkoleModel (which would then
-    just inherit models.Model), to keep the method resolution order as
-    `TranslatableSkoleModel -> _SkoleModelMixin -> TranslatableModel -> Model`, instead
-    of `TranslatableSkoleModel -> SkoleModel -> Model -> TranslatableModel`.
+    This inherits _SkoleModelMixin and TranslatableModel instead of from
+    TranslatableModelMixin and SkoleModel (which would then just inherit from Model), to
+    keep the method resolution order as: TranslatableSkoleModel -> _SkoleModelMixin ->
+    TranslatableModel -> Model.
     """
 
     # Ignore: See explanation in SkoleModel.

@@ -3,16 +3,15 @@ from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphql import ResolveInfo
 
-from skole.forms.comment import CreateCommentForm, DeleteCommentForm, UpdateCommentForm
+from skole.forms import CreateCommentForm, DeleteCommentForm, UpdateCommentForm
 from skole.models import Comment
-from skole.utils.constants import Messages, MutationErrors
-from skole.utils.mixins import (
-    DeleteMutationMixin,
-    FileMutationMixin,
+from skole.schemas.mixins import (
     MessageMixin,
-    VerificationRequiredMutationMixin,
+    SkoleDeleteMutationMixin,
+    SkoleMutationMixin,
     VoteMixin,
 )
+from skole.utils.constants import Messages
 
 
 class CommentObjectType(VoteMixin, DjangoObjectType):
@@ -36,61 +35,30 @@ class CommentObjectType(VoteMixin, DjangoObjectType):
         return self.attachment.url if self.attachment else ""
 
 
-class CreateCommentMutation(
-    VerificationRequiredMutationMixin,
-    FileMutationMixin,
-    MessageMixin,
-    DjangoModelFormMutation,
-):
+class CreateCommentMutation(SkoleMutationMixin, MessageMixin, DjangoModelFormMutation):
+    verification_required = True
+    response_message = Messages.MESSAGE_SENT
+
     class Meta:
         form_class = CreateCommentForm
-        exclude_fields = ("id",)
-
-    @classmethod
-    def perform_mutate(
-        cls, form: CreateCommentForm, info: ResolveInfo
-    ) -> "CreateCommentMutation":
-        assert info.context is not None
-
-        comment = Comment.objects.create_comment(
-            user=info.context.user, **form.cleaned_data
-        )
-
-        return cls(comment=comment, message=Messages.MESSAGE_SENT)
+        exclude_fields = ("id",)  # Without this, graphene adds the field on its own.
 
 
-class UpdateCommentMutation(
-    VerificationRequiredMutationMixin,
-    FileMutationMixin,
-    MessageMixin,
-    DjangoModelFormMutation,
-):
+class UpdateCommentMutation(SkoleMutationMixin, MessageMixin, DjangoModelFormMutation):
+    verification_required = True
+    response_message = Messages.COMMENT_UPDATED
+
     comment = graphene.Field(CommentObjectType)
 
     class Meta:
         form_class = UpdateCommentForm
 
-    @classmethod
-    def perform_mutate(
-        cls, form: UpdateCommentForm, info: ResolveInfo
-    ) -> "UpdateCommentMutation":
-        assert info.context is not None
-        comment = form.instance
 
-        if comment.user != info.context.user:
-            return cls(errors=MutationErrors.NOT_OWNER)
+class DeleteCommentMutation(SkoleDeleteMutationMixin, DjangoModelFormMutation):
+    response_message = Messages.COMMENT_DELETED
 
-        Comment.objects.update_comment(comment, **form.cleaned_data)
-        return cls(comment=comment, message=Messages.COMMENT_UPDATED)
-
-
-class DeleteCommentMutation(DeleteMutationMixin, DjangoModelFormMutation):
-    class Meta(DeleteMutationMixin.Meta):
+    class Meta(SkoleDeleteMutationMixin.Meta):
         form_class = DeleteCommentForm
-
-    @staticmethod
-    def get_success_message() -> str:
-        return Messages.COMMENT_DELETED
 
 
 class Mutation(graphene.ObjectType):

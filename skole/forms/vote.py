@@ -1,17 +1,33 @@
+from typing import cast
+
 from django import forms
 
 from skole.models import Vote
-from skole.utils.forms import TargetForm
+from skole.types import JsonDict, VotableModel
+from skole.utils.constants import ValidationErrors
+from skole.utils.shortcuts import validate_single_target
+
+from .base import SkoleModelForm
 
 
-class CreateVoteForm(TargetForm):
+class CreateVoteForm(SkoleModelForm):
+
+    # Without specifying this explicitly the formfield would be a `TypedChoiceField`,
+    # which would then map into a GraphQL `String!` type.
     status = forms.IntegerField(required=True)
 
     class Meta:
         model = Vote
-        fields = (
-            "status",
-            "comment",
-            "course",
-            "resource",
+        fields = ("status", "comment", "course", "resource")
+
+    def clean(self) -> JsonDict:
+        data = super().clean()
+        assert self.request is not None
+
+        target = data["target"] = cast(
+            VotableModel, validate_single_target(data, "comment", "course", "resource")
         )
+
+        if target.user and target.user == self.request.user:
+            raise forms.ValidationError(ValidationErrors.VOTE_OWN_CONTENT)
+        return data

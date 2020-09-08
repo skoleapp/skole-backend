@@ -4,7 +4,7 @@ import graphene
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db.models import QuerySet
 
-from skole.utils.types import PaginableModel
+from skole.types import PaginableModel
 
 
 def get_paginator(

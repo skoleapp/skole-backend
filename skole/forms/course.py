@@ -1,15 +1,15 @@
-from django import forms
-
 from skole.models import Course
-from skole.utils.forms import DeleteObjectForm
+
+from .base import SkoleModelForm, SkoleUpdateModelForm
 
 
-class CreateCourseForm(forms.ModelForm):
+class CreateCourseForm(SkoleModelForm):
     class Meta:
         model = Course
         fields = ("name", "code", "subjects", "school")
 
 
-class DeleteCourseForm(DeleteObjectForm):
-    class Meta(DeleteObjectForm.Meta):
+class DeleteCourseForm(SkoleUpdateModelForm):
+    class Meta:
         model = Course
+        fields = ("id",)

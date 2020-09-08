@@ -1,11 +1,10 @@
 import time
-from typing import Any, List, Optional, Union
+from typing import Any, List, Optional
 
 from django.conf import settings
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.contrib.sites.shortcuts import get_current_site
-from django.core.files import File
 from django.core.mail import send_mail
 from django.core.validators import RegexValidator
 from django.db import models
@@ -14,57 +13,21 @@ from django.utils.html import strip_tags
 from graphql import ResolveInfo
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
-from mypy.types import JsonDict
 
-from skole.models.base import SkoleManager, SkoleModel
-from skole.models.school import School
-from skole.models.subject import Subject
+from skole.types import JsonDict
 from skole.utils.constants import Ranks, TokenAction, ValidationErrors
 from skole.utils.exceptions import UserAlreadyVerified, UserNotVerified
 from skole.utils.token import get_token, get_token_payload
 from skole.utils.validators import ValidateFileSizeAndType
 
+from .base import SkoleManager, SkoleModel
+
 
 # Ignore: See explanation in SkoleManager.
 class UserManager(SkoleManager, BaseUserManager):  # type: ignore[type-arg]
-    def create_user(self, username: str, email: str, password: str,) -> "User":
-        user = self.model(username=username, email=self.normalize_email(email),)
-
-        user.set_password(password)
-        user.save()
-        return user
-
-    def create_superuser(self, username: str, email: str, password: str) -> "User":
-        user = self.model(username=username, email=self.normalize_email(email))
-        user.is_staff = True
-        user.is_superuser = True
-        user.set_password(password)
-        user.save()
-        return user
-
-    def update_user(
-        self,
-        user: "User",
-        username: str,
-        email: str,
-        title: str,
-        bio: str,
-        avatar: Union[File, str],
-        school: Optional[School],
-        subject: Optional[Subject],
-    ) -> "User":
-        user.username = username
-        user.email = self.normalize_email(email)
-        user.title = title
-        user.bio = bio
-        user.avatar = avatar
-        user.school = school
-        user.subject = subject
-        user.save()
-        return user
-
     @staticmethod
     def set_password(user: "User", password: str) -> "User":
+        """Overridden so we avoid calling save() outside of managers."""
         user.set_password(password)
         user.save()
         return user

@@ -4,14 +4,16 @@ from django import forms
 from django.conf import settings
 from django.contrib.auth import authenticate, get_user_model
 from django.core.files import File
-from mypy.types import JsonDict
 
 from skole.models import BetaCode, User
+from skole.types import JsonDict
 from skole.utils.constants import ValidationErrors
 from skole.utils.shortcuts import clean_file_field
 
+from .base import SkoleModelForm
 
-class RegisterForm(forms.ModelForm):
+
+class RegisterForm(SkoleModelForm):
     username = forms.CharField(min_length=settings.USERNAME_MIN_LENGTH)
     password = forms.CharField(min_length=settings.PASSWORD_MIN_LENGTH)
     code = forms.CharField(max_length=8)
@@ -22,14 +24,12 @@ class RegisterForm(forms.ModelForm):
 
     def clean_username(self) -> str:
         username = self.cleaned_data["username"]
-
         if get_user_model().objects.filter(username__iexact=username):
             raise forms.ValidationError(ValidationErrors.USERNAME_TAKEN)
         return username
 
     def clean_code(self) -> BetaCode:
         code = self.cleaned_data["code"]
-
         try:
             return BetaCode.objects.get(code=code)
         except BetaCode.DoesNotExist:
@@ -47,7 +47,7 @@ class EmailForm(forms.Form):
     email = forms.EmailField()
 
 
-class LoginForm(forms.ModelForm):
+class LoginForm(SkoleModelForm):
     username_or_email = forms.CharField()
     password = forms.CharField()
 
@@ -85,7 +85,7 @@ class LoginForm(forms.ModelForm):
         return self.cleaned_data
 
 
-class UpdateUserForm(forms.ModelForm):
+class UpdateUserForm(SkoleModelForm):
 
     username = forms.CharField(min_length=settings.USERNAME_MIN_LENGTH)
     avatar = forms.CharField(required=False)
@@ -98,7 +98,7 @@ class UpdateUserForm(forms.ModelForm):
         return clean_file_field(self, "avatar")
 
 
-class ChangePasswordForm(forms.ModelForm):
+class ChangePasswordForm(SkoleModelForm):
     old_password = forms.CharField()
     new_password = forms.CharField(min_length=settings.PASSWORD_MIN_LENGTH)
 
@@ -119,7 +119,7 @@ class SetPasswordForm(TokenForm):
     new_password = forms.CharField(min_length=settings.PASSWORD_MIN_LENGTH)
 
 
-class DeleteUserForm(forms.ModelForm):
+class DeleteUserForm(SkoleModelForm):
     class Meta:
         model = get_user_model()
         fields = ("password",)

@@ -2,7 +2,7 @@ from django.conf import settings
 from django.db import models
 from parler.models import TranslatedFields
 
-from skole.models.base import TranslatableSkoleModel
+from .base import TranslatableSkoleModel
 
 
 class Badge(TranslatableSkoleModel):

@@ -37,6 +37,7 @@ class ValidationErrors:
         "Usernames can only contain letters, numbers, and underscores."
     )
     COULD_NOT_CONVERT_FILE = _("File could not be converted to {} format.")
+    VOTE_OWN_CONTENT = _("You cannot vote your own content.")
 
 
 class GraphQLErrors:
@@ -70,14 +71,14 @@ T = TypeVar("T", bound="_MutationErrorsMeta")
 
 class _MutationErrorsMeta(type):
     def __new__(
-        mcs: Type[T], name: str, bases: Tuple[type, ...], dct: Dict[str, Any]
+        mcs: Type[T], name: str, bases: Tuple[type, ...], attrs: Dict[str, Any]
     ) -> T:
         """Add the GraphQL form error structure for all class attributes."""
-        for key, value in dct.items():
+        for key, value in attrs.items():
             if not (key.startswith("__") and key.endswith("__")):
                 # Don't want to affect __magic__ attrs.
-                dct[key] = [{"field": "__all__", "messages": [value]}]
-        return cast(T, super().__new__(mcs, name, bases, dct))
+                attrs[key] = [{"field": "__all__", "messages": [value]}]
+        return cast(T, super().__new__(mcs, name, bases, attrs))
 
 
 class MutationErrors(metaclass=_MutationErrorsMeta):
@@ -110,7 +111,6 @@ class MutationErrors(metaclass=_MutationErrorsMeta):
         "This action is only allowed for users who have verified their accounts."
         " Please verify your account."
     )
-    VOTE_OWN_CONTENT = _("You cannot vote your own content.")
 
 
 class VoteConstants:

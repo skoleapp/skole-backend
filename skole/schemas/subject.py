@@ -6,8 +6,8 @@ from graphene_django import DjangoObjectType
 from graphql import ResolveInfo
 
 from skole.models import Subject
+from skole.types import ID
 from skole.utils.shortcuts import get_obj_or_none
-from skole.utils.types import ID
 
 
 class SubjectObjectType(DjangoObjectType):

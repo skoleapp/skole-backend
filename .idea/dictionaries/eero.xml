@@ -44,6 +44,7 @@
       <w>removeprefix</w>
       <w>samesite</w>
       <w>skole</w>
+      <w>starrable</w>
       <w>studiable</w>
       <w>studyable</w>
       <w>tampere</w>
@@ -52,6 +53,8 @@
       <w>testusername</w>
       <w>turku</w>
       <w>upvote</w>
+      <w>upvoted</w>
+      <w>upvoting</w>
       <w>votable</w>
       <w>wrongpass</w>
       <w>ytoc</w>

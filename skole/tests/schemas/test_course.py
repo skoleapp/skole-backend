@@ -1,7 +1,5 @@
 from typing import List, Optional, Sequence, cast
 
-from mypy.types import JsonDict
-
 from skole.models import Course, User, Vote
 from skole.tests.helpers import (
     SkoleSchemaTestCase,
@@ -9,9 +7,9 @@ from skole.tests.helpers import (
     get_graphql_error,
     is_iso_datetime,
 )
+from skole.types import ID, CourseOrderingOption, JsonDict
 from skole.utils.constants import GraphQLErrors, Messages, MutationErrors
 from skole.utils.shortcuts import get_obj_or_none
-from skole.utils.types import ID, CourseOrderingOption
 
 
 class CourseSchemaTests(SkoleSchemaTestCase):
@@ -145,8 +143,8 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         assert_error: bool = False,
     ) -> JsonDict:
         return self.execute_input_mutation(
+            name="createCourse",
             input_type="CreateCourseMutationInput!",
-            op_name="createCourse",
             input={"name": name, "code": code, "subjects": subjects, "school": school},
             result="course { ...courseFields }",
             fragment=self.course_fields,
@@ -155,8 +153,8 @@ class CourseSchemaTests(SkoleSchemaTestCase):
 
     def mutate_delete_course(self, *, id: ID, assert_error: bool = False) -> JsonDict:
         return self.execute_input_mutation(
+            name="deleteCourse",
             input_type="DeleteCourseMutationInput!",
-            op_name="deleteCourse",
             input={"id": id},
             result="message",
             assert_error=assert_error,
@@ -168,7 +166,7 @@ class CourseSchemaTests(SkoleSchemaTestCase):
 
     def test_create_course(self) -> None:
         res = self.mutate_create_course()
-        assert res["errors"] is None
+        assert not res["errors"]
         course = res["course"]
         assert course["id"] == "13"
         assert course["name"] == "test course"

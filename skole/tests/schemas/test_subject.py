@@ -1,9 +1,7 @@
 from typing import List, cast
 
-from mypy.types import JsonDict
-
 from skole.tests.helpers import SkoleSchemaTestCase
-from skole.utils.types import ID
+from skole.types import ID, JsonDict
 
 
 class SubjectSchemaTests(SkoleSchemaTestCase):

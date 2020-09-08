@@ -1,7 +1,6 @@
 from typing import Optional
 
 from django.contrib.auth import get_user_model
-from mypy.types import JsonDict
 
 from skole.tests.helpers import (
     FileData,
@@ -11,8 +10,8 @@ from skole.tests.helpers import (
     is_slug_match,
     open_as_file,
 )
+from skole.types import ID, JsonDict
 from skole.utils.constants import Messages, ValidationErrors
-from skole.utils.types import ID
 
 
 class UserSchemaTests(SkoleSchemaTestCase):
@@ -113,8 +112,8 @@ class UserSchemaTests(SkoleSchemaTestCase):
         code: str = "TEST",
     ) -> JsonDict:
         return self.execute_input_mutation(
+            name="register",
             input_type="RegisterMutationInput!",
-            op_name="register",
             input={
                 "username": username,
                 "email": email,
@@ -128,8 +127,8 @@ class UserSchemaTests(SkoleSchemaTestCase):
         self, *, username_or_email: str = "testuser2", password: str = "password"
     ) -> JsonDict:
         return self.execute_input_mutation(
+            name="login",
             input_type="LoginMutationInput!",
-            op_name="login",
             input={"usernameOrEmail": username_or_email, "password": password},
             result="user { ...userFields } message",
             fragment=self.user_fields,
@@ -148,8 +147,8 @@ class UserSchemaTests(SkoleSchemaTestCase):
         file_data: FileData = None,
     ) -> JsonDict:
         return self.execute_input_mutation(
+            name="updateUser",
             input_type="UpdateUserMutationInput!",
-            op_name="updateUser",
             input={
                 "username": username,
                 "email": email,
@@ -168,16 +167,16 @@ class UserSchemaTests(SkoleSchemaTestCase):
         self, *, old_password: str = "password", new_password: str = "newpassword"
     ) -> JsonDict:
         return self.execute_input_mutation(
+            name="changePassword",
             input_type="ChangePasswordMutationInput!",
-            op_name="changePassword",
             input={"oldPassword": old_password, "newPassword": new_password},
             result="message",
         )
 
     def mutate_delete_user(self, *, password: str = "password") -> JsonDict:
         return self.execute_input_mutation(
+            name="deleteUser",
             input_type="DeleteUserMutationInput!",
-            op_name="deleteUser",
             input={"password": password},
             result="message",
         )
@@ -190,7 +189,7 @@ class UserSchemaTests(SkoleSchemaTestCase):
         self.authenticated_user = None
 
         res = self.mutate_register()
-        assert res["errors"] is None
+        assert not res["errors"]
         assert res["message"] == Messages.USER_REGISTERED
 
     def test_register_error(self) -> None:
@@ -308,7 +307,7 @@ class UserSchemaTests(SkoleSchemaTestCase):
         # Fine to not change anything.
         user = self.query_user_me()
         res = self.mutate_update_user()
-        assert res["errors"] is None
+        assert not res["errors"]
         assert res["user"] == user
         assert res["message"] == Messages.USER_UPDATED
 
@@ -329,7 +328,7 @@ class UserSchemaTests(SkoleSchemaTestCase):
             subject=new_subject,
         )
 
-        assert res["errors"] is None
+        assert not res["errors"]
         assert res["user"]["username"] == new_username
         assert res["user"]["email"] == new_email
         assert res["user"]["title"] == new_title
@@ -378,7 +377,7 @@ class UserSchemaTests(SkoleSchemaTestCase):
         # Setting avatar to some random value shouldn't change it,
         # and it also shouldn't give any errors.
         res = self.mutate_update_user(avatar="badvalue")
-        assert res["errors"] is None
+        assert not res["errors"]
         assert is_slug_match(file_path, res["user"]["avatar"])
 
         # Delete the avatar.
@@ -391,7 +390,7 @@ class UserSchemaTests(SkoleSchemaTestCase):
     def test_delete_user_ok(self) -> None:
         # Delete the logged in testuser2.
         res = self.mutate_delete_user()
-        assert res["errors"] is None
+        assert not res["errors"]
         assert res["message"] == Messages.USER_DELETED
 
         # Test that the user cannot be found anymore.
@@ -408,7 +407,7 @@ class UserSchemaTests(SkoleSchemaTestCase):
     def test_change_password_ok(self) -> None:
         old_hash = get_user_model().objects.get(pk=2).password
         res = self.mutate_change_password()
-        assert res["errors"] is None
+        assert not res["errors"]
         assert res["message"] == Messages.PASSWORD_UPDATED
         new_hash = get_user_model().objects.get(pk=2).password
         assert old_hash != new_hash

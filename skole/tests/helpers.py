@@ -15,7 +15,8 @@ from django.test import TestCase
 from graphql_jwt.settings import jwt_settings
 from graphql_jwt.shortcuts import get_token
 from graphql_jwt.utils import delete_cookie
-from mypy.types import JsonDict
+
+from skole.types import JsonDict
 
 FileData = Optional[Sequence[Tuple[str, File]]]
 
@@ -118,7 +119,7 @@ class SkoleSchemaTestCase(TestCase):
                 Other kwargs are passed straight to self.query, see also its docstring.
 
         Returns:
-            The resulting JSON data.op_name section if `assert_error` is False.
+            The resulting JSON data.name section if `assert_error` is False.
             Otherwise returns both the "error" and "data" sections.
 
             Note: The return value is type hinted for simplicity to be a `JsonDict`,
@@ -153,8 +154,8 @@ class SkoleSchemaTestCase(TestCase):
     def execute_input_mutation(
         self,
         *,
+        name: str,
         input_type: str,
-        op_name: str,
         input: JsonDict,
         result: str,
         fragment: str = "",
@@ -165,7 +166,7 @@ class SkoleSchemaTestCase(TestCase):
 
         Args:
             input_type: Name of the GraphQL input type object.
-            op_name: Name of the mutation in the schema.
+            name: Name of the mutation in the schema.
             input: The arguments going into the input argument of the mutation.
             result: GraphQL snippet of the fields which want to be queried from the result.
             fragment: Extra GraphQL snippet which will be inserted before the mutation query.
@@ -178,14 +179,14 @@ class SkoleSchemaTestCase(TestCase):
                 Form mutation errors never have this.
 
         Returns:
-            The resulting JSON data.op_name section if `assert_error` is False.
+            The resulting JSON data.name section if `assert_error` is False.
             Otherwise returns both the "error" and "data" sections.
         """
         graphql = (
             fragment
             + f"""
             mutation ($input: {input_type}) {{
-                {op_name}(input: $input) {{
+                {name}(input: $input) {{
                     errors {{
                         field
                         messages
@@ -198,23 +199,17 @@ class SkoleSchemaTestCase(TestCase):
         return self.execute(
             graphql=graphql,
             input_data=input,
-            op_name=op_name,
             file_data=file_data,
             assert_error=assert_error,
         )
 
     def execute_non_input_mutation(
-        self,
-        *,
-        op_name: str,
-        result: str,
-        fragment: str = "",
-        assert_error: bool = False,
+        self, *, name: str, result: str, fragment: str = "", assert_error: bool = False,
     ) -> JsonDict:
         """Shortcut for running a mutation which takes no input as an argument.
 
         Args:
-            op_name: Name of the mutation in the schema.
+            name: Name of the mutation in the schema.
             result: GraphQL snippet of the fields which want to be queried from the result.
             fragment: Extra GraphQL snippet which will be inserted before the mutation query.
                 Useful for providing a GraphQL fragment which can then used in `result.`
@@ -222,7 +217,7 @@ class SkoleSchemaTestCase(TestCase):
                 Form mutation errors never have this.
 
         Returns:
-            The resulting JSON data.op_name section if `assert_error` is False.
+            The resulting JSON data.name section if `assert_error` is False.
             Otherwise returns both the "error" and "data" sections.
         """
 
@@ -230,7 +225,7 @@ class SkoleSchemaTestCase(TestCase):
             fragment
             + f"""
             mutation {{
-                {op_name} {{
+                {name} {{
                     errors {{
                         field
                         messages
@@ -240,7 +235,7 @@ class SkoleSchemaTestCase(TestCase):
             }}
             """
         )
-        return self.execute(graphql=graphql, op_name=op_name, assert_error=assert_error)
+        return self.execute(graphql=graphql, op_name=name, assert_error=assert_error)
 
     def assert_field_fragment_matches_schema(self, field_fragment: str, /) -> None:
         """Assert that the given fragment contains all the fields that are actually
@@ -348,8 +343,7 @@ def checksum(obj: Any) -> str:
 
 @contextmanager
 def open_as_file(path: Union[str, Path]) -> Generator[File, None, None]:
-    """Use as a contextmanager to open the file in the specified path as a Django
-    File."""
+    """Use as a contextmanager to open the file in the given path as a Django File."""
     if not isinstance(path, Path):
         path = Path(path)
 

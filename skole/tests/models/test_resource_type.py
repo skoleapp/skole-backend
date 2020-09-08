@@ -1,5 +1,5 @@
 from skole.models import ResourceType
-from skole.utils.types import Fixture
+from skole.types import Fixture
 
 
 def test_str(db: Fixture) -> None:

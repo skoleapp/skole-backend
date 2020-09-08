@@ -1,8 +1,7 @@
 from typing import List, cast
 
-from mypy.types import JsonDict
-
 from skole.tests.helpers import SkoleSchemaTestCase
+from skole.types import JsonDict
 
 
 class ResourceTypeSchemaTests(SkoleSchemaTestCase):

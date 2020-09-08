@@ -6,7 +6,7 @@ from django.conf import settings
 from django.core.management import call_command
 from pytest import fixture
 
-from skole.utils.types import Fixture
+from skole.types import Fixture
 
 
 def pytest_configure(config: Fixture) -> None:

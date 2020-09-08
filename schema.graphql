@@ -82,8 +82,8 @@ type CourseObjectType {
   user: UserObjectType
   modified: DateTime!
   created: DateTime!
-  resources: [ResourceObjectType!]!
   comments: [CommentObjectType!]!
+  resources: [ResourceObjectType!]!
   starred: Boolean
   score: Int
   vote: VoteObjectType
@@ -219,8 +219,8 @@ type MarkActivityReadMutationPayload {
 }
 
 type MarkAllActivitiesReadMutation {
+  activities: [ActivityObjectType]
   errors: [ErrorType]
-  activity: [ActivityObjectType]
 }
 
 type Mutation {

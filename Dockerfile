@@ -39,6 +39,7 @@ CMD { python manage.py graphql_schema --out=compare.graphql \
     && mypy . \
     && pytest --verbose --cov-report=html --cov=. . \
     && python manage.py compilemessages \
+    && python manage.py collectstatic --noinput \
     && python manage.py migrate \
     && python manage.py loaddata \
         initial-activity-types.yaml \

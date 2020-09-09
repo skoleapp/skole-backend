@@ -5,7 +5,7 @@ from graphql import ResolveInfo
 
 from skole.forms import CreateStarForm
 from skole.models import Starred
-from skole.schemas.mixins import SkoleMutationMixin
+from skole.schemas.mixins import SkoleCreateUpdateMutationMixin
 
 
 class StarredObjectType(DjangoObjectType):
@@ -13,7 +13,7 @@ class StarredObjectType(DjangoObjectType):
         model = Starred
 
 
-class StarredMutation(SkoleMutationMixin, DjangoModelFormMutation):
+class StarredMutation(SkoleCreateUpdateMutationMixin, DjangoModelFormMutation):
     verification_required = True
 
     starred = graphene.Boolean()

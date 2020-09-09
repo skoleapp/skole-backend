@@ -24,7 +24,7 @@ FileData = Optional[Sequence[Tuple[str, File]]]
 class SkoleSchemaTestCase(TestCase):
     """Base class for all schema tests.
 
-     Heavily inspired by `graphene_utils.testing.GraphQLTestCase`.
+    Heavily inspired by `graphene_utils.testing.GraphQLTestCase`.
 
     Attributes:
         authenticated_user: When set to an integer, a JWT token made for the

@@ -6,9 +6,9 @@ from graphql import ResolveInfo
 from skole.forms import CreateCommentForm, DeleteCommentForm, UpdateCommentForm
 from skole.models import Comment
 from skole.schemas.mixins import (
-    MessageMixin,
+    SkoleCreateUpdateMutationMixin,
     SkoleDeleteMutationMixin,
-    SkoleMutationMixin,
+    SuccessMessageMixin,
     VoteMixin,
 )
 from skole.utils.constants import Messages
@@ -35,18 +35,22 @@ class CommentObjectType(VoteMixin, DjangoObjectType):
         return self.attachment.url if self.attachment else ""
 
 
-class CreateCommentMutation(SkoleMutationMixin, MessageMixin, DjangoModelFormMutation):
+class CreateCommentMutation(
+    SkoleCreateUpdateMutationMixin, SuccessMessageMixin, DjangoModelFormMutation
+):
     verification_required = True
-    response_message = Messages.MESSAGE_SENT
+    success_message = Messages.MESSAGE_SENT
 
     class Meta:
         form_class = CreateCommentForm
         exclude_fields = ("id",)  # Without this, graphene adds the field on its own.
 
 
-class UpdateCommentMutation(SkoleMutationMixin, MessageMixin, DjangoModelFormMutation):
+class UpdateCommentMutation(
+    SkoleCreateUpdateMutationMixin, SuccessMessageMixin, DjangoModelFormMutation
+):
     verification_required = True
-    response_message = Messages.COMMENT_UPDATED
+    success_message = Messages.COMMENT_UPDATED
 
     comment = graphene.Field(CommentObjectType)
 
@@ -55,7 +59,7 @@ class UpdateCommentMutation(SkoleMutationMixin, MessageMixin, DjangoModelFormMut
 
 
 class DeleteCommentMutation(SkoleDeleteMutationMixin, DjangoModelFormMutation):
-    response_message = Messages.COMMENT_DELETED
+    success_message = Messages.COMMENT_DELETED
 
     class Meta(SkoleDeleteMutationMixin.Meta):
         form_class = DeleteCommentForm

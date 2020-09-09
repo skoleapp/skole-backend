@@ -9,11 +9,11 @@ from graphene_django.forms.mutation import DjangoFormMutation
 from graphql import ResolveInfo
 
 from skole.forms import ContactForm
-from skole.schemas.mixins import MessageMixin
+from skole.schemas.mixins import SuccessMessageMixin
 from skole.utils.constants import Messages, MutationErrors
 
 
-class ContactMutation(MessageMixin, DjangoFormMutation):
+class ContactMutation(SuccessMessageMixin, DjangoFormMutation):
     class Meta:
         form_class = ContactForm
 

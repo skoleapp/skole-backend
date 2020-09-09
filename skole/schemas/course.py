@@ -9,11 +9,11 @@ from graphql import GraphQLError, ResolveInfo
 from skole.forms import CreateCourseForm, DeleteCourseForm
 from skole.models import Course
 from skole.schemas.mixins import (
-    MessageMixin,
     PaginationMixin,
+    SkoleCreateUpdateMutationMixin,
     SkoleDeleteMutationMixin,
-    SkoleMutationMixin,
     StarredMixin,
+    SuccessMessageMixin,
     VoteMixin,
 )
 from skole.types import ID, CourseOrderingOption
@@ -44,7 +44,9 @@ class PaginatedCourseObjectType(PaginationMixin, graphene.ObjectType):
     objects = graphene.List(CourseObjectType)
 
 
-class CreateCourseMutation(SkoleMutationMixin, MessageMixin, DjangoModelFormMutation):
+class CreateCourseMutation(
+    SkoleCreateUpdateMutationMixin, SuccessMessageMixin, DjangoModelFormMutation
+):
     verification_required = True
 
     course = graphene.Field(CourseObjectType)
@@ -65,7 +67,7 @@ class CreateCourseMutation(SkoleMutationMixin, MessageMixin, DjangoModelFormMuta
 
 
 class DeleteCourseMutation(SkoleDeleteMutationMixin, DjangoModelFormMutation):
-    response_message = Messages.COURSE_DELETED
+    success_message = Messages.COURSE_DELETED
 
     class Meta(SkoleDeleteMutationMixin.Meta):
         form_class = DeleteCourseForm

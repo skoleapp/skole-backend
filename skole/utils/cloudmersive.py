@@ -12,8 +12,8 @@ def convert_to_pdf(file: File) -> File:
     path = Path(file.name)
 
     if path.suffix == ".pdf" or not settings.CLOUDMERSIVE_API_KEY:
-        # No need to make an API call if the file is already a pdf,
-        # the contents of this file will still validated so nothing
+        # No need to make an API call if the file is already a pdf.
+        # The contents of the file will still be validated so nothing
         # bad should be able to sneak through.
         #
         # Someone also might not want to bother setting the API key when developing,

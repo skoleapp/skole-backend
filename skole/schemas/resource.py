@@ -8,10 +8,10 @@ from graphql import ResolveInfo
 from skole.forms import CreateResourceForm, DeleteResourceForm, UpdateResourceForm
 from skole.models import Resource
 from skole.schemas.mixins import (
-    MessageMixin,
+    SkoleCreateUpdateMutationMixin,
     SkoleDeleteMutationMixin,
-    SkoleMutationMixin,
     StarredMixin,
+    SuccessMessageMixin,
     VoteMixin,
 )
 from skole.schemas.school import SchoolObjectType
@@ -48,25 +48,29 @@ class ResourceObjectType(VoteMixin, StarredMixin, DjangoObjectType):
         return self.course.school
 
 
-class CreateResourceMutation(SkoleMutationMixin, MessageMixin, DjangoModelFormMutation):
+class CreateResourceMutation(
+    SkoleCreateUpdateMutationMixin, SuccessMessageMixin, DjangoModelFormMutation
+):
     verification_required = True
-    response_message = Messages.RESOURCE_CREATED
+    success_message = Messages.RESOURCE_CREATED
 
     class Meta:
         form_class = CreateResourceForm
         exclude_fields = ("id",)
 
 
-class UpdateResourceMutation(SkoleMutationMixin, MessageMixin, DjangoModelFormMutation):
+class UpdateResourceMutation(
+    SkoleCreateUpdateMutationMixin, SuccessMessageMixin, DjangoModelFormMutation
+):
     verification_required = True
-    response_message = Messages.RESOURCE_UPDATED
+    success_message = Messages.RESOURCE_UPDATED
 
     class Meta:
         form_class = UpdateResourceForm
 
 
 class DeleteResourceMutation(SkoleDeleteMutationMixin, DjangoModelFormMutation):
-    response_message = Messages.RESOURCE_DELETED
+    success_message = Messages.RESOURCE_DELETED
 
     class Meta(SkoleDeleteMutationMixin.Meta):
         form_class = DeleteResourceForm

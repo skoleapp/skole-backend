@@ -14,15 +14,15 @@ if TYPE_CHECKING:  # pragma: no cover
     from skole.forms.base import SkoleUpdateModelForm
 
 
-class MessageMixin:
+class SuccessMessageMixin:
     """A mixin that provides a mutation a message field in the response.
 
     Attributes:
-        response_message: This has to be set to the string that the mutation
+        success_message: This has to be set to the string that the mutation
             should return in a successful response.
     """
 
-    response_message: str
+    success_message: str
 
     message = graphene.String()
 
@@ -37,7 +37,7 @@ class MessageMixin:
     ) -> DjangoModelFormMutation:
         # Ignore: Will be defined in subclasses.
         obj = super().perform_mutate(form, info)  # type: ignore[misc]
-        obj.message = cls.response_message
+        obj.message = cls.success_message
         return obj
 
 
@@ -94,11 +94,11 @@ class PaginationMixin:
     count = graphene.Int()
 
 
-T = TypeVar("T", bound="SkoleMutationMixin")
+T = TypeVar("T", bound="SkoleCreateUpdateMutationMixin")
 
 
-class SkoleMutationMixin:
-    """Base mixin for all mutations.
+class SkoleCreateUpdateMutationMixin:
+    """Base mixin for all create and update mutations.
 
     This cannot be a base class, because all graphene mutation classes require
     their subclasses to define a `form_class` in their `Meta`,
@@ -141,7 +141,7 @@ class SkoleMutationMixin:
         return super().mutate(root, info, **input)  # type: ignore[misc]
 
 
-class SkoleDeleteMutationMixin(MessageMixin, SkoleMutationMixin):
+class SkoleDeleteMutationMixin(SuccessMessageMixin, SkoleCreateUpdateMutationMixin):
     """Base mixin for all object deletion mutations.
 
     When subclassing from this it most likely makes sense to also subclass the Meta:
@@ -149,7 +149,7 @@ class SkoleDeleteMutationMixin(MessageMixin, SkoleMutationMixin):
             form_class = FooForm
 
     Attributes:
-        response_message: This has to be set to the string that the mutation
+        success_message: This has to be set to the string that the mutation
             should return in a successful response.
     """
 
@@ -162,6 +162,6 @@ class SkoleDeleteMutationMixin(MessageMixin, SkoleMutationMixin):
     @classmethod
     def perform_mutate(
         cls, form: "SkoleUpdateModelForm", info: ResolveInfo
-    ) -> SkoleMutationMixin:
+    ) -> SkoleCreateUpdateMutationMixin:
         form.instance.soft_delete()
         return super().perform_mutate(form, info)

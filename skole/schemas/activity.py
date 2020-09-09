@@ -8,7 +8,7 @@ from graphql import ResolveInfo
 
 from skole.forms import MarkActivityReadForm
 from skole.models import Activity
-from skole.schemas.mixins import SkoleMutationMixin
+from skole.schemas.mixins import SkoleCreateUpdateMutationMixin
 from skole.types import JsonDict
 
 
@@ -35,7 +35,7 @@ class ActivityObjectType(DjangoObjectType):
         return self.activity_type.description
 
 
-class MarkActivityReadMutation(SkoleMutationMixin, DjangoModelFormMutation):
+class MarkActivityReadMutation(SkoleCreateUpdateMutationMixin, DjangoModelFormMutation):
     """Mark a single activity read/unread and return the updated activity."""
 
     login_required = True
@@ -46,7 +46,7 @@ class MarkActivityReadMutation(SkoleMutationMixin, DjangoModelFormMutation):
         form_class = MarkActivityReadForm
 
 
-class MarkAllActivitiesReadMutation(SkoleMutationMixin, graphene.Mutation):
+class MarkAllActivitiesReadMutation(SkoleCreateUpdateMutationMixin, graphene.Mutation):
     """Mark all activities of the given user as read."""
 
     login_required = True

@@ -5,7 +5,7 @@ from graphql import ResolveInfo
 
 from skole.forms import CreateVoteForm
 from skole.models import Vote
-from skole.schemas.mixins import SkoleMutationMixin
+from skole.schemas.mixins import SkoleCreateUpdateMutationMixin
 
 
 class VoteObjectType(DjangoObjectType):
@@ -16,7 +16,7 @@ class VoteObjectType(DjangoObjectType):
         fields = ("id", "user", "status", "comment", "course", "resource")
 
 
-class VoteMutation(SkoleMutationMixin, DjangoModelFormMutation):
+class VoteMutation(SkoleCreateUpdateMutationMixin, DjangoModelFormMutation):
     verification_required = True
 
     target_score = graphene.Int()

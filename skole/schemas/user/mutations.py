@@ -23,7 +23,7 @@ from skole.forms import (
     UpdateUserForm,
 )
 from skole.models import User
-from skole.schemas.mixins import MessageMixin, SkoleMutationMixin
+from skole.schemas.mixins import SkoleCreateUpdateMutationMixin, SuccessMessageMixin
 from skole.types import JsonDict
 from skole.utils.constants import Messages, MutationErrors, TokenAction
 from skole.utils.exceptions import TokenScopeError, UserAlreadyVerified, UserNotVerified
@@ -32,7 +32,7 @@ from skole.utils.token import get_token_payload, revoke_user_refresh_tokens
 from .object_types import UserObjectType
 
 
-class RegisterMutation(MessageMixin, DjangoModelFormMutation):
+class RegisterMutation(SuccessMessageMixin, DjangoModelFormMutation):
     """Register new user.
 
     Check if there is an existing user with that email or username. Check that account
@@ -40,7 +40,7 @@ class RegisterMutation(MessageMixin, DjangoModelFormMutation):
     registration send account verification email.
     """
 
-    response_message = Messages.USER_REGISTERED
+    success_message = Messages.USER_REGISTERED
 
     class Meta:
         form_class = RegisterForm
@@ -64,7 +64,7 @@ class RegisterMutation(MessageMixin, DjangoModelFormMutation):
         return obj
 
 
-class VerifyAccountMutation(MessageMixin, DjangoFormMutation):
+class VerifyAccountMutation(SuccessMessageMixin, DjangoFormMutation):
     """Receive the token that was sent by email, if the token is valid, verify the
     user's account."""
 
@@ -91,7 +91,7 @@ class VerifyAccountMutation(MessageMixin, DjangoFormMutation):
             return cls(errors=MutationErrors.INVALID_TOKEN_VERIFY)
 
 
-class ResendVerificationEmailMutation(MessageMixin, DjangoFormMutation):
+class ResendVerificationEmailMutation(SuccessMessageMixin, DjangoFormMutation):
     """Sends verification email again.
 
     Return error if a user with the provided email is not found.
@@ -121,7 +121,7 @@ class ResendVerificationEmailMutation(MessageMixin, DjangoFormMutation):
             return cls(errors=MutationErrors.ALREADY_VERIFIED)
 
 
-class SendPasswordResetEmailMutation(MessageMixin, DjangoFormMutation):
+class SendPasswordResetEmailMutation(SuccessMessageMixin, DjangoFormMutation):
     """Send password reset email.
 
     For non verified users, send an verification email instead. Return error if a user
@@ -159,7 +159,7 @@ class SendPasswordResetEmailMutation(MessageMixin, DjangoFormMutation):
                 return cls(errors=MutationErrors.EMAIL_ERROR)
 
 
-class ResetPasswordMutation(MessageMixin, DjangoFormMutation):
+class ResetPasswordMutation(SuccessMessageMixin, DjangoFormMutation):
     """Change user's password without old password.
 
     Receive the token that was sent by email. Revoke refresh token and thus require the
@@ -201,7 +201,7 @@ class ResetPasswordMutation(MessageMixin, DjangoFormMutation):
             return cls(errors=MutationErrors.INVALID_TOKEN_RESET_PASSWORD)
 
 
-class LoginMutation(MessageMixin, DjangoModelFormMutation):
+class LoginMutation(SuccessMessageMixin, DjangoModelFormMutation):
     """Obtain JSON web token and user information.
 
     Not verified users can still login.
@@ -252,7 +252,9 @@ class LogoutMutation(DeleteJSONWebTokenCookie):
     """
 
 
-class ChangePasswordMutation(SkoleMutationMixin, MessageMixin, DjangoModelFormMutation):
+class ChangePasswordMutation(
+    SkoleCreateUpdateMutationMixin, SuccessMessageMixin, DjangoModelFormMutation
+):
     """Change account password when user knows the old password.
 
     User must be verified.
@@ -288,7 +290,9 @@ class ChangePasswordMutation(SkoleMutationMixin, MessageMixin, DjangoModelFormMu
         return cls(message=Messages.PASSWORD_UPDATED)
 
 
-class DeleteUserMutation(SkoleMutationMixin, MessageMixin, DjangoModelFormMutation):
+class DeleteUserMutation(
+    SkoleCreateUpdateMutationMixin, SuccessMessageMixin, DjangoModelFormMutation
+):
     """Delete account permanently.
 
     The user must confirm his password.
@@ -318,11 +322,13 @@ class DeleteUserMutation(SkoleMutationMixin, MessageMixin, DjangoModelFormMutati
         return cls(message=Messages.USER_DELETED)
 
 
-class UpdateUserMutation(SkoleMutationMixin, MessageMixin, DjangoModelFormMutation):
+class UpdateUserMutation(
+    SkoleCreateUpdateMutationMixin, SuccessMessageMixin, DjangoModelFormMutation
+):
     """Update some user model fields."""
 
     login_required = True
-    response_message = Messages.USER_UPDATED
+    success_message = Messages.USER_UPDATED
 
     user = graphene.Field(UserObjectType)
 

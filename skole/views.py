@@ -5,9 +5,8 @@ from django.core.files.uploadedfile import UploadedFile
 from django.http import HttpRequest, HttpResponse, QueryDict
 from django.utils.datastructures import MultiValueDict
 from graphene_django.views import GraphQLView
-from mypy.types import JsonDict
 
-from skole.utils.types import AnyJson
+from skole.types import AnyJson, JsonDict
 
 
 def health_check(request: HttpRequest) -> HttpResponse:
@@ -44,6 +43,8 @@ class SkoleGraphQLView(GraphQLView):
         files_map: Dict[str, List[str]],
         files: "MultiValueDict[str, UploadedFile]",
     ) -> AnyJson:
+        """Works with the way Apollo client places file uploads in the operations."""
+
         def place_file_in_ops(
             ops: AnyJson, path: List[str], file: UploadedFile
         ) -> Union[AnyJson, UploadedFile]:

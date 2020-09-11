@@ -1,57 +1,20 @@
-from typing import TYPE_CHECKING, Optional, Union
-
 from django.conf import settings
-from django.core.files.uploadedfile import UploadedFile
 from django.db import models
 from django.db.models import Sum, Value
 from django.db.models.functions import Coalesce
 from django.db.models.query import QuerySet
 
-from skole.models.base import SkoleManager, SkoleModel
-from skole.models.course import Course
-from skole.models.resource import Resource
-from skole.models.user import User
 from skole.utils.validators import ValidateFileSizeAndType
 
-if TYPE_CHECKING:  # pragma: no cover
-    # To avoid circular import.
-    from skole.utils.types import CommentableModel
+from .base import SkoleManager, SkoleModel
 
 
 class CommentManager(SkoleManager):
-    def create_comment(
-        self,
-        user: User,
-        text: str,
-        attachment: Optional[UploadedFile],
-        target: "CommentableModel",
-    ) -> "Comment":
-        if isinstance(target, Course):
-            comment = self.model(course=target)
-        elif isinstance(target, Resource):
-            comment = self.model(resource=target)
-        elif isinstance(target, Comment):
-            comment = self.model(comment=target)
-        else:
-            raise TypeError(f"Invalid target type for Comment: {type(target)}")
-
-        comment.user = user
-        comment.text = text
-        comment.attachment = attachment
-        comment.save()
-        return comment
-
-    def update_comment(
-        self, comment: "Comment", text: str, attachment: Union[UploadedFile, str],
-    ) -> "Comment":
-        comment.text = text
-        comment.attachment = attachment
-        comment.save()
-        return comment
-
     def get_queryset(self) -> "QuerySet[Comment]":
         qs = super().get_queryset()
-        return qs.annotate(score=Coalesce(Sum("votes__status"), Value(0)))
+        return qs.order_by(
+            "id"  # We always want to get comments in their creation order.
+        ).annotate(score=Coalesce(Sum("votes__status"), Value(0)))
 
 
 class Comment(SkoleModel):
@@ -91,7 +54,7 @@ class Comment(SkoleModel):
     )
 
     comment = models.ForeignKey(
-        "skole.Comment",
+        "self",
         on_delete=models.CASCADE,
         null=True,
         blank=True,

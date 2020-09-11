@@ -6,20 +6,20 @@ from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphql import GraphQLError, ResolveInfo
 
-from skole.forms.course import CreateCourseForm, DeleteCourseForm
+from skole.forms import CreateCourseForm, DeleteCourseForm
 from skole.models import Course
-from skole.utils.constants import GraphQLErrors, Messages
-from skole.utils.mixins import (
-    DeleteMutationMixin,
-    MessageMixin,
+from skole.schemas.mixins import (
     PaginationMixin,
+    SkoleCreateUpdateMutationMixin,
+    SkoleDeleteMutationMixin,
     StarredMixin,
-    VerificationRequiredMutationMixin,
+    SuccessMessageMixin,
     VoteMixin,
 )
+from skole.types import ID, CourseOrderingOption
+from skole.utils.constants import GraphQLErrors, Messages
 from skole.utils.pagination import get_paginator
 from skole.utils.shortcuts import get_obj_or_none
-from skole.utils.types import ID, CourseOrderingOption
 
 
 class CourseObjectType(VoteMixin, StarredMixin, DjangoObjectType):
@@ -32,10 +32,11 @@ class CourseObjectType(VoteMixin, StarredMixin, DjangoObjectType):
             "subjects",
             "school",
             "user",
-            "modified",
-            "created",
             "resources",
             "comments",
+            "score",
+            "modified",
+            "created",
         )
 
 
@@ -44,8 +45,10 @@ class PaginatedCourseObjectType(PaginationMixin, graphene.ObjectType):
 
 
 class CreateCourseMutation(
-    VerificationRequiredMutationMixin, MessageMixin, DjangoModelFormMutation
+    SkoleCreateUpdateMutationMixin, SuccessMessageMixin, DjangoModelFormMutation
 ):
+    verification_required = True
+
     course = graphene.Field(CourseObjectType)
 
     class Meta:
@@ -63,13 +66,11 @@ class CreateCourseMutation(
         return cls(course=course, message=Messages.COURSE_CREATED)
 
 
-class DeleteCourseMutation(DeleteMutationMixin, DjangoModelFormMutation):
-    class Meta(DeleteMutationMixin.Meta):
-        form_class = DeleteCourseForm
+class DeleteCourseMutation(SkoleDeleteMutationMixin, DjangoModelFormMutation):
+    success_message = Messages.COURSE_DELETED
 
-    @staticmethod
-    def get_success_message() -> str:
-        return Messages.COURSE_DELETED
+    class Meta(SkoleDeleteMutationMixin.Meta):
+        form_class = DeleteCourseForm
 
 
 class Query(graphene.ObjectType):
@@ -129,7 +130,7 @@ class Query(graphene.ObjectType):
         if ordering == "best":
             # No deep logic in this, should just be a formula that makes
             # the most sense for determining the most interesting courses.
-            # The ordering value should not be exposed to the frontend.
+            # The ordering formula/value should not be exposed to the frontend.
             qs = qs.order_by(
                 -(3 * F("score") + 2 * F("resource_count") + F("comment_count")), "name"
             )

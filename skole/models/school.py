@@ -2,8 +2,8 @@ from django.db import models
 from django.db.models import QuerySet
 from parler.models import TranslatedFields
 
-from skole.models.base import TranslatableSkoleModel
-from skole.models.subject import Subject
+from .base import TranslatableSkoleModel
+from .subject import Subject
 
 
 class School(TranslatableSkoleModel):

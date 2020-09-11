@@ -4,17 +4,16 @@ import requests
 from django import forms
 from django.conf import settings
 from django.core.files.base import ContentFile, File
-from django.core.files.uploadedfile import UploadedFile
 
 from skole.utils.constants import ValidationErrors
 
 
-def convert_to_pdf(file: UploadedFile) -> File:
+def convert_to_pdf(file: File) -> File:
     path = Path(file.name)
 
     if path.suffix == ".pdf" or not settings.CLOUDMERSIVE_API_KEY:
-        # No need to make an API call if the file is already a pdf,
-        # the contents of this file will still validated so nothing
+        # No need to make an API call if the file is already a pdf.
+        # The contents of the file will still be validated so nothing
         # bad should be able to sneak through.
         #
         # Someone also might not want to bother setting the API key when developing,
@@ -23,7 +22,9 @@ def convert_to_pdf(file: UploadedFile) -> File:
         # We also set the key to be None during tests to avoid calling the API.
         return file
 
-    assert "pytest" not in __import__("sys").modules, "Shouldn't be called from tests!"
+    assert "pytest" not in __import__("sys").modules or isinstance(
+        requests.post, __import__("unittest.mock").mock.MagicMock
+    ), "Shouldn't be called from tests without first mocking `requests.post`!"
 
     res = requests.post(
         url="https://api.cloudmersive.com/convert/autodetect/to/pdf",

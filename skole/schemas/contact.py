@@ -8,12 +8,12 @@ from django.utils.html import strip_tags
 from graphene_django.forms.mutation import DjangoFormMutation
 from graphql import ResolveInfo
 
-from skole.forms.contact import ContactForm
+from skole.forms import ContactForm
+from skole.schemas.mixins import SuccessMessageMixin
 from skole.utils.constants import Messages, MutationErrors
-from skole.utils.mixins import MessageMixin
 
 
-class ContactMutation(MessageMixin, DjangoFormMutation):
+class ContactMutation(SuccessMessageMixin, DjangoFormMutation):
     class Meta:
         form_class = ContactForm
 

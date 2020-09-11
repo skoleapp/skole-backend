@@ -1,9 +1,7 @@
-from typing import List
-
-from mypy.types import JsonDict
+from typing import List, cast
 
 from skole.tests.helpers import SkoleSchemaTestCase
-from skole.utils.types import ID
+from skole.types import ID, JsonDict
 
 
 class CitySchemaTests(SkoleSchemaTestCase):
@@ -28,7 +26,7 @@ class CitySchemaTests(SkoleSchemaTestCase):
             }
             """
         )
-        return self.execute(graphql)["cities"]
+        return cast(List[JsonDict], self.execute(graphql))
 
     def query_city(self, *, id: ID) -> JsonDict:
         variables = {"id": id}
@@ -44,7 +42,7 @@ class CitySchemaTests(SkoleSchemaTestCase):
             }
             """
         )
-        return self.execute(graphql, variables=variables)["city"]
+        return self.execute(graphql, variables=variables)
 
     def test_field_fragment(self) -> None:
         self.authenticated_user = None

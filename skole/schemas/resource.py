@@ -5,24 +5,19 @@ from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphql import ResolveInfo
 
-from skole.forms.resource import (
-    CreateResourceForm,
-    DeleteResourceForm,
-    UpdateResourceForm,
-)
+from skole.forms import CreateResourceForm, DeleteResourceForm, UpdateResourceForm
 from skole.models import Resource
-from skole.schemas.school import SchoolObjectType
-from skole.utils.constants import Messages, MutationErrors
-from skole.utils.mixins import (
-    DeleteMutationMixin,
-    FileMutationMixin,
-    MessageMixin,
+from skole.schemas.mixins import (
+    SkoleCreateUpdateMutationMixin,
+    SkoleDeleteMutationMixin,
     StarredMixin,
-    VerificationRequiredMutationMixin,
+    SuccessMessageMixin,
     VoteMixin,
 )
+from skole.schemas.school import SchoolObjectType
+from skole.types import ID
+from skole.utils.constants import Messages
 from skole.utils.shortcuts import get_obj_or_none
-from skole.utils.types import ID
 
 
 class ResourceObjectType(VoteMixin, StarredMixin, DjangoObjectType):
@@ -54,59 +49,31 @@ class ResourceObjectType(VoteMixin, StarredMixin, DjangoObjectType):
 
 
 class CreateResourceMutation(
-    VerificationRequiredMutationMixin,
-    FileMutationMixin,
-    MessageMixin,
-    DjangoModelFormMutation,
+    SkoleCreateUpdateMutationMixin, SuccessMessageMixin, DjangoModelFormMutation
 ):
+    verification_required = True
+    success_message = Messages.RESOURCE_CREATED
+
     class Meta:
         form_class = CreateResourceForm
         exclude_fields = ("id",)
 
-    @classmethod
-    def perform_mutate(
-        cls, form: CreateResourceForm, info: ResolveInfo
-    ) -> "CreateResourceMutation":
-        assert info.context is not None
-        resource = Resource.objects.create_resource(
-            **form.cleaned_data,
-            # Ignore: Mypy somehow thinks that the user was already in the cleaned_data,
-            #   and would thus also be a duplicate keyword argument.
-            user=info.context.user,  # type: ignore[misc]
-        )
-        return cls(resource=resource, message=Messages.RESOURCE_CREATED)
-
 
 class UpdateResourceMutation(
-    VerificationRequiredMutationMixin,
-    FileMutationMixin,
-    MessageMixin,
-    DjangoModelFormMutation,
+    SkoleCreateUpdateMutationMixin, SuccessMessageMixin, DjangoModelFormMutation
 ):
+    verification_required = True
+    success_message = Messages.RESOURCE_UPDATED
+
     class Meta:
         form_class = UpdateResourceForm
 
-    @classmethod
-    def perform_mutate(
-        cls, form: UpdateResourceForm, info: ResolveInfo
-    ) -> "UpdateResourceMutation":
-        assert info.context is not None
-        resource = form.instance
 
-        if resource.user != info.context.user:
-            return cls(errors=MutationErrors.NOT_OWNER)
+class DeleteResourceMutation(SkoleDeleteMutationMixin, DjangoModelFormMutation):
+    success_message = Messages.RESOURCE_DELETED
 
-        Resource.objects.update_resource(resource, **form.cleaned_data)
-        return cls(resource=resource, message=Messages.RESOURCE_UPDATED)
-
-
-class DeleteResourceMutation(DeleteMutationMixin, DjangoModelFormMutation):
-    class Meta(DeleteMutationMixin.Meta):
+    class Meta(SkoleDeleteMutationMixin.Meta):
         form_class = DeleteResourceForm
-
-    @staticmethod
-    def get_success_message() -> str:
-        return Messages.RESOURCE_DELETED
 
 
 class Query(graphene.ObjectType):

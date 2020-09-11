@@ -2,7 +2,6 @@
 import importlib
 
 import graphql.execution.utils
-from graphene_django.utils import GraphQLTestCase
 from graphene_django.views import GraphQLView
 
 from skole.tests.helpers import checksum
@@ -27,7 +26,3 @@ def test_report_error_code_has_not_changed() -> None:
 
 def test_graphql_view_code_has_not_changed() -> None:
     assert checksum(GraphQLView.parse_body) == "b6d13668aa8a9c22e9a2"
-
-
-def test_graphql_test_case_code_has_not_changed() -> None:
-    assert checksum(GraphQLTestCase) == "6e3548dd471f0a213673"

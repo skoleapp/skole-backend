@@ -1,9 +1,8 @@
 from typing import Optional
 
-from mypy.types import JsonDict
-
 from skole.models import Activity, ActivityType, Comment, Course, Resource, User
 from skole.tests.helpers import SkoleSchemaTestCase
+from skole.types import JsonDict
 
 
 class ActivitySchemaTests(SkoleSchemaTestCase):
@@ -34,8 +33,8 @@ class ActivitySchemaTests(SkoleSchemaTestCase):
 
     def mutate_mark_activity_read(self, id: str, read: bool) -> JsonDict:
         return self.execute_input_mutation(
+            name="markActivityRead",
             input_type="MarkActivityReadMutationInput!",
-            op_name="markActivityRead",
             input={"id": id, "read": read},
             result="activity { ...activityFields }",
             fragment=self.activity_fields,
@@ -43,8 +42,8 @@ class ActivitySchemaTests(SkoleSchemaTestCase):
 
     def mutate_mark_all_activities_read(self) -> JsonDict:
         return self.execute_non_input_mutation(
-            op_name="markAllActivitiesRead",
-            result="activity { ...activityFields }",
+            name="markAllActivitiesRead",
+            result="activities { ...activityFields }",
             fragment=self.activity_fields,
         )
 
@@ -109,19 +108,19 @@ class ActivitySchemaTests(SkoleSchemaTestCase):
 
         res = self.mutate_mark_all_activities_read()
 
-        assert res["activity"][0]["id"] == str(test_activity1.pk)
-        assert res["activity"][0]["description"] == activity_type1.description
-        assert res["activity"][0]["read"]
-        assert res["activity"][0]["course"] is None
-        assert res["activity"][0]["resource"]["id"] == str(resource1.pk)
-        assert res["activity"][0]["comment"]["id"] == str(comment1.pk)
+        assert res["activities"][0]["id"] == str(test_activity1.pk)
+        assert res["activities"][0]["description"] == activity_type1.description
+        assert res["activities"][0]["read"]
+        assert res["activities"][0]["course"] is None
+        assert res["activities"][0]["resource"]["id"] == str(resource1.pk)
+        assert res["activities"][0]["comment"]["id"] == str(comment1.pk)
 
-        assert res["activity"][1]["id"] == str(test_activity2.pk)
-        assert res["activity"][1]["description"] == activity_type2.description
-        assert res["activity"][1]["read"]
-        assert res["activity"][1]["course"] is None
-        assert res["activity"][1]["resource"]["id"] == str(resource2.pk)
-        assert res["activity"][1]["comment"]["id"] == str(comment2.pk)
+        assert res["activities"][1]["id"] == str(test_activity2.pk)
+        assert res["activities"][1]["description"] == activity_type2.description
+        assert res["activities"][1]["read"]
+        assert res["activities"][1]["course"] is None
+        assert res["activities"][1]["resource"]["id"] == str(resource2.pk)
+        assert res["activities"][1]["comment"]["id"] == str(comment2.pk)
 
         test_activity1.delete()
         test_activity2.delete()

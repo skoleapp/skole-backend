@@ -4,21 +4,22 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.db import models
 
-from skole.models.base import SkoleManager, SkoleModel
-from skole.models.comment import Comment
-from skole.models.course import Course
-from skole.models.resource import Resource
-from skole.models.user import User
+from skole.types import VotableModel
 from skole.utils.constants import VoteConstants
 from skole.utils.shortcuts import full_refresh_from_db
-from skole.utils.types import VotableModel
+
+from .base import SkoleManager, SkoleModel
+from .comment import Comment
+from .course import Course
+from .resource import Resource
+from .user import User
 
 
 class VoteManager(SkoleManager):
     def perform_vote(
         self, user: User, status: Literal[1, -1], target: VotableModel
     ) -> Tuple[Optional["Vote"], int]:
-        """Automatically create a new vote or delete one if it already exists."""
+        """Create a new vote to the target or delete it if it already exists."""
 
         if isinstance(target, Comment):
             multiplier = VoteConstants.SCORE_COMMENT_MULTIPLIER
@@ -51,11 +52,14 @@ class VoteManager(SkoleManager):
             vote = user.votes.get(**target)
             if vote.status == status:
                 vote.delete()
+                # Already had an upvote, and re-upvoted it -> clear the vote.
                 return None
             else:
+                # Had a previous downvote, and are now upvoting it -> change the status.
                 vote.status = status
                 vote.save()
         except Vote.DoesNotExist:
+            # No previous vote -> create one.
             vote = self.model(**target)
             vote.user = user
             vote.status = status

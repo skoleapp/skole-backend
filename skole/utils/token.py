@@ -3,8 +3,8 @@ from typing import TYPE_CHECKING, Any, Union
 
 from django.core import signing
 from graphql_jwt.exceptions import JSONWebTokenError
-from mypy.types import JsonDict
 
+from skole.types import JsonDict
 from skole.utils.exceptions import TokenScopeError
 
 if TYPE_CHECKING:  # pragma: no cover

@@ -1,7 +1,7 @@
 from django.core.validators import MinValueValidator
 from django.db import models
 
-from skole.models.base import SkoleModel
+from .base import SkoleModel
 
 
 class BetaCode(SkoleModel):
@@ -15,7 +15,7 @@ class BetaCode(SkoleModel):
         self.usages -= 1
 
         if self.usages == 0:
-            self.delete()
+            self.soft_delete()
         else:
             self.save()
 

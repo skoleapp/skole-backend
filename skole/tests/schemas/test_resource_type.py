@@ -1,8 +1,7 @@
-from typing import List
-
-from mypy.types import JsonDict
+from typing import List, cast
 
 from skole.tests.helpers import SkoleSchemaTestCase
+from skole.types import JsonDict
 
 
 class ResourceTypeSchemaTests(SkoleSchemaTestCase):
@@ -27,7 +26,7 @@ class ResourceTypeSchemaTests(SkoleSchemaTestCase):
             }
             """
         )
-        return self.execute(graphql)["resourceTypes"]
+        return cast(List[JsonDict], self.execute(graphql))
 
     def test_field_fragment(self) -> None:
         self.authenticated_user = None

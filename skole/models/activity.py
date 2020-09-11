@@ -2,26 +2,15 @@ from django.conf import settings
 from django.db import models
 from django.db.models import QuerySet
 
-from skole.models.base import SkoleManager, SkoleModel
-from skole.models.user import User
+from .base import SkoleManager, SkoleModel
+from .user import User
 
 
 class ActivityManager(SkoleManager):
-    # Change read status for a single activity.
-    @staticmethod
-    def mark_read(activity: "Activity", read: bool) -> "Activity":
-        activity.read = read
-        activity.save()
-        return activity
-
-    # Mark all activities as read for a user.
     def mark_all_as_read(self, user: User) -> "QuerySet[Activity]":
+        """Mark all activities as read for a user."""
         qs = self.filter(user=user)
-
-        for item in qs:
-            item.read = True
-            item.save()
-
+        qs.update(read=True)
         return qs
 
 

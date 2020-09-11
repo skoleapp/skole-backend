@@ -3,17 +3,16 @@ from typing import Optional, Union
 from django.conf import settings
 from django.db import models
 
-from skole.models.base import SkoleManager, SkoleModel
-from skole.models.course import Course
-from skole.models.resource import Resource
-from skole.models.user import User
+from ..types import StarrableModel
+from .base import SkoleManager, SkoleModel
+from .course import Course
+from .resource import Resource
+from .user import User
 
 
 class StarredManager(SkoleManager):
-    def perform_star(
-        self, user: User, target: Union[Course, Resource]
-    ) -> Optional["Starred"]:
-        """Automatically create a new star or delete one if it already exists."""
+    def perform_star(self, user: User, target: StarrableModel) -> Optional["Starred"]:
+        """Create a new star to the target or delete it if it already exists."""
 
         if isinstance(target, Course):
             starred = self.check_existing_starred(user, course=target)

@@ -2,7 +2,7 @@ import pytest
 from django.contrib.auth import get_user_model
 
 from skole.models import Course, Resource, Starred
-from skole.utils.types import Fixture
+from skole.types import Fixture
 
 
 def test_str(db: Fixture) -> None:
@@ -17,7 +17,7 @@ def test_str(db: Fixture) -> None:
     assert str(starred2) == "testuser2 - Sample exam 1"
 
 
-def test_manager_create_ok(db: Fixture) -> None:
+def test_manager_perform_star_ok(db: Fixture) -> None:
     user = get_user_model().objects.get(pk=2)
     course = Course.objects.get(pk=1)
     resource = Resource.objects.get(pk=1)
@@ -31,7 +31,7 @@ def test_manager_create_ok(db: Fixture) -> None:
     assert starred2.resource == resource
 
 
-def test_manager_create_existing(db: Fixture) -> None:
+def test_manager_perform_star_existing(db: Fixture) -> None:
     user = get_user_model().objects.get(pk=2)
     course = Course.objects.get(pk=1)
     resource = Resource.objects.get(pk=1)
@@ -49,7 +49,7 @@ def test_manager_create_existing(db: Fixture) -> None:
     assert starred2 is None
 
 
-def test_manager_create_bad_target(db: Fixture) -> None:
+def test_manager_perform_star_bad_target(db: Fixture) -> None:
     user = get_user_model().objects.get(pk=2)
     bad_target = user
     with pytest.raises(TypeError):

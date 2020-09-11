@@ -1,13 +1,14 @@
 """This module contains all the custom type aliases that are used in the app."""
-from typing import Any, List, Literal, Union
+from typing import TYPE_CHECKING, Any, Dict, List, Literal, Union
 
-from mypy.types import JsonDict
+if TYPE_CHECKING:  # pragma: no cover
+    # To avoid circular import.
+    from skole.models import Comment, Course, Resource, User  # noqa
 
-from skole.models import Comment, Course, Resource, User
-
-CommentableModel = Union[Comment, Course, Resource]
-PaginableModel = Union[Course, Resource, User]
-VotableModel = Union[Comment, Course, Resource]
+CommentableModel = Union["Comment", "Course", "Resource"]
+PaginableModel = Union["Course", "Resource", "User"]
+VotableModel = Union["Comment", "Course", "Resource"]
+StarrableModel = Union["Course", "Resource"]
 
 CourseOrderingOption = Literal["best", "score", "name", "-name"]
 
@@ -38,6 +39,13 @@ Fixture = Any
 Fixtures are just functions that are decorated with @pytest.fixture.
 Using this as the type of a parameter makes its purpose immediately clear.
 
+"""
+
+JsonDict = Dict[str, Any]
+"""A type representing a JSON object like dictionary.
+
+Exactly the same as `mypy.types.JsonDict`, just defined here, to avoid having mypy
+as a production dependency.
 """
 
 AnyJson = Union[JsonDict, List[JsonDict]]

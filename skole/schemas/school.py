@@ -10,8 +10,8 @@ from skole.schemas.city import CityObjectType
 from skole.schemas.country import CountryObjectType
 from skole.schemas.school_type import SchoolTypeObjectType
 from skole.schemas.subject import SubjectObjectType
+from skole.types import ID
 from skole.utils.shortcuts import get_obj_or_none
-from skole.utils.types import ID
 
 
 class SchoolObjectType(DjangoObjectType):

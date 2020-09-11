@@ -1,8 +1,5 @@
 from typing import Optional
 
-from django.core.files.uploadedfile import UploadedFile
-from mypy.types import JsonDict
-
 from skole.models import Comment, Course, Resource
 from skole.tests.helpers import (
     FileData,
@@ -10,9 +7,10 @@ from skole.tests.helpers import (
     get_form_error,
     get_graphql_error,
     is_slug_match,
+    open_as_file,
 )
+from skole.types import ID, JsonDict
 from skole.utils.constants import Messages, ValidationErrors
-from skole.utils.types import ID
 
 
 class CommentSchemaTests(SkoleSchemaTestCase):
@@ -60,8 +58,8 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         file_data: FileData = None,
     ) -> JsonDict:
         return self.execute_input_mutation(
+            name="createComment",
             input_type="CreateCommentMutationInput!",
-            op_name="createComment",
             input={
                 "text": text,
                 "attachment": attachment,
@@ -83,8 +81,8 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         file_data: FileData = None,
     ) -> JsonDict:
         return self.execute_input_mutation(
+            name="updateComment",
             input_type="UpdateCommentMutationInput!",
-            op_name="updateComment",
             input={"id": id, "text": text, "attachment": attachment},
             result="comment { ...commentFields }",
             fragment=self.comment_fields,
@@ -93,8 +91,8 @@ class CommentSchemaTests(SkoleSchemaTestCase):
 
     def mutate_delete_comment(self, *, id: ID, assert_error: bool = False) -> JsonDict:
         return self.execute_input_mutation(
+            name="deleteComment",
             input_type="DeleteCommentMutationInput!",
-            op_name="deleteComment",
             input={"id": id},
             result="message",
             assert_error=assert_error,
@@ -110,7 +108,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         text = "Some text for the comment."
         res = self.mutate_create_comment(text=text, comment=2)
         comment = res["comment"]
-        assert res["errors"] is None
+        assert not res["errors"]
         assert comment["text"] == text
         assert Comment.objects.count() == old_count + 1
         assert Comment.objects.get(pk=2).reply_comments.count() == 1
@@ -120,6 +118,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         # Create a comment to a resource.
         res = self.mutate_create_comment(text=text, resource=2)
         comment = res["comment"]
+        assert not res["errors"]
         assert comment["text"] == text
         assert Comment.objects.count() == old_count + 2
         assert Resource.objects.get(pk=2).comments.count() == 1
@@ -129,6 +128,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         # Create a comment to a course.
         res = self.mutate_create_comment(text=text, course=2)
         comment = res["comment"]
+        assert not res["errors"]
         assert comment["text"] == text
         assert Comment.objects.count() == old_count + 3
         assert Course.objects.get(pk=2).comments.count() == 1
@@ -152,15 +152,14 @@ class CommentSchemaTests(SkoleSchemaTestCase):
     def test_update_comment(self) -> None:
         file_path = "media/uploads/attachments/test_attachment.png"
         new_text = "some new text"
-        with open(file_path, "rb") as f:
-            attachment = UploadedFile(f)
+        with open_as_file(file_path) as attachment:
             res = self.mutate_update_comment(
                 id=4,
                 text=new_text,
                 attachment="",
                 file_data=[("attachment", attachment)],
             )
-        assert is_slug_match("/" + file_path, res["comment"]["attachment"])
+        assert is_slug_match(file_path, res["comment"]["attachment"])
         assert res["comment"]["text"] == new_text
         assert res["comment"]["course"]["id"] == "1"
         assert res["comment"]["resource"] is None

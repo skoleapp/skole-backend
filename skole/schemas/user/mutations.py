@@ -1,21 +1,18 @@
 from smtplib import SMTPException
-from typing import Any, Optional
+from typing import Any
 
 import graphene
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.signing import BadSignature, SignatureExpired
-from django.db.models import QuerySet
-from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoFormMutation, DjangoModelFormMutation
 from graphene_django.types import ErrorType
 from graphql import ResolveInfo
 from graphql_jwt import DeleteJSONWebTokenCookie
-from graphql_jwt.decorators import login_required, token_auth
-from mypy.types import JsonDict
+from graphql_jwt.decorators import token_auth
 
-from skole.forms.user import (
+from skole.forms import (
     ChangePasswordForm,
     DeleteUserForm,
     EmailForm,
@@ -25,133 +22,25 @@ from skole.forms.user import (
     TokenForm,
     UpdateUserForm,
 )
-from skole.models import Activity, Badge, Course, Resource, School, Subject, User
-from skole.schemas.activity import ActivityObjectType
-from skole.schemas.badge import BadgeObjectType
-from skole.schemas.course import CourseObjectType
-from skole.schemas.resource import ResourceObjectType
-from skole.schemas.school import SchoolObjectType
-from skole.schemas.subject import SubjectObjectType
+from skole.models import User
+from skole.schemas.mixins import SkoleCreateUpdateMutationMixin, SuccessMessageMixin
+from skole.types import JsonDict
 from skole.utils.constants import Messages, MutationErrors, TokenAction
 from skole.utils.exceptions import TokenScopeError, UserAlreadyVerified, UserNotVerified
-from skole.utils.mixins import (
-    FileMutationMixin,
-    LoginRequiredMutationMixin,
-    MessageMixin,
-    VerificationRequiredMutationMixin,
-)
 from skole.utils.token import get_token_payload, revoke_user_refresh_tokens
-from skole.utils.types import ID
+
+from .object_types import UserObjectType
 
 
-class UserObjectType(DjangoObjectType):
-    email = graphene.String()
-    score = graphene.Int()
-    avatar = graphene.String()
-    avatar_thumbnail = graphene.String()
-    verified = graphene.Boolean()
-    school = graphene.Field(SchoolObjectType)
-    subject = graphene.Field(SubjectObjectType)
-    rank = graphene.String()
-    badges = graphene.List(BadgeObjectType)
-    starred_courses = graphene.List(CourseObjectType)
-    starred_resources = graphene.List(ResourceObjectType)
-    activity = graphene.List(ActivityObjectType)
-
-    class Meta:
-        model = get_user_model()
-        fields = (
-            "id",
-            "username",
-            "email",
-            "score",
-            "title",
-            "bio",
-            "avatar",
-            "avatar_thumbnail",
-            "created",
-            "verified",
-            "starred_courses",
-            "starred_resources",
-            "created_courses",
-            "created_resources",
-            "activity",
-        )
-
-    # Only return email if user is querying his own profile.
-    def resolve_email(self, info: ResolveInfo) -> str:
-        assert info.context is not None
-        user = info.context.user
-
-        if not user.is_anonymous and user.email == self.email:
-            return self.email
-        else:
-            return ""
-
-    def resolve_avatar(self, info: ResolveInfo) -> str:
-        return self.avatar.url if self.avatar else ""
-
-    def resolve_avatar_thumbnail(self, info: ResolveInfo) -> str:
-        return self.avatar_thumbnail.url if self.avatar_thumbnail else ""
-
-    # Only return verification status if user is querying his own profile.
-    def resolve_verified(self, info: ResolveInfo) -> Optional[bool]:
-        assert info.context is not None
-
-        if self.pk == info.context.user.pk:
-            return info.context.user.verified
-        else:
-            return None
-
-    # Only return school if user is querying his own profile.
-    def resolve_school(self, info: ResolveInfo) -> Optional["School"]:
-        assert info.context is not None
-        return self.school if self.pk == info.context.user.pk else None
-
-    # Only return subject if user is querying his own profile.
-    def resolve_subject(self, info: ResolveInfo) -> Optional["Subject"]:
-        assert info.context is not None
-        return self.subject if self.pk == info.context.user.pk else None
-
-    # Only return starred courses if user is querying his own profile.
-    def resolve_starred_courses(
-        self, info: ResolveInfo
-    ) -> Optional["QuerySet[Course]"]:
-        assert info.context is not None
-        if self.pk == info.context.user.pk:
-            return Course.objects.filter(stars__user__pk=self.pk)
-        else:
-            return None
-
-    # Only return starred resources if user is querying his own profile.
-    def resolve_starred_resources(
-        self, info: ResolveInfo
-    ) -> Optional["QuerySet[Resource]"]:
-        assert info.context is not None
-        if self.pk == info.context.user.pk:
-            return Resource.objects.filter(stars__user__pk=self.pk)
-        else:
-            return None
-
-    def resolve_badges(self, info: ResolveInfo) -> "QuerySet[Badge]":
-        return self.badges.all()
-
-    # Only return activity if user is querying his own profile.
-    def resolve_activity(self, info: ResolveInfo) -> Optional["QuerySet[Activity]"]:
-        assert info.context is not None
-        if self.pk == info.context.user.pk:
-            return self.activity.all()
-        else:
-            return None
-
-
-class RegisterMutation(MessageMixin, DjangoModelFormMutation):
+class RegisterMutation(SuccessMessageMixin, DjangoModelFormMutation):
     """Register new user.
 
     Check if there is an existing user with that email or username. Check that account
     is not deactivated. By default set the user a unverified. After successful
     registration send account verification email.
     """
+
+    success_message = Messages.USER_REGISTERED
 
     class Meta:
         form_class = RegisterForm
@@ -162,24 +51,20 @@ class RegisterMutation(MessageMixin, DjangoModelFormMutation):
     def perform_mutate(
         cls, form: RegisterForm, info: ResolveInfo
     ) -> "RegisterMutation":
-        user = get_user_model().objects.create_user(
-            username=form.cleaned_data["username"],
-            email=form.cleaned_data["email"],
-            password=form.cleaned_data["password"],
-        )
+        obj = super().perform_mutate(form, info)
 
         code = form.cleaned_data["code"]
         code.decrement_usages()
 
         try:
-            user.send_verification_email(info)
+            form.instance.send_verification_email(info)
         except SMTPException:
             return cls(errors=MutationErrors.REGISTER_EMAIL_ERROR)
 
-        return cls(message=Messages.USER_REGISTERED)
+        return obj
 
 
-class VerifyAccountMutation(MessageMixin, DjangoFormMutation):
+class VerifyAccountMutation(SuccessMessageMixin, DjangoFormMutation):
     """Receive the token that was sent by email, if the token is valid, verify the
     user's account."""
 
@@ -206,7 +91,7 @@ class VerifyAccountMutation(MessageMixin, DjangoFormMutation):
             return cls(errors=MutationErrors.INVALID_TOKEN_VERIFY)
 
 
-class ResendVerificationEmailMutation(MessageMixin, DjangoFormMutation):
+class ResendVerificationEmailMutation(SuccessMessageMixin, DjangoFormMutation):
     """Sends verification email again.
 
     Return error if a user with the provided email is not found.
@@ -236,7 +121,7 @@ class ResendVerificationEmailMutation(MessageMixin, DjangoFormMutation):
             return cls(errors=MutationErrors.ALREADY_VERIFIED)
 
 
-class SendPasswordResetEmailMutation(MessageMixin, DjangoFormMutation):
+class SendPasswordResetEmailMutation(SuccessMessageMixin, DjangoFormMutation):
     """Send password reset email.
 
     For non verified users, send an verification email instead. Return error if a user
@@ -274,7 +159,7 @@ class SendPasswordResetEmailMutation(MessageMixin, DjangoFormMutation):
                 return cls(errors=MutationErrors.EMAIL_ERROR)
 
 
-class ResetPasswordMutation(MessageMixin, DjangoFormMutation):
+class ResetPasswordMutation(SuccessMessageMixin, DjangoFormMutation):
     """Change user's password without old password.
 
     Receive the token that was sent by email. Revoke refresh token and thus require the
@@ -316,7 +201,7 @@ class ResetPasswordMutation(MessageMixin, DjangoFormMutation):
             return cls(errors=MutationErrors.INVALID_TOKEN_RESET_PASSWORD)
 
 
-class LoginMutation(MessageMixin, DjangoModelFormMutation):
+class LoginMutation(SuccessMessageMixin, DjangoModelFormMutation):
     """Obtain JSON web token and user information.
 
     Not verified users can still login.
@@ -368,12 +253,14 @@ class LogoutMutation(DeleteJSONWebTokenCookie):
 
 
 class ChangePasswordMutation(
-    VerificationRequiredMutationMixin, MessageMixin, DjangoModelFormMutation
+    SkoleCreateUpdateMutationMixin, SuccessMessageMixin, DjangoModelFormMutation
 ):
     """Change account password when user knows the old password.
 
     User must be verified.
     """
+
+    verification_required = True
 
     class Meta:
         form_class = ChangePasswordForm
@@ -384,8 +271,10 @@ class ChangePasswordMutation(
     def get_form_kwargs(
         cls, root: Any, info: ResolveInfo, **input: JsonDict
     ) -> JsonDict:
+        kwargs = super().get_form_kwargs(root, info, **input)
         assert info.context is not None
-        return {"data": input, "instance": info.context.user}
+        kwargs["instance"] = info.context.user
+        return kwargs
 
     @classmethod
     def perform_mutate(
@@ -402,12 +291,14 @@ class ChangePasswordMutation(
 
 
 class DeleteUserMutation(
-    LoginRequiredMutationMixin, MessageMixin, DjangoModelFormMutation
+    SkoleCreateUpdateMutationMixin, SuccessMessageMixin, DjangoModelFormMutation
 ):
     """Delete account permanently.
 
     The user must confirm his password.
     """
+
+    login_required = True
 
     class Meta:
         form_class = DeleteUserForm
@@ -432,9 +323,12 @@ class DeleteUserMutation(
 
 
 class UpdateUserMutation(
-    LoginRequiredMutationMixin, FileMutationMixin, MessageMixin, DjangoModelFormMutation
+    SkoleCreateUpdateMutationMixin, SuccessMessageMixin, DjangoModelFormMutation
 ):
     """Update some user model fields."""
+
+    login_required = True
+    success_message = Messages.USER_UPDATED
 
     user = graphene.Field(UserObjectType)
 
@@ -450,31 +344,6 @@ class UpdateUserMutation(
         form_kwargs = super().get_form_kwargs(root, info, **input)
         form_kwargs["instance"] = info.context.user
         return form_kwargs
-
-    @classmethod
-    def perform_mutate(
-        cls, form: UpdateUserForm, info: ResolveInfo
-    ) -> "UpdateUserMutation":
-        assert info.context is not None
-        user = info.context.user
-        get_user_model().objects.update_user(user, **form.cleaned_data)
-        return cls(user=user, message=Messages.USER_UPDATED)
-
-
-class Query(graphene.ObjectType):
-    user = graphene.Field(UserObjectType, id=graphene.ID())
-    user_me = graphene.Field(UserObjectType)
-
-    def resolve_user(self, info: ResolveInfo, id: ID = None) -> Optional[User]:
-        try:
-            return get_user_model().objects.filter(is_superuser=False).get(pk=id)
-        except User.DoesNotExist:
-            return None
-
-    @login_required
-    def resolve_user_me(self, info: ResolveInfo) -> User:
-        assert info.context is not None
-        return info.context.user
 
 
 class Mutation(graphene.ObjectType):

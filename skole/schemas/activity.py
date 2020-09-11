@@ -3,12 +3,13 @@ from typing import Any
 import graphene
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
+from graphene_django.types import ErrorType
 from graphql import ResolveInfo
 
-from skole.forms.activity import MarkActivityReadForm
+from skole.forms import MarkActivityReadForm
 from skole.models import Activity
-from skole.utils.constants import MutationErrors
-from skole.utils.mixins import FormErrorMixin, LoginRequiredMutationMixin
+from skole.schemas.mixins import SkoleCreateUpdateMutationMixin
+from skole.types import JsonDict
 
 
 class ActivityObjectType(DjangoObjectType):
@@ -34,41 +35,32 @@ class ActivityObjectType(DjangoObjectType):
         return self.activity_type.description
 
 
-class MarkActivityReadMutation(LoginRequiredMutationMixin, DjangoModelFormMutation):
+class MarkActivityReadMutation(SkoleCreateUpdateMutationMixin, DjangoModelFormMutation):
     """Mark a single activity read/unread and return the updated activity."""
+
+    login_required = True
 
     activity = graphene.Field(ActivityObjectType)
 
     class Meta:
         form_class = MarkActivityReadForm
 
-    @classmethod
-    def perform_mutate(
-        cls, form: MarkActivityReadForm, info: ResolveInfo
-    ) -> "MarkActivityReadMutation":
-        assert info.context is not None
-        instance = form.instance
 
-        if instance.user != info.context.user:
-            return cls(errors=MutationErrors.NOT_OWNER)
-
-        activity = Activity.objects.mark_read(activity=instance, **form.cleaned_data)
-        return cls(activity=activity)
-
-
-class MarkAllActivitiesReadMutation(
-    LoginRequiredMutationMixin, FormErrorMixin, graphene.Mutation
-):
+class MarkAllActivitiesReadMutation(SkoleCreateUpdateMutationMixin, graphene.Mutation):
     """Mark all activities of the given user as read."""
 
-    activity = graphene.List(ActivityObjectType)
+    login_required = True
 
-    # Ignore: Mypy expects the signature to match LoginRequiredMutationMixin's signature.
+    activities = graphene.List(ActivityObjectType)
+    errors = graphene.List(ErrorType)
+
     @classmethod
-    def mutate(cls, root: Any, info: ResolveInfo) -> "MarkAllActivitiesReadMutation":  # type: ignore[override]
+    def mutate(
+        cls, root: Any, info: ResolveInfo, **input: JsonDict
+    ) -> "MarkAllActivitiesReadMutation":
         assert info.context is not None
-        activity = Activity.objects.mark_all_as_read(user=info.context.user)
-        return cls(activity=activity)
+        activities = Activity.objects.mark_all_as_read(user=info.context.user)
+        return cls(activities=activities)
 
 
 class Mutation(graphene.ObjectType):

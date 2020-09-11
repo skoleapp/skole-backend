@@ -1,11 +1,11 @@
-from typing import Any, Callable, Optional, Type, TypeVar, Union
+from typing import Any, Callable, List, Optional, Type, TypeVar, Union
 
 from django import forms
 from django.core.files import File
-from django.core.files.uploadedfile import UploadedFile
 from django.db import models
 
-from skole.utils.types import ID
+from skole.types import ID, JsonDict
+from skole.utils.constants import ValidationErrors
 
 T = TypeVar("T")
 M = TypeVar("M", bound=models.Model)
@@ -23,7 +23,7 @@ def get_obj_or_none(model: Type[M], pk: ID = None) -> Optional[M]:
 def clean_file_field(
     form: forms.ModelForm,
     field_name: str,
-    conversion_func: Optional[Callable[[UploadedFile], File]] = None,
+    conversion_func: Optional[Callable[[File], File]] = None,
 ) -> Union[File, str]:
     """Use in a ModelForm to conveniently handle FileField clearing and updating.
 
@@ -33,15 +33,18 @@ def clean_file_field(
         conversion_func: Optional converter function to pass the file through,
             when the value has changed.
 
-    See CreateResourceForm.clean_file for example usage.
+    See `CreateResourceForm.clean_file` for example usage.
     """
     assert form.files is not None
 
     if file := form.files.get("1"):
         # New value for the field.
         return conversion_func(file) if conversion_func is not None else file
-    elif form.cleaned_data[field_name] == "":
+    elif form.data[field_name] == "":
         # Field value deleted.
+        # We can't access this from `cleaned_data`, since the file is actually put
+        # there always by Django. Since normally file is only meant to be cleared
+        # by submitting a "false" value from the ClearableFileInput's checkbox.
         return ""
     else:
         # Field not modified.
@@ -96,3 +99,18 @@ def validate_is_first_inherited(decorated: Type[T]) -> Type[T]:
 
     setattr(decorated, "__init_subclass__", classmethod(init_subclass_with_validation))
     return decorated
+
+
+def validate_single_target(data: JsonDict, *keys: str) -> List[Any]:
+    """Validate that exactly one of the `keys` in `data` have a non None value.
+
+    Returns:
+        The found value on success.
+
+    Raises:
+         ValidationError if found 0 values or more than 1 values.
+    """
+    found = [value for key in keys if (value := data.get(key)) is not None]
+    if len(found) != 1:
+        raise forms.ValidationError(ValidationErrors.MUTATION_INVALID_TARGET)
+    return found[0]

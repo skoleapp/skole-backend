@@ -3,8 +3,7 @@ from django.db import models
 from django.db.models import Count, QuerySet, Sum, Value
 from django.db.models.functions import Coalesce
 
-from skole.models.base import SkoleManager, SkoleModel
-from skole.models.subject import Subject
+from .base import SkoleManager, SkoleModel
 
 
 class CourseManager(SkoleManager):
@@ -23,7 +22,9 @@ class Course(SkoleModel):
     name = models.CharField(max_length=200)
     code = models.CharField(max_length=30, blank=True)
 
-    subjects = models.ManyToManyField(Subject, related_name="courses", blank=True)
+    subjects = models.ManyToManyField(
+        "skole.Subject", related_name="courses", blank=True
+    )
 
     school = models.ForeignKey(
         "skole.School", on_delete=models.CASCADE, related_name="courses"

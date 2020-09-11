@@ -13,8 +13,8 @@ COPY --chown=user:user requirements.txt .
 COPY --chown=user:user requirements-dev.txt .
 
 RUN apk update \
-    && apk add postgresql-client gettext jpeg-dev libmagic \
-    && apk add --virtual=/tmp/build_deps gcc libc-dev linux-headers postgresql-dev musl-dev zlib zlib-dev \
+    && apk add gettext jpeg-dev libmagic postgresql-client \
+    && apk add --virtual=/tmp/build_deps gcc musl-dev postgresql-dev zlib-dev \
     && su user -c 'pip install --user --no-cache-dir --upgrade --disable-pip-version-check pip' \
     && su user -c 'pip install --user --no-cache-dir -r requirements.txt -r requirements-dev.txt' \
     && apk del /tmp/build_deps && rm -rf /var/cache/apk/*
@@ -39,8 +39,10 @@ CMD { python manage.py graphql_schema --out=compare.graphql \
     && mypy . \
     && pytest --verbose --cov-report=html --cov=. . \
     && python manage.py compilemessages \
+    && python manage.py collectstatic --noinput \
     && python manage.py migrate \
     && python manage.py loaddata \
+        initial-activity-types.yaml \
         initial-badges.yaml \
         initial-beta-codes.yaml \
         initial-cities.yaml \

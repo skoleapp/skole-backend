@@ -12,10 +12,6 @@ urlpatterns = [
     path("graphql/", jwt_cookie(SkoleGraphQLView.as_view(graphiql=settings.DEBUG))),
     path("healthz/", health_check),
     path("", RedirectView.as_view(url=reverse_lazy("admin:index"))),
+    *i18n_patterns(path("admin/", admin.site.urls)),
+    *static(prefix=settings.MEDIA_URL, document_root=settings.MEDIA_ROOT),
 ]
-
-urlpatterns += i18n_patterns(path("admin/", admin.site.urls))
-
-# Pragma: Lazy settings access makes it so this never true when running coverage.
-if settings.DEBUG:  # pragma: no cover
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -3,10 +3,9 @@ from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphql import ResolveInfo
 
-from skole.forms.starred import StarForm
+from skole.forms import CreateStarForm
 from skole.models import Starred
-from skole.utils.constants import Messages
-from skole.utils.mixins import VerificationRequiredMutationMixin
+from skole.schemas.mixins import SkoleCreateUpdateMutationMixin
 
 
 class StarredObjectType(DjangoObjectType):
@@ -14,26 +13,26 @@ class StarredObjectType(DjangoObjectType):
         model = Starred
 
 
-class StarredMutation(VerificationRequiredMutationMixin, DjangoModelFormMutation):
+class StarredMutation(SkoleCreateUpdateMutationMixin, DjangoModelFormMutation):
+    verification_required = True
+
     starred = graphene.Boolean()
 
     class Meta:
-        form_class = StarForm
+        form_class = CreateStarForm
         exclude_fields = ("id",)
 
-    @staticmethod
-    def get_success_message() -> str:
-        return Messages.COURSE_DELETED
-
     @classmethod
-    def perform_mutate(cls, form: StarForm, info: ResolveInfo) -> "StarredMutation":
+    def perform_mutate(
+        cls, form: CreateStarForm, info: ResolveInfo
+    ) -> "StarredMutation":
         assert info.context is not None
+        # Not calling super (which saves the form), so that we don't
+        # create two Starred instances here.
         starred = Starred.objects.perform_star(
             user=info.context.user, **form.cleaned_data
         )
-
-        starred_bool = starred is not None
-        return cls(starred=starred_bool)
+        return cls(starred=bool(starred))
 
 
 class Mutation(graphene.ObjectType):

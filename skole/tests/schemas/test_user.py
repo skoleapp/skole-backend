@@ -1,5 +1,3 @@
-from typing import Optional
-
 from django.contrib.auth import get_user_model
 
 from skole.tests.helpers import (
@@ -15,7 +13,7 @@ from skole.utils.constants import Messages, ValidationErrors
 
 
 class UserSchemaTests(SkoleSchemaTestCase):
-    authenticated_user: Optional[int] = 2
+    authenticated_user: ID = 2
 
     # language=GraphQL
     user_fields = """

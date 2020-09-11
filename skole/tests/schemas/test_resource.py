@@ -14,11 +14,11 @@ from skole.tests.helpers import (
     open_as_file,
 )
 from skole.types import ID, JsonDict
-from skole.utils.constants import ValidationErrors
+from skole.utils.constants import MutationErrors, ValidationErrors
 
 
 class ResourceSchemaTests(SkoleSchemaTestCase):
-    authenticated_user: Optional[int] = 2
+    authenticated_user: ID = 2
 
     # language=GraphQL
     resource_fields = """
@@ -147,6 +147,7 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
         assert resource["resourceType"] == "Exam"
         assert resource["course"]["id"] == "1"
         assert resource["date"] == datetime.date.today().isoformat()
+        assert resource["user"]["id"] == "2"
 
         # Create a resource with a PDF file.
         with open_as_file(pdf_file_path) as file:
@@ -170,6 +171,11 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
         assert is_slug_match(
             "/media/uploads/resources/test_attachment.pdf", resource["file"]
         )
+
+        # Can't create one without logging in.
+        self.authenticated_user = None
+        res = self.mutate_create_resource()
+        assert res["errors"] == MutationErrors.AUTH_REQUIRED
 
     def test_update_resource(self) -> None:
         new_title = "new title"

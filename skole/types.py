@@ -38,7 +38,6 @@ Fixture = Any
 
 Fixtures are just functions that are decorated with @pytest.fixture.
 Using this as the type of a parameter makes its purpose immediately clear.
-
 """
 
 JsonDict = Dict[str, Any]

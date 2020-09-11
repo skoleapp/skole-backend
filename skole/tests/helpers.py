@@ -16,7 +16,7 @@ from graphql_jwt.settings import jwt_settings
 from graphql_jwt.shortcuts import get_token
 from graphql_jwt.utils import delete_cookie
 
-from skole.types import JsonDict
+from skole.types import ID, JsonDict
 
 FileData = Optional[Sequence[Tuple[str, File]]]
 
@@ -27,13 +27,13 @@ class SkoleSchemaTestCase(TestCase):
     Heavily inspired by `graphene_utils.testing.GraphQLTestCase`.
 
     Attributes:
-        authenticated_user: When set to an integer, a JWT token made for the
+        authenticated_user: When set to an ID, a JWT token made for the
             user with this pk is sent with all the requests.
     """
 
     fixtures = ["test-data.yaml"]
 
-    authenticated_user: Optional[int] = None
+    authenticated_user: ID = None
 
     def query(
         self,

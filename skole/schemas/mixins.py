@@ -1,7 +1,6 @@
-from typing import TYPE_CHECKING, Any, Optional, Type, TypeVar, cast
+from typing import TYPE_CHECKING, Any, Optional, Type, TypeVar
 
 import graphene
-from django.http import HttpRequest
 from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphql import ResolveInfo
 
@@ -119,7 +118,7 @@ class SkoleCreateUpdateMutationMixin:
     ) -> JsonDict:
         # Ignore: Will be defined in subclasses.
         kwargs = super().get_form_kwargs(root, info, **input)  # type: ignore[misc]
-        kwargs["request"] = cast(HttpRequest, info.context)
+        kwargs["request"] = info.context
         return kwargs
 
     @classmethod

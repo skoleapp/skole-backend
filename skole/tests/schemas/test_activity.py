@@ -1,12 +1,10 @@
-from typing import Optional
-
 from skole.models import Activity, ActivityType, Comment, Course, Resource, User
 from skole.tests.helpers import SkoleSchemaTestCase
-from skole.types import JsonDict
+from skole.types import ID, JsonDict
 
 
 class ActivitySchemaTests(SkoleSchemaTestCase):
-    authenticated_user: Optional[int] = 2
+    authenticated_user: ID = 2
 
     # language=GraphQL
     activity_fields = """

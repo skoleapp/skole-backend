@@ -53,9 +53,6 @@ class RegisterMutation(SuccessMessageMixin, DjangoModelFormMutation):
     ) -> "RegisterMutation":
         obj = super().perform_mutate(form, info)
 
-        code = form.cleaned_data["code"]
-        code.decrement_usages()
-
         try:
             form.instance.send_verification_email(info)
         except SMTPException:

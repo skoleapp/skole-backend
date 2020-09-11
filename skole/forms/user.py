@@ -5,7 +5,7 @@ from django.conf import settings
 from django.contrib.auth import authenticate, get_user_model
 from django.core.files import File
 
-from skole.models import BetaCode, User
+from skole.models import User
 from skole.types import JsonDict
 from skole.utils.constants import ValidationErrors
 from skole.utils.shortcuts import clean_file_field
@@ -16,24 +16,16 @@ from .base import SkoleModelForm
 class RegisterForm(SkoleModelForm):
     username = forms.CharField(min_length=settings.USERNAME_MIN_LENGTH)
     password = forms.CharField(min_length=settings.PASSWORD_MIN_LENGTH)
-    code = forms.CharField(max_length=8)
 
     class Meta:
         model = get_user_model()
-        fields = ("username", "email", "password", "code")
+        fields = ("username", "email", "password")
 
     def clean_username(self) -> str:
         username = self.cleaned_data["username"]
         if get_user_model().objects.filter(username__iexact=username):
             raise forms.ValidationError(ValidationErrors.USERNAME_TAKEN)
         return username
-
-    def clean_code(self) -> BetaCode:
-        code = self.cleaned_data["code"]
-        try:
-            return BetaCode.objects.get(code=code)
-        except BetaCode.DoesNotExist:
-            raise forms.ValidationError(ValidationErrors.INVALID_BETA_CODE)
 
 
 class TokenForm(forms.Form):

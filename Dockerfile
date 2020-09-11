@@ -44,7 +44,6 @@ CMD { python manage.py graphql_schema --out=compare.graphql \
     && python manage.py loaddata \
         initial-activity-types.yaml \
         initial-badges.yaml \
-        initial-beta-codes.yaml \
         initial-cities.yaml \
         initial-countries.yaml \
         initial-courses.yaml \

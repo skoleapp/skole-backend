@@ -21,7 +21,6 @@ class TokenAction:
 class ValidationErrors:
     USERNAME_TAKEN = _("This username is taken.")
     EMAIL_TAKEN = _("This email is taken.")
-    INVALID_BETA_CODE = _("Invalid beta code.")
     ACCOUNT_DEACTIVATED = _("This account has been deactivated!")
     AUTH_ERROR = _("Invalid username/email or password.")
     SUPERUSER_LOGIN = _("Cannot log in at this time.")

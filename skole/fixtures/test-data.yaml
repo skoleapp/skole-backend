@@ -1120,12 +1120,6 @@
     status: -1
     user: 4
 
-- model: skole.BetaCode
-  pk: 1
-  fields:
-    code: TEST
-    usages: 100
-
 - model: skole.ActivityTypeTranslation
   pk: 1
   fields:

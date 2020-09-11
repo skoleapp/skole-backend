@@ -282,7 +282,6 @@ input RegisterMutationInput {
   username: String!
   email: String!
   password: String!
-  code: String!
   clientMutationId: String
 }
 

@@ -109,17 +109,11 @@ class UserSchemaTests(SkoleSchemaTestCase):
         username: str = "newuser",
         email: str = "newemail@test.com",
         password: str = "password",
-        code: str = "TEST",
     ) -> JsonDict:
         return self.execute_input_mutation(
             name="register",
             input_type="RegisterMutationInput!",
-            input={
-                "username": username,
-                "email": email,
-                "password": password,
-                "code": code,
-            },
+            input={"username": username, "email": email, "password": password},
             result="message",
         )
 
@@ -202,10 +196,6 @@ class UserSchemaTests(SkoleSchemaTestCase):
         # Email taken.
         res = self.mutate_register(email="testuser2@test.com")
         assert ValidationErrors.EMAIL_TAKEN == get_form_error(res)
-
-        # Invalid beta code.
-        res = self.mutate_register(code="invalid")
-        assert get_form_error(res) == ValidationErrors.INVALID_BETA_CODE
 
         # Too short username.
         res = self.mutate_register(username="to")

@@ -29,6 +29,13 @@ class CreateResourceForm(SkoleModelForm):
             or Resource._meta.get_field("date").get_default()
         )
 
+    def save(self, commit: bool = True) -> Resource:
+        assert self.request is not None
+        # Should always be authenticated here, so fine to raise ValueError here
+        # if we accidentally assign anonymous user to the user.
+        self.instance.user = self.request.user
+        return super().save()
+
 
 class UpdateResourceForm(SkoleUpdateModelForm):
     class Meta:

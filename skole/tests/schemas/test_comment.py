@@ -1,5 +1,3 @@
-from typing import Optional
-
 from skole.models import Comment, Course, Resource
 from skole.tests.helpers import (
     FileData,
@@ -14,7 +12,7 @@ from skole.utils.constants import Messages, ValidationErrors
 
 
 class CommentSchemaTests(SkoleSchemaTestCase):
-    authenticated_user: Optional[int] = 2
+    authenticated_user: ID = 2
 
     # language=GraphQL
     comment_fields = """
@@ -114,6 +112,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         assert Comment.objects.get(pk=2).reply_comments.count() == 1
         assert Comment.objects.get(pk=2).reply_comments.first().text == text
         assert Comment.objects.get(pk=2).reply_comments.first().pk == int(comment["id"])
+        assert comment["user"]["id"] == "2"
 
         # Create a comment to a resource.
         res = self.mutate_create_comment(text=text, resource=2)
@@ -135,6 +134,16 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         assert Course.objects.get(pk=2).comments.first().text == text
         assert Course.objects.get(pk=2).comments.first().pk == int(comment["id"])
 
+        # Create a comment without logging in
+        self.authenticated_user = None
+        res = self.mutate_create_comment(text=text, course=3)
+        comment = res["comment"]
+        assert not res["errors"]
+        assert comment["text"] == text
+        assert comment["course"]["id"] == "3"
+        assert comment["user"] is None
+        assert Comment.objects.count() == old_count + 4
+
         # Can't create a comment with 2 targets.
         res = self.mutate_create_comment(text=text, course=1, resource=1)
         assert get_form_error(res) == ValidationErrors.MUTATION_INVALID_TARGET
@@ -143,7 +152,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         res = self.mutate_create_comment(text=text, course=1, resource=1, comment=1)
         assert get_form_error(res) == ValidationErrors.MUTATION_INVALID_TARGET
         # Check that the comment count hasn't changed.
-        assert Comment.objects.count() == old_count + 3
+        assert Comment.objects.count() == old_count + 4
 
         # Can't create a comment with no text and no attachment.
         res = self.mutate_create_comment(text="", attachment="", course=1)

@@ -10,7 +10,8 @@ from skole.models import User
 
 
 class SkoleJSONWebTokenBackend(JSONWebTokenBackend):
-    """Only difference from the original `JSONWebTokenBackend` is that it does not raise
+    """
+    Only difference from the original `JSONWebTokenBackend` is that it does not raise
     error when `get_user_by_token` fails.
 
     Main advantage is to let the mutation handle the authentication error. Instead of

@@ -34,6 +34,12 @@ class CreateCommentForm(_CommentFormMixin, SkoleModelForm):
         validate_single_target(data, "course", "comment", "resource")
         return data
 
+    def save(self, commit: bool = True) -> Comment:
+        assert self.request is not None
+        if self.request.user.is_authenticated:
+            self.instance.user = self.request.user
+        return super().save()
+
 
 class UpdateCommentForm(_CommentFormMixin, SkoleUpdateModelForm):
     class Meta:

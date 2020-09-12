@@ -10,7 +10,8 @@ from skole.types import AnyJson, JsonDict
 
 
 def health_check(request: HttpRequest) -> HttpResponse:
-    """AWS ELB will poll this periodically as a health check for the app.
+    """
+    AWS ELB will poll this periodically as a health check for the app.
 
     This can have as much logic as possible, any status other than 200 is considered a
     failure.
@@ -24,7 +25,8 @@ class SkoleGraphQLView(GraphQLView):
     def parse_body(
         self, request: HttpRequest
     ) -> Union[JsonDict, QueryDict, List[JsonDict]]:
-        """The difference to the obj `parse_body` is that we can upload files.
+        """
+        The difference to the obj `parse_body` is that we can upload files.
 
         Source: https://github.com/lmcgartland/graphene-file-upload/blob/master/graphene_file_upload/django/__init__.py
         """

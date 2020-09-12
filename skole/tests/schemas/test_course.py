@@ -13,7 +13,7 @@ from skole.utils.shortcuts import get_obj_or_none
 
 
 class CourseSchemaTests(SkoleSchemaTestCase):
-    authenticated_user: Optional[int] = 2
+    authenticated_user: ID = 2
 
     # language=GraphQL
     course_fields = """
@@ -171,6 +171,7 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         assert course["id"] == "13"
         assert course["name"] == "test course"
         assert course["code"] == "code0001"
+        assert course["user"]["id"] == "2"
 
         # School is required.
         self.mutate_create_course(school=None, assert_error=True)
@@ -185,6 +186,11 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         res = self.mutate_create_course(name="")
         assert get_form_error(res) == "This field is required."
         assert res["course"] is None
+
+        # Can't create one without logging in.
+        self.authenticated_user = None
+        res = self.mutate_create_course()
+        assert res["errors"] == MutationErrors.AUTH_REQUIRED
 
     def test_delete_course(self) -> None:
         res = self.mutate_delete_course(id=1)

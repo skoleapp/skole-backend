@@ -14,11 +14,11 @@ from skole.tests.helpers import (
     open_as_file,
 )
 from skole.types import ID, JsonDict
-from skole.utils.constants import ValidationErrors
+from skole.utils.constants import MutationErrors, ValidationErrors
 
 
 class ResourceSchemaTests(SkoleSchemaTestCase):
-    authenticated_user: Optional[int] = 2
+    authenticated_user: ID = 2
 
     # language=GraphQL
     resource_fields = """
@@ -136,24 +136,12 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
         pdf_file_path = "media/uploads/resources/test_resource.pdf"
         png_file_path = "media/uploads/attachments/test_attachment.png"
 
-        # Create a resource with no file.
-        # TODO: this probably shouldn't even be allowed.
-        res = self.mutate_create_resource()
-        resource = res["resource"]
-        assert not res["errors"]
-        assert resource["id"] == "4"
-        assert resource["title"] == "test title"
-        assert resource["file"] == ""
-        assert resource["resourceType"] == "Exam"
-        assert resource["course"]["id"] == "1"
-        assert resource["date"] == datetime.date.today().isoformat()
-
         # Create a resource with a PDF file.
         with open_as_file(pdf_file_path) as file:
             res = self.mutate_create_resource(file_data=[("file", file)])
         resource = res["resource"]
         assert not res["errors"]
-        assert resource["id"] == "5"
+        assert resource["id"] == "4"
         assert resource["title"] == "test title"
         assert is_slug_match(pdf_file_path, resource["file"])
 
@@ -166,10 +154,20 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
                     res = self.mutate_create_resource(file_data=[("file", file)])
         resource = res["resource"]
         assert not res["errors"]
-        assert resource["id"] == "6"
+        assert resource["id"] == "5"
         assert is_slug_match(
             "/media/uploads/resources/test_attachment.pdf", resource["file"]
         )
+
+        # Can't create a resource with no file.
+        res = self.mutate_create_resource()
+        assert res["resource"] is None
+        assert get_form_error(res) == "This field is required."
+
+        # Can't create one without logging in.
+        self.authenticated_user = None
+        res = self.mutate_create_resource()
+        assert res["errors"] == MutationErrors.AUTH_REQUIRED
 
     def test_update_resource(self) -> None:
         new_title = "new title"

@@ -33,7 +33,8 @@ from .object_types import UserObjectType
 
 
 class RegisterMutation(SuccessMessageMixin, DjangoModelFormMutation):
-    """Register new user.
+    """
+    Register new user.
 
     Check if there is an existing user with that email or username. Check that account
     is not deactivated. By default set the user a unverified. After successful
@@ -52,9 +53,6 @@ class RegisterMutation(SuccessMessageMixin, DjangoModelFormMutation):
         cls, form: RegisterForm, info: ResolveInfo
     ) -> "RegisterMutation":
         obj = super().perform_mutate(form, info)
-
-        code = form.cleaned_data["code"]
-        code.decrement_usages()
 
         try:
             form.instance.send_verification_email(info)
@@ -92,7 +90,8 @@ class VerifyAccountMutation(SuccessMessageMixin, DjangoFormMutation):
 
 
 class ResendVerificationEmailMutation(SuccessMessageMixin, DjangoFormMutation):
-    """Sends verification email again.
+    """
+    Sends verification email again.
 
     Return error if a user with the provided email is not found.
     """
@@ -122,7 +121,8 @@ class ResendVerificationEmailMutation(SuccessMessageMixin, DjangoFormMutation):
 
 
 class SendPasswordResetEmailMutation(SuccessMessageMixin, DjangoFormMutation):
-    """Send password reset email.
+    """
+    Send password reset email.
 
     For non verified users, send an verification email instead. Return error if a user
     with the provided email is not found.
@@ -160,7 +160,8 @@ class SendPasswordResetEmailMutation(SuccessMessageMixin, DjangoFormMutation):
 
 
 class ResetPasswordMutation(SuccessMessageMixin, DjangoFormMutation):
-    """Change user's password without old password.
+    """
+    Change user's password without old password.
 
     Receive the token that was sent by email. Revoke refresh token and thus require the
     user to log in with his new password.
@@ -202,7 +203,8 @@ class ResetPasswordMutation(SuccessMessageMixin, DjangoFormMutation):
 
 
 class LoginMutation(SuccessMessageMixin, DjangoModelFormMutation):
-    """Obtain JSON web token and user information.
+    """
+    Obtain JSON web token and user information.
 
     Not verified users can still login.
     """
@@ -245,7 +247,8 @@ class LoginMutation(SuccessMessageMixin, DjangoModelFormMutation):
 
 
 class LogoutMutation(DeleteJSONWebTokenCookie):
-    """Delete JSON web token cookie and logout.
+    """
+    Delete JSON web token cookie and logout.
 
     This sets the `Set-Cookie` header so that the JWT token cookie gets automatically
     deleted in frontend.
@@ -255,7 +258,8 @@ class LogoutMutation(DeleteJSONWebTokenCookie):
 class ChangePasswordMutation(
     SkoleCreateUpdateMutationMixin, SuccessMessageMixin, DjangoModelFormMutation
 ):
-    """Change account password when user knows the old password.
+    """
+    Change account password when user knows the old password.
 
     User must be verified.
     """
@@ -293,7 +297,8 @@ class ChangePasswordMutation(
 class DeleteUserMutation(
     SkoleCreateUpdateMutationMixin, SuccessMessageMixin, DjangoModelFormMutation
 ):
-    """Delete account permanently.
+    """
+    Delete account permanently.
 
     The user must confirm his password.
     """

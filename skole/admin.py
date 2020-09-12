@@ -6,7 +6,6 @@ from skole.models import (
     Activity,
     ActivityType,
     Badge,
-    BetaCode,
     City,
     Comment,
     Country,
@@ -25,7 +24,6 @@ admin.site.site_header = Admin.SITE_HEADER
 
 # Untranslated models.
 admin.site.register(get_user_model())
-admin.site.register(BetaCode)
 admin.site.register(Comment)
 admin.site.register(Course)
 admin.site.register(Resource)

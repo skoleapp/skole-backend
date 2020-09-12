@@ -38,7 +38,6 @@ class CommentObjectType(VoteMixin, DjangoObjectType):
 class CreateCommentMutation(
     SkoleCreateUpdateMutationMixin, SuccessMessageMixin, DjangoModelFormMutation
 ):
-    verification_required = True
     success_message = Messages.MESSAGE_SENT
 
     class Meta:

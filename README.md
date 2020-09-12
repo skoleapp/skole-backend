@@ -11,6 +11,9 @@ Also check out the [README from `skole` repo](https://github.com/ruohola/skole/b
   CircleCI also verifies the code style, so there is no need to argue about formatting.
 
 
+- Use [Google style](https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html) docstrings.
+
+
 - All `assert` statements are just for type checking or for generally helping the developer.
   They should not be used for actual program logic since they are stripped away in production
   with the use of the `PYTHONOPTIMIZE=1` env variable.

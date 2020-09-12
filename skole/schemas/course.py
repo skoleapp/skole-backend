@@ -48,22 +48,13 @@ class CreateCourseMutation(
     SkoleCreateUpdateMutationMixin, SuccessMessageMixin, DjangoModelFormMutation
 ):
     verification_required = True
+    success_message = Messages.COURSE_CREATED
 
     course = graphene.Field(CourseObjectType)
 
     class Meta:
         form_class = CreateCourseForm
         exclude_fields = ("id",)
-
-    @classmethod
-    def perform_mutate(
-        cls, form: CreateCourseForm, info: ResolveInfo
-    ) -> "CreateCourseMutation":
-        assert info.context is not None
-        subjects = form.cleaned_data.pop("subjects", [])
-        course = Course.objects.create(user=info.context.user, **form.cleaned_data)
-        course.subjects.set(subjects)
-        return cls(course=course, message=Messages.COURSE_CREATED)
 
 
 class DeleteCourseMutation(SkoleDeleteMutationMixin, DjangoModelFormMutation):

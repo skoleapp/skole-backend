@@ -122,7 +122,7 @@ type CreateCourseMutationPayload {
 
 input CreateResourceMutationInput {
   title: String!
-  file: String
+  file: String!
   resourceType: ID!
   course: ID!
   date: Date
@@ -282,7 +282,6 @@ input RegisterMutationInput {
   username: String!
   email: String!
   password: String!
-  code: String!
   clientMutationId: String
 }
 

@@ -12,7 +12,7 @@ from .base import SkoleModelForm, SkoleUpdateModelForm
 
 
 class CreateResourceForm(SkoleModelForm):
-    file = forms.CharField(required=False)
+    file = forms.CharField(required=True)
 
     class Meta:
         model = Resource
@@ -28,6 +28,13 @@ class CreateResourceForm(SkoleModelForm):
             self.cleaned_data.get("date")
             or Resource._meta.get_field("date").get_default()
         )
+
+    def save(self, commit: bool = True) -> Resource:
+        assert self.request is not None
+        # Should always be authenticated here, so fine to raise ValueError here
+        # if we accidentally assign anonymous user to the user.
+        self.instance.user = self.request.user
+        return super().save()
 
 
 class UpdateResourceForm(SkoleUpdateModelForm):

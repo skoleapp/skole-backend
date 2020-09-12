@@ -25,7 +25,8 @@ def clean_file_field(
     field_name: str,
     conversion_func: Optional[Callable[[File], File]] = None,
 ) -> Union[File, str]:
-    """Use in a ModelForm to conveniently handle FileField clearing and updating.
+    """
+    Use in a ModelForm to conveniently handle FileField clearing and updating.
 
     Args:
         form: The form that the file field belongs to.
@@ -52,7 +53,8 @@ def clean_file_field(
 
 
 def full_refresh_from_db(instance: M, /) -> M:
-    """Return the same object instance but re-query it from the database.
+    """
+    Return the same object instance but re-query it from the database.
 
     This is like Django's `refresh_from_db,` but this also recalculates the values of
     `get_queryset` annotations and aggregations.
@@ -61,7 +63,8 @@ def full_refresh_from_db(instance: M, /) -> M:
 
 
 def validate_is_first_inherited(decorated: Type[T]) -> Type[T]:
-    """Add as a decorator to a class to ensure that it's the first class ever inherited.
+    """
+    Add as a decorator to a class to ensure that it's the first class ever inherited.
 
     Caution: Does not work when a class has overridden __init_subclass__ in a way
     that does not call super(). This is the case with
@@ -102,13 +105,14 @@ def validate_is_first_inherited(decorated: Type[T]) -> Type[T]:
 
 
 def validate_single_target(data: JsonDict, *keys: str) -> List[Any]:
-    """Validate that exactly one of the `keys` in `data` have a non None value.
+    """
+    Validate that exactly one of the `keys` in `data` have a non None value.
 
     Returns:
         The found value on success.
 
     Raises:
-         ValidationError if found 0 values or more than 1 values.
+         ValidationError: if found 0 values or more than 1 values.
     """
     found = [value for key in keys if (value := data.get(key)) is not None]
     if len(found) != 1:

@@ -22,7 +22,8 @@ FileData = Optional[Sequence[Tuple[str, File]]]
 
 
 class SkoleSchemaTestCase(TestCase):
-    """Base class for all schema tests.
+    """
+    Base class for all schema tests.
 
     Heavily inspired by `graphene_utils.testing.GraphQLTestCase`.
 
@@ -44,7 +45,8 @@ class SkoleSchemaTestCase(TestCase):
         headers: Optional[JsonDict] = None,
         file_data: FileData = None,
     ) -> HttpResponse:
-        """Overridden to allow uploading files with a multipart/form-data POST.
+        """
+        Overridden to allow uploading files with a multipart/form-data POST.
 
         This should probably not be used on its own, but instead should be called
         through `self.execute` or `self.execute_input_mutation` etc.
@@ -106,7 +108,8 @@ class SkoleSchemaTestCase(TestCase):
     def execute(
         self, graphql: str, *, assert_error: bool = False, **kwargs: Any
     ) -> JsonDict:
-        """Run a GraphQL query, if `assert_error` parameter is False assert that status
+        """
+        Run a GraphQL query, if `assert_error` parameter is False assert that status
         code was 200 (=syntax was ok) and that the result didn't have "error" section.
         If `assert_error` is True, we assert that the result does contain "error".
 
@@ -162,7 +165,8 @@ class SkoleSchemaTestCase(TestCase):
         file_data: FileData = None,
         assert_error: bool = False,
     ) -> JsonDict:
-        """Shortcut for running a mutation which takes only an input argument.
+        """
+        Shortcut for running a mutation which takes only an input argument.
 
         Args:
             input_type: Name of the GraphQL input type object.
@@ -206,7 +210,8 @@ class SkoleSchemaTestCase(TestCase):
     def execute_non_input_mutation(
         self, *, name: str, result: str, fragment: str = "", assert_error: bool = False,
     ) -> JsonDict:
-        """Shortcut for running a mutation which takes no input as an argument.
+        """
+        Shortcut for running a mutation which takes no input as an argument.
 
         Args:
             name: Name of the mutation in the schema.
@@ -288,7 +293,8 @@ def get_graphql_error(res: JsonDict, /) -> str:
 
 
 def is_iso_datetime(datetime_string: str, /) -> bool:
-    """Return True if the given string is a valid ISO-format datetime, otherwise False.
+    """
+    Return True if the given string is a valid ISO-format datetime, otherwise False.
 
     Examples:
         >>> is_iso_datetime("2020-01-01T12:00:00+00:00")
@@ -309,7 +315,8 @@ def is_iso_datetime(datetime_string: str, /) -> bool:
 
 
 def is_slug_match(file_path: str, url_with_slug: str) -> bool:
-    """Return True if the two paths match each other with an optional slug.
+    """
+    Return True if the two paths match each other with an optional slug.
 
     The paths will still match even if one of them is a relative path, and the other
     is an absolute one (no prexix slash).
@@ -334,7 +341,8 @@ def is_slug_match(file_path: str, url_with_slug: str) -> bool:
 
 
 def checksum(obj: Any) -> str:
-    """Return a stable 10 digit hex checksum for the given object.
+    """
+    Return a stable 10 digit hex checksum for the given object.
 
     Useful for testing if a source code of the object has changed.
     """

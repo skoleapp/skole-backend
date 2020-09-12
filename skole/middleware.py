@@ -3,7 +3,8 @@ from django.http import HttpRequest, HttpResponse
 
 
 class SkoleSessionMiddleware(SessionMiddleware):
-    """Controls that JWT is used on the graphql endpoint and session auth on the admin.
+    """
+    Controls that JWT is used on the graphql endpoint and session auth on the admin.
 
     Reference: https://stackoverflow.com/a/4054339
     """

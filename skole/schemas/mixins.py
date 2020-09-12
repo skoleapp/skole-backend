@@ -14,7 +14,8 @@ if TYPE_CHECKING:  # pragma: no cover
 
 
 class SuccessMessageMixin:
-    """A mixin that provides a mutation a message field in the response.
+    """
+    A mixin that provides a mutation a message field in the response.
 
     Attributes:
         success_message: This has to be set to the string that the mutation
@@ -97,7 +98,8 @@ T = TypeVar("T", bound="SkoleCreateUpdateMutationMixin")
 
 
 class SkoleCreateUpdateMutationMixin:
-    """Base mixin for all create and update mutations.
+    """
+    Base mixin for all create and update mutations.
 
     This cannot be a base class, because all graphene mutation classes require
     their subclasses to define a `form_class` in their `Meta`,
@@ -141,7 +143,8 @@ class SkoleCreateUpdateMutationMixin:
 
 
 class SkoleDeleteMutationMixin(SuccessMessageMixin, SkoleCreateUpdateMutationMixin):
-    """Base mixin for all object deletion mutations.
+    """
+    Base mixin for all object deletion mutations.
 
     When subclassing from this it most likely makes sense to also subclass the Meta:
         class Meta(SkoleDeleteMutationMixin.Meta):

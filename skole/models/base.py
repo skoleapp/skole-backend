@@ -25,7 +25,8 @@ class TranslatableSkoleManager(_SkoleManagerMixin, parler.managers.TranslatableM
 
 
 class _SkoleModelMixin:
-    """A mixin which adds soft deletion handling and other useful methods.
+    """
+    A mixin which adds soft deletion handling and other useful methods.
 
     This doesn't on purpose contain any fields because those need to defined in a class
     inheriting from Model for them to work.
@@ -60,7 +61,8 @@ class SkoleModel(_SkoleModelMixin, models.Model):
 
 
 class TranslatableSkoleModel(_SkoleModelMixin, parler.models.TranslatableModel):
-    """Base model for all translatable models.
+    """
+    Base model for all translatable models.
 
     This inherits _SkoleModelMixin and TranslatableModel instead of from
     TranslatableModelMixin and SkoleModel (which would then just inherit from Model), to

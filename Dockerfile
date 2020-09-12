@@ -33,7 +33,7 @@ CMD { python manage.py graphql_schema --out=compare.graphql \
         && rm compare.graphql; } \
     && python manage.py makemigrations --check \
     && isort --check-only --diff . \
-    && docformatter --check --recursive --wrap-summaries=88 --wrap-descriptions=88 . \
+    && docformatter --check --recursive --wrap-summaries=88 --wrap-descriptions=88 --pre-summary-newline . \
     && black --check --diff . \
     && flake8 . \
     && mypy . \

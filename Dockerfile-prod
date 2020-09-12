@@ -21,7 +21,7 @@ USER user
 
 COPY --chown=user:user . .
 
-CMD python manage.py migrate \
+CMD python manage.py compilemessages \
     && python manage.py collectstatic --noinput \
-    && python manage.py compilemessages \
-    && gunicorn --log-level info --access-logfile '-' --workers 3 --bind 0.0.0.0:8000 config.wsgi
+    && python manage.py migrate \
+    && gunicorn --config=config/gunicorn_conf.py config.wsgi

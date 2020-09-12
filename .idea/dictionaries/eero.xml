@@ -2,6 +2,7 @@
   <dictionary name="eero">
     <words>
       <w>aalto</w>
+      <w>accesslog</w>
       <w>asgi</w>
       <w>autopopulated</w>
       <w>badcode</w>

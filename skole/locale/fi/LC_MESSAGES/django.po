@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-06 15:38+0000\n"
+"POT-Creation-Date: 2020-09-12 15:53+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Skole\n"
@@ -38,61 +38,61 @@ msgid "This email is taken."
 msgstr "Sähköposti on jo käytössä."
 
 #: skole/utils/constants.py:24
-msgid "Invalid beta code."
-msgstr "Virheellinen beta-rekisteröitymiskoodi."
-
-#: skole/utils/constants.py:25
 msgid "This account has been deactivated!"
 msgstr "Tämä tili on poistettu käytöstä!"
 
-#: skole/utils/constants.py:26
+#: skole/utils/constants.py:25
 msgid "Invalid username/email or password."
 msgstr "Käyttäjätunnus/sähköposti ja salasana eivät täsmää."
 
-#: skole/utils/constants.py:27
+#: skole/utils/constants.py:26
 msgid "Cannot log in at this time."
 msgstr "Ei voi kirjautua tällä hetkellä."
 
-#: skole/utils/constants.py:28
+#: skole/utils/constants.py:27
 msgid "Invalid old password."
 msgstr "Väärä vanha salasana."
 
-#: skole/utils/constants.py:29
+#: skole/utils/constants.py:28
 msgid "Invalid password."
 msgstr "Väärä salasana."
 
-#: skole/utils/constants.py:30
+#: skole/utils/constants.py:29
 msgid "Mutation needs exactly one target."
 msgstr "Mutaatio sisältää liian monta kohdetta."
 
-#: skole/utils/constants.py:31
+#: skole/utils/constants.py:30
 msgid "You are not the owner of this object."
 msgstr "Et ole tämän objektin omistaja."
 
-#: skole/utils/constants.py:32
+#: skole/utils/constants.py:31
 msgid "File is too large, maximum allowed is {} MB"
 msgstr "Tiedosto on liian suuri, suurin sallittu on {}Mt"
 
-#: skole/utils/constants.py:33
+#: skole/utils/constants.py:32
 msgid "Invalid file type, allowed types are: {}"
 msgstr "Virheellinen tiedostotyyppi, sallittuja on: {}"
 
-#: skole/utils/constants.py:34
+#: skole/utils/constants.py:33
 msgid "File extension doesn't match the file type."
 msgstr "Filändelsen matchar inte filtypen."
 
-#: skole/utils/constants.py:35
+#: skole/utils/constants.py:34
 msgid "Comment must include either text or attachment."
 msgstr "Kommentissa tulee olla tekstiä tai liite."
 
-#: skole/utils/constants.py:37
+#: skole/utils/constants.py:36
 msgid "Usernames can only contain letters, numbers, and underscores."
 msgstr ""
 "Käyttäjänimi voi sisältää ainoastaan kirjaimia, numeroita ja alaviivoja."
 
-#: skole/utils/constants.py:39
+#: skole/utils/constants.py:38
 msgid "File could not be converted to {} format."
 msgstr "Tiedostoa ei pystytty muuttamaan pdf muotoon."
+
+#: skole/utils/constants.py:39
+msgid "You cannot vote your own content."
+msgstr "Et voi äänestää omaa sisältöäsi."
 
 #: skole/utils/constants.py:43
 msgid "Invalid ordering value."
@@ -234,34 +234,30 @@ msgstr ""
 "Tämä toiminto on sallittu ainoastaan käyttäjille jotka ovat vahvistaneet "
 "tilinsä. Ole hyvä ja vahista tilisi."
 
-#: skole/utils/constants.py:113
-msgid "You cannot vote your own content."
-msgstr "Et voi äänestää omaa sisältöäsi."
-
-#: skole/utils/constants.py:128
+#: skole/utils/constants.py:127
 msgid "Freshman"
 msgstr "Fuksi"
 
-#: skole/utils/constants.py:129
+#: skole/utils/constants.py:128
 msgid "Tutor"
 msgstr "Tuutori"
 
-#: skole/utils/constants.py:130
+#: skole/utils/constants.py:129
 msgid "Mentor"
 msgstr "Mentori"
 
-#: skole/utils/constants.py:131
+#: skole/utils/constants.py:130
 msgid "Bachelor"
 msgstr "Kandidaatti"
 
-#: skole/utils/constants.py:132
+#: skole/utils/constants.py:131
 msgid "Master"
 msgstr "Maisteri"
 
-#: skole/utils/constants.py:133
+#: skole/utils/constants.py:132
 msgid "Doctor"
 msgstr "Tohtori"
 
-#: skole/utils/constants.py:134
+#: skole/utils/constants.py:133
 msgid "Professor"
 msgstr "Professori"

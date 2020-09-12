@@ -12,7 +12,7 @@ from .base import SkoleModelForm, SkoleUpdateModelForm
 
 
 class CreateResourceForm(SkoleModelForm):
-    file = forms.CharField(required=False)
+    file = forms.CharField(required=True)
 
     class Meta:
         model = Resource

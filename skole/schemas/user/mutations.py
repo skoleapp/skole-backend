@@ -32,7 +32,9 @@ from skole.utils.token import get_token_payload, revoke_user_refresh_tokens
 from .object_types import UserObjectType
 
 
-class RegisterMutation(SuccessMessageMixin, DjangoModelFormMutation):
+class RegisterMutation(
+    SkoleCreateUpdateMutationMixin, SuccessMessageMixin, DjangoModelFormMutation
+):
     """
     Register new user.
 
@@ -62,7 +64,9 @@ class RegisterMutation(SuccessMessageMixin, DjangoModelFormMutation):
         return obj
 
 
-class VerifyAccountMutation(SuccessMessageMixin, DjangoFormMutation):
+class VerifyAccountMutation(
+    SkoleCreateUpdateMutationMixin, SuccessMessageMixin, DjangoFormMutation
+):
     """Receive the token that was sent by email, if the token is valid, verify the
     user's account."""
 
@@ -89,7 +93,9 @@ class VerifyAccountMutation(SuccessMessageMixin, DjangoFormMutation):
             return cls(errors=MutationErrors.INVALID_TOKEN_VERIFY)
 
 
-class ResendVerificationEmailMutation(SuccessMessageMixin, DjangoFormMutation):
+class ResendVerificationEmailMutation(
+    SkoleCreateUpdateMutationMixin, SuccessMessageMixin, DjangoFormMutation
+):
     """
     Sends verification email again.
 
@@ -120,7 +126,9 @@ class ResendVerificationEmailMutation(SuccessMessageMixin, DjangoFormMutation):
             return cls(errors=MutationErrors.ALREADY_VERIFIED)
 
 
-class SendPasswordResetEmailMutation(SuccessMessageMixin, DjangoFormMutation):
+class SendPasswordResetEmailMutation(
+    SkoleCreateUpdateMutationMixin, SuccessMessageMixin, DjangoFormMutation
+):
     """
     Send password reset email.
 
@@ -159,7 +167,9 @@ class SendPasswordResetEmailMutation(SuccessMessageMixin, DjangoFormMutation):
                 return cls(errors=MutationErrors.EMAIL_ERROR)
 
 
-class ResetPasswordMutation(SuccessMessageMixin, DjangoFormMutation):
+class ResetPasswordMutation(
+    SkoleCreateUpdateMutationMixin, SuccessMessageMixin, DjangoFormMutation
+):
     """
     Change user's password without old password.
 
@@ -202,7 +212,9 @@ class ResetPasswordMutation(SuccessMessageMixin, DjangoFormMutation):
             return cls(errors=MutationErrors.INVALID_TOKEN_RESET_PASSWORD)
 
 
-class LoginMutation(SuccessMessageMixin, DjangoModelFormMutation):
+class LoginMutation(
+    SkoleCreateUpdateMutationMixin, SuccessMessageMixin, DjangoModelFormMutation
+):
     """
     Obtain JSON web token and user information.
 

@@ -6,17 +6,22 @@ from django.http import HttpRequest
 from skole.utils.constants import ValidationErrors
 
 
-class SkoleModelForm(forms.ModelForm):
-    """Base class for all model forms."""
-
+class _SkoleFormMixin:
     def __init__(self, **kwargs: Any) -> None:
         # Cannot be a required parameter since DjangoModelFormMutation
         # initializes all forms once without passing in any args.
         self.request: Optional[HttpRequest] = kwargs.pop("request", None)
         files = kwargs.pop("files", None) or getattr(self.request, "FILES", None)
-        # Ignore: Mypy thinks that super can get multiple values for `files`, even
-        #  though it's popped away from kwargs.
-        super().__init__(**kwargs, files=files)  # type: ignore[misc]
+        # Ignore: `object` doesn't take these kwargs, but forms do.
+        super().__init__(**kwargs, files=files)  # type: ignore[call-arg]
+
+
+class SkoleForm(_SkoleFormMixin, forms.Form):
+    """Base class for all plain forms."""
+
+
+class SkoleModelForm(_SkoleFormMixin, forms.ModelForm):
+    """Base class for all model forms."""
 
 
 class SkoleUpdateModelForm(SkoleModelForm):

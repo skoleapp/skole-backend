@@ -1,7 +1,9 @@
 from django import forms
 
+from skole.forms.base import SkoleForm
 
-class ContactForm(forms.Form):
+
+class ContactForm(SkoleForm):
     subject = forms.CharField(max_length=25)
     name = forms.CharField(max_length=50, required=False)
     email = forms.EmailField()

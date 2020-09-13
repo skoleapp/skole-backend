@@ -20,8 +20,8 @@ Also check out the [README from `skole` repo](https://github.com/ruohola/skole/b
 
 - Inherit all models from `SkoleModel` or `TranslatableSkoleModel`.
 - Inherit all managers from `SkoleManager` or `TranslatableSkoleManager`.
-- Inherit all model forms from `SkoleModelForm` or `SkoleUpdateModelForm`.
-- Most mutations should inherit from either `SkoleCreateUpdateMutationMixin` or `SkoleDeleteMutationMixin`.
+- Inherit all forms from `SkoleForm`, `SkoleModelForm`, or `SkoleUpdateModelForm`.
+- Inherit all mutations from `SkoleCreateUpdateMutationMixin` or `SkoleDeleteMutationMixin`.
 
 <!-- -->
 

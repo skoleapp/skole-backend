@@ -10,7 +10,7 @@ from skole.types import JsonDict
 from skole.utils.constants import ValidationErrors
 from skole.utils.shortcuts import clean_file_field
 
-from .base import SkoleModelForm
+from .base import SkoleForm, SkoleModelForm
 
 
 class RegisterForm(SkoleModelForm):
@@ -28,14 +28,14 @@ class RegisterForm(SkoleModelForm):
         return username
 
 
-class TokenForm(forms.Form):
+class TokenForm(SkoleForm):
     # We don't make the token required because we don't want
     # to return error messages for that specific field but rather
     # general error messages as the token is always a hidden field.
     token = forms.CharField(required=False)
 
 
-class EmailForm(forms.Form):
+class EmailForm(SkoleForm):
     email = forms.EmailField()
 
 

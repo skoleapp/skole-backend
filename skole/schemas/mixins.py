@@ -2,11 +2,13 @@ from typing import TYPE_CHECKING, Any, Optional, Type, TypeVar
 
 import graphene
 from graphene_django.forms.mutation import DjangoModelFormMutation
+from graphene_django.types import ErrorType
 from graphql import ResolveInfo
 
 from skole.models import Starred, Vote
 from skole.types import JsonDict
 from skole.utils.constants import MutationErrors
+from skole.utils.shortcuts import validate_is_first_inherited
 
 if TYPE_CHECKING:  # pragma: no cover
     # To avoid circular import.
@@ -97,6 +99,7 @@ class PaginationMixin:
 T = TypeVar("T", bound="SkoleCreateUpdateMutationMixin")
 
 
+@validate_is_first_inherited
 class SkoleCreateUpdateMutationMixin:
     """
     Base mixin for all create and update mutations.
@@ -113,6 +116,9 @@ class SkoleCreateUpdateMutationMixin:
 
     login_required: bool = False
     verification_required: bool = False
+
+    # Defined here to add the default value.
+    errors = graphene.List(ErrorType, default_value=[])
 
     @classmethod
     def get_form_kwargs(
@@ -142,7 +148,8 @@ class SkoleCreateUpdateMutationMixin:
         return super().mutate(root, info, **input)  # type: ignore[misc]
 
 
-class SkoleDeleteMutationMixin(SuccessMessageMixin, SkoleCreateUpdateMutationMixin):
+@validate_is_first_inherited
+class SkoleDeleteMutationMixin(SkoleCreateUpdateMutationMixin, SuccessMessageMixin):
     """
     Base mixin for all object deletion mutations.
 

@@ -20,7 +20,7 @@ def health_check(request: HttpRequest) -> HttpResponse:
 
 
 class SkoleGraphQLView(GraphQLView):
-    """This view should be used as the graphql endpoint of the app."""
+    """The GraphQL endpoint of the app."""
 
     def parse_body(
         self, request: HttpRequest

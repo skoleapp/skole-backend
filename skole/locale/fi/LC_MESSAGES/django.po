@@ -193,7 +193,7 @@ msgstr "Token vanhentunut. Ole hyvä ja pyydä uutta vahvistuslinkkiä."
 
 #: skole/utils/constants.py:93
 msgid "Invalid token. Please request new verification link."
-msgstr "Virheellinen token. Ole hyvä ja pyydä uuutta vahvistuslinkkiä."
+msgstr "Virheellinen tokeni. Ole hyvä ja pyydä uuutta vahvistuslinkkiä."
 
 #: skole/utils/constants.py:95
 msgid ""

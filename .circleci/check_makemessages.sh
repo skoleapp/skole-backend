@@ -16,11 +16,11 @@ for path in skole/locale/*; do
 
     diff --unified=0 "skole/locale/$lang/LC_MESSAGES/django.po" "/tmp/$lang.po" \
         | grep -Ev -- '---|\+\+\+|^@@.*@@$|POT-Creation-Date' \
-    && error=1 || echo "Messages ok for $lang."
+    && error=1 || echo "Makemessages ok for $lang."
 
     cp "/tmp/$lang.po" "skole/locale/$lang/LC_MESSAGES/django.po"
 done
 
-[ -z $error ] || { echo -e '\nForgot to run makemessages.\nExiting with error!' && exit 1; }
+[ -z $error ] || { echo -e '\nForgotten to run makemessages.\nExiting with error!' && exit 1; }
 
-echo 'All messages ok.'
+echo 'All makemessages ok.'

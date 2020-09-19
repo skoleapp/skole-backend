@@ -20,6 +20,10 @@ from skole.types import ID, JsonDict
 
 FileData = Optional[Sequence[Tuple[str, File]]]
 
+TEST_ATTACHMENT_PNG = "media/uploads/attachments/test_attachment.png"
+TEST_AVATAR_JPG = "media/uploads/avatars/test_avatar.jpg"
+TEST_RESOURCE_PDF = "media/uploads/resources/test_resource.pdf"
+
 
 class SkoleSchemaTestCase(TestCase):
     """

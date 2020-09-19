@@ -1,5 +1,6 @@
 from skole.models import Comment, Course, Resource
 from skole.tests.helpers import (
+    TEST_ATTACHMENT_PNG,
     FileData,
     SkoleSchemaTestCase,
     get_form_error,
@@ -134,15 +135,40 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         assert Course.objects.get(pk=2).comments.first().text == text
         assert Course.objects.get(pk=2).comments.first().pk == int(comment["id"])
 
-        # Create a comment without logging in
+        # Create a comment with an attachment.
+        with open_as_file(TEST_ATTACHMENT_PNG) as attachment:
+            res = self.mutate_create_comment(
+                text=text, course=2, file_data=[("attachment", attachment)],
+            )
+        assert not res["errors"]
+        assert comment["text"] == text
+        assert Comment.objects.count() == old_count + 4
+
         self.authenticated_user = None
+
+        # Create a comment without logging in
         res = self.mutate_create_comment(text=text, course=3)
         comment = res["comment"]
         assert not res["errors"]
         assert comment["text"] == text
         assert comment["course"]["id"] == "3"
         assert comment["user"] is None
-        assert Comment.objects.count() == old_count + 4
+        assert Comment.objects.count() == old_count + 5
+
+        # Can't add an attachment to the comment without logging in.
+        with open_as_file(TEST_ATTACHMENT_PNG) as attachment:
+            res = self.mutate_create_comment(
+                text=text, course=2, file_data=[("attachment", attachment)],
+            )
+        comment = res["comment"]
+        # No need to return an error, frontend will anyways hide this option for
+        # non-logged in users, backend just does the extra confirmation.
+        assert not res["errors"]
+        assert res["comment"]["attachment"] == ""  # Note that no attachment here.
+        assert res["comment"]["text"] == text
+        assert Comment.objects.count() == old_count + 6
+
+        self.authenticated_user = 2
 
         # Can't create a comment with 2 targets.
         res = self.mutate_create_comment(text=text, course=1, resource=1)
@@ -151,24 +177,24 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         # Can't create a comment with 3 targets.
         res = self.mutate_create_comment(text=text, course=1, resource=1, comment=1)
         assert get_form_error(res) == ValidationErrors.MUTATION_INVALID_TARGET
-        # Check that the comment count hasn't changed.
-        assert Comment.objects.count() == old_count + 4
 
         # Can't create a comment with no text and no attachment.
         res = self.mutate_create_comment(text="", attachment="", course=1)
         assert get_form_error(res) == ValidationErrors.COMMENT_EMPTY
 
+        # Check that the comment count hasn't changed.
+        assert Comment.objects.count() == old_count + 6
+
     def test_update_comment(self) -> None:
-        file_path = "media/uploads/attachments/test_attachment.png"
         new_text = "some new text"
-        with open_as_file(file_path) as attachment:
+        with open_as_file(TEST_ATTACHMENT_PNG) as attachment:
             res = self.mutate_update_comment(
                 id=4,
                 text=new_text,
                 attachment="",
                 file_data=[("attachment", attachment)],
             )
-        assert is_slug_match(file_path, res["comment"]["attachment"])
+        assert is_slug_match(TEST_ATTACHMENT_PNG, res["comment"]["attachment"])
         assert res["comment"]["text"] == new_text
         assert res["comment"]["course"]["id"] == "1"
         assert res["comment"]["resource"] is None

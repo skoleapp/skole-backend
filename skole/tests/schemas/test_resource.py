@@ -7,6 +7,8 @@ from django.http import HttpResponse
 from django.test import override_settings
 
 from skole.tests.helpers import (
+    TEST_ATTACHMENT_PNG,
+    TEST_RESOURCE_PDF,
     FileData,
     SkoleSchemaTestCase,
     get_form_error,
@@ -133,24 +135,21 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
         assert self.query_resource(id=999) is None
 
     def test_create_resource(self) -> None:
-        pdf_file_path = "media/uploads/resources/test_resource.pdf"
-        png_file_path = "media/uploads/attachments/test_attachment.png"
-
         # Create a resource with a PDF file.
-        with open_as_file(pdf_file_path) as file:
+        with open_as_file(TEST_RESOURCE_PDF) as file:
             res = self.mutate_create_resource(file_data=[("file", file)])
         resource = res["resource"]
         assert not res["errors"]
         assert resource["id"] == "4"
         assert resource["title"] == "test title"
-        assert is_slug_match(pdf_file_path, resource["file"])
+        assert is_slug_match(TEST_RESOURCE_PDF, resource["file"])
 
         # Create a resource with PNG file that will get converted to a PDF.
-        with open_as_file(pdf_file_path) as file:
+        with open_as_file(TEST_RESOURCE_PDF) as file:
             response = HttpResponse(content=file.read())
         with override_settings(CLOUDMERSIVE_API_KEY="xxx"):
             with mock.patch.object(requests, "post", return_value=response):
-                with open_as_file(png_file_path) as file:
+                with open_as_file(TEST_ATTACHMENT_PNG) as file:
                     res = self.mutate_create_resource(file_data=[("file", file)])
         resource = res["resource"]
         assert not res["errors"]

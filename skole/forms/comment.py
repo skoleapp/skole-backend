@@ -1,4 +1,4 @@
-from typing import Union, cast
+from typing import Any, Union, cast
 
 from django import forms
 from django.core.files import File
@@ -28,6 +28,11 @@ class CreateCommentForm(_CommentFormMixin, SkoleModelForm):
     class Meta:
         model = Comment
         fields = ("text", "attachment", "course", "resource", "comment")
+
+    def __init__(self, **kwargs: Any) -> None:
+        super().__init__(**kwargs)
+        if self.request and not self.request.user.is_authenticated:
+            self.fields.pop("attachment")
 
     def clean(self) -> JsonDict:
         data = super().clean()

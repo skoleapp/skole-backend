@@ -41,11 +41,11 @@ def clean_file_field(
     if file := form.files.get("1"):
         # New value for the field.
         return conversion_func(file) if conversion_func is not None else file
-    elif form.data[field_name] == "":
-        # Field value deleted.
+    elif not form.data[field_name]:
+        # Field value deleted (frontend submitted "" or null value).
         # We can't access this from `cleaned_data`, since the file is actually put
-        # there always by Django. Since normally file is only meant to be cleared
-        # by submitting a "false" value from the ClearableFileInput's checkbox.
+        # there automatically by Django, because normally the file is only meant to be
+        # cleared by submitting a "false" value from the ClearableFileInput's checkbox.
         return ""
     else:
         # Field not modified.

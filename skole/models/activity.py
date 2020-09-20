@@ -22,8 +22,8 @@ class Activity(SkoleModel):
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="activity"
     )
 
-    # A user who creates the activity, e.g. user replying to a comment.
-    # This field is nullable in case we want to make activities that do not involve a target user and are only defined by the description.
+    # A user who causes the activity, e.g. a user replying to a comment.
+    # Can also be null when a non-logged in user is the commenter.
     target_user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
@@ -35,6 +35,7 @@ class Activity(SkoleModel):
         "skole.ActivityType", on_delete=models.PROTECT, related_name="activities"
     )
 
+    # The different objects that can have activity appear in them.
     course = models.ForeignKey(
         "skole.Course", on_delete=models.CASCADE, null=True, blank=True,
     )
@@ -44,6 +45,7 @@ class Activity(SkoleModel):
     comment = models.ForeignKey(
         "skole.Comment", on_delete=models.CASCADE, null=True, blank=True,
     )
+
     read = models.BooleanField(default=False)
 
     # Ignore: Mypy somehow thinks that this is incompatible with the super class.

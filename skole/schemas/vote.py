@@ -31,7 +31,9 @@ class VoteMutation(SkoleCreateUpdateMutationMixin, DjangoModelFormMutation):
         # Not calling super (which saves the form), so that we don't
         # create two Vote instances here.
         vote, target_score = Vote.objects.perform_vote(
-            user=info.context.user, **form.cleaned_data
+            user=info.context.user,
+            status=form.cleaned_data["status"],
+            target=form.cleaned_data["target"],
         )
         return cls(vote=vote, target_score=target_score)
 

@@ -1,4 +1,4 @@
-from typing import Any, Callable, List, Optional, Type, TypeVar, Union
+from typing import Any, Callable, Optional, Type, TypeVar, Union
 
 from django import forms
 from django.core.files import File
@@ -104,7 +104,7 @@ def validate_is_first_inherited(decorated: Type[T]) -> Type[T]:
     return decorated
 
 
-def validate_single_target(data: JsonDict, *keys: str) -> List[Any]:
+def validate_single_target(data: JsonDict, *keys: str) -> Any:
     """
     Validate that exactly one of the `keys` in `data` have a non None value.
 

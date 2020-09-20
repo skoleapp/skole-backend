@@ -40,4 +40,5 @@ CMD python manage.py graphql_schema --out=/tmp/compare.graphql && diff schema.gr
     && python manage.py compilemessages \
     && python manage.py collectstatic --noinput \
     && python manage.py migrate \
-    && python manage.py loaddata skole/fixtures/initial*yaml
+    && python manage.py loaddata skole/fixtures/initial*yaml \
+    && gunicorn --check-config --config=config/gunicorn_conf.py config.wsgi

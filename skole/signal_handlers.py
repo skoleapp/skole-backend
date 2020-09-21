@@ -1,9 +1,9 @@
-from typing import Any, cast
+from typing import Any
 
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-from skole.models import Activity, ActivityType, Comment, User
+from skole.models import Activity, ActivityType, Comment
 from skole.utils.constants import ActivityTypes
 
 
@@ -12,13 +12,18 @@ from skole.utils.constants import ActivityTypes
 def create_activity(
     sender: Comment, instance: Comment, created: bool, raw: bool, **kwargs: Any
 ) -> None:
-    # Skip when installing fixtures or when the target doesn't have a user.
-    if created and not raw and instance.user:
-        target_user = instance.user
+    """Create activity for course comment, resource comment, or comment reply."""
 
-        if instance.comment and instance.comment.user != target_user:
+    if not created or raw:
+        # Skip when installing fixtures or when updating a comment.
+        return
+
+    target_user = instance.user
+
+    if instance.comment:
+        if instance.comment.user and instance.comment.user != target_user:
             Activity.objects.create(
-                user=cast(User, instance.comment.user),
+                user=instance.comment.user,
                 target_user=target_user,
                 course=instance.comment.course,
                 resource=instance.comment.resource,
@@ -27,9 +32,10 @@ def create_activity(
                     name=ActivityTypes.COMMENT_REPLY
                 ),
             )
-        elif instance.course and instance.course.user != target_user:
+    elif instance.course:
+        if instance.course.user and instance.course.user != target_user:
             Activity.objects.create(
-                user=cast(User, instance.course.user),
+                user=instance.course.user,
                 target_user=target_user,
                 course=instance.course,
                 resource=None,
@@ -38,9 +44,10 @@ def create_activity(
                     name=ActivityTypes.COURSE_COMMENT
                 ),
             )
-        elif instance.resource and instance.resource.user != target_user:
+    elif instance.resource:
+        if instance.resource.user and instance.resource.user != target_user:
             Activity.objects.create(
-                user=cast(User, instance.resource.user),
+                user=instance.resource.user,
                 target_user=target_user,
                 course=None,
                 resource=instance.resource,

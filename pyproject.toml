@@ -19,8 +19,5 @@ multi_line_output = 3
 skip_glob = "*/migrations/*"
 
 [tool.pytest.ini_options]
-python_files = "test_*"
-python_classes = "*Tests"
-python_functions = "test_*"
 DJANGO_SETTINGS_MODULE = "config.settings"
 addopts = "--nomigrations --doctest-modules"

@@ -30,7 +30,7 @@ class StarredMutation(SkoleCreateUpdateMutationMixin, DjangoModelFormMutation):
         # Not calling super (which saves the form), so that we don't
         # create two Starred instances here.
         starred = Starred.objects.perform_star(
-            user=info.context.user, **form.cleaned_data
+            user=info.context.user, target=form.cleaned_data["target"]
         )
         return cls(starred=bool(starred))
 

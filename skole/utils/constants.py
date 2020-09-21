@@ -134,8 +134,7 @@ class Ranks:
 
 
 class ActivityTypes:
-    """These are only used in activity signal to verify that the activity type matches
-    the correct fixture."""
+    """Used in activity signal to get the correct activity type from the fixtures."""
 
     COMMENT_REPLY = "comment_reply"
     COURSE_COMMENT = "course_comment"

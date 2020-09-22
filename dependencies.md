@@ -9,15 +9,15 @@ This document explains the need for every top level dependency the project has.
 | Dependency                                                           | Reason                                            |
 | :------------------------------------------------------------------- | :------------------------------------------------ |
 | [Django](https://pypi.org/project/Django/)                           | Duh.                                              |
-| [Pillow](https://pypi.org/project/Pillow/)                           | Use Django ImageField                             |
+| [Pillow](https://pypi.org/project/Pillow/)                           | Use Django's `ImageField`                         |
 | [PyYAML](https://pypi.org/project/PyYAML/)                           | Load Django YAML fixtures                         |
 | [dj-database-url](https://pypi.org/project/dj-database-url/)         | Pass the database credentials as one env variable |
-| [django-amazon-ses](https://pypi.org/project/django-amazon-ses/)     | Use AWS SES as the email backend for Django       |
+| [django-amazon-ses](https://pypi.org/project/django-amazon-ses/)     | Use AWS SES as Django's email backend             |
 | [django-cors-headers](https://pypi.org/project/django-cors-headers/) | CORS middleware                                   |
 | [django-graphql-jwt](https://pypi.org/project/django-graphql-jwt/)   | GraphQL JWT authentication                        |
-| [django-imagekit](https://pypi.org/project/django-imagekit/)         | ImageSpecField for use avatars                    |
-| [django-parler](https://pypi.org/project/django-parler/)             | Translations                                      |
-| [django-s3-storage](https://pypi.org/project/django-s3-storage/)     | Use AWS S3 as the storage backend for Django      |
+| [django-imagekit](https://pypi.org/project/django-imagekit/)         | `ImageSpecField` for user avatars                 |
+| [django-parler](https://pypi.org/project/django-parler/)             | Translatable models                               |
+| [django-s3-storage](https://pypi.org/project/django-s3-storage/)     | Use AWS S3 as Django's storage backend            |
 | [graphene-django](https://pypi.org/project/graphene-django/)         | Use GraphQL with Django                           |
 | [gunicorn](https://pypi.org/project/gunicorn/)                       | Production webserver                              |
 | [psycopg2](https://pypi.org/project/psycopg2/)                       | Connect to PostgreSQL                             |
@@ -35,7 +35,7 @@ This document explains the need for every top level dependency the project has.
 | [flake8](https://pypi.org/project/flake8/)               | Linting                                        |
 | [isort](https://pypi.org/project/isort/)                 | Linting and sorting imports                    |
 | [mypy](https://pypi.org/project/mypy/)                   | Type checking                                  |
-| [pytest-cov](https://pypi.org/project/pytest-cov/)       | Calulating test coverage with pytest           |
+| [pytest-cov](https://pypi.org/project/pytest-cov/)       | Calculating test coverage with pytest          |
 | [pytest-django](https://pypi.org/project/pytest-django/) | Django specific pytest fixtures and a lot more |
 | [pytest](https://pypi.org/project/pytest/)               | Unit testing                                   |
 

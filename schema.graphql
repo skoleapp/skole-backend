@@ -319,7 +319,7 @@ type ResetPasswordMutationPayload {
 
 type ResourceObjectType {
   id: ID!
-  resourceType: String
+  resourceType: ResourceTypeObjectType
   title: String!
   file: String!
   date: Date!

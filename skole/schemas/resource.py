@@ -14,6 +14,7 @@ from skole.schemas.mixins import (
     SuccessMessageMixin,
     VoteMixin,
 )
+from skole.schemas.resource_type import ResourceTypeObjectType
 from skole.schemas.school import SchoolObjectType
 from skole.types import ID
 from skole.utils.constants import Messages
@@ -21,7 +22,7 @@ from skole.utils.shortcuts import get_obj_or_none
 
 
 class ResourceObjectType(VoteMixin, StarredMixin, DjangoObjectType):
-    resource_type = graphene.String()
+    resource_type = graphene.Field(ResourceTypeObjectType)
     school = graphene.Field(SchoolObjectType)
 
     class Meta:

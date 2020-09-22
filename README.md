@@ -2,7 +2,9 @@
 
 This is the GraphQL backend for the Skole app.
 
-Also check out the [README from `skole` repo](https://github.com/ruohola/skole/blob/develop/README.md). 
+Also check out the [README from `skole` repo](https://github.com/ruohola/skole/blob/develop/README.md).
+
+See detailed description for all top-level dependencies in `dependencies.md` file.
 
 ### Development Tips
 
@@ -26,7 +28,7 @@ Also check out the [README from `skole` repo](https://github.com/ruohola/skole/b
 <!-- -->
 
 - Try not to access any "private" names starting with an underscore `_`
-  outside the class or module where it's defined. 
+  outside the class or module where it's defined.
 
 - Do not manually call `Model.save()` outside of model files.
   It's fine to call `save()` on a `ModelForm` to save the instance though.

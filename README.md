@@ -4,12 +4,12 @@ This is the GraphQL backend for the Skole app.
 
 Also check out the [README from `skole` repo](https://github.com/ruohola/skole/blob/develop/README.md).
 
-See detailed description for all top-level dependencies in `dependencies.md` file.
+See detailed description for all top-level dependencies in [`dependencies.md`](dependencies.md) file.
 
 ### Development Tips
 
-- No pull requests can be merged without CircleCI first building and running `Dockerfile` against it.
-  See the bottommost `CMD` in the `Dockerfile` for the full list of stuff it runs and validates.
+- No pull requests can be merged without CircleCI first building and running [`Dockerfile`](Dockerfile) against it.
+  See the bottommost `CMD` in it for the full list of stuff it runs and validates.
   CircleCI also verifies the code style, so there is no need to argue about formatting.
 
 - Use [Google style](https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html) docstrings.

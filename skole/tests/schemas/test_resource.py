@@ -28,7 +28,10 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
             id
             title
             file
-            resourceType
+            resourceType {
+                id
+                name
+            }
             date
             downloads
             score
@@ -177,7 +180,7 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
         resource = res["resource"]
         assert not res["errors"]
         assert resource["title"] == new_title
-        assert resource["resourceType"] == "Note"
+        assert resource["resourceType"]["name"] == "Note"
         assert resource["date"] == "2012-12-12"
 
         # Can't update someone else's resource.

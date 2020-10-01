@@ -261,16 +261,16 @@ type PaginatedCourseObjectType {
 type Query {
   user(id: ID): UserObjectType
   userMe: UserObjectType
-  subjects: [SubjectObjectType]
+  subjects(name: String): [SubjectObjectType]
   subject(id: ID): SubjectObjectType
   schoolTypes: [SchoolTypeObjectType]
   schoolType(id: ID): SchoolTypeObjectType
-  schools: [SchoolObjectType]
+  schools(name: String): [SchoolObjectType]
   school(id: ID): SchoolObjectType
   resourceTypes: [ResourceTypeObjectType]
   resource(id: ID): ResourceObjectType
-  searchCourses(courseName: String, courseCode: String, subject: ID, school: ID, schoolType: ID, country: ID, city: ID, page: Int, pageSize: Int, ordering: String): PaginatedCourseObjectType
-  courses(school: ID): [CourseObjectType]
+  courses(school: ID, name: String): [CourseObjectType]
+  paginatedCourses(courseName: String, courseCode: String, subject: ID, school: ID, schoolType: ID, country: ID, city: ID, page: Int, pageSize: Int, ordering: String): PaginatedCourseObjectType
   course(id: ID): CourseObjectType
   countries: [CountryObjectType]
   country(id: ID): CountryObjectType

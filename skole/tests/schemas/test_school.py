@@ -32,13 +32,13 @@ class SchoolSchemaTests(SkoleSchemaTestCase):
         }
     """
 
-    def query_schools(self) -> List[JsonDict]:
+    def query_schools(self, name: str = "") -> List[JsonDict]:
         # language=GraphQL
         graphql = (
             self.school_fields
             + """
-            query Schools {
-                schools {
+            query Schools($name: String) {
+                schools(name: $name) {
                     ...schoolFields
                 }
             }
@@ -68,8 +68,22 @@ class SchoolSchemaTests(SkoleSchemaTestCase):
 
     def test_schools(self) -> None:
         schools = self.query_schools()
-        assert len(schools) == 6
-        assert schools[0] == self.query_school(id=2)
+
+        # By default, schools are ordered by the amount of courses.
+        assert schools[0] == self.query_school(id=1)  # Most courses.
+        assert schools[1] == self.query_school(id=2)  # 2nd most courses.
+        assert schools[2] == self.query_school(id=3)  # 3rd most courses.
+
+        # Query schools by name.
+        res = self.query_schools("Turku")
+        assert len(res) == 6
+        assert res[0] == self.query_school(id=1)  # University of Turku.
+        assert res[2] == self.query_school(
+            id=3
+        )  # Turku University of Applied Sciences.
+
+        # TODO: Test that no more than the maximum limit of results are returned.
+        # Currently we don't have enough test schools to exceed the limit.
 
     def test_school(self) -> None:
         school = self.query_school(id=1)

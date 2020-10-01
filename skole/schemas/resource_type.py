@@ -17,7 +17,7 @@ class ResourceTypeObjectType(DjangoObjectType):
 class Query(graphene.ObjectType):
     resource_types = graphene.List(ResourceTypeObjectType)
 
-    # Querying one ResourceType with ID is not needed.
+    # Querying a single ResourceType is not needed.
 
     def resolve_resource_types(self, info: ResolveInfo) -> "QuerySet[ResourceType]":
         return ResourceType.objects.all()

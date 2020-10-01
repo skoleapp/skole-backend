@@ -1,7 +1,7 @@
-from typing import Optional, get_args
+from typing import Optional, cast, get_args
 
 import graphene
-from django.db.models import F, QuerySet
+from django.db.models import QuerySet
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphql import GraphQLError, ResolveInfo
@@ -17,9 +17,9 @@ from skole.schemas.mixins import (
     VoteMixin,
 )
 from skole.types import ID, CourseOrderingOption
-from skole.utils.constants import GraphQLErrors, Messages
+from skole.utils.constants import MAX_QUERY_RESULTS, GraphQLErrors, Messages
 from skole.utils.pagination import get_paginator
-from skole.utils.shortcuts import get_obj_or_none
+from skole.utils.shortcuts import get_obj_or_none, order_courses_with_secret_algorithm
 
 
 class CourseObjectType(VoteMixin, StarredMixin, DjangoObjectType):
@@ -65,7 +65,13 @@ class DeleteCourseMutation(SkoleDeleteMutationMixin, DjangoModelFormMutation):
 
 
 class Query(graphene.ObjectType):
-    search_courses = graphene.Field(
+    # Used for non-paginated queries such as auto complete field results.
+    courses = graphene.List(
+        CourseObjectType, school=graphene.ID(), name=graphene.String()
+    )
+
+    # Used for paginated queries.
+    paginated_courses = graphene.Field(
         PaginatedCourseObjectType,
         course_name=graphene.String(),
         course_code=graphene.String(),
@@ -79,10 +85,25 @@ class Query(graphene.ObjectType):
         ordering=graphene.String(),
     )
 
-    courses = graphene.List(CourseObjectType, school=graphene.ID())
     course = graphene.Field(CourseObjectType, id=graphene.ID())
 
-    def resolve_search_courses(
+    # We want to avoid making massive queries for instance in auto complete fields so we slice the results from this non-paginated query.
+    # If no course name is provided as a parameter, we return only the best courses so that at least some results are always returned.
+    def resolve_courses(
+        self, info: ResolveInfo, school: ID = None, name: str = ""
+    ) -> "QuerySet[Course]":
+        qs = cast("QuerySet[Course]", Course.objects.order_by("name"))
+
+        if school is not None:
+            qs = qs.filter(school__pk=school)
+
+        if name != "":
+            qs = qs.filter(name__icontains=name)
+
+        qs = order_courses_with_secret_algorithm(qs)
+        return qs[:MAX_QUERY_RESULTS]
+
+    def resolve_paginated_courses(
         self,
         info: ResolveInfo,
         course_name: Optional[str] = None,
@@ -98,7 +119,7 @@ class Query(graphene.ObjectType):
     ) -> graphene.ObjectType:
         """Filter courses based on the query parameters."""
 
-        qs = Course.objects.all()
+        qs = cast("QuerySet[Course]", Course.objects.all())
 
         if course_name is not None:
             qs = qs.filter(name__icontains=course_name)
@@ -119,28 +140,13 @@ class Query(graphene.ObjectType):
             raise GraphQLError(GraphQLErrors.INVALID_ORDERING)
 
         if ordering == "best":
-            # No deep logic in this, should just be a formula that makes
-            # the most sense for determining the most interesting courses.
-            # The ordering formula/value should not be exposed to the frontend.
-            qs = qs.order_by(
-                -(3 * F("score") + 2 * F("resource_count") + F("comment_count")), "name"
-            )
+            qs = order_courses_with_secret_algorithm(qs)
         elif ordering == "score":
             qs = qs.order_by("-score", "name")
         else:  # name or -name
             qs = qs.order_by(ordering)
 
         return get_paginator(qs, page_size, page, PaginatedCourseObjectType)
-
-    def resolve_courses(
-        self, info: ResolveInfo, school: ID = None,
-    ) -> "QuerySet[Course]":
-        qs = Course.objects.order_by("name")
-
-        if school is not None:
-            qs = qs.filter(school__pk=school)
-
-        return qs
 
     def resolve_course(self, info: ResolveInfo, id: ID = None) -> Optional[Course]:
         return get_obj_or_none(Course, id)

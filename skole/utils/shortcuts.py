@@ -2,13 +2,14 @@ from typing import Any, Callable, Optional, Type, TypeVar, Union
 
 from django import forms
 from django.core.files import File
-from django.db import models
+from django.db.models import F, Model, QuerySet
 
+from skole.models import Course
 from skole.types import ID, JsonDict
 from skole.utils.constants import ValidationErrors
 
 T = TypeVar("T")
-M = TypeVar("M", bound=models.Model)
+M = TypeVar("M", bound=Model)
 
 
 def get_obj_or_none(model: Type[M], pk: ID = None) -> Optional[M]:
@@ -130,3 +131,16 @@ def validate_single_target(data: JsonDict, *keys: str) -> Any:
     if len(found) != 1:
         raise forms.ValidationError(ValidationErrors.MUTATION_INVALID_TARGET)
     return found[0]
+
+
+def order_courses_with_secret_algorithm(qs: "QuerySet[Course]") -> "QuerySet[Course]":
+    """
+    No deep logic in this, should just be a formula that makes the most sense for
+    determining the most interesting courses.
+
+    The ordering formula/value should not be exposed to the frontend.
+    """
+
+    return qs.order_by(
+        -(3 * F("score") + 2 * F("resource_count") + F("comment_count")), "name"
+    )

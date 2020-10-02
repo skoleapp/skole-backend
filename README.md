@@ -34,8 +34,11 @@ See detailed description for all top-level dependencies in [`dependencies.md`](d
   It's fine to call `save()` on a `ModelForm` to save the instance though.
 
 - Sometimes Mypy doesn't understand a type, and that's completely fine. In these cases ignore
-  only the specific error with `# type: ignore[err-name]` AND write a comment starting
-  with `# Ignore: ` on top of it, which explains why the ignore was needed.
+  only the specific error with `# type: ignore[err-name]` AND write a comment starting
+  with `# Ignore: ` on top of it, which explains why the ignore was needed.
 
-- All monkey patched code affecting 3rd party modules should go into `patched.py`.
-  The compatibility of the patched code should also be verified with a test in `test_patched.py`.
+- All monkey patched code affecting 3rd party modules should go into [`patched.py`](skole/patched.py).
+  The compatibility of the patched code should also be verified with a test in [`test_patched.py`](skole/tests/test_patched.py).
+
+- Since `_` is reserved as an alias for Django's translation functions, use a double underscore `__`
+  for ignored values, e.g. `foo, __ = Foo.objects.get_or_create(...)` or `[bar() for __ in range(n)]`.

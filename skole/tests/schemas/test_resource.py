@@ -165,6 +165,9 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
         res = self.mutate_create_resource()
         assert res["resource"] is None
         assert get_form_error(res) == "This field is required."
+        res = self.mutate_create_resource(file="foo")
+        assert res["resource"] is None
+        assert get_form_error(res) == "This field is required."
 
         # Can't create one without logging in.
         self.authenticated_user = None

@@ -4,7 +4,7 @@
 # was run and thus the translation files are all up-to-date.
 
 for path in skole/locale/*; do
-    lang=$(basename $path)
+    lang=$(basename "$path")
 
     cp "skole/locale/$lang/LC_MESSAGES/django.po" "/tmp/$lang.po"
 done
@@ -12,7 +12,7 @@ done
 python manage.py makemessages --all 
 
 for path in skole/locale/*; do
-    lang=$(basename $path)
+    lang=$(basename "$path")
 
     diff --unified=0 "skole/locale/$lang/LC_MESSAGES/django.po" "/tmp/$lang.po" \
         | grep -Ev -- '---|\+\+\+|^@@.*@@$|POT-Creation-Date' \
@@ -21,6 +21,6 @@ for path in skole/locale/*; do
     cp "/tmp/$lang.po" "skole/locale/$lang/LC_MESSAGES/django.po"
 done
 
-[ -z $error ] || { echo -e '\nForgotten to run makemessages.\nExiting with error!' && exit 1; }
+[ -z $error ] || { printf '\nForgotten to run makemessages.\nExiting with error!\n' && exit 1; }
 
 echo 'All makemessages ok.'

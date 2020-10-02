@@ -34,22 +34,34 @@ def clean_file_field(
         conversion_func: Optional converter function to pass the file through,
             when the value has changed.
 
+    Raises:
+        ValidationError: If the form field was marked as required and this
+            function's return value would be empty.
+
     See `CreateResourceForm.clean_file` for example usage.
     """
     assert form.files is not None
+    file: Union[File, str]
 
-    if file := form.files.get("1"):
+    if uploaded := form.files.get("1"):
         # New value for the field.
-        return conversion_func(file) if conversion_func is not None else file
+        file = conversion_func(uploaded) if conversion_func is not None else uploaded
     elif not form.data[field_name]:
         # Field value deleted (frontend submitted "" or null value).
         # We can't access this from `cleaned_data`, since the file is actually put
         # there automatically by Django, because normally the file is only meant to be
         # cleared by submitting a "false" value from the ClearableFileInput's checkbox.
-        return ""
+        file = ""
     else:
         # Field not modified.
-        return getattr(form.instance, field_name)
+        file = getattr(form.instance, field_name)
+
+    if not file and form.fields[field_name].required:
+        raise forms.ValidationError(
+            form.fields[field_name].error_messages["required"], code="required"
+        )
+
+    return file
 
 
 def full_refresh_from_db(instance: M, /) -> M:

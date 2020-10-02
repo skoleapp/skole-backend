@@ -1124,6 +1124,17 @@
     user: 2
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Comment
+  pk: 23
+  fields:
+    text: An anonymous comment to a resource.
+    attachment: ""
+    resource: 1
+    course: null
+    comment: null
+    user: null
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 
 - model: skole.Vote
   pk: 1

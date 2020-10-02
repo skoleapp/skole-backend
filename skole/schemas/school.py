@@ -56,9 +56,8 @@ class Query(graphene.ObjectType):
                 translations__name__icontains=name,
                 translations__language_code=info.context.LANGUAGE_CODE,
             )
-        else:
-            qs = qs.annotate(num_courses=Count("courses")).order_by("-num_courses")
 
+        qs = qs.annotate(num_courses=Count("courses")).order_by("-num_courses")
         return qs[:MAX_QUERY_RESULTS]
 
     def resolve_school(self, info: ResolveInfo, id: ID = None) -> Optional[School]:

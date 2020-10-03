@@ -19,10 +19,10 @@ class CityObjectType(DjangoObjectType):
 
 
 class Query(graphene.ObjectType):
-    auto_complete_cities = graphene.List(CityObjectType)
+    autocomplete_cities = graphene.List(CityObjectType)
     city = graphene.Field(CityObjectType, id=graphene.ID())
 
-    def resolve_auto_complete_cities(self, info: ResolveInfo) -> "QuerySet[City]":
+    def resolve_autocomplete_cities(self, info: ResolveInfo) -> "QuerySet[City]":
         """Used for queries made by the client's auto complete fields."""
         assert info.context is not None
         # We must manually call the translation function in order to perform the ordering based on the translated values.

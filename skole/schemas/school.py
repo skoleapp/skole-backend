@@ -39,10 +39,10 @@ class SchoolObjectType(DjangoObjectType):
 
 
 class Query(graphene.ObjectType):
-    auto_complete_schools = graphene.List(SchoolObjectType, name=graphene.String())
+    autocomplete_schools = graphene.List(SchoolObjectType, name=graphene.String())
     school = graphene.Field(SchoolObjectType, id=graphene.ID())
 
-    def resolve_auto_complete_schools(
+    def resolve_autocomplete_schools(
         self, info: ResolveInfo, name: str = ""
     ) -> "QuerySet[School]":
         """

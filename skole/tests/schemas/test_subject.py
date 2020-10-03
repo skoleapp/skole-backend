@@ -14,13 +14,13 @@ class SubjectSchemaTests(SkoleSchemaTestCase):
         }
     """
 
-    def query_auto_complete_subjects(self, name: str = "") -> List[JsonDict]:
+    def query_autocomplete_subjects(self, name: str = "") -> List[JsonDict]:
         # language=GraphQL
         graphql = (
             self.subject_fields
             + """
-            query AutoCompleteSubjects($name: String) {
-                autoCompleteSubjects(name: $name) {
+            query AutocompleteSubjects($name: String) {
+                autocompleteSubjects(name: $name) {
                     ...subjectFields
                 }
             }
@@ -48,8 +48,8 @@ class SubjectSchemaTests(SkoleSchemaTestCase):
         self.authenticated_user = None
         self.assert_field_fragment_matches_schema(self.subject_fields)
 
-    def test_auto_complete_subjects(self) -> None:
-        subjects = self.query_auto_complete_subjects()
+    def test_autocomplete_subjects(self) -> None:
+        subjects = self.query_autocomplete_subjects()
 
         # By default, subjects are ordered by the amount of courses.
         assert subjects[0] == self.query_subject(id=1)  # Most courses.
@@ -57,7 +57,7 @@ class SubjectSchemaTests(SkoleSchemaTestCase):
         assert subjects[2] == self.query_subject(id=3)  # 3rd most courses.
 
         # Query subjects by name.
-        res = self.query_auto_complete_subjects("Computer")
+        res = self.query_autocomplete_subjects("Computer")
         assert len(res) == 4
         assert res[0] == self.query_subject(id=1)  # Compututer Engineering.
         assert res[1] == self.query_subject(id=2)  # Computer Science.

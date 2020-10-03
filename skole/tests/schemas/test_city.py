@@ -14,13 +14,13 @@ class CitySchemaTests(SkoleSchemaTestCase):
         }
     """
 
-    def query_auto_complete_cities(self) -> List[JsonDict]:
+    def query_autocomplete_cities(self) -> List[JsonDict]:
         # language=GraphQL
         graphql = (
             self.city_fields
             + """
-            query AutoCompleteCities {
-                autoCompleteCities {
+            query AutocompleteCities {
+                autocompleteCities {
                     ...cityFields
                 }
             }
@@ -49,7 +49,7 @@ class CitySchemaTests(SkoleSchemaTestCase):
         self.assert_field_fragment_matches_schema(self.city_fields)
 
     def test_cities(self) -> None:
-        cities = self.query_auto_complete_cities()
+        cities = self.query_autocomplete_cities()
         assert len(cities) == 5
         # Cities should be ordered alphabetically.
         assert cities[0] == self.query_city(id=3)

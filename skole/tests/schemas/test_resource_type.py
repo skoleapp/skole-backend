@@ -14,13 +14,13 @@ class ResourceTypeSchemaTests(SkoleSchemaTestCase):
         }
     """
 
-    def query_auto_complete_resource_types(self) -> List[JsonDict]:
+    def query_autocomplete_resource_types(self) -> List[JsonDict]:
         # language=GraphQL
         graphql = (
             self.resource_type_fields
             + """
-            query AutoCompleteResourceTypes {
-                autoCompleteResourceTypes {
+            query AutocompleteResourceTypes {
+                autocompleteResourceTypes {
                     ...resourceTypeFields
                 }
             }
@@ -32,8 +32,8 @@ class ResourceTypeSchemaTests(SkoleSchemaTestCase):
         self.authenticated_user = None
         self.assert_field_fragment_matches_schema(self.resource_type_fields)
 
-    def test_auto_complete_resource_types(self) -> None:
-        resource_types = self.query_auto_complete_resource_types()
+    def test_autocomplete_resource_types(self) -> None:
+        resource_types = self.query_autocomplete_resource_types()
         assert len(resource_types) == 4
         # ResourceTypes should be ordered by IDs.
         assert resource_types[0]["id"] == "1"

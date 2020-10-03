@@ -25,10 +25,10 @@ class PaginatedSubjectObjectType(PaginationMixin, graphene.ObjectType):
 
 
 class Query(graphene.ObjectType):
-    auto_complete_subjects = graphene.List(SubjectObjectType, name=graphene.String())
+    autocomplete_subjects = graphene.List(SubjectObjectType, name=graphene.String())
     subject = graphene.Field(SubjectObjectType, id=graphene.ID())
 
-    def resolve_auto_complete_subjects(
+    def resolve_autocomplete_subjects(
         self, info: ResolveInfo, name: str = ""
     ) -> "QuerySet[Subject]":
         """

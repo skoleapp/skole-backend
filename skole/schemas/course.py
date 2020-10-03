@@ -80,7 +80,7 @@ class DeleteCourseMutation(SkoleDeleteMutationMixin, DjangoModelFormMutation):
 
 
 class Query(graphene.ObjectType):
-    auto_complete_courses = graphene.List(
+    autocomplete_courses = graphene.List(
         CourseObjectType, school=graphene.ID(), name=graphene.String()
     )
 
@@ -100,7 +100,7 @@ class Query(graphene.ObjectType):
 
     course = graphene.Field(CourseObjectType, id=graphene.ID())
 
-    def resolve_auto_complete_courses(
+    def resolve_autocomplete_courses(
         self, info: ResolveInfo, school: ID = None, name: str = ""
     ) -> "QuerySet[Course]":
         """

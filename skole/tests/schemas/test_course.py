@@ -46,7 +46,7 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         }
     """
 
-    def query_auto_complete_courses(
+    def query_autocomplete_courses(
         self, *, school: ID = None, name: str = ""
     ) -> List[JsonDict]:
         variables = {"school": school, "name": name}
@@ -55,8 +55,8 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         graphql = (
             self.course_fields
             + """
-            query AutoCompleteCourses($school: ID, $name: String) {
-                autoCompleteCourses(school: $school, name: $name) {
+            query AutocompleteCourses($school: ID, $name: String) {
+                autocompleteCourses(school: $school, name: $name) {
                     ...courseFields
                 }
             }
@@ -335,15 +335,15 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         res = self.query_search_courses(ordering="badvalue", assert_error=True)  # type: ignore[arg-type]
         assert get_graphql_error(res) == GraphQLErrors.INVALID_ORDERING
 
-    def test_auto_complete_courses(self) -> None:
-        courses = self.query_auto_complete_courses()
+    def test_autocomplete_courses(self) -> None:
+        courses = self.query_autocomplete_courses()
         assert len(courses) == 15
         # By default, best courses are returned.
         assert courses[0] == self.query_course(id=1)  # Best
         assert courses[-1] == self.query_course(id=9)  # Worst
 
         # Query by course name
-        assert self.query_auto_complete_courses(name="8")[0] == self.query_course(id=8)
+        assert self.query_autocomplete_courses(name="8")[0] == self.query_course(id=8)
 
         # TODO: Test that no more than the maximum limit of results are returned.
         # Currently we don't have enough test courses to exceed the limit.

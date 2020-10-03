@@ -19,10 +19,10 @@ class CountryObjectType(DjangoObjectType):
 
 
 class Query(graphene.ObjectType):
-    auto_complete_countries = graphene.List(CountryObjectType)
+    autocomplete_countries = graphene.List(CountryObjectType)
     country = graphene.Field(CountryObjectType, id=graphene.ID())
 
-    def resolve_auto_complete_countries(self, info: ResolveInfo) -> "QuerySet[Country]":
+    def resolve_autocomplete_countries(self, info: ResolveInfo) -> "QuerySet[Country]":
         """Used for queries made by the client's auto complete fields."""
         assert info.context is not None
         # We must manually call the translation function in order to perform the ordering based on the translated values.

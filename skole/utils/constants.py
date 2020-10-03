@@ -139,7 +139,3 @@ class ActivityTypes:
     COMMENT_REPLY = "comment_reply"
     COURSE_COMMENT = "course_comment"
     RESOURCE_COMMENT = "resource_comment"
-
-
-# Maximum amount of results for non-paginated queries.
-MAX_QUERY_RESULTS = 50

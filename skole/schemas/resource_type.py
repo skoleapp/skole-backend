@@ -15,9 +15,12 @@ class ResourceTypeObjectType(DjangoObjectType):
 
 
 class Query(graphene.ObjectType):
-    resource_types = graphene.List(ResourceTypeObjectType)
+    auto_complete_resource_types = graphene.List(ResourceTypeObjectType)
 
     # Querying a single ResourceType is not needed.
 
-    def resolve_resource_types(self, info: ResolveInfo) -> "QuerySet[ResourceType]":
+    def resolve_auto_complete_resource_types(
+        self, info: ResolveInfo
+    ) -> "QuerySet[ResourceType]":
+        """Used for queries made by the client's auto complete fields."""
         return ResourceType.objects.all()

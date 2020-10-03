@@ -205,3 +205,6 @@ EMAIL_SUBJECT_CONTACT = "email/contact_email_subject.html"
 EMAIL_TEMPLATE_PASSWORD_RESET = "email/reset_password_body.html"
 EMAIL_TEMPLATE_VERIFICATION = "email/verify_account_body.html"
 EMAIL_TEMPLATE_CONTACT = "email/contact_email_body.html"
+
+# Maximum amount of results for non-paginated queries.
+MAX_QUERY_RESULTS = 50

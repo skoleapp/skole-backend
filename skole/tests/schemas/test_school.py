@@ -32,13 +32,13 @@ class SchoolSchemaTests(SkoleSchemaTestCase):
         }
     """
 
-    def query_schools(self, name: str = "") -> List[JsonDict]:
+    def query_auto_complete_schools(self, name: str = "") -> List[JsonDict]:
         # language=GraphQL
         graphql = (
             self.school_fields
             + """
-            query Schools($name: String) {
-                schools(name: $name) {
+            query AutoCompleteSchools($name: String) {
+                autoCompleteSchools(name: $name) {
                     ...schoolFields
                 }
             }
@@ -66,8 +66,8 @@ class SchoolSchemaTests(SkoleSchemaTestCase):
         self.authenticated_user = None
         self.assert_field_fragment_matches_schema(self.school_fields)
 
-    def test_schools(self) -> None:
-        schools = self.query_schools()
+    def test_auto_complete_schools(self) -> None:
+        schools = self.query_auto_complete_schools()
 
         # By default, schools are ordered by the amount of courses.
         assert schools[0] == self.query_school(id=1)  # Most courses.
@@ -75,7 +75,7 @@ class SchoolSchemaTests(SkoleSchemaTestCase):
         assert schools[2] == self.query_school(id=3)  # 3rd most courses.
 
         # Query schools by name.
-        res = self.query_schools("Turku")
+        res = self.query_auto_complete_schools("Turku")
         assert len(res) == 6
         assert res[0] == self.query_school(id=1)  # University of Turku.
         assert res[2] == self.query_school(

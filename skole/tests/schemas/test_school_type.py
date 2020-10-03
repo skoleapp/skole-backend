@@ -14,13 +14,13 @@ class SchoolTypeSchemaTests(SkoleSchemaTestCase):
         }
     """
 
-    def query_school_types(self) -> List[JsonDict]:
+    def query_auto_complete_school_types(self) -> List[JsonDict]:
         # language=GraphQL
         graphql = (
             self.school_type_fields
             + """
-            query SchoolTypes {
-                schoolTypes {
+            query AutoCompleteSchoolTypes {
+                autoCompleteSchoolTypes {
                     ...schoolTypeFields
                 }
             }
@@ -48,8 +48,8 @@ class SchoolTypeSchemaTests(SkoleSchemaTestCase):
         self.authenticated_user = None
         self.assert_field_fragment_matches_schema(self.school_type_fields)
 
-    def test_school_types(self) -> None:
-        school_types = self.query_school_types()
+    def test_auto_complete_school_types(self) -> None:
+        school_types = self.query_auto_complete_school_types()
         assert len(school_types) == 3
         # SchoolTypes should be ordered by IDs.
         assert school_types[0] == self.query_school_type(id=1)

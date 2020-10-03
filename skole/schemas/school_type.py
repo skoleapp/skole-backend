@@ -19,10 +19,13 @@ class SchoolTypeObjectType(DjangoObjectType):
 
 
 class Query(graphene.ObjectType):
-    school_types = graphene.List(SchoolTypeObjectType)
+    auto_complete_school_types = graphene.List(SchoolTypeObjectType)
     school_type = graphene.Field(SchoolTypeObjectType, id=graphene.ID())
 
-    def resolve_school_types(self, info: ResolveInfo) -> "QuerySet[SchoolType]":
+    def resolve_auto_complete_school_types(
+        self, info: ResolveInfo
+    ) -> "QuerySet[SchoolType]":
+        """Used for queries made by the client's auto complete fields."""
         return SchoolType.objects.all()
 
     def resolve_school_type(

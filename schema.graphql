@@ -261,20 +261,20 @@ type PaginatedCourseObjectType {
 type Query {
   user(id: ID): UserObjectType
   userMe: UserObjectType
-  subjects(name: String): [SubjectObjectType]
+  autoCompleteSubjects(name: String): [SubjectObjectType]
   subject(id: ID): SubjectObjectType
-  schoolTypes: [SchoolTypeObjectType]
+  autoCompleteSchoolTypes: [SchoolTypeObjectType]
   schoolType(id: ID): SchoolTypeObjectType
-  schools(name: String): [SchoolObjectType]
+  autoCompleteSchools(name: String): [SchoolObjectType]
   school(id: ID): SchoolObjectType
-  resourceTypes: [ResourceTypeObjectType]
+  autoCompleteResourceTypes: [ResourceTypeObjectType]
   resource(id: ID): ResourceObjectType
-  courses(school: ID, name: String): [CourseObjectType]
-  paginatedCourses(courseName: String, courseCode: String, subject: ID, school: ID, schoolType: ID, country: ID, city: ID, page: Int, pageSize: Int, ordering: String): PaginatedCourseObjectType
+  autoCompleteCourses(school: ID, name: String): [CourseObjectType]
+  searchCourses(courseName: String, courseCode: String, subject: ID, school: ID, schoolType: ID, country: ID, city: ID, page: Int, pageSize: Int, ordering: String): PaginatedCourseObjectType
   course(id: ID): CourseObjectType
-  countries: [CountryObjectType]
+  autoCompleteCountries: [CountryObjectType]
   country(id: ID): CountryObjectType
-  cities: [CityObjectType]
+  autoCompleteCities: [CityObjectType]
   city(id: ID): CityObjectType
 }
 

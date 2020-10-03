@@ -14,13 +14,13 @@ class CountrySchemaTests(SkoleSchemaTestCase):
         }
     """
 
-    def query_countries(self) -> List[JsonDict]:
+    def query_auto_complete_countries(self) -> List[JsonDict]:
         # language=GraphQL
         graphql = (
             self.country_fields
             + """
-            query Countries {
-                countries {
+            query AutoCompleteCountries {
+                autoCompleteCountries {
                     ...countryFields
                 }
             }
@@ -48,8 +48,8 @@ class CountrySchemaTests(SkoleSchemaTestCase):
         self.authenticated_user = None
         self.assert_field_fragment_matches_schema(self.country_fields)
 
-    def test_countries(self) -> None:
-        countries = self.query_countries()
+    def test_auto_complete_countries(self) -> None:
+        countries = self.query_auto_complete_countries()
         assert len(countries) == 1
         assert countries[0] == self.query_country(id=1)
 
@@ -57,5 +57,4 @@ class CountrySchemaTests(SkoleSchemaTestCase):
         country = self.query_country(id=1)
         assert country["id"] == "1"
         assert country["name"] == "Finland"
-
         assert self.query_country(id=999) is None

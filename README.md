@@ -37,45 +37,45 @@ A quick look at the top-level files and directories excluding Git ignored locati
 
 2.  **`/.github`**: Configuration for [Github Actions](https://github.com/features/actions).
 
-2.  **`/.idea`**: [Jetbrains](https://www.jetbrains.com/) editor configuration.
+3.  **`/.idea`**: [Jetbrains](https://www.jetbrains.com/) editor configuration.
 
-3.  **`/.vscode`**: [VSCode](https://code.visualstudio.com/) configuration.
+4.  **`/.vscode`**: [VSCode](https://code.visualstudio.com/) configuration.
 
-4.  **`/config`**: Configuration for [Django](https://www.djangoproject.com/) project.
+5.  **`/config`**: Configuration for [Django](https://www.djangoproject.com/) project.
 
-5.  **`/media`**: Static assets and media.
+6.  **`/media`**: Static assets and media.
 
-6.  **`/skole`**: Source code.
+7.  **`/skole`**: Source code.
 
-7.  **`.dockerignore`**: List of files ignored by [Docker](https://www.docker.com/).
+8.  **`.dockerignore`**: List of files ignored by [Docker](https://www.docker.com/).
 
-8.  **`.flake8`**: Configuration for [Flake8](https://flake8.pycqa.org/en/latest/).
+9.  **`.flake8`**: Configuration for [Flake8](https://flake8.pycqa.org/en/latest/).
 
-11. **`.gitignore`**: List of files ignored by [Git](https://git-scm.com/).
+10. **`.gitignore`**: List of files ignored by [Git](https://git-scm.com/).
 
-12. **`.graphqlconfig`**: GraphQL configuration file, used by e.g. Jetbrains editors.
+11. **`.graphqlconfig`**: GraphQL configuration file, used by e.g. Jetbrains editors.
 
-16. **`dependencies`**: Documentation for top-level dependencies.
+12. **`dependencies`**: Documentation for top-level dependencies.
 
-17. **`docker-compose-circleci.yml`**: Docker configuration for CircleCI pipelines.
+13. **`docker-compose-circleci.yml`**: Docker configuration for CircleCI pipelines.
 
-18. **`Dockerfile`**: Docker configuration for development.
+14. **`Dockerfile`**: Docker configuration for development.
 
-19. **`Dockerfile.prod`**: Docker configuration for production.
+15. **`Dockerfile.prod`**: Docker configuration for production.
 
-20. **`manage.py`**: Auto-generated for Django project, see [docs](https://docs.djangoproject.com/en/3.1/ref/django-admin/).
+16. **`manage.py`**: Auto-generated for Django project, see [docs](https://docs.djangoproject.com/en/3.1/ref/django-admin/).
 
-21. **`mypy.ini`**: Configuration for [Mypy](http://mypy-lang.org/).
+17. **`mypy.ini`**: Configuration for [Mypy](http://mypy-lang.org/).
 
-22. **`pyproject.toml`**: Python project configuration.
+18. **`pyproject.toml`**: Python project configuration.
 
-23. **`README.md`**: Text file containing useful reference information about this project.
+19. **`README.md`**: Text file containing useful reference information about this project.
 
-24. **`requirements-dev.txt`**: List of development requirements.
+20. **`requirements-dev.txt`**: List of development requirements.
 
-25. **`requirements.txt`**: List of production requirements.
+21. **`requirements.txt`**: List of production requirements.
 
-26. **`schema.graphql`**: GraphQL schema for [Introspection](https://graphql.org/learn/introspection/).
+22. **`schema.graphql`**: GraphQL schema for [Introspection](https://graphql.org/learn/introspection/).
 
 ## Development Tips 🚀
 

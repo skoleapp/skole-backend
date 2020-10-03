@@ -120,7 +120,7 @@ LANGUAGES = (
     ("fi", Languages.FINNISH),
     ("sv", Languages.SWEDISH),
 )
-LOCALE_PATHS = [BASE_DIR / "skole" / "locale"]
+LOCALE_PATHS = [BASE_DIR / "skole/locale"]
 
 # Parler settings
 PARLER_LANGUAGES = {SITE_ID: ({"code": "en"}, {"code": "fi"}, {"code": "sv"})}
@@ -152,7 +152,7 @@ CLOUDMERSIVE_API_KEY = os.environ.get("CLOUDMERSIVE_API_KEY")
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / "skole" / "templates"],
+        "DIRS": [BASE_DIR / "skole/templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [

@@ -23,7 +23,11 @@ class Query(graphene.ObjectType):
     city = graphene.Field(CityObjectType, id=graphene.ID())
 
     def resolve_autocomplete_cities(self, info: ResolveInfo) -> "QuerySet[City]":
-        """Used for queries made by the client's auto complete fields."""
+        """
+        Used for queries made by the client's auto complete fields.
+
+        We want to avoid making massive queries by limiting the amount of results.
+        """
         assert info.context is not None
         # We must manually call the translation function in order to perform the ordering based on the translated values.
         return City.objects.translated().order_by("translations__name")

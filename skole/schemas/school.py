@@ -61,7 +61,7 @@ class Query(graphene.ObjectType):
         qs = qs.annotate(num_courses=Count("courses")).order_by(
             "-num_courses", "translations__name"
         )
-        return qs[: settings.MAX_QUERY_RESULTS]
+        return qs[: settings.AUTOCOMPLETE_MAX_RESULTS]
 
     def resolve_school(self, info: ResolveInfo, id: ID = None) -> Optional[School]:
         return get_obj_or_none(School, id)

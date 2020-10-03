@@ -206,5 +206,5 @@ EMAIL_TEMPLATE_PASSWORD_RESET = "email/reset_password_body.html"
 EMAIL_TEMPLATE_VERIFICATION = "email/verify_account_body.html"
 EMAIL_TEMPLATE_CONTACT = "email/contact_email_body.html"
 
-# Maximum amount of results for non-paginated queries.
-MAX_QUERY_RESULTS = 50
+# Maximum amount of results for autocomplete queries.
+AUTOCOMPLETE_MAX_RESULTS = 50

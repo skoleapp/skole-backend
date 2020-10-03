@@ -80,10 +80,6 @@ class DeleteCourseMutation(SkoleDeleteMutationMixin, DjangoModelFormMutation):
 
 
 class Query(graphene.ObjectType):
-    autocomplete_courses = graphene.List(
-        CourseObjectType, school=graphene.ID(), name=graphene.String()
-    )
-
     search_courses = graphene.Field(
         PaginatedCourseObjectType,
         course_name=graphene.String(),
@@ -98,28 +94,11 @@ class Query(graphene.ObjectType):
         ordering=graphene.String(),
     )
 
+    autocomplete_courses = graphene.List(
+        CourseObjectType, school=graphene.ID(), name=graphene.String()
+    )
+
     course = graphene.Field(CourseObjectType, id=graphene.ID())
-
-    def resolve_autocomplete_courses(
-        self, info: ResolveInfo, school: ID = None, name: str = ""
-    ) -> "QuerySet[Course]":
-        """
-        Used for queries made by the client's auto complete fields.
-
-        We want to avoid making massive queries by limiting the amount of results. If no
-        course name is provided as a parameter, we return the best courses.
-        """
-
-        qs = cast("QuerySet[Course]", Course.objects.order_by("name"))
-
-        if school is not None:
-            qs = qs.filter(school__pk=school)
-
-        if name != "":
-            qs = qs.filter(name__icontains=name)
-
-        qs = order_courses_with_secret_algorithm(qs)
-        return qs[: settings.MAX_QUERY_RESULTS]
 
     def resolve_search_courses(
         self,
@@ -165,6 +144,27 @@ class Query(graphene.ObjectType):
             qs = qs.order_by(ordering)
 
         return get_paginator(qs, page_size, page, PaginatedCourseObjectType)
+
+    def resolve_autocomplete_courses(
+        self, info: ResolveInfo, school: ID = None, name: str = ""
+    ) -> "QuerySet[Course]":
+        """
+        Used for queries made by the client's auto complete fields.
+
+        We want to avoid making massive queries by limiting the amount of results. If no
+        course name is provided as a parameter, we return the best courses.
+        """
+
+        qs = cast("QuerySet[Course]", Course.objects.order_by("name"))
+
+        if school is not None:
+            qs = qs.filter(school__pk=school)
+
+        if name != "":
+            qs = qs.filter(name__icontains=name)
+
+        qs = order_courses_with_secret_algorithm(qs)
+        return qs[: settings.AUTOCOMPLETE_MAX_RESULTS]
 
     def resolve_course(self, info: ResolveInfo, id: ID = None) -> Optional[Course]:
         return get_obj_or_none(Course, id)

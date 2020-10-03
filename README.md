@@ -12,6 +12,7 @@ A quick look at the top-level files and directories excluding Git ignored locati
 
     .
     ├── .circleci
+    ├── .github
     ├── .idea
     ├── .vscode
     ├── config
@@ -32,7 +33,9 @@ A quick look at the top-level files and directories excluding Git ignored locati
     ├── requirements.txt
     └── schema.graphql
 
-1.  **`/.circleci`**: CI/CD configuration for [CircleCI](https://circleci.com/).
+1.  **`/.circleci`**: Configuration for [CircleCI](https://circleci.com/).
+
+2.  **`/.github`**: Configuration for [Github Actions](https://github.com/features/actions).
 
 2.  **`/.idea`**: [Jetbrains](https://www.jetbrains.com/) editor configuration.
 

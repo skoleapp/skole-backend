@@ -1,6 +1,7 @@
 from typing import Optional
 
 import graphene
+from django.conf import settings
 from django.db.models import QuerySet
 from graphene_django import DjangoObjectType
 from graphql import ResolveInfo
@@ -19,11 +20,18 @@ class SchoolTypeObjectType(DjangoObjectType):
 
 
 class Query(graphene.ObjectType):
-    school_types = graphene.List(SchoolTypeObjectType)
+    autocomplete_school_types = graphene.List(SchoolTypeObjectType)
     school_type = graphene.Field(SchoolTypeObjectType, id=graphene.ID())
 
-    def resolve_school_types(self, info: ResolveInfo) -> "QuerySet[SchoolType]":
-        return SchoolType.objects.all()
+    def resolve_autocomplete_school_types(
+        self, info: ResolveInfo
+    ) -> "QuerySet[SchoolType]":
+        """
+        Used for queries made by the client's auto complete fields.
+
+        We want to avoid making massive queries by limiting the amount of results.
+        """
+        return SchoolType.objects.all()[: settings.AUTOCOMPLETE_MAX_RESULTS]
 
     def resolve_school_type(
         self, info: ResolveInfo, id: ID = None

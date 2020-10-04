@@ -742,6 +742,36 @@
     user: 4
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Course
+  pk: 13
+  fields:
+    name: Test Engineering Course 13
+    code: TEST00013
+    subjects: [2]
+    school: 2
+    user: 4
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Course
+  pk: 14
+  fields:
+    name: Test Engineering Course 14
+    code: TEST00014
+    subjects: [2]
+    school: 2
+    user: 4
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Course
+  pk: 15
+  fields:
+    name: Test Engineering Course 15
+    code: TEST00015
+    subjects: [3]
+    school: 3
+    user: 4
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 
 - model: skole.ResourceTypeTranslation
   pk: 1

@@ -19,14 +19,18 @@ class CityObjectType(DjangoObjectType):
 
 
 class Query(graphene.ObjectType):
-    cities = graphene.List(CityObjectType)
+    autocomplete_cities = graphene.List(CityObjectType)
     city = graphene.Field(CityObjectType, id=graphene.ID())
 
-    def resolve_cities(self, info: ResolveInfo) -> "QuerySet[City]":
+    def resolve_autocomplete_cities(self, info: ResolveInfo) -> "QuerySet[City]":
+        """
+        Used for queries made by the client's auto complete fields.
+
+        We want to avoid making massive queries by limiting the amount of results.
+        """
         assert info.context is not None
-        return City.objects.translated(info.context.LANGUAGE_CODE).order_by(
-            "translations__name"
-        )
+        # We must manually call the translation function in order to perform the ordering based on the translated values.
+        return City.objects.translated().order_by("translations__name")
 
     def resolve_city(self, info: ResolveInfo, id: ID = None) -> Optional[City]:
         return get_obj_or_none(City, id)

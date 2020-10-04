@@ -18,7 +18,6 @@ class VoteObjectType(DjangoObjectType):
 
 class VoteMutation(SkoleCreateUpdateMutationMixin, DjangoModelFormMutation):
     verification_required = True
-
     target_score = graphene.Int()
 
     class Meta:
@@ -35,6 +34,7 @@ class VoteMutation(SkoleCreateUpdateMutationMixin, DjangoModelFormMutation):
             status=form.cleaned_data["status"],
             target=form.cleaned_data["target"],
         )
+
         return cls(vote=vote, target_score=target_score)
 
 

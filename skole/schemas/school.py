@@ -1,7 +1,8 @@
 from typing import Optional
 
 import graphene
-from django.db.models import QuerySet
+from django.conf import settings
+from django.db.models import Count, QuerySet
 from graphene_django import DjangoObjectType
 from graphql import ResolveInfo
 
@@ -38,14 +39,29 @@ class SchoolObjectType(DjangoObjectType):
 
 
 class Query(graphene.ObjectType):
-    schools = graphene.List(SchoolObjectType)
+    autocomplete_schools = graphene.List(SchoolObjectType, name=graphene.String())
     school = graphene.Field(SchoolObjectType, id=graphene.ID())
 
-    def resolve_schools(self, info: ResolveInfo) -> "QuerySet[School]":
+    def resolve_autocomplete_schools(
+        self, info: ResolveInfo, name: str = ""
+    ) -> "QuerySet[School]":
+        """
+        Used for queries made by the client's auto complete fields.
+
+        We want to avoid making massive queries by limiting the amount of results. If no
+        school name is provided as a parameter, we return schools with the most courses.
+        """
+
         assert info.context is not None
-        return School.objects.translated(info.context.LANGUAGE_CODE).order_by(
-            "translations__name"
+        qs = School.objects.translated()
+
+        if name != "":
+            qs = qs.filter(translations__name__icontains=name)
+
+        qs = qs.annotate(num_courses=Count("courses")).order_by(
+            "-num_courses", "translations__name"
         )
+        return qs[: settings.AUTOCOMPLETE_MAX_RESULTS]
 
     def resolve_school(self, info: ResolveInfo, id: ID = None) -> Optional[School]:
         return get_obj_or_none(School, id)

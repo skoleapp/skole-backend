@@ -1,4 +1,4 @@
-# Skole Backend :mortar_board:
+# Skole Backend 🎓
 
 This is the GraphQL backend for the Skole app.
 
@@ -6,7 +6,78 @@ Also check out the [README from `skole` repo](https://github.com/ruohola/skole/b
 
 See detailed description for all top-level dependencies in [`dependencies.md`](dependencies.md) file.
 
-### Development Tips
+## What's inside? 🧐
+
+A quick look at the top-level files and directories excluding Git ignored locations.
+
+    .
+    ├── .circleci
+    ├── .github
+    ├── .idea
+    ├── .vscode
+    ├── config
+    ├── media
+    ├── skole
+    ├── .dockerignore
+    ├── .flake8
+    ├── .gitignore
+    ├── .graphqlconfig
+    ├── dependencies.md
+    ├── docker-compose-circleci.yml
+    ├── Dockerfile
+    ├── Dockerfile.prod
+    ├── mypy.ini
+    ├── pyproject.toml
+    ├── README.md
+    ├── requirements-dev.txt
+    ├── requirements.txt
+    └── schema.graphql
+
+1.  **`/.circleci`**: Configuration for [CircleCI](https://circleci.com/).
+
+2.  **`/.github`**: Configuration for [Github Actions](https://github.com/features/actions).
+
+3.  **`/.idea`**: [Jetbrains](https://www.jetbrains.com/) editor configuration.
+
+4.  **`/.vscode`**: [VSCode](https://code.visualstudio.com/) configuration.
+
+5.  **`/config`**: Configuration for [Django](https://www.djangoproject.com/) project.
+
+6.  **`/media`**: Static assets and media.
+
+7.  **`/skole`**: Source code.
+
+8.  **`.dockerignore`**: List of files ignored by [Docker](https://www.docker.com/).
+
+9.  **`.flake8`**: Configuration for [Flake8](https://flake8.pycqa.org/en/latest/).
+
+10. **`.gitignore`**: List of files ignored by [Git](https://git-scm.com/).
+
+11. **`.graphqlconfig`**: GraphQL configuration file, used by e.g. Jetbrains editors.
+
+12. **`dependencies`**: Documentation for top-level dependencies.
+
+13. **`docker-compose-circleci.yml`**: Docker configuration for CircleCI pipelines.
+
+14. **`Dockerfile`**: Docker configuration for development.
+
+15. **`Dockerfile.prod`**: Docker configuration for production.
+
+16. **`manage.py`**: Auto-generated for Django project, see [docs](https://docs.djangoproject.com/en/3.1/ref/django-admin/).
+
+17. **`mypy.ini`**: Configuration for [Mypy](http://mypy-lang.org/).
+
+18. **`pyproject.toml`**: Python project configuration.
+
+19. **`README.md`**: Text file containing useful reference information about this project.
+
+20. **`requirements-dev.txt`**: List of development requirements.
+
+21. **`requirements.txt`**: List of production requirements.
+
+22. **`schema.graphql`**: GraphQL schema for [Introspection](https://graphql.org/learn/introspection/).
+
+## Development Tips 🚀
 
 - No pull requests can be merged without CircleCI first building and running [`Dockerfile`](Dockerfile) against it.
   See the bottommost `CMD` in it for the full list of stuff it runs and validates.

@@ -26,6 +26,22 @@ class ResourceTypeSchemaTests(SkoleSchemaTestCase):
             }
             """
         )
+
+        return cast(List[JsonDict], self.execute(graphql))
+
+    def query_autocomplete_resource_types(self) -> List[JsonDict]:
+        # language=GraphQL
+        graphql = (
+            self.resource_type_fields
+            + """
+            query AutocompleteResourceTypes {
+                autocompleteResourceTypes {
+                    ...resourceTypeFields
+                }
+            }
+            """
+        )
+
         return cast(List[JsonDict], self.execute(graphql))
 
     def test_field_fragment(self) -> None:
@@ -34,6 +50,15 @@ class ResourceTypeSchemaTests(SkoleSchemaTestCase):
 
     def test_resource_types(self) -> None:
         resource_types = self.query_resource_types()
+        assert len(resource_types) == 4
+        # ResourceTypes should be ordered by IDs.
+        assert resource_types[0]["id"] == "1"
+        assert resource_types[0]["name"] == "Exam"
+        assert resource_types[1]["id"] == "2"
+        assert resource_types[1]["name"] == "Exercise"
+
+    def test_autocomplete_resource_types(self) -> None:
+        resource_types = self.query_autocomplete_resource_types()
         assert len(resource_types) == 4
         # ResourceTypes should be ordered by IDs.
         assert resource_types[0]["id"] == "1"

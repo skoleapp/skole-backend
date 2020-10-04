@@ -2,13 +2,13 @@ from typing import Any, Callable, Optional, Type, TypeVar, Union
 
 from django import forms
 from django.core.files import File
-from django.db import models
+from django.db.models import Model
 
 from skole.types import ID, JsonDict
 from skole.utils.constants import ValidationErrors
 
 T = TypeVar("T")
-M = TypeVar("M", bound=models.Model)
+M = TypeVar("M", bound=Model)
 
 
 def get_obj_or_none(model: Type[M], pk: ID = None) -> Optional[M]:

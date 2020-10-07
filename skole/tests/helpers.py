@@ -337,10 +337,8 @@ def is_slug_match(file_path: str, url_with_slug: str) -> bool:
         >>> is_slug_match("/media/test/foo.jpg", "/foo.jpg")
         False
     """
-    # Can use Python 3.9's `str.removeprefix`.
-    if file_path.startswith("/"):
-        file_path = file_path[1:]
-    path, extension = file_path.rsplit(".", 1)
+    # Ignore: Mypy doesn't yet recognize Python 3.9's `str.removeprefix`.
+    path, extension = file_path.removeprefix("/").rsplit(".", 1)  # type: ignore[attr-defined]
     return bool(re.match(fr"^/{path}\w*\.{extension}$", url_with_slug))
 
 

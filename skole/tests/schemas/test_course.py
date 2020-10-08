@@ -37,6 +37,8 @@ class CourseSchemaTests(SkoleSchemaTestCase):
                 id
             }
             score
+            commentCount
+            resourceCount
             vote {
                 status
             }

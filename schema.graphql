@@ -87,6 +87,8 @@ type CourseObjectType {
   starred: Boolean
   score: Int
   vote: VoteObjectType
+  commentCount: Int
+  resourceCount: Int
 }
 
 input CreateCommentMutationInput {

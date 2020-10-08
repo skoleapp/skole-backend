@@ -39,6 +39,9 @@ def order_courses_with_secret_algorithm(qs: "QuerySet[Course]") -> "QuerySet[Cou
 
 
 class CourseObjectType(VoteMixin, StarredMixin, DjangoObjectType):
+    comment_count = graphene.Int()
+    resource_count = graphene.Int()
+
     class Meta:
         model = Course
         fields = (
@@ -51,9 +54,24 @@ class CourseObjectType(VoteMixin, StarredMixin, DjangoObjectType):
             "resources",
             "comments",
             "score",
+            "comment_count",
+            "resource_count",
             "modified",
             "created",
         )
+
+    # Have to specify these two with resolvers since graphene
+    # cannot infer the annotated fields otherwise.
+
+    def resolve_comment_count(self, info: ResolveInfo) -> int:
+        # When the Course is created and returned from a ModelForm it will not have
+        # this field computed (it gets annotated only in the model manager) since the
+        # value of this would be obviously 0 at the time of the course's creation,
+        # it's ok to return it as the default here.
+        return getattr(self, "comment_count", 0)
+
+    def resolve_resource_count(self, info: ResolveInfo) -> int:
+        return getattr(self, "resource_count", 0)
 
 
 class PaginatedCourseObjectType(PaginationMixin, graphene.ObjectType):

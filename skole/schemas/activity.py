@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from typing import Any
-
 import graphene
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
@@ -30,11 +28,13 @@ class ActivityObjectType(DjangoObjectType):
             "comment",
         )
 
-    def resolve_name(self, info: ResolveInfo) -> str:
-        return self.activity_type.name
+    @staticmethod
+    def resolve_name(root: Activity, info: ResolveInfo) -> str:
+        return root.activity_type.name
 
-    def resolve_description(self, info: ResolveInfo) -> str:
-        return self.activity_type.description
+    @staticmethod
+    def resolve_description(root: Activity, info: ResolveInfo) -> str:
+        return root.activity_type.description
 
 
 class MarkActivityReadMutation(SkoleCreateUpdateMutationMixin, DjangoModelFormMutation):
@@ -58,7 +58,7 @@ class MarkAllActivitiesReadMutation(SkoleCreateUpdateMutationMixin, graphene.Mut
 
     @classmethod
     def mutate(
-        cls, root: Any, info: ResolveInfo, **input: JsonDict
+        cls, root: None, info: ResolveInfo, **input: JsonDict
     ) -> MarkAllActivitiesReadMutation:
         assert info.context is not None
         activities = Activity.objects.mark_all_as_read(user=info.context.user)

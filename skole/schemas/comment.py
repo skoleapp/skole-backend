@@ -31,8 +31,9 @@ class CommentObjectType(VoteMixin, DjangoObjectType):
             "created",
         )
 
-    def resolve_attachment(self, info: ResolveInfo) -> str:
-        return self.attachment.url if self.attachment else ""
+    @staticmethod
+    def resolve_attachment(root: Comment, info: ResolveInfo) -> str:
+        return root.attachment.url if root.attachment else ""
 
 
 class CreateCommentMutation(

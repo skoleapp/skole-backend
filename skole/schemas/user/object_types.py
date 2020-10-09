@@ -6,7 +6,7 @@ from django.db.models import QuerySet
 from graphene_django import DjangoObjectType
 from graphql import ResolveInfo
 
-from skole.models import Activity, Badge, Course, Resource, School, Subject
+from skole.models import Activity, Badge, Course, Resource, School, Subject, User
 from skole.schemas.activity import ActivityObjectType
 from skole.schemas.badge import BadgeObjectType
 from skole.schemas.course import CourseObjectType
@@ -49,66 +49,78 @@ class UserObjectType(DjangoObjectType):
             "activity",
         )
 
-    # Only return email if user is querying his own profile.
-    def resolve_email(self, info: ResolveInfo) -> str:
+    @staticmethod
+    def resolve_email(root: User, info: ResolveInfo) -> str:
+        """Only return email if user is querying his own profile."""
         assert info.context is not None
         user = info.context.user
 
-        if not user.is_anonymous and user.email == self.email:
-            return self.email
+        if not user.is_anonymous and user.email == root.email:
+            return root.email
         else:
             return ""
 
-    def resolve_avatar(self, info: ResolveInfo) -> str:
-        return self.avatar.url if self.avatar else ""
+    @staticmethod
+    def resolve_avatar(root: User, info: ResolveInfo) -> str:
+        return root.avatar.url if root.avatar else ""
 
-    def resolve_avatar_thumbnail(self, info: ResolveInfo) -> str:
-        return self.avatar_thumbnail.url if self.avatar_thumbnail else ""
+    @staticmethod
+    def resolve_avatar_thumbnail(root: User, info: ResolveInfo) -> str:
+        return root.avatar_thumbnail.url if root.avatar_thumbnail else ""
 
-    # Only return verification status if user is querying his own profile.
-    def resolve_verified(self, info: ResolveInfo) -> Optional[bool]:
+    @staticmethod
+    def resolve_verified(root: User, info: ResolveInfo) -> Optional[bool]:
+        """Only return verification status if user is querying his own profile."""
         assert info.context is not None
 
-        if self.pk == info.context.user.pk:
+        if root.pk == info.context.user.pk:
             return info.context.user.verified
         else:
             return None
 
-    # Only return school if user is querying his own profile.
-    def resolve_school(self, info: ResolveInfo) -> Optional[School]:
+    @staticmethod
+    def resolve_school(root: User, info: ResolveInfo) -> Optional[School]:
+        """Only return school if user is querying his own profile."""
         assert info.context is not None
-        return self.school if self.pk == info.context.user.pk else None
+        return root.school if root.pk == info.context.user.pk else None
 
-    # Only return subject if user is querying his own profile.
-    def resolve_subject(self, info: ResolveInfo) -> Optional[Subject]:
+    @staticmethod
+    def resolve_subject(root: User, info: ResolveInfo) -> Optional[Subject]:
+        """Only return subject if user is querying his own profile."""
         assert info.context is not None
-        return self.subject if self.pk == info.context.user.pk else None
+        return root.subject if root.pk == info.context.user.pk else None
 
-    # Only return starred courses if user is querying his own profile.
-    def resolve_starred_courses(self, info: ResolveInfo) -> Optional[QuerySet[Course]]:
+    @staticmethod
+    def resolve_starred_courses(
+        root: User, info: ResolveInfo
+    ) -> Optional[QuerySet[Course]]:
+        """Only return starred courses if user is querying his own profile."""
         assert info.context is not None
-        if self.pk == info.context.user.pk:
-            return Course.objects.filter(stars__user__pk=self.pk)
+        if root.pk == info.context.user.pk:
+            return Course.objects.filter(stars__user__pk=root.pk)
         else:
             return None
 
-    # Only return starred resources if user is querying his own profile.
+    @staticmethod
     def resolve_starred_resources(
-        self, info: ResolveInfo
+        root: User, info: ResolveInfo
     ) -> Optional[QuerySet[Resource]]:
+        """Only return starred resources if user is querying his own profile."""
         assert info.context is not None
-        if self.pk == info.context.user.pk:
-            return Resource.objects.filter(stars__user__pk=self.pk)
+        if root.pk == info.context.user.pk:
+            return Resource.objects.filter(stars__user__pk=root.pk)
         else:
             return None
 
-    def resolve_badges(self, info: ResolveInfo) -> QuerySet[Badge]:
-        return self.badges.all()
+    @staticmethod
+    def resolve_badges(root: User, info: ResolveInfo) -> QuerySet[Badge]:
+        return root.badges.all()
 
-    # Only return activity if user is querying his own profile.
-    def resolve_activity(self, info: ResolveInfo) -> Optional[QuerySet[Activity]]:
+    @staticmethod
+    def resolve_activity(root: User, info: ResolveInfo) -> Optional[QuerySet[Activity]]:
+        """Only return activity if user is querying his own profile."""
         assert info.context is not None
-        if self.pk == info.context.user.pk:
-            return self.activity.all()
+        if root.pk == info.context.user.pk:
+            return root.activity.all()
         else:
             return None

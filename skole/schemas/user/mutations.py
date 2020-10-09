@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from smtplib import SMTPException
-from typing import Any
 
 import graphene
 from django.conf import settings
@@ -229,7 +228,7 @@ class LoginMutation(
 
     @classmethod
     def mutate_and_get_payload(
-        cls, root: Any, info: ResolveInfo, **input: JsonDict
+        cls, root: None, info: ResolveInfo, **input: JsonDict
     ) -> LoginMutation:
         form = cls.get_form(root, info, **input)
 
@@ -285,7 +284,7 @@ class ChangePasswordMutation(
 
     @classmethod
     def get_form_kwargs(
-        cls, root: Any, info: ResolveInfo, **input: JsonDict
+        cls, root: None, info: ResolveInfo, **input: JsonDict
     ) -> JsonDict:
         kwargs = super().get_form_kwargs(root, info, **input)
         assert info.context is not None
@@ -324,7 +323,7 @@ class DeleteUserMutation(
 
     @classmethod
     def get_form_kwargs(
-        cls, root: Any, info: ResolveInfo, **input: JsonDict
+        cls, root: None, info: ResolveInfo, **input: JsonDict
     ) -> JsonDict:
         assert info.context is not None
         return {"data": input, "instance": info.context.user}
@@ -355,7 +354,7 @@ class UpdateUserMutation(
 
     @classmethod
     def get_form_kwargs(
-        cls, root: Any, info: ResolveInfo, **input: JsonDict
+        cls, root: None, info: ResolveInfo, **input: JsonDict
     ) -> JsonDict:
         assert info.context is not None
         form_kwargs = super().get_form_kwargs(root, info, **input)

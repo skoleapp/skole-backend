@@ -27,8 +27,9 @@ class Query(graphene.ObjectType):
     autocomplete_subjects = graphene.List(SubjectObjectType, name=graphene.String())
     subject = graphene.Field(SubjectObjectType, id=graphene.ID())
 
+    @staticmethod
     def resolve_autocomplete_subjects(
-        self, info: ResolveInfo, name: str = ""
+        root: None, info: ResolveInfo, name: str = ""
     ) -> QuerySet[Subject]:
         """
         Used for queries made by the client's auto complete fields.
@@ -49,5 +50,8 @@ class Query(graphene.ObjectType):
         )
         return qs[: settings.AUTOCOMPLETE_MAX_RESULTS]
 
-    def resolve_subject(self, info: ResolveInfo, id: ID = None) -> Optional[Subject]:
+    @staticmethod
+    def resolve_subject(
+        root: None, info: ResolveInfo, id: ID = None
+    ) -> Optional[Subject]:
         return Subject.objects.get_or_none(pk=id)

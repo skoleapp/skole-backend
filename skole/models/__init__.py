@@ -1,6 +1,7 @@
 from .activity import Activity
 from .activity_type import ActivityType
 from .badge import Badge
+from .base import SkoleModel, TranslatableSkoleModel
 from .city import City
 from .comment import Comment
 from .country import Country

@@ -6,7 +6,7 @@ from django.db.models import Count, QuerySet
 from graphene_django import DjangoObjectType
 from graphql import ResolveInfo
 
-from skole.models import School
+from skole.models import Country, School
 from skole.schemas.city import CityObjectType
 from skole.schemas.country import CountryObjectType
 from skole.schemas.school_type import SchoolTypeObjectType
@@ -33,16 +33,18 @@ class SchoolObjectType(DjangoObjectType):
             "courses",
         )
 
-    def resolve_country(self, info: ResolveInfo) -> str:
-        return self.city.country
+    @staticmethod
+    def resolve_country(root: School, info: ResolveInfo) -> Country:
+        return root.city.country
 
 
 class Query(graphene.ObjectType):
     autocomplete_schools = graphene.List(SchoolObjectType, name=graphene.String())
     school = graphene.Field(SchoolObjectType, id=graphene.ID())
 
+    @staticmethod
     def resolve_autocomplete_schools(
-        self, info: ResolveInfo, name: str = ""
+        root: None, info: ResolveInfo, name: str = ""
     ) -> QuerySet[School]:
         """
         Used for queries made by the client's auto complete fields.
@@ -62,5 +64,8 @@ class Query(graphene.ObjectType):
         )
         return qs[: settings.AUTOCOMPLETE_MAX_RESULTS]
 
-    def resolve_school(self, info: ResolveInfo, id: ID = None) -> Optional[School]:
+    @staticmethod
+    def resolve_school(
+        root: None, info: ResolveInfo, id: ID = None
+    ) -> Optional[School]:
         return School.objects.get_or_none(pk=id)

@@ -22,8 +22,9 @@ class Query(graphene.ObjectType):
     autocomplete_school_types = graphene.List(SchoolTypeObjectType)
     school_type = graphene.Field(SchoolTypeObjectType, id=graphene.ID())
 
+    @staticmethod
     def resolve_autocomplete_school_types(
-        self, info: ResolveInfo
+        root: None, info: ResolveInfo
     ) -> QuerySet[SchoolType]:
         """
         Used for queries made by the client's auto complete fields.
@@ -32,7 +33,8 @@ class Query(graphene.ObjectType):
         """
         return SchoolType.objects.all()[: settings.AUTOCOMPLETE_MAX_RESULTS]
 
+    @staticmethod
     def resolve_school_type(
-        self, info: ResolveInfo, id: ID = None
+        root: None, info: ResolveInfo, id: ID = None
     ) -> Optional[SchoolType]:
         return SchoolType.objects.get_or_none(pk=id)

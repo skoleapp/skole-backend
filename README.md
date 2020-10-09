@@ -10,72 +10,52 @@ See detailed description for all top-level dependencies in [`dependencies.md`](d
 
 A quick look at the top-level files and directories excluding Git ignored locations.
 
-    .
-    ├── .circleci
-    ├── .github
-    ├── .idea
-    ├── .vscode
-    ├── config
-    ├── media
-    ├── skole
-    ├── .dockerignore
-    ├── .flake8
-    ├── .gitignore
-    ├── .graphqlconfig
-    ├── dependencies.md
-    ├── docker-compose-circleci.yml
-    ├── Dockerfile
-    ├── Dockerfile.prod
-    ├── mypy.ini
-    ├── pyproject.toml
-    ├── README.md
-    ├── requirements-dev.txt
-    ├── requirements.txt
-    └── schema.graphql
+```
+.
+├── .circleci/
+├── .github/
+├── .idea/
+├── config/
+├── media/
+├── skole/
+├── .dockerignore
+├── .flake8
+├── .gitignore
+├── .graphqlconfig
+├── Dockerfile
+├── Dockerfile.prod
+├── README.md
+├── dependencies.md
+├── docker-compose-circleci.yml
+├── manage.py
+├── mypy.ini
+├── pyproject.toml
+├── requirements-dev.txt
+├── requirements.txt
+└── schema.graphql
+```
 
-1.  **`/.circleci`**: Configuration for [CircleCI](https://circleci.com/).
-
-2.  **`/.github`**: Configuration for [Github Actions](https://github.com/features/actions).
-
-3.  **`/.idea`**: [Jetbrains](https://www.jetbrains.com/) editor configuration.
-
-4.  **`/.vscode`**: [VSCode](https://code.visualstudio.com/) configuration.
-
-5.  **`/config`**: Configuration for [Django](https://www.djangoproject.com/) project.
-
-6.  **`/media`**: Static assets and media.
-
-7.  **`/skole`**: Source code.
-
-8.  **`.dockerignore`**: List of files ignored by [Docker](https://www.docker.com/).
-
-9.  **`.flake8`**: Configuration for [Flake8](https://flake8.pycqa.org/en/latest/).
-
-10. **`.gitignore`**: List of files ignored by [Git](https://git-scm.com/).
-
-11. **`.graphqlconfig`**: GraphQL configuration file, used by e.g. Jetbrains editors.
-
-12. **`dependencies`**: Documentation for top-level dependencies.
-
-13. **`docker-compose-circleci.yml`**: Docker configuration for CircleCI pipelines.
-
-14. **`Dockerfile`**: Docker configuration for development.
-
-15. **`Dockerfile.prod`**: Docker configuration for production.
-
+1.  **`.circleci/`**: Configuration for [CircleCI](https://circleci.com/).
+2.  **`.github/`**: Configuration for [Github Actions](https://github.com/features/actions).
+3.  **`.idea/`**: [Jetbrains](https://www.jetbrains.com/) editor configuration.
+4.  **`config/`**: Configuration for [Django](https://www.djangoproject.com/) project.
+5.  **`media/`**: Static assets and media.
+6.  **`skole/`**: Source code.
+7.  **`.dockerignore`**: List of files ignored by [Docker](https://www.docker.com/).
+8.  **`.flake8`**: Configuration for [Flake8](https://flake8.pycqa.org/en/latest/).
+9. **`.gitignore`**: List of files ignored by [Git](https://git-scm.com/).
+10. **`.graphqlconfig`**: GraphQL configuration file, used by e.g. Jetbrains editors.
+11. **`Dockerfile`**: Docker configuration for development.
+12. **`Dockerfile.prod`**: Docker configuration for production.
+13. **`README.md`**: Text file containing useful reference information about this project.
+14. **`dependencies`**: Documentation for top-level dependencies.
+15. **`docker-compose-circleci.yml`**: Docker configuration for CircleCI pipelines.
 16. **`manage.py`**: Auto-generated for Django project, see [docs](https://docs.djangoproject.com/en/3.1/ref/django-admin/).
-
 17. **`mypy.ini`**: Configuration for [Mypy](http://mypy-lang.org/).
-
-18. **`pyproject.toml`**: Python project configuration.
-
-19. **`README.md`**: Text file containing useful reference information about this project.
-
-20. **`requirements-dev.txt`**: List of development requirements.
-
-21. **`requirements.txt`**: List of production requirements.
-
-22. **`schema.graphql`**: GraphQL schema for [Introspection](https://graphql.org/learn/introspection/).
+18. **`pyproject.toml`**: Configuration for various Python tools.
+19. **`requirements-dev.txt`**: List of development requirements.
+20. **`requirements.txt`**: List of production requirements.
+21. **`schema.graphql`**: GraphQL schema for noticing schema changes quickly from PRs.
 
 ## Development Tips 🚀
 

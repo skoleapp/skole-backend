@@ -12,12 +12,15 @@ from .object_types import UserObjectType
 
 
 class Query(graphene.ObjectType):
+
     user = graphene.Field(UserObjectType, id=graphene.ID())
     user_me = graphene.Field(UserObjectType)
 
     def resolve_user(self, info: ResolveInfo, id: ID = None) -> Optional[User]:
         try:
-            return get_user_model().objects.filter(is_superuser=False).get(pk=id)
+            # Ignore: Mypy complains that `get(pk=None)` is not valid. It might not be
+            #  the most sensible thing, but it actually doesn't fail at runtime.
+            return get_user_model().objects.filter(is_superuser=False).get(pk=id)  # type: ignore[misc]
         except User.DoesNotExist:
             return None
 

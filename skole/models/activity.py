@@ -8,7 +8,7 @@ from .base import SkoleManager, SkoleModel
 from .user import User
 
 
-class ActivityManager(SkoleManager):
+class ActivityManager(SkoleManager["Activity"]):
     def mark_all_as_read(self, user: User) -> QuerySet[Activity]:
         """Mark all activities as read for a user."""
         qs = self.filter(user=user)
@@ -50,8 +50,7 @@ class Activity(SkoleModel):
 
     read = models.BooleanField(default=False)
 
-    # Ignore: Mypy somehow thinks that this is incompatible with the super class.
-    objects = ActivityManager()  # type: ignore[assignment]
+    objects = ActivityManager()
 
     def __str__(self) -> str:
         return f"{self.activity_type.name}"

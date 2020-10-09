@@ -12,7 +12,7 @@ from .resource import Resource
 from .user import User
 
 
-class StarredManager(SkoleManager):
+class StarredManager(SkoleManager["Starred"]):
     def perform_star(self, user: User, target: StarrableModel) -> Optional[Starred]:
         """Create a new star to the target or delete it if it already exists."""
 
@@ -63,8 +63,7 @@ class Starred(SkoleModel):
         related_name="stars",
     )
 
-    # Ignore: Mypy somehow thinks that this is incompatible with the super class.
-    objects = StarredManager()  # type: ignore[assignment]
+    objects = StarredManager()
 
     class Meta:
         unique_together = ("user", "course", "resource")

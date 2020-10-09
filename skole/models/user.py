@@ -25,8 +25,7 @@ from skole.utils.validators import ValidateFileSizeAndType
 from .base import SkoleManager, SkoleModel
 
 
-# Ignore: See explanation in SkoleManager.
-class UserManager(SkoleManager, BaseUserManager):  # type: ignore[type-arg]
+class UserManager(SkoleManager["User"], BaseUserManager["User"]):
     @staticmethod
     def set_password(user: User, password: str) -> User:
         """Overridden so we avoid calling save() outside of managers."""
@@ -113,8 +112,7 @@ class User(SkoleModel, AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     modified = models.DateTimeField(auto_now=True)
 
-    # Ignore: Mypy somehow thinks that this is incompatible with the super class.
-    objects = UserManager()  # type: ignore[assignment]
+    objects = UserManager()
 
     USERNAME_FIELD = "username"
     EMAIL_FIELD = "email"

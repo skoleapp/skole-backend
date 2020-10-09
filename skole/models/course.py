@@ -8,7 +8,7 @@ from django.db.models.functions import Coalesce
 from .base import SkoleManager, SkoleModel
 
 
-class CourseManager(SkoleManager):
+class CourseManager(SkoleManager["Course"]):
     def get_queryset(self) -> QuerySet[Course]:
         qs = super().get_queryset()
         return qs.annotate(
@@ -43,8 +43,7 @@ class Course(SkoleModel):
     modified = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 
-    # Ignore: Mypy somehow thinks that this is incompatible with the super class.
-    objects = CourseManager()  # type: ignore[assignment]
+    objects = CourseManager()
 
     # These values will get annotated in the manager's get_queryset.
     score: int

@@ -17,7 +17,7 @@ from .resource import Resource
 from .user import User
 
 
-class VoteManager(SkoleManager):
+class VoteManager(SkoleManager["Vote"]):
     def perform_vote(
         self, user: User, status: Literal[1, -1], target: VotableModel
     ) -> Tuple[Optional[Vote], int]:
@@ -102,8 +102,7 @@ class Vote(SkoleModel):
         related_name="votes",
     )
 
-    # Ignore: Mypy somehow thinks that this is incompatible with the super class.
-    objects = VoteManager()  # type: ignore[assignment]
+    objects = VoteManager()
 
     class Meta:
         unique_together = ("user", "comment", "course", "resource")

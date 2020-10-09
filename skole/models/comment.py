@@ -11,7 +11,7 @@ from skole.utils.validators import ValidateFileSizeAndType
 from .base import SkoleManager, SkoleModel
 
 
-class CommentManager(SkoleManager):
+class CommentManager(SkoleManager["Comment"]):
     def get_queryset(self) -> QuerySet[Comment]:
         qs = super().get_queryset()
         return qs.order_by(
@@ -66,8 +66,7 @@ class Comment(SkoleModel):
     modified = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 
-    # Ignore: Mypy somehow thinks that this is incompatible with the super class.
-    objects = CommentManager()  # type: ignore[assignment]
+    objects = CommentManager()
 
     # This value gets annotated in the manager's get_queryset.
     score: int

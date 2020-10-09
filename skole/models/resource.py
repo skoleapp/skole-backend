@@ -13,7 +13,7 @@ from skole.utils.validators import ValidateFileSizeAndType
 from .base import SkoleManager, SkoleModel
 
 
-class ResourceManager(SkoleManager):
+class ResourceManager(SkoleManager["Resource"]):
     def get_queryset(self) -> QuerySet[Resource]:
         qs = super().get_queryset()
         return qs.annotate(score=Coalesce(Sum("votes__status"), Value(0)))
@@ -51,8 +51,7 @@ class Resource(SkoleModel):
     modified = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 
-    # Ignore: Mypy somehow thinks that this is incompatible with the super class.
-    objects = ResourceManager()  # type: ignore[assignment]
+    objects = ResourceManager()
 
     # This value gets annotated in the manager's get_queryset.
     score: int

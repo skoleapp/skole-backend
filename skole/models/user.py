@@ -12,11 +12,10 @@ from django.core.validators import RegexValidator
 from django.db import models
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
-from graphql import ResolveInfo
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
 
-from skole.types import JsonDict
+from skole.types import JsonDict, ResolveInfo
 from skole.utils.constants import Ranks, TokenAction, ValidationErrors
 from skole.utils.exceptions import UserAlreadyVerified, UserNotVerified
 from skole.utils.token import get_token, get_token_payload
@@ -144,7 +143,6 @@ class User(SkoleModel, AbstractBaseUser, PermissionsMixin):
     def get_email_context(
         self, info: ResolveInfo, path: str, action: str, **kwargs: JsonDict
     ) -> JsonDict:
-        assert info.context is not None
         token = get_token(self, action, **kwargs)
         site = get_current_site(info.context)
 

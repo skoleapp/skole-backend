@@ -1,13 +1,15 @@
 from __future__ import annotations
 
+from typing import cast
+
 import graphene
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
-from graphql import ResolveInfo
 
 from skole.forms import CreateVoteForm
-from skole.models import Vote
+from skole.models import User, Vote
 from skole.schemas.mixins import SkoleCreateUpdateMutationMixin
+from skole.types import ResolveInfo
 
 
 class VoteObjectType(DjangoObjectType):
@@ -28,11 +30,10 @@ class VoteMutation(SkoleCreateUpdateMutationMixin, DjangoModelFormMutation):
 
     @classmethod
     def perform_mutate(cls, form: CreateVoteForm, info: ResolveInfo) -> VoteMutation:
-        assert info.context is not None
         # Not calling super (which saves the form), so that we don't
         # create two Vote instances here.
         vote, target_score = Vote.objects.perform_vote(
-            user=info.context.user,
+            user=cast(User, info.context.user),
             status=form.cleaned_data["status"],
             target=form.cleaned_data["target"],
         )

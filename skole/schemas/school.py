@@ -4,14 +4,13 @@ import graphene
 from django.conf import settings
 from django.db.models import Count, QuerySet
 from graphene_django import DjangoObjectType
-from graphql import ResolveInfo
 
 from skole.models import Country, School
 from skole.schemas.city import CityObjectType
 from skole.schemas.country import CountryObjectType
 from skole.schemas.school_type import SchoolTypeObjectType
 from skole.schemas.subject import SubjectObjectType
-from skole.types import ID
+from skole.types import ID, ResolveInfo
 
 
 class SchoolObjectType(DjangoObjectType):
@@ -52,8 +51,6 @@ class Query(graphene.ObjectType):
         We want to avoid making massive queries by limiting the amount of results. If no
         school name is provided as a parameter, we return schools with the most courses.
         """
-
-        assert info.context is not None
         qs = School.objects.translated()
 
         if name != "":

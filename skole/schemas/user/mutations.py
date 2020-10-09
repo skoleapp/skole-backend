@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from smtplib import SMTPException
+from typing import cast
 
 import graphene
 from django.conf import settings
@@ -9,7 +10,6 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.signing import BadSignature, SignatureExpired
 from graphene_django.forms.mutation import DjangoFormMutation, DjangoModelFormMutation
 from graphene_django.types import ErrorType
-from graphql import ResolveInfo
 from graphql_jwt import DeleteJSONWebTokenCookie
 from graphql_jwt.decorators import token_auth
 
@@ -25,7 +25,7 @@ from skole.forms import (
 )
 from skole.models import User
 from skole.schemas.mixins import SkoleCreateUpdateMutationMixin, SuccessMessageMixin
-from skole.types import JsonDict
+from skole.types import JsonDict, ResolveInfo
 from skole.utils.constants import Messages, MutationErrors, TokenAction
 from skole.utils.exceptions import TokenScopeError, UserAlreadyVerified, UserNotVerified
 from skole.utils.token import get_token_payload, revoke_user_refresh_tokens
@@ -287,7 +287,6 @@ class ChangePasswordMutation(
         cls, root: None, info: ResolveInfo, **input: JsonDict
     ) -> JsonDict:
         kwargs = super().get_form_kwargs(root, info, **input)
-        assert info.context is not None
         kwargs["instance"] = info.context.user
         return kwargs
 
@@ -295,11 +294,10 @@ class ChangePasswordMutation(
     def perform_mutate(
         cls, form: ChangePasswordForm, info: ResolveInfo
     ) -> ChangePasswordMutation:
-        assert info.context is not None
         new_password = form.cleaned_data["new_password"]
 
         get_user_model().objects.set_password(
-            user=info.context.user, password=new_password
+            user=cast(User, info.context.user), password=new_password
         )
 
         return cls(message=Messages.PASSWORD_UPDATED)
@@ -325,15 +323,13 @@ class DeleteUserMutation(
     def get_form_kwargs(
         cls, root: None, info: ResolveInfo, **input: JsonDict
     ) -> JsonDict:
-        assert info.context is not None
         return {"data": input, "instance": info.context.user}
 
     @classmethod
     def perform_mutate(
         cls, form: DeleteUserForm, info: ResolveInfo
     ) -> DeleteUserMutation:
-        assert info.context is not None
-        user = info.context.user
+        user = cast(User, info.context.user)
         user.soft_delete()
         return cls(message=Messages.USER_DELETED)
 
@@ -356,7 +352,6 @@ class UpdateUserMutation(
     def get_form_kwargs(
         cls, root: None, info: ResolveInfo, **input: JsonDict
     ) -> JsonDict:
-        assert info.context is not None
         form_kwargs = super().get_form_kwargs(root, info, **input)
         form_kwargs["instance"] = info.context.user
         return form_kwargs

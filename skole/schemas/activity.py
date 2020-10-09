@@ -1,15 +1,16 @@
 from __future__ import annotations
 
+from typing import cast
+
 import graphene
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphene_django.types import ErrorType
-from graphql import ResolveInfo
 
 from skole.forms import MarkActivityReadForm
-from skole.models import Activity
+from skole.models import Activity, User
 from skole.schemas.mixins import SkoleCreateUpdateMutationMixin
-from skole.types import JsonDict
+from skole.types import JsonDict, ResolveInfo
 
 
 class ActivityObjectType(DjangoObjectType):
@@ -60,8 +61,9 @@ class MarkAllActivitiesReadMutation(SkoleCreateUpdateMutationMixin, graphene.Mut
     def mutate(
         cls, root: None, info: ResolveInfo, **input: JsonDict
     ) -> MarkAllActivitiesReadMutation:
-        assert info.context is not None
-        activities = Activity.objects.mark_all_as_read(user=info.context.user)
+        activities = Activity.objects.mark_all_as_read(
+            user=cast(User, info.context.user)
+        )
         return cls(activities=activities)
 
 

@@ -1,11 +1,11 @@
-from typing import Optional, cast, get_args
+from typing import Optional, get_args
 
 import graphene
 from django.conf import settings
 from django.db.models import F, QuerySet
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
-from graphql import GraphQLError, ResolveInfo
+from graphql import GraphQLError
 
 from skole.forms import CreateCourseForm, DeleteCourseForm
 from skole.models import Course
@@ -17,7 +17,7 @@ from skole.schemas.mixins import (
     SuccessMessageMixin,
     VoteMixin,
 )
-from skole.types import ID, CourseOrderingOption
+from skole.types import ID, CourseOrderingOption, ResolveInfo
 from skole.utils.constants import GraphQLErrors, Messages
 from skole.utils.pagination import get_paginator
 
@@ -136,7 +136,7 @@ class Query(graphene.ObjectType):
     ) -> graphene.ObjectType:
         """Filter courses based on the query parameters."""
 
-        qs = cast("QuerySet[Course]", Course.objects.all())
+        qs: QuerySet[Course] = Course.objects.all()
 
         if course_name is not None:
             qs = qs.filter(name__icontains=course_name)
@@ -176,7 +176,7 @@ class Query(graphene.ObjectType):
         course name is provided as a parameter, we return the best courses.
         """
 
-        qs = cast("QuerySet[Course]", Course.objects.order_by("name"))
+        qs: QuerySet[Course] = Course.objects.order_by("name")
 
         if school is not None:
             qs = qs.filter(school__pk=school)

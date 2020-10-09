@@ -1,23 +1,19 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, Optional, Type, TypeVar
+from typing import TYPE_CHECKING, Any, Optional, Type, TypeVar, cast
 
 import graphene
 from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphene_django.types import ErrorType
-from graphql import ResolveInfo
 
-from skole.models import SkoleModel, Starred, Vote
-from skole.types import JsonDict
+from skole.models import SkoleModel, Starred, User, Vote
+from skole.types import JsonDict, ResolveInfo
 from skole.utils.constants import MutationErrors
 from skole.utils.shortcuts import validate_is_first_inherited
 
 if TYPE_CHECKING:  # pragma: no cover
     # To avoid circular import.
     from skole.forms.base import SkoleUpdateModelForm
-
-
-T = TypeVar("T", bound="SkoleCreateUpdateMutationMixin")
 
 
 class SuccessMessageMixin:
@@ -57,8 +53,6 @@ class VoteMixin:
     @staticmethod
     def resolve_vote(root: SkoleModel, info: ResolveInfo) -> Optional[Vote]:
         """Return current user's vote if it exists."""
-
-        assert info.context is not None
         user = info.context.user
 
         if user.is_anonymous:
@@ -78,8 +72,6 @@ class StarredMixin:
     @staticmethod
     def resolve_starred(root: SkoleModel, info: ResolveInfo) -> bool:
         """Return True if the current user has starred the item, otherwise False."""
-
-        assert info.context is not None
         user = info.context.user
 
         if user.is_anonymous:
@@ -101,6 +93,9 @@ class PaginationMixin:
     has_next = graphene.Boolean()
     has_prev = graphene.Boolean()
     count = graphene.Int()
+
+
+T = TypeVar("T", bound="SkoleCreateUpdateMutationMixin")
 
 
 @validate_is_first_inherited
@@ -135,13 +130,14 @@ class SkoleCreateUpdateMutationMixin:
 
     @classmethod
     def mutate(cls: Type[T], root: None, info: ResolveInfo, **input: JsonDict) -> T:
-        assert info.context is not None
         user = info.context.user
 
         if cls.login_required or cls.verification_required:
             if not user.is_authenticated:
                 # Ignore: `errors` is valid arg in subclasses.
                 return cls(errors=MutationErrors.AUTH_REQUIRED)  # type: ignore[call-arg]
+
+        user = cast(User, user)
 
         if cls.verification_required:
             if not user.verified:

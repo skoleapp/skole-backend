@@ -17,7 +17,7 @@ from skole.tests.helpers import checksum
 
 
 def test_report_error_code_has_not_changed() -> None:
-    importlib.reload(graphql.execution.utils)
+    importlib.reload(graphql.execution.utils)  # To get the non-patched original module.
     assert (
         checksum(graphql.execution.utils.ExecutionContext.report_error)
         == "fa7cdbca837c4ebfd294"
@@ -26,3 +26,7 @@ def test_report_error_code_has_not_changed() -> None:
 
 def test_graphql_view_code_has_not_changed() -> None:
     assert checksum(GraphQLView.parse_body) == "b6d13668aa8a9c22e9a2"
+
+
+def get_graphql_resolve_info_code_has_not_changed() -> None:
+    assert checksum(graphql.ResolveInfo) == "d7d63b1a17fda05e4629"

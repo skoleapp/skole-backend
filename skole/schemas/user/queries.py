@@ -1,12 +1,11 @@
-from typing import Optional
+from typing import Optional, cast
 
 import graphene
 from django.contrib.auth import get_user_model
-from graphql import ResolveInfo
 from graphql_jwt.decorators import login_required
 
 from skole.models import User
-from skole.types import ID
+from skole.types import ID, ResolveInfo
 
 from .object_types import UserObjectType
 
@@ -28,5 +27,4 @@ class Query(graphene.ObjectType):
     @staticmethod
     @login_required
     def resolve_user_me(root: None, info: ResolveInfo) -> User:
-        assert info.context is not None
-        return info.context.user
+        return cast(User, info.context.user)

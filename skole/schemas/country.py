@@ -3,10 +3,9 @@ from typing import Optional
 import graphene
 from django.db.models import QuerySet
 from graphene_django import DjangoObjectType
-from graphql import ResolveInfo
 
 from skole.models import Country
-from skole.types import ID
+from skole.types import ID, ResolveInfo
 
 
 class CountryObjectType(DjangoObjectType):
@@ -30,7 +29,6 @@ class Query(graphene.ObjectType):
 
         We want to avoid making massive queries by limiting the amount of results.
         """
-        assert info.context is not None
         # We must manually call the translation function in order to perform the ordering based on the translated values.
         return Country.objects.translated().order_by("translations__name")
 

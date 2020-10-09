@@ -4,11 +4,10 @@ import graphene
 from django.conf import settings
 from django.db.models import Count, QuerySet
 from graphene_django import DjangoObjectType
-from graphql import ResolveInfo
 
 from skole.models import Subject
 from skole.schemas.mixins import PaginationMixin
-from skole.types import ID
+from skole.types import ID, ResolveInfo
 
 
 class SubjectObjectType(DjangoObjectType):
@@ -38,8 +37,6 @@ class Query(graphene.ObjectType):
         school name is provided as a parameter, we return subjects with the most
         courses.
         """
-
-        assert info.context is not None
         qs = Subject.objects.translated()
 
         if name != "":

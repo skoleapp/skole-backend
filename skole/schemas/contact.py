@@ -8,10 +8,10 @@ from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from graphene_django.forms.mutation import DjangoFormMutation
-from graphql import ResolveInfo
 
 from skole.forms import ContactForm
 from skole.schemas.mixins import SkoleCreateUpdateMutationMixin, SuccessMessageMixin
+from skole.types import ResolveInfo
 from skole.utils.constants import Messages, MutationErrors
 
 

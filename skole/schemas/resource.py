@@ -3,7 +3,6 @@ from typing import Optional
 import graphene
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
-from graphql import ResolveInfo
 
 from skole.forms import CreateResourceForm, DeleteResourceForm, UpdateResourceForm
 from skole.models import Resource, School
@@ -16,7 +15,7 @@ from skole.schemas.mixins import (
 )
 from skole.schemas.resource_type import ResourceTypeObjectType
 from skole.schemas.school import SchoolObjectType
-from skole.types import ID
+from skole.types import ID, ResolveInfo
 from skole.utils.constants import Messages
 
 

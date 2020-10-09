@@ -2,9 +2,9 @@ import graphene
 from django.conf import settings
 from django.db.models import QuerySet
 from graphene_django import DjangoObjectType
-from graphql import ResolveInfo
 
 from skole.models import ResourceType
+from skole.types import ResolveInfo
 
 
 class ResourceTypeObjectType(DjangoObjectType):

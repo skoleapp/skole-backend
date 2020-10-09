@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Generic, TypeVar
+from typing import Any, Generic, Optional, TypeVar
 
 import parler.managers
 import parler.models
@@ -18,6 +18,18 @@ class SkoleManager(Generic[M], models.Manager[M]):
     def get_queryset(self) -> QuerySet[M]:
         """Hide all soft deleted objects from queries."""
         return super().get_queryset().exclude(deleted_at__isnull=False)
+
+    def get_or_none(self, *args: Any, **kwargs: Any) -> Optional[M]:
+        """
+        Return the object queried with `args` and `kwargs` or None if it didn't exist.
+
+        Raises:
+            MultipleObjectsReturned: If the query matches multiple objects.
+        """
+        try:
+            return self.get(*args, **kwargs)
+        except self.model.DoesNotExist:
+            return None
 
 
 class TranslatableSkoleManager(SkoleManager[TM], parler.managers.TranslatableManager):

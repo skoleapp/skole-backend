@@ -18,7 +18,6 @@ from skole.schemas.resource_type import ResourceTypeObjectType
 from skole.schemas.school import SchoolObjectType
 from skole.types import ID
 from skole.utils.constants import Messages
-from skole.utils.shortcuts import get_obj_or_none
 
 
 class ResourceObjectType(VoteMixin, StarredMixin, DjangoObjectType):
@@ -81,7 +80,7 @@ class Query(graphene.ObjectType):
     resource = graphene.Field(ResourceObjectType, id=graphene.ID())
 
     def resolve_resource(self, info: ResolveInfo, id: ID = None) -> Optional[Resource]:
-        return get_obj_or_none(Resource, id)
+        return Resource.objects.get_or_none(pk=id)
 
 
 class Mutation(graphene.ObjectType):

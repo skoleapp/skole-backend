@@ -20,7 +20,6 @@ from skole.schemas.mixins import (
 from skole.types import ID, CourseOrderingOption
 from skole.utils.constants import GraphQLErrors, Messages
 from skole.utils.pagination import get_paginator
-from skole.utils.shortcuts import get_obj_or_none
 
 
 def order_courses_with_secret_algorithm(qs: QuerySet[Course]) -> QuerySet[Course]:
@@ -185,7 +184,7 @@ class Query(graphene.ObjectType):
         return qs[: settings.AUTOCOMPLETE_MAX_RESULTS]
 
     def resolve_course(self, info: ResolveInfo, id: ID = None) -> Optional[Course]:
-        return get_obj_or_none(Course, id)
+        return Course.objects.get_or_none(pk=id)
 
 
 class Mutation(graphene.ObjectType):

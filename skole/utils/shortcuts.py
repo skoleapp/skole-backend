@@ -4,20 +4,11 @@ from django import forms
 from django.core.files import File
 from django.db.models import Model
 
-from skole.types import ID, JsonDict
+from skole.types import JsonDict
 from skole.utils.constants import ValidationErrors
 
 T = TypeVar("T")
 M = TypeVar("M", bound=Model)
-
-
-def get_obj_or_none(model: Type[M], pk: ID = None) -> Optional[M]:
-    """Used as a helper function to return None instead of raising a GraphQLError."""
-
-    try:
-        return model.objects.get(pk=pk)
-    except model.DoesNotExist:
-        return None
 
 
 def clean_file_field(

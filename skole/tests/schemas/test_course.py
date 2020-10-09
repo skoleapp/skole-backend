@@ -9,7 +9,6 @@ from skole.tests.helpers import (
 )
 from skole.types import ID, CourseOrderingOption, JsonDict
 from skole.utils.constants import GraphQLErrors, Messages, MutationErrors
-from skole.utils.shortcuts import get_obj_or_none
 
 
 class CourseSchemaTests(SkoleSchemaTestCase):
@@ -203,7 +202,7 @@ class CourseSchemaTests(SkoleSchemaTestCase):
     def test_delete_course(self) -> None:
         res = self.mutate_delete_course(id=1)
         assert res["message"] == Messages.COURSE_DELETED
-        assert get_obj_or_none(Course, 1) is None
+        assert Course.objects.get_or_none(pk=1) is None
 
         # Can't delete the same course again.
         res = self.mutate_delete_course(id=1, assert_error=True)

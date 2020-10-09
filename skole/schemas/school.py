@@ -12,7 +12,6 @@ from skole.schemas.country import CountryObjectType
 from skole.schemas.school_type import SchoolTypeObjectType
 from skole.schemas.subject import SubjectObjectType
 from skole.types import ID
-from skole.utils.shortcuts import get_obj_or_none
 
 
 class SchoolObjectType(DjangoObjectType):
@@ -64,4 +63,4 @@ class Query(graphene.ObjectType):
         return qs[: settings.AUTOCOMPLETE_MAX_RESULTS]
 
     def resolve_school(self, info: ResolveInfo, id: ID = None) -> Optional[School]:
-        return get_obj_or_none(School, id)
+        return School.objects.get_or_none(pk=id)

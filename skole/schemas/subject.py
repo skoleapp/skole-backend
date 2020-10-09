@@ -9,7 +9,6 @@ from graphql import ResolveInfo
 from skole.models import Subject
 from skole.schemas.mixins import PaginationMixin
 from skole.types import ID
-from skole.utils.shortcuts import get_obj_or_none
 
 
 class SubjectObjectType(DjangoObjectType):
@@ -51,4 +50,4 @@ class Query(graphene.ObjectType):
         return qs[: settings.AUTOCOMPLETE_MAX_RESULTS]
 
     def resolve_subject(self, info: ResolveInfo, id: ID = None) -> Optional[Subject]:
-        return get_obj_or_none(Subject, id)
+        return Subject.objects.get_or_none(pk=id)

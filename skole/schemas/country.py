@@ -7,7 +7,6 @@ from graphql import ResolveInfo
 
 from skole.models import Country
 from skole.types import ID
-from skole.utils.shortcuts import get_obj_or_none
 
 
 class CountryObjectType(DjangoObjectType):
@@ -33,4 +32,4 @@ class Query(graphene.ObjectType):
         return Country.objects.translated().order_by("translations__name")
 
     def resolve_country(self, info: ResolveInfo, id: ID = None) -> Optional[Country]:
-        return get_obj_or_none(Country, id)
+        return Country.objects.get_or_none(pk=id)

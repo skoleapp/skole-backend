@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import TYPE_CHECKING, Any, Optional, Type, TypeVar
 
 import graphene
@@ -170,7 +172,7 @@ class SkoleDeleteMutationMixin(SkoleCreateUpdateMutationMixin, SuccessMessageMix
 
     @classmethod
     def perform_mutate(
-        cls, form: "SkoleUpdateModelForm", info: ResolveInfo
+        cls, form: SkoleUpdateModelForm, info: ResolveInfo
     ) -> SkoleCreateUpdateMutationMixin:
         form.instance.soft_delete()
         return super().perform_mutate(form, info)

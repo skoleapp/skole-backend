@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import graphene
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
@@ -23,9 +25,7 @@ class StarredMutation(SkoleCreateUpdateMutationMixin, DjangoModelFormMutation):
         exclude_fields = ("id",)
 
     @classmethod
-    def perform_mutate(
-        cls, form: CreateStarForm, info: ResolveInfo
-    ) -> "StarredMutation":
+    def perform_mutate(cls, form: CreateStarForm, info: ResolveInfo) -> StarredMutation:
         assert info.context is not None
         # Not calling super (which saves the form), so that we don't
         # create two Starred instances here.

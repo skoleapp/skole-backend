@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import datetime
 
 from django.conf import settings
@@ -12,7 +14,7 @@ from .base import SkoleManager, SkoleModel
 
 
 class ResourceManager(SkoleManager):
-    def get_queryset(self) -> "QuerySet[Resource]":
+    def get_queryset(self) -> QuerySet[Resource]:
         qs = super().get_queryset()
         return qs.annotate(score=Coalesce(Sum("votes__status"), Value(0)))
 

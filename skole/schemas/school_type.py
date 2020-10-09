@@ -25,7 +25,7 @@ class Query(graphene.ObjectType):
 
     def resolve_autocomplete_school_types(
         self, info: ResolveInfo
-    ) -> "QuerySet[SchoolType]":
+    ) -> QuerySet[SchoolType]:
         """
         Used for queries made by the client's auto complete fields.
 

@@ -75,19 +75,17 @@ class UserObjectType(DjangoObjectType):
             return None
 
     # Only return school if user is querying his own profile.
-    def resolve_school(self, info: ResolveInfo) -> Optional["School"]:
+    def resolve_school(self, info: ResolveInfo) -> Optional[School]:
         assert info.context is not None
         return self.school if self.pk == info.context.user.pk else None
 
     # Only return subject if user is querying his own profile.
-    def resolve_subject(self, info: ResolveInfo) -> Optional["Subject"]:
+    def resolve_subject(self, info: ResolveInfo) -> Optional[Subject]:
         assert info.context is not None
         return self.subject if self.pk == info.context.user.pk else None
 
     # Only return starred courses if user is querying his own profile.
-    def resolve_starred_courses(
-        self, info: ResolveInfo
-    ) -> Optional["QuerySet[Course]"]:
+    def resolve_starred_courses(self, info: ResolveInfo) -> Optional[QuerySet[Course]]:
         assert info.context is not None
         if self.pk == info.context.user.pk:
             return Course.objects.filter(stars__user__pk=self.pk)
@@ -97,18 +95,18 @@ class UserObjectType(DjangoObjectType):
     # Only return starred resources if user is querying his own profile.
     def resolve_starred_resources(
         self, info: ResolveInfo
-    ) -> Optional["QuerySet[Resource]"]:
+    ) -> Optional[QuerySet[Resource]]:
         assert info.context is not None
         if self.pk == info.context.user.pk:
             return Resource.objects.filter(stars__user__pk=self.pk)
         else:
             return None
 
-    def resolve_badges(self, info: ResolveInfo) -> "QuerySet[Badge]":
+    def resolve_badges(self, info: ResolveInfo) -> QuerySet[Badge]:
         return self.badges.all()
 
     # Only return activity if user is querying his own profile.
-    def resolve_activity(self, info: ResolveInfo) -> Optional["QuerySet[Activity]"]:
+    def resolve_activity(self, info: ResolveInfo) -> Optional[QuerySet[Activity]]:
         assert info.context is not None
         if self.pk == info.context.user.pk:
             return self.activity.all()

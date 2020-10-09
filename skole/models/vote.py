@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import Literal, Optional, Tuple
 
 from django.conf import settings
@@ -18,7 +20,7 @@ from .user import User
 class VoteManager(SkoleManager):
     def perform_vote(
         self, user: User, status: Literal[1, -1], target: VotableModel
-    ) -> Tuple[Optional["Vote"], int]:
+    ) -> Tuple[Optional[Vote], int]:
         """Create a new vote to the target or delete it if it already exists."""
 
         if isinstance(target, Comment):
@@ -47,7 +49,7 @@ class VoteManager(SkoleManager):
 
     def check_existing_vote(
         self, user: User, status: int, **target: VotableModel
-    ) -> Optional["Vote"]:
+    ) -> Optional[Vote]:
         try:
             vote = user.votes.get(**target)
             if vote.status == status:

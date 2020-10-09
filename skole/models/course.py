@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from django.conf import settings
 from django.db import models
 from django.db.models import Count, QuerySet, Sum, Value
@@ -7,7 +9,7 @@ from .base import SkoleManager, SkoleModel
 
 
 class CourseManager(SkoleManager):
-    def get_queryset(self) -> "QuerySet[Course]":
+    def get_queryset(self) -> QuerySet[Course]:
         qs = super().get_queryset()
         return qs.annotate(
             score=Coalesce(Sum("votes__status", distinct=True), Value(0)),

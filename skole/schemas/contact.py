@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from smtplib import SMTPException
 
 import graphene
@@ -20,7 +22,7 @@ class ContactMutation(
         form_class = ContactForm
 
     @classmethod
-    def perform_mutate(cls, form: ContactForm, info: ResolveInfo) -> "ContactMutation":
+    def perform_mutate(cls, form: ContactForm, info: ResolveInfo) -> ContactMutation:
         subject = form.cleaned_data.get("subject")
         name = form.cleaned_data.get("name")
         email = form.cleaned_data.get("email")

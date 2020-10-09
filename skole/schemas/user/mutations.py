@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from smtplib import SMTPException
 from typing import Any
 
@@ -51,9 +53,7 @@ class RegisterMutation(
         return_field_name = "message"
 
     @classmethod
-    def perform_mutate(
-        cls, form: RegisterForm, info: ResolveInfo
-    ) -> "RegisterMutation":
+    def perform_mutate(cls, form: RegisterForm, info: ResolveInfo) -> RegisterMutation:
         obj = super().perform_mutate(form, info)
 
         try:
@@ -76,7 +76,7 @@ class VerifyAccountMutation(
     @classmethod
     def perform_mutate(
         cls, form: TokenForm, info: ResolveInfo,
-    ) -> "VerifyAccountMutation":
+    ) -> VerifyAccountMutation:
         token = form.cleaned_data.get("token")
 
         try:
@@ -108,7 +108,7 @@ class ResendVerificationEmailMutation(
     @classmethod
     def perform_mutate(
         cls, form: EmailForm, info: ResolveInfo,
-    ) -> "ResendVerificationEmailMutation":
+    ) -> ResendVerificationEmailMutation:
         email = form.cleaned_data.get("email")
 
         try:
@@ -142,7 +142,7 @@ class SendPasswordResetEmailMutation(
     @classmethod
     def perform_mutate(
         cls, form: EmailForm, info: ResolveInfo,
-    ) -> "SendPasswordResetEmailMutation":
+    ) -> SendPasswordResetEmailMutation:
         email = form.cleaned_data.get("email")
 
         try:
@@ -183,7 +183,7 @@ class ResetPasswordMutation(
     @classmethod
     def perform_mutate(
         cls, form: EmailForm, info: ResolveInfo,
-    ) -> "ResetPasswordMutation":
+    ) -> ResetPasswordMutation:
         token = form.cleaned_data.get("token")
         new_password = form.cleaned_data.get("new_password")
 
@@ -230,7 +230,7 @@ class LoginMutation(
     @classmethod
     def mutate_and_get_payload(
         cls, root: Any, info: ResolveInfo, **input: JsonDict
-    ) -> "LoginMutation":
+    ) -> LoginMutation:
         form = cls.get_form(root, info, **input)
 
         if form.is_valid():
@@ -254,7 +254,7 @@ class LoginMutation(
     @token_auth
     def perform_mutate(
         cls, form: LoginForm, info: ResolveInfo, user: User, **kwargs: JsonDict
-    ) -> "LoginMutation":
+    ) -> LoginMutation:
         return cls(user=user, message=Messages.LOGGED_IN)
 
 
@@ -295,7 +295,7 @@ class ChangePasswordMutation(
     @classmethod
     def perform_mutate(
         cls, form: ChangePasswordForm, info: ResolveInfo
-    ) -> "ChangePasswordMutation":
+    ) -> ChangePasswordMutation:
         assert info.context is not None
         new_password = form.cleaned_data["new_password"]
 
@@ -332,7 +332,7 @@ class DeleteUserMutation(
     @classmethod
     def perform_mutate(
         cls, form: DeleteUserForm, info: ResolveInfo
-    ) -> "DeleteUserMutation":
+    ) -> DeleteUserMutation:
         assert info.context is not None
         user = info.context.user
         user.soft_delete()

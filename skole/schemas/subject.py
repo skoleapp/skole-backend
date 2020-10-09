@@ -30,7 +30,7 @@ class Query(graphene.ObjectType):
 
     def resolve_autocomplete_subjects(
         self, info: ResolveInfo, name: str = ""
-    ) -> "QuerySet[Subject]":
+    ) -> QuerySet[Subject]:
         """
         Used for queries made by the client's auto complete fields.
 

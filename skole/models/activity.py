@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from django.conf import settings
 from django.db import models
 from django.db.models import QuerySet
@@ -7,7 +9,7 @@ from .user import User
 
 
 class ActivityManager(SkoleManager):
-    def mark_all_as_read(self, user: User) -> "QuerySet[Activity]":
+    def mark_all_as_read(self, user: User) -> QuerySet[Activity]:
         """Mark all activities as read for a user."""
         qs = self.filter(user=user)
         qs.update(read=True)

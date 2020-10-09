@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import Optional, Union
 
 from django.conf import settings
@@ -11,7 +13,7 @@ from .user import User
 
 
 class StarredManager(SkoleManager):
-    def perform_star(self, user: User, target: StarrableModel) -> Optional["Starred"]:
+    def perform_star(self, user: User, target: StarrableModel) -> Optional[Starred]:
         """Create a new star to the target or delete it if it already exists."""
 
         if isinstance(target, Course):
@@ -25,7 +27,7 @@ class StarredManager(SkoleManager):
 
     def check_existing_starred(
         self, user: User, **target: Union[Course, Resource]
-    ) -> Optional["Starred"]:
+    ) -> Optional[Starred]:
         try:
             starred = user.stars.get(**target)
             starred.delete()

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from django.conf import settings
 from django.db import models
 from django.db.models import Sum, Value
@@ -10,7 +12,7 @@ from .base import SkoleManager, SkoleModel
 
 
 class CommentManager(SkoleManager):
-    def get_queryset(self) -> "QuerySet[Comment]":
+    def get_queryset(self) -> QuerySet[Comment]:
         qs = super().get_queryset()
         return qs.order_by(
             "id"  # We always want to get comments in their creation order.

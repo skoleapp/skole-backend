@@ -22,7 +22,7 @@ class Query(graphene.ObjectType):
     autocomplete_countries = graphene.List(CountryObjectType)
     country = graphene.Field(CountryObjectType, id=graphene.ID())
 
-    def resolve_autocomplete_countries(self, info: ResolveInfo) -> "QuerySet[Country]":
+    def resolve_autocomplete_countries(self, info: ResolveInfo) -> QuerySet[Country]:
         """
         Used for queries made by the client's auto complete fields.
 

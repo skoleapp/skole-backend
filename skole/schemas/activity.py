@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import Any
 
 import graphene
@@ -57,7 +59,7 @@ class MarkAllActivitiesReadMutation(SkoleCreateUpdateMutationMixin, graphene.Mut
     @classmethod
     def mutate(
         cls, root: Any, info: ResolveInfo, **input: JsonDict
-    ) -> "MarkAllActivitiesReadMutation":
+    ) -> MarkAllActivitiesReadMutation:
         assert info.context is not None
         activities = Activity.objects.mark_all_as_read(user=info.context.user)
         return cls(activities=activities)

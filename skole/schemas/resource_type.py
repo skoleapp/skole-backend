@@ -20,12 +20,12 @@ class Query(graphene.ObjectType):
     autocomplete_resource_types = graphene.List(ResourceTypeObjectType)
     # Querying a single ResourceType is not needed.
 
-    def resolve_resource_types(self, info: ResolveInfo) -> "QuerySet[ResourceType]":
+    def resolve_resource_types(self, info: ResolveInfo) -> QuerySet[ResourceType]:
         return ResourceType.objects.all()
 
     def resolve_autocomplete_resource_types(
         self, info: ResolveInfo
-    ) -> "QuerySet[ResourceType]":
+    ) -> QuerySet[ResourceType]:
         """
         Used for queries made by the client's auto complete fields.
 

@@ -23,7 +23,7 @@ from skole.utils.pagination import get_paginator
 from skole.utils.shortcuts import get_obj_or_none
 
 
-def order_courses_with_secret_algorithm(qs: "QuerySet[Course]") -> "QuerySet[Course]":
+def order_courses_with_secret_algorithm(qs: QuerySet[Course]) -> QuerySet[Course]:
     """
     Sort the given queryset so that the most interesting courses come first.
 
@@ -165,7 +165,7 @@ class Query(graphene.ObjectType):
 
     def resolve_autocomplete_courses(
         self, info: ResolveInfo, school: ID = None, name: str = ""
-    ) -> "QuerySet[Course]":
+    ) -> QuerySet[Course]:
         """
         Used for queries made by the client's auto complete fields.
 

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import time
 from typing import Any, List, Optional
 
@@ -26,19 +28,19 @@ from .base import SkoleManager, SkoleModel
 # Ignore: See explanation in SkoleManager.
 class UserManager(SkoleManager, BaseUserManager):  # type: ignore[type-arg]
     @staticmethod
-    def set_password(user: "User", password: str) -> "User":
+    def set_password(user: User, password: str) -> User:
         """Overridden so we avoid calling save() outside of managers."""
         user.set_password(password)
         user.save()
         return user
 
     @staticmethod
-    def change_score(user: "User", score: int) -> "User":
+    def change_score(user: User, score: int) -> User:
         user.score += score  # Can also be a subtraction when `score` is negative.
         user.save()
         return user
 
-    def verify_user(self, token: str) -> "User":
+    def verify_user(self, token: str) -> User:
         payload = get_token_payload(
             token, TokenAction.VERIFICATION, settings.EXPIRATION_VERIFICATION_TOKEN
         )

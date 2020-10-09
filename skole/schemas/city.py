@@ -22,7 +22,7 @@ class Query(graphene.ObjectType):
     autocomplete_cities = graphene.List(CityObjectType)
     city = graphene.Field(CityObjectType, id=graphene.ID())
 
-    def resolve_autocomplete_cities(self, info: ResolveInfo) -> "QuerySet[City]":
+    def resolve_autocomplete_cities(self, info: ResolveInfo) -> QuerySet[City]:
         """
         Used for queries made by the client's auto complete fields.
 

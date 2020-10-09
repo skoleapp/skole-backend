@@ -43,7 +43,7 @@ class SkoleGraphQLView(GraphQLView):
     def _place_files_in_operations(
         ops: AnyJson,
         files_map: Dict[str, List[str]],
-        files: "MultiValueDict[str, UploadedFile]",
+        files: MultiValueDict[str, UploadedFile],
     ) -> AnyJson:
         """Works with the way Apollo client places file uploads in the operations."""
 

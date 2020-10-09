@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import parler.managers
 import parler.models
 from django.db import models
@@ -6,7 +8,7 @@ from django.utils import timezone
 
 
 class _SkoleManagerMixin:
-    def get_queryset(self) -> "QuerySet[SkoleModel]":
+    def get_queryset(self) -> QuerySet[SkoleModel]:
         """Hide all soft deleted objects from queries."""
 
         # Ignore: Will be defined in subclasses.

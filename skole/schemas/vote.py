@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import graphene
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
@@ -25,7 +27,7 @@ class VoteMutation(SkoleCreateUpdateMutationMixin, DjangoModelFormMutation):
         exclude_fields = ("id",)
 
     @classmethod
-    def perform_mutate(cls, form: CreateVoteForm, info: ResolveInfo) -> "VoteMutation":
+    def perform_mutate(cls, form: CreateVoteForm, info: ResolveInfo) -> VoteMutation:
         assert info.context is not None
         # Not calling super (which saves the form), so that we don't
         # create two Vote instances here.

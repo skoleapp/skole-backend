@@ -1,4 +1,4 @@
-from typing import List, Optional, Sequence, cast
+from typing import Collection, List, Optional, cast
 
 from skole.models import Course, User, Vote
 from skole.tests.helpers import (
@@ -145,7 +145,7 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         *,
         name: str = "test course",
         code: str = "code0001",
-        subjects: Sequence[ID] = (1,),
+        subjects: Collection[ID] = (1,),
         school: ID = 1,
         assert_error: bool = False,
     ) -> JsonDict:

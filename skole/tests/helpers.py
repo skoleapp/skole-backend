@@ -5,7 +5,7 @@ import json
 import re
 from contextlib import contextmanager
 from pathlib import Path
-from typing import Any, Generator, Optional, Sequence, Tuple, Union
+from typing import Any, Collection, Generator, Optional, Tuple, Union
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -18,7 +18,7 @@ from graphql_jwt.utils import delete_cookie
 
 from skole.types import ID, JsonDict
 
-FileData = Optional[Sequence[Tuple[str, File]]]
+FileData = Optional[Collection[Tuple[str, File]]]
 
 TEST_ATTACHMENT_PNG = "media/uploads/attachments/test_attachment.png"
 TEST_AVATAR_JPG = "media/uploads/avatars/test_avatar.jpg"

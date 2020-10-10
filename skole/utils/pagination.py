@@ -8,7 +8,7 @@ from skole.types import PaginableModel
 
 
 def get_paginator(
-    qs: "QuerySet[PaginableModel]",
+    qs: QuerySet[PaginableModel],
     page_size: int,
     page: int,
     paginated_type: Type[graphene.ObjectType],

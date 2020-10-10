@@ -1,11 +1,15 @@
+from __future__ import annotations
+
+from typing import cast
+
 import graphene
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
-from graphql import ResolveInfo
 
 from skole.forms import CreateStarForm
-from skole.models import Starred
+from skole.models import Starred, User
 from skole.schemas.mixins import SkoleCreateUpdateMutationMixin
+from skole.types import ResolveInfo
 
 
 class StarredObjectType(DjangoObjectType):
@@ -23,14 +27,11 @@ class StarredMutation(SkoleCreateUpdateMutationMixin, DjangoModelFormMutation):
         exclude_fields = ("id",)
 
     @classmethod
-    def perform_mutate(
-        cls, form: CreateStarForm, info: ResolveInfo
-    ) -> "StarredMutation":
-        assert info.context is not None
+    def perform_mutate(cls, form: CreateStarForm, info: ResolveInfo) -> StarredMutation:
         # Not calling super (which saves the form), so that we don't
         # create two Starred instances here.
         starred = Starred.objects.perform_star(
-            user=info.context.user, target=form.cleaned_data["target"]
+            user=cast(User, info.context.user), target=form.cleaned_data["target"]
         )
         return cls(starred=bool(starred))
 

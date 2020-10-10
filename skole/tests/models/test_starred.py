@@ -53,4 +53,6 @@ def test_manager_perform_star_bad_target(db: Fixture) -> None:
     user = get_user_model().objects.get(pk=2)
     bad_target = user
     with pytest.raises(TypeError):
-        Starred.objects.perform_star(user=user, target=bad_target)
+        # Ignore: `User` is obviously invalid and invalid type for the `target`
+        #   argument, but that's exactly what we're testing here.
+        Starred.objects.perform_star(user=user, target=bad_target)  # type: ignore[arg-type]

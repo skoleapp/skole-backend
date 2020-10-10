@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import time
 from typing import Any, List, Optional
 
@@ -10,11 +12,10 @@ from django.core.validators import RegexValidator
 from django.db import models
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
-from graphql import ResolveInfo
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
 
-from skole.types import JsonDict
+from skole.types import JsonDict, ResolveInfo
 from skole.utils.constants import Ranks, TokenAction, ValidationErrors
 from skole.utils.exceptions import UserAlreadyVerified, UserNotVerified
 from skole.utils.token import get_token, get_token_payload
@@ -23,22 +24,21 @@ from skole.utils.validators import ValidateFileSizeAndType
 from .base import SkoleManager, SkoleModel
 
 
-# Ignore: See explanation in SkoleManager.
-class UserManager(SkoleManager, BaseUserManager):  # type: ignore[type-arg]
+class UserManager(SkoleManager["User"], BaseUserManager["User"]):
     @staticmethod
-    def set_password(user: "User", password: str) -> "User":
+    def set_password(user: User, password: str) -> User:
         """Overridden so we avoid calling save() outside of managers."""
         user.set_password(password)
         user.save()
         return user
 
     @staticmethod
-    def change_score(user: "User", score: int) -> "User":
+    def change_score(user: User, score: int) -> User:
         user.score += score  # Can also be a subtraction when `score` is negative.
         user.save()
         return user
 
-    def verify_user(self, token: str) -> "User":
+    def verify_user(self, token: str) -> User:
         payload = get_token_payload(
             token, TokenAction.VERIFICATION, settings.EXPIRATION_VERIFICATION_TOKEN
         )
@@ -111,8 +111,7 @@ class User(SkoleModel, AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     modified = models.DateTimeField(auto_now=True)
 
-    # Ignore: Mypy somehow thinks that this is incompatible with the super class.
-    objects = UserManager()  # type: ignore[assignment]
+    objects = UserManager()
 
     USERNAME_FIELD = "username"
     EMAIL_FIELD = "email"
@@ -144,7 +143,6 @@ class User(SkoleModel, AbstractBaseUser, PermissionsMixin):
     def get_email_context(
         self, info: ResolveInfo, path: str, action: str, **kwargs: JsonDict
     ) -> JsonDict:
-        assert info.context is not None
         token = get_token(self, action, **kwargs)
         site = get_current_site(info.context)
 

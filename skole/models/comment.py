@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from django.conf import settings
 from django.db import models
 from django.db.models import Sum, Value
@@ -9,8 +11,8 @@ from skole.utils.validators import ValidateFileSizeAndType
 from .base import SkoleManager, SkoleModel
 
 
-class CommentManager(SkoleManager):
-    def get_queryset(self) -> "QuerySet[Comment]":
+class CommentManager(SkoleManager["Comment"]):
+    def get_queryset(self) -> QuerySet[Comment]:
         qs = super().get_queryset()
         return qs.order_by(
             "id"  # We always want to get comments in their creation order.
@@ -64,8 +66,7 @@ class Comment(SkoleModel):
     modified = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 
-    # Ignore: Mypy somehow thinks that this is incompatible with the super class.
-    objects = CommentManager()  # type: ignore[assignment]
+    objects = CommentManager()
 
     # This value gets annotated in the manager's get_queryset.
     score: int

@@ -22,5 +22,5 @@ class School(TranslatableSkoleModel):
         return f"{self.name}"
 
     @property
-    def subjects(self) -> "QuerySet[Subject]":
+    def subjects(self) -> QuerySet[Subject]:
         return Subject.objects.filter(courses__in=self.courses.all()).distinct()

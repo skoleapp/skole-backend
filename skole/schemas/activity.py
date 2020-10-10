@@ -1,15 +1,16 @@
-from typing import Any
+from __future__ import annotations
+
+from typing import cast
 
 import graphene
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphene_django.types import ErrorType
-from graphql import ResolveInfo
 
 from skole.forms import MarkActivityReadForm
-from skole.models import Activity
+from skole.models import Activity, User
 from skole.schemas.mixins import SkoleCreateUpdateMutationMixin
-from skole.types import JsonDict
+from skole.types import JsonDict, ResolveInfo
 
 
 class ActivityObjectType(DjangoObjectType):
@@ -28,11 +29,13 @@ class ActivityObjectType(DjangoObjectType):
             "comment",
         )
 
-    def resolve_name(self, info: ResolveInfo) -> str:
-        return self.activity_type.name
+    @staticmethod
+    def resolve_name(root: Activity, info: ResolveInfo) -> str:
+        return root.activity_type.name
 
-    def resolve_description(self, info: ResolveInfo) -> str:
-        return self.activity_type.description
+    @staticmethod
+    def resolve_description(root: Activity, info: ResolveInfo) -> str:
+        return root.activity_type.description
 
 
 class MarkActivityReadMutation(SkoleCreateUpdateMutationMixin, DjangoModelFormMutation):
@@ -56,10 +59,11 @@ class MarkAllActivitiesReadMutation(SkoleCreateUpdateMutationMixin, graphene.Mut
 
     @classmethod
     def mutate(
-        cls, root: Any, info: ResolveInfo, **input: JsonDict
-    ) -> "MarkAllActivitiesReadMutation":
-        assert info.context is not None
-        activities = Activity.objects.mark_all_as_read(user=info.context.user)
+        cls, root: None, info: ResolveInfo, **input: JsonDict
+    ) -> MarkAllActivitiesReadMutation:
+        activities = Activity.objects.mark_all_as_read(
+            user=cast(User, info.context.user)
+        )
         return cls(activities=activities)
 
 

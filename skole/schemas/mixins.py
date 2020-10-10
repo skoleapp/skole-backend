@@ -1,12 +1,13 @@
-from typing import TYPE_CHECKING, Any, Optional, Type, TypeVar
+from __future__ import annotations
+
+from typing import TYPE_CHECKING, Any, Optional, Type, TypeVar, cast
 
 import graphene
 from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphene_django.types import ErrorType
-from graphql import ResolveInfo
 
-from skole.models import Starred, Vote
-from skole.types import JsonDict
+from skole.models import SkoleModel, Starred, User, Vote
+from skole.types import JsonDict, ResolveInfo
 from skole.utils.constants import MutationErrors
 from skole.utils.shortcuts import validate_is_first_inherited
 
@@ -49,18 +50,16 @@ class VoteMixin:
     score = graphene.Int()
     vote = graphene.Field("skole.schemas.vote.VoteObjectType")
 
-    def resolve_vote(self, info: ResolveInfo) -> Optional[Vote]:
+    @staticmethod
+    def resolve_vote(root: SkoleModel, info: ResolveInfo) -> Optional[Vote]:
         """Return current user's vote if it exists."""
-
-        assert info.context is not None
         user = info.context.user
 
         if user.is_anonymous:
             return None
 
         try:
-            # Ignore: pk attribute will be defined in the class deriving from this mixin.
-            return user.votes.get(**{self.__class__.__name__.lower(): self.pk})  # type: ignore [attr-defined]
+            return user.votes.get(**{root.__class__.__name__.lower(): root.pk})
         except Vote.DoesNotExist:
             return None
 
@@ -70,18 +69,18 @@ class StarredMixin:
 
     starred = graphene.Boolean()
 
-    def resolve_starred(self, info: ResolveInfo) -> bool:
+    @staticmethod
+    def resolve_starred(root: SkoleModel, info: ResolveInfo) -> bool:
         """Return True if the current user has starred the item, otherwise False."""
-
-        assert info.context is not None
         user = info.context.user
 
         if user.is_anonymous:
             return False
 
         try:
-            # Ignore: pk attribute will be defined in the class deriving from this mixin.
-            return user.stars.get(**{self.__class__.__name__.lower(): self.pk}) is not None  # type: ignore [attr-defined]
+            return (
+                user.stars.get(**{root.__class__.__name__.lower(): root.pk}) is not None
+            )
         except Starred.DoesNotExist:
             return False
 
@@ -122,7 +121,7 @@ class SkoleCreateUpdateMutationMixin:
 
     @classmethod
     def get_form_kwargs(
-        cls, root: Any, info: ResolveInfo, **input: JsonDict
+        cls, root: None, info: ResolveInfo, **input: JsonDict
     ) -> JsonDict:
         # Ignore: Will be defined in subclasses.
         kwargs = super().get_form_kwargs(root, info, **input)  # type: ignore[misc]
@@ -130,14 +129,15 @@ class SkoleCreateUpdateMutationMixin:
         return kwargs
 
     @classmethod
-    def mutate(cls: Type[T], root: Any, info: ResolveInfo, **input: JsonDict) -> T:
-        assert info.context is not None
+    def mutate(cls: Type[T], root: None, info: ResolveInfo, **input: JsonDict) -> T:
         user = info.context.user
 
         if cls.login_required or cls.verification_required:
             if not user.is_authenticated:
                 # Ignore: `errors` is valid arg in subclasses.
                 return cls(errors=MutationErrors.AUTH_REQUIRED)  # type: ignore[call-arg]
+
+        user = cast(User, user)
 
         if cls.verification_required:
             if not user.verified:
@@ -170,7 +170,7 @@ class SkoleDeleteMutationMixin(SkoleCreateUpdateMutationMixin, SuccessMessageMix
 
     @classmethod
     def perform_mutate(
-        cls, form: "SkoleUpdateModelForm", info: ResolveInfo
+        cls, form: SkoleUpdateModelForm, info: ResolveInfo
     ) -> SkoleCreateUpdateMutationMixin:
         form.instance.soft_delete()
         return super().perform_mutate(form, info)

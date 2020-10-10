@@ -2,9 +2,9 @@ import graphene
 from django.conf import settings
 from django.db.models import QuerySet
 from graphene_django import DjangoObjectType
-from graphql import ResolveInfo
 
 from skole.models import ResourceType
+from skole.types import ResolveInfo
 
 
 class ResourceTypeObjectType(DjangoObjectType):
@@ -20,12 +20,14 @@ class Query(graphene.ObjectType):
     autocomplete_resource_types = graphene.List(ResourceTypeObjectType)
     # Querying a single ResourceType is not needed.
 
-    def resolve_resource_types(self, info: ResolveInfo) -> "QuerySet[ResourceType]":
+    @staticmethod
+    def resolve_resource_types(root: None, info: ResolveInfo) -> QuerySet[ResourceType]:
         return ResourceType.objects.all()
 
+    @staticmethod
     def resolve_autocomplete_resource_types(
-        self, info: ResolveInfo
-    ) -> "QuerySet[ResourceType]":
+        root: None, info: ResolveInfo
+    ) -> QuerySet[ResourceType]:
         """
         Used for queries made by the client's auto complete fields.
 

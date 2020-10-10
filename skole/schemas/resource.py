@@ -3,10 +3,9 @@ from typing import Optional
 import graphene
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
-from graphql import ResolveInfo
 
 from skole.forms import CreateResourceForm, DeleteResourceForm, UpdateResourceForm
-from skole.models import Resource
+from skole.models import Resource, School
 from skole.schemas.mixins import (
     SkoleCreateUpdateMutationMixin,
     SkoleDeleteMutationMixin,
@@ -16,9 +15,8 @@ from skole.schemas.mixins import (
 )
 from skole.schemas.resource_type import ResourceTypeObjectType
 from skole.schemas.school import SchoolObjectType
-from skole.types import ID
+from skole.types import ID, ResolveInfo
 from skole.utils.constants import Messages
-from skole.utils.shortcuts import get_obj_or_none
 
 
 class ResourceObjectType(VoteMixin, StarredMixin, DjangoObjectType):
@@ -42,11 +40,13 @@ class ResourceObjectType(VoteMixin, StarredMixin, DjangoObjectType):
             "school",
         )
 
-    def resolve_file(self, info: ResolveInfo) -> str:
-        return self.file.url if self.file else ""
+    @staticmethod
+    def resolve_file(root: Resource, info: ResolveInfo) -> str:
+        return root.file.url if root.file else ""
 
-    def resolve_school(self, info: ResolveInfo) -> str:
-        return self.course.school
+    @staticmethod
+    def resolve_school(root: Resource, info: ResolveInfo) -> School:
+        return root.course.school
 
 
 class CreateResourceMutation(
@@ -80,8 +80,11 @@ class DeleteResourceMutation(SkoleDeleteMutationMixin, DjangoModelFormMutation):
 class Query(graphene.ObjectType):
     resource = graphene.Field(ResourceObjectType, id=graphene.ID())
 
-    def resolve_resource(self, info: ResolveInfo, id: ID = None) -> Optional[Resource]:
-        return get_obj_or_none(Resource, id)
+    @staticmethod
+    def resolve_resource(
+        root: None, info: ResolveInfo, id: ID = None
+    ) -> Optional[Resource]:
+        return Resource.objects.get_or_none(pk=id)
 
 
 class Mutation(graphene.ObjectType):

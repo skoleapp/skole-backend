@@ -1,7 +1,6 @@
 import graphene
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
-from graphql import ResolveInfo
 
 from skole.forms import CreateCommentForm, DeleteCommentForm, UpdateCommentForm
 from skole.models import Comment
@@ -11,6 +10,7 @@ from skole.schemas.mixins import (
     SuccessMessageMixin,
     VoteMixin,
 )
+from skole.types import ResolveInfo
 from skole.utils.constants import Messages
 
 
@@ -31,8 +31,9 @@ class CommentObjectType(VoteMixin, DjangoObjectType):
             "created",
         )
 
-    def resolve_attachment(self, info: ResolveInfo) -> str:
-        return self.attachment.url if self.attachment else ""
+    @staticmethod
+    def resolve_attachment(root: Comment, info: ResolveInfo) -> str:
+        return root.attachment.url if root.attachment else ""
 
 
 class CreateCommentMutation(

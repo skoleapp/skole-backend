@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from smtplib import SMTPException
-from typing import Any
+from typing import cast
 
 import graphene
 from django.conf import settings
@@ -8,7 +10,6 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.signing import BadSignature, SignatureExpired
 from graphene_django.forms.mutation import DjangoFormMutation, DjangoModelFormMutation
 from graphene_django.types import ErrorType
-from graphql import ResolveInfo
 from graphql_jwt import DeleteJSONWebTokenCookie
 from graphql_jwt.decorators import token_auth
 
@@ -24,7 +25,7 @@ from skole.forms import (
 )
 from skole.models import User
 from skole.schemas.mixins import SkoleCreateUpdateMutationMixin, SuccessMessageMixin
-from skole.types import JsonDict
+from skole.types import JsonDict, ResolveInfo
 from skole.utils.constants import Messages, MutationErrors, TokenAction
 from skole.utils.exceptions import TokenScopeError, UserAlreadyVerified, UserNotVerified
 from skole.utils.token import get_token_payload, revoke_user_refresh_tokens
@@ -51,9 +52,7 @@ class RegisterMutation(
         return_field_name = "message"
 
     @classmethod
-    def perform_mutate(
-        cls, form: RegisterForm, info: ResolveInfo
-    ) -> "RegisterMutation":
+    def perform_mutate(cls, form: RegisterForm, info: ResolveInfo) -> RegisterMutation:
         obj = super().perform_mutate(form, info)
 
         try:
@@ -76,7 +75,7 @@ class VerifyAccountMutation(
     @classmethod
     def perform_mutate(
         cls, form: TokenForm, info: ResolveInfo,
-    ) -> "VerifyAccountMutation":
+    ) -> VerifyAccountMutation:
         token = form.cleaned_data.get("token")
 
         try:
@@ -108,7 +107,7 @@ class ResendVerificationEmailMutation(
     @classmethod
     def perform_mutate(
         cls, form: EmailForm, info: ResolveInfo,
-    ) -> "ResendVerificationEmailMutation":
+    ) -> ResendVerificationEmailMutation:
         email = form.cleaned_data.get("email")
 
         try:
@@ -142,7 +141,7 @@ class SendPasswordResetEmailMutation(
     @classmethod
     def perform_mutate(
         cls, form: EmailForm, info: ResolveInfo,
-    ) -> "SendPasswordResetEmailMutation":
+    ) -> SendPasswordResetEmailMutation:
         email = form.cleaned_data.get("email")
 
         try:
@@ -183,7 +182,7 @@ class ResetPasswordMutation(
     @classmethod
     def perform_mutate(
         cls, form: EmailForm, info: ResolveInfo,
-    ) -> "ResetPasswordMutation":
+    ) -> ResetPasswordMutation:
         token = form.cleaned_data.get("token")
         new_password = form.cleaned_data.get("new_password")
 
@@ -229,8 +228,8 @@ class LoginMutation(
 
     @classmethod
     def mutate_and_get_payload(
-        cls, root: Any, info: ResolveInfo, **input: JsonDict
-    ) -> "LoginMutation":
+        cls, root: None, info: ResolveInfo, **input: JsonDict
+    ) -> LoginMutation:
         form = cls.get_form(root, info, **input)
 
         if form.is_valid():
@@ -254,7 +253,7 @@ class LoginMutation(
     @token_auth
     def perform_mutate(
         cls, form: LoginForm, info: ResolveInfo, user: User, **kwargs: JsonDict
-    ) -> "LoginMutation":
+    ) -> LoginMutation:
         return cls(user=user, message=Messages.LOGGED_IN)
 
 
@@ -285,22 +284,20 @@ class ChangePasswordMutation(
 
     @classmethod
     def get_form_kwargs(
-        cls, root: Any, info: ResolveInfo, **input: JsonDict
+        cls, root: None, info: ResolveInfo, **input: JsonDict
     ) -> JsonDict:
         kwargs = super().get_form_kwargs(root, info, **input)
-        assert info.context is not None
         kwargs["instance"] = info.context.user
         return kwargs
 
     @classmethod
     def perform_mutate(
         cls, form: ChangePasswordForm, info: ResolveInfo
-    ) -> "ChangePasswordMutation":
-        assert info.context is not None
+    ) -> ChangePasswordMutation:
         new_password = form.cleaned_data["new_password"]
 
         get_user_model().objects.set_password(
-            user=info.context.user, password=new_password
+            user=cast(User, info.context.user), password=new_password
         )
 
         return cls(message=Messages.PASSWORD_UPDATED)
@@ -324,17 +321,15 @@ class DeleteUserMutation(
 
     @classmethod
     def get_form_kwargs(
-        cls, root: Any, info: ResolveInfo, **input: JsonDict
+        cls, root: None, info: ResolveInfo, **input: JsonDict
     ) -> JsonDict:
-        assert info.context is not None
         return {"data": input, "instance": info.context.user}
 
     @classmethod
     def perform_mutate(
         cls, form: DeleteUserForm, info: ResolveInfo
-    ) -> "DeleteUserMutation":
-        assert info.context is not None
-        user = info.context.user
+    ) -> DeleteUserMutation:
+        user = cast(User, info.context.user)
         user.soft_delete()
         return cls(message=Messages.USER_DELETED)
 
@@ -355,9 +350,8 @@ class UpdateUserMutation(
 
     @classmethod
     def get_form_kwargs(
-        cls, root: Any, info: ResolveInfo, **input: JsonDict
+        cls, root: None, info: ResolveInfo, **input: JsonDict
     ) -> JsonDict:
-        assert info.context is not None
         form_kwargs = super().get_form_kwargs(root, info, **input)
         form_kwargs["instance"] = info.context.user
         return form_kwargs

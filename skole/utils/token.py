@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from datetime import timedelta
 from typing import TYPE_CHECKING, Any, Union
 
@@ -12,7 +14,7 @@ if TYPE_CHECKING:  # pragma: no cover
     from skole.models import User
 
 
-def get_token(user: "User", action: str, **kwargs: Any) -> str:
+def get_token(user: User, action: str, **kwargs: Any) -> str:
     username = user.get_username()
 
     payload = {"username": username, "action": action}
@@ -24,7 +26,7 @@ def get_token(user: "User", action: str, **kwargs: Any) -> str:
     return token
 
 
-def revoke_user_refresh_tokens(user: "User") -> None:
+def revoke_user_refresh_tokens(user: User) -> None:
     # Ignore: Mypy doesn't pick up the `refresh_tokens` relation from `graphql_jwt`.
     refresh_tokens = user.refresh_tokens.all()  # type: ignore
 

@@ -1,5 +1,3 @@
-from typing import cast
-
 import pytest
 
 from skole.models import Activity, Comment, Course, Resource, User
@@ -31,11 +29,8 @@ def test_activity_for_comment_reply(db: Fixture) -> None:
         user=testuser2, text="test", comment=comment, attachment=None
     )
 
-    # Ignore: comment is an optional union attribute to a comment so it might not have the 'user' defined.
-    #   In this case we now that this comment targets another comment, however.
-
-    # Ignore: Mypy thinks that the comment is optional but we now that this comment is attached to another comment.
-    user = cast(User, own_reply_comment.comment.user)
+    assert own_reply_comment.comment
+    user = own_reply_comment.comment.user
 
     with pytest.raises(Activity.DoesNotExist):
         Activity.objects.get(user=user, target_user=own_reply_comment.user)
@@ -51,10 +46,9 @@ def test_activity_for_course_comment(db: Fixture) -> None:
 
     # Test that activity is created if a user comments on a course created by some other user.
 
-    # Ignore: Mypy thinks that the course is optional but we now that this comment is attached to a course.
-    user = cast(User, comment.course.user)
+    assert comment.course
+    user = comment.course.user
 
-    # Ignore: Course is an optional field to a comment, but we now that this comment is targeted a course in the fixtures.
     Activity.objects.get(
         user=user,
         target_user=comment.user,
@@ -70,8 +64,9 @@ def test_activity_for_course_comment(db: Fixture) -> None:
         user=testuser2, text="test", course=course, attachment=None
     )
 
-    # Ignore 1: Mypy thinks that the course is optional but we now that this comment is attached to a course.
-    user = cast(User, own_course_comment.course.user)
+    assert own_course_comment.course
+    user = own_course_comment.course.user
+
     with pytest.raises(Activity.DoesNotExist):
         Activity.objects.get(user=user, target_user=own_course_comment.user)
 
@@ -85,8 +80,8 @@ def test_activity_for_resource_comment(db: Fixture) -> None:
 
     # Test that activity is created if a user comments on a resource created by some other user.
 
-    # Ignore: Mypy thinks that the resource is optional but we now that this comment is attached to a resource.
-    user = cast(User, comment.resource.user)
+    assert comment.resource
+    user = comment.resource.user
 
     Activity.objects.get(
         user=user,
@@ -103,7 +98,8 @@ def test_activity_for_resource_comment(db: Fixture) -> None:
         user=testuser2, text="test", resource=resource, attachment=None
     )
 
-    # Ignore 1: Mypy thinks that the resource is optional but we now that this comment is attached to a resource.
-    user = cast(User, own_resource_comment.resource.user)
+    assert own_resource_comment.resource
+    user = own_resource_comment.resource.user
+
     with pytest.raises(Activity.DoesNotExist):
         Activity.objects.get(user=user, target_user=own_resource_comment.user)

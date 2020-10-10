@@ -4,15 +4,13 @@ import graphene
 from django.conf import settings
 from django.db.models import Count, QuerySet
 from graphene_django import DjangoObjectType
-from graphql import ResolveInfo
 
-from skole.models import School
+from skole.models import Country, School
 from skole.schemas.city import CityObjectType
 from skole.schemas.country import CountryObjectType
 from skole.schemas.school_type import SchoolTypeObjectType
 from skole.schemas.subject import SubjectObjectType
-from skole.types import ID
-from skole.utils.shortcuts import get_obj_or_none
+from skole.types import ID, ResolveInfo
 
 
 class SchoolObjectType(DjangoObjectType):
@@ -34,25 +32,25 @@ class SchoolObjectType(DjangoObjectType):
             "courses",
         )
 
-    def resolve_country(self, info: ResolveInfo) -> str:
-        return self.city.country
+    @staticmethod
+    def resolve_country(root: School, info: ResolveInfo) -> Country:
+        return root.city.country
 
 
 class Query(graphene.ObjectType):
     autocomplete_schools = graphene.List(SchoolObjectType, name=graphene.String())
     school = graphene.Field(SchoolObjectType, id=graphene.ID())
 
+    @staticmethod
     def resolve_autocomplete_schools(
-        self, info: ResolveInfo, name: str = ""
-    ) -> "QuerySet[School]":
+        root: None, info: ResolveInfo, name: str = ""
+    ) -> QuerySet[School]:
         """
         Used for queries made by the client's auto complete fields.
 
         We want to avoid making massive queries by limiting the amount of results. If no
         school name is provided as a parameter, we return schools with the most courses.
         """
-
-        assert info.context is not None
         qs = School.objects.translated()
 
         if name != "":
@@ -63,5 +61,8 @@ class Query(graphene.ObjectType):
         )
         return qs[: settings.AUTOCOMPLETE_MAX_RESULTS]
 
-    def resolve_school(self, info: ResolveInfo, id: ID = None) -> Optional[School]:
-        return get_obj_or_none(School, id)
+    @staticmethod
+    def resolve_school(
+        root: None, info: ResolveInfo, id: ID = None
+    ) -> Optional[School]:
+        return School.objects.get_or_none(pk=id)

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from django.conf import settings
 from django.db import models
 from django.db.models import Count, QuerySet, Sum, Value
@@ -6,8 +8,8 @@ from django.db.models.functions import Coalesce
 from .base import SkoleManager, SkoleModel
 
 
-class CourseManager(SkoleManager):
-    def get_queryset(self) -> "QuerySet[Course]":
+class CourseManager(SkoleManager["Course"]):
+    def get_queryset(self) -> QuerySet[Course]:
         qs = super().get_queryset()
         return qs.annotate(
             score=Coalesce(Sum("votes__status", distinct=True), Value(0)),
@@ -41,8 +43,7 @@ class Course(SkoleModel):
     modified = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 
-    # Ignore: Mypy somehow thinks that this is incompatible with the super class.
-    objects = CourseManager()  # type: ignore[assignment]
+    objects = CourseManager()
 
     # These values will get annotated in the manager's get_queryset.
     score: int

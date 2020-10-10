@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from smtplib import SMTPException
 
 import graphene
@@ -6,10 +8,10 @@ from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from graphene_django.forms.mutation import DjangoFormMutation
-from graphql import ResolveInfo
 
 from skole.forms import ContactForm
 from skole.schemas.mixins import SkoleCreateUpdateMutationMixin, SuccessMessageMixin
+from skole.types import ResolveInfo
 from skole.utils.constants import Messages, MutationErrors
 
 
@@ -20,7 +22,7 @@ class ContactMutation(
         form_class = ContactForm
 
     @classmethod
-    def perform_mutate(cls, form: ContactForm, info: ResolveInfo) -> "ContactMutation":
+    def perform_mutate(cls, form: ContactForm, info: ResolveInfo) -> ContactMutation:
         subject = form.cleaned_data.get("subject")
         name = form.cleaned_data.get("name")
         email = form.cleaned_data.get("email")

@@ -1,4 +1,4 @@
-from typing import Union, cast
+from typing import Optional, Union, cast
 
 from django import forms
 from django.conf import settings
@@ -56,6 +56,8 @@ class LoginForm(SkoleModelForm):
         else:
             query = {"username": username_or_email}
 
+        user: Optional[User]
+
         try:
             user = get_user_model().objects.get(**query)
             if not user.is_active:
@@ -63,12 +65,12 @@ class LoginForm(SkoleModelForm):
         except get_user_model().DoesNotExist:
             raise forms.ValidationError(ValidationErrors.AUTH_ERROR)
 
-        user = authenticate(username=user.username, password=password)
+        user = cast(
+            Optional[User], authenticate(username=user.username, password=password)
+        )
 
         if not user:
             raise forms.ValidationError(ValidationErrors.AUTH_ERROR)
-
-        user = cast(User, user)
 
         if user.is_superuser:
             raise forms.ValidationError(ValidationErrors.SUPERUSER_LOGIN)

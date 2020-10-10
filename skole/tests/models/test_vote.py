@@ -35,21 +35,24 @@ def test_manager_perform_vote_ok(db: Fixture) -> None:
             course = Course.objects.get(pk=target.pk)
             assert target_score == course.score == 1
             assert (
-                course.user.score
+                course.user
+                and course.user.score
                 == target_score * VoteConstants.SCORE_COURSE_MULTIPLIER
             )
         elif vote.resource is not None:
             resource = Resource.objects.get(pk=target.pk)
             assert target_score == resource.score == 1
             assert (
-                resource.user.score
+                resource.user
+                and resource.user.score
                 == target_score * VoteConstants.SCORE_RESOURCE_MULTIPLIER
             )
         elif vote.comment is not None:
             comment = Comment.objects.get(pk=target.pk)
             assert target_score == comment.score == 1
             assert (
-                comment.user.score
+                comment.user
+                and comment.user.score
                 == target_score * VoteConstants.SCORE_COMMENT_MULTIPLIER
             )
 
@@ -86,4 +89,6 @@ def test_manager_perform_vote_bad_target(db: Fixture) -> None:
     user = get_user_model().objects.get(pk=2)
     bad_target = user
     with pytest.raises(TypeError):
-        Vote.objects.perform_vote(user=user, status=1, target=bad_target)
+        # Ignore: `User` is obviously invalid and invalid type for the `target`
+        #   argument, but that's exactly what we're testing here.
+        Vote.objects.perform_vote(user=user, status=1, target=bad_target)  # type: ignore[arg-type]

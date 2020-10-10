@@ -1,6 +1,6 @@
 import mimetypes
 from pathlib import Path
-from typing import Sequence, Tuple
+from typing import Collection, Tuple
 
 import magic
 from django.core.exceptions import ValidationError
@@ -14,11 +14,11 @@ from skole.utils.constants import ValidationErrors
 class ValidateFileSizeAndType:
     """Use as a field validator to validate the the file type and size."""
 
-    def __init__(self, limit: float, types: Sequence[Tuple[str, str]]) -> None:
+    def __init__(self, limit: float, types: Collection[Tuple[str, str]]) -> None:
         """
         Args:
             limit: The maximum allowed file size in MB.
-            types: Sequence of allowed file types as (mime, human_friendly_name) pairs.
+            types: Allowed file types as (mime, human_friendly_name) pairs.
                 Mime values should be from: https://www.iana.org/assignments/media-types/media-types.xhtml
         """
         if limit <= 0:

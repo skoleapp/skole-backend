@@ -1,5 +1,7 @@
 """This module contains all the custom type aliases that are used in the app."""
-from typing import TYPE_CHECKING, Any, Dict, List, Literal, Union
+from typing import TYPE_CHECKING, Any, Dict, List, Literal, Optional, Union
+
+from ._resolve_info import ResolveInfo  # So that it can be imported from this module.
 
 if TYPE_CHECKING:  # pragma: no cover
     # To avoid circular import.

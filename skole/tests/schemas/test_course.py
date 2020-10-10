@@ -1,4 +1,4 @@
-from typing import List, Optional, Sequence, cast
+from typing import Collection, List, Optional, cast
 
 from skole.models import Course, User, Vote
 from skole.tests.helpers import (
@@ -9,7 +9,6 @@ from skole.tests.helpers import (
 )
 from skole.types import ID, CourseOrderingOption, JsonDict
 from skole.utils.constants import GraphQLErrors, Messages, MutationErrors
-from skole.utils.shortcuts import get_obj_or_none
 
 
 class CourseSchemaTests(SkoleSchemaTestCase):
@@ -146,7 +145,7 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         *,
         name: str = "test course",
         code: str = "code0001",
-        subjects: Sequence[ID] = (1,),
+        subjects: Collection[ID] = (1,),
         school: ID = 1,
         assert_error: bool = False,
     ) -> JsonDict:
@@ -203,7 +202,7 @@ class CourseSchemaTests(SkoleSchemaTestCase):
     def test_delete_course(self) -> None:
         res = self.mutate_delete_course(id=1)
         assert res["message"] == Messages.COURSE_DELETED
-        assert get_obj_or_none(Course, 1) is None
+        assert Course.objects.get_or_none(pk=1) is None
 
         # Can't delete the same course again.
         res = self.mutate_delete_course(id=1, assert_error=True)

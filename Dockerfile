@@ -36,7 +36,7 @@ CMD python manage.py graphql_schema --out=/tmp/compare.graphql && diff schema.gr
     && black --check --diff . \
     && flake8 . \
     && mypy . \
-    && pytest --verbose --cov-report=html --cov=. . \
+    && pytest --verbose --cov-report=xml --cov=. . \
     && python manage.py compilemessages \
     && python manage.py collectstatic --noinput \
     && python manage.py migrate \

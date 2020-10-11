@@ -6,10 +6,6 @@ branch = true
 omit = [
   "*/migrations/*",
   "*/tests/*",
-  "*/__init__.py",
-  "*/apps.py",
-  "*/manage.py",
-  "*/wsgi.py",
 ]
 
 [tool.isort]

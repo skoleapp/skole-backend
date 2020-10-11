@@ -1,10 +1,10 @@
-version: 2
+version: 2.1
+
+orbs:
+  codecov: codecov/codecov@1.1.1
 
 jobs:
   build:
-    branches:
-      ignore:
-        - develop
     machine:
       image: ubuntu-1604:201903-01
       docker_layer_caching: true
@@ -14,6 +14,6 @@ jobs:
           name: "Run linters, type-check, and tests"
           command: >
             docker-compose --file docker-compose-circleci.yml up --build --abort-on-container-exit
-            && docker cp backend-circleci:/home/user/app/htmlcov .
-      - store_artifacts:
-          path: htmlcov
+            && docker cp backend-circleci:/home/user/app/coverage.xml .
+      - codecov/upload:
+          file: coverage.xml

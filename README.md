@@ -1,7 +1,8 @@
 # Skole Backend 🎓
 
-[![CircleCI build status](https://circleci.com/gh/ruohola/skole-backend.svg?style=shield&circle-token=7a11678cc5b06b270fa5460f456fd0da8368dae2)](https://circleci.com/gh/ruohola/skole-backend)
-[![Checked with mypy](http://www.mypy-lang.org/static/mypy_badge.svg)](http://mypy-lang.org/)
+[![circleci status](https://circleci.com/gh/ruohola/skole-backend.svg?style=shield&circle-token=7a11678cc5b06b270fa5460f456fd0da8368dae2)](https://circleci.com/gh/ruohola/skole-backend)
+[![codecov](https://codecov.io/gh/ruohola/skole-backend/branch/develop/graph/badge.svg?token=EHHHpM9EJO)](https://codecov.io/gh/ruohola/skole-backend)
+[![mypy checked](http://www.mypy-lang.org/static/mypy_badge.svg)](http://mypy-lang.org/)
 
 This is the GraphQL backend for the Skole app.
 

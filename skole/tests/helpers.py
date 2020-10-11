@@ -20,9 +20,16 @@ from skole.types import ID, JsonDict
 
 FileData = Optional[Collection[Tuple[str, File]]]
 
+# Files that exist in the repo for testing.
 TEST_ATTACHMENT_PNG = "media/uploads/attachments/test_attachment.png"
 TEST_AVATAR_JPG = "media/uploads/avatars/test_avatar.jpg"
 TEST_RESOURCE_PDF = "media/uploads/resources/test_resource.pdf"
+
+# Example filepaths that uploaded files will get after their names get anonymized.
+# Meant to be used with `is_slug_match()`.
+UPLOADED_ATTACHMENT_PNG = "media/uploads/attachments/attachment.png"
+UPLOADED_AVATAR_JPG = "media/uploads/avatars/avatar.jpg"
+UPLOADED_RESOURCE_PDF = "media/uploads/resources/resource.pdf"
 
 
 class SkoleSchemaTestCase(TestCase):

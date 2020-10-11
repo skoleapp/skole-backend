@@ -15,7 +15,11 @@ class _CommentFormMixin:
     attachment = forms.CharField(required=False)
 
     def clean_attachment(self) -> Union[File, str]:
-        attachment = clean_file_field(cast(forms.ModelForm, self), "attachment")
+        attachment = clean_file_field(
+            form=cast(forms.ModelForm, self),
+            field_name="attachment",
+            created_file_name="attachment",
+        )
 
         # Ignore: Will be defined in subclasses.
         if self.cleaned_data["text"] == "" and attachment == "":  # type: ignore[attr-defined]

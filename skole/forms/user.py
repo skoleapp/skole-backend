@@ -89,7 +89,9 @@ class UpdateUserForm(SkoleModelForm):
         fields = ("username", "email", "title", "bio", "avatar", "school", "subject")
 
     def clean_avatar(self) -> Union[File, str]:
-        return clean_file_field(self, "avatar")
+        return clean_file_field(
+            form=self, field_name="avatar", created_file_name="avatar"
+        )
 
 
 class ChangePasswordForm(SkoleModelForm):

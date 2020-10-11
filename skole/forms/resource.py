@@ -19,7 +19,12 @@ class CreateResourceForm(SkoleModelForm):
         fields = ("title", "file", "resource_type", "course", "date")
 
     def clean_file(self) -> Union[File, str]:
-        return clean_file_field(self, "file", conversion_func=convert_to_pdf)
+        return clean_file_field(
+            form=self,
+            field_name="file",
+            created_file_name="resource",
+            conversion_func=convert_to_pdf,
+        )
 
     def clean_date(self) -> datetime.date:
         # If the user did provide a date for the resource, use that,
@@ -31,8 +36,8 @@ class CreateResourceForm(SkoleModelForm):
 
     def save(self, commit: bool = True) -> Resource:
         assert self.request is not None
-        # Should always be authenticated here, so fine to raise ValueError here
-        # if we accidentally assign anonymous user to the user.
+        # Should always be authenticated here, so fine to raise `ValueError` here
+        # if we accidentally try to set `instance.user` to an `AnonymousUser`.
         self.instance.user = self.request.user
         return super().save()
 

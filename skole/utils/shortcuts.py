@@ -1,3 +1,4 @@
+from pathlib import Path
 from typing import Any, Callable, Optional, Type, TypeVar, Union
 
 from django import forms
@@ -14,6 +15,7 @@ M = TypeVar("M", bound=Model)
 def clean_file_field(
     form: forms.ModelForm,
     field_name: str,
+    created_file_name: str,
     conversion_func: Optional[Callable[[File], File]] = None,
 ) -> Union[File, str]:
     """
@@ -22,6 +24,7 @@ def clean_file_field(
     Args:
         form: The form that the file field belongs to.
         field_name: The name of the form field where the file is.
+        created_file_name: If a new file was uploaded, this will become the name of it.
         conversion_func: Optional converter function to pass the file through,
             when the value has changed.
 
@@ -37,6 +40,7 @@ def clean_file_field(
     if uploaded := form.files.get("1"):
         # New value for the field.
         file = conversion_func(uploaded) if conversion_func is not None else uploaded
+        file.name = created_file_name + Path(file.name).suffix
     elif not form.data[field_name]:
         # Field value deleted (frontend submitted "" or null value).
         # We can't access this from `cleaned_data`, since the file is actually put

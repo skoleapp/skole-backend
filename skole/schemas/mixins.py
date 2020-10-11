@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, Optional, Type, TypeVar, cast
+from typing import TYPE_CHECKING, Any, ClassVar, Optional, Type, TypeVar, cast
 
 import graphene
 from graphene_django.forms.mutation import DjangoModelFormMutation
@@ -25,7 +25,7 @@ class SuccessMessageMixin:
             should return in a successful response.
     """
 
-    success_message: str
+    success_message: ClassVar[str]
 
     message = graphene.String()
 
@@ -113,8 +113,8 @@ class SkoleCreateUpdateMutationMixin:
             This also automatically implies that the user has to be logged in.
     """
 
-    login_required: bool = False
-    verification_required: bool = False
+    login_required: ClassVar[bool] = False
+    verification_required: ClassVar[bool] = False
 
     # Defined here to add the default value.
     errors = graphene.List(ErrorType, default_value=[])

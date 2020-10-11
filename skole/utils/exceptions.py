@@ -1,8 +1,10 @@
+from typing import ClassVar
+
 from skole.utils.constants import GraphQLErrors
 
 
 class _BaseGraphQLAuthError(Exception):
-    message: str
+    message: ClassVar[str]
 
     def __init__(self) -> None:
         super().__init__(self.message)

@@ -4,7 +4,7 @@ import datetime
 
 from django.conf import settings
 from django.db import models
-from django.db.models import Sum, Value
+from django.db.models import Count, Sum, Value
 from django.db.models.functions import Coalesce
 from django.db.models.query import QuerySet
 
@@ -16,7 +16,11 @@ from .base import SkoleManager, SkoleModel
 class ResourceManager(SkoleManager["Resource"]):
     def get_queryset(self) -> QuerySet[Resource]:
         qs = super().get_queryset()
-        return qs.annotate(score=Coalesce(Sum("votes__status"), Value(0)))
+        return qs.annotate(
+            score=Coalesce(Sum("votes__status"), Value(0)),
+            star_count=Count("stars", distinct=True),
+            comment_count=Count("comments", distinct=True),
+        )
 
 
 class Resource(SkoleModel):
@@ -53,8 +57,10 @@ class Resource(SkoleModel):
 
     objects = ResourceManager()
 
-    # This value gets annotated in the manager's get_queryset.
+    # These values get annotated in the manager's get_queryset.
     score: int
+    star_count: int
+    comment_count: int
 
     def __str__(self) -> str:
         return f"{self.title}"

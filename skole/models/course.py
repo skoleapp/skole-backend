@@ -13,8 +13,9 @@ class CourseManager(SkoleManager["Course"]):
         qs = super().get_queryset()
         return qs.annotate(
             score=Coalesce(Sum("votes__status", distinct=True), Value(0)),
-            comment_count=Count("comments", distinct=True),
+            star_count=Count("stars", distinct=True),
             resource_count=Count("resources", distinct=True),
+            comment_count=Count("comments", distinct=True),
         )
 
 
@@ -47,8 +48,9 @@ class Course(SkoleModel):
 
     # These values will get annotated in the manager's get_queryset.
     score: int
-    comment_count: int
+    star_count: int
     resource_count: int
+    comment_count: int
 
     def __str__(self) -> str:
         return f"{self.name} {self.code}" if self.code else self.name

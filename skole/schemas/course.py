@@ -38,8 +38,9 @@ def order_courses_with_secret_algorithm(qs: QuerySet[Course]) -> QuerySet[Course
 
 
 class CourseObjectType(VoteMixin, StarredMixin, DjangoObjectType):
-    comment_count = graphene.Int()
+    star_count = graphene.Int()
     resource_count = graphene.Int()
+    comment_count = graphene.Int()
 
     class Meta:
         model = Course
@@ -53,14 +54,19 @@ class CourseObjectType(VoteMixin, StarredMixin, DjangoObjectType):
             "resources",
             "comments",
             "score",
-            "comment_count",
+            "star_count",
             "resource_count",
+            "comment_count",
             "modified",
             "created",
         )
 
-    # Have to specify these two with resolvers since graphene
+    # Have to specify these with resolvers since graphene
     # cannot infer the annotated fields otherwise.
+
+    @staticmethod
+    def resolve_star_count(root: Course, info: ResolveInfo) -> int:
+        return getattr(root, "star_count", 0)
 
     @staticmethod
     def resolve_comment_count(root: Course, info: ResolveInfo) -> int:

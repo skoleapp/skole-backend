@@ -36,8 +36,9 @@ class CourseSchemaTests(SkoleSchemaTestCase):
                 id
             }
             score
-            commentCount
+            starCount
             resourceCount
+            commentCount
             vote {
                 status
             }
@@ -179,6 +180,11 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         assert course["name"] == "test course"
         assert course["code"] == "code0001"
         assert course["user"]["id"] == "2"
+
+        # These should be 0 by default.
+        assert course["starCount"] == 0
+        assert course["resourceCount"] == 0
+        assert course["commentCount"] == 0
 
         # School is required.
         self.mutate_create_course(school=None, assert_error=True)
@@ -357,6 +363,9 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         assert course["subjects"] == [{"id": "1"}]
         assert course["school"] == {"id": "1"}
         assert course["user"] == {"id": "2"}
+        assert course["starCount"] == 0
+        assert course["resourceCount"] == 3
+        assert course["commentCount"] == 8
         assert is_iso_datetime(course["modified"])
         assert is_iso_datetime(course["created"])
         assert self.query_course(id=999) is None

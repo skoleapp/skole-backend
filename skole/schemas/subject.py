@@ -14,11 +14,10 @@ class SubjectObjectType(DjangoObjectType):
     name = graphene.String()
     course_count = graphene.Int()
     resource_count = graphene.Int()
-    comment_count = graphene.Int()
 
     class Meta:
         model = Subject
-        fields = ("id", "name", "course_count", "resource_count", "comment_count")
+        fields = ("id", "name", "course_count", "resource_count")
 
     # Have to specify these three with resolvers since graphene cannot infer the annotated fields otherwise.
 
@@ -29,10 +28,6 @@ class SubjectObjectType(DjangoObjectType):
     @staticmethod
     def resolve_resource_count(root: Subject, info: ResolveInfo) -> int:
         return root.resource_count
-
-    @staticmethod
-    def resolve_comment_count(root: Subject, info: ResolveInfo) -> int:
-        return root.comment_count
 
 
 class PaginatedSubjectObjectType(PaginationMixin, graphene.ObjectType):

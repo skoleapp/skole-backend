@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from django.conf import settings
 from django.db import models
-from django.db.models import Count, QuerySet, Sum, Value
+from django.db.models import Count, F, QuerySet, Sum, Value
 from django.db.models.functions import Coalesce
 
 from .base import SkoleManager, SkoleModel
@@ -15,7 +15,9 @@ class CourseManager(SkoleManager["Course"]):
             score=Coalesce(Sum("votes__status", distinct=True), Value(0)),
             star_count=Count("stars", distinct=True),
             resource_count=Count("resources", distinct=True),
-            comment_count=Count("comments", distinct=True),
+            top_level_comment_count=Count("comments", distinct=True),
+            reply_comment_count=Count("comments__reply_comments", distinct=True),
+            comment_count=F("top_level_comment_count") + F("reply_comment_count"),
         )
 
 

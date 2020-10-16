@@ -13,7 +13,6 @@ class SubjectSchemaTests(SkoleSchemaTestCase):
             name
             courseCount
             resourceCount
-            commentCount
         }
     """
 
@@ -74,6 +73,5 @@ class SubjectSchemaTests(SkoleSchemaTestCase):
         assert subject["name"] == "Computer Engineering"
         assert subject["courseCount"] == 12
         assert subject["resourceCount"] == 3
-        assert subject["commentCount"] == 4
 
         assert self.query_subject(id=999) is None

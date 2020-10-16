@@ -14,7 +14,6 @@ class SubjectManager(TranslatableSkoleManager["Subject"]):
         return qs.annotate(
             course_count=Count("courses", distinct=True),
             resource_count=Count("courses__resources", distinct=True),
-            comment_count=Count("courses__resources__comments", distinct=True),
         )
 
 
@@ -25,10 +24,9 @@ class Subject(TranslatableSkoleModel):
 
     objects = SubjectManager()
 
-    # This value gets annotated in the manager's get_queryset.
+    # These values get annotated in the manager's get_queryset.
     course_count: int
     resource_count: int
-    comment_count: int
 
     def __str__(self) -> str:
         return f"{self.name}"

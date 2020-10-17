@@ -1,4 +1,4 @@
-"""Module for testing compatibility of value/overridden 3rd party code."""
+"""Module for testing compatibility of patched or overridden 3rd party code."""
 import importlib
 
 import graphql.execution.utils
@@ -28,5 +28,5 @@ def test_graphql_view_code_has_not_changed() -> None:
     assert checksum(GraphQLView.parse_body) == "b6d13668aa8a9c22e9a2"
 
 
-def get_graphql_resolve_info_code_has_not_changed() -> None:
+def test_graphql_resolve_info_code_has_not_changed() -> None:
     assert checksum(graphql.ResolveInfo) == "d7d63b1a17fda05e4629"

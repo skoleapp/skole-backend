@@ -11,7 +11,7 @@ from skole.utils.constants import ValidationErrors
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('skole', '0007_resourse_subject_many2many'),
+        ('skole', '0007_resource_subject_many2many'),
     ]
 
     operations = [

@@ -4,7 +4,7 @@ import datetime
 
 from django.conf import settings
 from django.db import models
-from django.db.models import Count, F, Sum, Value
+from django.db.models import Count, Sum, Value
 from django.db.models.functions import Coalesce
 from django.db.models.query import QuerySet
 
@@ -19,9 +19,8 @@ class ResourceManager(SkoleManager["Resource"]):
         return qs.annotate(
             score=Coalesce(Sum("votes__status"), Value(0)),
             star_count=Count("stars", distinct=True),
-            top_level_comment_count=Count("comments", distinct=True),
-            reply_comment_count=Count("comments__reply_comments", distinct=True),
-            comment_count=F("top_level_comment_count") + F("reply_comment_count"),
+            comment_count=Count("comments", distinct=True)
+            + Count("comments__reply_comments", distinct=True),
         )
 
 

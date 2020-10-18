@@ -87,8 +87,9 @@ type CourseObjectType {
   starred: Boolean
   score: Int
   vote: VoteObjectType
-  commentCount: Int
+  starCount: Int
   resourceCount: Int
+  commentCount: Int
 }
 
 input CreateCommentMutationInput {
@@ -336,6 +337,8 @@ type ResourceObjectType {
   score: Int
   vote: VoteObjectType
   school: SchoolObjectType
+  starCount: Int
+  commentCount: Int
 }
 
 type ResourceTypeObjectType {
@@ -385,6 +388,8 @@ type StarredMutationPayload {
 type SubjectObjectType {
   id: ID!
   name: String
+  courseCount: Int
+  resourceCount: Int
 }
 
 input UpdateCommentMutationInput {

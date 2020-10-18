@@ -11,6 +11,8 @@ class SubjectSchemaTests(SkoleSchemaTestCase):
         fragment subjectFields on SubjectObjectType {
             id
             name
+            courseCount
+            resourceCount
         }
     """
 
@@ -69,5 +71,7 @@ class SubjectSchemaTests(SkoleSchemaTestCase):
         subject = self.query_subject(id=1)
         assert subject["id"] == "1"
         assert subject["name"] == "Computer Engineering"
+        assert subject["courseCount"] == 12
+        assert subject["resourceCount"] == 3
 
         assert self.query_subject(id=999) is None

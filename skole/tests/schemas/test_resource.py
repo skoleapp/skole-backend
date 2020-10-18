@@ -36,6 +36,8 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
             downloads
             score
             starred
+            starCount
+            commentCount
             user {
                 id
             }
@@ -133,6 +135,8 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
             assert resource["title"] == "Sample exam 1"
             assert resource["file"] == "/media/uploads/resources/test_resource.pdf"
             assert resource["course"]["id"] == "1"
+            assert resource["starCount"] == 0
+            assert resource["commentCount"] == 4
             assert self.client.get(resource["file"]).status_code == 200
 
         assert self.query_resource(id=999) is None
@@ -146,6 +150,10 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
         assert resource["id"] == "4"
         assert resource["title"] == "test title"
         assert is_slug_match(TEST_RESOURCE_PDF, resource["file"])
+
+        # These should be 0 by default.
+        assert resource["starCount"] == 0
+        assert resource["commentCount"] == 0
 
         # Create a resource with PNG file that will get converted to a PDF.
         with open_as_file(TEST_RESOURCE_PDF) as file:

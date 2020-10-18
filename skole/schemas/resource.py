@@ -22,6 +22,8 @@ from skole.utils.constants import Messages
 class ResourceObjectType(VoteMixin, StarredMixin, DjangoObjectType):
     resource_type = graphene.Field(ResourceTypeObjectType)
     school = graphene.Field(SchoolObjectType)
+    star_count = graphene.Int()
+    comment_count = graphene.Int()
 
     class Meta:
         model = Resource
@@ -38,6 +40,9 @@ class ResourceObjectType(VoteMixin, StarredMixin, DjangoObjectType):
             "comments",
             "resource_type",
             "school",
+            "score",
+            "star_count",
+            "comment_count",
         )
 
     @staticmethod
@@ -47,6 +52,20 @@ class ResourceObjectType(VoteMixin, StarredMixin, DjangoObjectType):
     @staticmethod
     def resolve_school(root: Resource, info: ResolveInfo) -> School:
         return root.course.school
+
+    # Have to specify these with resolvers since graphene cannot infer the annotated fields otherwise.
+
+    @staticmethod
+    def resolve_star_count(root: Resource, info: ResolveInfo) -> int:
+        return getattr(root, "star_count", 0)
+
+    @staticmethod
+    def resolve_comment_count(root: Resource, info: ResolveInfo) -> int:
+        # When the Resource is created and returned from a ModelForm it will not have
+        # this field computed (it gets annotated only in the model manager) since the
+        # value of this would be obviously 0 at the time of the resource's creation,
+        # it's ok to return it as the default here.
+        return getattr(root, "comment_count", 0)
 
 
 class CreateResourceMutation(

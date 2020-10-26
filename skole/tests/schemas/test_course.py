@@ -20,6 +20,13 @@ class CourseSchemaTests(SkoleSchemaTestCase):
             id
             name
             code
+            score
+            starCount
+            resourceCount
+            commentCount
+            starred
+            created
+            modified
             subjects {
                 id
             }
@@ -35,16 +42,9 @@ class CourseSchemaTests(SkoleSchemaTestCase):
             comments {
                 id
             }
-            score
-            starCount
-            resourceCount
-            commentCount
             vote {
                 status
             }
-            starred
-            created
-            modified
         }
     """
 
@@ -67,7 +67,7 @@ class CourseSchemaTests(SkoleSchemaTestCase):
 
         return cast(List[JsonDict], self.execute(graphql, variables=variables))
 
-    def query_search_courses(
+    def query_courses(
         self,
         *,
         course_name: Optional[str] = None,
@@ -99,12 +99,12 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         graphql = (
             self.course_fields
             + """
-            query SearchCourses (
+            query Courses (
                 $courseName: String, $courseCode: String, $subject: ID,
                 $school: ID, $schoolType: ID, $country: ID,
                 $city: ID, $page: Int, $pageSize: Int, $ordering: String
             ) {
-                searchCourses(
+                courses(
                     courseName: $courseName, courseCode: $courseCode, subject: $subject,
                     school: $school, schoolType: $schoolType, country: $country,
                     city: $city, page: $page, pageSize: $pageSize, ordering: $ordering
@@ -218,7 +218,7 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         res = self.mutate_delete_course(id=2)
         assert res["errors"] == MutationErrors.NOT_OWNER
 
-    def test_search_courses(self) -> None:
+    def test_courses(self) -> None:
         # When searching courses the default ordering is by names, so the order will be:
         # Test Engineering Course 1
         # Test Engineering Course 10
@@ -228,11 +228,11 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         # Test Engineering Course 3
         # ...
         # ...
-        assert self.query_search_courses() == self.query_search_courses(ordering="name")
+        assert self.query_courses() == self.query_courses(ordering="name")
 
         page_size = 4
         page = 1
-        res = self.query_search_courses(page=page, page_size=page_size)
+        res = self.query_courses(page=page, page_size=page_size)
         assert len(res["objects"]) == page_size
         assert res["objects"][0] == self.query_course(id=1)
         assert res["objects"][1]["id"] == "10"
@@ -243,7 +243,7 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         assert res["hasPrev"] is False
 
         page = 2
-        res = self.query_search_courses(page=page, page_size=page_size)
+        res = self.query_courses(page=page, page_size=page_size)
         assert res["objects"][0]["id"] == "13"
         assert res["objects"][1]["id"] == "14"
         assert len(res["objects"]) == page_size
@@ -254,7 +254,7 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         assert res["hasPrev"] is True
 
         page = 3
-        res = self.query_search_courses(page=page, page_size=page_size)
+        res = self.query_courses(page=page, page_size=page_size)
         assert res["objects"][0]["id"] == "3"
         assert res["objects"][1]["id"] == "4"
         assert len(res["objects"]) == page_size
@@ -265,7 +265,7 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         assert res["hasPrev"] is True
 
         page = 4
-        res = self.query_search_courses(page=page, page_size=page_size)
+        res = self.query_courses(page=page, page_size=page_size)
         assert res["objects"][0]["id"] == "7"
         assert res["objects"][1]["id"] == "8"
         assert len(res["objects"]) == 3  # Last page only has three results.
@@ -276,54 +276,54 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         assert res["hasPrev"] is True
 
         # The default sorting option is best first.
-        res = self.query_search_courses()
-        assert res == self.query_search_courses(ordering="best")
+        res = self.query_courses()
+        assert res == self.query_courses(ordering="best")
         assert res["objects"][0]["id"] == "1"
-        assert res["objects"][-1]["id"] == "4"
-        assert len(res["objects"]) == 10
-        assert res["pages"] == 2
+        assert res["objects"][-1]["id"] == "9"
+        assert len(res["objects"]) == 15
+        assert res["pages"] == 1
 
-        res = self.query_search_courses(ordering="-name")
+        res = self.query_courses(ordering="-name")
         assert res["objects"][0] == self.query_course(id=9)
 
         # Vote up one course, so it now has the most score.
         course = Course.objects.get(pk=7)
         user = User.objects.get(pk=2)
         vote, score = Vote.objects.perform_vote(user=user, status=1, target=course)
-        res = self.query_search_courses(ordering="score")
+        res = self.query_courses(ordering="score")
         assert res["objects"][0]["id"] == str(course.pk)
 
         # Vote down one course, so it now has the least score.
         course = Course.objects.get(pk=3)
         user = User.objects.get(pk=2)
         vote, score = Vote.objects.perform_vote(user=user, status=-1, target=course)
-        res = self.query_search_courses(ordering="score", page_size=20)
+        res = self.query_courses(ordering="score", page_size=20)
         assert res["objects"][-1]["id"] == str(course.pk)
 
-        res = self.query_search_courses(course_name="Course 7")
+        res = self.query_courses(course_name="Course 7")
         assert res["objects"][0]["id"] == "7"
         assert res["count"] == 1
 
-        res = self.query_search_courses(course_code="0001")
+        res = self.query_courses(course_code="0001")
         assert res["objects"][0]["id"] == "1"
         assert res["objects"][1]["id"] == "10"
         assert res["objects"][2]["id"] == "11"
         assert res["objects"][3]["id"] == "12"
         assert res["count"] == 7
 
-        res = self.query_search_courses(country=1)
+        res = self.query_courses(country=1)
         assert res["count"] == 15
 
-        res = self.query_search_courses(subject=1)
+        res = self.query_courses(subject=1)
         assert res["count"] == 12
 
-        res = self.query_search_courses(subject=2)
+        res = self.query_courses(subject=2)
         assert res["count"] == 2
 
-        res = self.query_search_courses(subject=999, school=999, country=999)
+        res = self.query_courses(subject=999, school=999, country=999)
         assert res["count"] == 0
 
-        res = self.query_search_courses(
+        res = self.query_courses(
             course_name="Test Engineering",
             course_code="2",
             subject=1,
@@ -339,7 +339,7 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         assert res["count"] == len(res["objects"]) == 2
         assert res["objects"][0]["code"] == "TEST0002"
         assert res["objects"][1]["code"] == "TEST00012"
-        res = self.query_search_courses(ordering="badvalue", assert_error=True)  # type: ignore[arg-type]
+        res = self.query_courses(ordering="badvalue", assert_error=True)  # type: ignore[arg-type]
         assert get_graphql_error(res) == GraphQLErrors.INVALID_ORDERING
 
     def test_autocomplete_courses(self) -> None:

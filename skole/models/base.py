@@ -17,7 +17,7 @@ class SkoleManager(Generic[M], models.Manager[M]):
 
     def get_queryset(self) -> QuerySet[M]:
         """Hide all soft deleted objects from queries."""
-        return super().get_queryset().exclude(deleted_at__isnull=False)
+        return super().get_queryset().exclude(deleted_at__isnull=False).order_by("pk")
 
     def get_or_none(self, *args: Any, **kwargs: Any) -> Optional[M]:
         """

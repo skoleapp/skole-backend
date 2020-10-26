@@ -21,7 +21,7 @@ class Activity(SkoleModel):
 
     # A user who's activity feed this activity belongs to.
     user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="activity"
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="activities"
     )
 
     # A user who causes the activity, e.g. a user replying to a comment.
@@ -41,9 +41,11 @@ class Activity(SkoleModel):
     course = models.ForeignKey(
         "skole.Course", on_delete=models.CASCADE, null=True, blank=True,
     )
+
     resource = models.ForeignKey(
         "skole.Resource", on_delete=models.CASCADE, null=True, blank=True,
     )
+
     comment = models.ForeignKey(
         "skole.Comment", on_delete=models.CASCADE, null=True, blank=True,
     )

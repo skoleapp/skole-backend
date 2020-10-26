@@ -26,6 +26,7 @@ from skole.forms import (
 from skole.models import User
 from skole.schemas.mixins import SkoleCreateUpdateMutationMixin, SuccessMessageMixin
 from skole.types import JsonDict, ResolveInfo
+from skole.utils.api_descriptions import APIDescriptions
 from skole.utils.constants import Messages, MutationErrors, TokenAction
 from skole.utils.exceptions import TokenScopeError, UserAlreadyVerified, UserNotVerified
 from skole.utils.token import get_token_payload, revoke_user_refresh_tokens
@@ -36,14 +37,6 @@ from .object_types import UserObjectType
 class RegisterMutation(
     SkoleCreateUpdateMutationMixin, SuccessMessageMixin, DjangoModelFormMutation
 ):
-    """
-    Register new user.
-
-    Check if there is an existing user with that email or username. Check that account
-    is not deactivated. By default set the user a unverified. After successful
-    registration send account verification email.
-    """
-
     success_message = Messages.USER_REGISTERED
 
     class Meta:
@@ -66,9 +59,6 @@ class RegisterMutation(
 class VerifyAccountMutation(
     SkoleCreateUpdateMutationMixin, SuccessMessageMixin, DjangoFormMutation
 ):
-    """Receive the token that was sent by email, if the token is valid, verify the
-    user's account."""
-
     class Meta:
         form_class = TokenForm
 
@@ -95,12 +85,6 @@ class VerifyAccountMutation(
 class ResendVerificationEmailMutation(
     SkoleCreateUpdateMutationMixin, SuccessMessageMixin, DjangoFormMutation
 ):
-    """
-    Sends verification email again.
-
-    Return error if a user with the provided email is not found.
-    """
-
     class Meta:
         form_class = EmailForm
 
@@ -128,13 +112,6 @@ class ResendVerificationEmailMutation(
 class SendPasswordResetEmailMutation(
     SkoleCreateUpdateMutationMixin, SuccessMessageMixin, DjangoFormMutation
 ):
-    """
-    Send password reset email.
-
-    For non verified users, send an verification email instead. Return error if a user
-    with the provided email is not found.
-    """
-
     class Meta:
         form_class = EmailForm
 
@@ -169,13 +146,6 @@ class SendPasswordResetEmailMutation(
 class ResetPasswordMutation(
     SkoleCreateUpdateMutationMixin, SuccessMessageMixin, DjangoFormMutation
 ):
-    """
-    Change user's password without old password.
-
-    Receive the token that was sent by email. Revoke refresh token and thus require the
-    user to log in with his new password.
-    """
-
     class Meta:
         form_class = SetPasswordForm
 
@@ -214,12 +184,6 @@ class ResetPasswordMutation(
 class LoginMutation(
     SkoleCreateUpdateMutationMixin, SuccessMessageMixin, DjangoModelFormMutation
 ):
-    """
-    Obtain JSON web token and user information.
-
-    Not verified users can still login.
-    """
-
     user = graphene.Field(UserObjectType)
 
     class Meta:
@@ -258,23 +222,12 @@ class LoginMutation(
 
 
 class LogoutMutation(DeleteJSONWebTokenCookie):
-    """
-    Delete JSON web token cookie and logout.
-
-    This sets the `Set-Cookie` header so that the JWT token cookie gets automatically
-    deleted in frontend.
-    """
+    pass
 
 
 class ChangePasswordMutation(
     SkoleCreateUpdateMutationMixin, SuccessMessageMixin, DjangoModelFormMutation
 ):
-    """
-    Change account password when user knows the old password.
-
-    User must be verified.
-    """
-
     verification_required = True
 
     class Meta:
@@ -303,15 +256,29 @@ class ChangePasswordMutation(
         return cls(message=Messages.PASSWORD_UPDATED)
 
 
+class UpdateUserMutation(
+    SkoleCreateUpdateMutationMixin, SuccessMessageMixin, DjangoModelFormMutation
+):
+    login_required = True
+    success_message = Messages.USER_UPDATED
+    user = graphene.Field(UserObjectType)
+
+    class Meta:
+        form_class = UpdateUserForm
+        exclude_fields = ("id",)
+
+    @classmethod
+    def get_form_kwargs(
+        cls, root: None, info: ResolveInfo, **input: JsonDict
+    ) -> JsonDict:
+        form_kwargs = super().get_form_kwargs(root, info, **input)
+        form_kwargs["instance"] = info.context.user
+        return form_kwargs
+
+
 class DeleteUserMutation(
     SkoleCreateUpdateMutationMixin, SuccessMessageMixin, DjangoModelFormMutation
 ):
-    """
-    Delete account permanently.
-
-    The user must confirm his password.
-    """
-
     login_required = True
 
     class Meta:
@@ -334,37 +301,24 @@ class DeleteUserMutation(
         return cls(message=Messages.USER_DELETED)
 
 
-class UpdateUserMutation(
-    SkoleCreateUpdateMutationMixin, SuccessMessageMixin, DjangoModelFormMutation
-):
-    """Update some user model fields."""
-
-    login_required = True
-    success_message = Messages.USER_UPDATED
-
-    user = graphene.Field(UserObjectType)
-
-    class Meta:
-        form_class = UpdateUserForm
-        exclude_fields = ("id",)
-
-    @classmethod
-    def get_form_kwargs(
-        cls, root: None, info: ResolveInfo, **input: JsonDict
-    ) -> JsonDict:
-        form_kwargs = super().get_form_kwargs(root, info, **input)
-        form_kwargs["instance"] = info.context.user
-        return form_kwargs
-
-
 class Mutation(graphene.ObjectType):
-    register = RegisterMutation.Field()
-    verify_account = VerifyAccountMutation.Field()
-    resend_verification_email = ResendVerificationEmailMutation.Field()
-    send_password_reset_email = SendPasswordResetEmailMutation.Field()
-    reset_password = ResetPasswordMutation.Field()
-    login = LoginMutation.Field()
-    logout = LogoutMutation.Field()
-    update_user = UpdateUserMutation.Field()
-    change_password = ChangePasswordMutation.Field()
-    delete_user = DeleteUserMutation.Field()
+    register = RegisterMutation.Field(description=APIDescriptions.REGISTER_USER)
+    verify_account = VerifyAccountMutation.Field(
+        description=APIDescriptions.VERIFY_ACCOUNT
+    )
+    resend_verification_email = ResendVerificationEmailMutation.Field(
+        description=APIDescriptions.RESEND_VERIFICATION_EMAIL
+    )
+    send_password_reset_email = SendPasswordResetEmailMutation.Field(
+        description=APIDescriptions.SEND_PASSWORD_RESET_EMAIL
+    )
+    reset_password = ResetPasswordMutation.Field(
+        description=APIDescriptions.RESET_PASSWORD
+    )
+    login = LoginMutation.Field(description=APIDescriptions.LOGIN)
+    logout = LogoutMutation.Field(description=APIDescriptions.LOGOUT)
+    change_password = ChangePasswordMutation.Field(
+        description=APIDescriptions.CHANGE_PASSWORD
+    )
+    update_user = UpdateUserMutation.Field(description=APIDescriptions.UPDATE_USER)
+    delete_user = DeleteUserMutation.Field(description=APIDescriptions.DELETE_USER)

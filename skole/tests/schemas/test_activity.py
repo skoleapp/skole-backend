@@ -29,18 +29,18 @@ class ActivitySchemaTests(SkoleSchemaTestCase):
         }
     """
 
-    def mutate_mark_activity_read(self, id: str, read: bool) -> JsonDict:
+    def mutate_mark_activity_as_read(self, id: str, read: bool) -> JsonDict:
         return self.execute_input_mutation(
-            name="markActivityRead",
-            input_type="MarkActivityReadMutationInput!",
+            name="markActivityAsRead",
+            input_type="MarkActivityAsReadMutationInput!",
             input={"id": id, "read": read},
             result="activity { ...activityFields }",
             fragment=self.activity_fields,
         )
 
-    def mutate_mark_all_activities_read(self) -> JsonDict:
+    def mutate_mark_all_activities_as_read(self) -> JsonDict:
         return self.execute_non_input_mutation(
-            name="markAllActivitiesRead",
+            name="markAllActivitiesAsRead",
             result="activities { ...activityFields }",
             fragment=self.activity_fields,
         )
@@ -49,7 +49,7 @@ class ActivitySchemaTests(SkoleSchemaTestCase):
         self.authenticated_user = None
         self.assert_field_fragment_matches_schema(self.activity_fields)
 
-    def test_mark_activity_read(self) -> None:
+    def test_mark_activity_as_read(self) -> None:
         testuser2 = User.objects.get(pk=2)
         course = Course.objects.get(pk=1)
         comment = Comment.objects.get(pk=1)
@@ -61,7 +61,7 @@ class ActivitySchemaTests(SkoleSchemaTestCase):
         assert not test_activity.read
 
         # Test marking activity as read.
-        res = self.mutate_mark_activity_read(id=test_activity.pk, read=True)
+        res = self.mutate_mark_activity_as_read(id=test_activity.pk, read=True)
         assert res["activity"]["description"] == activity_type.description
         assert res["activity"]["read"]
         assert res["activity"]["course"]["id"] == str(course.pk)
@@ -69,7 +69,7 @@ class ActivitySchemaTests(SkoleSchemaTestCase):
         assert res["activity"]["comment"]["id"] == str(comment.pk)
 
         # Test marking activity as not read.
-        res = self.mutate_mark_activity_read(id=test_activity.pk, read=False)
+        res = self.mutate_mark_activity_as_read(id=test_activity.pk, read=False)
         assert res["activity"]["description"] == activity_type.description
         assert not res["activity"]["read"]
         assert res["activity"]["course"]["id"] == str(course.pk)
@@ -78,7 +78,7 @@ class ActivitySchemaTests(SkoleSchemaTestCase):
 
         test_activity.delete()
 
-    def test_mark_all_activities_read(self) -> None:
+    def test_mark_all_activities_as_read(self) -> None:
         testuser2 = User.objects.get(pk=2)
         resource1 = Resource.objects.get(pk=1)
         comment1 = Comment.objects.get(pk=2)
@@ -104,7 +104,7 @@ class ActivitySchemaTests(SkoleSchemaTestCase):
         assert not test_activity1.read
         assert not test_activity2.read
 
-        res = self.mutate_mark_all_activities_read()
+        res = self.mutate_mark_all_activities_as_read()
 
         assert res["activities"][0]["id"] == str(test_activity1.pk)
         assert res["activities"][0]["description"] == activity_type1.description

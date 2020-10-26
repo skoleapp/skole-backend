@@ -12,6 +12,7 @@ from graphene_django.forms.mutation import DjangoFormMutation
 from skole.forms import ContactForm
 from skole.schemas.mixins import SkoleCreateUpdateMutationMixin, SuccessMessageMixin
 from skole.types import ResolveInfo
+from skole.utils.api_descriptions import APIDescriptions
 from skole.utils.constants import Messages, MutationErrors
 
 
@@ -58,4 +59,6 @@ class ContactMutation(
 
 
 class Mutation(graphene.ObjectType):
-    create_contact_message = ContactMutation.Field()
+    create_contact_message = ContactMutation.Field(
+        description=APIDescriptions.CREATE_CONTACT_MESSAGE
+    )

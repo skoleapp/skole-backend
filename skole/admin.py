@@ -14,7 +14,7 @@ from skole.models import (
     ResourceType,
     School,
     SchoolType,
-    Starred,
+    Star,
     Subject,
     Vote,
 )
@@ -27,7 +27,7 @@ admin.site.register(get_user_model())
 admin.site.register(Comment)
 admin.site.register(Course)
 admin.site.register(Resource)
-admin.site.register(Starred)
+admin.site.register(Star)
 admin.site.register(Vote)
 admin.site.register(Activity)
 

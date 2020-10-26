@@ -1,25 +1,29 @@
 from typing import Optional
 
 import graphene
+from django.conf import settings
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 
 from skole.forms import CreateResourceForm, DeleteResourceForm, UpdateResourceForm
 from skole.models import Resource, School
 from skole.schemas.mixins import (
+    PaginationMixin,
     SkoleCreateUpdateMutationMixin,
     SkoleDeleteMutationMixin,
-    StarredMixin,
+    StarMixin,
     SuccessMessageMixin,
     VoteMixin,
 )
 from skole.schemas.resource_type import ResourceTypeObjectType
 from skole.schemas.school import SchoolObjectType
 from skole.types import ID, ResolveInfo
+from skole.utils.api_descriptions import APIDescriptions
 from skole.utils.constants import Messages
+from skole.utils.pagination import get_paginator
 
 
-class ResourceObjectType(VoteMixin, StarredMixin, DjangoObjectType):
+class ResourceObjectType(VoteMixin, StarMixin, DjangoObjectType):
     resource_type = graphene.Field(ResourceTypeObjectType)
     school = graphene.Field(SchoolObjectType)
     star_count = graphene.Int()
@@ -27,6 +31,7 @@ class ResourceObjectType(VoteMixin, StarredMixin, DjangoObjectType):
 
     class Meta:
         model = Resource
+        description = APIDescriptions.RESOURCE_OBJECT_TYPE
         fields = (
             "id",
             "file",
@@ -68,6 +73,10 @@ class ResourceObjectType(VoteMixin, StarredMixin, DjangoObjectType):
         return getattr(root, "comment_count", 0)
 
 
+class PaginatedResourceObjectType(PaginationMixin, graphene.ObjectType):
+    objects = graphene.List(ResourceObjectType)
+
+
 class CreateResourceMutation(
     SkoleCreateUpdateMutationMixin, SuccessMessageMixin, DjangoModelFormMutation
 ):
@@ -90,6 +99,7 @@ class UpdateResourceMutation(
 
 
 class DeleteResourceMutation(SkoleDeleteMutationMixin, DjangoModelFormMutation):
+    verification_required = True
     success_message = Messages.RESOURCE_DELETED
 
     class Meta(SkoleDeleteMutationMixin.Meta):
@@ -97,7 +107,30 @@ class DeleteResourceMutation(SkoleDeleteMutationMixin, DjangoModelFormMutation):
 
 
 class Query(graphene.ObjectType):
-    resource = graphene.Field(ResourceObjectType, id=graphene.ID())
+    resources = graphene.Field(
+        PaginatedResourceObjectType,
+        course=graphene.ID(),
+        description=APIDescriptions.RESOURCES,
+    )
+
+    resource = graphene.Field(
+        ResourceObjectType, id=graphene.ID(), description=APIDescriptions.RESOURCE,
+    )
+
+    @staticmethod
+    def resolve_resources(
+        root: None,
+        info: ResolveInfo,
+        page: int = 1,
+        course: ID = None,
+        page_size: int = settings.DEFAULT_PAGE_SIZE,
+    ) -> graphene.ObjectType:
+        if course is not None:
+            qs = Resource.objects.filter(course__pk=course)
+        else:
+            qs = Resource.objects.none()
+
+        return get_paginator(qs, page_size, page, PaginatedResourceObjectType)
 
     @staticmethod
     def resolve_resource(
@@ -107,6 +140,14 @@ class Query(graphene.ObjectType):
 
 
 class Mutation(graphene.ObjectType):
-    create_resource = CreateResourceMutation.Field()
-    update_resource = UpdateResourceMutation.Field()
-    delete_resource = DeleteResourceMutation.Field()
+    create_resource = CreateResourceMutation.Field(
+        description=APIDescriptions.CREATE_RESOURCE
+    )
+
+    update_resource = UpdateResourceMutation.Field(
+        description=APIDescriptions.UPDATE_RESOURCE
+    )
+
+    delete_resource = DeleteResourceMutation.Field(
+        description=APIDescriptions.DELETE_RESOURCE
+    )

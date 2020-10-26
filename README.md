@@ -98,3 +98,5 @@ A quick look at the top-level files and directories excluding Git ignored locati
 
 - Since `_` is reserved as an alias for Django's translation functions, use a double underscore `__`
   for ignored values, e.g. `foo, __ = Foo.objects.get_or_create(...)` or `[bar() for __ in range(n)]`.
+
+- All GraphQL object types, queries and mutations must be documented by using the `description` parameter.

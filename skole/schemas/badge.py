@@ -2,6 +2,7 @@ import graphene
 from graphene_django import DjangoObjectType
 
 from skole.models import Badge
+from skole.utils.api_descriptions import APIDescriptions
 
 
 class BadgeObjectType(DjangoObjectType):
@@ -10,4 +11,5 @@ class BadgeObjectType(DjangoObjectType):
 
     class Meta:
         model = Badge
+        description = APIDescriptions
         fields = ("id", "name", "description")

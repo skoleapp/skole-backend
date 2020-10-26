@@ -29,16 +29,18 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
             id
             title
             file
-            resourceType {
-                id
-                name
-            }
             date
             downloads
             score
             starred
             starCount
             commentCount
+            modified
+            created
+            resourceType {
+                id
+                name
+            }
             user {
                 id
             }
@@ -55,8 +57,6 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
                 id
                 status
             }
-            modified
-            created
         }
     """
 
@@ -146,6 +146,7 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
         # Create a resource with a PDF file.
         with open_as_file(TEST_RESOURCE_PDF) as file:
             res = self.mutate_create_resource(file_data=[("file", file)])
+
         resource = res["resource"]
         assert not res["errors"]
         assert resource["id"] == "4"
@@ -159,10 +160,12 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
         # Create a resource with PNG file that will get converted to a PDF.
         with open_as_file(TEST_RESOURCE_PDF) as file:
             response = HttpResponse(content=file.read())
+
         with override_settings(CLOUDMERSIVE_API_KEY="xxx"):
             with mock.patch.object(requests, "post", return_value=response):
                 with open_as_file(TEST_ATTACHMENT_PNG) as file:
                     res = self.mutate_create_resource(file_data=[("file", file)])
+
         resource = res["resource"]
         assert not res["errors"]
         assert resource["id"] == "5"
@@ -184,9 +187,11 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
     def test_update_resource(self) -> None:
         new_title = "new title"
         new_resource_type = 3
+
         res = self.mutate_update_resource(
             title=new_title, resource_type=new_resource_type
         )
+
         resource = res["resource"]
         assert not res["errors"]
         assert resource["title"] == new_title

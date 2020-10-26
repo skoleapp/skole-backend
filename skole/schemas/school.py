@@ -11,6 +11,7 @@ from skole.schemas.country import CountryObjectType
 from skole.schemas.school_type import SchoolTypeObjectType
 from skole.schemas.subject import SubjectObjectType
 from skole.types import ID, ResolveInfo
+from skole.utils.api_descriptions import APIDescriptions
 
 
 class SchoolObjectType(DjangoObjectType):
@@ -22,6 +23,7 @@ class SchoolObjectType(DjangoObjectType):
 
     class Meta:
         model = School
+        description = APIDescriptions.SCHOOL_OBJECT_TYPE
         fields = (
             "id",
             "name",
@@ -38,19 +40,20 @@ class SchoolObjectType(DjangoObjectType):
 
 
 class Query(graphene.ObjectType):
-    autocomplete_schools = graphene.List(SchoolObjectType, name=graphene.String())
-    school = graphene.Field(SchoolObjectType, id=graphene.ID())
+    autocomplete_schools = graphene.List(
+        SchoolObjectType,
+        name=graphene.String(),
+        description=APIDescriptions.AUTOCOMPLETE_SCHOOLS,
+    )
+
+    school = graphene.Field(
+        SchoolObjectType, id=graphene.ID(), description=APIDescriptions.DETAIL_QUERY,
+    )
 
     @staticmethod
     def resolve_autocomplete_schools(
         root: None, info: ResolveInfo, name: str = ""
     ) -> QuerySet[School]:
-        """
-        Used for queries made by the client's auto complete fields.
-
-        We want to avoid making massive queries by limiting the amount of results. If no
-        school name is provided as a parameter, we return schools with the most courses.
-        """
         qs = School.objects.translated()
 
         if name != "":
@@ -59,6 +62,7 @@ class Query(graphene.ObjectType):
         qs = qs.annotate(num_courses=Count("courses")).order_by(
             "-num_courses", "translations__name"
         )
+
         return qs[: settings.AUTOCOMPLETE_MAX_RESULTS]
 
     @staticmethod

@@ -5,6 +5,7 @@ from graphene_django import DjangoObjectType
 
 from skole.models import ResourceType
 from skole.types import ResolveInfo
+from skole.utils.api_descriptions import APIDescriptions
 
 
 class ResourceTypeObjectType(DjangoObjectType):
@@ -12,12 +13,19 @@ class ResourceTypeObjectType(DjangoObjectType):
 
     class Meta:
         model = ResourceType
+        description = APIDescriptions.RESOURCE_TYPE_OBJECT_TYPE
         fields = ("id", "name")
 
 
 class Query(graphene.ObjectType):
-    resource_types = graphene.List(ResourceTypeObjectType)
-    autocomplete_resource_types = graphene.List(ResourceTypeObjectType)
+    resource_types = graphene.List(
+        ResourceTypeObjectType, description=APIDescriptions.RESOURCE_TYPES,
+    )
+
+    autocomplete_resource_types = graphene.List(
+        ResourceTypeObjectType, description=APIDescriptions.AUTOCOMPLETE_RESOURCE_TYPES,
+    )
+
     # Querying a single ResourceType is not needed.
 
     @staticmethod
@@ -28,9 +36,7 @@ class Query(graphene.ObjectType):
     def resolve_autocomplete_resource_types(
         root: None, info: ResolveInfo
     ) -> QuerySet[ResourceType]:
-        """
-        Used for queries made by the client's auto complete fields.
-
-        We want to avoid making massive queries by limiting the amount of results.
-        """
-        return ResourceType.objects.all()[: settings.AUTOCOMPLETE_MAX_RESULTS]
+        # We must manually call the translation function in order to perform the ordering based on the translated values.
+        return ResourceType.objects.translated().order_by("translations__name")[
+            : settings.AUTOCOMPLETE_MAX_RESULTS
+        ]

@@ -8,6 +8,16 @@ from graphene_django import DjangoObjectType
 from skole.models import Subject
 from skole.schemas.mixins import PaginationMixin
 from skole.types import ID, ResolveInfo
+from skole.utils.api_descriptions import APIDescriptions
+from skole.utils.pagination import get_paginator
+
+
+def order_subjects_by_num_courses(qs: QuerySet[Subject]) -> QuerySet[Subject]:
+    """Sort the queryset so that the subjects with the most courses come first."""
+
+    return qs.annotate(num_courses=Count("courses")).order_by(
+        "-num_courses", "translations__name"
+    )
 
 
 class SubjectObjectType(DjangoObjectType):
@@ -17,6 +27,7 @@ class SubjectObjectType(DjangoObjectType):
 
     class Meta:
         model = Subject
+        description = APIDescriptions.SUBJECT_OBJECT_TYPE
         fields = ("id", "name", "course_count", "resource_count")
 
     # Have to specify these three with resolvers since graphene cannot infer the annotated fields otherwise.
@@ -33,30 +44,51 @@ class SubjectObjectType(DjangoObjectType):
 class PaginatedSubjectObjectType(PaginationMixin, graphene.ObjectType):
     objects = graphene.List(SubjectObjectType)
 
+    class Meta:
+        description = APIDescriptions.PAGINATED_SUBJECT_OBJECT_TYPE
+
 
 class Query(graphene.ObjectType):
-    autocomplete_subjects = graphene.List(SubjectObjectType, name=graphene.String())
-    subject = graphene.Field(SubjectObjectType, id=graphene.ID())
+    subjects = graphene.List(
+        PaginatedSubjectObjectType,
+        school=graphene.ID(),
+        description=APIDescriptions.SUBJECTS,
+    )
+
+    autocomplete_subjects = graphene.List(
+        SubjectObjectType,
+        name=graphene.String(),
+        description=APIDescriptions.AUTOCOMPLETE_SUBJECTS,
+    )
+
+    subject = graphene.Field(
+        SubjectObjectType, id=graphene.ID(), description=APIDescriptions.DETAIL_QUERY,
+    )
+
+    @staticmethod
+    def resolve_subjects(
+        root: None,
+        info: ResolveInfo,
+        school: ID = None,
+        page: int = 1,
+        page_size: int = settings.DEFAULT_PAGE_SIZE,
+    ) -> graphene.ObjectType:
+        # Ignore: Mypy complains that `get(pk=None)` is not valid. It might not be
+        # the most sensible thing, but it actually doesn't fail at runtime.
+        qs: QuerySet[Subject] = Subject.objects.filter(courses__school__pk=school)  # type: ignore[misc]
+        qs = order_subjects_by_num_courses(qs)
+        return get_paginator(qs, page_size, page, PaginatedSubjectObjectType)
 
     @staticmethod
     def resolve_autocomplete_subjects(
         root: None, info: ResolveInfo, name: str = ""
     ) -> QuerySet[Subject]:
-        """
-        Used for queries made by the client's auto complete fields.
-
-        We want to avoid making massive queries by limiting the amount of results. If no
-        school name is provided as a parameter, we return subjects with the most
-        courses.
-        """
         qs = Subject.objects.translated()
 
         if name != "":
             qs = qs.filter(translations__name__icontains=name)
 
-        qs = qs.annotate(num_courses=Count("courses")).order_by(
-            "-num_courses", "translations__name"
-        )
+        qs = order_subjects_by_num_courses(qs)
         return qs[: settings.AUTOCOMPLETE_MAX_RESULTS]
 
     @staticmethod

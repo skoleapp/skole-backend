@@ -20,11 +20,14 @@ class CommentSchemaTests(SkoleSchemaTestCase):
     comment_fields = """
         fragment commentFields on CommentObjectType {
             id
+            text
+            attachment
+            score
+            modified
+            created
             user {
                 id
             }
-            text
-            attachment
             course {
                 id
             }
@@ -37,13 +40,10 @@ class CommentSchemaTests(SkoleSchemaTestCase):
             replyComments {
                 id
             }
-            score
             vote {
                 id
                 status
             }
-            modified
-            created
         }
     """
 

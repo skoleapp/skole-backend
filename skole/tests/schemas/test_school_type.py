@@ -62,5 +62,4 @@ class SchoolTypeSchemaTests(SkoleSchemaTestCase):
         res = self.query_school_type(id=1)
         assert res["id"] == "1"
         assert res["name"] == "University"
-
         assert self.query_school_type(id=999) is None

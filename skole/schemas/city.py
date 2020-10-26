@@ -1,11 +1,13 @@
 from typing import Optional
 
 import graphene
+from django.conf import settings
 from django.db.models import QuerySet
 from graphene_django import DjangoObjectType
 
 from skole.models import City
 from skole.types import ID, ResolveInfo
+from skole.utils.api_descriptions import APIDescriptions
 
 
 class CityObjectType(DjangoObjectType):
@@ -13,22 +15,25 @@ class CityObjectType(DjangoObjectType):
 
     class Meta:
         model = City
+        description = APIDescriptions.CITY_OBJECT_TYPE
         fields = ("id", "name")
 
 
 class Query(graphene.ObjectType):
-    autocomplete_cities = graphene.List(CityObjectType)
-    city = graphene.Field(CityObjectType, id=graphene.ID())
+    autocomplete_cities = graphene.List(
+        CityObjectType, description=APIDescriptions.AUTOCOMPLETE_CITIES,
+    )
+
+    city = graphene.Field(
+        CityObjectType, id=graphene.ID(), description=APIDescriptions.DETAIL_QUERY,
+    )
 
     @staticmethod
     def resolve_autocomplete_cities(root: None, info: ResolveInfo) -> QuerySet[City]:
-        """
-        Used for queries made by the client's auto complete fields.
-
-        We want to avoid making massive queries by limiting the amount of results.
-        """
         # We must manually call the translation function in order to perform the ordering based on the translated values.
-        return City.objects.translated().order_by("translations__name")
+        return City.objects.translated().order_by("translations__name")[
+            : settings.AUTOCOMPLETE_MAX_RESULTS
+        ]
 
     @staticmethod
     def resolve_city(root: None, info: ResolveInfo, id: ID = None) -> Optional[City]:

@@ -1,14 +1,15 @@
-from typing import Optional, get_args
+from typing import Optional, cast, get_args
 
 import graphene
 from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.db.models import F, QuerySet
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphql import GraphQLError
 
 from skole.forms import CreateCourseForm, DeleteCourseForm
-from skole.models import Course
+from skole.models import Course, User
 from skole.schemas.mixins import (
     PaginationMixin,
     SkoleCreateUpdateMutationMixin,
@@ -132,6 +133,15 @@ class Query(graphene.ObjectType):
         description=APIDescriptions.AUTOCOMPLETE_COURSES,
     )
 
+    created_courses = graphene.Field(
+        PaginatedCourseObjectType,
+        user=graphene.ID(),
+        page=graphene.Int(),
+        page_size=graphene.Int(),
+        ordering=graphene.String(),
+        description=APIDescriptions.CREATED_COURSES,
+    )
+
     course = graphene.Field(
         CourseObjectType, id=graphene.ID(), description=APIDescriptions.DETAIL_QUERY,
     )
@@ -197,6 +207,27 @@ class Query(graphene.ObjectType):
         return qs[: settings.AUTOCOMPLETE_MAX_RESULTS]
 
     @staticmethod
+    def resolve_created_courses(
+        root: None,
+        info: ResolveInfo,
+        user: ID = None,
+        page: int = 1,
+        page_size: int = settings.DEFAULT_PAGE_SIZE,
+    ) -> graphene.ObjectType:
+        if user is not None and user != info.context.user.pk:
+            user_from_db = get_user_model().objects.get_or_none(pk=user)
+        else:
+            user_from_db = cast(User, info.context.user)
+
+        if user_from_db is not None:
+            qs: QuerySet[Course] = user_from_db.created_courses.all()
+        else:
+            # The user with the provided ID does not exist, we return an empty list.
+            qs = Course.objects.none()
+
+        return get_paginator(qs, page_size, page, PaginatedCourseObjectType)
+
+    @staticmethod
     def resolve_course(
         root: None, info: ResolveInfo, id: ID = None
     ) -> Optional[Course]:
@@ -207,6 +238,7 @@ class Mutation(graphene.ObjectType):
     create_course = CreateCourseMutation.Field(
         description=APIDescriptions.CREATE_COURSE
     )
+
     delete_course = DeleteCourseMutation.Field(
         description=APIDescriptions.DELETE_COURSE
     )

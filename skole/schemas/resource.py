@@ -1,12 +1,14 @@
-from typing import Optional
+from typing import Optional, cast
 
 import graphene
 from django.conf import settings
+from django.contrib.auth import get_user_model
+from django.db.models import QuerySet
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 
 from skole.forms import CreateResourceForm, DeleteResourceForm, UpdateResourceForm
-from skole.models import Resource, School
+from skole.models import Resource, School, User
 from skole.schemas.mixins import (
     PaginationMixin,
     SkoleCreateUpdateMutationMixin,
@@ -113,6 +115,14 @@ class Query(graphene.ObjectType):
         description=APIDescriptions.RESOURCES,
     )
 
+    created_resources = graphene.Field(
+        PaginatedResourceObjectType,
+        page=graphene.Int(),
+        page_size=graphene.Int(),
+        ordering=graphene.String(),
+        description=APIDescriptions.CREATED_RESOURCES,
+    )
+
     resource = graphene.Field(
         ResourceObjectType, id=graphene.ID(), description=APIDescriptions.RESOURCE,
     )
@@ -128,6 +138,27 @@ class Query(graphene.ObjectType):
         if course is not None:
             qs = Resource.objects.filter(course__pk=course)
         else:
+            qs = Resource.objects.none()
+
+        return get_paginator(qs, page_size, page, PaginatedResourceObjectType)
+
+    @staticmethod
+    def resolve_created_resources(
+        root: None,
+        info: ResolveInfo,
+        user: ID = None,
+        page: int = 1,
+        page_size: int = settings.DEFAULT_PAGE_SIZE,
+    ) -> graphene.ObjectType:
+        if user is not None and user != info.context.user.pk:
+            user_from_db = get_user_model().objects.get_or_none(pk=user)
+        else:
+            user_from_db = cast(User, info.context.user)
+
+        if user_from_db is not None:
+            qs: QuerySet[Resource] = user_from_db.created_resources.all()
+        else:
+            # The user with the provided ID does not exist, we return an empty list.
             qs = Resource.objects.none()
 
         return get_paginator(qs, page_size, page, PaginatedResourceObjectType)

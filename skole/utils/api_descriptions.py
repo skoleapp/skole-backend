@@ -94,7 +94,10 @@ class APIDescriptions:
     )
 
     # Activity queries.
-    ACTIVITY = f"Return all activity related to the user making the query. {PAGINATED} {CREATION_TIME_SORTING} {AUTH_REQUIRED}"
+    ACTIVITY = f"Return all activity of to the user making the query. {PAGINATED} {CREATION_TIME_SORTING} {AUTH_REQUIRED}"
+    ACTIVITY_PREVIEW = (
+        "Return limited amount of activity of the user making the query for a preview."
+    )
 
     # Activity mutations.
 

@@ -8,13 +8,13 @@ from django.db.models import QuerySet
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphene_django.types import ErrorType
+from graphql_jwt.decorators import login_required
 
 from skole.forms import MarkActivityAsReadForm
 from skole.models import Activity, User
 from skole.schemas.mixins import PaginationMixin, SkoleCreateUpdateMutationMixin
 from skole.types import JsonDict, ResolveInfo
 from skole.utils.api_descriptions import APIDescriptions
-from skole.utils.decorators import private_field
 from skole.utils.pagination import get_paginator
 
 
@@ -90,29 +90,31 @@ class Mutation(graphene.ObjectType):
 
 
 class Query(graphene.ObjectType):
-    activity = graphene.Field(
+    activities = graphene.Field(
         PaginatedActivityObjectType,
         page=graphene.Int(),
         page_size=graphene.Int(),
-        ordering=graphene.String(),
         description=APIDescriptions.ACTIVITY,
     )
 
-    activity_preview = graphene.Field(ActivityObjectType)
+    activity_preview = graphene.List(
+        ActivityObjectType, description=APIDescriptions.ACTIVITY_PREVIEW
+    )
 
     @staticmethod
-    @private_field
-    def resolve_activity(
-        root: User,
+    @login_required
+    def resolve_activities(
+        root: None,
         info: ResolveInfo,
         page: int = 1,
         page_size: int = settings.DEFAULT_PAGE_SIZE,
     ) -> graphene.ObjectType:
-        qs = root.activities.all()
+        user = cast(User, info.context.user)
+        qs = user.activities.all()
         return get_paginator(qs, page_size, page, PaginatedActivityObjectType)
 
-    def resolve_activity_preview(
-        root: User, info: ResolveInfo
-    ) -> QuerySet[ActivityObjectType]:
-        # Ignore: Mypy cannot infer correct queryset typings from related manager.
-        return root.activities.all()[: settings.ACTIVITY_PREVIEW_COUNT]  # type: ignore [return-value]
+    @staticmethod
+    @login_required
+    def resolve_activity_preview(root: None, info: ResolveInfo) -> QuerySet[Activity]:
+        user = cast(User, info.context.user)
+        return user.activities.all()[: settings.ACTIVITY_PREVIEW_COUNT]

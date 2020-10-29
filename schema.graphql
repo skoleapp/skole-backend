@@ -252,6 +252,15 @@ type Mutation {
   markAllActivitiesAsRead: MarkAllActivitiesAsReadMutation
 }
 
+type PaginatedActivityObjectType {
+  page: Int
+  pages: Int
+  hasNext: Boolean
+  hasPrev: Boolean
+  count: Int
+  objects: [ActivityObjectType]
+}
+
 type PaginatedCourseObjectType {
   page: Int
   pages: Int
@@ -304,6 +313,8 @@ type Query {
   country(id: ID): CountryObjectType
   autocompleteCities: [CityObjectType]
   city(id: ID): CityObjectType
+  activities(page: Int, pageSize: Int): PaginatedActivityObjectType
+  activityPreview: [ActivityObjectType]
 }
 
 input RegisterMutationInput {

@@ -17,6 +17,7 @@ import skole.schemas.vote
 
 
 class Query(
+    skole.schemas.activity.Query,
     skole.schemas.city.Query,
     skole.schemas.country.Query,
     skole.schemas.course.Query,

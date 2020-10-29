@@ -113,10 +113,10 @@ class CourseSchemaTests(SkoleSchemaTestCase):
                     pages
                     hasNext
                     hasPrev
+                    count
                     objects {
                         ...courseFields
                     }
-                    count
                 }
             }
             """

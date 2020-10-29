@@ -215,7 +215,7 @@ class UserSchemaTests(SkoleSchemaTestCase):
         assert user1["email"] == "testuser2@test.com"
         assert user1["verified"]
         assert user1["rank"] == "Freshman"
-        assert user1["unreadActivityCount"] == 0
+        assert user1["unreadActivityCount"] == 3
         assert user1["school"] == {"id": "1"}
         assert user1["subject"] == {"id": "1"}
         assert len(user1["badges"]) == 0
@@ -241,7 +241,7 @@ class UserSchemaTests(SkoleSchemaTestCase):
         assert user["email"] == "testuser2@test.com"
         assert user["verified"]
         assert user["rank"] == "Freshman"
-        assert user["unreadActivityCount"] == 0
+        assert user["unreadActivityCount"] == 3
         assert user["school"] == {"id": "1"}
         assert user["subject"] == {"id": "1"}
         assert len(user["badges"]) == 0

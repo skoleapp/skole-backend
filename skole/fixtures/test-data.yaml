@@ -896,7 +896,7 @@
 - model: skole.Comment
   pk: 1
   fields:
-    text: Starting comment for the thread on a resource.
+    text: Comment 1 to a resource.
     attachment: uploads/attachments/test_attachment.png
     resource: 1
     course: null
@@ -907,7 +907,7 @@
 - model: skole.Comment
   pk: 2
   fields:
-    text: Second comment of the thread.
+    text: Comment 2 to a resource.
     attachment: ""
     resource: 1
     course: null
@@ -918,7 +918,7 @@
 - model: skole.Comment
   pk: 3
   fields:
-    text: ""
+    text: "Comment 3 to a resource."
     attachment: uploads/attachments/test_attachment.png
     resource: 1
     course: null
@@ -929,7 +929,7 @@
 - model: skole.Comment
   pk: 4
   fields:
-    text: Comment 1 to a course
+    text: Comment 1 to a course.
     attachment: ""
     resource: null
     course: 1
@@ -940,7 +940,7 @@
 - model: skole.Comment
   pk: 5
   fields:
-    text: Comment 2 to a course
+    text: Comment 2 to a course.
     attachment: ""
     resource: null
     course: 1
@@ -951,7 +951,7 @@
 - model: skole.Comment
   pk: 6
   fields:
-    text: Comment 3 to a course
+    text: Comment 3 to a course.
     attachment: ""
     resource: null
     course: 1
@@ -962,7 +962,7 @@
 - model: skole.Comment
   pk: 7
   fields:
-    text: Comment 4 to a course
+    text: Comment 4 to a course.
     attachment: ""
     resource: null
     course: 1
@@ -973,7 +973,7 @@
 - model: skole.Comment
   pk: 8
   fields:
-    text: Comment 5 to a course
+    text: Comment 5 to a course.
     attachment: ""
     resource: null
     course: 1
@@ -984,7 +984,7 @@
 - model: skole.Comment
   pk: 9
   fields:
-    text: Comment 6 to a course
+    text: Comment 6 to a course.
     attachment: ""
     resource: null
     course: 1
@@ -995,7 +995,7 @@
 - model: skole.Comment
   pk: 10
   fields:
-    text: Comment 7 to a course
+    text: Comment 7 to a course.
     attachment: ""
     resource: null
     course: 1
@@ -1006,7 +1006,7 @@
 - model: skole.Comment
   pk: 11
   fields:
-    text: Comment 8 to a course
+    text: Comment 8 to a course.
     attachment: ""
     resource: null
     course: 1
@@ -1017,7 +1017,7 @@
 - model: skole.Comment
   pk: 12
   fields:
-    text: First reply to a comment.
+    text: Reply 1 to a comment.
     attachment: ""
     resource: null
     course: null
@@ -1028,7 +1028,7 @@
 - model: skole.Comment
   pk: 13
   fields:
-    text: Second reply to a comment.
+    text: Reply 2 to a comment.
     attachment: ""
     resource: null
     course: null
@@ -1039,7 +1039,7 @@
 - model: skole.Comment
   pk: 14
   fields:
-    text: Third reply to a comment.
+    text: Reply 3 to a comment.
     attachment: ""
     resource: null
     course: null
@@ -1050,7 +1050,7 @@
 - model: skole.Comment
   pk: 15
   fields:
-    text: 4th reply to a comment.
+    text: Reply 4 to a comment.
     attachment: ""
     resource: null
     course: null
@@ -1061,7 +1061,7 @@
 - model: skole.Comment
   pk: 16
   fields:
-    text: 5th reply to a comment.
+    text: Reply 5 to a comment.
     attachment: ""
     resource: null
     course: null
@@ -1072,7 +1072,7 @@
 - model: skole.Comment
   pk: 17
   fields:
-    text: 6th reply to a comment.
+    text: Reply 6 to a comment.
     attachment: ""
     resource: null
     course: null
@@ -1083,7 +1083,7 @@
 - model: skole.Comment
   pk: 18
   fields:
-    text: 7th reply to a comment.
+    text: Reply 7 to a comment.
     attachment: ""
     resource: null
     course: null
@@ -1094,7 +1094,7 @@
 - model: skole.Comment
   pk: 19
   fields:
-    text: 8th reply to a comment.
+    text: Reply 8 to a comment.
     attachment: ""
     resource: null
     course: null
@@ -1105,7 +1105,18 @@
 - model: skole.Comment
   pk: 20
   fields:
-    text: 9th reply to a comment.
+    text: Reply 9 to a comment.
+    attachment: ""
+    resource: null
+    course: null
+    comment: 4
+    user: 2
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Comment
+  pk: 21
+  fields:
+    text:  Reply 10 to a comment.
     attachment: ""
     resource: null
     course: null
@@ -1115,17 +1126,6 @@
     created: 2020-01-01 12:00:00.000000+00:00
 - model: skole.Comment
   pk: 22
-  fields:
-    text: 11th reply to a comment.
-    attachment: ""
-    resource: null
-    course: null
-    comment: 4
-    user: 2
-    modified: 2020-01-01 12:00:00.000000+00:00
-    created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Comment
-  pk: 23
   fields:
     text: An anonymous comment to a resource.
     attachment: ""
@@ -1228,3 +1228,34 @@
   pk: 3
   fields:
     name: resource_comment
+
+- model: skole.Activity
+  pk: 1
+  fields:
+    user: 2
+    target_user: 3
+    activity_type: 1
+    course: 1
+    resource: null
+    comment: 4
+    read: False
+- model: skole.Activity
+  pk: 2
+  fields:
+    user: 2
+    target_user: 3
+    activity_type: 2
+    course: 1
+    resource: null
+    comment: 1
+    read: False
+- model: skole.Activity
+  pk: 3
+  fields:
+    user: 2
+    target_user: 5
+    activity_type: 3
+    course: null
+    resource: 1
+    comment: null
+    read: False

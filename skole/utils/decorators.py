@@ -2,10 +2,11 @@ from functools import wraps
 from typing import Callable, Optional, TypeVar
 
 from skole.models import User
-from skole.types import ResolveInfo
+from skole.types import JsonDict, ResolveInfo
 
 T = TypeVar("T")
 UserResolver = Callable[[User, ResolveInfo], T]
+Resolver = Callable[[None, ResolveInfo, Optional[JsonDict]], T]
 
 
 def private_field(func: UserResolver[T]) -> UserResolver[Optional[T]]:

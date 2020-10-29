@@ -10,6 +10,7 @@ django-parler==2.2.0
 django-s3-storage==0.13.4
 graphene-django==2.13.0
 gunicorn==20.0.4
+mat2==0.11.0
 psycopg2==2.8.6
 python-magic==0.4.18
 requests==2.24.0

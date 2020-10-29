@@ -9,6 +9,7 @@ from django.test import override_settings
 from skole.tests.helpers import (
     TEST_ATTACHMENT_PNG,
     TEST_RESOURCE_PDF,
+    UPLOADED_RESOURCE_PDF,
     FileData,
     SkoleSchemaTestCase,
     get_form_error,
@@ -149,7 +150,7 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
         assert not res["errors"]
         assert resource["id"] == "4"
         assert resource["title"] == "test title"
-        assert is_slug_match(TEST_RESOURCE_PDF, resource["file"])
+        assert is_slug_match(UPLOADED_RESOURCE_PDF, resource["file"])
 
         # These should be 0 by default.
         assert resource["starCount"] == 0
@@ -165,9 +166,7 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
         resource = res["resource"]
         assert not res["errors"]
         assert resource["id"] == "5"
-        assert is_slug_match(
-            "/media/uploads/resources/test_attachment.pdf", resource["file"]
-        )
+        assert is_slug_match(UPLOADED_RESOURCE_PDF, resource["file"])
 
         # Can't create a resource with no file.
         res = self.mutate_create_resource()

@@ -5,7 +5,8 @@ from typing import Optional, Union
 from django.conf import settings
 from django.db import models
 
-from ..types import StarrableModel
+from skole.types import StarrableModel
+
 from .base import SkoleManager, SkoleModel
 from .course import Course
 from .resource import Resource

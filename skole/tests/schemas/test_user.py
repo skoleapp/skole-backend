@@ -2,6 +2,7 @@ from django.contrib.auth import get_user_model
 
 from skole.tests.helpers import (
     TEST_AVATAR_JPG,
+    UPLOADED_AVATAR_JPG,
     FileData,
     SkoleSchemaTestCase,
     get_form_error,
@@ -351,14 +352,14 @@ class UserSchemaTests(SkoleSchemaTestCase):
         with open_as_file(TEST_AVATAR_JPG) as avatar:
             res = self.mutate_update_user(file_data=[("avatar", avatar)])
         file_url = res["user"]["avatar"]
-        assert is_slug_match(TEST_AVATAR_JPG, file_url)
+        assert is_slug_match(UPLOADED_AVATAR_JPG, file_url)
         assert self.query_user_me()["avatar"] == file_url
 
         # Update some other fields, avatar should stay when sending the old value.
         new_title = "new title"
         new_bio = "new bio"
         res = self.mutate_update_user(title=new_title, bio=new_bio, avatar=file_url)
-        assert is_slug_match(TEST_AVATAR_JPG, res["user"]["avatar"])
+        assert is_slug_match(UPLOADED_AVATAR_JPG, res["user"]["avatar"])
         assert res["user"]["title"] == new_title
         assert res["user"]["bio"] == new_bio
 
@@ -366,7 +367,7 @@ class UserSchemaTests(SkoleSchemaTestCase):
         # and it also shouldn't give any errors.
         res = self.mutate_update_user(avatar="badvalue")
         assert not res["errors"]
-        assert is_slug_match(TEST_AVATAR_JPG, res["user"]["avatar"])
+        assert is_slug_match(UPLOADED_AVATAR_JPG, res["user"]["avatar"])
 
         # Delete the avatar.
         assert get_user_model().objects.get(pk=2).avatar

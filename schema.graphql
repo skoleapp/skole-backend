@@ -289,8 +289,6 @@ type PaginatedSubjectObjectType {
 }
 
 type Query {
-  userMe: UserObjectType
-  user(id: ID): UserObjectType
   subjects(school: ID): [PaginatedSubjectObjectType]
   autocompleteSubjects(name: String): [SubjectObjectType]
   subject(id: ID): SubjectObjectType
@@ -301,11 +299,13 @@ type Query {
   resourceTypes: [ResourceTypeObjectType]
   autocompleteResourceTypes: [ResourceTypeObjectType]
   resources(course: ID): PaginatedResourceObjectType
-  createdResources(page: Int, pageSize: Int, ordering: String): PaginatedResourceObjectType
+  createdResources(user: ID, page: Int, pageSize: Int, ordering: String): PaginatedResourceObjectType
+  starredResources(page: Int, pageSize: Int, ordering: String): PaginatedResourceObjectType
   resource(id: ID): ResourceObjectType
   courses(courseName: String, courseCode: String, subject: ID, school: ID, schoolType: ID, country: ID, city: ID, page: Int, pageSize: Int, ordering: String): PaginatedCourseObjectType
   autocompleteCourses(school: ID, name: String): [CourseObjectType]
   createdCourses(user: ID, page: Int, pageSize: Int, ordering: String): PaginatedCourseObjectType
+  starredCourses(user: ID, page: Int, pageSize: Int, ordering: String): PaginatedCourseObjectType
   course(id: ID): CourseObjectType
   autocompleteCountries: [CountryObjectType]
   country(id: ID): CountryObjectType
@@ -313,6 +313,8 @@ type Query {
   city(id: ID): CityObjectType
   activities(page: Int, pageSize: Int): PaginatedActivityObjectType
   activityPreview: [ActivityObjectType]
+  userMe: UserObjectType
+  user(id: ID): UserObjectType
 }
 
 input RegisterMutationInput {

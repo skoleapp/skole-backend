@@ -35,13 +35,14 @@ class SchoolTypeSchemaTests(SkoleSchemaTestCase):
         graphql = (
             self.school_type_fields
             + """
-            query SchoolType($id: ID!) {
+            query SchoolType($id: ID) {
                 schoolType(id: $id) {
                     ...schoolTypeFields
                 }
             }
             """
         )
+
         return self.execute(graphql, variables=variables)
 
     def test_field_fragment(self) -> None:

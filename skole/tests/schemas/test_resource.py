@@ -6,10 +6,10 @@ import requests
 from django.http import HttpResponse
 from django.test import override_settings
 
+from skole.models import Resource
 from skole.tests.helpers import (
     TEST_ATTACHMENT_PNG,
     TEST_RESOURCE_PDF,
-    UPLOADED_RESOURCE_PDF,
     FileData,
     SkoleSchemaTestCase,
     get_form_error,
@@ -60,18 +60,61 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
         }
     """
 
+    def query_created_resources(
+        self,
+        user: ID = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        assert_error: bool = False,
+    ) -> JsonDict:
+        variables = {
+            "user": user,
+            "page": page,
+            "pageSize": page_size,
+        }
+
+        # langauge=GraphQL
+        graphql = (
+            self.resource_fields
+            + """
+                query CreatedResources (
+                    $user: ID,
+                    $page: Int,
+                    $pageSize: Int
+                ) {
+                    createdResources (
+                        user: $user,
+                        page: $page,
+                        pageSize: $pageSize
+                    ) {
+                        page
+                        pages
+                        hasNext
+                        hasPrev
+                        count
+                        objects {
+                            ...resourceFields
+                        }
+                    }
+                }
+            """
+        )
+
+        return self.execute(graphql, variables=variables, assert_error=assert_error)
+
     def query_resource(self, *, id: ID) -> JsonDict:
         # language=GraphQL
         graphql = (
             self.resource_fields
             + """
-            query Resource($id: ID!) {
+            query Resource($id: ID) {
                 resource(id: $id) {
                     ...resourceFields
                 }
             }
             """
         )
+
         return self.execute(graphql, variables={"id": id})
 
     def mutate_create_resource(
@@ -129,6 +172,53 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
             assert_error=assert_error,
         )
 
+    def test_created_resources(self) -> None:
+        page = 1
+        page_size = 1
+
+        res = self.query_created_resources(
+            user=self.authenticated_user, page=page, page_size=page_size
+        )
+
+        assert len(res["objects"]) == page_size
+
+        # Test that only resources of the correct user are returned.
+        for course in res["objects"]:
+            assert course["user"]["id"] == str(self.authenticated_user)
+
+        assert res["count"] == 2
+        assert res["page"] == page
+        assert res["pages"] == 2
+        assert res["hasNext"] is True
+        assert res["hasPrev"] is False
+
+        page = 2
+
+        res = self.query_created_resources(
+            user=self.authenticated_user, page=page, page_size=page_size
+        )
+
+        assert len(res["objects"]) == page_size
+
+        # Test that only resources of the correct user are returned.
+        for course in res["objects"]:
+            assert course["user"]["id"] == str(self.authenticated_user)
+
+        assert res["count"] == 2
+        assert res["page"] == page
+        assert res["pages"] == 2
+        assert res["hasNext"] is False
+        assert res["hasPrev"] is True
+
+        # Test for some user that has created no resources.
+        page = 1
+        res = self.query_created_resources(user=9, page=page, page_size=page_size)
+        assert res["count"] == 0
+        assert res["page"] == page
+        assert res["pages"] == 1
+        assert res["hasNext"] is False
+        assert res["hasPrev"] is False
+
     def test_resource(self) -> None:
         with override_settings(DEBUG=True):  # To access media.
             resource = self.query_resource(id=1)
@@ -149,9 +239,9 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
 
         resource = res["resource"]
         assert not res["errors"]
-        assert resource["id"] == "4"
+        assert resource["id"] == "5"
         assert resource["title"] == "test title"
-        assert is_slug_match(UPLOADED_RESOURCE_PDF, resource["file"])
+        assert is_slug_match(TEST_RESOURCE_PDF, resource["file"])
 
         # These should be 0 by default.
         assert resource["starCount"] == 0
@@ -168,8 +258,10 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
 
         resource = res["resource"]
         assert not res["errors"]
-        assert resource["id"] == "5"
-        assert is_slug_match(UPLOADED_RESOURCE_PDF, resource["file"])
+        assert resource["id"] == "6"
+        assert is_slug_match(
+            "/media/uploads/resources/test_attachment.pdf", resource["file"]
+        )
 
         # Can't create a resource with no file.
         res = self.mutate_create_resource()

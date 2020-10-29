@@ -1,4 +1,4 @@
-from typing import Optional, cast
+from typing import Optional
 
 import graphene
 from django.conf import settings
@@ -8,7 +8,7 @@ from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 
 from skole.forms import CreateResourceForm, DeleteResourceForm, UpdateResourceForm
-from skole.models import Resource, School, User
+from skole.models import Resource, School
 from skole.schemas.mixins import (
     PaginationMixin,
     SkoleCreateUpdateMutationMixin,
@@ -117,10 +117,19 @@ class Query(graphene.ObjectType):
 
     created_resources = graphene.Field(
         PaginatedResourceObjectType,
+        user=graphene.ID(),
         page=graphene.Int(),
         page_size=graphene.Int(),
         ordering=graphene.String(),
         description=APIDescriptions.CREATED_RESOURCES,
+    )
+
+    starred_resources = graphene.Field(
+        PaginatedResourceObjectType,
+        page=graphene.Int(),
+        page_size=graphene.Int(),
+        ordering=graphene.String(),
+        description=APIDescriptions.STARRED_RESOURCES,
     )
 
     resource = graphene.Field(
@@ -150,10 +159,10 @@ class Query(graphene.ObjectType):
         page: int = 1,
         page_size: int = settings.DEFAULT_PAGE_SIZE,
     ) -> graphene.ObjectType:
-        if user is not None and user != info.context.user.pk:
+        if user is not None:
             user_from_db = get_user_model().objects.get_or_none(pk=user)
         else:
-            user_from_db = cast(User, info.context.user)
+            user_from_db = None
 
         if user_from_db is not None:
             qs: QuerySet[Resource] = user_from_db.created_resources.all()
@@ -161,6 +170,16 @@ class Query(graphene.ObjectType):
             # The user with the provided ID does not exist, we return an empty list.
             qs = Resource.objects.none()
 
+        return get_paginator(qs, page_size, page, PaginatedResourceObjectType)
+
+    @staticmethod
+    def resolve_starred_resources(
+        root: None,
+        info: ResolveInfo,
+        page: int = 1,
+        page_size: int = settings.DEFAULT_PAGE_SIZE,
+    ) -> QuerySet[Resource]:
+        qs = Resource.objects.filter(stars__user__pk=info.context.user.pk)
         return get_paginator(qs, page_size, page, PaginatedResourceObjectType)
 
     @staticmethod

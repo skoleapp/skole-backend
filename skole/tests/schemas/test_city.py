@@ -35,7 +35,7 @@ class CitySchemaTests(SkoleSchemaTestCase):
         graphql = (
             self.city_fields
             + """
-            query City($id: ID!) {
+            query City($id: ID) {
                 city(id: $id) {
                     ...cityFields
                 }

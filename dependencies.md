@@ -20,6 +20,7 @@ This document explains the need for every top level dependency the project has.
 | [django-s3-storage](https://pypi.org/project/django-s3-storage/)     | Use AWS S3 as Django's storage backend            |
 | [graphene-django](https://pypi.org/project/graphene-django/)         | Use GraphQL with Django                           |
 | [gunicorn](https://pypi.org/project/gunicorn/)                       | Production webserver                              |
+| [mat2](https://pypi.org/project/mat2/)                               | Clean metadata from files                         |
 | [psycopg2](https://pypi.org/project/psycopg2/)                       | Connect to PostgreSQL                             |
 | [python-magic](https://pypi.org/project/python-magic/)               | Detect file types for validation                  |
 | [requests](https://pypi.org/project/requests/)                       | Better HTTP requests for calling external APIs    |
@@ -52,9 +53,15 @@ This document explains the need for every top level dependency the project has.
 
 ### Runtime packages
 
-| Dependency                                                                                   | Reason                              |
-| :------------------------------------------------------------------------------------------- | :---------------------------------- |
-| [gettext](https://pkgs.alpinelinux.org/package/edge/main/x86_64/gettext)                     | Run Django compilemessages          |
-| [jpeg-dev](https://pkgs.alpinelinux.org/package/edge/main/x86_64/jpeg-dev)                   | Build and use Pillow                |
-| [libmagic](https://pkgs.alpinelinux.org/package/edge/main/x86_64/libmagic)                   | Guess file types with python-magic  |
-| [postgresql-client](https://pkgs.alpinelinux.org/package/edge/main/x86_64/postgresql-client) | Connect to PostgreSQL with psycopg2 |
+| Dependency                                                                                                    | Reason                                        |
+| :-------------------------------------------------------------------------------------------                  | :----------------------------------           |
+| [cairo-dev](https://pkgs.alpinelinux.org/package/edge/main/x86_64/cairo-dev )                                 | Build and use mat2 to clean file metadata     |
+| [exiftool](https://pkgs.alpinelinux.org/package/edge/main/x86_64/exiftool )                                   | Use mat2 to clean file metadata               |
+| [gdk-pixbuf-dev](https://pkgs.alpinelinux.org/package/edge/main/x86_64/gdk-pixbuf-dev )                       | Use mat2 to clean file metadata               |
+| [gettext](https://pkgs.alpinelinux.org/package/edge/main/x86_64/gettext)                                      | Run Django compilemessages                    |
+| [gobject-introspection-dev](https://pkgs.alpinelinux.org/package/edge/main/x86_64/gobject-introspection-dev ) | Build and use mat2 to clean file metadata     |
+| [jpeg-dev](https://pkgs.alpinelinux.org/package/edge/main/x86_64/jpeg-dev)                                    | Build and use Pillow                          |
+| [libmagic](https://pkgs.alpinelinux.org/package/edge/main/x86_64/libmagic)                                    | Guess file types with python-magic            |
+| [librsvg-dev](https://pkgs.alpinelinux.org/package/edge/main/x86_64/librsvg-dev )                             | Use mat2 to clean file metadata               |
+| [poppler-dev](https://pkgs.alpinelinux.org/package/edge/main/x86_64/poppler-dev)                              | Use mat2 to clean file metadata               |
+| [postgresql-client](https://pkgs.alpinelinux.org/package/edge/main/x86_64/postgresql-client)                  | Connect to PostgreSQL with psycopg2           |

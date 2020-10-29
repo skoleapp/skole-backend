@@ -7,7 +7,6 @@ from skole.models import Activity, ActivityType, Comment
 from skole.utils.constants import ActivityTypes
 
 
-# Create activities for comment replies, course and resource comments.
 @receiver(post_save, sender=Comment)
 def create_activity(
     sender: Comment, instance: Comment, created: bool, raw: bool, **kwargs: Any

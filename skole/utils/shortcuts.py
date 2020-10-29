@@ -1,8 +1,6 @@
-from pathlib import Path
-from typing import Any, Callable, Optional, Type, TypeVar, Union
+from typing import Any, Type, TypeVar
 
 from django import forms
-from django.core.files import File
 from django.db.models import Model
 
 from skole.types import JsonDict
@@ -10,53 +8,6 @@ from skole.utils.constants import ValidationErrors
 
 T = TypeVar("T")
 M = TypeVar("M", bound=Model)
-
-
-def clean_file_field(
-    form: forms.ModelForm,
-    field_name: str,
-    created_file_name: str,
-    conversion_func: Optional[Callable[[File], File]] = None,
-) -> Union[File, str]:
-    """
-    Use in a ModelForm to conveniently handle FileField clearing and updating.
-
-    Args:
-        form: The form that the file field belongs to.
-        field_name: The name of the form field where the file is.
-        created_file_name: If a new file was uploaded, this will become the name of it.
-        conversion_func: Optional converter function to pass the file through,
-            when the value has changed.
-
-    Raises:
-        ValidationError: If the form field was marked as required and this
-            function's return value would be empty.
-
-    See `CreateResourceForm.clean_file` for example usage.
-    """
-    assert form.files is not None
-    file: Union[File, str]
-
-    if uploaded := form.files.get("1"):
-        # New value for the field.
-        file = conversion_func(uploaded) if conversion_func is not None else uploaded
-        file.name = created_file_name + Path(file.name).suffix
-    elif not form.data[field_name]:
-        # Field value deleted (frontend submitted "" or null value).
-        # We can't access this from `cleaned_data`, since the file is actually put
-        # there automatically by Django, because normally the file is only meant to be
-        # cleared by submitting a "false" value from the ClearableFileInput's checkbox.
-        file = ""
-    else:
-        # Field not modified.
-        file = getattr(form.instance, field_name)
-
-    if not file and form.fields[field_name].required:
-        raise forms.ValidationError(
-            form.fields[field_name].error_messages["required"], code="required"
-        )
-
-    return file
 
 
 def full_refresh_from_db(instance: M, /) -> M:

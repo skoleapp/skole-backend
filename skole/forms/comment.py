@@ -1,21 +1,25 @@
-from typing import Any, Union, cast
+from typing import Any, Optional, Union, cast
 
 from django import forms
 from django.core.files import File
 
 from skole.models import Comment
 from skole.types import JsonDict
-from skole.utils.constants import ValidationErrors
-from skole.utils.shortcuts import clean_file_field, validate_single_target
+from skole.utils.constants import FieldOperation, ValidationErrors
+from skole.utils.files import clean_file_field, clean_metadata
+from skole.utils.shortcuts import validate_single_target
 
 from .base import SkoleModelForm, SkoleUpdateModelForm
 
 
 class _CommentFormMixin:
+
     attachment = forms.CharField(required=False)
 
+    attachment_operation: Optional[FieldOperation] = None
+
     def clean_attachment(self) -> Union[File, str]:
-        attachment = clean_file_field(
+        attachment, self.attachment_operation = clean_file_field(
             form=cast(forms.ModelForm, self),
             field_name="attachment",
             created_file_name="attachment",
@@ -45,9 +49,16 @@ class CreateCommentForm(_CommentFormMixin, SkoleModelForm):
 
     def save(self, commit: bool = True) -> Comment:
         assert self.request is not None
+
         if self.request.user.is_authenticated:
             self.instance.user = self.request.user
-        return super().save()
+
+        self.instance = super().save(commit)
+
+        if self.attachment_operation == FieldOperation.NEW_VALUE:
+            clean_metadata(self.instance.attachment.path)
+
+        return self.instance
 
 
 class UpdateCommentForm(_CommentFormMixin, SkoleUpdateModelForm):

@@ -13,7 +13,7 @@ COPY --chown=user:user requirements.txt .
 COPY --chown=user:user requirements-dev.txt .
 
 RUN apk update \
-    && apk add gettext jpeg-dev libmagic postgresql-client \
+    && apk add cairo-dev exiftool gettext gdk-pixbuf-dev gobject-introspection-dev jpeg-dev libmagic librsvg-dev poppler-dev postgresql-client \
     && apk add --virtual=/tmp/build_deps gcc musl-dev postgresql-dev zlib-dev \
     && su user -c 'pip install --user --no-cache-dir --disable-pip-version-check pip==20.2.4' \
     && su user -c 'pip install --user --no-cache-dir -r requirements.txt -r requirements-dev.txt' \

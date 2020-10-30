@@ -298,13 +298,11 @@ type Query {
   school(id: ID): SchoolObjectType
   resourceTypes: [ResourceTypeObjectType]
   autocompleteResourceTypes: [ResourceTypeObjectType]
-  resources(course: ID): PaginatedResourceObjectType
-  createdResources(user: ID, page: Int, pageSize: Int, ordering: String): PaginatedResourceObjectType
+  resources(user: ID, course: ID, page: Int, pageSize: Int, ordering: String): PaginatedResourceObjectType
   starredResources(page: Int, pageSize: Int, ordering: String): PaginatedResourceObjectType
   resource(id: ID): ResourceObjectType
-  courses(courseName: String, courseCode: String, subject: ID, school: ID, schoolType: ID, country: ID, city: ID, page: Int, pageSize: Int, ordering: String): PaginatedCourseObjectType
+  courses(courseName: String, courseCode: String, subject: ID, school: ID, schoolType: ID, country: ID, city: ID, user: ID, page: Int, pageSize: Int, ordering: String): PaginatedCourseObjectType
   autocompleteCourses(school: ID, name: String): [CourseObjectType]
-  createdCourses(user: ID, page: Int, pageSize: Int): PaginatedCourseObjectType
   starredCourses(user: ID, page: Int, pageSize: Int, ordering: String): PaginatedCourseObjectType
   course(id: ID): CourseObjectType
   autocompleteCountries: [CountryObjectType]

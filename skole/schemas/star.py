@@ -10,13 +10,13 @@ from skole.forms import CreateStarForm
 from skole.models import Star, User
 from skole.schemas.mixins import SkoleCreateUpdateMutationMixin
 from skole.types import ResolveInfo
-from skole.utils.api_descriptions import APIDescriptions
+from skole.utils import api_descriptions
 
 
 class StarObjectType(DjangoObjectType):
     class Meta:
         model = Star
-        description = APIDescriptions.STAR_OBJECT_TYPE
+        description = api_descriptions.STAR_OBJECT_TYPE
 
 
 class StarMutation(SkoleCreateUpdateMutationMixin, DjangoModelFormMutation):
@@ -38,4 +38,4 @@ class StarMutation(SkoleCreateUpdateMutationMixin, DjangoModelFormMutation):
 
 
 class Mutation(graphene.ObjectType):
-    star = StarMutation.Field(description=APIDescriptions.STAR)
+    star = StarMutation.Field(description=api_descriptions.STAR)

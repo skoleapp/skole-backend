@@ -2,7 +2,6 @@ from typing import Optional, get_args
 
 import graphene
 from django.conf import settings
-from django.contrib.auth import get_user_model
 from django.db.models import F, QuerySet
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
@@ -20,7 +19,7 @@ from skole.schemas.mixins import (
     VoteMixin,
 )
 from skole.types import ID, CourseOrderingOption, ResolveInfo
-from skole.utils.api_descriptions import APIDescriptions
+from skole.utils import api_descriptions
 from skole.utils.constants import GraphQLErrors, Messages
 from skole.utils.pagination import get_paginator
 
@@ -47,7 +46,7 @@ class CourseObjectType(VoteMixin, StarMixin, DjangoObjectType):
 
     class Meta:
         model = Course
-        description = APIDescriptions.COURSE_OBJECT_TYPE
+        description = api_descriptions.COURSE_OBJECT_TYPE
         fields = (
             "id",
             "name",
@@ -89,7 +88,7 @@ class PaginatedCourseObjectType(PaginationMixin, graphene.ObjectType):
     objects = graphene.List(CourseObjectType)
 
     class Meta:
-        description = APIDescriptions.PAGINATED_COURSE_OBJECT_TYPE
+        description = api_descriptions.PAGINATED_COURSE_OBJECT_TYPE
 
 
 class CreateCourseMutation(
@@ -121,25 +120,18 @@ class Query(graphene.ObjectType):
         school_type=graphene.ID(),
         country=graphene.ID(),
         city=graphene.ID(),
+        user=graphene.ID(),
         page=graphene.Int(),
         page_size=graphene.Int(),
         ordering=graphene.String(),
-        description=APIDescriptions.COURSES,
+        description=api_descriptions.COURSES,
     )
 
     autocomplete_courses = graphene.List(
         CourseObjectType,
         school=graphene.ID(),
         name=graphene.String(),
-        description=APIDescriptions.AUTOCOMPLETE_COURSES,
-    )
-
-    created_courses = graphene.Field(
-        PaginatedCourseObjectType,
-        user=graphene.ID(),
-        page=graphene.Int(),
-        page_size=graphene.Int(),
-        description=APIDescriptions.CREATED_COURSES,
+        description=api_descriptions.AUTOCOMPLETE_COURSES,
     )
 
     starred_courses = graphene.Field(
@@ -148,11 +140,11 @@ class Query(graphene.ObjectType):
         page=graphene.Int(),
         page_size=graphene.Int(),
         ordering=graphene.String(),
-        description=APIDescriptions.STARRED_COURSES,
+        description=api_descriptions.STARRED_COURSES,
     )
 
     course = graphene.Field(
-        CourseObjectType, id=graphene.ID(), description=APIDescriptions.DETAIL_QUERY,
+        CourseObjectType, id=graphene.ID(), description=api_descriptions.DETAIL_QUERY,
     )
 
     @staticmethod
@@ -166,6 +158,7 @@ class Query(graphene.ObjectType):
         school_type: ID = None,
         country: ID = None,
         city: ID = None,
+        user: ID = None,
         page: int = 1,
         page_size: int = settings.DEFAULT_PAGE_SIZE,
         ordering: CourseOrderingOption = "best",
@@ -187,6 +180,8 @@ class Query(graphene.ObjectType):
             qs = qs.filter(school__city__country__pk=country)
         if city is not None:
             qs = qs.filter(school__city__pk=city)
+        if user is not None:
+            qs = qs.filter(user__pk=user)
 
         if ordering not in get_args(CourseOrderingOption):
             raise GraphQLError(GraphQLErrors.INVALID_ORDERING)
@@ -216,24 +211,6 @@ class Query(graphene.ObjectType):
         return qs[: settings.AUTOCOMPLETE_MAX_RESULTS]
 
     @staticmethod
-    def resolve_created_courses(
-        root: None,
-        info: ResolveInfo,
-        user: ID = None,
-        page: int = 1,
-        page_size: int = settings.DEFAULT_PAGE_SIZE,
-    ) -> graphene.ObjectType:
-        user_from_db = get_user_model().objects.get_or_none(pk=user)
-
-        if user_from_db is not None:
-            qs: QuerySet[Course] = user_from_db.created_courses.all()
-        else:
-            # The user with the provided ID does not exist, we return an empty list.
-            qs = Course.objects.none()
-
-        return get_paginator(qs, page_size, page, PaginatedCourseObjectType)
-
-    @staticmethod
     @login_required
     def resolve_starred_courses(
         root: None,
@@ -253,9 +230,9 @@ class Query(graphene.ObjectType):
 
 class Mutation(graphene.ObjectType):
     create_course = CreateCourseMutation.Field(
-        description=APIDescriptions.CREATE_COURSE
+        description=api_descriptions.CREATE_COURSE
     )
 
     delete_course = DeleteCourseMutation.Field(
-        description=APIDescriptions.DELETE_COURSE
+        description=api_descriptions.DELETE_COURSE
     )

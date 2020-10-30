@@ -7,7 +7,7 @@ from graphene_django import DjangoObjectType
 
 from skole.models import City
 from skole.types import ID, ResolveInfo
-from skole.utils.api_descriptions import APIDescriptions
+from skole.utils import api_descriptions
 
 
 class CityObjectType(DjangoObjectType):
@@ -15,17 +15,17 @@ class CityObjectType(DjangoObjectType):
 
     class Meta:
         model = City
-        description = APIDescriptions.CITY_OBJECT_TYPE
+        description = api_descriptions.CITY_OBJECT_TYPE
         fields = ("id", "name")
 
 
 class Query(graphene.ObjectType):
     autocomplete_cities = graphene.List(
-        CityObjectType, description=APIDescriptions.AUTOCOMPLETE_CITIES,
+        CityObjectType, description=api_descriptions.AUTOCOMPLETE_CITIES,
     )
 
     city = graphene.Field(
-        CityObjectType, id=graphene.ID(), description=APIDescriptions.DETAIL_QUERY,
+        CityObjectType, id=graphene.ID(), description=api_descriptions.DETAIL_QUERY,
     )
 
     @staticmethod

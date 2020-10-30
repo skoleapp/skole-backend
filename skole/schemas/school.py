@@ -11,7 +11,7 @@ from skole.schemas.country import CountryObjectType
 from skole.schemas.school_type import SchoolTypeObjectType
 from skole.schemas.subject import SubjectObjectType
 from skole.types import ID, ResolveInfo
-from skole.utils.api_descriptions import APIDescriptions
+from skole.utils import api_descriptions
 
 
 class SchoolObjectType(DjangoObjectType):
@@ -23,7 +23,7 @@ class SchoolObjectType(DjangoObjectType):
 
     class Meta:
         model = School
-        description = APIDescriptions.SCHOOL_OBJECT_TYPE
+        description = api_descriptions.SCHOOL_OBJECT_TYPE
         fields = (
             "id",
             "name",
@@ -43,11 +43,11 @@ class Query(graphene.ObjectType):
     autocomplete_schools = graphene.List(
         SchoolObjectType,
         name=graphene.String(),
-        description=APIDescriptions.AUTOCOMPLETE_SCHOOLS,
+        description=api_descriptions.AUTOCOMPLETE_SCHOOLS,
     )
 
     school = graphene.Field(
-        SchoolObjectType, id=graphene.ID(), description=APIDescriptions.DETAIL_QUERY,
+        SchoolObjectType, id=graphene.ID(), description=api_descriptions.DETAIL_QUERY,
     )
 
     @staticmethod

@@ -2,8 +2,7 @@ from typing import Optional
 
 import graphene
 from django.conf import settings
-from django.contrib.auth import get_user_model
-from django.db.models import QuerySet
+from django.db.models import F, QuerySet
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphql_jwt.decorators import login_required
@@ -21,9 +20,22 @@ from skole.schemas.mixins import (
 from skole.schemas.resource_type import ResourceTypeObjectType
 from skole.schemas.school import SchoolObjectType
 from skole.types import ID, ResolveInfo
-from skole.utils.api_descriptions import APIDescriptions
+from skole.utils import api_descriptions
 from skole.utils.constants import Messages
 from skole.utils.pagination import get_paginator
+
+
+def order_resources_with_secret_algorithm(qs: QuerySet[Resource]) -> QuerySet[Resource]:
+    """
+    Sort the given queryset so that the most interesting resources come first.
+
+    No deep logic in this, should just be a formula that makes the most sense for
+    determining the most interesting resources.
+
+    The ordering formula/value should not be exposed to the frontend.
+    """
+
+    return qs.order_by(-(3 * F("score") + F("comment_count")), "title")
 
 
 class ResourceObjectType(VoteMixin, StarMixin, DjangoObjectType):
@@ -34,7 +46,7 @@ class ResourceObjectType(VoteMixin, StarMixin, DjangoObjectType):
 
     class Meta:
         model = Resource
-        description = APIDescriptions.RESOURCE_OBJECT_TYPE
+        description = api_descriptions.RESOURCE_OBJECT_TYPE
         fields = (
             "id",
             "file",
@@ -112,17 +124,12 @@ class DeleteResourceMutation(SkoleDeleteMutationMixin, DjangoModelFormMutation):
 class Query(graphene.ObjectType):
     resources = graphene.Field(
         PaginatedResourceObjectType,
-        course=graphene.ID(),
-        description=APIDescriptions.RESOURCES,
-    )
-
-    created_resources = graphene.Field(
-        PaginatedResourceObjectType,
         user=graphene.ID(),
+        course=graphene.ID(),
         page=graphene.Int(),
         page_size=graphene.Int(),
         ordering=graphene.String(),
-        description=APIDescriptions.CREATED_RESOURCES,
+        description=api_descriptions.RESOURCES,
     )
 
     starred_resources = graphene.Field(
@@ -130,47 +137,30 @@ class Query(graphene.ObjectType):
         page=graphene.Int(),
         page_size=graphene.Int(),
         ordering=graphene.String(),
-        description=APIDescriptions.STARRED_RESOURCES,
+        description=api_descriptions.STARRED_RESOURCES,
     )
 
     resource = graphene.Field(
-        ResourceObjectType, id=graphene.ID(), description=APIDescriptions.RESOURCE,
+        ResourceObjectType, id=graphene.ID(), description=api_descriptions.RESOURCE,
     )
 
     @staticmethod
     def resolve_resources(
         root: None,
         info: ResolveInfo,
-        page: int = 1,
-        course: ID = None,
-        page_size: int = settings.DEFAULT_PAGE_SIZE,
-    ) -> graphene.ObjectType:
-        if course is not None:
-            qs = Resource.objects.filter(course__pk=course)
-        else:
-            qs = Resource.objects.none()
-
-        return get_paginator(qs, page_size, page, PaginatedResourceObjectType)
-
-    @staticmethod
-    def resolve_created_resources(
-        root: None,
-        info: ResolveInfo,
         user: ID = None,
+        course: ID = None,
         page: int = 1,
         page_size: int = settings.DEFAULT_PAGE_SIZE,
     ) -> graphene.ObjectType:
+        qs: QuerySet[Resource] = Resource.objects.all()
+
         if user is not None:
-            user_from_db = get_user_model().objects.get_or_none(pk=user)
-        else:
-            user_from_db = None
+            qs = qs.filter(user__pk=user)
+        if course is not None:
+            qs = qs.filter(course__pk=course)
 
-        if user_from_db is not None:
-            qs: QuerySet[Resource] = user_from_db.created_resources.all()
-        else:
-            # The user with the provided ID does not exist, we return an empty list.
-            qs = Resource.objects.none()
-
+        qs = order_resources_with_secret_algorithm(qs)
         return get_paginator(qs, page_size, page, PaginatedResourceObjectType)
 
     @staticmethod
@@ -193,13 +183,13 @@ class Query(graphene.ObjectType):
 
 class Mutation(graphene.ObjectType):
     create_resource = CreateResourceMutation.Field(
-        description=APIDescriptions.CREATE_RESOURCE
+        description=api_descriptions.CREATE_RESOURCE
     )
 
     update_resource = UpdateResourceMutation.Field(
-        description=APIDescriptions.UPDATE_RESOURCE
+        description=api_descriptions.UPDATE_RESOURCE
     )
 
     delete_resource = DeleteResourceMutation.Field(
-        description=APIDescriptions.DELETE_RESOURCE
+        description=api_descriptions.DELETE_RESOURCE
     )

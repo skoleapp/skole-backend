@@ -5,7 +5,7 @@ from graphene_django import DjangoObjectType
 
 from skole.models import ResourceType
 from skole.types import ResolveInfo
-from skole.utils.api_descriptions import APIDescriptions
+from skole.utils import api_descriptions
 
 
 class ResourceTypeObjectType(DjangoObjectType):
@@ -13,17 +13,18 @@ class ResourceTypeObjectType(DjangoObjectType):
 
     class Meta:
         model = ResourceType
-        description = APIDescriptions.RESOURCE_TYPE_OBJECT_TYPE
+        description = api_descriptions.RESOURCE_TYPE_OBJECT_TYPE
         fields = ("id", "name")
 
 
 class Query(graphene.ObjectType):
     resource_types = graphene.List(
-        ResourceTypeObjectType, description=APIDescriptions.RESOURCE_TYPES,
+        ResourceTypeObjectType, description=api_descriptions.RESOURCE_TYPES,
     )
 
     autocomplete_resource_types = graphene.List(
-        ResourceTypeObjectType, description=APIDescriptions.AUTOCOMPLETE_RESOURCE_TYPES,
+        ResourceTypeObjectType,
+        description=api_descriptions.AUTOCOMPLETE_RESOURCE_TYPES,
     )
 
     # Querying a single ResourceType is not needed.

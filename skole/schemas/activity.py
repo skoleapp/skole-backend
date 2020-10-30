@@ -14,7 +14,7 @@ from skole.forms import MarkActivityAsReadForm
 from skole.models import Activity, User
 from skole.schemas.mixins import PaginationMixin, SkoleCreateUpdateMutationMixin
 from skole.types import JsonDict, ResolveInfo
-from skole.utils.api_descriptions import APIDescriptions
+from skole.utils import api_descriptions
 from skole.utils.pagination import get_paginator
 
 
@@ -24,7 +24,7 @@ class ActivityObjectType(DjangoObjectType):
 
     class Meta:
         model = Activity
-        description = APIDescriptions.ACTIVITY_OBJECT_TYPE
+        description = api_descriptions.ACTIVITY_OBJECT_TYPE
         fields = (
             "id",
             "description",
@@ -48,7 +48,7 @@ class PaginatedActivityObjectType(PaginationMixin, graphene.ObjectType):
     objects = graphene.List(ActivityObjectType)
 
     class Meta:
-        description = APIDescriptions.PAGINATED_ACTIVITY_OBJECT_TYPE
+        description = api_descriptions.PAGINATED_ACTIVITY_OBJECT_TYPE
 
 
 class MarkActivityAsReadMutation(
@@ -81,11 +81,11 @@ class MarkAllActivitiesAsReadMutation(
 
 class Mutation(graphene.ObjectType):
     mark_activity_as_read = MarkActivityAsReadMutation.Field(
-        description=APIDescriptions.MARK_ACTIVITY_AS_READ
+        description=api_descriptions.MARK_ACTIVITY_AS_READ
     )
 
     mark_all_activities_as_read = MarkAllActivitiesAsReadMutation.Field(
-        description=APIDescriptions.MARK_ALL_ACTIVITIES_AS_READ
+        description=api_descriptions.MARK_ALL_ACTIVITIES_AS_READ
     )
 
 
@@ -94,11 +94,11 @@ class Query(graphene.ObjectType):
         PaginatedActivityObjectType,
         page=graphene.Int(),
         page_size=graphene.Int(),
-        description=APIDescriptions.ACTIVITY,
+        description=api_descriptions.ACTIVITY,
     )
 
     activity_preview = graphene.List(
-        ActivityObjectType, description=APIDescriptions.ACTIVITY_PREVIEW
+        ActivityObjectType, description=api_descriptions.ACTIVITY_PREVIEW
     )
 
     @staticmethod

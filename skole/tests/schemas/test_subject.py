@@ -50,6 +50,9 @@ class SubjectSchemaTests(SkoleSchemaTestCase):
         self.authenticated_user = None
         self.assert_field_fragment_matches_schema(self.subject_fields)
 
+    def test_subjects(self) -> None:
+        pass
+
     def test_autocomplete_subjects(self) -> None:
         subjects = self.query_autocomplete_subjects()
 

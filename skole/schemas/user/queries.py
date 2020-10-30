@@ -6,16 +6,16 @@ from graphql_jwt.decorators import login_required
 
 from skole.models import User
 from skole.types import ID, ResolveInfo
-from skole.utils.api_descriptions import APIDescriptions
+from skole.utils import api_descriptions
 
 from .object_types import UserObjectType
 
 
 class Query(graphene.ObjectType):
-    user_me = graphene.Field(UserObjectType, description=APIDescriptions.USER_ME,)
+    user_me = graphene.Field(UserObjectType, description=api_descriptions.USER_ME,)
 
     user = graphene.Field(
-        UserObjectType, id=graphene.ID(), description=APIDescriptions.USER,
+        UserObjectType, id=graphene.ID(), description=api_descriptions.USER,
     )
 
     @staticmethod

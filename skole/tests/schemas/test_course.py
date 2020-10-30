@@ -79,6 +79,7 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         school_type: ID = None,
         country: ID = None,
         city: ID = None,
+        user: ID = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         ordering: Optional[CourseOrderingOption] = None,
@@ -92,6 +93,7 @@ class CourseSchemaTests(SkoleSchemaTestCase):
             "schoolType": school_type,
             "country": country,
             "city": city,
+            "user": user,
             "page": page,
             "pageSize": page_size,
             "ordering": ordering,
@@ -104,12 +106,12 @@ class CourseSchemaTests(SkoleSchemaTestCase):
             query Courses (
                 $courseName: String, $courseCode: String, $subject: ID,
                 $school: ID, $schoolType: ID, $country: ID,
-                $city: ID, $page: Int, $pageSize: Int, $ordering: String
+                $city: ID, $user: ID, $page: Int, $pageSize: Int, $ordering: String
             ) {
                 courses(
                     courseName: $courseName, courseCode: $courseCode, subject: $subject,
                     school: $school, schoolType: $schoolType, country: $country,
-                    city: $city, page: $page, pageSize: $pageSize, ordering: $ordering
+                    city: $city, user: $user, page: $page, pageSize: $pageSize, ordering: $ordering
                 ) {
                     page
                     pages
@@ -121,49 +123,6 @@ class CourseSchemaTests(SkoleSchemaTestCase):
                     }
                 }
             }
-            """
-        )
-
-        return self.execute(graphql, variables=variables, assert_error=assert_error)
-
-    def query_created_courses(
-        self,
-        *,
-        user: ID = None,
-        page: Optional[int] = None,
-        page_size: Optional[int] = None,
-        assert_error: bool = False,
-    ) -> JsonDict:
-        variables = {
-            "user": user,
-            "page": page,
-            "pageSize": page_size,
-        }
-
-        # langauge=GraphQL
-        graphql = (
-            self.course_fields
-            + """
-                query CreatedCourses (
-                    $user: ID,
-                    $page: Int,
-                    $pageSize: Int
-                ) {
-                    createdCourses (
-                        user: $user,
-                        page: $page,
-                        pageSize: $pageSize
-                    ) {
-                        page
-                        pages
-                        hasNext
-                        hasPrev
-                        count
-                        objects {
-                            ...courseFields
-                        }
-                    }
-                }
             """
         )
 
@@ -422,6 +381,19 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         assert res["count"] == len(res["objects"]) == 2
         assert res["objects"][0]["code"] == "TEST0002"
         assert res["objects"][1]["code"] == "TEST00012"
+
+        # Test that only courses of the correct user are returned.
+        res = self.query_courses(user=self.authenticated_user)
+
+        for course_obj in res["objects"]:
+            assert course_obj["user"]["id"] == str(self.authenticated_user)
+
+        # Test for some user that has created no courses.
+        res = self.query_courses(user=10)
+        assert len(res["objects"]) == 0
+        assert res["count"] == 0
+
+        # Test with invalid ordering.
         res = self.query_courses(ordering="badvalue", assert_error=True)  # type: ignore[arg-type]
         assert get_graphql_error(res) == GraphQLErrors.INVALID_ORDERING
 
@@ -437,53 +409,6 @@ class CourseSchemaTests(SkoleSchemaTestCase):
 
         # TODO: Test that no more than the maximum limit of results are returned.
         # Currently we don't have enough test courses to exceed the limit.
-
-    def test_created_courses(self) -> None:
-        page = 1
-        page_size = 2
-
-        res = self.query_created_courses(
-            user=self.authenticated_user, page=page, page_size=page_size
-        )
-
-        assert len(res["objects"]) == page_size
-
-        # Test that only courses of the correct user are returned.
-        for course in res["objects"]:
-            assert course["user"]["id"] == str(self.authenticated_user)
-
-        assert res["count"] == 4
-        assert res["page"] == page
-        assert res["pages"] == 2
-        assert res["hasNext"] is True
-        assert res["hasPrev"] is False
-
-        page = 2
-
-        res = self.query_created_courses(
-            user=self.authenticated_user, page=page, page_size=page_size
-        )
-
-        assert len(res["objects"]) == page_size
-
-        # Test that only courses of the correct user are returned.
-        for course in res["objects"]:
-            assert course["user"]["id"] == str(self.authenticated_user)
-
-        assert res["count"] == 4
-        assert res["page"] == page
-        assert res["pages"] == 2
-        assert res["hasNext"] is False
-        assert res["hasPrev"] is True
-
-        # Test for some user that has created no courses.
-        page = 1
-        res = self.query_created_courses(user=10, page=page, page_size=page_size)
-        assert res["count"] == 0
-        assert res["page"] == page
-        assert res["pages"] == 1
-        assert res["hasNext"] is False
-        assert res["hasPrev"] is False
 
     def test_starred_courses(self) -> None:
         page = 1

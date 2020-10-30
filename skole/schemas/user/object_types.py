@@ -10,7 +10,7 @@ from skole.schemas.badge import BadgeObjectType
 from skole.schemas.school import SchoolObjectType
 from skole.schemas.subject import SubjectObjectType
 from skole.types import ResolveInfo
-from skole.utils.api_descriptions import APIDescriptions
+from skole.utils import api_descriptions
 from skole.utils.decorators import private_field
 
 
@@ -28,7 +28,7 @@ class UserObjectType(DjangoObjectType):
 
     class Meta:
         model = get_user_model()
-        description = APIDescriptions.USER_OBJECT_TYPE
+        description = api_descriptions.USER_OBJECT_TYPE
 
         fields = (
             "id",

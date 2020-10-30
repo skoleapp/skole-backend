@@ -7,7 +7,7 @@ from graphene_django import DjangoObjectType
 
 from skole.models import SchoolType
 from skole.types import ID, ResolveInfo
-from skole.utils.api_descriptions import APIDescriptions
+from skole.utils import api_descriptions
 
 
 class SchoolTypeObjectType(DjangoObjectType):
@@ -15,19 +15,19 @@ class SchoolTypeObjectType(DjangoObjectType):
 
     class Meta:
         model = SchoolType
-        description = APIDescriptions.SCHOOL_TYPE_OBJECT_TYPE
+        description = api_descriptions.SCHOOL_TYPE_OBJECT_TYPE
         fields = ("id", "name")
 
 
 class Query(graphene.ObjectType):
     autocomplete_school_types = graphene.List(
-        SchoolTypeObjectType, description=APIDescriptions.AUTOCOMPLETE_SCHOOL_TYPES,
+        SchoolTypeObjectType, description=api_descriptions.AUTOCOMPLETE_SCHOOL_TYPES,
     )
 
     school_type = graphene.Field(
         SchoolTypeObjectType,
         id=graphene.ID(),
-        description=APIDescriptions.DETAIL_QUERY,
+        description=api_descriptions.DETAIL_QUERY,
     )
 
     @staticmethod

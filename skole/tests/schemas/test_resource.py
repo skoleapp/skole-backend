@@ -62,15 +62,18 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
         }
     """
 
-    def query_created_resources(
+    def query_resources(
         self,
+        *,
         user: ID = None,
+        course: ID = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         assert_error: bool = False,
     ) -> JsonDict:
         variables = {
             "user": user,
+            "course": course,
             "page": page,
             "pageSize": page_size,
         }
@@ -79,13 +82,15 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
         graphql = (
             self.resource_fields
             + """
-                query CreatedResources (
+                query Resources (
                     $user: ID,
+                    $course: ID,
                     $page: Int,
                     $pageSize: Int
                 ) {
-                    createdResources (
+                    resources (
                         user: $user,
+                        course: $course,
                         page: $page,
                         pageSize: $pageSize
                     ) {
@@ -212,17 +217,18 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
             assert_error=assert_error,
         )
 
-    def test_created_resources(self) -> None:
+    def test_resources(self) -> None:
         page = 1
         page_size = 1
 
-        res = self.query_created_resources(
+        # Test that only resources of the correct user are returned.
+
+        res = self.query_resources(
             user=self.authenticated_user, page=page, page_size=page_size
         )
 
         assert len(res["objects"]) == page_size
 
-        # Test that only resources of the correct user are returned.
         for course in res["objects"]:
             assert course["user"]["id"] == str(self.authenticated_user)
 
@@ -232,27 +238,38 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
         assert res["hasNext"] is True
         assert res["hasPrev"] is False
 
-        page = 2
+        # Test for some user that has created no resources.
 
-        res = self.query_created_resources(
-            user=self.authenticated_user, page=page, page_size=page_size
-        )
+        page = 1
+        res = self.query_resources(user=9, page=page, page_size=page_size)
+        assert res["count"] == 0
+        assert res["page"] == page
+        assert res["pages"] == 1
+        assert res["hasNext"] is False
+        assert res["hasPrev"] is False
+
+        # Test that only resources of the correct course are returned.
+
+        page = 4
+        course_pk = "1"
+
+        res = self.query_resources(course=course_pk, page=page, page_size=page_size)
 
         assert len(res["objects"]) == page_size
 
-        # Test that only resources of the correct user are returned.
         for resource in res["objects"]:
-            assert resource["user"]["id"] == str(self.authenticated_user)
+            assert resource["course"]["id"] == course_pk
 
-        assert res["count"] == 2
+        assert res["count"] == 4
         assert res["page"] == page
-        assert res["pages"] == 2
+        assert res["pages"] == 4
         assert res["hasNext"] is False
         assert res["hasPrev"] is True
 
-        # Test for some user that has created no resources.
+        # Test for some course that has no courses.
+
         page = 1
-        res = self.query_created_resources(user=9, page=page, page_size=page_size)
+        res = self.query_resources(course=9, page=page, page_size=page_size)
         assert res["count"] == 0
         assert res["page"] == page
         assert res["pages"] == 1

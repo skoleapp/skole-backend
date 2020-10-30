@@ -7,7 +7,7 @@ from graphene_django import DjangoObjectType
 
 from skole.models import Country
 from skole.types import ID, ResolveInfo
-from skole.utils.api_descriptions import APIDescriptions
+from skole.utils import api_descriptions
 
 
 class CountryObjectType(DjangoObjectType):
@@ -15,17 +15,17 @@ class CountryObjectType(DjangoObjectType):
 
     class Meta:
         model = Country
-        description = APIDescriptions.COUNTRY_OBJECT_TYPE
+        description = api_descriptions.COUNTRY_OBJECT_TYPE
         fields = ("id", "name")
 
 
 class Query(graphene.ObjectType):
     autocomplete_countries = graphene.List(
-        CountryObjectType, description=APIDescriptions.AUTOCOMPLETE_QUERY,
+        CountryObjectType, description=api_descriptions.AUTOCOMPLETE_QUERY,
     )
 
     country = graphene.Field(
-        CountryObjectType, id=graphene.ID(), description=APIDescriptions.DETAIL_QUERY,
+        CountryObjectType, id=graphene.ID(), description=api_descriptions.DETAIL_QUERY,
     )
 
     @staticmethod

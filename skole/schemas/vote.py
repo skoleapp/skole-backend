@@ -10,7 +10,7 @@ from skole.forms import CreateVoteForm
 from skole.models import User, Vote
 from skole.schemas.mixins import SkoleCreateUpdateMutationMixin
 from skole.types import ResolveInfo
-from skole.utils.api_descriptions import APIDescriptions
+from skole.utils import api_descriptions
 
 
 class VoteObjectType(DjangoObjectType):
@@ -18,7 +18,7 @@ class VoteObjectType(DjangoObjectType):
 
     class Meta:
         model = Vote
-        description = APIDescriptions.VOTE_OBJECT_TYPE
+        description = api_descriptions.VOTE_OBJECT_TYPE
         fields = ("id", "user", "status", "comment", "course", "resource")
 
 
@@ -44,4 +44,4 @@ class VoteMutation(SkoleCreateUpdateMutationMixin, DjangoModelFormMutation):
 
 
 class Mutation(graphene.ObjectType):
-    perform_vote = VoteMutation.Field(description=APIDescriptions.VOTE)
+    perform_vote = VoteMutation.Field(description=api_descriptions.VOTE)

@@ -8,7 +8,7 @@ from graphene_django import DjangoObjectType
 from skole.models import Subject
 from skole.schemas.mixins import PaginationMixin
 from skole.types import ID, ResolveInfo
-from skole.utils.api_descriptions import APIDescriptions
+from skole.utils import api_descriptions
 from skole.utils.pagination import get_paginator
 
 
@@ -27,7 +27,7 @@ class SubjectObjectType(DjangoObjectType):
 
     class Meta:
         model = Subject
-        description = APIDescriptions.SUBJECT_OBJECT_TYPE
+        description = api_descriptions.SUBJECT_OBJECT_TYPE
         fields = ("id", "name", "course_count", "resource_count")
 
     # Have to specify these three with resolvers since graphene cannot infer the annotated fields otherwise.
@@ -45,24 +45,24 @@ class PaginatedSubjectObjectType(PaginationMixin, graphene.ObjectType):
     objects = graphene.List(SubjectObjectType)
 
     class Meta:
-        description = APIDescriptions.PAGINATED_SUBJECT_OBJECT_TYPE
+        description = api_descriptions.PAGINATED_SUBJECT_OBJECT_TYPE
 
 
 class Query(graphene.ObjectType):
     subjects = graphene.List(
         PaginatedSubjectObjectType,
         school=graphene.ID(),
-        description=APIDescriptions.SUBJECTS,
+        description=api_descriptions.SUBJECTS,
     )
 
     autocomplete_subjects = graphene.List(
         SubjectObjectType,
         name=graphene.String(),
-        description=APIDescriptions.AUTOCOMPLETE_SUBJECTS,
+        description=api_descriptions.AUTOCOMPLETE_SUBJECTS,
     )
 
     subject = graphene.Field(
-        SubjectObjectType, id=graphene.ID(), description=APIDescriptions.DETAIL_QUERY,
+        SubjectObjectType, id=graphene.ID(), description=api_descriptions.DETAIL_QUERY,
     )
 
     @staticmethod

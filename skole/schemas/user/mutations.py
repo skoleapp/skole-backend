@@ -26,7 +26,7 @@ from skole.forms import (
 from skole.models import User
 from skole.schemas.mixins import SkoleCreateUpdateMutationMixin, SuccessMessageMixin
 from skole.types import JsonDict, ResolveInfo
-from skole.utils.api_descriptions import APIDescriptions
+from skole.utils import api_descriptions
 from skole.utils.constants import Messages, MutationErrors, TokenAction
 from skole.utils.exceptions import TokenScopeError, UserAlreadyVerified, UserNotVerified
 from skole.utils.token import get_token_payload, revoke_user_refresh_tokens
@@ -302,23 +302,23 @@ class DeleteUserMutation(
 
 
 class Mutation(graphene.ObjectType):
-    register = RegisterMutation.Field(description=APIDescriptions.REGISTER_USER)
+    register = RegisterMutation.Field(description=api_descriptions.REGISTER_USER)
     verify_account = VerifyAccountMutation.Field(
-        description=APIDescriptions.VERIFY_ACCOUNT
+        description=api_descriptions.VERIFY_ACCOUNT
     )
     resend_verification_email = ResendVerificationEmailMutation.Field(
-        description=APIDescriptions.RESEND_VERIFICATION_EMAIL
+        description=api_descriptions.RESEND_VERIFICATION_EMAIL
     )
     send_password_reset_email = SendPasswordResetEmailMutation.Field(
-        description=APIDescriptions.SEND_PASSWORD_RESET_EMAIL
+        description=api_descriptions.SEND_PASSWORD_RESET_EMAIL
     )
     reset_password = ResetPasswordMutation.Field(
-        description=APIDescriptions.RESET_PASSWORD
+        description=api_descriptions.RESET_PASSWORD
     )
-    login = LoginMutation.Field(description=APIDescriptions.LOGIN)
-    logout = LogoutMutation.Field(description=APIDescriptions.LOGOUT)
+    login = LoginMutation.Field(description=api_descriptions.LOGIN)
+    logout = LogoutMutation.Field(description=api_descriptions.LOGOUT)
     change_password = ChangePasswordMutation.Field(
-        description=APIDescriptions.CHANGE_PASSWORD
+        description=api_descriptions.CHANGE_PASSWORD
     )
-    update_user = UpdateUserMutation.Field(description=APIDescriptions.UPDATE_USER)
-    delete_user = DeleteUserMutation.Field(description=APIDescriptions.DELETE_USER)
+    update_user = UpdateUserMutation.Field(description=api_descriptions.UPDATE_USER)
+    delete_user = DeleteUserMutation.Field(description=api_descriptions.DELETE_USER)

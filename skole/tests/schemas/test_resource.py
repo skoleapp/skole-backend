@@ -11,6 +11,7 @@ from skole.models import Resource
 from skole.tests.helpers import (
     TEST_ATTACHMENT_PNG,
     TEST_RESOURCE_PDF,
+    UPLOADED_RESOURCE_PDF,
     FileData,
     SkoleSchemaTestCase,
     get_form_error,
@@ -343,7 +344,7 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
         assert not res["errors"]
         assert resource["id"] == "5"
         assert resource["title"] == "test title"
-        assert is_slug_match(TEST_RESOURCE_PDF, resource["file"])
+        assert is_slug_match(UPLOADED_RESOURCE_PDF, resource["file"])
 
         # These should be 0 by default.
         assert resource["starCount"] == 0

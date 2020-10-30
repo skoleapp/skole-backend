@@ -6,6 +6,7 @@ from django.contrib.auth import get_user_model
 from django.db.models import QuerySet
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
+from graphql_jwt.decorators import login_required
 
 from skole.forms import CreateResourceForm, DeleteResourceForm, UpdateResourceForm
 from skole.models import Resource, School
@@ -173,6 +174,7 @@ class Query(graphene.ObjectType):
         return get_paginator(qs, page_size, page, PaginatedResourceObjectType)
 
     @staticmethod
+    @login_required
     def resolve_starred_resources(
         root: None,
         info: ResolveInfo,

@@ -304,7 +304,7 @@ type Query {
   resource(id: ID): ResourceObjectType
   courses(courseName: String, courseCode: String, subject: ID, school: ID, schoolType: ID, country: ID, city: ID, page: Int, pageSize: Int, ordering: String): PaginatedCourseObjectType
   autocompleteCourses(school: ID, name: String): [CourseObjectType]
-  createdCourses(user: ID, page: Int, pageSize: Int, ordering: String): PaginatedCourseObjectType
+  createdCourses(user: ID, page: Int, pageSize: Int): PaginatedCourseObjectType
   starredCourses(user: ID, page: Int, pageSize: Int, ordering: String): PaginatedCourseObjectType
   course(id: ID): CourseObjectType
   autocompleteCountries: [CountryObjectType]

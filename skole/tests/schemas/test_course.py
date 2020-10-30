@@ -1,5 +1,7 @@
 from typing import Collection, List, Optional, cast
 
+from django.contrib.auth import get_user_model
+
 from skole.models import Course, User, Vote
 from skole.tests.helpers import (
     SkoleSchemaTestCase,
@@ -149,6 +151,44 @@ class CourseSchemaTests(SkoleSchemaTestCase):
                 ) {
                     createdCourses (
                         user: $user,
+                        page: $page,
+                        pageSize: $pageSize
+                    ) {
+                        page
+                        pages
+                        hasNext
+                        hasPrev
+                        count
+                        objects {
+                            ...courseFields
+                        }
+                    }
+                }
+            """
+        )
+
+        return self.execute(graphql, variables=variables, assert_error=assert_error)
+
+    def query_starred_courses(
+        self,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        assert_error: bool = False,
+    ) -> JsonDict:
+        variables = {
+            "page": page,
+            "pageSize": page_size,
+        }
+
+        # langauge=GraphQL
+        graphql = (
+            self.course_fields
+            + """
+                query StarredCourses (
+                    $page: Int,
+                    $pageSize: Int
+                ) {
+                    starredCourses (
                         page: $page,
                         pageSize: $pageSize
                     ) {
@@ -444,6 +484,54 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         assert res["pages"] == 1
         assert res["hasNext"] is False
         assert res["hasPrev"] is False
+
+    def test_starred_courses(self) -> None:
+        page = 1
+        page_size = 1
+
+        res = self.query_starred_courses(page=page, page_size=page_size)
+        assert len(res["objects"]) == page_size
+        assert self.authenticated_user
+        user = get_user_model().objects.get(pk=self.authenticated_user)
+
+        starred_courses = Course.objects.filter(
+            stars__user__pk=self.authenticated_user
+        ).values_list("id", flat=True)
+
+        # Test that only courses starred by the user are returned.
+        for course in res["objects"]:
+            assert int(course["id"]) in starred_courses
+
+        assert res["count"] == 2
+        assert res["page"] == page
+        assert res["pages"] == 2
+        assert res["hasNext"] is True
+        assert res["hasPrev"] is False
+
+        page = 2
+
+        res = self.query_starred_courses(page=page, page_size=page_size)
+        assert len(res["objects"]) == page_size
+
+        # Test that only courses starred by the user are returned.
+        for course in res["objects"]:
+            assert int(course["id"]) in starred_courses
+
+        assert res["count"] == 2
+        assert res["page"] == page
+        assert res["pages"] == 2
+        assert res["hasNext"] is False
+        assert res["hasPrev"] is True
+
+        # Shouldn't work without auth.
+        self.authenticated_user = None
+
+        res = self.query_starred_courses(
+            page=page, page_size=page_size, assert_error=True
+        )
+
+        assert "permission" in get_graphql_error(res)
+        assert res["data"] == {"starredCourses": None}
 
     def test_course(self) -> None:
         course = self.query_course(id=1)

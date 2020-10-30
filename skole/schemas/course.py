@@ -7,6 +7,7 @@ from django.db.models import F, QuerySet
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphql import GraphQLError
+from graphql_jwt.decorators import login_required
 
 from skole.forms import CreateCourseForm, DeleteCourseForm
 from skole.models import Course
@@ -233,6 +234,7 @@ class Query(graphene.ObjectType):
         return get_paginator(qs, page_size, page, PaginatedCourseObjectType)
 
     @staticmethod
+    @login_required
     def resolve_starred_courses(
         root: None,
         info: ResolveInfo,

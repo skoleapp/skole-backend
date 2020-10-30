@@ -11,6 +11,7 @@ def test_str(db: Fixture) -> None:
     assert str(star1) == "testuser2 - Test Engineering Course 1 TEST0001"
     assert str(star3) == "testuser2 - Sample exam 1"
 
+
 def test_manager_perform_star_ok(db: Fixture) -> None:
     user = get_user_model().objects.get(pk=2)
     course3 = Course.objects.get(pk=3)
@@ -23,6 +24,7 @@ def test_manager_perform_star_ok(db: Fixture) -> None:
     assert star1.course == course3
     assert star2 is not None
     assert star2.resource == resource3
+
 
 def test_manager_perform_star_existing(db: Fixture) -> None:
     user = get_user_model().objects.get(pk=2)

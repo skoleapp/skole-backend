@@ -267,7 +267,9 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
         assert len(res["objects"]) == page_size
         assert self.authenticated_user
         user = get_user_model().objects.get(pk=self.authenticated_user)
-        starred_resources = Resource.objects.filter(stars__user__pk=self.authenticated_user).values_list("id", flat=True)
+        starred_resources = Resource.objects.filter(
+            stars__user__pk=self.authenticated_user
+        ).values_list("id", flat=True)
 
         # Test that only resources starred by the user are returned.
         for resource in res["objects"]:
@@ -296,7 +298,9 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
 
         # Shouldn't work without auth.
         self.authenticated_user = None
-        res = self.query_starred_resources(page=page, page_size=page_size, assert_error=True)
+        res = self.query_starred_resources(
+            page=page, page_size=page_size, assert_error=True
+        )
         assert "permission" in get_graphql_error(res)
         assert res["data"] == {"starredResources": None}
 

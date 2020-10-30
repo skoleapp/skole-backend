@@ -1270,3 +1270,28 @@
     resource: 1
     comment: null
     read: False
+
+- model: skole.Star
+  pk: 1
+  fields:
+    user: 2
+    course: 1
+    resource: null
+- model: skole.Star
+  pk: 2
+  fields:
+    user: 2
+    course: 2
+    resource: null
+- model: skole.Star
+  pk: 3
+  fields:
+    user: 2
+    course: null
+    resource: 1
+- model: skole.Star
+  pk: 4
+  fields:
+    user: 2
+    course: null
+    resource: 2

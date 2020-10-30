@@ -3,6 +3,7 @@ from typing import Optional
 from unittest import mock
 
 import requests
+from django.contrib.auth import get_user_model
 from django.http import HttpResponse
 from django.test import override_settings
 
@@ -13,6 +14,7 @@ from skole.tests.helpers import (
     FileData,
     SkoleSchemaTestCase,
     get_form_error,
+    get_graphql_error,
     is_slug_match,
     open_as_file,
 )
@@ -84,6 +86,44 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
                 ) {
                     createdResources (
                         user: $user,
+                        page: $page,
+                        pageSize: $pageSize
+                    ) {
+                        page
+                        pages
+                        hasNext
+                        hasPrev
+                        count
+                        objects {
+                            ...resourceFields
+                        }
+                    }
+                }
+            """
+        )
+
+        return self.execute(graphql, variables=variables, assert_error=assert_error)
+
+    def query_starred_resources(
+        self,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        assert_error: bool = False,
+    ) -> JsonDict:
+        variables = {
+            "page": page,
+            "pageSize": page_size,
+        }
+
+        # langauge=GraphQL
+        graphql = (
+            self.resource_fields
+            + """
+                query StarredResources (
+                    $page: Int,
+                    $pageSize: Int
+                ) {
+                    starredResources (
                         page: $page,
                         pageSize: $pageSize
                     ) {
@@ -201,8 +241,8 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
         assert len(res["objects"]) == page_size
 
         # Test that only resources of the correct user are returned.
-        for course in res["objects"]:
-            assert course["user"]["id"] == str(self.authenticated_user)
+        for resource in res["objects"]:
+            assert resource["user"]["id"] == str(self.authenticated_user)
 
         assert res["count"] == 2
         assert res["page"] == page
@@ -219,6 +259,47 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
         assert res["hasNext"] is False
         assert res["hasPrev"] is False
 
+    def test_starred_resources(self) -> None:
+        page = 1
+        page_size = 1
+
+        res = self.query_starred_resources(page=page, page_size=page_size)
+        assert len(res["objects"]) == page_size
+        assert self.authenticated_user
+        user = get_user_model().objects.get(pk=self.authenticated_user)
+        starred_resources = Resource.objects.filter(stars__user__pk=self.authenticated_user).values_list("id", flat=True)
+
+        # Test that only resources starred by the user are returned.
+        for resource in res["objects"]:
+            assert int(resource["id"]) in starred_resources
+
+        assert res["count"] == 2
+        assert res["page"] == page
+        assert res["pages"] == 2
+        assert res["hasNext"] is True
+        assert res["hasPrev"] is False
+
+        page = 2
+
+        res = self.query_starred_resources(page=page, page_size=page_size)
+        assert len(res["objects"]) == page_size
+
+        # Test that only resources starred by the user are returned.
+        for resource in res["objects"]:
+            assert int(resource["id"]) in starred_resources
+
+        assert res["count"] == 2
+        assert res["page"] == page
+        assert res["pages"] == 2
+        assert res["hasNext"] is False
+        assert res["hasPrev"] is True
+
+        # Shouldn't work without auth.
+        self.authenticated_user = None
+        res = self.query_starred_resources(page=page, page_size=page_size, assert_error=True)
+        assert "permission" in get_graphql_error(res)
+        assert res["data"] == {"starredResources": None}
+
     def test_resource(self) -> None:
         with override_settings(DEBUG=True):  # To access media.
             resource = self.query_resource(id=1)
@@ -226,7 +307,7 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
             assert resource["title"] == "Sample exam 1"
             assert resource["file"] == "/media/uploads/resources/test_resource.pdf"
             assert resource["course"]["id"] == "1"
-            assert resource["starCount"] == 0
+            assert resource["starCount"] == 1
             assert resource["commentCount"] == 4
             assert self.client.get(resource["file"]).status_code == 200
 

@@ -129,7 +129,7 @@ class APIDescriptions:
     COURSES = f"Return courses filtered by query params. Results are sorted either manually based on query params or by secret Skole AI-powered algorithms. {PAGINATED}"
 
     AUTOCOMPLETE_COURSES = (
-        "{AUTOCOMPLETE_QUERY} Results are sorted by secret Skole AI-powered algorithms."
+        f"{AUTOCOMPLETE_QUERY} Results are sorted by secret Skole AI-powered algorithms."
     )
 
     # Course mutations.

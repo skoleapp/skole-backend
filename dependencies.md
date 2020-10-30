@@ -54,14 +54,14 @@ This document explains the need for every top level dependency the project has.
 ### Runtime packages
 
 | Dependency                                                                                                    | Reason                                        |
-| :-------------------------------------------------------------------------------------------                  | :----------------------------------           |
-| [cairo-dev](https://pkgs.alpinelinux.org/package/edge/main/x86_64/cairo-dev )                                 | Build and use mat2 to clean file metadata     |
-| [exiftool](https://pkgs.alpinelinux.org/package/edge/main/x86_64/exiftool )                                   | Use mat2 to clean file metadata               |
-| [gdk-pixbuf-dev](https://pkgs.alpinelinux.org/package/edge/main/x86_64/gdk-pixbuf-dev )                       | Use mat2 to clean file metadata               |
+| :------------------------------------------------------------------------------------------------------------ | :-------------------------------------------- |
+| [cairo-dev](https://pkgs.alpinelinux.org/package/edge/main/x86_64/cairo-dev)                                  | Build and use mat2 to clean file metadata     |
+| [exiftool](https://pkgs.alpinelinux.org/package/edge/community/x86_64/exiftool)                               | Use mat2 to clean file metadata               |
+| [gdk-pixbuf-dev](https://pkgs.alpinelinux.org/package/edge/main/x86_64/gdk-pixbuf-dev)                        | Use mat2 to clean file metadata               |
 | [gettext](https://pkgs.alpinelinux.org/package/edge/main/x86_64/gettext)                                      | Run Django compilemessages                    |
-| [gobject-introspection-dev](https://pkgs.alpinelinux.org/package/edge/main/x86_64/gobject-introspection-dev ) | Build and use mat2 to clean file metadata     |
+| [gobject-introspection-dev](https://pkgs.alpinelinux.org/package/edge/main/x86_64/gobject-introspection-dev)  | Build and use mat2 to clean file metadata     |
 | [jpeg-dev](https://pkgs.alpinelinux.org/package/edge/main/x86_64/jpeg-dev)                                    | Build and use Pillow                          |
 | [libmagic](https://pkgs.alpinelinux.org/package/edge/main/x86_64/libmagic)                                    | Guess file types with python-magic            |
-| [librsvg-dev](https://pkgs.alpinelinux.org/package/edge/main/x86_64/librsvg-dev )                             | Use mat2 to clean file metadata               |
+| [librsvg-dev](https://pkgs.alpinelinux.org/package/edge/community/x86_64/librsvg-dev)                         | Use mat2 to clean file metadata               |
 | [poppler-dev](https://pkgs.alpinelinux.org/package/edge/main/x86_64/poppler-dev)                              | Use mat2 to clean file metadata               |
 | [postgresql-client](https://pkgs.alpinelinux.org/package/edge/main/x86_64/postgresql-client)                  | Connect to PostgreSQL with psycopg2           |

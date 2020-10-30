@@ -16,7 +16,7 @@ jobs:
       - run:
           name: "Run linters, type-check, and tests"
           command: >
-            docker-compose --file docker-compose-circleci.yml up --build --abort-on-container-exit
+            docker-compose --file .circleci/docker-compose-circleci.yml up --build --abort-on-container-exit
             && docker cp backend-circleci:/home/user/app/coverage.xml .
       - codecov/upload:
           file: coverage.xml

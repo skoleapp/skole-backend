@@ -16,9 +16,11 @@ services:
   backend-circleci:
     container_name: backend-circleci
     build:
-      context: .
+      context: ..
       dockerfile: Dockerfile
       target: circleci
+      args:
+        dev_requirements: "requirements-dev.txt"
     environment:
       - DEBUG=1
       - SECRET_KEY=skole

@@ -104,14 +104,30 @@ class CourseSchemaTests(SkoleSchemaTestCase):
             self.course_fields
             + """
             query Courses (
-                $courseName: String, $courseCode: String, $subject: ID,
-                $school: ID, $schoolType: ID, $country: ID,
-                $city: ID, $user: ID, $page: Int, $pageSize: Int, $ordering: String
+                $courseName: String,
+                $courseCode: String,
+                $subject: ID,
+                $school: ID,
+                $schoolType: ID,
+                $country: ID,
+                $city: ID,
+                $user: ID,
+                $page: Int,
+                $pageSize: Int,
+                $ordering: String
             ) {
                 courses(
-                    courseName: $courseName, courseCode: $courseCode, subject: $subject,
-                    school: $school, schoolType: $schoolType, country: $country,
-                    city: $city, user: $user, page: $page, pageSize: $pageSize, ordering: $ordering
+                    courseName: $courseName,
+                    courseCode: $courseCode,
+                    subject: $subject,
+                    school: $school,
+                    schoolType: $schoolType,
+                    country: $country,
+                    city: $city,
+                    user: $user,
+                    page: $page,
+                    pageSize: $pageSize,
+                    ordering: $ordering
                 ) {
                     page
                     pages

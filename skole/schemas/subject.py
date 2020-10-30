@@ -49,9 +49,11 @@ class PaginatedSubjectObjectType(PaginationMixin, graphene.ObjectType):
 
 
 class Query(graphene.ObjectType):
-    subjects = graphene.List(
+    subjects = graphene.Field(
         PaginatedSubjectObjectType,
         school=graphene.ID(),
+        page=graphene.Int(),
+        page_size=graphene.Int(),
         description=api_descriptions.SUBJECTS,
     )
 
@@ -73,9 +75,11 @@ class Query(graphene.ObjectType):
         page: int = 1,
         page_size: int = settings.DEFAULT_PAGE_SIZE,
     ) -> graphene.ObjectType:
-        # Ignore: Mypy complains that `get(pk=None)` is not valid. It might not be
-        # the most sensible thing, but it actually doesn't fail at runtime.
-        qs: QuerySet[Subject] = Subject.objects.filter(courses__school__pk=school)  # type: ignore[misc]
+        qs: QuerySet[Subject] = Subject.objects.all()
+
+        if school is not None:
+            qs = qs.filter(courses__school__pk=school)
+
         qs = order_subjects_by_num_courses(qs)
         return get_paginator(qs, page_size, page, PaginatedSubjectObjectType)
 

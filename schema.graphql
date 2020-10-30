@@ -289,7 +289,7 @@ type PaginatedSubjectObjectType {
 }
 
 type Query {
-  subjects(school: ID): [PaginatedSubjectObjectType]
+  subjects(school: ID, page: Int, pageSize: Int): PaginatedSubjectObjectType
   autocompleteSubjects(name: String): [SubjectObjectType]
   subject(id: ID): SubjectObjectType
   autocompleteSchoolTypes: [SchoolTypeObjectType]

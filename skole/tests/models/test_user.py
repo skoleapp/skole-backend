@@ -10,6 +10,34 @@ def test_str(db: Fixture) -> None:
     assert str(user3) == "testuser3"
 
 
+def test_create_user(db: Fixture) -> None:
+    username = "testusername"
+    email = "username@example.com"
+    password = "password"
+
+    user = User.objects.create_user(username=username, email=email, password=password)
+
+    assert not user.is_staff
+    assert not user.is_superuser
+    assert user.username == username
+    assert user.email == email
+    assert user.check_password(password)
+
+
+def test_create_superuser(db: Fixture) -> None:
+    username = "testadmin"
+    email = "admin@example.com"
+    password = "adminpassword"
+    user = User.objects.create_superuser(
+        username=username, email=email, password=password
+    )
+
+    assert user.is_superuser
+    assert user.is_staff
+    assert user.username == username
+    assert user.check_password(password)
+
+
 def test_set_password(db: Fixture) -> None:
     user = User.objects.get(pk=2)
     new_pass = "new pass"

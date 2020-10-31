@@ -7,8 +7,8 @@ RUN chown user:user /home/user/app
 ENV PATH="/home/user/.local/bin:${PATH}"
 ENV PYTHONUNBUFFERED=1
 
-# There are unset in the prod layer.
-ENV PYTHONDONTWRITEBYTECODE=1
+# This helps debug misbehaving async code.
+# It's unset in the prod layer.
 ENV PYTHONTRACEMALLOC=1
 
 # When building the non-production image this will specified to be `requirements-dev.txt`,
@@ -67,8 +67,8 @@ CMD python manage.py graphql_schema --out=/tmp/compare.graphql && diff schema.gr
 
 FROM circleci as prod
 
-RUN unset PYTHONDONTWRITEBYTECODE
-RUN unset PYTHONTRACEMALLOC
+# Has to be set to an empty string for it to have no effect.
+ENV PYTHONTRACEMALLOC=
 
 ENV PYTHONOPTIMIZE=1
 

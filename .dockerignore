@@ -2,13 +2,15 @@
 Dockerfile*
 docker-compose*
 
-.git/
+.git
 .gitignore
 
 .idea/
 .vscode/
 
-.circleci/config.yml
+.circleci/
+!.circleci/check_makemessages.sh
+.github/
 
 .graphqlconfig
 

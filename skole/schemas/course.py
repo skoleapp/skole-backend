@@ -136,10 +136,8 @@ class Query(graphene.ObjectType):
 
     starred_courses = graphene.Field(
         PaginatedCourseObjectType,
-        user=graphene.ID(),
         page=graphene.Int(),
         page_size=graphene.Int(),
-        ordering=graphene.String(),
         description=api_descriptions.STARRED_COURSES,
     )
 

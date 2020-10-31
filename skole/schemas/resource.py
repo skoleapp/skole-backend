@@ -136,7 +136,6 @@ class Query(graphene.ObjectType):
         PaginatedResourceObjectType,
         page=graphene.Int(),
         page_size=graphene.Int(),
-        ordering=graphene.String(),
         description=api_descriptions.STARRED_RESOURCES,
     )
 

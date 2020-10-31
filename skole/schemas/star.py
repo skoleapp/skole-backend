@@ -21,7 +21,7 @@ class StarObjectType(DjangoObjectType):
 
 class StarMutation(SkoleCreateUpdateMutationMixin, DjangoModelFormMutation):
     verification_required = True
-    star = graphene.Boolean()
+    starred = graphene.Boolean()
 
     class Meta:
         form_class = CreateStarForm
@@ -34,7 +34,7 @@ class StarMutation(SkoleCreateUpdateMutationMixin, DjangoModelFormMutation):
             user=cast(User, info.context.user), target=form.cleaned_data["target"]
         )
 
-        return cls(star=bool(star))
+        return cls(starred=bool(star))
 
 
 class Mutation(graphene.ObjectType):

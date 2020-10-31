@@ -44,4 +44,4 @@ class VoteMutation(SkoleCreateUpdateMutationMixin, DjangoModelFormMutation):
 
 
 class Mutation(graphene.ObjectType):
-    perform_vote = VoteMutation.Field(description=api_descriptions.VOTE)
+    vote = VoteMutation.Field(description=api_descriptions.VOTE)

@@ -228,7 +228,7 @@ type MarkAllActivitiesAsReadMutation {
 
 type Mutation {
   star(input: StarMutationInput!): StarMutationPayload
-  performVote(input: VoteMutationInput!): VoteMutationPayload
+  vote(input: VoteMutationInput!): VoteMutationPayload
   register(input: RegisterMutationInput!): RegisterMutationPayload
   verifyAccount(input: VerifyAccountMutationInput!): VerifyAccountMutationPayload
   resendVerificationEmail(input: ResendVerificationEmailMutationInput!): ResendVerificationEmailMutationPayload
@@ -299,11 +299,11 @@ type Query {
   resourceTypes: [ResourceTypeObjectType]
   autocompleteResourceTypes: [ResourceTypeObjectType]
   resources(user: ID, course: ID, page: Int, pageSize: Int, ordering: String): PaginatedResourceObjectType
-  starredResources(page: Int, pageSize: Int, ordering: String): PaginatedResourceObjectType
+  starredResources(page: Int, pageSize: Int): PaginatedResourceObjectType
   resource(id: ID): ResourceObjectType
   courses(courseName: String, courseCode: String, subject: ID, school: ID, schoolType: ID, country: ID, city: ID, user: ID, page: Int, pageSize: Int, ordering: String): PaginatedCourseObjectType
   autocompleteCourses(school: ID, name: String): [CourseObjectType]
-  starredCourses(user: ID, page: Int, pageSize: Int, ordering: String): PaginatedCourseObjectType
+  starredCourses(page: Int, pageSize: Int): PaginatedCourseObjectType
   course(id: ID): CourseObjectType
   autocompleteCountries: [CountryObjectType]
   country(id: ID): CountryObjectType
@@ -413,9 +413,18 @@ input StarMutationInput {
 }
 
 type StarMutationPayload {
-  star: Boolean
+  star: StarObjectType
   errors: [ErrorType]
+  starred: Boolean
   clientMutationId: String
+}
+
+type StarObjectType {
+  id: ID!
+  deletedAt: DateTime
+  user: UserObjectType!
+  course: CourseObjectType
+  resource: ResourceObjectType
 }
 
 type SubjectObjectType {

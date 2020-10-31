@@ -65,16 +65,18 @@ class MarkAllActivitiesAsReadMutation(
     SkoleCreateUpdateMutationMixin, graphene.Mutation
 ):
     login_required = True
-    activities = graphene.List(ActivityObjectType)
+    activities = graphene.Field(PaginatedActivityObjectType)
     errors = graphene.List(ErrorType)
 
     @classmethod
     def mutate(
         cls, root: None, info: ResolveInfo, **input: JsonDict
     ) -> MarkAllActivitiesAsReadMutation:
-        activities = Activity.objects.mark_all_as_read(
-            user=cast(User, info.context.user)
-        )
+        qs = Activity.objects.mark_all_as_read(user=cast(User, info.context.user))
+
+        page_size = settings.DEFAULT_PAGE_SIZE
+        page = 1
+        activities = get_paginator(qs, page_size, page, PaginatedActivityObjectType)
 
         return cls(activities=activities)
 

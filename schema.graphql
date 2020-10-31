@@ -223,7 +223,7 @@ type MarkActivityAsReadMutationPayload {
 
 type MarkAllActivitiesAsReadMutation {
   errors: [ErrorType]
-  activities: [ActivityObjectType]
+  activities: PaginatedActivityObjectType
 }
 
 type Mutation {

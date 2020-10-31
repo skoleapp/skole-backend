@@ -90,9 +90,22 @@ class ActivitySchemaTests(SkoleSchemaTestCase):
         )
 
     def mutate_mark_all_activities_as_read(self) -> JsonDict:
+        result = """
+            activities {
+                page
+                pages
+                hasNext
+                hasPrev
+                count
+                objects {
+                    ...activityFields
+                }
+            }
+        """
+
         return self.execute_non_input_mutation(
             name="markAllActivitiesAsRead",
-            result="activities { ...activityFields }",
+            result=result,
             fragment=self.activity_fields,
         )
 
@@ -163,7 +176,8 @@ class ActivitySchemaTests(SkoleSchemaTestCase):
 
         res = self.mutate_mark_all_activities_as_read()
 
-        assert res["activities"][0]["id"] == str(test_activity1.pk)
-        assert res["activities"][0]["read"]
-        assert res["activities"][1]["id"] == str(test_activity2.pk)
-        assert res["activities"][1]["read"]
+        assert res["activities"]["page"] == 1
+        assert res["activities"]["objects"][0]["id"] == str(test_activity1.pk)
+        assert res["activities"]["objects"][0]["read"]
+        assert res["activities"]["objects"][1]["id"] == str(test_activity2.pk)
+        assert res["activities"]["objects"][1]["read"]

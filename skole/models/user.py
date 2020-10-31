@@ -25,6 +25,20 @@ from .base import SkoleManager, SkoleModel
 
 
 class UserManager(SkoleManager["User"], BaseUserManager["User"]):
+    def create_user(self, username: str, email: str, password: str) -> User:
+        user = self.model(username=username, email=self.normalize_email(email))
+        user.set_password(password)
+        user.save()
+        return user
+
+    def create_superuser(self, username: str, email: str, password: str) -> User:
+        user = self.model(username=username, email=self.normalize_email(email))
+        user.is_staff = True
+        user.is_superuser = True
+        user.set_password(password)
+        user.save()
+        return user
+
     @staticmethod
     def set_password(user: User, password: str) -> User:
         """Overridden so we avoid calling save() outside of managers."""

@@ -361,10 +361,6 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
 
         resource = res["resource"]
         assert not res["errors"]
-        assert resource["id"] == "6"
-        assert is_slug_match(
-            "/media/uploads/resources/test_attachment.pdf", resource["file"]
-        )
 
         # Can't create a resource with no file.
         res = self.mutate_create_resource()

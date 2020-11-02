@@ -140,7 +140,7 @@ class Query(graphene.ObjectType):
     )
 
     resource = graphene.Field(
-        ResourceObjectType, id=graphene.ID(), description=api_descriptions.RESOURCE,
+        ResourceObjectType, id=graphene.ID(), description=api_descriptions.RESOURCE
     )
 
     @staticmethod

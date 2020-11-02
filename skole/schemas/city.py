@@ -21,11 +21,11 @@ class CityObjectType(DjangoObjectType):
 
 class Query(graphene.ObjectType):
     autocomplete_cities = graphene.List(
-        CityObjectType, description=api_descriptions.AUTOCOMPLETE_CITIES,
+        CityObjectType, description=api_descriptions.AUTOCOMPLETE_CITIES
     )
 
     city = graphene.Field(
-        CityObjectType, id=graphene.ID(), description=api_descriptions.DETAIL_QUERY,
+        CityObjectType, id=graphene.ID(), description=api_descriptions.DETAIL_QUERY
     )
 
     @staticmethod

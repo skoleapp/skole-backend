@@ -39,15 +39,15 @@ class Activity(SkoleModel):
 
     # The different objects that can have activity appear in them.
     course = models.ForeignKey(
-        "skole.Course", on_delete=models.CASCADE, null=True, blank=True,
+        "skole.Course", on_delete=models.CASCADE, null=True, blank=True
     )
 
     resource = models.ForeignKey(
-        "skole.Resource", on_delete=models.CASCADE, null=True, blank=True,
+        "skole.Resource", on_delete=models.CASCADE, null=True, blank=True
     )
 
     comment = models.ForeignKey(
-        "skole.Comment", on_delete=models.CASCADE, null=True, blank=True,
+        "skole.Comment", on_delete=models.CASCADE, null=True, blank=True
     )
 
     read = models.BooleanField(default=False)

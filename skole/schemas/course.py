@@ -142,7 +142,7 @@ class Query(graphene.ObjectType):
     )
 
     course = graphene.Field(
-        CourseObjectType, id=graphene.ID(), description=api_descriptions.DETAIL_QUERY,
+        CourseObjectType, id=graphene.ID(), description=api_descriptions.DETAIL_QUERY
     )
 
     @staticmethod

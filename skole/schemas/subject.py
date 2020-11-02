@@ -64,7 +64,7 @@ class Query(graphene.ObjectType):
     )
 
     subject = graphene.Field(
-        SubjectObjectType, id=graphene.ID(), description=api_descriptions.DETAIL_QUERY,
+        SubjectObjectType, id=graphene.ID(), description=api_descriptions.DETAIL_QUERY
     )
 
     @staticmethod

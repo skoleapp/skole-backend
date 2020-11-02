@@ -12,10 +12,10 @@ from .object_types import UserObjectType
 
 
 class Query(graphene.ObjectType):
-    user_me = graphene.Field(UserObjectType, description=api_descriptions.USER_ME,)
+    user_me = graphene.Field(UserObjectType, description=api_descriptions.USER_ME)
 
     user = graphene.Field(
-        UserObjectType, id=graphene.ID(), description=api_descriptions.USER,
+        UserObjectType, id=graphene.ID(), description=api_descriptions.USER
     )
 
     @staticmethod

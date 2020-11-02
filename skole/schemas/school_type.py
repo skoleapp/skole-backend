@@ -21,7 +21,7 @@ class SchoolTypeObjectType(DjangoObjectType):
 
 class Query(graphene.ObjectType):
     autocomplete_school_types = graphene.List(
-        SchoolTypeObjectType, description=api_descriptions.AUTOCOMPLETE_SCHOOL_TYPES,
+        SchoolTypeObjectType, description=api_descriptions.AUTOCOMPLETE_SCHOOL_TYPES
     )
 
     school_type = graphene.Field(

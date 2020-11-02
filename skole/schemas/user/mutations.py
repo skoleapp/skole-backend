@@ -64,7 +64,7 @@ class VerifyAccountMutation(
 
     @classmethod
     def perform_mutate(
-        cls, form: TokenForm, info: ResolveInfo,
+        cls, form: TokenForm, info: ResolveInfo
     ) -> VerifyAccountMutation:
         token = form.cleaned_data.get("token")
 
@@ -90,7 +90,7 @@ class ResendVerificationEmailMutation(
 
     @classmethod
     def perform_mutate(
-        cls, form: EmailForm, info: ResolveInfo,
+        cls, form: EmailForm, info: ResolveInfo
     ) -> ResendVerificationEmailMutation:
         email = form.cleaned_data.get("email")
 
@@ -117,7 +117,7 @@ class SendPasswordResetEmailMutation(
 
     @classmethod
     def perform_mutate(
-        cls, form: EmailForm, info: ResolveInfo,
+        cls, form: EmailForm, info: ResolveInfo
     ) -> SendPasswordResetEmailMutation:
         email = form.cleaned_data.get("email")
 
@@ -151,7 +151,7 @@ class ResetPasswordMutation(
 
     @classmethod
     def perform_mutate(
-        cls, form: EmailForm, info: ResolveInfo,
+        cls, form: EmailForm, info: ResolveInfo
     ) -> ResetPasswordMutation:
         token = form.cleaned_data.get("token")
         new_password = form.cleaned_data.get("new_password")

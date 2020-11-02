@@ -219,7 +219,7 @@ class SkoleSchemaTestCase(TestCase):
         )
 
     def execute_non_input_mutation(
-        self, *, name: str, result: str, fragment: str = "", assert_error: bool = False,
+        self, *, name: str, result: str, fragment: str = "", assert_error: bool = False
     ) -> JsonDict:
         """
         Shortcut for running a mutation which takes no input as an argument.
@@ -344,8 +344,7 @@ def is_slug_match(file_path: str, url_with_slug: str) -> bool:
         >>> is_slug_match("/media/test/foo.jpg", "/foo.jpg")
         False
     """
-    # Ignore: Mypy doesn't yet recognize Python 3.9's `str.removeprefix`.
-    path, extension = file_path.removeprefix("/").rsplit(".", 1)  # type: ignore[attr-defined]
+    path, extension = file_path.removeprefix("/").rsplit(".", 1)
     return bool(re.match(fr"^/{path}\w*\.{extension}$", url_with_slug))
 
 

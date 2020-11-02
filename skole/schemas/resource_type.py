@@ -19,7 +19,7 @@ class ResourceTypeObjectType(DjangoObjectType):
 
 class Query(graphene.ObjectType):
     resource_types = graphene.List(
-        ResourceTypeObjectType, description=api_descriptions.RESOURCE_TYPES,
+        ResourceTypeObjectType, description=api_descriptions.RESOURCE_TYPES
     )
 
     autocomplete_resource_types = graphene.List(

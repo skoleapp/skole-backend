@@ -26,8 +26,8 @@ class Query(graphene.ObjectType):
     @staticmethod
     def resolve_user(root: None, info: ResolveInfo, id: ID = None) -> Optional[User]:
         try:
-            # Ignore: Mypy complains that `get(pk=None)` is not valid. It might not be
-            # the most sensible thing, but it actually doesn't fail at runtime.
+            # Ignore: Mypy complains that `get(pk=None)` is not valid.
+            # It might not be the most sensible thing, but it actually doesn't fail at runtime.
             return get_user_model().objects.filter(is_superuser=False).get(pk=id)  # type: ignore[misc]
         except User.DoesNotExist:
             return None

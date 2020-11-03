@@ -11,5 +11,5 @@ class BadgeObjectType(DjangoObjectType):
 
     class Meta:
         model = Badge
-        description = api_descriptions
+        description = api_descriptions.BADGE_OBJECT_TYPE
         fields = ("id", "name", "description")

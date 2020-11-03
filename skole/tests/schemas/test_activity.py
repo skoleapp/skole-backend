@@ -144,10 +144,7 @@ class ActivitySchemaTests(SkoleSchemaTestCase):
 
     def test_activity_preview(self) -> None:
         res = self.query_activity_preview()
-        assert len(res) == 3
-
-        # FIXME: The amount of activity items in the fixtures must exceed the limit in the settings for this test to work properly..
-        assert len(res) <= settings.ACTIVITY_PREVIEW_COUNT
+        assert len(res) == 3 <= settings.ACTIVITY_PREVIEW_COUNT
 
         # Shouldn't work without auth.
         self.authenticated_user = None

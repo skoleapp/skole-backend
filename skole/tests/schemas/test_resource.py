@@ -3,7 +3,6 @@ from typing import Optional
 from unittest import mock
 
 import requests
-from django.contrib.auth import get_user_model
 from django.http import HttpResponse
 from django.test import override_settings
 
@@ -231,7 +230,7 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
         assert len(res["objects"]) == page_size
 
         for course in res["objects"]:
-            assert course["user"]["id"] == str(self.authenticated_user)
+            assert int(course["user"]["id"]) == self.authenticated_user
 
         assert res["count"] == 2
         assert res["page"] == page
@@ -284,7 +283,7 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
         res = self.query_starred_resources(page=page, page_size=page_size)
         assert len(res["objects"]) == page_size
         assert self.authenticated_user
-        user = get_user_model().objects.get(pk=self.authenticated_user)
+
         starred_resources = Resource.objects.filter(
             stars__user__pk=self.authenticated_user
         ).values_list("id", flat=True)

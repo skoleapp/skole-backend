@@ -1,7 +1,5 @@
 from typing import Collection, List, Optional, cast
 
-from django.contrib.auth import get_user_model
-
 from skole.models import Course, User, Vote
 from skole.tests.helpers import (
     SkoleSchemaTestCase,
@@ -402,7 +400,7 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         res = self.query_courses(user=self.authenticated_user)
 
         for course_obj in res["objects"]:
-            assert course_obj["user"]["id"] == str(self.authenticated_user)
+            assert int(course_obj["user"]["id"]) == self.authenticated_user
 
         # Test for some user that has created no courses.
         res = self.query_courses(user=10)
@@ -433,7 +431,6 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         res = self.query_starred_courses(page=page, page_size=page_size)
         assert len(res["objects"]) == page_size
         assert self.authenticated_user
-        user = get_user_model().objects.get(pk=self.authenticated_user)
 
         starred_courses = Course.objects.filter(
             stars__user__pk=self.authenticated_user

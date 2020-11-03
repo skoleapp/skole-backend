@@ -289,6 +289,8 @@ type PaginatedSubjectObjectType {
 }
 
 type Query {
+  userMe: UserObjectType
+  user(id: ID): UserObjectType
   subjects(school: ID, page: Int, pageSize: Int): PaginatedSubjectObjectType
   autocompleteSubjects(name: String): [SubjectObjectType]
   subject(id: ID): SubjectObjectType
@@ -311,8 +313,6 @@ type Query {
   city(id: ID): CityObjectType
   activities(page: Int, pageSize: Int): PaginatedActivityObjectType
   activityPreview: [ActivityObjectType]
-  userMe: UserObjectType
-  user(id: ID): UserObjectType
 }
 
 input RegisterMutationInput {

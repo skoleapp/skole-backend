@@ -1,4 +1,5 @@
-from typing import Optional
+from functools import wraps
+from typing import Callable, Optional, TypeVar
 
 import graphene
 from django.contrib.auth import get_user_model
@@ -11,7 +12,22 @@ from skole.schemas.school import SchoolObjectType
 from skole.schemas.subject import SubjectObjectType
 from skole.types import ResolveInfo
 from skole.utils import api_descriptions
-from skole.utils.decorators import private_field
+
+T = TypeVar("T")
+UserResolver = Callable[[User, ResolveInfo], T]
+
+
+def private_field(func: UserResolver[T]) -> UserResolver[Optional[T]]:
+    """Use as a decorator to only return the field's value if it's the user's own."""
+
+    @wraps(func)
+    def wrapper(root: User, info: ResolveInfo) -> Optional[T]:
+        if info.context.user.is_authenticated and root.pk == info.context.user.pk:
+            return func(root, info)
+        else:
+            return None
+
+    return wrapper
 
 
 class UserObjectType(DjangoObjectType):

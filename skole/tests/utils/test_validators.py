@@ -14,7 +14,7 @@ def test_invalid_file_type(db: Fixture) -> None:
 
     with pytest.raises(ValidationError):
         Comment.objects.create(
-            user=user, text="", attachment=invalid_file, course=course,
+            user=user, text="", attachment=invalid_file, course=course
         ).full_clean()
 
 
@@ -25,7 +25,7 @@ def test_invalid_file_extension(db: Fixture) -> None:
 
     with pytest.raises(ValidationError):
         Comment.objects.create(
-            user=user, text="", attachment=actually_jpeg, course=course,
+            user=user, text="", attachment=actually_jpeg, course=course
         ).full_clean()
 
 
@@ -36,10 +36,10 @@ def test_too_large(db: Fixture) -> None:
     too_big = SimpleUploadedFile("image.jpeg", b"\xff\xd8\xff" * 2_000_000)
 
     Comment.objects.create(
-        user=user, text="", attachment=small_enough, course=course,
+        user=user, text="", attachment=small_enough, course=course
     ).full_clean()
 
     with pytest.raises(ValidationError):
         Comment.objects.create(
-            user=user, text="", attachment=too_big, course=course,
+            user=user, text="", attachment=too_big, course=course
         ).full_clean()

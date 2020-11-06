@@ -141,7 +141,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         # Create a comment with an attachment.
         with open_as_file(TEST_ATTACHMENT_PNG) as attachment:
             res = self.mutate_create_comment(
-                text=text, course=2, file_data=[("attachment", attachment)],
+                text=text, course=2, file_data=[("attachment", attachment)]
             )
         assert not res["errors"]
         assert comment["text"] == text
@@ -161,7 +161,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         # Can't add an attachment to the comment without logging in.
         with open_as_file(TEST_ATTACHMENT_PNG) as attachment:
             res = self.mutate_create_comment(
-                text=text, course=2, file_data=[("attachment", attachment)],
+                text=text, course=2, file_data=[("attachment", attachment)]
             )
         comment = res["comment"]
         # No need to return an error, frontend will anyways hide this option for

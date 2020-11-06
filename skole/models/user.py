@@ -79,7 +79,7 @@ class User(SkoleModel, AbstractBaseUser, PermissionsMixin):
     )
 
     email = models.EmailField(
-        unique=True, error_messages={"unique": ValidationErrors.EMAIL_TAKEN},
+        unique=True, error_messages={"unique": ValidationErrors.EMAIL_TAKEN}
     )
 
     title = models.CharField(max_length=100, blank=True)

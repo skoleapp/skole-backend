@@ -21,11 +21,11 @@ class CountryObjectType(DjangoObjectType):
 
 class Query(graphene.ObjectType):
     autocomplete_countries = graphene.List(
-        CountryObjectType, description=api_descriptions.AUTOCOMPLETE_QUERY,
+        CountryObjectType, description=api_descriptions.AUTOCOMPLETE_QUERY
     )
 
     country = graphene.Field(
-        CountryObjectType, id=graphene.ID(), description=api_descriptions.DETAIL_QUERY,
+        CountryObjectType, id=graphene.ID(), description=api_descriptions.DETAIL_QUERY
     )
 
     @staticmethod

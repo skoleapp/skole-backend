@@ -209,26 +209,26 @@ type LogoutMutation {
   deleted: Boolean!
 }
 
-input MarkActivityReadMutationInput {
+input MarkActivityAsReadMutationInput {
   read: Boolean
   id: ID
   clientMutationId: String
 }
 
-type MarkActivityReadMutationPayload {
+type MarkActivityAsReadMutationPayload {
   activity: ActivityObjectType
   errors: [ErrorType]
   clientMutationId: String
 }
 
-type MarkAllActivitiesReadMutation {
+type MarkAllActivitiesAsReadMutation {
   errors: [ErrorType]
-  activities: [ActivityObjectType]
+  activities: PaginatedActivityObjectType
 }
 
 type Mutation {
-  performStar(input: StarredMutationInput!): StarredMutationPayload
-  performVote(input: VoteMutationInput!): VoteMutationPayload
+  star(input: StarMutationInput!): StarMutationPayload
+  vote(input: VoteMutationInput!): VoteMutationPayload
   register(input: RegisterMutationInput!): RegisterMutationPayload
   verifyAccount(input: VerifyAccountMutationInput!): VerifyAccountMutationPayload
   resendVerificationEmail(input: ResendVerificationEmailMutationInput!): ResendVerificationEmailMutationPayload
@@ -236,8 +236,8 @@ type Mutation {
   resetPassword(input: ResetPasswordMutationInput!): ResetPasswordMutationPayload
   login(input: LoginMutationInput!): LoginMutationPayload
   logout: LogoutMutation
-  updateUser(input: UpdateUserMutationInput!): UpdateUserMutationPayload
   changePassword(input: ChangePasswordMutationInput!): ChangePasswordMutationPayload
+  updateUser(input: UpdateUserMutationInput!): UpdateUserMutationPayload
   deleteUser(input: DeleteUserMutationInput!): DeleteUserMutationPayload
   createResource(input: CreateResourceMutationInput!): CreateResourceMutationPayload
   updateResource(input: UpdateResourceMutationInput!): UpdateResourceMutationPayload
@@ -248,8 +248,17 @@ type Mutation {
   createComment(input: CreateCommentMutationInput!): CreateCommentMutationPayload
   updateComment(input: UpdateCommentMutationInput!): UpdateCommentMutationPayload
   deleteComment(input: DeleteCommentMutationInput!): DeleteCommentMutationPayload
-  markActivityRead(input: MarkActivityReadMutationInput!): MarkActivityReadMutationPayload
-  markAllActivitiesRead: MarkAllActivitiesReadMutation
+  markActivityAsRead(input: MarkActivityAsReadMutationInput!): MarkActivityAsReadMutationPayload
+  markAllActivitiesAsRead: MarkAllActivitiesAsReadMutation
+}
+
+type PaginatedActivityObjectType {
+  page: Int
+  pages: Int
+  hasNext: Boolean
+  hasPrev: Boolean
+  count: Int
+  objects: [ActivityObjectType]
 }
 
 type PaginatedCourseObjectType {
@@ -261,9 +270,28 @@ type PaginatedCourseObjectType {
   objects: [CourseObjectType]
 }
 
+type PaginatedResourceObjectType {
+  page: Int
+  pages: Int
+  hasNext: Boolean
+  hasPrev: Boolean
+  count: Int
+  objects: [ResourceObjectType]
+}
+
+type PaginatedSubjectObjectType {
+  page: Int
+  pages: Int
+  hasNext: Boolean
+  hasPrev: Boolean
+  count: Int
+  objects: [SubjectObjectType]
+}
+
 type Query {
-  user(id: ID): UserObjectType
   userMe: UserObjectType
+  user(id: ID): UserObjectType
+  subjects(school: ID, page: Int, pageSize: Int): PaginatedSubjectObjectType
   autocompleteSubjects(name: String): [SubjectObjectType]
   subject(id: ID): SubjectObjectType
   autocompleteSchoolTypes: [SchoolTypeObjectType]
@@ -272,14 +300,19 @@ type Query {
   school(id: ID): SchoolObjectType
   resourceTypes: [ResourceTypeObjectType]
   autocompleteResourceTypes: [ResourceTypeObjectType]
+  resources(user: ID, course: ID, page: Int, pageSize: Int, ordering: String): PaginatedResourceObjectType
+  starredResources(page: Int, pageSize: Int): PaginatedResourceObjectType
   resource(id: ID): ResourceObjectType
-  searchCourses(courseName: String, courseCode: String, subject: ID, school: ID, schoolType: ID, country: ID, city: ID, page: Int, pageSize: Int, ordering: String): PaginatedCourseObjectType
+  courses(courseName: String, courseCode: String, subject: ID, school: ID, schoolType: ID, country: ID, city: ID, user: ID, page: Int, pageSize: Int, ordering: String): PaginatedCourseObjectType
   autocompleteCourses(school: ID, name: String): [CourseObjectType]
+  starredCourses(page: Int, pageSize: Int): PaginatedCourseObjectType
   course(id: ID): CourseObjectType
   autocompleteCountries: [CountryObjectType]
   country(id: ID): CountryObjectType
   autocompleteCities: [CityObjectType]
   city(id: ID): CityObjectType
+  activities(page: Int, pageSize: Int): PaginatedActivityObjectType
+  activityPreview: [ActivityObjectType]
 }
 
 input RegisterMutationInput {
@@ -373,16 +406,25 @@ type SendPasswordResetEmailMutationPayload {
   clientMutationId: String
 }
 
-input StarredMutationInput {
+input StarMutationInput {
   course: ID
   resource: ID
   clientMutationId: String
 }
 
-type StarredMutationPayload {
-  starred: Boolean
+type StarMutationPayload {
+  star: StarObjectType
   errors: [ErrorType]
+  starred: Boolean
   clientMutationId: String
+}
+
+type StarObjectType {
+  id: ID!
+  deletedAt: DateTime
+  user: UserObjectType!
+  course: CourseObjectType
+  resource: ResourceObjectType
 }
 
 type SubjectObjectType {
@@ -449,16 +491,12 @@ type UserObjectType {
   score: Int
   created: DateTime!
   verified: Boolean
-  activity: [ActivityObjectType]
-  createdCourses: [CourseObjectType!]!
-  createdResources: [ResourceObjectType!]!
   avatarThumbnail: String
   school: SchoolObjectType
   subject: SubjectObjectType
   rank: String
   badges: [BadgeObjectType]
-  starredCourses: [CourseObjectType]
-  starredResources: [ResourceObjectType]
+  unreadActivityCount: Int
 }
 
 input VerifyAccountMutationInput {

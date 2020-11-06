@@ -6,6 +6,7 @@ import requests
 from django.http import HttpResponse
 from django.test import override_settings
 
+from skole.models import Resource
 from skole.tests.helpers import (
     TEST_ATTACHMENT_PNG,
     TEST_RESOURCE_PDF,
@@ -13,6 +14,7 @@ from skole.tests.helpers import (
     FileData,
     SkoleSchemaTestCase,
     get_form_error,
+    get_graphql_error,
     is_slug_match,
     open_as_file,
 )
@@ -29,16 +31,18 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
             id
             title
             file
-            resourceType {
-                id
-                name
-            }
             date
             downloads
             score
             starred
             starCount
             commentCount
+            modified
+            created
+            resourceType {
+                id
+                name
+            }
             user {
                 id
             }
@@ -55,23 +59,107 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
                 id
                 status
             }
-            modified
-            created
         }
     """
+
+    def query_resources(
+        self,
+        *,
+        user: ID = None,
+        course: ID = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        assert_error: bool = False,
+    ) -> JsonDict:
+        variables = {
+            "user": user,
+            "course": course,
+            "page": page,
+            "pageSize": page_size,
+        }
+
+        # langauge=GraphQL
+        graphql = (
+            self.resource_fields
+            + """
+                query Resources (
+                    $user: ID,
+                    $course: ID,
+                    $page: Int,
+                    $pageSize: Int
+                ) {
+                    resources (
+                        user: $user,
+                        course: $course,
+                        page: $page,
+                        pageSize: $pageSize
+                    ) {
+                        page
+                        pages
+                        hasNext
+                        hasPrev
+                        count
+                        objects {
+                            ...resourceFields
+                        }
+                    }
+                }
+            """
+        )
+
+        return self.execute(graphql, variables=variables, assert_error=assert_error)
+
+    def query_starred_resources(
+        self,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        assert_error: bool = False,
+    ) -> JsonDict:
+        variables = {
+            "page": page,
+            "pageSize": page_size,
+        }
+
+        # langauge=GraphQL
+        graphql = (
+            self.resource_fields
+            + """
+                query StarredResources (
+                    $page: Int,
+                    $pageSize: Int
+                ) {
+                    starredResources (
+                        page: $page,
+                        pageSize: $pageSize
+                    ) {
+                        page
+                        pages
+                        hasNext
+                        hasPrev
+                        count
+                        objects {
+                            ...resourceFields
+                        }
+                    }
+                }
+            """
+        )
+
+        return self.execute(graphql, variables=variables, assert_error=assert_error)
 
     def query_resource(self, *, id: ID) -> JsonDict:
         # language=GraphQL
         graphql = (
             self.resource_fields
             + """
-            query Resource($id: ID!) {
+            query Resource($id: ID) {
                 resource(id: $id) {
                     ...resourceFields
                 }
             }
             """
         )
+
         return self.execute(graphql, variables={"id": id})
 
     def mutate_create_resource(
@@ -129,6 +217,110 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
             assert_error=assert_error,
         )
 
+    def test_resources(self) -> None:
+        page = 1
+        page_size = 1
+
+        # Test that only resources of the correct user are returned.
+
+        res = self.query_resources(
+            user=self.authenticated_user, page=page, page_size=page_size
+        )
+
+        assert len(res["objects"]) == page_size
+
+        for course in res["objects"]:
+            assert int(course["user"]["id"]) == self.authenticated_user
+
+        assert res["count"] == 2
+        assert res["page"] == page
+        assert res["pages"] == 2
+        assert res["hasNext"] is True
+        assert res["hasPrev"] is False
+
+        # Test for some user that has created no resources.
+
+        page = 1
+        res = self.query_resources(user=9, page=page, page_size=page_size)
+        assert res["count"] == 0
+        assert res["page"] == page
+        assert res["pages"] == 1
+        assert res["hasNext"] is False
+        assert res["hasPrev"] is False
+
+        # Test that only resources of the correct course are returned.
+
+        page = 4
+        course_pk = "1"
+
+        res = self.query_resources(course=course_pk, page=page, page_size=page_size)
+
+        assert len(res["objects"]) == page_size
+
+        for resource in res["objects"]:
+            assert resource["course"]["id"] == course_pk
+
+        assert res["count"] == 4
+        assert res["page"] == page
+        assert res["pages"] == 4
+        assert res["hasNext"] is False
+        assert res["hasPrev"] is True
+
+        # Test for some course that has no courses.
+
+        page = 1
+        res = self.query_resources(course=9, page=page, page_size=page_size)
+        assert res["count"] == 0
+        assert res["page"] == page
+        assert res["pages"] == 1
+        assert res["hasNext"] is False
+        assert res["hasPrev"] is False
+
+    def test_starred_resources(self) -> None:
+        page = 1
+        page_size = 1
+
+        res = self.query_starred_resources(page=page, page_size=page_size)
+        assert len(res["objects"]) == page_size
+        assert self.authenticated_user
+
+        starred_resources = Resource.objects.filter(
+            stars__user__pk=self.authenticated_user
+        ).values_list("id", flat=True)
+
+        # Test that only resources starred by the user are returned.
+        for resource in res["objects"]:
+            assert int(resource["id"]) in starred_resources
+
+        assert res["count"] == 2
+        assert res["page"] == page
+        assert res["pages"] == 2
+        assert res["hasNext"] is True
+        assert res["hasPrev"] is False
+
+        page = 2
+
+        res = self.query_starred_resources(page=page, page_size=page_size)
+        assert len(res["objects"]) == page_size
+
+        # Test that only resources starred by the user are returned.
+        for resource in res["objects"]:
+            assert int(resource["id"]) in starred_resources
+
+        assert res["count"] == 2
+        assert res["page"] == page
+        assert res["pages"] == 2
+        assert res["hasNext"] is False
+        assert res["hasPrev"] is True
+
+        # Shouldn't work without auth.
+        self.authenticated_user = None
+        res = self.query_starred_resources(
+            page=page, page_size=page_size, assert_error=True
+        )
+        assert "permission" in get_graphql_error(res)
+        assert res["data"] == {"starredResources": None}
+
     def test_resource(self) -> None:
         with override_settings(DEBUG=True):  # To access media.
             resource = self.query_resource(id=1)
@@ -136,7 +328,7 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
             assert resource["title"] == "Sample exam 1"
             assert resource["file"] == "/media/uploads/resources/test_resource.pdf"
             assert resource["course"]["id"] == "1"
-            assert resource["starCount"] == 0
+            assert resource["starCount"] == 1
             assert resource["commentCount"] == 4
             assert self.client.get(resource["file"]).status_code == 200
 
@@ -146,9 +338,10 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
         # Create a resource with a PDF file.
         with open_as_file(TEST_RESOURCE_PDF) as file:
             res = self.mutate_create_resource(file_data=[("file", file)])
+
         resource = res["resource"]
         assert not res["errors"]
-        assert resource["id"] == "4"
+        assert resource["id"] == "5"
         assert resource["title"] == "test title"
         assert is_slug_match(UPLOADED_RESOURCE_PDF, resource["file"])
 
@@ -159,14 +352,14 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
         # Create a resource with PNG file that will get converted to a PDF.
         with open_as_file(TEST_RESOURCE_PDF) as file:
             response = HttpResponse(content=file.read())
+
         with override_settings(CLOUDMERSIVE_API_KEY="xxx"):
             with mock.patch.object(requests, "post", return_value=response):
                 with open_as_file(TEST_ATTACHMENT_PNG) as file:
                     res = self.mutate_create_resource(file_data=[("file", file)])
+
         resource = res["resource"]
         assert not res["errors"]
-        assert resource["id"] == "5"
-        assert is_slug_match(UPLOADED_RESOURCE_PDF, resource["file"])
 
         # Can't create a resource with no file.
         res = self.mutate_create_resource()
@@ -184,9 +377,11 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
     def test_update_resource(self) -> None:
         new_title = "new title"
         new_resource_type = 3
+
         res = self.mutate_update_resource(
             title=new_title, resource_type=new_resource_type
         )
+
         resource = res["resource"]
         assert not res["errors"]
         assert resource["title"] == new_title

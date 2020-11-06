@@ -5,10 +5,10 @@ from ._resolve_info import ResolveInfo  # So that it can be imported from this m
 
 if TYPE_CHECKING:  # pragma: no cover
     # To avoid circular import.
-    from skole.models import Comment, Course, Resource, User  # noqa
+    from skole.models import Activity, Comment, Course, Resource, User  # noqa
 
 CommentableModel = Union["Comment", "Course", "Resource"]
-PaginableModel = Union["Course", "Resource", "User"]
+PaginableModel = Union["Course", "Resource", "User", "Activity"]
 VotableModel = Union["Comment", "Course", "Resource"]
 StarrableModel = Union["Course", "Resource"]
 

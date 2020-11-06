@@ -13,36 +13,38 @@ from .resource import Resource
 from .user import User
 
 
-class StarredManager(SkoleManager["Starred"]):
-    def perform_star(self, user: User, target: StarrableModel) -> Optional[Starred]:
+class StarManager(SkoleManager["Star"]):
+    def create_or_delete_star(
+        self, user: User, target: StarrableModel
+    ) -> Optional[Star]:
         """Create a new star to the target or delete it if it already exists."""
 
         if isinstance(target, Course):
-            starred = self.check_existing_starred(user, course=target)
+            star = self.check_existing_star(user, course=target)
         elif isinstance(target, Resource):
-            starred = self.check_existing_starred(user, resource=target)
+            star = self.check_existing_star(user, resource=target)
         else:
-            raise TypeError(f"Invalid target type for Starred: {type(target)}")
+            raise TypeError(f"Invalid target type for Star: {type(target)}")
 
-        return starred
+        return star
 
-    def check_existing_starred(
+    def check_existing_star(
         self, user: User, **target: Union[Course, Resource]
-    ) -> Optional[Starred]:
+    ) -> Optional[Star]:
         try:
-            starred = user.stars.get(**target)
-            starred.delete()
+            star = user.stars.get(**target)
+            star.delete()
             return None
 
-        except Starred.DoesNotExist:
-            starred = self.model(**target)
-            starred.user = user
-            starred.save()
-            return starred
+        except Star.DoesNotExist:
+            star = self.model(**target)
+            star.user = user
+            star.save()
+            return star
 
 
-class Starred(SkoleModel):
-    """Models a user's starred course or resource."""
+class Star(SkoleModel):
+    """Models a star that the user has placed on a course or a resource."""
 
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="stars"
@@ -64,7 +66,7 @@ class Starred(SkoleModel):
         related_name="stars",
     )
 
-    objects = StarredManager()
+    objects = StarManager()
 
     class Meta:
         unique_together = ("user", "course", "resource")
@@ -75,4 +77,4 @@ class Starred(SkoleModel):
         elif self.resource is not None:
             return f"{self.user} - {self.resource}"
         else:
-            raise ValueError("Invalid starred object.")
+            raise ValueError("Invalid star object.")

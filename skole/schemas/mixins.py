@@ -6,7 +6,7 @@ import graphene
 from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphene_django.types import ErrorType
 
-from skole.models import SkoleModel, Starred, User, Vote
+from skole.models import SkoleModel, Star, User, Vote
 from skole.types import JsonDict, ResolveInfo
 from skole.utils.constants import MutationErrors
 from skole.utils.shortcuts import validate_is_first_inherited
@@ -64,7 +64,7 @@ class VoteMixin:
             return None
 
 
-class StarredMixin:
+class StarMixin:
     """Adds a query if the currently logged in user has starred the item."""
 
     starred = graphene.Boolean()
@@ -72,6 +72,7 @@ class StarredMixin:
     @staticmethod
     def resolve_starred(root: SkoleModel, info: ResolveInfo) -> bool:
         """Return True if the current user has starred the item, otherwise False."""
+
         user = info.context.user
 
         if user.is_anonymous:
@@ -81,7 +82,8 @@ class StarredMixin:
             return (
                 user.stars.get(**{root.__class__.__name__.lower(): root.pk}) is not None
             )
-        except Starred.DoesNotExist:
+
+        except Star.DoesNotExist:
             return False
 
 

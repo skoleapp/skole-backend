@@ -11,12 +11,14 @@ from skole.schemas.mixins import (
     VoteMixin,
 )
 from skole.types import ResolveInfo
+from skole.utils import api_descriptions
 from skole.utils.constants import Messages
 
 
 class CommentObjectType(VoteMixin, DjangoObjectType):
     class Meta:
         model = Comment
+        description = api_descriptions.COMMENT_OBJECT_TYPE
         fields = (
             "id",
             "user",
@@ -49,9 +51,8 @@ class CreateCommentMutation(
 class UpdateCommentMutation(
     SkoleCreateUpdateMutationMixin, SuccessMessageMixin, DjangoModelFormMutation
 ):
-    verification_required = True
+    login_required = True
     success_message = Messages.COMMENT_UPDATED
-
     comment = graphene.Field(CommentObjectType)
 
     class Meta:
@@ -66,6 +67,14 @@ class DeleteCommentMutation(SkoleDeleteMutationMixin, DjangoModelFormMutation):
 
 
 class Mutation(graphene.ObjectType):
-    create_comment = CreateCommentMutation.Field()
-    update_comment = UpdateCommentMutation.Field()
-    delete_comment = DeleteCommentMutation.Field()
+    create_comment = CreateCommentMutation.Field(
+        description=api_descriptions.CREATE_COMMENT
+    )
+
+    update_comment = UpdateCommentMutation.Field(
+        description=api_descriptions.UPDATE_COMMENT
+    )
+
+    delete_comment = DeleteCommentMutation.Field(
+        description=api_descriptions.DELETE_COMMENT
+    )

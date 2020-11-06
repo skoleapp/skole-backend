@@ -7,6 +7,7 @@ from graphene_django import DjangoObjectType
 
 from skole.models import SchoolType
 from skole.types import ID, ResolveInfo
+from skole.utils import api_descriptions
 
 
 class SchoolTypeObjectType(DjangoObjectType):
@@ -14,22 +15,25 @@ class SchoolTypeObjectType(DjangoObjectType):
 
     class Meta:
         model = SchoolType
+        description = api_descriptions.SCHOOL_TYPE_OBJECT_TYPE
         fields = ("id", "name")
 
 
 class Query(graphene.ObjectType):
-    autocomplete_school_types = graphene.List(SchoolTypeObjectType)
-    school_type = graphene.Field(SchoolTypeObjectType, id=graphene.ID())
+    autocomplete_school_types = graphene.List(
+        SchoolTypeObjectType, description=api_descriptions.AUTOCOMPLETE_SCHOOL_TYPES,
+    )
+
+    school_type = graphene.Field(
+        SchoolTypeObjectType,
+        id=graphene.ID(),
+        description=api_descriptions.DETAIL_QUERY,
+    )
 
     @staticmethod
     def resolve_autocomplete_school_types(
         root: None, info: ResolveInfo
     ) -> QuerySet[SchoolType]:
-        """
-        Used for queries made by the client's auto complete fields.
-
-        We want to avoid making massive queries by limiting the amount of results.
-        """
         return SchoolType.objects.all()[: settings.AUTOCOMPLETE_MAX_RESULTS]
 
     @staticmethod

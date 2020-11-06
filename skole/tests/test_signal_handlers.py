@@ -7,14 +7,24 @@ from skole.types import Fixture
 def test_activity_for_comment_reply(db: Fixture) -> None:
     testuser2 = User.objects.get(pk=2)
     testuser3 = User.objects.get(pk=3)
-    comment = Comment.objects.get(pk=4)  # Created by testuser2
+    comment = Comment.objects.get(pk=5)  # Created by testuser2
 
-    # Reply comment to the comment above, created by testuser3.
+    # Make sure activity does not exist.
+    with pytest.raises(Activity.DoesNotExist):
+        Activity.objects.get(
+            user=comment.user,
+            target_user=testuser3,
+            course=comment.course,
+            resource=comment.resource,
+            comment=comment,
+        )
+
+    # Reply comment to the comment above created by testuser2.
     reply_comment = Comment.objects.create(
         user=testuser3, text="test", attachment=None, comment=comment
     )
 
-    # Test that activity is created if a user replies to a comment created by some other user.
+    # Test that activity is created if a user replies to a comment.
 
     Activity.objects.get(
         user=comment.user,

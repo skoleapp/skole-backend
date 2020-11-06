@@ -41,7 +41,6 @@ class UserManager(SkoleManager["User"], BaseUserManager["User"]):
 
     @staticmethod
     def set_password(user: User, password: str) -> User:
-        """Overridden so we avoid calling save() outside of managers."""
         user.set_password(password)
         user.save()
         return user

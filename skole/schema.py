@@ -10,13 +10,14 @@ import skole.schemas.resource
 import skole.schemas.resource_type
 import skole.schemas.school
 import skole.schemas.school_type
-import skole.schemas.starred
+import skole.schemas.star
 import skole.schemas.subject
 import skole.schemas.user
 import skole.schemas.vote
 
 
 class Query(
+    skole.schemas.activity.Query,
     skole.schemas.city.Query,
     skole.schemas.country.Query,
     skole.schemas.course.Query,
@@ -38,7 +39,7 @@ class Mutation(
     skole.schemas.resource.Mutation,
     skole.schemas.user.Mutation,
     skole.schemas.vote.Mutation,
-    skole.schemas.starred.Mutation,
+    skole.schemas.star.Mutation,
 ):
     pass
 

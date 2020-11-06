@@ -1,5 +1,9 @@
-from skole.models import Activity, ActivityType, Comment, Course, Resource, User
-from skole.tests.helpers import SkoleSchemaTestCase
+from typing import Optional
+
+from django.conf import settings
+
+from skole.models import Activity
+from skole.tests.helpers import SkoleSchemaTestCase, get_graphql_error
 from skole.types import ID, JsonDict
 
 
@@ -29,19 +33,79 @@ class ActivitySchemaTests(SkoleSchemaTestCase):
         }
     """
 
-    def mutate_mark_activity_read(self, id: str, read: bool) -> JsonDict:
+    def query_activities(
+        self,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        assert_error: bool = False,
+    ) -> JsonDict:
+        variables = {
+            "page": page,
+            "pageSize": page_size,
+        }
+
+        # language=GraphQL
+        graphql = (
+            self.activity_fields
+            + """
+            query Activities($page: Int, $pageSize: Int) {
+                activities(page: $page, pageSize: $pageSize) {
+                    page
+                    pages
+                    hasNext
+                    hasPrev
+                    count
+                    objects {
+                        ...activityFields
+                    }
+                }
+            }
+            """
+        )
+
+        return self.execute(graphql, variables=variables, assert_error=assert_error)
+
+    def query_activity_preview(self, assert_error: bool = False) -> JsonDict:
+        # language=GraphQL
+        graphql = (
+            self.activity_fields
+            + """
+            query ActivityPreview {
+                activityPreview {
+                    ...activityFields
+                }
+            }
+            """
+        )
+
+        return self.execute(graphql, assert_error=assert_error)
+
+    def mutate_mark_activity_as_read(self, id: str, read: bool) -> JsonDict:
         return self.execute_input_mutation(
-            name="markActivityRead",
-            input_type="MarkActivityReadMutationInput!",
+            name="markActivityAsRead",
+            input_type="MarkActivityAsReadMutationInput!",
             input={"id": id, "read": read},
             result="activity { ...activityFields }",
             fragment=self.activity_fields,
         )
 
-    def mutate_mark_all_activities_read(self) -> JsonDict:
+    def mutate_mark_all_activities_as_read(self) -> JsonDict:
+        result = """
+            activities {
+                page
+                pages
+                hasNext
+                hasPrev
+                count
+                objects {
+                    ...activityFields
+                }
+            }
+        """
+
         return self.execute_non_input_mutation(
-            name="markAllActivitiesRead",
-            result="activities { ...activityFields }",
+            name="markAllActivitiesAsRead",
+            result=result,
             fragment=self.activity_fields,
         )
 
@@ -49,76 +113,68 @@ class ActivitySchemaTests(SkoleSchemaTestCase):
         self.authenticated_user = None
         self.assert_field_fragment_matches_schema(self.activity_fields)
 
-    def test_mark_activity_read(self) -> None:
-        testuser2 = User.objects.get(pk=2)
-        course = Course.objects.get(pk=1)
-        comment = Comment.objects.get(pk=1)
-        activity_type = ActivityType.objects.get(pk=1)
-        test_activity = Activity.objects.create(
-            user=testuser2, activity_type=activity_type, course=course, comment=comment
-        )
+    def test_activities(self) -> None:
+        page_size = 2
+        page = 1
+        res = self.query_activities(page=page, page_size=page_size)
+        assert len(res["objects"]) == page_size
+        assert res["objects"][0]["id"] == "1"
+        assert res["objects"][-1]["id"] == "2"
+        assert res["count"] == 3
+        assert res["page"] == page
+        assert res["pages"] == 2
+        assert res["hasNext"] is True
+        assert res["hasPrev"] is False
 
+        page = 2
+        res = self.query_activities(page=page, page_size=page_size)
+        assert res["objects"][0]["id"] == "3"
+        assert len(res["objects"]) == 1  # Last page only has one result.
+        assert res["count"] == 3
+        assert res["page"] == page
+        assert res["pages"] == 2
+        assert res["hasNext"] is False
+        assert res["hasPrev"] is True
+
+        # Shouldn't work without auth.
+        self.authenticated_user = None
+        res = self.query_activities(page=page, page_size=page_size, assert_error=True)
+        assert "permission" in get_graphql_error(res)
+        assert res["data"] == {"activities": None}
+
+    def test_activity_preview(self) -> None:
+        res = self.query_activity_preview()
+        assert len(res) == 3 <= settings.ACTIVITY_PREVIEW_COUNT
+
+        # Shouldn't work without auth.
+        self.authenticated_user = None
+        res = self.query_activity_preview(assert_error=True)
+        assert "permission" in get_graphql_error(res)
+        assert res["data"] == {"activityPreview": None}
+
+    def test_mark_activity_as_read(self) -> None:
+        test_activity = Activity.objects.get(pk=1)
         assert not test_activity.read
 
         # Test marking activity as read.
-        res = self.mutate_mark_activity_read(id=test_activity.pk, read=True)
-        assert res["activity"]["description"] == activity_type.description
+        res = self.mutate_mark_activity_as_read(id=test_activity.pk, read=True)
         assert res["activity"]["read"]
-        assert res["activity"]["course"]["id"] == str(course.pk)
-        assert res["activity"]["resource"] is None
-        assert res["activity"]["comment"]["id"] == str(comment.pk)
 
         # Test marking activity as not read.
-        res = self.mutate_mark_activity_read(id=test_activity.pk, read=False)
-        assert res["activity"]["description"] == activity_type.description
+        res = self.mutate_mark_activity_as_read(id=test_activity.pk, read=False)
         assert not res["activity"]["read"]
-        assert res["activity"]["course"]["id"] == str(course.pk)
-        assert res["activity"]["resource"] is None
-        assert res["activity"]["comment"]["id"] == str(comment.pk)
 
-        test_activity.delete()
-
-    def test_mark_all_activities_read(self) -> None:
-        testuser2 = User.objects.get(pk=2)
-        resource1 = Resource.objects.get(pk=1)
-        comment1 = Comment.objects.get(pk=2)
-        resource2 = Resource.objects.get(pk=2)
-        comment2 = Comment.objects.get(pk=3)
-        activity_type1 = ActivityType.objects.get(pk=1)
-        activity_type2 = ActivityType.objects.get(pk=2)
-
-        test_activity1 = Activity.objects.create(
-            user=testuser2,
-            activity_type=activity_type1,
-            resource=resource1,
-            comment=comment1,
-        )
-
-        test_activity2 = Activity.objects.create(
-            user=testuser2,
-            activity_type=activity_type2,
-            resource=resource2,
-            comment=comment2,
-        )
+    def test_mark_all_activities_as_read(self) -> None:
+        test_activity1 = Activity.objects.get(pk=1)
+        test_activity2 = Activity.objects.get(pk=2)
 
         assert not test_activity1.read
         assert not test_activity2.read
 
-        res = self.mutate_mark_all_activities_read()
+        res = self.mutate_mark_all_activities_as_read()
 
-        assert res["activities"][0]["id"] == str(test_activity1.pk)
-        assert res["activities"][0]["description"] == activity_type1.description
-        assert res["activities"][0]["read"]
-        assert res["activities"][0]["course"] is None
-        assert res["activities"][0]["resource"]["id"] == str(resource1.pk)
-        assert res["activities"][0]["comment"]["id"] == str(comment1.pk)
-
-        assert res["activities"][1]["id"] == str(test_activity2.pk)
-        assert res["activities"][1]["description"] == activity_type2.description
-        assert res["activities"][1]["read"]
-        assert res["activities"][1]["course"] is None
-        assert res["activities"][1]["resource"]["id"] == str(resource2.pk)
-        assert res["activities"][1]["comment"]["id"] == str(comment2.pk)
-
-        test_activity1.delete()
-        test_activity2.delete()
+        assert res["activities"]["page"] == 1
+        assert res["activities"]["objects"][0]["id"] == str(test_activity1.pk)
+        assert res["activities"]["objects"][0]["read"]
+        assert res["activities"]["objects"][1]["id"] == str(test_activity2.pk)
+        assert res["activities"]["objects"][1]["read"]

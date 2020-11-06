@@ -35,7 +35,7 @@ class CountrySchemaTests(SkoleSchemaTestCase):
         graphql = (
             self.country_fields
             + """
-            query Country($id: ID!) {
+            query Country($id: ID) {
                 country(id: $id) {
                     ...countryFields
                 }

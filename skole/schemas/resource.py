@@ -1,25 +1,44 @@
 from typing import Optional
 
 import graphene
+from django.conf import settings
+from django.db.models import F, QuerySet
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
+from graphql_jwt.decorators import login_required
 
 from skole.forms import CreateResourceForm, DeleteResourceForm, UpdateResourceForm
 from skole.models import Resource, School
 from skole.schemas.mixins import (
+    PaginationMixin,
     SkoleCreateUpdateMutationMixin,
     SkoleDeleteMutationMixin,
-    StarredMixin,
+    StarMixin,
     SuccessMessageMixin,
     VoteMixin,
 )
 from skole.schemas.resource_type import ResourceTypeObjectType
 from skole.schemas.school import SchoolObjectType
 from skole.types import ID, ResolveInfo
+from skole.utils import api_descriptions
 from skole.utils.constants import Messages
+from skole.utils.pagination import get_paginator
 
 
-class ResourceObjectType(VoteMixin, StarredMixin, DjangoObjectType):
+def order_resources_with_secret_algorithm(qs: QuerySet[Resource]) -> QuerySet[Resource]:
+    """
+    Sort the given queryset so that the most interesting resources come first.
+
+    No deep logic in this, should just be a formula that makes the most sense for
+    determining the most interesting resources.
+
+    The ordering formula/value should not be exposed to the frontend.
+    """
+
+    return qs.order_by(-(3 * F("score") + F("comment_count")), "title")
+
+
+class ResourceObjectType(VoteMixin, StarMixin, DjangoObjectType):
     resource_type = graphene.Field(ResourceTypeObjectType)
     school = graphene.Field(SchoolObjectType)
     star_count = graphene.Int()
@@ -27,6 +46,7 @@ class ResourceObjectType(VoteMixin, StarredMixin, DjangoObjectType):
 
     class Meta:
         model = Resource
+        description = api_descriptions.RESOURCE_OBJECT_TYPE
         fields = (
             "id",
             "file",
@@ -68,6 +88,10 @@ class ResourceObjectType(VoteMixin, StarredMixin, DjangoObjectType):
         return getattr(root, "comment_count", 0)
 
 
+class PaginatedResourceObjectType(PaginationMixin, graphene.ObjectType):
+    objects = graphene.List(ResourceObjectType)
+
+
 class CreateResourceMutation(
     SkoleCreateUpdateMutationMixin, SuccessMessageMixin, DjangoModelFormMutation
 ):
@@ -90,6 +114,7 @@ class UpdateResourceMutation(
 
 
 class DeleteResourceMutation(SkoleDeleteMutationMixin, DjangoModelFormMutation):
+    verification_required = True
     success_message = Messages.RESOURCE_DELETED
 
     class Meta(SkoleDeleteMutationMixin.Meta):
@@ -97,7 +122,56 @@ class DeleteResourceMutation(SkoleDeleteMutationMixin, DjangoModelFormMutation):
 
 
 class Query(graphene.ObjectType):
-    resource = graphene.Field(ResourceObjectType, id=graphene.ID())
+    resources = graphene.Field(
+        PaginatedResourceObjectType,
+        user=graphene.ID(),
+        course=graphene.ID(),
+        page=graphene.Int(),
+        page_size=graphene.Int(),
+        ordering=graphene.String(),
+        description=api_descriptions.RESOURCES,
+    )
+
+    starred_resources = graphene.Field(
+        PaginatedResourceObjectType,
+        page=graphene.Int(),
+        page_size=graphene.Int(),
+        description=api_descriptions.STARRED_RESOURCES,
+    )
+
+    resource = graphene.Field(
+        ResourceObjectType, id=graphene.ID(), description=api_descriptions.RESOURCE,
+    )
+
+    @staticmethod
+    def resolve_resources(
+        root: None,
+        info: ResolveInfo,
+        user: ID = None,
+        course: ID = None,
+        page: int = 1,
+        page_size: int = settings.DEFAULT_PAGE_SIZE,
+    ) -> graphene.ObjectType:
+        qs: QuerySet[Resource] = Resource.objects.all()
+
+        if user is not None:
+            qs = qs.filter(user__pk=user)
+        if course is not None:
+            qs = qs.filter(course__pk=course)
+
+        qs = order_resources_with_secret_algorithm(qs)
+        return get_paginator(qs, page_size, page, PaginatedResourceObjectType)
+
+    @staticmethod
+    @login_required
+    def resolve_starred_resources(
+        root: None,
+        info: ResolveInfo,
+        page: int = 1,
+        page_size: int = settings.DEFAULT_PAGE_SIZE,
+    ) -> QuerySet[Resource]:
+        qs = Resource.objects.filter(stars__user__pk=info.context.user.pk)
+        return get_paginator(qs, page_size, page, PaginatedResourceObjectType)
 
     @staticmethod
     def resolve_resource(
@@ -107,6 +181,14 @@ class Query(graphene.ObjectType):
 
 
 class Mutation(graphene.ObjectType):
-    create_resource = CreateResourceMutation.Field()
-    update_resource = UpdateResourceMutation.Field()
-    delete_resource = DeleteResourceMutation.Field()
+    create_resource = CreateResourceMutation.Field(
+        description=api_descriptions.CREATE_RESOURCE
+    )
+
+    update_resource = UpdateResourceMutation.Field(
+        description=api_descriptions.UPDATE_RESOURCE
+    )
+
+    delete_resource = DeleteResourceMutation.Field(
+        description=api_descriptions.DELETE_RESOURCE
+    )

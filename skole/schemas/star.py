@@ -7,19 +7,20 @@ from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 
 from skole.forms import CreateStarForm
-from skole.models import Starred, User
+from skole.models import Star, User
 from skole.schemas.mixins import SkoleCreateUpdateMutationMixin
 from skole.types import ResolveInfo
+from skole.utils import api_descriptions
 
 
-class StarredObjectType(DjangoObjectType):
+class StarObjectType(DjangoObjectType):
     class Meta:
-        model = Starred
+        model = Star
+        description = api_descriptions.STAR_OBJECT_TYPE
 
 
-class StarredMutation(SkoleCreateUpdateMutationMixin, DjangoModelFormMutation):
+class StarMutation(SkoleCreateUpdateMutationMixin, DjangoModelFormMutation):
     verification_required = True
-
     starred = graphene.Boolean()
 
     class Meta:
@@ -27,14 +28,14 @@ class StarredMutation(SkoleCreateUpdateMutationMixin, DjangoModelFormMutation):
         exclude_fields = ("id",)
 
     @classmethod
-    def perform_mutate(cls, form: CreateStarForm, info: ResolveInfo) -> StarredMutation:
-        # Not calling super (which saves the form), so that we don't
-        # create two Starred instances here.
-        starred = Starred.objects.perform_star(
+    def perform_mutate(cls, form: CreateStarForm, info: ResolveInfo) -> StarMutation:
+        # Not calling super (which saves the form) so that we don't create two Star instances here.
+        star = Star.objects.create_or_delete_star(
             user=cast(User, info.context.user), target=form.cleaned_data["target"]
         )
-        return cls(starred=bool(starred))
+
+        return cls(starred=bool(star))
 
 
 class Mutation(graphene.ObjectType):
-    perform_star = StarredMutation.Field()
+    star = StarMutation.Field(description=api_descriptions.STAR)

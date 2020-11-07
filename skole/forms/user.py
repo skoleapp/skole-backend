@@ -27,6 +27,9 @@ class RegisterForm(SkoleModelForm):
             raise forms.ValidationError(ValidationErrors.USERNAME_TAKEN)
         return username
 
+    def save(self) -> User:
+        return get_user_model().objects.create_user(**self.cleaned_data)
+
 
 class TokenForm(SkoleForm):
     # We don't make the token required because we don't want

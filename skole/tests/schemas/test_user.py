@@ -207,6 +207,29 @@ class UserSchemaTests(SkoleSchemaTestCase):
         res = self.mutate_login(password="wrongpass")
         assert get_form_error(res) == ValidationErrors.AUTH_ERROR
 
+    def test_register_and_login(self) -> None:
+        self.authenticated_user = None
+
+        res = self.mutate_register(
+            username="newuser2",
+            email="newemail2@test.com",
+        )
+
+        assert not res["errors"]
+        assert res["message"] == Messages.USER_REGISTERED
+
+        # Login with email.
+        res = self.mutate_login(username_or_email="newuser2@test.com")
+        assert res["user"]["email"] == "newuser2@test.com"
+        assert res["user"]["username"] == "newuser2"
+        assert res["message"] == Messages.LOGGED_IN
+
+        # Login with username.
+        res = self.mutate_login(username_or_email="newuser2")
+        assert res["user"]["email"] == "newuser2@test.com"
+        assert res["user"]["username"] == "newuser2"
+        assert res["message"] == Messages.LOGGED_IN
+
     def test_user(self) -> None:
         # Own user.
         user1 = self.query_user(id=2)

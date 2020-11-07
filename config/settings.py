@@ -210,7 +210,7 @@ EMAIL_TEMPLATE_CONTACT = "email/contact_email_body.html"
 AUTOCOMPLETE_MAX_RESULTS = 50
 
 # Amount of results that are returned for paginated queries by default.
-DEFAULT_PAGE_SIZE = 20
+DEFAULT_PAGE_SIZE = 25
 
 # Amount of results shown in the activity preview menu.
 ACTIVITY_PREVIEW_COUNT = 10

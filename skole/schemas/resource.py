@@ -96,7 +96,7 @@ class CreateResourceMutation(
     SkoleCreateUpdateMutationMixin, SuccessMessageMixin, DjangoModelFormMutation
 ):
     verification_required = True
-    success_message = Messages.RESOURCE_CREATED
+    success_message_value = Messages.RESOURCE_CREATED
 
     class Meta:
         form_class = CreateResourceForm
@@ -107,7 +107,7 @@ class UpdateResourceMutation(
     SkoleCreateUpdateMutationMixin, SuccessMessageMixin, DjangoModelFormMutation
 ):
     verification_required = True
-    success_message = Messages.RESOURCE_UPDATED
+    success_message_value = Messages.RESOURCE_UPDATED
 
     class Meta:
         form_class = UpdateResourceForm
@@ -115,7 +115,7 @@ class UpdateResourceMutation(
 
 class DeleteResourceMutation(SkoleDeleteMutationMixin, DjangoModelFormMutation):
     verification_required = True
-    success_message = Messages.RESOURCE_DELETED
+    success_message_value = Messages.RESOURCE_DELETED
 
     class Meta(SkoleDeleteMutationMixin.Meta):
         form_class = DeleteResourceForm

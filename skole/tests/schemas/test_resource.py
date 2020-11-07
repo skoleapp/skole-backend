@@ -213,7 +213,7 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
             name="deleteResource",
             input_type="DeleteResourceMutationInput!",
             input={"id": id},
-            result="message",
+            result="successMessage",
             assert_error=assert_error,
         )
 

@@ -220,7 +220,7 @@ class CourseSchemaTests(SkoleSchemaTestCase):
             name="deleteCourse",
             input_type="DeleteCourseMutationInput!",
             input={"id": id},
-            result="message",
+            result="successMessage",
             assert_error=assert_error,
         )
 
@@ -263,7 +263,7 @@ class CourseSchemaTests(SkoleSchemaTestCase):
 
     def test_delete_course(self) -> None:
         res = self.mutate_delete_course(id=1)
-        assert res["message"] == Messages.COURSE_DELETED
+        assert res["successMessage"] == Messages.COURSE_DELETED
         assert Course.objects.get_or_none(pk=1) is None
 
         # Can't delete the same course again.

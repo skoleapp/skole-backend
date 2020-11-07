@@ -95,7 +95,7 @@ class CreateCourseMutation(
     SkoleCreateUpdateMutationMixin, SuccessMessageMixin, DjangoModelFormMutation
 ):
     verification_required = True
-    success_message = Messages.COURSE_CREATED
+    success_message_value = Messages.COURSE_CREATED
     course = graphene.Field(CourseObjectType)
 
     class Meta:
@@ -104,7 +104,7 @@ class CreateCourseMutation(
 
 
 class DeleteCourseMutation(SkoleDeleteMutationMixin, DjangoModelFormMutation):
-    success_message = Messages.COURSE_DELETED
+    success_message_value = Messages.COURSE_DELETED
 
     class Meta(SkoleDeleteMutationMixin.Meta):
         form_class = DeleteCourseForm

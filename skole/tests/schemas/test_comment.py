@@ -94,7 +94,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
             name="deleteComment",
             input_type="DeleteCommentMutationInput!",
             input={"id": id},
-            result="message",
+            result="successMessage",
             assert_error=assert_error,
         )
 
@@ -222,7 +222,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
     def test_delete_comment(self) -> None:
         assert Comment.objects.filter(pk=1)
         res = self.mutate_delete_comment(id=1)
-        assert res["message"] == Messages.COMMENT_DELETED
+        assert res["successMessage"] == Messages.COMMENT_DELETED
         assert not Comment.objects.filter(pk=1)
 
         res = self.mutate_delete_comment(id=1, assert_error=True)

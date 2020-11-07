@@ -85,7 +85,7 @@ class UserSchemaTests(SkoleSchemaTestCase):
             name="register",
             input_type="RegisterMutationInput!",
             input={"username": username, "email": email, "password": password},
-            result="message",
+            result="successMessage",
         )
 
     def mutate_login(
@@ -95,7 +95,7 @@ class UserSchemaTests(SkoleSchemaTestCase):
             name="login",
             input_type="LoginMutationInput!",
             input={"usernameOrEmail": username_or_email, "password": password},
-            result="user { ...userFields } message",
+            result="user { ...userFields } successMessage",
             fragment=self.user_fields,
         )
 
@@ -123,7 +123,7 @@ class UserSchemaTests(SkoleSchemaTestCase):
                 "school": school,
                 "subject": subject,
             },
-            result="user { ...userFields } message",
+            result="user { ...userFields } successMessage",
             fragment=self.user_fields,
             file_data=file_data,
         )
@@ -135,7 +135,7 @@ class UserSchemaTests(SkoleSchemaTestCase):
             name="changePassword",
             input_type="ChangePasswordMutationInput!",
             input={"oldPassword": old_password, "newPassword": new_password},
-            result="message",
+            result="successMessage",
         )
 
     def mutate_delete_user(self, *, password: str = "password") -> JsonDict:
@@ -143,7 +143,7 @@ class UserSchemaTests(SkoleSchemaTestCase):
             name="deleteUser",
             input_type="DeleteUserMutationInput!",
             input={"password": password},
-            result="message",
+            result="successMessage",
         )
 
     def test_field_fragment(self) -> None:
@@ -155,7 +155,7 @@ class UserSchemaTests(SkoleSchemaTestCase):
 
         res = self.mutate_register()
         assert not res["errors"]
-        assert res["message"] == Messages.USER_REGISTERED
+        assert res["successMessage"] == Messages.USER_REGISTERED
 
     def test_register_error(self) -> None:
         self.authenticated_user = None
@@ -182,7 +182,7 @@ class UserSchemaTests(SkoleSchemaTestCase):
         res = self.mutate_login()
         assert res["user"]["email"] == "testuser2@test.com"
         assert res["user"]["username"] == "testuser2"
-        assert res["message"] == Messages.LOGGED_IN
+        assert res["successMessage"] == Messages.LOGGED_IN
 
     def test_login_ok_with_email(self) -> None:
         self.authenticated_user = None
@@ -190,7 +190,7 @@ class UserSchemaTests(SkoleSchemaTestCase):
         res = self.mutate_login(username_or_email="testuser2@test.com")
         assert res["user"]["email"] == "testuser2@test.com"
         assert res["user"]["username"] == "testuser2"
-        assert res["message"] == Messages.LOGGED_IN
+        assert res["successMessage"] == Messages.LOGGED_IN
 
     def test_login_error(self) -> None:
         self.authenticated_user = None
@@ -216,19 +216,19 @@ class UserSchemaTests(SkoleSchemaTestCase):
         )
 
         assert not res["errors"]
-        assert res["message"] == Messages.USER_REGISTERED
+        assert res["successMessage"] == Messages.USER_REGISTERED
 
         # Login with email.
-        res = self.mutate_login(username_or_email="newuser2@test.com")
-        assert res["user"]["email"] == "newuser2@test.com"
+        res = self.mutate_login(username_or_email="newemail2@test.com")
+        assert res["user"]["email"] == "newemail2@test.com"
         assert res["user"]["username"] == "newuser2"
-        assert res["message"] == Messages.LOGGED_IN
+        assert res["successMessage"] == Messages.LOGGED_IN
 
         # Login with username.
         res = self.mutate_login(username_or_email="newuser2")
-        assert res["user"]["email"] == "newuser2@test.com"
+        assert res["user"]["email"] == "newemail2@test.com"
         assert res["user"]["username"] == "newuser2"
-        assert res["message"] == Messages.LOGGED_IN
+        assert res["successMessage"] == Messages.LOGGED_IN
 
     def test_user(self) -> None:
         # Own user.
@@ -281,7 +281,7 @@ class UserSchemaTests(SkoleSchemaTestCase):
         res = self.mutate_update_user()
         assert not res["errors"]
         assert res["user"] == user
-        assert res["message"] == Messages.USER_UPDATED
+        assert res["successMessage"] == Messages.USER_UPDATED
 
         # Update some fields.
         new_username = "newusername"
@@ -307,7 +307,7 @@ class UserSchemaTests(SkoleSchemaTestCase):
         assert res["user"]["bio"] == new_bio
         assert res["user"]["school"] == {"id": new_school}
         assert res["user"]["school"] == {"id": new_subject}
-        assert res["message"] == Messages.USER_UPDATED
+        assert res["successMessage"] == Messages.USER_UPDATED
 
     def test_update_user_error(self) -> None:
         user_old = self.query_user_me()
@@ -362,7 +362,7 @@ class UserSchemaTests(SkoleSchemaTestCase):
         # Delete the logged in testuser2.
         res = self.mutate_delete_user()
         assert not res["errors"]
-        assert res["message"] == Messages.USER_DELETED
+        assert res["successMessage"] == Messages.USER_DELETED
 
         # Test that the user cannot be found anymore.
         assert get_user_model().objects.filter(pk=2).count() == 0
@@ -379,7 +379,7 @@ class UserSchemaTests(SkoleSchemaTestCase):
         old_hash = get_user_model().objects.get(pk=2).password
         res = self.mutate_change_password()
         assert not res["errors"]
-        assert res["message"] == Messages.PASSWORD_UPDATED
+        assert res["successMessage"] == Messages.PASSWORD_UPDATED
         new_hash = get_user_model().objects.get(pk=2).password
         assert old_hash != new_hash
 

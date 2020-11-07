@@ -37,12 +37,12 @@ from .object_types import UserObjectType
 class RegisterMutation(
     SkoleCreateUpdateMutationMixin, SuccessMessageMixin, DjangoModelFormMutation
 ):
-    success_message = Messages.USER_REGISTERED
+    success_message_value = Messages.USER_REGISTERED
 
     class Meta:
         form_class = RegisterForm
         exclude_fields = ("id",)
-        return_field_name = "message"
+        return_field_name = "success_message"
 
     @classmethod
     def perform_mutate(cls, form: RegisterForm, info: ResolveInfo) -> RegisterMutation:
@@ -70,7 +70,7 @@ class VerifyAccountMutation(
 
         try:
             get_user_model().objects.verify_user(token)
-            return cls(message=Messages.ACCOUNT_VERIFIED)
+            return cls(success_message=Messages.ACCOUNT_VERIFIED)
 
         except UserAlreadyVerified:
             return cls(errors=MutationErrors.ALREADY_VERIFIED)
@@ -97,7 +97,7 @@ class ResendVerificationEmailMutation(
         try:
             user = get_user_model().objects.get(email=email)
             user.resend_verification_email(info)
-            return cls(message=Messages.VERIFICATION_EMAIL_SENT)
+            return cls(success_message=Messages.VERIFICATION_EMAIL_SENT)
 
         except ObjectDoesNotExist:
             return cls(errors=MutationErrors.USER_NOT_FOUND_WITH_EMAIL)
@@ -124,7 +124,7 @@ class SendPasswordResetEmailMutation(
         try:
             user = get_user_model().objects.get(email=email)
             user.send_password_reset_email(info, [email])
-            return cls(message=Messages.PASSWORD_RESET_EMAIL_SENT)
+            return cls(success_message=Messages.PASSWORD_RESET_EMAIL_SENT)
 
         except ObjectDoesNotExist:
             return cls(errors=MutationErrors.USER_NOT_FOUND_WITH_EMAIL)
@@ -169,7 +169,7 @@ class ResetPasswordMutation(
                 user=user, password=new_password
             )
 
-            return cls(message=Messages.PASSWORD_UPDATED)
+            return cls(success_message=Messages.PASSWORD_UPDATED)
 
         except ObjectDoesNotExist:
             return cls(errors=MutationErrors.ACCOUNT_REMOVED)
@@ -218,7 +218,7 @@ class LoginMutation(
     def perform_mutate(
         cls, form: LoginForm, info: ResolveInfo, user: User, **kwargs: JsonDict
     ) -> LoginMutation:
-        return cls(user=user, message=Messages.LOGGED_IN)
+        return cls(user=user, success_message=Messages.LOGGED_IN)
 
 
 class LogoutMutation(DeleteJSONWebTokenCookie):
@@ -233,7 +233,7 @@ class ChangePasswordMutation(
     class Meta:
         form_class = ChangePasswordForm
         exclude_fields = ("id",)
-        return_field_name = "message"
+        return_field_name = "success_message"
 
     @classmethod
     def get_form_kwargs(
@@ -253,14 +253,14 @@ class ChangePasswordMutation(
             user=cast(User, info.context.user), password=new_password
         )
 
-        return cls(message=Messages.PASSWORD_UPDATED)
+        return cls(success_message=Messages.PASSWORD_UPDATED)
 
 
 class UpdateUserMutation(
     SkoleCreateUpdateMutationMixin, SuccessMessageMixin, DjangoModelFormMutation
 ):
     login_required = True
-    success_message = Messages.USER_UPDATED
+    success_message_value = Messages.USER_UPDATED
     user = graphene.Field(UserObjectType)
 
     class Meta:
@@ -284,7 +284,7 @@ class DeleteUserMutation(
     class Meta:
         form_class = DeleteUserForm
         exclude_fields = ("id",)
-        return_field_name = "message"
+        return_field_name = "success_message"
 
     @classmethod
     def get_form_kwargs(
@@ -298,7 +298,7 @@ class DeleteUserMutation(
     ) -> DeleteUserMutation:
         user = cast(User, info.context.user)
         user.soft_delete()
-        return cls(message=Messages.USER_DELETED)
+        return cls(success_message=Messages.USER_DELETED)
 
 
 class Mutation(graphene.ObjectType):

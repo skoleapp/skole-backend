@@ -53,7 +53,7 @@ class ContactMutation(
                 fail_silently=False,
             )
 
-            return cls(message=Messages.MESSAGE_SENT)
+            return cls(success_message=Messages.MESSAGE_SENT)
         except SMTPException:
             return cls(errors=MutationErrors.EMAIL_ERROR)
 

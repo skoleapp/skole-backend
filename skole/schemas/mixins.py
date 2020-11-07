@@ -18,16 +18,16 @@ if TYPE_CHECKING:  # pragma: no cover
 
 class SuccessMessageMixin:
     """
-    A mixin that provides a mutation a message field in the response.
+    A mixin that provides a mutation a success message field in the response.
 
     Attributes:
-        success_message: This has to be set to the string that the mutation
+        success_message_value: This has to be set to the string that the mutation
             should return in a successful response.
     """
 
-    success_message: ClassVar[str]
+    success_message_value: ClassVar[str]
 
-    message = graphene.String()
+    success_message = graphene.String()
 
     @classmethod
     def perform_mutate(
@@ -40,7 +40,7 @@ class SuccessMessageMixin:
     ) -> DjangoModelFormMutation:
         # Ignore: Will be defined in subclasses.
         obj = super().perform_mutate(form, info)  # type: ignore[misc]
-        obj.message = cls.success_message
+        obj.success_message = cls.success_message_value
         return obj
 
 
@@ -167,7 +167,7 @@ class SkoleDeleteMutationMixin(SkoleCreateUpdateMutationMixin, SuccessMessageMix
     login_required = True
 
     class Meta:
-        return_field_name = "message"
+        return_field_name = "success_message"
         only_fields = ("id",)
 
     @classmethod

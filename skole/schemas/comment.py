@@ -41,7 +41,7 @@ class CommentObjectType(VoteMixin, DjangoObjectType):
 class CreateCommentMutation(
     SkoleCreateUpdateMutationMixin, SuccessMessageMixin, DjangoModelFormMutation
 ):
-    success_message = Messages.MESSAGE_SENT
+    success_message_value = Messages.MESSAGE_SENT
 
     class Meta:
         form_class = CreateCommentForm
@@ -52,7 +52,7 @@ class UpdateCommentMutation(
     SkoleCreateUpdateMutationMixin, SuccessMessageMixin, DjangoModelFormMutation
 ):
     login_required = True
-    success_message = Messages.COMMENT_UPDATED
+    success_message_value = Messages.COMMENT_UPDATED
     comment = graphene.Field(CommentObjectType)
 
     class Meta:
@@ -60,7 +60,7 @@ class UpdateCommentMutation(
 
 
 class DeleteCommentMutation(SkoleDeleteMutationMixin, DjangoModelFormMutation):
-    success_message = Messages.COMMENT_DELETED
+    success_message_value = Messages.COMMENT_DELETED
 
     class Meta(SkoleDeleteMutationMixin.Meta):
         form_class = DeleteCommentForm

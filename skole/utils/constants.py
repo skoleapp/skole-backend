@@ -62,6 +62,7 @@ class Messages:
     RESOURCE_DELETED = _("Resource deleted successfully!")
     RESOURCE_CREATED = _("Resource created successfully!")
     RESOURCE_UPDATED = _("Resource updated successfully!")
+    RESOURCE_DOWNLOADS_UPDATED = _("Resource downloads updated!")
     COMMENT_UPDATED = _("Comment updated successfully!")
     COMMENT_DELETED = _("Comment deleted successfully!")
 

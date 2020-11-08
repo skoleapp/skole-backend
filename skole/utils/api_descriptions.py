@@ -144,9 +144,12 @@ AUTOCOMPLETE_RESOURCE_TYPES = f"{AUTOCOMPLETE_QUERY} {ALPHABETIC_SORTING}"
 
 CREATE_RESOURCE = f"Create a new resource. {VERIFICATION_REQUIRED}"
 UPDATE_RESOURCE = f"Update a resource. {VERIFIED_OWNERSHIP_REQUIRED}"
+
 DELETE_RESOURCE = (
     f"Delete a resource. {VERIFIED_OWNERSHIP_REQUIRED} {CREATION_TIME_SORTING}"
 )
+
+DOWNLOAD_RESOURCE = "Download a resource. This mutation only increments the amount of downloads of a single resource."
 
 # Resources queries.
 

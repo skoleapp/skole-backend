@@ -7,7 +7,12 @@ from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphql_jwt.decorators import login_required
 
-from skole.forms import CreateResourceForm, DeleteResourceForm, UpdateResourceForm
+from skole.forms import (
+    CreateResourceForm,
+    DeleteResourceForm,
+    DownloadResourceForm,
+    UpdateResourceForm,
+)
 from skole.models import Resource, School
 from skole.schemas.mixins import (
     PaginationMixin,
@@ -35,7 +40,7 @@ def order_resources_with_secret_algorithm(qs: QuerySet[Resource]) -> QuerySet[Re
     The ordering formula/value should not be exposed to the frontend.
     """
 
-    return qs.order_by(-(3 * F("score") + F("comment_count")), "title")
+    return qs.order_by(-(3 * F("score") + F("comment_count") + F("downloads")), "title")
 
 
 class ResourceObjectType(VoteMixin, StarMixin, DjangoObjectType):
@@ -121,6 +126,15 @@ class DeleteResourceMutation(SkoleDeleteMutationMixin, DjangoModelFormMutation):
         form_class = DeleteResourceForm
 
 
+class DownloadResourceMutation(
+    SkoleCreateUpdateMutationMixin, SuccessMessageMixin, DjangoModelFormMutation
+):
+    success_message_value = Messages.RESOURCE_DOWNLOADS_UPDATED
+
+    class Meta:
+        form_class = DownloadResourceForm
+
+
 class Query(graphene.ObjectType):
     resources = graphene.Field(
         PaginatedResourceObjectType,
@@ -191,4 +205,8 @@ class Mutation(graphene.ObjectType):
 
     delete_resource = DeleteResourceMutation.Field(
         description=api_descriptions.DELETE_RESOURCE
+    )
+
+    download_resource = DownloadResourceMutation.Field(
+        description=api_descriptions.DOWNLOAD_RESOURCE
     )

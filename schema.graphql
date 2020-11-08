@@ -188,6 +188,18 @@ type DeleteUserMutationPayload {
   clientMutationId: String
 }
 
+input DownloadResourceMutationInput {
+  id: ID
+  clientMutationId: String
+}
+
+type DownloadResourceMutationPayload {
+  resource: ResourceObjectType
+  errors: [ErrorType]
+  successMessage: String
+  clientMutationId: String
+}
+
 type ErrorType {
   field: String!
   messages: [String!]!
@@ -243,6 +255,7 @@ type Mutation {
   createResource(input: CreateResourceMutationInput!): CreateResourceMutationPayload
   updateResource(input: UpdateResourceMutationInput!): UpdateResourceMutationPayload
   deleteResource(input: DeleteResourceMutationInput!): DeleteResourceMutationPayload
+  downloadResource(input: DownloadResourceMutationInput!): DownloadResourceMutationPayload
   createCourse(input: CreateCourseMutationInput!): CreateCourseMutationPayload
   deleteCourse(input: DeleteCourseMutationInput!): DeleteCourseMutationPayload
   createContactMessage(input: ContactMutationInput!): ContactMutationPayload

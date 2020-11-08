@@ -208,6 +208,21 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
             fragment=self.resource_fields,
         )
 
+    def mutate_download_resource(
+        self,
+        *,
+        id: ID = 1,
+    ) -> JsonDict:
+        return self.execute_input_mutation(
+            name="downloadResource",
+            input_type="DownloadResourceMutationInput!",
+            input={
+                "id": id,
+            },
+            result="resource { ...resourceFields } successMessage",
+            fragment=self.resource_fields,
+        )
+
     def mutate_delete_resource(self, *, id: ID, assert_error: bool = False) -> JsonDict:
         return self.execute_input_mutation(
             name="deleteResource",
@@ -330,6 +345,7 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
             assert resource["course"]["id"] == "1"
             assert resource["starCount"] == 1
             assert resource["commentCount"] == 4
+            assert resource["downloads"] == 0
             assert self.client.get(resource["file"]).status_code == 200
 
         assert self.query_resource(id=999) is None
@@ -348,6 +364,7 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
         # These should be 0 by default.
         assert resource["starCount"] == 0
         assert resource["commentCount"] == 0
+        assert resource["downloads"] == 0
 
         # Create a resource with PNG file that will get converted to a PDF.
         with open_as_file(TEST_RESOURCE_PDF) as file:
@@ -395,3 +412,13 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
 
     def test_delete_resource(self) -> None:
         pass
+
+    def test_download_resource(self) -> None:
+        resource = Resource.objects.get(pk=1)
+        assert resource.downloads == 0
+
+        res = self.mutate_download_resource(id=resource.pk)
+
+        resource = res["resource"]
+        assert not res["errors"]
+        assert res["resource"]["downloads"] == 1

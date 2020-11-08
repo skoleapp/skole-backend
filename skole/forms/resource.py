@@ -63,3 +63,12 @@ class DeleteResourceForm(SkoleUpdateModelForm):
     class Meta:
         model = Resource
         fields = ("id",)
+
+
+class DownloadResourceForm(SkoleModelForm):
+    class Meta:
+        model = Resource
+        fields = ("id",)
+
+    def save(self, commit: bool = True) -> Resource:
+        return Resource.objects.increment_downloads(self.instance)

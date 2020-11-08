@@ -1,3 +1,5 @@
+from django.contrib.auth import get_user_model
+
 from skole.models import Comment, Course, Resource
 from skole.tests.helpers import (
     TEST_ATTACHMENT_PNG,
@@ -163,13 +165,31 @@ class CommentSchemaTests(SkoleSchemaTestCase):
             res = self.mutate_create_comment(
                 text=text, course=2, file_data=[("attachment", attachment)]
             )
+
         comment = res["comment"]
         # No need to return an error, frontend will anyways hide this option for
         # non-logged in users, backend just does the extra confirmation.
         assert not res["errors"]
         assert res["comment"]["attachment"] == ""  # Note that no attachment here.
         assert res["comment"]["text"] == text
-        assert Comment.objects.count() == old_count + 6
+
+        # Can't add an attachment to the comment without having a verified account.
+
+        self.authenticated_user = 3
+        assert not get_user_model().objects.get(pk=self.authenticated_user).verified
+
+        with open_as_file(TEST_ATTACHMENT_PNG) as attachment:
+            res = self.mutate_create_comment(
+                text=text, course=2, file_data=[("attachment", attachment)]
+            )
+
+        comment = res["comment"]
+        # No need to return an error, frontend will anyways hide this option for
+        # non-verified users, backend just does the extra confirmation.
+        assert not res["errors"]
+        assert res["comment"]["attachment"] == ""  # Note that no attachment here.
+        assert res["comment"]["text"] == text
+        assert Comment.objects.count() == old_count + 7
 
         self.authenticated_user = 2
 
@@ -186,10 +206,11 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         assert get_form_error(res) == ValidationErrors.COMMENT_EMPTY
 
         # Check that the comment count hasn't changed.
-        assert Comment.objects.count() == old_count + 6
+        assert Comment.objects.count() == old_count + 7
 
     def test_update_comment(self) -> None:
         new_text = "some new text"
+
         with open_as_file(TEST_ATTACHMENT_PNG) as attachment:
             res = self.mutate_update_comment(
                 id=4,
@@ -197,6 +218,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
                 attachment="",
                 file_data=[("attachment", attachment)],
             )
+
         assert is_slug_match(UPLOADED_ATTACHMENT_PNG, res["comment"]["attachment"])
         assert res["comment"]["text"] == new_text
         assert res["comment"]["course"]["id"] == "1"
@@ -213,6 +235,26 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         # Can't update someone else's comment.
         res = self.mutate_update_comment(id=2, text=new_text)
         assert get_form_error(res) == ValidationErrors.NOT_OWNER
+
+        # Can't update attachment when account is not verified.
+
+        self.authenticated_user = 3
+        assert not get_user_model().objects.get(pk=self.authenticated_user).verified
+
+        with open_as_file(TEST_ATTACHMENT_PNG) as attachment:
+            res = self.mutate_update_comment(
+                id=2,
+                text=new_text,
+                attachment="",
+                file_data=[("attachment", attachment)],
+            )
+
+        comment = res["comment"]
+        # No need to return an error, frontend will anyways hide this option for
+        # non-verified users, backend just does the extra confirmation.
+        assert not res["errors"]
+        assert res["comment"]["attachment"] == ""  # Note that no attachment here.
+        assert res["comment"]["text"] == new_text
 
         # Can't update a comment to have no text and no attachment.
         res = self.mutate_update_comment(id=1, text="", attachment="")

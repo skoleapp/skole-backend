@@ -39,8 +39,9 @@ class CreateCommentForm(_CommentFormMixin, SkoleModelForm):
 
     def __init__(self, **kwargs: Any) -> None:
         super().__init__(**kwargs)
-        if self.request and not self.request.user.is_authenticated:
-            self.fields.pop("attachment")
+        if self.request:
+            if not self.request.user.is_authenticated or not self.request.user.verified:
+                self.fields.pop("attachment")
 
     def clean(self) -> JsonDict:
         data = super().clean()
@@ -65,6 +66,12 @@ class UpdateCommentForm(_CommentFormMixin, SkoleUpdateModelForm):
     class Meta:
         model = Comment
         fields = ("id", "text", "attachment")
+
+    def __init__(self, **kwargs: Any) -> None:
+        super().__init__(**kwargs)
+        if self.request:
+            if not self.request.user.is_authenticated or not self.request.user.verified:
+                self.fields.pop("attachment")
 
 
 class DeleteCommentForm(SkoleUpdateModelForm):

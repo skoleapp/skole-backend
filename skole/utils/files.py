@@ -107,7 +107,7 @@ def clean_metadata(filepath: str) -> None:
         in that small span of time and they already know the metadata of their own file.
         This is not super critical though, since this execution only takes ~300ms.
 
-    Reference: https://0xacab.org/jvoisin/mat2/-/blob/46b3ae16729c3f18c4bfebccf928e422a2e5c4f4/mat2#L123
+    References: https://0xacab.org/jvoisin/mat2/-/blob/46b3ae16729c3f18c4bfebccf928e422a2e5c4f4/mat2#L123
     """
     parser, file_type = libmat2.parser_factory.get_parser(filepath)
     if not parser:

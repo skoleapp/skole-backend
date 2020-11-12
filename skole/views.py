@@ -13,8 +13,7 @@ def health_check(request: HttpRequest) -> HttpResponse:
     """
     AWS ELB will poll this periodically as a health check for the app.
 
-    This can have as much logic as possible, any status other than 200 is considered a
-    failure.
+    Any status other than 200 is considered a failure.
     """
     return HttpResponse(status=200)
 
@@ -26,9 +25,10 @@ class SkoleGraphQLView(GraphQLView):
         self, request: HttpRequest
     ) -> Union[JsonDict, QueryDict, List[JsonDict]]:
         """
-        The difference to the obj `parse_body` is that we can upload files.
+        Overridden to enable uploading files.
 
-        Source: https://github.com/lmcgartland/graphene-file-upload/blob/master/graphene_file_upload/django/__init__.py
+        References:
+             https://github.com/lmcgartland/graphene-file-upload/blob/326071dbe022e13841d6e8287c4c4bef4a22b6f5/graphene_file_upload/django/__init__.py
         """
         content_type = self.get_content_type(request)
 

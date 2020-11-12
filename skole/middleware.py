@@ -4,14 +4,14 @@ from django.http import HttpRequest, HttpResponse
 
 class SkoleSessionMiddleware(SessionMiddleware):
     """
-    Controls that JWT is used on the graphql endpoint and session auth on the admin.
+    Controls that JWT is used on the GraphQL endpoint and session auth on the admin.
 
-    Reference: https://stackoverflow.com/a/4054339
+    References: https://stackoverflow.com/a/4054339/9835872
     """
 
     def process_request(self, request: HttpRequest) -> None:
         if request.path == "/graphql/":
-            # Disable session authentication on the graphql endpoint.
+            # Disable session authentication on the GraphQL endpoint.
 
             # Ignore: The real type should be `SessionBase` instead of an empty dict,
             #   but this works just fine. The reason why we need this is

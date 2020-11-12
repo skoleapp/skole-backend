@@ -71,7 +71,7 @@ MIDDLEWARE = [
     "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
     # FIXME: must enable middleware now that the JWT token comes from cookies:
-    #   https://django-graphql-jwt.domake.io/en/latest/authentication.html#per-cookie
+    #     https://django-graphql-jwt.domake.io/en/latest/authentication.html#per-cookie
     # "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
@@ -92,7 +92,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Custom validation settings
 PASSWORD_MIN_LENGTH = 8
 USERNAME_MIN_LENGTH = 3
-# Make sure to edit constants.ValidationErrors.INVALID_USERNAME if you change this.
+# Make sure to edit `constants.ValidationErrors.INVALID_USERNAME` if you change this.
 USERNAME_REGEX = r"[A-Za-z0-9ÅÄÖåäö_]+"
 
 # Authentication backend settings

@@ -15,7 +15,8 @@ StarrableModel = Union["Course", "Resource"]
 CourseOrderingOption = Literal["best", "score", "name", "-name"]
 
 ID = Union[str, int, None]
-"""A type representing a GraphQL ID in Python code.
+"""
+A type representing a GraphQL ID in Python code.
 
 Variables with this type should not be used as normal string or integers.
 Should not be confused with `graphene.ID()`.
@@ -36,14 +37,16 @@ Examples:
 """
 
 Fixture = Any
-"""A type representing the return value of a pytest fixture.
+"""
+A type representing the return value of a pytest fixture.
 
 Fixtures are just functions that are decorated with @pytest.fixture.
 Using this as the type of a parameter makes its purpose immediately clear.
 """
 
 JsonDict = Dict[str, Any]
-"""A type representing a JSON object like dictionary.
+"""
+A type representing a JSON object like dictionary.
 
 Exactly the same as `mypy.types.JsonDict`, just defined here, to avoid having mypy
 as a production dependency.

@@ -254,8 +254,12 @@ class SkoleSchemaTestCase(TestCase):
         return self.execute(graphql=graphql, op_name=name, assert_error=assert_error)
 
     def assert_field_fragment_matches_schema(self, field_fragment: str, /) -> None:
-        """Assert that the given fragment contains all the fields that are actually
-        queryable on that object type its defined for."""
+        """
+        Assert the validity of the given field fragment.
+
+        This validates that the fragment contains all of the fields that are actually
+        queryable on that object type it was defined for.
+        """
         # language=GraphQL
         graphql = """
             query IntrospectAllFields($name: String!) {
@@ -280,8 +284,8 @@ class SkoleSchemaTestCase(TestCase):
     def _assert_response_has_errors(self, response: HttpResponse) -> None:
         content = json.loads(response.content)
         self.assertIn("errors", content)
-        if "data" in content:
-            # If there is a "data" section it should only have keys with empty values.
+        if "data" in content and content["data"]:
+            # If there is a "data" dict it should only have keys with empty values.
             for key, value in content["data"].items():
                 assert isinstance(key, str)
                 assert value is None
@@ -359,7 +363,7 @@ def checksum(obj: Any) -> str:
 
 @contextmanager
 def open_as_file(path: Union[str, Path]) -> Generator[File, None, None]:
-    """Use as a contextmanager to open the file in the given path as a Django File."""
+    """Use as a contextmanager to open the file in the given path as a Django `File`."""
     if not isinstance(path, Path):
         path = Path(path)
 

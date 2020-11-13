@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/bin/sh
 
 # CircleCI runs this script in the container to verify that makemessages
 # was run and thus the translation files are all up-to-date.

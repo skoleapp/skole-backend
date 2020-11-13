@@ -1,9 +1,9 @@
-#!/usr/bin/env sh
+#!/bin/sh
 
 # CircleCI runs this script to check that there are no extra merge commits
 # in the feature branch that is being merged, and that the branch was rebased
 # on top of the latest default branch.
-# More details: https://stackoverflow.com/q/64435110
+# More details: https://stackoverflow.com/q/64435110/9835872
 
 head=$(git remote show origin | awk '/HEAD branch/ {print $NF}')
 current="$(git rev-parse --abbrev-ref HEAD)"

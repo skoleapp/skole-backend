@@ -129,9 +129,6 @@ class SubjectSchemaTests(SkoleSchemaTestCase):
         assert res[0] == self.query_subject(id=1)  # Compututer Engineering.
         assert res[1] == self.query_subject(id=2)  # Computer Science.
 
-        # TODO: Tests that no more than the maximum limit of results are returned.
-        # Currently we don't have enough test schools to exceed the limit.
-
     def test_subject(self) -> None:
         subject = self.query_subject(id=1)
         assert subject["id"] == "1"

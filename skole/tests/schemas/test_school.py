@@ -82,9 +82,6 @@ class SchoolSchemaTests(SkoleSchemaTestCase):
             id=3
         )  # Turku University of Applied Sciences.
 
-        # TODO: Test that no more than the maximum limit of results are returned.
-        # Currently we don't have enough test schools to exceed the limit.
-
     def test_school(self) -> None:
         school = self.query_school(id=1)
         assert school["id"] == "1"

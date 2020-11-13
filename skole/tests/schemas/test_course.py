@@ -421,9 +421,6 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         # Query by course name
         assert self.query_autocomplete_courses(name="8")[0] == self.query_course(id=8)
 
-        # TODO: Test that no more than the maximum limit of results are returned.
-        # Currently we don't have enough test courses to exceed the limit.
-
     def test_starred_courses(self) -> None:
         page = 1
         page_size = 1

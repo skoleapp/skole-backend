@@ -19,7 +19,7 @@ from skole.tests.helpers import (
     open_as_file,
 )
 from skole.types import ID, JsonDict
-from skole.utils.constants import MutationErrors, ValidationErrors
+from skole.utils.constants import Messages, MutationErrors, ValidationErrors
 
 
 class ResourceSchemaTests(SkoleSchemaTestCase):
@@ -411,7 +411,17 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
         assert res["resource"] is None
 
     def test_delete_resource(self) -> None:
-        pass
+        res = self.mutate_delete_resource(id=1)
+        assert res["successMessage"] == Messages.RESOURCE_DELETED
+        assert Resource.objects.get_or_none(pk=1) is None
+
+        # Can't delete the same resource again.
+        res = self.mutate_delete_resource(id=1, assert_error=True)
+        assert get_graphql_error(res) == "Resource matching query does not exist."
+
+        # Can't delete an other user's resource.
+        res = self.mutate_delete_resource(id=2)
+        assert res["errors"] == MutationErrors.NOT_OWNER
 
     def test_download_resource(self) -> None:
         resource = Resource.objects.get(pk=1)

@@ -131,11 +131,7 @@ GRAPHENE = {
     "SCHEMA_OUTPUT": "schema.graphql",
     "MIDDLEWARE": [
         "graphql_jwt.middleware.JSONWebTokenMiddleware",
-    ]
-    if DEBUG
-    else [
-        "graphql_jwt.middleware.JSONWebTokenMiddleware",
-        "skole.middleware.DisableIntrospectionMiddleware",
+        *(["skole.middleware.DisableIntrospectionMiddleware"] if not DEBUG else []),
     ],
 }
 

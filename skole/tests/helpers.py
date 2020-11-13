@@ -284,8 +284,8 @@ class SkoleSchemaTestCase(TestCase):
     def _assert_response_has_errors(self, response: HttpResponse) -> None:
         content = json.loads(response.content)
         self.assertIn("errors", content)
-        if "data" in content:
-            # If there is a "data" section it should only have keys with empty values.
+        if "data" in content and content["data"]:
+            # If there is a "data" dict it should only have keys with empty values.
             for key, value in content["data"].items():
                 assert isinstance(key, str)
                 assert value is None

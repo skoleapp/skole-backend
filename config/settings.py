@@ -129,7 +129,14 @@ PARLER_LANGUAGES = {SITE_ID: ({"code": "en"}, {"code": "fi"}, {"code": "sv"})}
 GRAPHENE = {
     "SCHEMA": "skole.schema.schema",
     "SCHEMA_OUTPUT": "schema.graphql",
-    "MIDDLEWARE": ["graphql_jwt.middleware.JSONWebTokenMiddleware"],
+    "MIDDLEWARE": [
+        "graphql_jwt.middleware.JSONWebTokenMiddleware",
+    ]
+    if DEBUG
+    else [
+        "graphql_jwt.middleware.JSONWebTokenMiddleware",
+        "skole.middleware.DisableIntrospectionMiddleware",
+    ],
 }
 
 # GraphQL JWT settings

@@ -32,10 +32,10 @@ except requests.exceptions.RequestException:
 
 # CORS settings
 CORS_ALLOW_CREDENTIALS = True
-CORS_ORIGIN_REGEX_WHITELIST = os.environ.get(
-    "CORS_ORIGIN_REGEX_WHITELIST", default=""
+CORS_ALLOWED_ORIGIN_REGEXES = os.environ.get(
+    "CORS_ALLOWED_ORIGIN_REGEXES", default=""
 ).split()
-CORS_ORIGIN_ALLOW_ALL = DEBUG
+CORS_ALLOW_ALL_ORIGINS = DEBUG
 
 # Static and media settings
 MEDIA_ROOT = "media"

@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 
 
 def patch(obj: Any, value: Any) -> None:
-    setattr(obj, value.__name__, update_wrapper(value, obj))
+    setattr(obj, value.__name__, update_wrapper(value, getattr(obj, value.__name__)))
 
 
 def report_error(

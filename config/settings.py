@@ -32,10 +32,10 @@ except requests.exceptions.RequestException:
 
 # CORS settings
 CORS_ALLOW_CREDENTIALS = True
-CORS_ORIGIN_REGEX_WHITELIST = os.environ.get(
-    "CORS_ORIGIN_REGEX_WHITELIST", default=""
+CORS_ALLOWED_ORIGIN_REGEXES = os.environ.get(
+    "CORS_ALLOWED_ORIGIN_REGEXES", default=""
 ).split()
-CORS_ORIGIN_ALLOW_ALL = DEBUG
+CORS_ALLOW_ALL_ORIGINS = DEBUG
 
 # Static and media settings
 MEDIA_ROOT = "media"
@@ -69,12 +69,12 @@ MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "skole.middleware.SkoleSessionMiddleware",
     "django.middleware.locale.LocaleMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "corsheaders.middleware.CorsMiddleware",
 ]
 
 # Password validator settings
@@ -135,7 +135,7 @@ GRAPHENE = {
 
 # GraphQL JWT settings
 GRAPHQL_JWT = {
-    "JWT_COOKIE_SAMESITE": os.environ.get("JWT_COOKIE_SAMESITE"),
+    "JWT_COOKIE_SAMESITE": "Lax",  # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie/SameSite
     "JWT_COOKIE_SECURE": not DEBUG,
     "JWT_VERIFY_EXPIRATION": not DEBUG,
     "JWT_EXPIRATION_DELTA": timedelta(days=7),

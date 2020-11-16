@@ -1,5 +1,5 @@
 import json
-from typing import Dict, List, Union, cast
+from typing import Any, Dict, List, Union, cast
 
 from django.core.files.uploadedfile import UploadedFile
 from django.http import HttpRequest, HttpResponse, QueryDict
@@ -20,6 +20,15 @@ def health_check(request: HttpRequest) -> HttpResponse:
 
 class SkoleGraphQLView(GraphQLView):
     """The GraphQL endpoint of the app."""
+
+    def dispatch(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        """
+        Overridden to remove `ensure_csrf_cookie` decorator from the method.
+
+        The decorator is not needed since we are using `csrf_exempt` for the view.
+        Setting the cookie can just add confusion that it's required to be passed back.
+        """
+        return super().dispatch.__wrapped__(self, request, *args, **kwargs)
 
     def parse_body(
         self, request: HttpRequest

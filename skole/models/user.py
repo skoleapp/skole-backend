@@ -158,16 +158,15 @@ class User(SkoleModel, AbstractBaseUser, PermissionsMixin):
     ) -> JsonDict:
         token = get_token(self, action, **kwargs)
         site = get_current_site(info.context)
+        protocol = "http" if settings.DEBUG else "https"
+
+        url = f"{protocol}://{site.domain}/{path}?token={token}"
 
         return {
             "user": self,
+            "url": url,
             "request": info.context,
-            "token": token,
-            "port": info.context.get_port(),
             "site_name": site.name,
-            "domain": site.domain,
-            "protocol": "http" if settings.DEBUG else "https",
-            "path": path,
             "timestamp": time.time(),
         }
 

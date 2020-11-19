@@ -61,8 +61,8 @@ def set_cookie(
         samesite=cast(str, settings.GRAPHQL_JWT["JWT_COOKIE_SAMESITE"]),
     )
 
-    patch(graphql.execution.utils.ExecutionContext, report_error)
 
+patch(graphql.execution.utils.ExecutionContext, report_error)
 
 patch(graphql_jwt.utils, set_cookie)
 

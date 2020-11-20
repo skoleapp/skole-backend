@@ -31,7 +31,9 @@ class CreateResourceForm(SkoleModelForm):
         # otherwise just use the default from the model.
         return (
             self.cleaned_data.get("date")
-            or Resource._meta.get_field("date").get_default()
+            or Resource._meta.get_field(  # pylint: disable=protected-access
+                "date"
+            ).get_default()
         )
 
     def save(self, commit: bool = True) -> Resource:

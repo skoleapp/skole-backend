@@ -66,7 +66,7 @@ class LoginForm(SkoleModelForm):
             if not user.is_active:
                 raise forms.ValidationError(ValidationErrors.ACCOUNT_DEACTIVATED)
         except get_user_model().DoesNotExist:
-            raise forms.ValidationError(ValidationErrors.AUTH_ERROR)
+            raise forms.ValidationError(ValidationErrors.AUTH_ERROR) from None
 
         user = cast(
             Optional[User], authenticate(username=user.username, password=password)

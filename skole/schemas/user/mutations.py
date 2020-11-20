@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from smtplib import SMTPException
-from typing import cast
+from typing import Any, cast
 
 import graphene
 from django.conf import settings
@@ -200,7 +200,7 @@ class LoginMutation(
             password = form.cleaned_data["password"]
             user = form.cleaned_data["user"]
 
-            return cls.perform_mutate(
+            return cls.perform_mutate(  # pylint: disable=no-value-for-parameter,unexpected-keyword-arg
                 # @token_auth decorator changes the signature of perform_mutate to expect
                 # exactly these params.
                 root=root,
@@ -215,8 +215,8 @@ class LoginMutation(
 
     @classmethod
     @token_auth
-    def perform_mutate(
-        cls, form: LoginForm, info: ResolveInfo, user: User, **kwargs: JsonDict
+    def perform_mutate(  # pylint: disable=arguments-differ
+        cls, form: LoginForm, info: ResolveInfo, user: User, **kwargs: Any
     ) -> LoginMutation:
         return cls(user=user, success_message=Messages.LOGGED_IN)
 

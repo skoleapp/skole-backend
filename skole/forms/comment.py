@@ -57,7 +57,7 @@ class CreateCommentForm(_CommentFormMixin, SkoleModelForm):
         self.instance = super().save(commit)
 
         if self.attachment_operation == FieldOperation.NEW_VALUE:
-            clean_metadata(self.instance.attachment.path)
+            clean_metadata(self.instance.attachment)
 
         return self.instance
 

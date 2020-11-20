@@ -46,7 +46,7 @@ class CreateResourceForm(SkoleModelForm):
 
         # We on purpose want to clean the metadata of files that have been converted
         # with Cloudmersive also, so that they can leave no nasty data to our files.
-        clean_metadata(self.instance.file.path)
+        clean_metadata(self.instance.file)
         return self.instance
 
 

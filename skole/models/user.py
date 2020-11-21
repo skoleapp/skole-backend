@@ -210,7 +210,7 @@ class User(SkoleModel, AbstractBaseUser, PermissionsMixin):
         return self.send(subject, template, email_context, *args, **kwargs)
 
     @property
-    def rank(self) -> str:
+    def rank(self) -> str:  # pylint: disable=too-many-return-statements
         if self.score < 100:
             return Ranks.FRESHMAN
         elif self.score < 250:

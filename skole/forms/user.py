@@ -66,7 +66,7 @@ class LoginForm(SkoleModelForm):
             if not user.is_active:
                 raise forms.ValidationError(ValidationErrors.ACCOUNT_DEACTIVATED)
         except get_user_model().DoesNotExist:
-            raise forms.ValidationError(ValidationErrors.AUTH_ERROR)
+            raise forms.ValidationError(ValidationErrors.AUTH_ERROR) from None
 
         user = cast(
             Optional[User], authenticate(username=user.username, password=password)
@@ -102,7 +102,7 @@ class UpdateUserForm(SkoleModelForm):
     def save(self, commit: bool = True) -> User:
         self.instance = super().save(commit)
         if self.avatar_operation == FieldOperation.NEW_VALUE:
-            clean_metadata(self.instance.avatar.path)
+            clean_metadata(self.instance.avatar)
         return self.instance
 
 

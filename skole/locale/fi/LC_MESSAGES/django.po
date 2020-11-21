@@ -88,7 +88,7 @@ msgstr ""
 
 #: skole/utils/constants.py:39
 msgid "File could not be converted to {} format."
-msgstr "Tiedostoa ei pystytty muuttamaan pdf muotoon."
+msgstr "Tiedostoa ei pystytty muuttamaan {} muotoon."
 
 #: skole/utils/constants.py:40
 msgid "You cannot vote your own content."

@@ -55,8 +55,9 @@ class DisableIntrospectionMiddleware:
         https://lab.wallarm.com/why-and-how-to-disable-introspection-query-for-graphql-apis/
     """
 
+    @staticmethod
     def resolve(
-        self, next: Callable[..., T], root: Any, info: ResolveInfo, **kwargs: Any
+        next: Callable[..., T], root: Any, info: ResolveInfo, **kwargs: Any
     ) -> Optional[T]:
         if info.field_name.startswith("_") and info.field_name != "__typename":
             # Apollo client queries `__typename` with every request

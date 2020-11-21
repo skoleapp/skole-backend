@@ -274,7 +274,7 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         res = self.mutate_delete_course(id=2)
         assert res["errors"] == MutationErrors.NOT_OWNER
 
-    def test_courses(self) -> None:
+    def test_courses(self) -> None:  # pylint: disable=too-many-statements
         # When searching courses the default ordering is by names, so the order will be:
         # Test Engineering Course 1
         # Test Engineering Course 10
@@ -345,14 +345,14 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         # Vote up one course, so it now has the most score.
         course = Course.objects.get(pk=7)
         user = User.objects.get(pk=2)
-        vote, score = Vote.objects.perform_vote(user=user, status=1, target=course)
+        Vote.objects.perform_vote(user=user, status=1, target=course)
         res = self.query_courses(ordering="score")
         assert res["objects"][0]["id"] == str(course.pk)
 
         # Vote down one course, so it now has the least score.
         course = Course.objects.get(pk=3)
         user = User.objects.get(pk=2)
-        vote, score = Vote.objects.perform_vote(user=user, status=-1, target=course)
+        Vote.objects.perform_vote(user=user, status=-1, target=course)
         res = self.query_courses(ordering="score", page_size=20)
         assert res["objects"][-1]["id"] == str(course.pk)
 

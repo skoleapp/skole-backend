@@ -56,6 +56,7 @@ CMD python manage.py graphql_schema --out=/tmp/compare.graphql && diff schema.gr
     && docformatter --check --recursive --wrap-summaries=88 --wrap-descriptions=88 --pre-summary-newline . \
     && black --check --diff . \
     && flake8 . \
+    && pylint --jobs=0 *.py config/ skole/ \
     && mypy . \
     && pytest --verbose --cov-report=xml --cov=. . \
     && python manage.py compilemessages \

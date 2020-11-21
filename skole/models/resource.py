@@ -23,7 +23,8 @@ class ResourceManager(SkoleManager["Resource"]):
             + Count("comments__reply_comments", distinct=True),
         )
 
-    def increment_downloads(self, resource: Resource) -> Resource:
+    @staticmethod
+    def increment_downloads(resource: Resource) -> Resource:
         resource.downloads += 1
         resource.save()
         return resource

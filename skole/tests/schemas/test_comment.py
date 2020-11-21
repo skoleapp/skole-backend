@@ -104,7 +104,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         self.authenticated_user = None
         self.assert_field_fragment_matches_schema(self.comment_fields)
 
-    def test_create_comment(self) -> None:
+    def test_create_comment(self) -> None:  # pylint: disable=too-many-statements
         # Create a comment which replies to a comment.
         old_count = Comment.objects.count()
         text = "Some text for the comment."

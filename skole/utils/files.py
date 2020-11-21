@@ -7,6 +7,7 @@ import requests
 from django import forms
 from django.conf import settings
 from django.core.files.base import ContentFile, File
+from django.db.models.fields.files import FieldFile
 
 from skole.utils.constants import FieldOperation, ValidationErrors
 
@@ -94,9 +95,9 @@ def convert_to_pdf(file: File) -> File:
     raise forms.ValidationError(ValidationErrors.COULD_NOT_CONVERT_FILE.format("PDF"))
 
 
-def clean_metadata(filepath: str) -> None:
+def clean_metadata(file: FieldFile) -> None:
     """
-    Do on inplace cleaning of metadata of the file stored `filepath`.
+    Clean the metadata of the `file` inplace.
 
     Only works for files that are saved on disk, because of `libmat2`'s limitations.
 
@@ -109,6 +110,12 @@ def clean_metadata(filepath: str) -> None:
 
     References: https://0xacab.org/jvoisin/mat2/-/blob/46b3ae16729c3f18c4bfebccf928e422a2e5c4f4/mat2#L123
     """
+    try:
+        filepath = file.path
+    except NotImplementedError:
+        # `S3Storage` doesn't support paths, instead the name of the file is the "path".
+        filepath = file.name
+
     parser, file_type = libmat2.parser_factory.get_parser(filepath)
     if not parser:
         raise RuntimeError(f"Could not get a libmat2 parser for filetype {file_type}.")

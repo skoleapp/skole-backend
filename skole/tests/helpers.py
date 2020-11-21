@@ -358,7 +358,9 @@ def checksum(obj: Any) -> str:
 
     Useful for testing if a source code of the object has changed.
     """
-    return hashlib.shake_256(inspect.getsource(obj).encode()).hexdigest(10)
+    return hashlib.shake_256(  # pylint: disable=too-many-function-args
+        inspect.getsource(obj).encode()
+    ).hexdigest(10)
 
 
 @contextmanager

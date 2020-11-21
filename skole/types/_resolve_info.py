@@ -12,7 +12,7 @@ if TYPE_CHECKING:  # pragma: no cover
     from . import JsonDict
 
 
-class ResolveInfo:
+class ResolveInfo:  # pylint: disable=too-many-instance-attributes
     """
     Retyped version of `graphql.ResolveInfo`.
 

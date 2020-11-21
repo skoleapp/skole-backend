@@ -31,7 +31,9 @@ class CreateResourceForm(SkoleModelForm):
         # otherwise just use the default from the model.
         return (
             self.cleaned_data.get("date")
-            or Resource._meta.get_field("date").get_default()
+            or Resource._meta.get_field(  # pylint: disable=protected-access
+                "date"
+            ).get_default()
         )
 
     def save(self, commit: bool = True) -> Resource:
@@ -44,7 +46,7 @@ class CreateResourceForm(SkoleModelForm):
 
         # We on purpose want to clean the metadata of files that have been converted
         # with Cloudmersive also, so that they can leave no nasty data to our files.
-        clean_metadata(self.instance.file.path)
+        clean_metadata(self.instance.file)
         return self.instance
 
 

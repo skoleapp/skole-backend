@@ -14,7 +14,7 @@ from skole.types import ID, JsonDict
 from skole.utils.constants import Messages, ValidationErrors
 
 
-class UserSchemaTests(SkoleSchemaTestCase):
+class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-methods
     authenticated_user: ID = 2
 
     # language=GraphQL

@@ -30,7 +30,7 @@ def report_error(
     exception = format_exception(
         type(error), error, getattr(error, "stack", None) or traceback
     )
-    if not type(getattr(error, "original_error", None)) == PermissionDenied:
+    if not isinstance(getattr(error, "original_error", None), PermissionDenied):
         logger.error("".join(exception))
     self.errors.append(error)
 

@@ -26,8 +26,11 @@ addopts = "--nomigrations --doctest-modules"
 jobs = 0  # Use 1 process per CPU core.
 
 [tool.pylint.messages_control]
+enable = [
+    "useless-suppression",     # Nice to get rid of unnecesary `pylint: disable` comments.
+]
 disable = [
-    "duplicate-code",
+    "duplicate-code",          # This could be fine with less aggressive settings.
     "fixme",                   # No point in not allowing this style of comments.
     "invalid-name",            # `qs`, `db`, and `T` are all just fine names.
     "line-too-long",           # Black handles this.

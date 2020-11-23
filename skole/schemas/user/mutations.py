@@ -200,7 +200,7 @@ class LoginMutation(
             password = form.cleaned_data["password"]
             user = form.cleaned_data["user"]
 
-            return cls.perform_mutate(  # pylint: disable=no-value-for-parameter,unexpected-keyword-arg
+            return cls.perform_mutate(  # pylint: disable=no-value-for-parameter
                 # @token_auth decorator changes the signature of perform_mutate to expect
                 # exactly these params.
                 root=root,

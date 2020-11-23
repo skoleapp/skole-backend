@@ -354,9 +354,12 @@ def is_slug_match(file_path: str, url_with_slug: str) -> bool:
 
 def checksum(obj: Any) -> str:
     """
-    Return a stable 10 digit hex checksum for the given object.
+    Return a stable 10 digit hex checksum for the given object based on its source code.
 
     Useful for testing if a source code of the object has changed.
+    For objects wrapped with `@wraps` or `update_wrapper`, this returns an hash for the
+    *original* object's source code, since `inspect.getsource` always "unwraps" the
+    object before finding the source.
     """
     return hashlib.shake_256(  # pylint: disable=too-many-function-args
         inspect.getsource(obj).encode()

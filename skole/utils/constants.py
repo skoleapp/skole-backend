@@ -1,4 +1,3 @@
-from enum import Enum
 from typing import Any, Dict, Tuple, Type, TypeVar, cast
 
 from django.utils.translation import gettext_lazy as _
@@ -141,11 +140,3 @@ class ActivityTypes:
     COMMENT_REPLY = "comment_reply"
     COURSE_COMMENT = "course_comment"
     RESOURCE_COMMENT = "resource_comment"
-
-
-class FieldOperation(Enum):
-    """The fixed amount of operations that can be done to a form field."""
-
-    NEW_VALUE = 0
-    CLEARED = 1
-    UNCHANGED = 2

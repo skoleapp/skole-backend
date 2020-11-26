@@ -44,6 +44,7 @@ class GraphQLErrors:
     ALREADY_VERIFIED = _("This account has already been verified.")
     NOT_VERIFIED = _("This account is not verified.")
     TOKEN_SCOPE_ERROR = _("This token is not intended for this use.")
+    UNSPECIFIED_ERROR = _("An error occurred. Trying again might help.")
 
 
 class Messages:

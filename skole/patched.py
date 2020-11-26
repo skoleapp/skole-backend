@@ -14,6 +14,8 @@ from django.http import HttpResponse
 from graphql_jwt.exceptions import PermissionDenied
 from graphql_jwt.settings import jwt_settings
 
+from skole.utils.constants import GraphQLErrors
+
 logger = logging.getLogger(__name__)
 
 
@@ -26,12 +28,21 @@ def report_error(
     error: Exception,
     traceback: Optional[TracebackType] = None,
 ) -> None:
-    """Patched to remove unnecessary permission denied traceback spam from logs."""
+    """
+    Patched to hide error details in prod.
+
+    Also removed unnecessary permission denied traceback spam from logs.
+    """
     exception = format_exception(
         type(error), error, getattr(error, "stack", None) or traceback
     )
     if not isinstance(getattr(error, "original_error", None), PermissionDenied):
         logger.error("".join(exception))
+
+    if not settings.DEBUG:  # pragma: no cover
+        # Replace the detailed exception message with a more generic one.
+        error.args = (GraphQLErrors.UNSPECIFIED_ERROR,)
+
     self.errors.append(error)
 
 

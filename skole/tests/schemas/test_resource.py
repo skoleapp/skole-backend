@@ -2,7 +2,7 @@ import datetime
 from typing import Optional
 from unittest import mock
 
-import requests
+import libmat2.pdf
 from django.http import HttpResponse
 from django.test import override_settings
 
@@ -352,8 +352,14 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
 
     def test_create_resource(self) -> None:
         # Create a resource with a PDF file.
-        with open_as_file(TEST_RESOURCE_PDF) as file:
-            res = self.mutate_create_resource(file_data=[("file", file)])
+        with mock.patch(
+            target="libmat2.pdf.PDFParser.remove_all",
+            side_effect=libmat2.pdf.PDFParser.remove_all,
+            autospec=True,  # To correctly pass `self` to the mocked method.
+        ) as mocked:
+            with open_as_file(TEST_RESOURCE_PDF) as file:
+                res = self.mutate_create_resource(file_data=[("file", file)])
+                mocked.assert_called()
 
         resource = res["resource"]
         assert not res["errors"]
@@ -369,9 +375,8 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
         # Create a resource with PNG file that will get converted to a PDF.
         with open_as_file(TEST_RESOURCE_PDF) as file:
             response = HttpResponse(content=file.read())
-
         with override_settings(CLOUDMERSIVE_API_KEY="xxx"):
-            with mock.patch.object(requests, "post", return_value=response):
+            with mock.patch("requests.post", return_value=response):
                 with open_as_file(TEST_ATTACHMENT_PNG) as file:
                     res = self.mutate_create_resource(file_data=[("file", file)])
 

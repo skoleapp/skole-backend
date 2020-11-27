@@ -7,8 +7,8 @@ from django.core.files import File
 
 from skole.models import User
 from skole.types import JsonDict
-from skole.utils.constants import FieldOperation, ValidationErrors
-from skole.utils.files import clean_file_field, clean_metadata
+from skole.utils.constants import ValidationErrors
+from skole.utils.files import clean_file_field
 
 from .base import SkoleForm, SkoleModelForm
 
@@ -87,23 +87,14 @@ class UpdateUserForm(SkoleModelForm):
     username = forms.CharField(min_length=settings.USERNAME_MIN_LENGTH)
     avatar = forms.CharField(required=False)
 
-    avatar_operation: Optional[FieldOperation] = None
-
     class Meta:
         model = get_user_model()
         fields = ("username", "email", "title", "bio", "avatar", "school", "subject")
 
     def clean_avatar(self) -> Union[File, str]:
-        avatar, self.avatar_operation = clean_file_field(
+        return clean_file_field(
             form=self, field_name="avatar", created_file_name="avatar"
         )
-        return avatar
-
-    def save(self, commit: bool = True) -> User:
-        self.instance = super().save(commit)
-        if self.avatar_operation == FieldOperation.NEW_VALUE:
-            clean_metadata(self.instance.avatar)
-        return self.instance
 
 
 class ChangePasswordForm(SkoleModelForm):

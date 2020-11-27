@@ -1,15 +1,14 @@
+"""This module contains retyped versions of third party code."""
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, List, Optional, Union
+from typing import List, Optional, Union
 
 from django.http import HttpRequest
 from graphql.language.ast import Field, OperationDefinition
 from graphql.type.definition import GraphQLList, GraphQLObjectType, GraphQLScalarType
 from graphql.type.schema import GraphQLSchema
 
-if TYPE_CHECKING:  # pragma: no cover
-    # To avoid circular import.
-    from . import JsonDict
+from ._aliases import JsonDict
 
 
 class ResolveInfo:  # pylint: disable=too-many-instance-attributes

@@ -19,6 +19,7 @@ skip_glob = "*/migrations/*"
 
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "config.settings"
+django_debug_mode = "keep"
 addopts = "--nomigrations --doctest-modules"
 
 
@@ -27,22 +28,23 @@ jobs = 0  # Use 1 process per CPU core.
 
 [tool.pylint.messages_control]
 enable = [
-    "useless-suppression",     # Nice to get rid of unnecesary `pylint: disable` comments.
+    "useless-suppression",             # Nice to get rid of unnecesary `pylint: disable` comments.
 ]
 disable = [
-    "duplicate-code",          # This could be fine with less aggressive settings.
-    "fixme",                   # No point in not allowing this style of comments.
-    "invalid-name",            # `qs`, `db`, and `T` are all just fine names.
-    "line-too-long",           # Black handles this.
-    "missing-docstring",       # Just insane.
-    "no-else-return",          # Can often make the code clearer.
-    "no-member",               # Doesn't play well with e.g. parler translated fields.
-    "redefined-builtin",       # We are using `id` and `input` as idiomatic GraphQL parameter names.
-    "too-few-public-methods",  # Single method mixins can be really useful, also our `constants.py` has tons of these classes.
-    "too-many-ancestors",      # Doesn't play well with our style of heavy use of mixins and multiple inheritance.
-    "too-many-arguments",      # Can be judged manually, most often completely valid.
-    "unsubscriptable-object",  # There's currently a bug where every `Optional[Foo]` errors: https://github.com/PyCQA/pylint/issues/3882
-    "unused-argument",         # Often an argument (e.g. `root`) just has to be there even if it's not used.
+    "duplicate-code",                  # This could be fine with less aggressive settings.
+    "fixme",                           # No point in not allowing this style of comments.
+    "invalid-name",                    # `qs`, `db`, and `T` are all just fine names.
+    "line-too-long",                   # Black handles this.
+    "logging-fstring-interpolation",   # No point in using %s formatting, f-strings are just nicer: https://github.com/PyCQA/pylint/issues/1788#issuecomment-406135335
+    "missing-docstring",               # Just insane.
+    "no-else-return",                  # Can often make the code clearer.
+    "no-member",                       # Doesn't play well with e.g. parler translated fields.
+    "redefined-builtin",               # We are using `id` and `input` as idiomatic GraphQL parameter names.
+    "too-few-public-methods",          # Single method mixins can be really useful, also our `constants.py` has tons of these classes.
+    "too-many-ancestors",              # Doesn't play well with our style of heavy use of mixins and multiple inheritance.
+    "too-many-arguments",              # Can be judged manually, most often completely valid.
+    "unsubscriptable-object",          # There's currently a bug where every `Optional[Foo]` errors: https://github.com/PyCQA/pylint/issues/3882
+    "unused-argument",                 # Often an argument (e.g. `root`) just has to be there even if it's not used.
 ]
 
 [tool.pylint.classes]

@@ -5,7 +5,7 @@ from django import forms
 from django.core.files import File
 
 from skole.models import Resource
-from skole.utils.files import clean_file_field, clean_metadata, convert_to_pdf
+from skole.utils.files import clean_file_field, convert_to_pdf
 
 from .base import SkoleModelForm, SkoleUpdateModelForm
 
@@ -18,13 +18,12 @@ class CreateResourceForm(SkoleModelForm):
         fields = ("title", "file", "resource_type", "course", "date")
 
     def clean_file(self) -> Union[File, str]:
-        file, __ = clean_file_field(
+        return clean_file_field(
             form=self,
             field_name="file",
             created_file_name="resource",
             conversion_func=convert_to_pdf,
         )
-        return file
 
     def clean_date(self) -> datetime.date:
         # If the user did provide a date for the resource, use that,
@@ -42,12 +41,7 @@ class CreateResourceForm(SkoleModelForm):
         # Should always be authenticated here, so fine to raise `ValueError` here
         # if we accidentally try to set `instance.user` to an `AnonymousUser`.
         self.instance.user = self.request.user
-        self.instance = super().save(commit)
-
-        # We on purpose want to clean the metadata of files that have been converted
-        # with Cloudmersive also, so that they can leave no nasty data to our files.
-        clean_metadata(self.instance.file)
-        return self.instance
+        return super().save(commit)
 
 
 class UpdateResourceForm(SkoleUpdateModelForm):

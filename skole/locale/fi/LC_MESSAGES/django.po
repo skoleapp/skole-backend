@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-08 13:48+0000\n"
+"POT-Creation-Date: 2020-11-26 21:50+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Skole\n"
@@ -13,102 +13,106 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: skole/utils/constants.py:8
+#: skole/utils/constants.py:7
 msgid "Skole Administration"
 msgstr "Skolen hallinta"
 
-#: skole/utils/constants.py:12
+#: skole/utils/constants.py:11
 msgid "English"
 msgstr "Englanti"
 
-#: skole/utils/constants.py:13
+#: skole/utils/constants.py:12
 msgid "Finnish"
 msgstr "Suomi"
 
-#: skole/utils/constants.py:14
+#: skole/utils/constants.py:13
 msgid "Swedish"
 msgstr "Ruotsi"
 
-#: skole/utils/constants.py:23
+#: skole/utils/constants.py:22
 msgid "This username is taken."
 msgstr "Käyttäjänimi on jo käytössä."
 
-#: skole/utils/constants.py:24
+#: skole/utils/constants.py:23
 msgid "This email is taken."
 msgstr "Sähköposti on jo käytössä."
 
-#: skole/utils/constants.py:25
+#: skole/utils/constants.py:24
 msgid "This account has been deactivated!"
 msgstr "Tämä tili on poistettu käytöstä!"
 
-#: skole/utils/constants.py:26
+#: skole/utils/constants.py:25
 msgid "Invalid username/email or password."
 msgstr "Käyttäjätunnus/sähköposti ja salasana eivät täsmää."
 
-#: skole/utils/constants.py:27
+#: skole/utils/constants.py:26
 msgid "Cannot log in at this time."
 msgstr "Ei voi kirjautua tällä hetkellä."
 
-#: skole/utils/constants.py:28
+#: skole/utils/constants.py:27
 msgid "Invalid old password."
 msgstr "Väärä vanha salasana."
 
-#: skole/utils/constants.py:29
+#: skole/utils/constants.py:28
 msgid "Invalid password."
 msgstr "Väärä salasana."
 
-#: skole/utils/constants.py:30
+#: skole/utils/constants.py:29
 msgid "Mutation needs exactly one target."
 msgstr "Mutaatio sisältää liian monta kohdetta."
 
-#: skole/utils/constants.py:31
+#: skole/utils/constants.py:30
 msgid "You are not the owner of this object."
 msgstr "Et ole tämän objektin omistaja."
 
-#: skole/utils/constants.py:32
+#: skole/utils/constants.py:31
 msgid "File is too large, maximum allowed is {} MB"
 msgstr "Tiedosto on liian suuri, suurin sallittu on {}Mt"
 
-#: skole/utils/constants.py:33
+#: skole/utils/constants.py:32
 msgid "Invalid file type, allowed types are: {}"
 msgstr "Virheellinen tiedostotyyppi, sallittuja on: {}"
 
-#: skole/utils/constants.py:34
+#: skole/utils/constants.py:33
 msgid "File extension doesn't match the file type."
 msgstr "Filändelsen matchar inte filtypen."
 
-#: skole/utils/constants.py:35
+#: skole/utils/constants.py:34
 msgid "Comment must include either text or attachment."
 msgstr "Kommentissa tulee olla tekstiä tai liite."
 
-#: skole/utils/constants.py:37
+#: skole/utils/constants.py:36
 msgid "Usernames can only contain letters, numbers, and underscores."
 msgstr ""
 "Käyttäjänimi voi sisältää ainoastaan kirjaimia, numeroita ja alaviivoja."
 
-#: skole/utils/constants.py:39
+#: skole/utils/constants.py:38
 msgid "File could not be converted to {} format."
 msgstr "Tiedostoa ei pystytty muuttamaan {} muotoon."
 
-#: skole/utils/constants.py:40
+#: skole/utils/constants.py:39
 msgid "You cannot vote your own content."
 msgstr "Et voi äänestää omaa sisältöäsi."
 
-#: skole/utils/constants.py:44
+#: skole/utils/constants.py:43
 msgid "Invalid ordering value."
 msgstr "Virheellin järjestyarvo."
 
-#: skole/utils/constants.py:45
+#: skole/utils/constants.py:44
 msgid "This account has already been verified."
 msgstr "Tämä tili on jo vahvistettu."
 
-#: skole/utils/constants.py:46
+#: skole/utils/constants.py:45
 msgid "This account is not verified."
 msgstr "Tätä tiliä ei ole vahvistettu."
 
-#: skole/utils/constants.py:47
+#: skole/utils/constants.py:46
 msgid "This token is not intended for this use."
 msgstr "Token ei ole tarkoitettu tähän käyttötarkoitukseen."
+
+#: skole/utils/constants.py:47
+msgid "An error occurred. Trying again might help."
+msgstr "Tapahtui virhe. Uudelleen yrittäminen saattaa auttaa."
 
 #: skole/utils/constants.py:51
 msgid "Message sent successfully."

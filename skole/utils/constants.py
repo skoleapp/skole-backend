@@ -1,4 +1,3 @@
-from enum import Enum
 from typing import Any, Dict, Tuple, Type, TypeVar, cast
 
 from django.utils.translation import gettext_lazy as _
@@ -45,6 +44,7 @@ class GraphQLErrors:
     ALREADY_VERIFIED = _("This account has already been verified.")
     NOT_VERIFIED = _("This account is not verified.")
     TOKEN_SCOPE_ERROR = _("This token is not intended for this use.")
+    UNSPECIFIED_ERROR = _("An error occurred. Trying again might help.")
 
 
 class Messages:
@@ -141,11 +141,3 @@ class ActivityTypes:
     COMMENT_REPLY = "comment_reply"
     COURSE_COMMENT = "course_comment"
     RESOURCE_COMMENT = "resource_comment"
-
-
-class FieldOperation(Enum):
-    """The fixed amount of operations that can be done to a form field."""
-
-    NEW_VALUE = 0
-    CLEARED = 1
-    UNCHANGED = 2

@@ -1,15 +1,18 @@
+import logging
 import os
+import tempfile
 from pathlib import Path
-from typing import Callable, Optional, Tuple, Union
+from typing import Callable, Optional, Union
 
 import libmat2.parser_factory
 import requests
 from django import forms
 from django.conf import settings
 from django.core.files.base import ContentFile, File
-from django.db.models.fields.files import FieldFile
 
-from skole.utils.constants import FieldOperation, ValidationErrors
+from skole.utils.constants import ValidationErrors
+
+logger = logging.getLogger(__name__)
 
 
 def clean_file_field(
@@ -17,7 +20,7 @@ def clean_file_field(
     field_name: str,
     created_file_name: str,
     conversion_func: Optional[Callable[[File], File]] = None,
-) -> Tuple[Union[File, str], FieldOperation]:
+) -> Union[File, str]:
     """
     Use in a ModelForm to conveniently handle FileField clearing and updating.
 
@@ -43,26 +46,24 @@ def clean_file_field(
     if uploaded := form.files.get("1"):
         # New value for the field.
         file = conversion_func(uploaded) if conversion_func is not None else uploaded
+        file = _clean_metadata(file)
         file.name = created_file_name + Path(file.name).suffix
-        operation = FieldOperation.NEW_VALUE
     elif not form.data[field_name]:
         # Field value deleted (frontend submitted "" or null value).
         # We can't access this from `cleaned_data`, since the file is actually put
         # there automatically by Django, because normally the file is only meant to be
         # cleared by submitting a "false" value from the ClearableFileInput's checkbox.
         file = ""
-        operation = FieldOperation.CLEARED
     else:
         # Field not modified.
         file = getattr(form.instance, field_name)
-        operation = FieldOperation.UNCHANGED
 
     if not file and form.fields[field_name].required:
         raise forms.ValidationError(
             form.fields[field_name].error_messages["required"], code="required"
         )
 
-    return file, operation
+    return file
 
 
 def convert_to_pdf(file: File) -> File:
@@ -95,37 +96,43 @@ def convert_to_pdf(file: File) -> File:
     raise forms.ValidationError(ValidationErrors.COULD_NOT_CONVERT_FILE.format("PDF"))
 
 
-def clean_metadata(file: FieldFile) -> None:
+def _clean_metadata(file: File) -> File:
     """
-    Clean the metadata of the `file` inplace.
+    Clean the metadata of the file.
 
-    Only works for files that are saved on disk, because of `libmat2`'s limitations.
+    `libmat2` only supports cleaning files that are saved on disk, because it relies
+    on exiftool for image cleaning. `file` is currently just in memory, so we need
+    to use a temporary file. We also cannot just delay calling this until the file
+    gets saved to the disk, since `S3Storage` doesn't support accessing files with an
+    absolut path.
 
-    Notes:
-        This could potentially be run asynchronously in the future, because it's not
-        in way critical that the file gets cleaned *immediately* after it's been
-        uploaded. The uploader of the file is most likely the only one to see the file
-        in that small span of time and they already know the metadata of their own file.
-        This is not super critical though, since this execution only takes ~300ms.
-
-    References: https://0xacab.org/jvoisin/mat2/-/blob/46b3ae16729c3f18c4bfebccf928e422a2e5c4f4/mat2#L123
+    References:
+         https://0xacab.org/jvoisin/mat2/-/blob/46b3ae16729c3f18c4bfebccf928e422a2e5c4f4/mat2#L123
     """
+    with tempfile.NamedTemporaryFile(suffix=Path(file.name).suffix) as temp:
+        temp.write(file.read())
+        temp.seek(0)
+
+        parser, file_type = libmat2.parser_factory.get_parser(temp.name)
+        if not parser:
+            # Most likely the file didn't have an extension and that's why it failed.
+            # It's fine to just return the unchanged file here, since model validators
+            # will check its type ones more and return a proper user-facing error message.
+            logger.error(f"Could not get a libmat2 parser for filetype `{file_type}`")
+            return file
+
+        # We use lightweight mode to avoid lowering the quality of uploaded files.
+        # This can leave some minor metadata in place, but our use case isn't too strict.
+        parser.lightweight_cleaning = True
+
+        parser.remove_all()  # `temp` has to exist until here.
+
+    with open(parser.output_filename, "rb") as cleaned:
+        file = ContentFile(cleaned.read(), file.name)
+
     try:
-        filepath = file.path
-    except NotImplementedError:
-        # `S3Storage` doesn't support paths, instead the name of the file is the "path".
-        filepath = file.name
+        os.remove(parser.output_filename)
+    except (FileNotFoundError, OSError):
+        logger.exception(f"Failed to remove `{parser.output_filename}`")
 
-    parser, file_type = libmat2.parser_factory.get_parser(filepath)
-    if not parser:
-        raise RuntimeError(f"Could not get a libmat2 parser for filetype {file_type}.")
-
-    # We use lightweight mode to avoid lowering the quality of uploaded files.
-    # This can leave some minor metadata in place, but our use case isn't too strict.
-    parser.lightweight_cleaning = True
-
-    parser.remove_all()
-
-    # Otherwise the cleaned file will appear as resource.cleaned.pdf,
-    # but we want it to replace the existing file.
-    os.rename(parser.output_filename, filepath)
+    return file

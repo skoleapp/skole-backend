@@ -74,7 +74,7 @@ class Query(graphene.ObjectType):
         school: ID = None,
         page: int = 1,
         page_size: int = settings.DEFAULT_PAGE_SIZE,
-    ) -> graphene.ObjectType:
+    ) -> PaginatedSubjectObjectType:
         qs: QuerySet[Subject] = Subject.objects.all()
 
         if school is not None:

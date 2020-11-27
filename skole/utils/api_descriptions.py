@@ -1,6 +1,6 @@
 """
-The constants in this modules in this module are used in object typ, query and mutation
-descriptions that are injected to API docs.
+The constants in this module are used in object type, query, and mutation descriptions
+that are injected to API docs.
 
 Descriptions must be single-line to have a decent formatting on the GraphiQL.
 Descriptions are also not translated as they are only used for improved developer

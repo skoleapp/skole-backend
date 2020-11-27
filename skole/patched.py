@@ -31,17 +31,17 @@ def report_error(
     """
     Patched to hide error details in prod.
 
-    Also removed unnecessary permission denied traceback spam from logs.
+    Also removes unnecessary 'permission denied' traceback spam from logs.
     """
-    exception = format_exception(
+    formatted_exception = format_exception(
         type(error), error, getattr(error, "stack", None) or traceback
     )
-    if not isinstance(getattr(error, "original_error", None), PermissionDenied):
-        logger.error("".join(exception))
+    if not isinstance(getattr(error, "original_error", error), PermissionDenied):
+        logger.error("".join(formatted_exception))
 
-    if not settings.DEBUG:  # pragma: no cover
-        # Replace the detailed exception message with a more generic one.
-        error.args = (GraphQLErrors.UNSPECIFIED_ERROR,)
+        if not settings.DEBUG:  # pragma: no cover
+            # Replace the detailed exception message with a more generic one.
+            error.args = (GraphQLErrors.UNSPECIFIED_ERROR,)
 
     self.errors.append(error)
 

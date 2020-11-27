@@ -160,7 +160,7 @@ class Query(graphene.ObjectType):
         page: int = 1,
         page_size: int = settings.DEFAULT_PAGE_SIZE,
         ordering: CourseOrderingOption = "best",
-    ) -> graphene.ObjectType:
+    ) -> PaginatedCourseObjectType:
 
         qs: QuerySet[Course] = Course.objects.all()
 

@@ -165,7 +165,7 @@ class Query(graphene.ObjectType):
         course: ID = None,
         page: int = 1,
         page_size: int = settings.DEFAULT_PAGE_SIZE,
-    ) -> graphene.ObjectType:
+    ) -> PaginatedResourceObjectType:
         qs: QuerySet[Resource] = Resource.objects.all()
 
         if user is not None:
@@ -183,7 +183,7 @@ class Query(graphene.ObjectType):
         info: ResolveInfo,
         page: int = 1,
         page_size: int = settings.DEFAULT_PAGE_SIZE,
-    ) -> QuerySet[Resource]:
+    ) -> PaginatedResourceObjectType:
         qs = Resource.objects.filter(stars__user__pk=info.context.user.pk)
         return get_paginator(qs, page_size, page, PaginatedResourceObjectType)
 

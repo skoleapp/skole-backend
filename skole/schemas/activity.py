@@ -110,7 +110,7 @@ class Query(graphene.ObjectType):
         info: ResolveInfo,
         page: int = 1,
         page_size: int = settings.DEFAULT_PAGE_SIZE,
-    ) -> graphene.ObjectType:
+    ) -> PaginatedActivityObjectType:
         user = cast(User, info.context.user)
         qs = user.activities.all()
         return get_paginator(qs, page_size, page, PaginatedActivityObjectType)

@@ -27,8 +27,8 @@ Examples:
     >>> var: ID = "0"  # mypy: ok
     >>> var: ID = "123"  # mypy: ok
     >>> var: ID = None  # mypy: ok
-    >>> var: ID = ""  # mypy: ok, but probably should not be used
-    >>> var: ID = -123  # mypy: ok, but should not be used
+    >>> var: ID = ""  # mypy: ok, but should not be used!
+    >>> var: ID = -123  # mypy: ok, but should not be used!
     >>> var: ID = graphene.ID()  # mypy: error!
     >>> var: ID = School()  # mypy: error!
 

@@ -27,6 +27,12 @@ class RegisterForm(SkoleModelForm):
             raise forms.ValidationError(ValidationErrors.USERNAME_TAKEN)
         return username
 
+    def clean_email(self) -> str:
+        email = self.cleaned_data["email"].lower()
+        if get_user_model().objects.filter(email__iexact=email):
+            raise forms.ValidationError(ValidationErrors.EMAIL_TAKEN)
+        return email
+
     def save(self, commit: bool = True) -> User:
         return get_user_model().objects.create_user(**self.cleaned_data)
 
@@ -95,6 +101,20 @@ class UpdateUserForm(SkoleModelForm):
         return clean_file_field(
             form=self, field_name="avatar", created_file_name="avatar"
         )
+
+    def clean_username(self) -> str:
+        username = self.cleaned_data["username"]
+        if "username" in self.changed_data:
+            if get_user_model().objects.filter(username__iexact=username):
+                raise forms.ValidationError(ValidationErrors.USERNAME_TAKEN)
+        return username
+
+    def clean_email(self) -> str:
+        email = self.cleaned_data["email"].lower()
+        if "email" in self.changed_data:
+            if get_user_model().objects.filter(email__iexact=email):
+                raise forms.ValidationError(ValidationErrors.EMAIL_TAKEN)
+        return email
 
 
 class ChangePasswordForm(SkoleModelForm):

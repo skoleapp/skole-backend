@@ -24,7 +24,7 @@ class Comment(SkoleModel):
 
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         related_name="comments",
     )
@@ -35,7 +35,10 @@ class Comment(SkoleModel):
         upload_to="uploads/attachments",
         blank=True,
         validators=[
-            ValidateFileSizeAndType(3, [("image/jpeg", "JPEG"), ("image/png", "PNG")])
+            ValidateFileSizeAndType(
+                settings.COMMENT_ATTACHMENT_MAX_SIZE,
+                settings.COMMENT_ATTACHMENT_ALLOWED_FILETYPES,
+            )
         ],
     )
 

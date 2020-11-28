@@ -542,7 +542,7 @@ type VoteMutationPayload {
 
 type VoteObjectType {
   id: ID!
-  user: UserObjectType!
+  user: UserObjectType
   status: Int
   comment: CommentObjectType
   course: CourseObjectType

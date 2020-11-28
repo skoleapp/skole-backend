@@ -34,6 +34,7 @@
       <w>imagekit</w>
       <w>libmat</w>
       <w>loaddata</w>
+      <w>lowercased</w>
       <w>lukio</w>
       <w>metropolia</w>
       <w>mypy</w>
@@ -62,6 +63,7 @@
       <w>testuser</w>
       <w>testusername</w>
       <w>turku</w>
+      <w>unverify</w>
       <w>upvote</w>
       <w>upvoted</w>
       <w>upvoting</w>

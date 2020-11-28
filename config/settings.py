@@ -215,3 +215,13 @@ DEFAULT_PAGE_SIZE = 25
 
 # Amount of results shown in the activity preview menu.
 ACTIVITY_PREVIEW_COUNT = 10
+
+# Maximum file sizes for uploaded files in megabytes (MB).
+RESOURCE_FILE_MAX_SIZE = 10
+COMMENT_ATTACHMENT_MAX_SIZE = 3.5
+USER_AVATAR_MAX_SIZE = 3.5
+
+# Allowed filetypes for all media fields as (mimetype, human_friendly_name) pairs.
+RESOURCE_FILE_ALLOWED_FILETYPES = [("application/pdf", "PDF")]
+COMMENT_ATTACHMENT_ALLOWED_FILETYPES = [("image/jpeg", "JPEG"), ("image/png", "PNG")]
+USER_AVATAR_ALLOWED_FILETYPES = [("image/jpeg", "JPEG"), ("image/png", "PNG")]

@@ -73,7 +73,10 @@ class Vote(SkoleModel):
     """Models one vote on either comment, course or resource."""
 
     user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="votes"
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name="votes",
     )
 
     status = models.IntegerField(choices=VoteConstants.STATUS)
@@ -108,4 +111,7 @@ class Vote(SkoleModel):
         unique_together = ("user", "comment", "course", "resource")
 
     def __str__(self) -> str:
-        return f"{self.get_status_display()}, {self.user.username}"
+        if self.user is not None:
+            return f"{self.get_status_display()}, {self.user.username}"
+        else:
+            return f"{self.get_status_display()}, deleted user"

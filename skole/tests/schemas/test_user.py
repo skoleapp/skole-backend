@@ -157,6 +157,13 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert not res["errors"]
         assert res["successMessage"] == Messages.USER_REGISTERED
 
+        # Username should keep its casing, mut email should be lowercased.
+        self.mutate_register(username="MYUSERNAME", email="MAIL@example.COM")
+        user = get_user_model().objects.order_by("created").last()
+        assert user
+        assert user.username == "MYUSERNAME"
+        assert user.email == "mail@example.com"
+
     def test_register_error(self) -> None:
         self.authenticated_user = None
 
@@ -164,8 +171,16 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         res = self.mutate_register(username="testuser2")
         assert ValidationErrors.USERNAME_TAKEN == get_form_error(res)
 
+        # Username taken with different casing.
+        res = self.mutate_register(username="TESTUSER2")
+        assert ValidationErrors.USERNAME_TAKEN == get_form_error(res)
+
         # Email taken.
         res = self.mutate_register(email="testuser2@test.com")
+        assert ValidationErrors.EMAIL_TAKEN == get_form_error(res)
+
+        # Email taken with different casing.
+        res = self.mutate_register(email="TESTUSER2@test.com")
         assert ValidationErrors.EMAIL_TAKEN == get_form_error(res)
 
         # Too short username.
@@ -283,9 +298,19 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert res["user"] == user
         assert res["successMessage"] == Messages.USER_UPDATED
 
+        # User is currently verified.
+        # Ignore: Mypy complains that pk could be `None`, but it's not.
+        current_user = get_user_model().objects.get(pk=self.authenticated_user)  # type: ignore[misc]
+        assert current_user.verified
+
+        # Changing the email should unverify the user, and lowercase the email.
+        res = self.mutate_update_user(email="NEWMAIL@email.com")
+        assert res["user"]["email"] == "newmail@email.com"
+        current_user.refresh_from_db()
+        assert not current_user.verified
+
         # Update some fields.
         new_username = "newusername"
-        new_email = "newmail@email.com"
         new_title = "My new Title."
         new_bio = "My new bio."
         new_school = "2"
@@ -293,7 +318,6 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
 
         res = self.mutate_update_user(
             username=new_username,
-            email=new_email,
             title=new_title,
             bio=new_bio,
             school=new_school,
@@ -302,7 +326,6 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
 
         assert not res["errors"]
         assert res["user"]["username"] == new_username
-        assert res["user"]["email"] == new_email
         assert res["user"]["title"] == new_title
         assert res["user"]["bio"] == new_bio
         assert res["user"]["school"] == {"id": new_school}
@@ -318,7 +341,20 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert get_form_error(res) == ValidationErrors.EMAIL_TAKEN
         assert res["user"] is None
 
+        # Same email with different casing is already taken.
+        res = self.mutate_update_user(email="ADMIN@admin.com")
+        assert len(res["errors"]) == 1
+        assert get_form_error(res) == ValidationErrors.EMAIL_TAKEN
+        assert res["user"] is None
+
+        # Username is already taken.
         res = self.mutate_update_user(username="testuser3")
+        assert len(res["errors"]) == 1
+        assert get_form_error(res) == ValidationErrors.USERNAME_TAKEN
+        assert res["user"] is None
+
+        # Same username with different casing is already taken.
+        res = self.mutate_update_user(username="TESTUSER3")
         assert len(res["errors"]) == 1
         assert get_form_error(res) == ValidationErrors.USERNAME_TAKEN
         assert res["user"] is None

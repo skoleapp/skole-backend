@@ -283,9 +283,17 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert res["user"] == user
         assert res["successMessage"] == Messages.USER_UPDATED
 
+        # User is currently verified.
+        current_user = get_user_model().objects.get(pk=self.authenticated_user)
+        assert current_user.verified
+
+        # Changing the email should unverify the user.
+        res = self.mutate_update_user(email="newmail@email.com")
+        current_user.refresh_from_db()
+        assert not current_user.verified
+
         # Update some fields.
         new_username = "newusername"
-        new_email = "newmail@email.com"
         new_title = "My new Title."
         new_bio = "My new bio."
         new_school = "2"
@@ -293,7 +301,6 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
 
         res = self.mutate_update_user(
             username=new_username,
-            email=new_email,
             title=new_title,
             bio=new_bio,
             school=new_school,
@@ -302,7 +309,6 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
 
         assert not res["errors"]
         assert res["user"]["username"] == new_username
-        assert res["user"]["email"] == new_email
         assert res["user"]["title"] == new_title
         assert res["user"]["bio"] == new_bio
         assert res["user"]["school"] == {"id": new_school}

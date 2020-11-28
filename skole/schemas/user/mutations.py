@@ -275,6 +275,16 @@ class UpdateUserMutation(
         form_kwargs["instance"] = info.context.user
         return form_kwargs
 
+    @classmethod
+    def perform_mutate(
+        cls,
+        form: UpdateUserForm,
+        info: ResolveInfo
+    ) -> UpdateUserMutation:
+        if "email" in form.changed_data:
+            form.instance.verified = False
+        return super().perform_mutate(form, info)
+
 
 class DeleteUserMutation(
     SkoleCreateUpdateMutationMixin, SuccessMessageMixin, DjangoModelFormMutation

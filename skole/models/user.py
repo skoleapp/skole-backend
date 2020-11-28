@@ -88,7 +88,9 @@ class User(SkoleModel, AbstractBaseUser, PermissionsMixin):
     avatar = models.ImageField(
         upload_to="uploads/avatars",
         validators=[
-            ValidateFileSizeAndType(2, [("image/jpeg", "JPEG"), ("image/png", "PNG")])
+            ValidateFileSizeAndType(
+                settings.USER_AVATAR_MAX_SIZE, settings.USER_AVATAR_ALLOWED_FILETYPES
+            )
         ],
         blank=True,
         default=None,

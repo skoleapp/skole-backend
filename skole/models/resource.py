@@ -40,7 +40,12 @@ class Resource(SkoleModel):
         upload_to="uploads/resources",
         blank=True,
         max_length=500,
-        validators=[ValidateFileSizeAndType(5, [("application/pdf", "PDF")])],
+        validators=[
+            ValidateFileSizeAndType(
+                settings.RESOURCE_FILE_MAX_SIZE,
+                settings.RESOURCE_FILE_ALLOWED_FILETYPES,
+            )
+        ],
     )
 
     date = models.DateField(default=datetime.date.today, blank=True)

@@ -18,7 +18,7 @@ class ValidateFileSizeAndType:
         """
         Args:
             limit: The maximum allowed file size in MB.
-            types: Allowed file types as (mime, human_friendly_name) pairs.
+            types: Allowed file types as (mimetype, human_friendly_name) pairs.
                 Mime values should be from: https://www.iana.org/assignments/media-types/media-types.xhtml
         """
         if limit <= 0:

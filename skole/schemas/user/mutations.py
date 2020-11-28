@@ -305,7 +305,7 @@ class DeleteUserMutation(
         cls, form: DeleteUserForm, info: ResolveInfo
     ) -> DeleteUserMutation:
         user = cast(User, info.context.user)
-        user.soft_delete()
+        user.delete()
         return cls(success_message=Messages.USER_DELETED)
 
 

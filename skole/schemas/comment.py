@@ -4,21 +4,19 @@ from graphene_django.forms.mutation import DjangoModelFormMutation
 
 from skole.forms import CreateCommentForm, DeleteCommentForm, UpdateCommentForm
 from skole.models import Comment
-from skole.schemas.mixins import (
+from skole.schemas.base import (
     SkoleCreateUpdateMutationMixin,
     SkoleDeleteMutationMixin,
-    SuccessMessageMixin,
-    VoteMixin,
+    SkoleObjectType,
 )
+from skole.schemas.mixins import SuccessMessageMixin, VoteMixin
 from skole.types import ResolveInfo
-from skole.utils import api_descriptions
 from skole.utils.constants import Messages
 
 
 class CommentObjectType(VoteMixin, DjangoObjectType):
     class Meta:
         model = Comment
-        description = api_descriptions.COMMENT_OBJECT_TYPE
         fields = (
             "id",
             "user",
@@ -41,6 +39,12 @@ class CommentObjectType(VoteMixin, DjangoObjectType):
 class CreateCommentMutation(
     SkoleCreateUpdateMutationMixin, SuccessMessageMixin, DjangoModelFormMutation
 ):
+    """
+    Create a new comment.
+
+    Attachments are popped of for unauthenticated users.
+    """
+
     success_message_value = Messages.MESSAGE_SENT
 
     class Meta:
@@ -51,6 +55,8 @@ class CreateCommentMutation(
 class UpdateCommentMutation(
     SkoleCreateUpdateMutationMixin, SuccessMessageMixin, DjangoModelFormMutation
 ):
+    """Update an existing comment."""
+
     login_required = True
     success_message_value = Messages.COMMENT_UPDATED
     comment = graphene.Field(CommentObjectType)
@@ -60,21 +66,15 @@ class UpdateCommentMutation(
 
 
 class DeleteCommentMutation(SkoleDeleteMutationMixin, DjangoModelFormMutation):
+    """Delete a comment."""
+
     success_message_value = Messages.COMMENT_DELETED
 
     class Meta(SkoleDeleteMutationMixin.Meta):
         form_class = DeleteCommentForm
 
 
-class Mutation(graphene.ObjectType):
-    create_comment = CreateCommentMutation.Field(
-        description=api_descriptions.CREATE_COMMENT
-    )
-
-    update_comment = UpdateCommentMutation.Field(
-        description=api_descriptions.UPDATE_COMMENT
-    )
-
-    delete_comment = DeleteCommentMutation.Field(
-        description=api_descriptions.DELETE_COMMENT
-    )
+class Mutation(SkoleObjectType):
+    create_comment = CreateCommentMutation.Field()
+    update_comment = UpdateCommentMutation.Field()
+    delete_comment = DeleteCommentMutation.Field()

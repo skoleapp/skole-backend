@@ -3,18 +3,17 @@ from typing import Optional
 import graphene
 from django.conf import settings
 from django.db.models import Count, QuerySet
-from graphene_django import DjangoObjectType
 
 from skole.models import Country, School
+from skole.schemas.base import SkoleDjangoObjectType, SkoleObjectType
 from skole.schemas.city import CityObjectType
 from skole.schemas.country import CountryObjectType
 from skole.schemas.school_type import SchoolTypeObjectType
 from skole.schemas.subject import SubjectObjectType
 from skole.types import ID, ResolveInfo
-from skole.utils import api_descriptions
 
 
-class SchoolObjectType(DjangoObjectType):
+class SchoolObjectType(SkoleDjangoObjectType):
     name = graphene.String()
     school_type = graphene.Field(SchoolTypeObjectType)
     city = graphene.Field(CityObjectType)
@@ -23,7 +22,6 @@ class SchoolObjectType(DjangoObjectType):
 
     class Meta:
         model = School
-        description = api_descriptions.SCHOOL_OBJECT_TYPE
         fields = (
             "id",
             "name",
@@ -39,21 +37,15 @@ class SchoolObjectType(DjangoObjectType):
         return root.city.country
 
 
-class Query(graphene.ObjectType):
-    autocomplete_schools = graphene.List(
-        SchoolObjectType,
-        name=graphene.String(),
-        description=api_descriptions.AUTOCOMPLETE_SCHOOLS,
-    )
-
-    school = graphene.Field(
-        SchoolObjectType, id=graphene.ID(), description=api_descriptions.DETAIL_QUERY
-    )
+class Query(SkoleObjectType):
+    autocomplete_schools = graphene.List(SchoolObjectType, name=graphene.String())
+    school = graphene.Field(SchoolObjectType, id=graphene.ID())
 
     @staticmethod
     def resolve_autocomplete_schools(
         root: None, info: ResolveInfo, name: str = ""
     ) -> QuerySet[School]:
+        """Results are sorted by creation time."""
         qs = School.objects.translated()
 
         if name != "":

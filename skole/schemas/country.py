@@ -3,30 +3,23 @@ from typing import Optional
 import graphene
 from django.conf import settings
 from django.db.models import QuerySet
-from graphene_django import DjangoObjectType
 
 from skole.models import Country
+from skole.schemas.base import SkoleDjangoObjectType, SkoleObjectType
 from skole.types import ID, ResolveInfo
-from skole.utils import api_descriptions
 
 
-class CountryObjectType(DjangoObjectType):
+class CountryObjectType(SkoleDjangoObjectType):
     name = graphene.String()
 
     class Meta:
         model = Country
-        description = api_descriptions.COUNTRY_OBJECT_TYPE
         fields = ("id", "name")
 
 
-class Query(graphene.ObjectType):
-    autocomplete_countries = graphene.List(
-        CountryObjectType, description=api_descriptions.AUTOCOMPLETE_QUERY
-    )
-
-    country = graphene.Field(
-        CountryObjectType, id=graphene.ID(), description=api_descriptions.DETAIL_QUERY
-    )
+class Query(SkoleObjectType):
+    autocomplete_countries = graphene.List(CountryObjectType)
+    country = graphene.Field(CountryObjectType, id=graphene.ID())
 
     @staticmethod
     def resolve_autocomplete_countries(

@@ -3,26 +3,29 @@ from __future__ import annotations
 from typing import cast
 
 import graphene
-from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 
 from skole.forms import CreateVoteForm
 from skole.models import User, Vote
-from skole.schemas.mixins import SkoleCreateUpdateMutationMixin
+from skole.schemas.base import (
+    SkoleCreateUpdateMutationMixin,
+    SkoleDjangoObjectType,
+    SkoleObjectType,
+)
 from skole.types import ResolveInfo
-from skole.utils import api_descriptions
 
 
-class VoteObjectType(DjangoObjectType):
+class VoteObjectType(SkoleDjangoObjectType):
     status = graphene.Int()
 
     class Meta:
         model = Vote
-        description = api_descriptions.VOTE_OBJECT_TYPE
         fields = ("id", "user", "status", "comment", "course", "resource")
 
 
 class VoteMutation(SkoleCreateUpdateMutationMixin, DjangoModelFormMutation):
+    """Upvote, downvote or remove a vote from a course, resource or a comment."""
+
     verification_required = True
     target_score = graphene.Int()
 
@@ -43,5 +46,5 @@ class VoteMutation(SkoleCreateUpdateMutationMixin, DjangoModelFormMutation):
         return cls(vote=vote, target_score=target_score)
 
 
-class Mutation(graphene.ObjectType):
-    vote = VoteMutation.Field(description=api_descriptions.VOTE)
+class Mutation(SkoleObjectType):
+    vote = VoteMutation.Field()

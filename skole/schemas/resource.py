@@ -5,7 +5,6 @@ from django.conf import settings
 from django.db.models import F, QuerySet
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
-from graphql_jwt.decorators import login_required
 
 from skole.forms import (
     CreateResourceForm,
@@ -14,10 +13,14 @@ from skole.forms import (
     UpdateResourceForm,
 )
 from skole.models import Resource, School
-from skole.schemas.mixins import (
-    PaginationMixin,
+from skole.overridden import login_required
+from skole.schemas.base import (
     SkoleCreateUpdateMutationMixin,
     SkoleDeleteMutationMixin,
+    SkoleObjectType,
+)
+from skole.schemas.mixins import (
+    PaginationMixin,
     StarMixin,
     SuccessMessageMixin,
     VoteMixin,
@@ -25,7 +28,6 @@ from skole.schemas.mixins import (
 from skole.schemas.resource_type import ResourceTypeObjectType
 from skole.schemas.school import SchoolObjectType
 from skole.types import ID, ResolveInfo
-from skole.utils import api_descriptions
 from skole.utils.constants import Messages
 from skole.utils.pagination import get_paginator
 
@@ -51,7 +53,6 @@ class ResourceObjectType(VoteMixin, StarMixin, DjangoObjectType):
 
     class Meta:
         model = Resource
-        description = api_descriptions.RESOURCE_OBJECT_TYPE
         fields = (
             "id",
             "file",
@@ -93,13 +94,18 @@ class ResourceObjectType(VoteMixin, StarMixin, DjangoObjectType):
         return getattr(root, "comment_count", 0)
 
 
-class PaginatedResourceObjectType(PaginationMixin, graphene.ObjectType):
+class PaginatedResourceObjectType(PaginationMixin, SkoleObjectType):
     objects = graphene.List(ResourceObjectType)
+
+    class Meta:
+        description = Resource.__doc__
 
 
 class CreateResourceMutation(
     SkoleCreateUpdateMutationMixin, SuccessMessageMixin, DjangoModelFormMutation
 ):
+    """Create a new resource."""
+
     verification_required = True
     success_message_value = Messages.RESOURCE_CREATED
 
@@ -111,6 +117,8 @@ class CreateResourceMutation(
 class UpdateResourceMutation(
     SkoleCreateUpdateMutationMixin, SuccessMessageMixin, DjangoModelFormMutation
 ):
+    """Update a resource."""
+
     verification_required = True
     success_message_value = Messages.RESOURCE_UPDATED
 
@@ -119,6 +127,12 @@ class UpdateResourceMutation(
 
 
 class DeleteResourceMutation(SkoleDeleteMutationMixin, DjangoModelFormMutation):
+    """
+    Delete a resource.
+
+    Results are sorted by creation time.
+    """
+
     verification_required = True
     success_message_value = Messages.RESOURCE_DELETED
 
@@ -129,13 +143,19 @@ class DeleteResourceMutation(SkoleDeleteMutationMixin, DjangoModelFormMutation):
 class DownloadResourceMutation(
     SkoleCreateUpdateMutationMixin, SuccessMessageMixin, DjangoModelFormMutation
 ):
+    """
+    Download a resource.
+
+    This mutation only increments the amount of downloads of a single resource.
+    """
+
     success_message_value = Messages.RESOURCE_DOWNLOADS_UPDATED
 
     class Meta:
         form_class = DownloadResourceForm
 
 
-class Query(graphene.ObjectType):
+class Query(SkoleObjectType):
     resources = graphene.Field(
         PaginatedResourceObjectType,
         user=graphene.ID(),
@@ -143,19 +163,15 @@ class Query(graphene.ObjectType):
         page=graphene.Int(),
         page_size=graphene.Int(),
         ordering=graphene.String(),
-        description=api_descriptions.RESOURCES,
     )
 
     starred_resources = graphene.Field(
         PaginatedResourceObjectType,
         page=graphene.Int(),
         page_size=graphene.Int(),
-        description=api_descriptions.STARRED_RESOURCES,
     )
 
-    resource = graphene.Field(
-        ResourceObjectType, id=graphene.ID(), description=api_descriptions.RESOURCE
-    )
+    resource = graphene.Field(ResourceObjectType, id=graphene.ID())
 
     @staticmethod
     def resolve_resources(
@@ -166,6 +182,11 @@ class Query(graphene.ObjectType):
         page: int = 1,
         page_size: int = settings.DEFAULT_PAGE_SIZE,
     ) -> PaginatedResourceObjectType:
+        """
+        Return resources filtered by query params.
+
+        Results are sorted by creation time.
+        """
         qs: QuerySet[Resource] = Resource.objects.all()
 
         if user is not None:
@@ -184,6 +205,11 @@ class Query(graphene.ObjectType):
         page: int = 1,
         page_size: int = settings.DEFAULT_PAGE_SIZE,
     ) -> PaginatedResourceObjectType:
+        """
+        Return starred resources of the user making the query.
+
+        Results are sorted by creation time.
+        """
         qs = Resource.objects.filter(stars__user__pk=info.context.user.pk)
         return get_paginator(qs, page_size, page, PaginatedResourceObjectType)
 
@@ -194,19 +220,8 @@ class Query(graphene.ObjectType):
         return Resource.objects.get_or_none(pk=id)
 
 
-class Mutation(graphene.ObjectType):
-    create_resource = CreateResourceMutation.Field(
-        description=api_descriptions.CREATE_RESOURCE
-    )
-
-    update_resource = UpdateResourceMutation.Field(
-        description=api_descriptions.UPDATE_RESOURCE
-    )
-
-    delete_resource = DeleteResourceMutation.Field(
-        description=api_descriptions.DELETE_RESOURCE
-    )
-
-    download_resource = DownloadResourceMutation.Field(
-        description=api_descriptions.DOWNLOAD_RESOURCE
-    )
+class Mutation(SkoleObjectType):
+    create_resource = CreateResourceMutation.Field()
+    update_resource = UpdateResourceMutation.Field()
+    delete_resource = DeleteResourceMutation.Field()
+    download_resource = DownloadResourceMutation.Field()

@@ -6,20 +6,22 @@ from django.db.models import F, QuerySet
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphql import GraphQLError
-from graphql_jwt.decorators import login_required
 
 from skole.forms import CreateCourseForm, DeleteCourseForm
 from skole.models import Course
-from skole.schemas.mixins import (
-    PaginationMixin,
+from skole.overridden import login_required
+from skole.schemas.base import (
     SkoleCreateUpdateMutationMixin,
     SkoleDeleteMutationMixin,
+    SkoleObjectType,
+)
+from skole.schemas.mixins import (
+    PaginationMixin,
     StarMixin,
     SuccessMessageMixin,
     VoteMixin,
 )
 from skole.types import ID, CourseOrderingOption, ResolveInfo
-from skole.utils import api_descriptions
 from skole.utils.constants import GraphQLErrors, Messages
 from skole.utils.pagination import get_paginator
 
@@ -46,7 +48,6 @@ class CourseObjectType(VoteMixin, StarMixin, DjangoObjectType):
 
     class Meta:
         model = Course
-        description = api_descriptions.COURSE_OBJECT_TYPE
         fields = (
             "id",
             "name",
@@ -84,16 +85,18 @@ class CourseObjectType(VoteMixin, StarMixin, DjangoObjectType):
         return getattr(root, "resource_count", 0)
 
 
-class PaginatedCourseObjectType(PaginationMixin, graphene.ObjectType):
+class PaginatedCourseObjectType(PaginationMixin, SkoleObjectType):
     objects = graphene.List(CourseObjectType)
 
     class Meta:
-        description = api_descriptions.PAGINATED_COURSE_OBJECT_TYPE
+        description = Course.__doc__
 
 
 class CreateCourseMutation(
     SkoleCreateUpdateMutationMixin, SuccessMessageMixin, DjangoModelFormMutation
 ):
+    """Create a new course."""
+
     verification_required = True
     success_message_value = Messages.COURSE_CREATED
     course = graphene.Field(CourseObjectType)
@@ -104,13 +107,15 @@ class CreateCourseMutation(
 
 
 class DeleteCourseMutation(SkoleDeleteMutationMixin, DjangoModelFormMutation):
+    """Delete a course."""
+
     success_message_value = Messages.COURSE_DELETED
 
     class Meta(SkoleDeleteMutationMixin.Meta):
         form_class = DeleteCourseForm
 
 
-class Query(graphene.ObjectType):
+class Query(SkoleObjectType):
     courses = graphene.Field(
         PaginatedCourseObjectType,
         course_name=graphene.String(),
@@ -124,26 +129,18 @@ class Query(graphene.ObjectType):
         page=graphene.Int(),
         page_size=graphene.Int(),
         ordering=graphene.String(),
-        description=api_descriptions.COURSES,
     )
-
     autocomplete_courses = graphene.List(
         CourseObjectType,
         school=graphene.ID(),
         name=graphene.String(),
-        description=api_descriptions.AUTOCOMPLETE_COURSES,
     )
-
     starred_courses = graphene.Field(
         PaginatedCourseObjectType,
         page=graphene.Int(),
         page_size=graphene.Int(),
-        description=api_descriptions.STARRED_COURSES,
     )
-
-    course = graphene.Field(
-        CourseObjectType, id=graphene.ID(), description=api_descriptions.DETAIL_QUERY
-    )
+    course = graphene.Field(CourseObjectType, id=graphene.ID())
 
     @staticmethod
     def resolve_courses(
@@ -161,6 +158,12 @@ class Query(graphene.ObjectType):
         page_size: int = settings.DEFAULT_PAGE_SIZE,
         ordering: CourseOrderingOption = "best",
     ) -> PaginatedCourseObjectType:
+        """
+        Return courses filtered by query params.
+
+        Results are sorted either manually based on query params or by secret Skole AI-
+        powered algorithms.
+        """
 
         qs: QuerySet[Course] = Course.objects.all()
 
@@ -197,6 +200,7 @@ class Query(graphene.ObjectType):
     def resolve_autocomplete_courses(
         root: None, info: ResolveInfo, school: ID = None, name: str = ""
     ) -> QuerySet[Course]:
+        """Results are sorted by secret Skole AI-powered algorithms."""
         qs: QuerySet[Course] = Course.objects.order_by("name")
 
         if school is not None:
@@ -215,7 +219,13 @@ class Query(graphene.ObjectType):
         info: ResolveInfo,
         page: int = 1,
         page_size: int = settings.DEFAULT_PAGE_SIZE,
-    ) -> QuerySet[Course]:
+    ) -> PaginatedCourseObjectType:
+        """
+        Return starred courses of the user making the query.
+
+        Results are sorted by creation time. Return an empty list for unauthenticated
+        users.
+        """
         qs = Course.objects.filter(stars__user__pk=info.context.user.pk)
         return get_paginator(qs, page_size, page, PaginatedCourseObjectType)
 
@@ -226,11 +236,6 @@ class Query(graphene.ObjectType):
         return Course.objects.get_or_none(pk=id)
 
 
-class Mutation(graphene.ObjectType):
-    create_course = CreateCourseMutation.Field(
-        description=api_descriptions.CREATE_COURSE
-    )
-
-    delete_course = DeleteCourseMutation.Field(
-        description=api_descriptions.DELETE_COURSE
-    )
+class Mutation(SkoleObjectType):
+    create_course = CreateCourseMutation.Field()
+    delete_course = DeleteCourseMutation.Field()

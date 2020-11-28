@@ -78,7 +78,7 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
             "pageSize": page_size,
         }
 
-        # langauge=GraphQL
+        # language=GraphQL
         graphql = (
             self.resource_fields
             + """
@@ -120,7 +120,7 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
             "pageSize": page_size,
         }
 
-        # langauge=GraphQL
+        # language=GraphQL
         graphql = (
             self.resource_fields
             + """

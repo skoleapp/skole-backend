@@ -3,12 +3,11 @@ from typing import Optional
 import graphene
 from django.conf import settings
 from django.db.models import Count, QuerySet
-from graphene_django import DjangoObjectType
 
 from skole.models import Subject
+from skole.schemas.base import SkoleDjangoObjectType, SkoleObjectType
 from skole.schemas.mixins import PaginationMixin
 from skole.types import ID, ResolveInfo
-from skole.utils import api_descriptions
 from skole.utils.pagination import get_paginator
 
 
@@ -20,14 +19,13 @@ def order_subjects_by_num_courses(qs: QuerySet[Subject]) -> QuerySet[Subject]:
     )
 
 
-class SubjectObjectType(DjangoObjectType):
+class SubjectObjectType(SkoleDjangoObjectType):
     name = graphene.String()
     course_count = graphene.Int()
     resource_count = graphene.Int()
 
     class Meta:
         model = Subject
-        description = api_descriptions.SUBJECT_OBJECT_TYPE
         fields = ("id", "name", "course_count", "resource_count")
 
     # Have to specify these three with resolvers since graphene cannot infer the annotated fields otherwise.
@@ -41,31 +39,27 @@ class SubjectObjectType(DjangoObjectType):
         return root.resource_count
 
 
-class PaginatedSubjectObjectType(PaginationMixin, graphene.ObjectType):
+class PaginatedSubjectObjectType(PaginationMixin, SkoleObjectType):
     objects = graphene.List(SubjectObjectType)
 
     class Meta:
-        description = api_descriptions.PAGINATED_SUBJECT_OBJECT_TYPE
+        description = Subject.__doc__
 
 
-class Query(graphene.ObjectType):
+class Query(SkoleObjectType):
     subjects = graphene.Field(
         PaginatedSubjectObjectType,
         school=graphene.ID(),
         page=graphene.Int(),
         page_size=graphene.Int(),
-        description=api_descriptions.SUBJECTS,
     )
 
     autocomplete_subjects = graphene.List(
         SubjectObjectType,
         name=graphene.String(),
-        description=api_descriptions.AUTOCOMPLETE_SUBJECTS,
     )
 
-    subject = graphene.Field(
-        SubjectObjectType, id=graphene.ID(), description=api_descriptions.DETAIL_QUERY
-    )
+    subject = graphene.Field(SubjectObjectType, id=graphene.ID())
 
     @staticmethod
     def resolve_subjects(
@@ -75,6 +69,11 @@ class Query(graphene.ObjectType):
         page: int = 1,
         page_size: int = settings.DEFAULT_PAGE_SIZE,
     ) -> PaginatedSubjectObjectType:
+        """
+        Filter results based on the school ID.
+
+        Results are sorted by amount of courses.
+        """
         qs: QuerySet[Subject] = Subject.objects.all()
 
         if school is not None:
@@ -87,6 +86,7 @@ class Query(graphene.ObjectType):
     def resolve_autocomplete_subjects(
         root: None, info: ResolveInfo, name: str = ""
     ) -> QuerySet[Subject]:
+        """Results are sorted by amount of courses."""
         qs = Subject.objects.translated()
 
         if name != "":

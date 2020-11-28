@@ -1,12 +1,12 @@
 from typing import Type, TypeVar
 
-import graphene
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db.models import QuerySet
 
+from skole.schemas.base import SkoleObjectType
 from skole.types import PaginableModel
 
-T = TypeVar("T", bound=graphene.ObjectType)
+T = TypeVar("T", bound=SkoleObjectType)
 
 
 def get_paginator(

@@ -85,13 +85,22 @@ def convert_to_pdf(file: File) -> File:
         requests.post, __import__("unittest.mock").mock.MagicMock
     ), "Shouldn't be called from tests without first mocking `requests.post`!"
 
-    res = requests.post(
-        url="https://api.cloudmersive.com/convert/autodetect/to/pdf",
-        files={"file": file},
-        headers={"Apikey": settings.CLOUDMERSIVE_API_KEY},
-    )
-    if res.status_code == 200:
-        return ContentFile(res.content, f"{path.stem}.pdf")
+    try:
+        res = requests.post(
+            url="https://api.cloudmersive.com/convert/autodetect/to/pdf",
+            files={"file": file},
+            headers={"Apikey": settings.CLOUDMERSIVE_API_KEY},
+        )
+    except requests.RequestException:
+        logger.exception("Encountered an exception when calling Cloudmersive's API.")
+    else:
+        if res.status_code == 200:
+            return ContentFile(res.content, f"{path.stem}.pdf")
+        else:
+            logger.error(
+                f"Received an error from Cloudmersive API, "
+                f"status code: {res.status_code}, content: {res.content!r}"
+            )
 
     raise forms.ValidationError(ValidationErrors.COULD_NOT_CONVERT_FILE.format("PDF"))
 
@@ -127,12 +136,14 @@ def _clean_metadata(file: File) -> File:
 
         parser.remove_all()  # `temp` has to exist until here.
 
-    with open(parser.output_filename, "rb") as cleaned:
-        file = ContentFile(cleaned.read(), file.name)
-
     try:
-        os.remove(parser.output_filename)
-    except (FileNotFoundError, OSError):
-        logger.exception(f"Failed to remove `{parser.output_filename}`")
+        with open(parser.output_filename, "rb") as cleaned:
+            file = ContentFile(cleaned.read(), file.name)
+            os.remove(parser.output_filename)
+    except FileNotFoundError:
+        # The cleaning of the file failed. Could happen for example because a PNG file
+        # was named as `foo.jpeg`. Fine to return the file here unaltered, since model
+        # validators will handle the rest.
+        logger.exception(f"Failed to open the cleaned file `{parser.output_filename}`")
 
     return file

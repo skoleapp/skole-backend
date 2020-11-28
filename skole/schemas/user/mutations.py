@@ -277,9 +277,7 @@ class UpdateUserMutation(
 
     @classmethod
     def perform_mutate(
-        cls,
-        form: UpdateUserForm,
-        info: ResolveInfo
+        cls, form: UpdateUserForm, info: ResolveInfo
     ) -> UpdateUserMutation:
         if "email" in form.changed_data:
             form.instance.verified = False

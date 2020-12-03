@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-26 21:50+0000\n"
+"POT-Creation-Date: 2020-12-06 10:45+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Skole\n"
@@ -71,11 +71,11 @@ msgstr "Tiedosto on liian suuri, suurin sallittu on {}Mt"
 
 #: skole/utils/constants.py:32
 msgid "Invalid file type, allowed types are: {}"
-msgstr "Virheellinen tiedostotyyppi, sallittuja on: {}"
+msgstr "Virheellinen tiedostotyyppi, sallittuja ovat: {}"
 
 #: skole/utils/constants.py:33
 msgid "File extension doesn't match the file type."
-msgstr "Filändelsen matchar inte filtypen."
+msgstr "Tiedostopääte ei vastaa tiedoston tyyppiä."
 
 #: skole/utils/constants.py:34
 msgid "Comment must include either text or attachment."

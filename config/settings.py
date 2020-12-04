@@ -203,6 +203,7 @@ PASSWORD_RESET_PATH_ON_EMAIL = "account/reset-password"
 EMAIL_TEMPLATE_PASSWORD_RESET = "email/reset_password_body.html"
 EMAIL_TEMPLATE_VERIFICATION = "email/verify_account_body.html"
 EMAIL_TEMPLATE_CONTACT = "email/contact_email_body.html"
+EMAIL_TEMPLATE_MY_DATA = "email/my_data_email_body.html"
 
 # Maximum amount of results for autocomplete queries.
 AUTOCOMPLETE_MAX_RESULTS = 50
@@ -222,3 +223,7 @@ USER_AVATAR_MAX_SIZE = 3.5
 RESOURCE_FILE_ALLOWED_FILETYPES = [("application/pdf", "PDF")]
 COMMENT_ATTACHMENT_ALLOWED_FILETYPES = [("image/jpeg", "JPEG"), ("image/png", "PNG")]
 USER_AVATAR_ALLOWED_FILETYPES = [("image/jpeg", "JPEG"), ("image/png", "PNG")]
+
+# How often the GDPR `myData` query is allowed for each user.
+# Shorter rate limiting in dev env for increased convenience.
+MY_DATA_RATE_LIMIT = timedelta(seconds=5) if DEBUG else timedelta(minutes=10)

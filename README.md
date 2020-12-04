@@ -106,3 +106,9 @@ A quick look at the top-level files and directories excluding Git ignored locati
 
 - Use the `@login_required` decorator defined in [`skole.overridden`](skole/overridden.py) instead of the
   one in `graphql_jwt.decorators`. The former automatically adds authorization required information to the API docs.
+
+- Whenever you add fields to `User` model, or relations to `settings.AUTH_USER_MODEL`, make sure
+  to add those to `MyDataMutation` in [`skole.schemas.gdpr`](skole/schemas/gdpr.py).
+
+- It's fine to use [PostgreSQL specific Django utilities](https://docs.djangoproject.com/en/stable/ref/contrib/postgres),
+  such as `ArrayAgg`. They can make life a lot easier, and we can assume that the application is always run on Postgres.

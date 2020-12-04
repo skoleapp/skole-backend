@@ -1,5 +1,5 @@
 """This module contains all the custom type aliases that are used in the app."""
-from typing import TYPE_CHECKING, Any, Dict, List, Literal, Union
+from typing import TYPE_CHECKING, Any, Dict, List, Literal, TypedDict, Union
 
 if TYPE_CHECKING:  # pragma: no cover
     # To avoid circular import.
@@ -51,3 +51,11 @@ as a production dependency.
 """
 
 AnyJson = Union[JsonDict, List[JsonDict]]
+
+
+class _FormErrorDict(TypedDict):  # pylint: disable=inherit-non-class
+    field: str
+    messages: List[str]
+
+
+FormError = List[_FormErrorDict]

@@ -2,6 +2,8 @@ from typing import Any, Dict, Tuple, Type, TypeVar, cast
 
 from django.utils.translation import gettext_lazy as _
 
+from skole.types._aliases import FormError
+
 
 class Admin:
     SITE_HEADER = _("Skole Administration")
@@ -65,9 +67,13 @@ class Messages:
     RESOURCE_DOWNLOADS_UPDATED = _("Resource downloads updated!")
     COMMENT_UPDATED = _("Comment updated successfully!")
     COMMENT_DELETED = _("Comment deleted successfully!")
+    DATA_REQUEST_RECEIVED = _(
+        "Request received, an email with your data will be sent to you soon."
+    )
 
 
 class Email:
+    MY_DATA_SUBJECT = _("Your data request on Skole")
     VERIFY_ACCOUNT_SUBJECT = _("Verify your account on Skole")
     RESET_PASSWORD_SUBJECT = _("Reset your password on Skole")
 
@@ -87,36 +93,44 @@ class _MutationErrorsMeta(type):
         return cast(T, super().__new__(mcs, name, bases, attrs))
 
 
+def _c(field: str) -> FormError:
+    """Used to cast all `MutationErrors` fields to the type that the metaclass makes."""
+    return cast(FormError, field)
+
+
 class MutationErrors(metaclass=_MutationErrorsMeta):
-    NOT_OWNER = ValidationErrors.NOT_OWNER
-    EMAIL_ERROR = _("Error while sending email.")
-    REGISTER_EMAIL_ERROR = _(
+    # fmt: off
+    NOT_OWNER = _c(ValidationErrors.NOT_OWNER)
+    EMAIL_ERROR = _c(_("Error while sending email."))
+    REGISTER_EMAIL_ERROR = _c(_(
         "Your account has been registered but we encountered"
         " an error while sending email. You may still log in using your credentials."
         " Please try verifying your account later."
-    )
-    ALREADY_VERIFIED = GraphQLErrors.ALREADY_VERIFIED
-    TOKEN_EXPIRED_VERIFY = _("Token expired. Please request new verification link.")
-    INVALID_TOKEN_VERIFY = _("Invalid token. Please request new verification link.")
-    USER_NOT_FOUND_WITH_EMAIL = _(
+    ))
+    ALREADY_VERIFIED = _c(GraphQLErrors.ALREADY_VERIFIED)
+    TOKEN_EXPIRED_VERIFY = _c(_("Token expired. Please request new verification link."))
+    INVALID_TOKEN_VERIFY = _c(_("Invalid token. Please request new verification link."))
+    USER_NOT_FOUND_WITH_EMAIL = _c(_(
         "User with the provided email was not found. Please check you email address."
-    )
-    NOT_VERIFIED_RESET_PASSWORD = _(
+    ))
+    NOT_VERIFIED_RESET_PASSWORD = _c(_(
         "You must verify your account before resetting your password."
         " A new verification email was sent. Please check your email."
-    )
-    ACCOUNT_REMOVED = _("This account has been removed.")
-    TOKEN_EXPIRED_RESET_PASSWORD = _(
+    ))
+    ACCOUNT_REMOVED = _c(_("This account has been removed."))
+    TOKEN_EXPIRED_RESET_PASSWORD = _c(_(
         "Token expired. Please request new password reset link."
-    )
-    INVALID_TOKEN_RESET_PASSWORD = _(
+    ))
+    INVALID_TOKEN_RESET_PASSWORD = _c(_(
         "Invalid token. Please request new password reset link."
-    )
-    AUTH_REQUIRED = _("This action is only allowed for authenticated users.")
-    VERIFICATION_REQUIRED = _(
+    ))
+    AUTH_REQUIRED = _c(_("This action is only allowed for authenticated users."))
+    VERIFICATION_REQUIRED = _c(_(
         "This action is only allowed for users who have verified their accounts."
         " Please verify your account."
-    )
+    ))
+    RATE_LIMITED = _c(_("You can request this next time in {} min."))
+    # fmt: on
 
 
 class VoteConstants:

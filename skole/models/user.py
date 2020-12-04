@@ -121,6 +121,10 @@ class User(SkoleModel, AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     modified = models.DateTimeField(auto_now=True)
 
+    last_my_data_query = models.DateTimeField(
+        null=True, help_text="The time when the user last used the GDPR `myData` query."
+    )
+
     objects = UserManager()
 
     USERNAME_FIELD = "username"
@@ -146,3 +150,7 @@ class User(SkoleModel, AbstractBaseUser, PermissionsMixin):
             return Ranks.DOCTOR
         else:
             return Ranks.PROFESSOR
+
+    def update_last_my_data_query(self) -> None:
+        self.last_my_data_query = timezone.now()
+        self.save()

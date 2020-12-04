@@ -257,6 +257,7 @@ type Mutation {
   updateResource(input: UpdateResourceMutationInput!): UpdateResourceMutationPayload
   deleteResource(input: DeleteResourceMutationInput!): DeleteResourceMutationPayload
   downloadResource(input: DownloadResourceMutationInput!): DownloadResourceMutationPayload
+  myData: MyDataMutation
   createCourse(input: CreateCourseMutationInput!): CreateCourseMutationPayload
   deleteCourse(input: DeleteCourseMutationInput!): DeleteCourseMutationPayload
   createContactMessage(input: ContactMutationInput!): ContactMutationPayload
@@ -265,6 +266,11 @@ type Mutation {
   deleteComment(input: DeleteCommentMutationInput!): DeleteCommentMutationPayload
   markActivityAsRead(input: MarkActivityAsReadMutationInput!): MarkActivityAsReadMutationPayload
   markAllActivitiesAsRead: MarkAllActivitiesAsReadMutation
+}
+
+type MyDataMutation {
+  successMessage: String
+  errors: [ErrorType]
 }
 
 type PaginatedActivityObjectType {

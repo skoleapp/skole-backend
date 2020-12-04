@@ -31,10 +31,14 @@ def no_api_keys() -> Generator[None, None, None]:
 @fixture(scope="session", autouse=True)
 def temp_media() -> Generator[None, None, None]:
     """Make all created test media be temporary."""
-    media_directory = tempfile.mkdtemp()
-    settings.MEDIA_ROOT = media_directory
-    yield
-    shutil.rmtree(media_directory, ignore_errors=True)
+    temp_media_dir = tempfile.mkdtemp()
+
+    # Make sure that the 3 test files are available for opening in the temp folder.
+    shutil.copytree(settings.MEDIA_ROOT, temp_media_dir, dirs_exist_ok=True)
+
+    with override_settings(MEDIA_ROOT=temp_media_dir):
+        yield
+    shutil.rmtree(temp_media_dir, ignore_errors=True)
 
 
 @fixture(scope="function", autouse=True)

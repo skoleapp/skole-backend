@@ -3,23 +3,26 @@ from __future__ import annotations
 from typing import cast
 
 import graphene
-from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 
 from skole.forms import CreateStarForm
 from skole.models import Star, User
-from skole.schemas.mixins import SkoleCreateUpdateMutationMixin
+from skole.schemas.base import (
+    SkoleCreateUpdateMutationMixin,
+    SkoleDjangoObjectType,
+    SkoleObjectType,
+)
 from skole.types import ResolveInfo
-from skole.utils import api_descriptions
 
 
-class StarObjectType(DjangoObjectType):
+class StarObjectType(SkoleDjangoObjectType):
     class Meta:
         model = Star
-        description = api_descriptions.STAR_OBJECT_TYPE
 
 
 class StarMutation(SkoleCreateUpdateMutationMixin, DjangoModelFormMutation):
+    """Start a course or a resource remove the star if it already exists."""
+
     verification_required = True
     starred = graphene.Boolean()
 
@@ -37,5 +40,5 @@ class StarMutation(SkoleCreateUpdateMutationMixin, DjangoModelFormMutation):
         return cls(starred=bool(star))
 
 
-class Mutation(graphene.ObjectType):
-    star = StarMutation.Field(description=api_descriptions.STAR)
+class Mutation(SkoleObjectType):
+    star = StarMutation.Field()

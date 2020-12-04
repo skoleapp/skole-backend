@@ -153,7 +153,7 @@ class CourseSchemaTests(SkoleSchemaTestCase):
             "pageSize": page_size,
         }
 
-        # langauge=GraphQL
+        # language=GraphQL
         graphql = (
             self.course_fields
             + """

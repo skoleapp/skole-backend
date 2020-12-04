@@ -80,11 +80,13 @@ A quick look at the top-level files and directories excluding Git ignored locati
 - Inherit all managers from `SkoleManager` or `TranslatableSkoleManager`.
 - Inherit all forms from `SkoleForm`, `SkoleModelForm`, or `SkoleUpdateModelForm`.
 - Inherit all mutations from `SkoleCreateUpdateMutationMixin` or `SkoleDeleteMutationMixin`.
+- Inherit all GraphQL object types from `SkoleObjectType`.
+- Inherit all graphene-django object types from `SkoleDjangoObjectType`.
 
 <!-- -->
 
-- Try not to access any "private" names starting with an underscore `_`
-  outside the class or module where it's defined.
+- Do not access any "private" names starting with an underscore `_`
+  outside the class or module where it's defined, without a very good reason.
 
 - Do not manually call `Model.save()` outside of model files.
   It's fine to call `save()` on a `ModelForm` to save the instance though.
@@ -99,4 +101,8 @@ A quick look at the top-level files and directories excluding Git ignored locati
 - Since `_` is reserved as an alias for Django's translation functions, use a double underscore `__`
   for ignored values, e.g. `foo, __ = Foo.objects.get_or_create(...)` or `[bar() for __ in range(n)]`.
 
-- All GraphQL object types, queries and mutations must be documented by using the `description` parameter.
+- All GraphQL queries should be documented in their resolver docstring. All mutations should be documented in their class docstring.
+  This info is shown in GraphiQL docs, together with information automatically taken from the actual code (see `SkoleObjectTypeMeta` for details).
+
+- Use the `@login_required` decorator defined in [`skole.overridden`](skole/overridden.py) instead of the
+  one in `graphql_jwt.decorators`. The former automatically adds authorization required information to the API docs.

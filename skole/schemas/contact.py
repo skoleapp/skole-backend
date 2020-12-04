@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from smtplib import SMTPException
 
-import graphene
 from django.conf import settings
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
@@ -10,15 +9,17 @@ from django.utils.html import strip_tags
 from graphene_django.forms.mutation import DjangoFormMutation
 
 from skole.forms import ContactForm
-from skole.schemas.mixins import SkoleCreateUpdateMutationMixin, SuccessMessageMixin
+from skole.schemas.base import SkoleCreateUpdateMutationMixin, SkoleObjectType
+from skole.schemas.mixins import SuccessMessageMixin
 from skole.types import ResolveInfo
-from skole.utils import api_descriptions
 from skole.utils.constants import Messages, MutationErrors
 
 
 class ContactMutation(
     SkoleCreateUpdateMutationMixin, SuccessMessageMixin, DjangoFormMutation
 ):
+    """Submit a message via the contact form."""
+
     class Meta:
         form_class = ContactForm
 
@@ -58,7 +59,5 @@ class ContactMutation(
             return cls(errors=MutationErrors.EMAIL_ERROR)
 
 
-class Mutation(graphene.ObjectType):
-    create_contact_message = ContactMutation.Field(
-        description=api_descriptions.CREATE_CONTACT_MESSAGE
-    )
+class Mutation(SkoleObjectType):
+    create_contact_message = ContactMutation.Field()

@@ -4,14 +4,13 @@ from typing import Callable, Optional, TypeVar
 import graphene
 from django.contrib.auth import get_user_model
 from django.db.models import QuerySet
-from graphene_django import DjangoObjectType
 
 from skole.models import Badge, School, Subject, User
 from skole.schemas.badge import BadgeObjectType
+from skole.schemas.base import SkoleDjangoObjectType
 from skole.schemas.school import SchoolObjectType
 from skole.schemas.subject import SubjectObjectType
 from skole.types import ResolveInfo
-from skole.utils import api_descriptions
 
 T = TypeVar("T")
 UserResolver = Callable[[User, ResolveInfo], T]
@@ -30,7 +29,15 @@ def private_field(func: UserResolver[T]) -> UserResolver[Optional[T]]:
     return wrapper
 
 
-class UserObjectType(DjangoObjectType):
+class UserObjectType(SkoleDjangoObjectType):
+    """
+    The following fields are private, meaning they are returned only if the user is
+    querying one's own profile: `email`, `verified`, `school`, `subject`.
+
+    For instances that are not the user's own user profile, these fields will return a
+    `null` value.
+    """
+
     email = graphene.String()
     score = graphene.Int()
     avatar = graphene.String()
@@ -44,8 +51,6 @@ class UserObjectType(DjangoObjectType):
 
     class Meta:
         model = get_user_model()
-        description = api_descriptions.USER_OBJECT_TYPE
-
         fields = (
             "id",
             "username",

@@ -2,29 +2,29 @@ from typing import Optional, cast
 
 import graphene
 from django.contrib.auth import get_user_model
-from graphql_jwt.decorators import login_required
 
 from skole.models import User
+from skole.overridden import login_required
+from skole.schemas.base import SkoleObjectType
 from skole.types import ID, ResolveInfo
-from skole.utils import api_descriptions
 
-from .object_types import UserObjectType
+from ._object_types import UserObjectType
 
 
-class Query(graphene.ObjectType):
-    user_me = graphene.Field(UserObjectType, description=api_descriptions.USER_ME)
+class Query(SkoleObjectType):
+    user_me = graphene.Field(UserObjectType)
 
-    user = graphene.Field(
-        UserObjectType, id=graphene.ID(), description=api_descriptions.USER
-    )
+    user = graphene.Field(UserObjectType, id=graphene.ID())
 
     @staticmethod
     @login_required
     def resolve_user_me(root: None, info: ResolveInfo) -> User:
+        """Return user profile of the user making the query."""
         return cast(User, info.context.user)
 
     @staticmethod
     def resolve_user(root: None, info: ResolveInfo, id: ID = None) -> Optional[User]:
+        """Superusers cannot be queried."""
         try:
             # Ignore: Mypy complains that `get(pk=None)` is not valid.
             # It might not be the most sensible thing, but it actually doesn't fail at runtime.

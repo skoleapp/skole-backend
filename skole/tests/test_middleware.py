@@ -42,7 +42,7 @@ class MiddlewareTests(SkoleSchemaTestCase):
             # settings instance. Thus we have to manually reload the whole module,
             # to make sure that the `graphene_settings` name in the `views` module
             # will point to the refreshed object. Only that way when our view class is
-            # initialized it's `middleware` attribute will correctly get the new value.
+            # initialized its `middleware` attribute will correctly get the new value.
             importlib.reload(graphene_django.views)
 
             res = self.execute(self.schema_query)

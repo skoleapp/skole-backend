@@ -34,6 +34,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
             unreadActivityCount
             badges {
                 id
+                name
             }
             school {
                 id
@@ -256,13 +257,14 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert user1["unreadActivityCount"] == 3
         assert user1["school"] == {"id": "1"}
         assert user1["subject"] == {"id": "1"}
-        assert len(user1["badges"]) == 0
+        assert len(user1["badges"]) == 1
 
         # Some other user.
         user2 = self.query_user(id=3)
         assert user2["id"] == "3"
         assert user2["username"] == "testuser3"
-        assert len(user2["badges"]) == 0
+        assert len(user2["badges"]) == 1
+        assert user2["badges"][0]["name"] == "Tester"
         assert user2["rank"] == "Tutor"
         assert user2["unreadActivityCount"] is None  # Private field.
         assert user2["email"] is None  # Private field.
@@ -282,7 +284,8 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert user["unreadActivityCount"] == 3
         assert user["school"] == {"id": "1"}
         assert user["subject"] == {"id": "1"}
-        assert len(user["badges"]) == 0
+        assert len(user["badges"]) == 1
+        assert user["badges"][0]["name"] == "Tester"
 
         # Shouldn't work without auth.
         self.authenticated_user = None

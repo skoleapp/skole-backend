@@ -92,6 +92,6 @@ class SchoolSchemaTests(SkoleSchemaTestCase):
         assert school["city"]["name"] == "Turku"
         assert school["country"]["id"] == "1"
         assert school["country"]["name"] == "Finland"
-        assert len(school["subjects"]) == 1
+        assert len(school["subjects"]) == 2
         assert len(school["courses"]) == 12
         assert self.query_school(id=999) is None

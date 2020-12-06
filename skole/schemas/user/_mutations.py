@@ -5,7 +5,7 @@ from typing import Any, cast
 
 import graphene
 from django.conf import settings
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, user_logged_in
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.signing import BadSignature, SignatureExpired
 from graphene_django.forms.mutation import DjangoFormMutation, DjangoModelFormMutation
@@ -265,6 +265,7 @@ class LoginMutation(
     def perform_mutate(  # pylint: disable=arguments-differ
         cls, form: LoginForm, info: ResolveInfo, user: User, **kwargs: Any
     ) -> LoginMutation:
+        user_logged_in.send(sender=user.__class__, request=info.context, user=user)
         return cls(user=user, success_message=Messages.LOGGED_IN)
 
 

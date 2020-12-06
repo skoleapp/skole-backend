@@ -14,3 +14,23 @@ from .star import Star
 from .subject import Subject
 from .user import User
 from .vote import Vote
+
+__all__ = [
+    "Activity",
+    "ActivityType",
+    "Badge",
+    "City",
+    "Comment",
+    "Country",
+    "Course",
+    "Resource",
+    "ResourceType",
+    "School",
+    "SchoolType",
+    "SkoleModel",
+    "Star",
+    "Subject",
+    "TranslatableSkoleModel",
+    "User",
+    "Vote",
+]

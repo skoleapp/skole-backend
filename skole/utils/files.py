@@ -10,13 +10,14 @@ from django import forms
 from django.conf import settings
 from django.core.files.base import ContentFile, File
 
+from skole.forms.base import SkoleModelForm
 from skole.utils.constants import ValidationErrors
 
 logger = logging.getLogger(__name__)
 
 
 def clean_file_field(
-    form: forms.ModelForm,
+    form: SkoleModelForm,
     field_name: str,
     created_file_name: str,
     conversion_func: Optional[Callable[[File], File]] = None,

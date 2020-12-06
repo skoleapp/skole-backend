@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any, Generic, Optional, TypeVar
+from typing import Any, ClassVar, Generic, Optional, TypeVar
 
 import parler.managers
 import parler.models
@@ -37,19 +37,25 @@ class TranslatableSkoleManager(SkoleManager[TM], parler.managers.TranslatableMan
 
 
 class SkoleModel(models.Model):
-    """Base model for all non-translatable models."""
+    """
+    Base model for all non-translatable models.
+
+    Attributes:
+        _identifier_field: The field which value is shown in `__repr__`'s output.
+    """
+
+    _identifier_field: ClassVar[str] = "name"
 
     def soft_delete(self) -> None:
         self.deleted_at = timezone.now()
         self.save()
 
     def __repr__(self) -> str:
-        if hasattr(self, "name"):
-            # Ignore: Mypy doesn't understand that the attribute has to exists now.
-            name = f"-{self.name}"  # type: ignore[attr-defined]
-        else:
-            name = ""
-        return f"<{self.__class__.__name__}:{self.pk}{name}>"
+        try:
+            identifier = f"-{getattr(self, self._identifier_field)}"
+        except AttributeError:
+            identifier = ""
+        return f"<{self.__class__.__name__}:{self.pk}{identifier}>"
 
     deleted_at = models.DateTimeField(blank=True, null=True, default=None)
 

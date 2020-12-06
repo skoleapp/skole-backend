@@ -69,6 +69,8 @@ class UserManager(SkoleManager["User"], BaseUserManager["User"]):
 class User(SkoleModel, AbstractBaseUser, PermissionsMixin):
     """Models one user on the platform."""
 
+    _identifier_field = "username"
+
     username = models.CharField(
         max_length=30,
         unique=True,

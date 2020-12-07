@@ -52,6 +52,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
     def mutate_create_comment(
         self,
         *,
+        user: ID = 2,
         text: str = "",
         attachment: str = "",
         course: ID = None,
@@ -63,6 +64,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
             name="createComment",
             input_type="CreateCommentMutationInput!",
             input={
+                "user": user,
                 "text": text,
                 "attachment": attachment,
                 "course": course,
@@ -207,6 +209,20 @@ class CommentSchemaTests(SkoleSchemaTestCase):
 
         # Check that the comment count hasn't changed.
         assert Comment.objects.count() == old_count + 7
+
+        # Test creating anonymous comment as authenticated user.
+        res = self.mutate_create_comment(user=None, text=text, course=2)
+        comment = res["comment"]
+        assert not res["errors"]
+        assert comment["user"] is None
+
+        # Test that the author cannot be spoofed.
+        res = self.mutate_create_comment(
+            user=self.authenticated_user + 1, text=text, course=2
+        )
+        comment = res["comment"]
+        assert not res["errors"]
+        assert comment["user"] is None
 
     def test_update_comment(self) -> None:
         new_text = "some new text"

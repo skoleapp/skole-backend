@@ -99,6 +99,7 @@ input CreateCommentMutationInput {
   course: ID
   resource: ID
   comment: ID
+  user: String
   clientMutationId: String
 }
 

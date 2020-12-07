@@ -31,6 +31,8 @@ class _CommentFormMixin:
 
 
 class CreateCommentForm(_CommentFormMixin, SkoleModelForm):
+    user = forms.CharField(required=False)
+
     class Meta:
         model = Comment
         fields = ("text", "attachment", "course", "resource", "comment")
@@ -48,8 +50,16 @@ class CreateCommentForm(_CommentFormMixin, SkoleModelForm):
 
     def save(self, commit: bool = True) -> Comment:
         assert self.request is not None
-        if self.request.user.is_authenticated:
+
+        # Check that the user making the request has the same ID as the user passed in the form.
+        # Only if they match, use the user from the request as the author of the comment.
+        if self.request.user.is_authenticated and str(
+            self.request.user.pk
+        ) == self.cleaned_data.get("user"):
             self.instance.user = self.request.user
+        else:
+            self.instance.user = None
+
         return super().save(commit)
 
 

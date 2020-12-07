@@ -42,7 +42,10 @@ class CreateCommentMutation(
     """
     Create a new comment.
 
-    Attachments are popped of for unauthenticated users.
+    Attachments are popped of for unauthenticated users. The `user` field must match
+    with the ID of the user making the query to save the user making the query as the
+    author of the comment. This way even authenticated users can create anonymous
+    comments by setting the `user` field as `null`.
     """
 
     success_message_value = Messages.MESSAGE_SENT

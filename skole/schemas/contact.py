@@ -37,10 +37,8 @@ class ContactMutation(
             "email": email,
         }
 
-        subject_template = settings.EMAIL_SUBJECT_CONTACT
         message_template = settings.EMAIL_TEMPLATE_CONTACT
 
-        subject = render_to_string(subject_template, context).replace("\n", " ").strip()
         html_message = render_to_string(message_template, context)
         message = strip_tags(html_message)
 

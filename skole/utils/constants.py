@@ -67,6 +67,11 @@ class Messages:
     COMMENT_DELETED = _("Comment deleted successfully!")
 
 
+class Email:
+    VERIFY_ACCOUNT_SUBJECT = _("Verify your account on Skole")
+    RESET_PASSWORD_SUBJECT = _("Reset your password on Skole")
+
+
 T = TypeVar("T", bound="_MutationErrorsMeta")
 
 

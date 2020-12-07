@@ -191,18 +191,15 @@ else:
     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 # Custom email settings
-EMAIL_AUTH_FROM = os.environ.get("EMAIL_AUTH_FROM", default="auth.sender@test.com")
+EMAIL_NO_REPLY = os.environ.get("EMAIL_NO_REPLY", default="noreply@test.com")
 EMAIL_CONTACT_FROM = os.environ.get(
     "EMAIL_CONTACT_FROM", default="contact.sender@test.com"
 )
 EMAIL_CONTACT_TO = os.environ.get(
-    "EMAIL_CONTACT_TO", default="contact.recipent@test.com"
+    "EMAIL_CONTACT_TO", default="contact.recipient@test.com"
 )
 VERIFICATION_PATH_ON_EMAIL = "account/verify-account"
 PASSWORD_RESET_PATH_ON_EMAIL = "account/reset-password"
-EMAIL_SUBJECT_VERIFICATION = "email/verify_account_subject.html"
-EMAIL_SUBJECT_PASSWORD_RESET = "email/reset_password_subject.html"
-EMAIL_SUBJECT_CONTACT = "email/contact_email_subject.html"
 EMAIL_TEMPLATE_PASSWORD_RESET = "email/reset_password_body.html"
 EMAIL_TEMPLATE_VERIFICATION = "email/verify_account_body.html"
 EMAIL_TEMPLATE_CONTACT = "email/contact_email_body.html"

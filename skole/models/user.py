@@ -1,24 +1,17 @@
 from __future__ import annotations
 
-import time
-from typing import Any, List, Optional
-
 from django.conf import settings
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
-from django.contrib.sites.shortcuts import get_current_site
-from django.core.mail import send_mail
 from django.core.validators import RegexValidator
 from django.db import models
-from django.template.loader import render_to_string
-from django.utils.html import strip_tags
+from django.utils import timezone
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
 
-from skole.types import JsonDict, ResolveInfo
 from skole.utils.constants import Ranks, TokenAction, ValidationErrors
-from skole.utils.exceptions import UserAlreadyVerified, UserNotVerified
-from skole.utils.token import get_token, get_token_payload
+from skole.utils.exceptions import UserAlreadyVerified
+from skole.utils.token import get_token_payload
 from skole.utils.validators import ValidateFileSizeAndType
 
 from .base import SkoleManager, SkoleModel
@@ -136,82 +129,6 @@ class User(SkoleModel, AbstractBaseUser, PermissionsMixin):
 
     def __str__(self) -> str:
         return f"{self.username}"
-
-    def send(
-        self,
-        subject: str,
-        template: str,
-        context: JsonDict,
-        recipient_list: Optional[List[str]] = None,
-    ) -> None:
-        subject = render_to_string(subject, context).replace("\n", " ").strip()
-        html_message = render_to_string(template, context)
-        message = strip_tags(html_message)
-
-        send_mail(
-            subject=subject,
-            from_email=settings.EMAIL_AUTH_FROM,
-            message=message,
-            html_message=html_message,
-            recipient_list=(recipient_list or [self.email]),
-            fail_silently=False,
-        )
-
-    def get_email_context(
-        self, info: ResolveInfo, path: str, action: str, **kwargs: JsonDict
-    ) -> JsonDict:
-        token = get_token(self, action, **kwargs)
-        site = get_current_site(info.context)
-        protocol = "http" if settings.DEBUG else "https"
-
-        url = f"{protocol}://{site.domain}/{path}?token={token}"
-
-        return {
-            "user": self,
-            "url": url,
-            "request": info.context,
-            "site_name": site.name,
-            "timestamp": time.time(),
-        }
-
-    def send_verification_email(
-        self, info: ResolveInfo, *args: Any, **kwargs: Any
-    ) -> None:
-        email_context = self.get_email_context(
-            info, settings.VERIFICATION_PATH_ON_EMAIL, TokenAction.VERIFICATION
-        )
-
-        subject = settings.EMAIL_SUBJECT_VERIFICATION
-        template = settings.EMAIL_TEMPLATE_VERIFICATION
-        return self.send(subject, template, email_context, *args, **kwargs)
-
-    def resend_verification_email(
-        self, info: ResolveInfo, *args: Any, **kwargs: Any
-    ) -> None:
-        if self.verified is True:
-            raise UserAlreadyVerified
-
-        email_context = self.get_email_context(
-            info, settings.VERIFICATION_PATH_ON_EMAIL, TokenAction.VERIFICATION
-        )
-
-        subject = settings.EMAIL_SUBJECT_VERIFICATION
-        template = settings.EMAIL_TEMPLATE_VERIFICATION
-        return self.send(subject, template, email_context, *args, **kwargs)
-
-    def send_password_reset_email(
-        self, info: ResolveInfo, *args: Any, **kwargs: Any
-    ) -> None:
-        if self.verified is False:
-            raise UserNotVerified
-
-        email_context = self.get_email_context(
-            info, settings.PASSWORD_RESET_PATH_ON_EMAIL, TokenAction.PASSWORD_RESET
-        )
-
-        template = settings.EMAIL_TEMPLATE_PASSWORD_RESET
-        subject = settings.EMAIL_SUBJECT_PASSWORD_RESET
-        return self.send(subject, template, email_context, *args, **kwargs)
 
     @property
     def rank(self) -> str:  # pylint: disable=too-many-return-statements

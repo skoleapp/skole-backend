@@ -374,3 +374,8 @@ def open_as_file(path: Union[str, Path]) -> Generator[File, None, None]:
 
     with open(settings.BASE_DIR / path, "rb") as f:
         yield File(f)
+
+
+def get_token_from_email(body: str) -> str:
+    match = re.search(r"\?token=(\S*)", body)
+    return match.group(1) if match else ""

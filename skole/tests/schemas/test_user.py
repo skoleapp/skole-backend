@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from django.core import mail
 
 from skole.tests.helpers import (
     TEST_AVATAR_JPG,
@@ -7,11 +8,12 @@ from skole.tests.helpers import (
     SkoleSchemaTestCase,
     get_form_error,
     get_graphql_error,
+    get_token_from_email,
     is_slug_match,
     open_as_file,
 )
 from skole.types import ID, JsonDict
-from skole.utils.constants import Messages, ValidationErrors
+from skole.utils.constants import Messages, MutationErrors, ValidationErrors
 
 
 class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-methods
@@ -147,13 +149,50 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
             result="successMessage",
         )
 
+    def mutate_send_password_reset_email(
+        self, *, email: str = "testuser2@test.com"
+    ) -> JsonDict:
+        return self.execute_input_mutation(
+            name="sendPasswordResetEmail",
+            input_type="SendPasswordResetEmailMutationInput!",
+            input={"email": email},
+            result="successMessage",
+        )
+
+    def mutate_reset_password(self, *, token: str, new_password: str) -> JsonDict:
+        return self.execute_input_mutation(
+            name="resetPassword",
+            input_type="ResetPasswordMutationInput!",
+            input={"token": token, "newPassword": new_password},
+            result="successMessage",
+        )
+
+    def mutate_verify_account(self, *, token: str) -> JsonDict:
+        return self.execute_input_mutation(
+            name="verifyAccount",
+            input_type="VerifyAccountMutationInput!",
+            input={"token": token},
+            result="successMessage",
+        )
+
+    def mutate_resend_verification_email(
+        self, *, email: str = "testuser2@test.com"
+    ) -> JsonDict:
+        return self.execute_input_mutation(
+            name="resendVerificationEmail",
+            input_type="ResendVerificationEmailMutationInput!",
+            input={"email": email},
+            result="successMessage",
+        )
+
     def test_field_fragment(self) -> None:
         self.authenticated_user = None
         self.assert_field_fragment_matches_schema(self.user_fields)
 
-    def test_register_ok(self) -> None:
+    def test_register_and_verify_ok(self) -> None:
         self.authenticated_user = None
 
+        assert len(mail.outbox) == 0
         res = self.mutate_register()
         assert not res["errors"]
         assert res["successMessage"] == Messages.USER_REGISTERED
@@ -164,6 +203,14 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert user
         assert user.username == "MYUSERNAME"
         assert user.email == "mail@example.com"
+
+        assert len(mail.outbox) == 2
+        assert "Verify" in mail.outbox[1].subject
+        res = self.mutate_verify_account(
+            token=get_token_from_email(mail.outbox[1].body)
+        )
+        assert not res["errors"]
+        assert res["successMessage"] == Messages.ACCOUNT_VERIFIED
 
     def test_register_error(self) -> None:
         self.authenticated_user = None
@@ -191,6 +238,34 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         # Too short password.
         res = self.mutate_register(password="short")
         assert "Ensure this value has at least" in get_form_error(res)
+
+    def test_verify_error(self) -> None:
+        self.authenticated_user = 3
+        res = self.mutate_verify_account(token="badtoken")
+        assert res["errors"] == MutationErrors.INVALID_TOKEN_VERIFY
+
+    def test_resend_verification_email(self) -> None:
+        self.authenticated_user = None
+
+        res = self.mutate_resend_verification_email(email="testuser3@test.com")
+        assert not res["errors"]
+        assert len(mail.outbox) == 1
+        assert "Verify" in mail.outbox[0].subject
+
+        # Can't use an invalid token.
+        res = self.mutate_verify_account(token="badtoken")
+        assert res["errors"] == MutationErrors.INVALID_TOKEN_VERIFY
+
+        # Works with the token that was sent in the email.
+        res = self.mutate_verify_account(
+            token=get_token_from_email(mail.outbox[0].body)
+        )
+        assert not res["errors"]
+        assert res["successMessage"] == Messages.ACCOUNT_VERIFIED
+
+        # Can't verify testuser2 since it's already verified.
+        res = self.mutate_resend_verification_email()
+        assert res["errors"] == MutationErrors.ALREADY_VERIFIED
 
     def test_login_ok_with_username(self) -> None:
         self.authenticated_user = None
@@ -419,9 +494,32 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         res = self.mutate_change_password()
         assert not res["errors"]
         assert res["successMessage"] == Messages.PASSWORD_UPDATED
-        new_hash = get_user_model().objects.get(pk=2).password
-        assert old_hash != new_hash
+        user = get_user_model().objects.get(pk=2)
+        assert old_hash != user.password
+        assert user.check_password("newpassword")
 
     def test_change_password_error(self) -> None:
         res = self.mutate_change_password(old_password="badpass")
         assert get_form_error(res) == ValidationErrors.INVALID_OLD_PASSWORD
+
+    def test_reset_password(self) -> None:
+        res = self.mutate_send_password_reset_email()
+        assert not res["errors"]
+        assert res["successMessage"] == Messages.PASSWORD_RESET_EMAIL_SENT
+        assert len(mail.outbox) == 1
+        assert "Reset your password" in mail.outbox[0].subject
+
+        new_password = "some_new_password"
+        res = self.mutate_reset_password(
+            token=get_token_from_email(mail.outbox[0].body),
+            new_password=new_password,
+        )
+        assert not res["errors"]
+        user = get_user_model().objects.get(pk=2)
+        assert user.check_password(new_password)
+
+        # Can't reset password when not verified.
+        user.verified = False
+        user.save()
+        res = self.mutate_send_password_reset_email()
+        assert res["errors"] == MutationErrors.NOT_VERIFIED_RESET_PASSWORD

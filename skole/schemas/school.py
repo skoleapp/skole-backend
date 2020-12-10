@@ -2,7 +2,7 @@ from typing import Optional
 
 import graphene
 from django.conf import settings
-from django.db.models import Count, QuerySet
+from django.db.models import QuerySet
 
 from skole.models import Country, School
 from skole.schemas.base import SkoleDjangoObjectType, SkoleObjectType
@@ -45,15 +45,13 @@ class Query(SkoleObjectType):
     def resolve_autocomplete_schools(
         root: None, info: ResolveInfo, name: str = ""
     ) -> QuerySet[School]:
-        """Results are sorted by creation time."""
-        qs = School.objects.translated()
-
+        """Results are sorted alphabetically."""
         if name != "":
-            qs = qs.filter(translations__name__icontains=name)
+            qs = School.objects.translated(name__icontains=name)
+        else:
+            qs = School.objects.translated()
 
-        qs = qs.annotate(num_courses=Count("courses")).order_by(
-            "-num_courses", "translations__name"
-        )
+        qs = qs.order_by("translations__name")
 
         return qs[: settings.AUTOCOMPLETE_MAX_RESULTS]
 

@@ -60,7 +60,9 @@ class SubjectSchemaTests(SkoleSchemaTestCase):
 
         return self.execute(graphql, variables=variables, assert_error=assert_error)
 
-    def query_autocomplete_subjects(self, name: str = "") -> List[JsonDict]:
+    def query_autocomplete_subjects(self, *, name: str = "") -> List[JsonDict]:
+        variables = {"name": name}
+
         # language=GraphQL
         graphql = (
             self.subject_fields
@@ -72,7 +74,7 @@ class SubjectSchemaTests(SkoleSchemaTestCase):
             }
             """
         )
-        return cast(List[JsonDict], self.execute(graphql))
+        return cast(List[JsonDict], self.execute(graphql, variables=variables))
 
     def query_subject(self, *, id: ID) -> JsonDict:
         variables = {"id": id}
@@ -106,7 +108,6 @@ class SubjectSchemaTests(SkoleSchemaTestCase):
         assert res["hasPrev"] is False
 
         # Test that only subjects from a given school are returned.
-
         school_pk = 1
         school = School.objects.get(pk=school_pk)
         res = self.query_subjects(school=school_pk)
@@ -118,15 +119,17 @@ class SubjectSchemaTests(SkoleSchemaTestCase):
     def test_autocomplete_subjects(self) -> None:
         subjects = self.query_autocomplete_subjects()
 
-        # By default, subjects are ordered by the amount of courses.
-        assert subjects[0] == self.query_subject(id=1)  # Most courses.
-        assert subjects[1] == self.query_subject(id=2)  # 2nd most courses.
-        assert subjects[2] == self.query_subject(id=3)  # 3rd most courses.
+        assert len(subjects) == 4
+
+        # Subjects are ordered alphabetically.
+        assert subjects[0] == self.query_subject(id=3)  # Chemistry
+        assert subjects[1] == self.query_subject(id=1)  # Computer Engineering
+        assert subjects[2] == self.query_subject(id=2)  # Computer Science
 
         # Query subjects by name.
-        res = self.query_autocomplete_subjects("Computer")
-        assert len(res) == 4
-        assert res[0] == self.query_subject(id=1)  # Compututer Engineering.
+        res = self.query_autocomplete_subjects(name="Computer")
+        assert len(res) == 2
+        assert res[0] == self.query_subject(id=1)  # Computer Engineering.
         assert res[1] == self.query_subject(id=2)  # Computer Science.
 
     def test_subject(self) -> None:

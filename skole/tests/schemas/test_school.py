@@ -32,7 +32,9 @@ class SchoolSchemaTests(SkoleSchemaTestCase):
         }
     """
 
-    def query_autocomplete_schools(self, name: str = "") -> List[JsonDict]:
+    def query_autocomplete_schools(self, *, name: str = "") -> List[JsonDict]:
+        variables = {"name": name}
+
         # language=GraphQL
         graphql = (
             self.school_fields
@@ -44,7 +46,7 @@ class SchoolSchemaTests(SkoleSchemaTestCase):
             }
             """
         )
-        return cast(List[JsonDict], self.execute(graphql))
+        return cast(List[JsonDict], self.execute(graphql, variables=variables))
 
     def query_school(self, *, id: ID) -> JsonDict:
         variables = {"id": id}
@@ -69,18 +71,22 @@ class SchoolSchemaTests(SkoleSchemaTestCase):
     def test_autocomplete_schools(self) -> None:
         schools = self.query_autocomplete_schools()
 
-        # By default, schools are ordered by the amount of courses.
-        assert schools[0] == self.query_school(id=1)  # Most courses.
-        assert schools[1] == self.query_school(id=2)  # 2nd most courses.
-        assert schools[2] == self.query_school(id=3)  # 3rd most courses.
+        assert len(schools) == 6
+
+        # Schools are ordered alphabetically.
+        assert schools[0] == self.query_school(id=2)  # Aalto
+        assert schools[1] == self.query_school(id=5)  # Metropolia
+        assert schools[2] == self.query_school(id=6)  # Raision lukio
 
         # Query schools by name.
-        res = self.query_autocomplete_schools("Turku")
-        assert len(res) == 6
-        assert res[0] == self.query_school(id=1)  # University of Turku.
-        assert res[2] == self.query_school(
-            id=3
-        )  # Turku University of Applied Sciences.
+        res = self.query_autocomplete_schools(name="Turku")
+        assert len(res) == 2
+        assert res[0] == self.query_school(id=4)  # Turku University of Applied Sciences
+        assert res[1] == self.query_school(id=1)  # University of Turku
+
+        # No duplicate schools returned (Trello#616).
+        res = self.query_autocomplete_schools(name="Aalto")
+        assert len(res) == 1
 
     def test_school(self) -> None:
         school = self.query_school(id=1)

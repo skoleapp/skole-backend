@@ -185,9 +185,7 @@ class MyDataMutation(SkoleObjectType, graphene.Mutation):
 
     @staticmethod
     def _badges(user: User) -> QuerySet[Badge]:
-        return user.badges.translated(settings.LANGUAGE_CODE).values_list(
-            "translations__name", flat=True
-        )
+        return user.badges.translated().values_list("translations__name", flat=True)
 
     @staticmethod
     def _uploaded_files(user: User) -> Set[FieldFile]:

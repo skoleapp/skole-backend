@@ -175,14 +175,11 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
             result="successMessage",
         )
 
-    def mutate_resend_verification_email(
-        self, *, email: str = "testuser2@test.com"
-    ) -> JsonDict:
-        return self.execute_input_mutation(
+    def mutate_resend_verification_email(self, assert_error: bool = False) -> JsonDict:
+        return self.execute_non_input_mutation(
             name="resendVerificationEmail",
-            input_type="ResendVerificationEmailMutationInput!",
-            input={"email": email},
             result="successMessage",
+            assert_error=assert_error,
         )
 
     def test_field_fragment(self) -> None:
@@ -240,21 +237,24 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert "Ensure this value has at least" in get_form_error(res)
 
     def test_verify_error(self) -> None:
-        self.authenticated_user = 3
         res = self.mutate_verify_account(token="badtoken")
         assert res["errors"] == MutationErrors.INVALID_TOKEN_VERIFY
+        assert len(mail.outbox) == 0
+
+        # Can't verify testuser2 since it's already verified.
+        res = self.mutate_resend_verification_email()
+        assert res["errors"] == MutationErrors.ALREADY_VERIFIED
+
+        self.authenticated_user = None
+        res = self.mutate_resend_verification_email(assert_error=True)
+        assert "permission" in get_graphql_error(res)
 
     def test_resend_verification_email(self) -> None:
-        self.authenticated_user = None
-
-        res = self.mutate_resend_verification_email(email="testuser3@test.com")
+        self.authenticated_user = 3  # Not yet verified.
+        res = self.mutate_resend_verification_email()
         assert not res["errors"]
         assert len(mail.outbox) == 1
         assert "Verify" in mail.outbox[0].subject
-
-        # Can't use an invalid token.
-        res = self.mutate_verify_account(token="badtoken")
-        assert res["errors"] == MutationErrors.INVALID_TOKEN_VERIFY
 
         # Works with the token that was sent in the email.
         res = self.mutate_verify_account(
@@ -262,10 +262,6 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         )
         assert not res["errors"]
         assert res["successMessage"] == Messages.ACCOUNT_VERIFIED
-
-        # Can't verify testuser2 since it's already verified.
-        res = self.mutate_resend_verification_email()
-        assert res["errors"] == MutationErrors.ALREADY_VERIFIED
 
     def test_login_ok_with_username(self) -> None:
         self.authenticated_user = None

@@ -284,7 +284,7 @@ msgstr "Du kan begära detta igen inom {} min."
 
 #: skole/utils/constants.py:148
 msgid "Freshman"
-msgstr "Recentior"
+msgstr "Gulis"
 
 #: skole/utils/constants.py:149
 msgid "Tutor"

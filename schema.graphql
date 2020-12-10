@@ -245,7 +245,7 @@ type Mutation {
   vote(input: VoteMutationInput!): VoteMutationPayload
   register(input: RegisterMutationInput!): RegisterMutationPayload
   verifyAccount(input: VerifyAccountMutationInput!): VerifyAccountMutationPayload
-  resendVerificationEmail(input: ResendVerificationEmailMutationInput!): ResendVerificationEmailMutationPayload
+  resendVerificationEmail: ResendVerificationEmailMutation
   sendPasswordResetEmail(input: SendPasswordResetEmailMutationInput!): SendPasswordResetEmailMutationPayload
   resetPassword(input: ResetPasswordMutationInput!): ResetPasswordMutationPayload
   login(input: LoginMutationInput!): LoginMutationPayload
@@ -349,16 +349,9 @@ type RegisterMutationPayload {
   clientMutationId: String
 }
 
-input ResendVerificationEmailMutationInput {
-  email: String!
-  clientMutationId: String
-}
-
-type ResendVerificationEmailMutationPayload {
-  email: String!
-  errors: [ErrorType]
+type ResendVerificationEmailMutation {
   successMessage: String
-  clientMutationId: String
+  errors: [ErrorType]
 }
 
 input ResetPasswordMutationInput {
@@ -441,7 +434,6 @@ type StarMutationPayload {
 }
 
 type StarObjectType {
-  deletedAt: DateTime
   id: ID!
   user: UserObjectType!
   course: CourseObjectType

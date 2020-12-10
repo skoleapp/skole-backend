@@ -223,5 +223,5 @@ class SkoleDeleteMutationMixin(SkoleCreateUpdateMutationMixin, SuccessMessageMix
     def perform_mutate(
         cls, form: SkoleUpdateModelForm, info: ResolveInfo
     ) -> SkoleDeleteMutationMixin:
-        form.instance.soft_delete()
+        form.instance.delete()
         return super().perform_mutate(form, info)

@@ -6,7 +6,6 @@ import parler.managers
 import parler.models
 from django.db import models
 from django.db.models import QuerySet
-from django.utils import timezone
 
 M = TypeVar("M", bound="SkoleModel", covariant=True)
 TM = TypeVar("TM", bound="TranslatableSkoleModel", covariant=True)
@@ -16,8 +15,8 @@ class SkoleManager(Generic[M], models.Manager[M]):
     """Base manager for all non-translatable models."""
 
     def get_queryset(self) -> QuerySet[M]:
-        """Hide all soft deleted objects from queries."""
-        return super().get_queryset().exclude(deleted_at__isnull=False).order_by("pk")
+        """Use ordering by creation time by default."""
+        return super().get_queryset().order_by("pk")
 
     def get_or_none(self, *args: Any, **kwargs: Any) -> Optional[M]:
         """
@@ -46,18 +45,12 @@ class SkoleModel(models.Model):
 
     _identifier_field: ClassVar[str] = "name"
 
-    def soft_delete(self) -> None:
-        self.deleted_at = timezone.now()
-        self.save()
-
     def __repr__(self) -> str:
         try:
             identifier = f"-{getattr(self, self._identifier_field)}"
         except AttributeError:
             identifier = ""
         return f"<{self.__class__.__name__}:{self.pk}{identifier}>"
-
-    deleted_at = models.DateTimeField(blank=True, null=True, default=None)
 
     class Meta:
         abstract = True

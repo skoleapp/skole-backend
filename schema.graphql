@@ -434,7 +434,6 @@ type StarMutationPayload {
 }
 
 type StarObjectType {
-  deletedAt: DateTime
   id: ID!
   user: UserObjectType!
   course: CourseObjectType

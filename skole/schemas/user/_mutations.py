@@ -24,6 +24,7 @@ from skole.forms import (
     UpdateUserForm,
 )
 from skole.models import User
+from skole.overridden import login_required
 from skole.schemas.mixins import SuccessMessageMixin
 from skole.types import JsonDict, ResolveInfo
 from skole.utils.constants import Messages, MutationErrors, TokenAction
@@ -101,9 +102,7 @@ class VerifyAccountMutation(
             return cls(errors=MutationErrors.INVALID_TOKEN_VERIFY)
 
 
-class ResendVerificationEmailMutation(
-    SkoleCreateUpdateMutationMixin, SuccessMessageMixin, DjangoFormMutation
-):
+class ResendVerificationEmailMutation(SkoleObjectType, graphene.Mutation):
     """
     Send the verification email again.
 
@@ -113,26 +112,23 @@ class ResendVerificationEmailMutation(
     - The user has already verified one's account.
     """
 
-    class Meta:
-        form_class = EmailForm
+    # Can't inherit `SkoleCreateUpdateMutationMixin` since this doesn't use a form.
+
+    # Can't use `SuccessMessageMixin` since it only works with `BaseDjangoFormMutation`.
+    success_message = graphene.String()
+
+    errors = graphene.List(ErrorType, default_value=[])
 
     @classmethod
-    def perform_mutate(
-        cls, form: EmailForm, info: ResolveInfo
-    ) -> ResendVerificationEmailMutation:
-        email = form.cleaned_data.get("email")
+    @login_required
+    def mutate(cls, root: None, info: ResolveInfo) -> ResendVerificationEmailMutation:
+        user = cast(User, info.context.user)
 
         try:
-            user = get_user_model().objects.get(email=email)
             resend_verification_email(user, info)
             return cls(success_message=Messages.VERIFICATION_EMAIL_SENT)
-
-        except ObjectDoesNotExist:
-            return cls(errors=MutationErrors.USER_NOT_FOUND_WITH_EMAIL)
-
         except SMTPException:
             return cls(errors=MutationErrors.EMAIL_ERROR)
-
         except UserAlreadyVerified:
             return cls(errors=MutationErrors.ALREADY_VERIFIED)
 

@@ -1,6 +1,6 @@
 from django import forms
 
-from skole.forms.base import SkoleForm
+from .base import SkoleForm
 
 
 class ContactForm(SkoleForm):

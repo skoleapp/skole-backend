@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import inspect
 from typing import (
     Any,
@@ -220,6 +222,6 @@ class SkoleDeleteMutationMixin(SkoleCreateUpdateMutationMixin, SuccessMessageMix
     @classmethod
     def perform_mutate(
         cls, form: SkoleUpdateModelForm, info: ResolveInfo
-    ) -> SkoleCreateUpdateMutationMixin:
+    ) -> SkoleDeleteMutationMixin:
         form.instance.soft_delete()
         return super().perform_mutate(form, info)

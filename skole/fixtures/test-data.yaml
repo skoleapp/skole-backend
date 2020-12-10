@@ -627,7 +627,7 @@
   fields:
     name: Test Engineering Course 1
     code: TEST0001
-    subjects: [1]
+    subjects: [1, 2]
     school: 1
     user: 2
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -1295,3 +1295,30 @@
     user: 2
     course: null
     resource: 2
+
+- model: skole.BadgeTranslation
+  pk: 1
+  fields:
+    master: 1
+    language_code: en
+    name: Tester
+    description: For user's that like to test stuff.
+- model: skole.BadgeTranslation
+  pk: 2
+  fields:
+    master: 1
+    language_code: fi
+    name: Testaaja
+    description: Käyttäjille jotka tykkäävät testaamisesta
+- model: skole.BadgeTranslation
+  pk: 3
+  fields:
+    master: 1
+    language_code: sv
+    name: Testare
+    description: Denna användaranvändare gillar att testa saker.
+
+- model: skole.Badge
+  pk: 1
+  fields:
+    users: [2, 3]

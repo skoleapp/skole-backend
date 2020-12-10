@@ -6,6 +6,7 @@ import skole.schemas.comment
 import skole.schemas.contact
 import skole.schemas.country
 import skole.schemas.course
+import skole.schemas.gdpr
 import skole.schemas.resource
 import skole.schemas.resource_type
 import skole.schemas.school
@@ -36,6 +37,7 @@ class Mutation(
     skole.schemas.comment.Mutation,
     skole.schemas.contact.Mutation,
     skole.schemas.course.Mutation,
+    skole.schemas.gdpr.Mutation,
     skole.schemas.resource.Mutation,
     skole.schemas.user.Mutation,
     skole.schemas.vote.Mutation,

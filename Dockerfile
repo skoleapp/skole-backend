@@ -36,7 +36,7 @@ RUN apk update \
         musl-dev \
         postgresql-dev \
         zlib-dev \
-    && su user -c 'pip install --user --no-cache-dir --disable-pip-version-check pip==20.2.4' \
+    && su user -c 'pip install --user --no-cache-dir --disable-pip-version-check pip==20.3.1' \
     && su user -c "pip install --user --no-cache-dir -r requirements.txt $([ -f requirements-dev.txt ] && echo '-r requirements-dev.txt')" \
     && apk del /tmp/build_deps && rm -rf /var/cache/apk/*
 

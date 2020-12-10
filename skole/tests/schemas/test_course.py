@@ -374,7 +374,7 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         assert res["count"] == 12
 
         res = self.query_courses(subject=2)
-        assert res["count"] == 2
+        assert res["count"] == 3
 
         res = self.query_courses(subject=999, school=999, country=999)
         assert res["count"] == 0
@@ -473,7 +473,7 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         assert course["id"] == "1"
         assert course["name"] == "Test Engineering Course 1"
         assert course["code"] == "TEST0001"
-        assert course["subjects"] == [{"id": "1"}]
+        assert course["subjects"] == [{"id": "1"}, {"id": "2"}]
         assert course["school"] == {"id": "1"}
         assert course["user"] == {"id": "2"}
         assert course["starCount"] == 1

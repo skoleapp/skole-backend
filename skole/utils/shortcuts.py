@@ -4,6 +4,7 @@ from django import forms
 from django.db.models import Model
 
 from skole.types import JsonDict
+from skole.types._aliases import FormError
 from skole.utils.constants import ValidationErrors
 
 T = TypeVar("T")
@@ -76,3 +77,11 @@ def validate_single_target(data: JsonDict, *keys: str) -> Any:
     if len(found) != 1:
         raise forms.ValidationError(ValidationErrors.MUTATION_INVALID_TARGET)
     return found[0]
+
+
+E = TypeVar("E", bound=FormError)
+
+
+def format_form_error(error: E, *args: Any, **kwargs: Any) -> E:
+    error[0]["messages"][0] = error[0]["messages"][0].format(*args, **kwargs)
+    return error

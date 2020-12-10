@@ -5,7 +5,7 @@ from typing import Any, cast
 
 import graphene
 from django.conf import settings
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, user_logged_in
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.signing import BadSignature, SignatureExpired
 from graphene_django.forms.mutation import DjangoFormMutation, DjangoModelFormMutation
@@ -27,6 +27,11 @@ from skole.models import User
 from skole.schemas.mixins import SuccessMessageMixin
 from skole.types import JsonDict, ResolveInfo
 from skole.utils.constants import Messages, MutationErrors, TokenAction
+from skole.utils.email import (
+    resend_verification_email,
+    send_password_reset_email,
+    send_verification_email,
+)
 from skole.utils.exceptions import TokenScopeError, UserAlreadyVerified, UserNotVerified
 from skole.utils.token import get_token_payload, revoke_user_refresh_tokens
 
@@ -57,7 +62,7 @@ class RegisterMutation(
         obj = super().perform_mutate(form, info)
 
         try:
-            form.instance.send_verification_email(info)
+            send_verification_email(form.instance, info)
         except SMTPException:
             return cls(errors=MutationErrors.REGISTER_EMAIL_ERROR)
 
@@ -119,7 +124,7 @@ class ResendVerificationEmailMutation(
 
         try:
             user = get_user_model().objects.get(email=email)
-            user.resend_verification_email(info)
+            resend_verification_email(user, info)
             return cls(success_message=Messages.VERIFICATION_EMAIL_SENT)
 
         except ObjectDoesNotExist:
@@ -157,7 +162,7 @@ class SendPasswordResetEmailMutation(
 
         try:
             user = get_user_model().objects.get(email=email)
-            user.send_password_reset_email(info, [email])
+            send_password_reset_email(user, info, recipient=email)
             return cls(success_message=Messages.PASSWORD_RESET_EMAIL_SENT)
 
         except ObjectDoesNotExist:
@@ -170,7 +175,7 @@ class SendPasswordResetEmailMutation(
             user = get_user_model().objects.get(email=email)
 
             try:
-                user.resend_verification_email(info)
+                resend_verification_email(user, info)
                 return cls(errors=MutationErrors.NOT_VERIFIED_RESET_PASSWORD)
 
             except SMTPException:
@@ -265,6 +270,7 @@ class LoginMutation(
     def perform_mutate(  # pylint: disable=arguments-differ
         cls, form: LoginForm, info: ResolveInfo, user: User, **kwargs: Any
     ) -> LoginMutation:
+        user_logged_in.send(sender=user.__class__, request=info.context, user=user)
         return cls(user=user, success_message=Messages.LOGGED_IN)
 
 

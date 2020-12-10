@@ -2,21 +2,13 @@ from typing import Optional
 
 import graphene
 from django.conf import settings
-from django.db.models import Count, QuerySet
+from django.db.models import QuerySet
 
 from skole.models import Subject
 from skole.schemas.base import SkoleDjangoObjectType, SkoleObjectType
 from skole.schemas.mixins import PaginationMixin
 from skole.types import ID, ResolveInfo
 from skole.utils.pagination import get_paginator
-
-
-def order_subjects_by_num_courses(qs: QuerySet[Subject]) -> QuerySet[Subject]:
-    """Sort the queryset so that the subjects with the most courses come first."""
-
-    return qs.annotate(num_courses=Count("courses")).order_by(
-        "-num_courses", "translations__name"
-    )
 
 
 class SubjectObjectType(SkoleDjangoObjectType):
@@ -72,27 +64,27 @@ class Query(SkoleObjectType):
         """
         Filter results based on the school ID.
 
-        Results are sorted by amount of courses.
+        Results are sorted alphabetically.
         """
         qs: QuerySet[Subject] = Subject.objects.all()
 
         if school is not None:
             qs = qs.filter(courses__school__pk=school)
 
-        qs = order_subjects_by_num_courses(qs)
+        qs = qs.order_by("translations__name")
         return get_paginator(qs, page_size, page, PaginatedSubjectObjectType)
 
     @staticmethod
     def resolve_autocomplete_subjects(
         root: None, info: ResolveInfo, name: str = ""
     ) -> QuerySet[Subject]:
-        """Results are sorted by amount of courses."""
-        qs = Subject.objects.translated()
-
+        """Results are sorted alphabetically."""
         if name != "":
-            qs = qs.filter(translations__name__icontains=name)
+            qs = Subject.objects.translated(name__icontains=name)
+        else:
+            qs = Subject.objects.translated()
 
-        qs = order_subjects_by_num_courses(qs)
+        qs = qs.order_by("translations__name")
         return qs[: settings.AUTOCOMPLETE_MAX_RESULTS]
 
     @staticmethod

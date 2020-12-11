@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.core import mail
 
 from skole.tests.helpers import SkoleSchemaTestCase
@@ -36,8 +37,12 @@ class ContactSchemaTests(SkoleSchemaTestCase):
         assert not res["errors"]
 
         assert len(mail.outbox) == 1
-        assert subject in mail.outbox[0].subject
-        body = mail.outbox[0].body
-        assert name in body
-        assert email in body
-        assert message in body
+        sent = mail.outbox[0]
+
+        assert sent.from_email == settings.EMAIL_CONTACT_FROM
+        assert sent.to == [settings.EMAIL_CONTACT_TO]
+
+        assert subject in sent.subject
+        assert name in sent.body
+        assert email in sent.body
+        assert message in sent.body

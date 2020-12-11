@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core import mail
 
@@ -190,9 +191,15 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         self.authenticated_user = None
 
         assert len(mail.outbox) == 0
-        res = self.mutate_register()
+        email = "newemail@test.com"
+        res = self.mutate_register(email=email)
         assert not res["errors"]
         assert res["successMessage"] == Messages.USER_REGISTERED
+
+        assert len(mail.outbox) == 1
+        sent = mail.outbox[0]
+        assert sent.from_email == settings.EMAIL_NO_REPLY
+        assert sent.to == [email]
 
         # Username should keep its casing, mut email should be lowercased.
         self.mutate_register(username="MYUSERNAME", email="MAIL@example.COM")
@@ -202,10 +209,13 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert user.email == "mail@example.com"
 
         assert len(mail.outbox) == 2
-        assert "Verify" in mail.outbox[1].subject
-        res = self.mutate_verify_account(
-            token=get_token_from_email(mail.outbox[1].body)
-        )
+
+        sent = mail.outbox[1]
+        assert sent.from_email == settings.EMAIL_NO_REPLY
+        assert sent.to == ["mail@example.com"]
+        assert "Verify" in sent.subject
+
+        res = self.mutate_verify_account(token=get_token_from_email(sent.body))
         assert not res["errors"]
         assert res["successMessage"] == Messages.ACCOUNT_VERIFIED
 
@@ -253,13 +263,15 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         self.authenticated_user = 3  # Not yet verified.
         res = self.mutate_resend_verification_email()
         assert not res["errors"]
+
         assert len(mail.outbox) == 1
-        assert "Verify" in mail.outbox[0].subject
+        sent = mail.outbox[0]
+        assert sent.from_email == settings.EMAIL_NO_REPLY
+        assert sent.to == ["testuser3@test.com"]
+        assert "Verify" in sent.subject
 
         # Works with the token that was sent in the email.
-        res = self.mutate_verify_account(
-            token=get_token_from_email(mail.outbox[0].body)
-        )
+        res = self.mutate_verify_account(token=get_token_from_email(sent.body))
         assert not res["errors"]
         assert res["successMessage"] == Messages.ACCOUNT_VERIFIED
 
@@ -499,15 +511,20 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert get_form_error(res) == ValidationErrors.INVALID_OLD_PASSWORD
 
     def test_reset_password(self) -> None:
-        res = self.mutate_send_password_reset_email()
+        email = "testuser2@test.com"
+        res = self.mutate_send_password_reset_email(email=email)
         assert not res["errors"]
         assert res["successMessage"] == Messages.PASSWORD_RESET_EMAIL_SENT
+
         assert len(mail.outbox) == 1
-        assert "Reset your password" in mail.outbox[0].subject
+        sent = mail.outbox[0]
+        assert sent.from_email == settings.EMAIL_NO_REPLY
+        assert sent.to == [email]
+        assert "Reset your password" in sent.subject
 
         new_password = "some_new_password"
         res = self.mutate_reset_password(
-            token=get_token_from_email(mail.outbox[0].body),
+            token=get_token_from_email(sent.body),
             new_password=new_password,
         )
         assert not res["errors"]

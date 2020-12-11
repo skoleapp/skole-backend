@@ -1,4 +1,5 @@
 import os
+import re
 from datetime import timedelta
 from pathlib import Path
 
@@ -81,17 +82,24 @@ MIDDLEWARE = [
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
+        "OPTIONS": {
+            "user_attributes": ("username", "email"),
+        },
     },
-    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
+    {
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+        "OPTIONS": {
+            "min_length": 10,
+        },
+    },
     {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
 
 # Custom validation settings
-PASSWORD_MIN_LENGTH = 8
 USERNAME_MIN_LENGTH = 3
 # Make sure to edit `constants.ValidationErrors.INVALID_USERNAME` if you change this.
-USERNAME_REGEX = r"[A-Za-z0-9ÅÄÖåäö_]+"
+USERNAME_REGEX = re.compile(r"[A-Za-z0-9ÅÄÖåäö_]+")
 
 # Authentication backend settings
 AUTHENTICATION_BACKENDS = [

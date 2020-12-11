@@ -6,6 +6,7 @@
       <w>adminpassword</w>
       <w>anonymized</w>
       <w>asgi</w>
+      <w>asupersecurepassword</w>
       <w>autopopulated</w>
       <w>autouse</w>
       <w>badcode</w>
@@ -56,6 +57,7 @@
       <w>removeprefix</w>
       <w>samesite</w>
       <w>skole</w>
+      <w>somenewpassword</w>
       <w>starrable</w>
       <w>studiable</w>
       <w>studyable</w>

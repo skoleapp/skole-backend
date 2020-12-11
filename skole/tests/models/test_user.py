@@ -82,23 +82,3 @@ def test_rank(db: Fixture) -> None:
 
     testuser9 = User.objects.get(pk=9)
     assert testuser9.score == 0 and testuser9.rank == "Freshman"
-
-
-# def test_verify_user() -> None:
-#     # TODO: Implement.
-#     pass
-#
-#
-# def test_send_verification_email() -> None:
-#     # TODO: Implement.
-#     pass
-#
-#
-# def test_resend_verification_email() -> None:
-#     # TODO: Implement.
-#     pass
-#
-#
-# def test_send_password_reset_email() -> None:
-#     # TODO: Implement.
-#     pass

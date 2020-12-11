@@ -5,8 +5,8 @@ from typing import Any, cast
 
 import graphene
 from django.conf import settings
-from django.contrib.auth import get_user_model, user_logged_in
-from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth import get_user_model, password_validation, user_logged_in
+from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.core.signing import BadSignature, SignatureExpired
 from graphene_django.forms.mutation import DjangoFormMutation, DjangoModelFormMutation
 from graphene_django.types import ErrorType
@@ -193,7 +193,7 @@ class ResetPasswordMutation(
 
     @classmethod
     def perform_mutate(
-        cls, form: EmailForm, info: ResolveInfo
+        cls, form: SetPasswordForm, info: ResolveInfo
     ) -> ResetPasswordMutation:
         token = form.cleaned_data.get("token")
         new_password = form.cleaned_data.get("new_password")
@@ -204,8 +204,14 @@ class ResetPasswordMutation(
                 TokenAction.PASSWORD_RESET,
                 settings.EXPIRATION_PASSWORD_RESET_TOKEN,
             )
-
             user = get_user_model().objects.get(**payload)
+
+            try:
+                password_validation.validate_password(new_password, user)
+            except ValidationError as e:
+                form.add_error(field=None, error=e)
+                return cls(errors=ErrorType.from_errors(form.errors))
+
             revoke_user_refresh_tokens(user)
             user = get_user_model().objects.set_password(
                 user=user, password=new_password

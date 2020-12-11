@@ -16,6 +16,7 @@ from graphql_jwt.settings import jwt_settings
 from graphql_jwt.shortcuts import get_token
 from graphql_jwt.utils import delete_cookie
 
+from skole.models import User
 from skole.types import ID, JsonDict
 
 FileData = Optional[Collection[Tuple[str, File]]]
@@ -276,6 +277,17 @@ class SkoleSchemaTestCase(TestCase):
         for field in res["fields"]:
             self.assertIn(field["name"], field_fragment)
 
+    def get_authenticated_user(self) -> User:
+        """
+        Return the currently authenticated user.
+
+        Raises:
+            ValueError: If `self.authenticated_user` was `None`.
+        """
+        if self.authenticated_user is None:
+            raise ValueError("Can't call if `self.authenticated_user` is `None`.")
+        return get_user_model().objects.get(pk=self.authenticated_user)
+
     def _assert_response_no_errors(self, response: HttpResponse) -> None:
         content = json.loads(response.content)
         self.assertNotIn("errors", content)
@@ -296,7 +308,9 @@ def get_form_error(res: JsonDict, /) -> str:
     try:
         return res["errors"][0]["messages"][0]
     except (IndexError, KeyError, TypeError):
-        assert False, f"`res` didn't contain a form mutation error: \n{res}"
+        raise AssertionError(
+            f"`res` didn't contain a form mutation error: \n{res}"
+        ) from None
 
 
 def get_graphql_error(res: JsonDict, /) -> str:
@@ -304,7 +318,7 @@ def get_graphql_error(res: JsonDict, /) -> str:
     try:
         return res["errors"][0]["message"]
     except (IndexError, KeyError, TypeError):
-        assert False, f"`res` didn't contain a GraphQL error: \n{res}"
+        raise AssertionError(f"`res` didn't contain a GraphQL error: \n{res}") from None
 
 
 def is_iso_datetime(datetime_string: str, /) -> bool:

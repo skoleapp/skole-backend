@@ -4,6 +4,7 @@ from typing import Any, ClassVar, Generic, Optional, TypeVar
 
 import parler.managers
 import parler.models
+from django import forms
 from django.db import models
 from django.db.models import QuerySet
 
@@ -45,6 +46,11 @@ class SkoleModel(models.Model):
 
     _identifier_field: ClassVar[str] = "name"
 
+    objects = SkoleManager()
+
+    class Meta:
+        abstract = True
+
     def __repr__(self) -> str:
         try:
             identifier = f"-{getattr(self, self._identifier_field)}"
@@ -52,10 +58,10 @@ class SkoleModel(models.Model):
             identifier = ""
         return f"<{self.__class__.__name__}:{self.pk}{identifier}>"
 
-    class Meta:
-        abstract = True
-
-    objects = SkoleManager()
+    @classmethod
+    def formfield(cls, field: str) -> forms.Field:
+        """Return a form field made from the given model field."""
+        return cls._meta.get_field(field).formfield()
 
 
 class TranslatableSkoleModel(SkoleModel, parler.models.TranslatableModel):

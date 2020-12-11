@@ -83,7 +83,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         *,
         username: str = "newuser",
         email: str = "newemail@test.com",
-        password: str = "password",
+        password: str = "somenewpassword",
     ) -> JsonDict:
         return self.execute_input_mutation(
             name="register",
@@ -133,7 +133,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         )
 
     def mutate_change_password(
-        self, *, old_password: str = "password", new_password: str = "newpassword"
+        self, *, old_password: str = "password", new_password: str = "newpassword1234"
     ) -> JsonDict:
         return self.execute_input_mutation(
             name="changePassword",
@@ -244,7 +244,27 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
 
         # Too short password.
         res = self.mutate_register(password="short")
-        assert "Ensure this value has at least" in get_form_error(res)
+        assert "too short" in get_form_error(res)
+
+        # Too common password.
+        res = self.mutate_register(password="superman123")
+        assert "too common" in get_form_error(res)
+
+        # Too long password.
+        res = self.mutate_register(password="a" * 129)
+        assert "Ensure this value has at most" in get_form_error(res)
+
+        # Password cannot be entirely numeric.
+        res = self.mutate_register(password="0123456789101213")
+        assert "numeric" in get_form_error(res)
+
+        # Password cannot be too similar to username.
+        res = self.mutate_register(password="newuser")
+        assert "too similar to the username" in get_form_error(res)
+
+        # Password cannot be too similar to email.
+        res = self.mutate_register(password="email")
+        assert "too similar to the email" in get_form_error(res)
 
     def test_verify_error(self) -> None:
         res = self.mutate_verify_account(token="badtoken")
@@ -309,24 +329,25 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
     def test_register_and_login(self) -> None:
         self.authenticated_user = None
 
-        res = self.mutate_register(
-            username="newuser2",
-            email="newemail2@test.com",
-        )
-
+        username = "newuser2"
+        email = "newemail2@test.com"
+        password = "asupersecurepassword"
+        res = self.mutate_register(username=username, email=email, password=password)
         assert not res["errors"]
         assert res["successMessage"] == Messages.USER_REGISTERED
 
         # Login with email.
-        res = self.mutate_login(username_or_email="newemail2@test.com")
-        assert res["user"]["email"] == "newemail2@test.com"
-        assert res["user"]["username"] == "newuser2"
+        res = self.mutate_login(username_or_email=email, password=password)
+        assert not res["errors"]
+        assert res["user"]["email"] == email
+        assert res["user"]["username"] == username
         assert res["successMessage"] == Messages.LOGGED_IN
 
         # Login with username.
-        res = self.mutate_login(username_or_email="newuser2")
-        assert res["user"]["email"] == "newemail2@test.com"
-        assert res["user"]["username"] == "newuser2"
+        res = self.mutate_login(username_or_email=username, password=password)
+        assert not res["errors"]
+        assert res["user"]["email"] == email
+        assert res["user"]["username"] == username
         assert res["successMessage"] == Messages.LOGGED_IN
 
     def test_user(self) -> None:
@@ -504,13 +525,40 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert res["successMessage"] == Messages.PASSWORD_UPDATED
         user = get_user_model().objects.get(pk=2)
         assert old_hash != user.password
-        assert user.check_password("newpassword")
+        assert user.check_password("newpassword1234")
 
     def test_change_password_error(self) -> None:
+        # Invalid old password.
         res = self.mutate_change_password(old_password="badpass")
         assert get_form_error(res) == ValidationErrors.INVALID_OLD_PASSWORD
 
-    def test_reset_password(self) -> None:
+        # Can't change password to an invalid one:
+
+        # Too short password.
+        res = self.mutate_change_password(new_password="short")
+        assert "too short" in get_form_error(res)
+
+        # Too common password.
+        res = self.mutate_change_password(new_password="superman123")
+        assert "too common" in get_form_error(res)
+
+        # Too long password.
+        res = self.mutate_change_password(new_password="a" * 129)
+        assert "Ensure this value has at most" in get_form_error(res)
+
+        # Password cannot be entirely numeric.
+        res = self.mutate_change_password(new_password="0123456789101213")
+        assert "numeric" in get_form_error(res)
+
+        # Password cannot be too similar to username.
+        res = self.mutate_change_password(new_password="testuser2")
+        assert "too similar to the username" in get_form_error(res)
+
+        # Password cannot be too similar to email.
+        res = self.mutate_change_password(new_password="testuser2@test.com")
+        assert "too similar to the email" in get_form_error(res)
+
+    def test_reset_password_ok(self) -> None:
         email = "testuser2@test.com"
         res = self.mutate_send_password_reset_email(email=email)
         assert not res["errors"]
@@ -531,8 +579,39 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         user = get_user_model().objects.get(pk=2)
         assert user.check_password(new_password)
 
+    def test_reset_password_error(self) -> None:
+        self.mutate_send_password_reset_email()
+        token = get_token_from_email(mail.outbox[0].body)
+
         # Can't reset password when not verified.
+        user = self.get_authenticated_user()
         user.verified = False
         user.save()
         res = self.mutate_send_password_reset_email()
         assert res["errors"] == MutationErrors.NOT_VERIFIED_RESET_PASSWORD
+
+        # Can't reset password to an invalid one:
+
+        # Too short password.
+        res = self.mutate_reset_password(token=token, new_password="short")
+        assert "too short" in get_form_error(res)
+
+        # Too common password.
+        res = self.mutate_reset_password(token=token, new_password="superman123")
+        assert "too common" in get_form_error(res)
+
+        # Too long password.
+        res = self.mutate_reset_password(token=token, new_password="a" * 129)
+        assert "Ensure this value has at most" in get_form_error(res)
+
+        # Password cannot be entirely numeric.
+        res = self.mutate_reset_password(token=token, new_password="0123456789101213")
+        assert "numeric" in get_form_error(res)
+
+        # Password cannot be too similar to username.
+        res = self.mutate_reset_password(token=token, new_password="testuser2")
+        assert "too similar to the username" in get_form_error(res)
+
+        # Password cannot be too similar to email.
+        res = self.mutate_reset_password(token=token, new_password="testuser2@test.com")
+        assert "too similar to the email" in get_form_error(res)

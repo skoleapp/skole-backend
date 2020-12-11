@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-09 22:38+0000\n"
+"POT-Creation-Date: 2020-12-11 15:42+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Skole\n"
@@ -199,29 +199,27 @@ msgstr "Kommentaren har uppdaterats!"
 msgid "Comment deleted successfully!"
 msgstr "Kommentaren raderad!"
 
-#: skole/utils/constants.py:71
-msgid "Request received, an email with your data will be sent to you soon."
-msgstr ""
-"Begäran mottagen, ett e-postmeddelande med din data kommer snart att skickas "
-"till dig."
+#: skole/utils/constants.py:70
+msgid "Data request received successfully!"
+msgstr "Dataförfrågan mottagen!"
 
-#: skole/utils/constants.py:76
+#: skole/utils/constants.py:74
 msgid "Your data request on Skole"
 msgstr "Din dataförfrågan på Skole"
 
-#: skole/utils/constants.py:77
+#: skole/utils/constants.py:75
 msgid "Verify your account on Skole"
 msgstr "Verifiera ditt konto på Skole"
 
-#: skole/utils/constants.py:78
+#: skole/utils/constants.py:76
 msgid "Reset your password on Skole"
 msgstr "Återställ ditt lösenord på Skole"
 
-#: skole/utils/constants.py:104
+#: skole/utils/constants.py:102
 msgid "Error while sending email."
 msgstr "Fel vid sändning av meddelande."
 
-#: skole/utils/constants.py:106
+#: skole/utils/constants.py:104
 msgid ""
 "Your account has been registered but we encountered an error while sending "
 "email. You may still log in using your credentials. Please try verifying "
@@ -231,22 +229,22 @@ msgstr ""
 "Du kan fortfarande logga in med dina referenser. Försök verifiera ditt konto "
 "senare."
 
-#: skole/utils/constants.py:111
+#: skole/utils/constants.py:109
 msgid "Token expired. Please request new verification link."
 msgstr "Token har löpt ut. Begär ny verifieringslänk."
 
-#: skole/utils/constants.py:112
+#: skole/utils/constants.py:110
 msgid "Invalid token. Please request new verification link."
 msgstr "Ogiltigt token. Begär ny verifieringslänk."
 
-#: skole/utils/constants.py:114
+#: skole/utils/constants.py:112
 msgid ""
 "User with the provided email was not found. Please check you email address."
 msgstr ""
 "Användare med den medföljande e-postadressen hittades inte. Kontrollera din "
 "e-postadress."
 
-#: skole/utils/constants.py:117
+#: skole/utils/constants.py:115
 msgid ""
 "You must verify your account before resetting your password. A new "
 "verification email was sent. Please check your email."
@@ -254,23 +252,23 @@ msgstr ""
 "Du måste verifiera ditt konto innan du återställer ditt lösenord. Ett "
 "nyttverifieringsmail skickades. Kontrollera din e-postadress."
 
-#: skole/utils/constants.py:120
+#: skole/utils/constants.py:118
 msgid "This account has been removed."
 msgstr "Det här kontot har tagits bort."
 
-#: skole/utils/constants.py:122
+#: skole/utils/constants.py:120
 msgid "Token expired. Please request new password reset link."
 msgstr "Token har löpt ut. Be om ny länk för återställning av lösenord."
 
-#: skole/utils/constants.py:125
+#: skole/utils/constants.py:123
 msgid "Invalid token. Please request new password reset link."
 msgstr "Ogiltigt token. Be om ny länk till återställning av lösenord."
 
-#: skole/utils/constants.py:127
+#: skole/utils/constants.py:125
 msgid "This action is only allowed for authenticated users."
 msgstr "Den här åtgärden är endast tillåten för autentiserade användare."
 
-#: skole/utils/constants.py:129
+#: skole/utils/constants.py:127
 msgid ""
 "This action is only allowed for users who have verified their accounts. "
 "Please verify your account."
@@ -278,34 +276,34 @@ msgstr ""
 "Den här åtgärden är endast tillåten för användare som har verifierat sina "
 "konton.Bekräfta ditt konto."
 
-#: skole/utils/constants.py:132
+#: skole/utils/constants.py:130
 msgid "You can request this next time in {} min."
 msgstr "Du kan begära detta igen inom {} min."
 
-#: skole/utils/constants.py:148
+#: skole/utils/constants.py:146
 msgid "Freshman"
 msgstr "Gulis"
 
-#: skole/utils/constants.py:149
+#: skole/utils/constants.py:147
 msgid "Tutor"
 msgstr "Handledare"
 
-#: skole/utils/constants.py:150
+#: skole/utils/constants.py:148
 msgid "Mentor"
 msgstr "Mentor"
 
-#: skole/utils/constants.py:151
+#: skole/utils/constants.py:149
 msgid "Bachelor"
 msgstr "Kandidat"
 
-#: skole/utils/constants.py:152
+#: skole/utils/constants.py:150
 msgid "Master"
 msgstr "Magister"
 
-#: skole/utils/constants.py:153
+#: skole/utils/constants.py:151
 msgid "Doctor"
 msgstr "Doktor"
 
-#: skole/utils/constants.py:154
+#: skole/utils/constants.py:152
 msgid "Professor"
 msgstr "Professor"

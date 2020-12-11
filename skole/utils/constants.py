@@ -67,9 +67,7 @@ class Messages:
     RESOURCE_DOWNLOADS_UPDATED = _("Resource downloads updated!")
     COMMENT_UPDATED = _("Comment updated successfully!")
     COMMENT_DELETED = _("Comment deleted successfully!")
-    DATA_REQUEST_RECEIVED = _(
-        "Request received, an email with your data will be sent to you soon."
-    )
+    DATA_REQUEST_RECEIVED = _("Data request received successfully!")
 
 
 class Email:

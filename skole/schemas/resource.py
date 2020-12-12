@@ -211,6 +211,7 @@ class Query(SkoleObjectType):
         Results are sorted by creation time.
         """
         qs = Resource.objects.filter(stars__user__pk=info.context.user.pk)
+        qs = qs.order_by("pk")
         return get_paginator(qs, page_size, page, PaginatedResourceObjectType)
 
     @staticmethod

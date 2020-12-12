@@ -48,7 +48,7 @@ class CitySchemaTests(SkoleSchemaTestCase):
         self.authenticated_user = None
         self.assert_field_fragment_matches_schema(self.city_fields)
 
-    def test_cities(self) -> None:
+    def test_autocomplete_cities(self) -> None:
         cities = self.query_autocomplete_cities()
         assert len(cities) == 5
         # Cities should be ordered alphabetically.

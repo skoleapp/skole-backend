@@ -66,7 +66,7 @@ class Query(SkoleObjectType):
 
         Results are sorted alphabetically.
         """
-        qs: QuerySet[Subject] = Subject.objects.all()
+        qs = Subject.objects.translated()
 
         if school is not None:
             qs = qs.filter(courses__school__pk=school)

@@ -2,55 +2,55 @@
   pk: 1
   fields:
     language_code: en
-    name: Exam
+    name: Exercise
     master: 1
 - model: skole.ResourceTypeTranslation
   pk: 2
   fields:
     language_code: fi
-    name: Tentti
+    name: Harjoitustehtävä
     master: 1
 - model: skole.ResourceTypeTranslation
   pk: 3
   fields:
     language_code: sv
-    name: Tentamen
+    name: Uppgift
     master: 1
 - model: skole.ResourceTypeTranslation
   pk: 4
   fields:
     language_code: en
-    name: Exercise
+    name: Note
     master: 2
 - model: skole.ResourceTypeTranslation
   pk: 5
   fields:
     language_code: fi
-    name: Harjoitustehtävä
+    name: Muistiinpano
     master: 2
 - model: skole.ResourceTypeTranslation
   pk: 6
   fields:
     language_code: sv
-    name: Uppgift
+    name: Minnesanteckning
     master: 2
 - model: skole.ResourceTypeTranslation
   pk: 7
   fields:
     language_code: en
-    name: Note
+    name: Exam
     master: 3
 - model: skole.ResourceTypeTranslation
   pk: 8
   fields:
     language_code: fi
-    name: Muistiinpano
+    name: Tentti
     master: 3
 - model: skole.ResourceTypeTranslation
   pk: 9
   fields:
     language_code: sv
-    name: Minnesanteckning
+    name: Tentamen
     master: 3
 - model: skole.ResourceTypeTranslation
   pk: 10

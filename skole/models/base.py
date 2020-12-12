@@ -6,7 +6,6 @@ import parler.managers
 import parler.models
 from django import forms
 from django.db import models
-from django.db.models import QuerySet
 
 M = TypeVar("M", bound="SkoleModel", covariant=True)
 TM = TypeVar("TM", bound="TranslatableSkoleModel", covariant=True)
@@ -14,10 +13,6 @@ TM = TypeVar("TM", bound="TranslatableSkoleModel", covariant=True)
 
 class SkoleManager(Generic[M], models.Manager[M]):
     """Base manager for all non-translatable models."""
-
-    def get_queryset(self) -> QuerySet[M]:
-        """Use ordering by creation time by default."""
-        return super().get_queryset().order_by("pk")
 
     def get_or_none(self, *args: Any, **kwargs: Any) -> Optional[M]:
         """

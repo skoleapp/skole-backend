@@ -407,7 +407,7 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
         resource = res["resource"]
         assert not res["errors"]
         assert resource["title"] == new_title
-        assert resource["resourceType"]["name"] == "Note"
+        assert resource["resourceType"]["name"] == "Exam"
         assert resource["date"] == "2012-12-12"
 
         # Can't update someone else's resource.

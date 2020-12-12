@@ -227,6 +227,7 @@ class Query(SkoleObjectType):
         users.
         """
         qs = Course.objects.filter(stars__user__pk=info.context.user.pk)
+        qs = qs.order_by("pk")
         return get_paginator(qs, page_size, page, PaginatedCourseObjectType)
 
     @staticmethod

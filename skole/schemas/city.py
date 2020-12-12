@@ -1,7 +1,6 @@
 from typing import Optional
 
 import graphene
-from django.conf import settings
 from django.db.models import QuerySet
 
 from skole.models import City
@@ -24,10 +23,7 @@ class Query(SkoleObjectType):
     @staticmethod
     def resolve_autocomplete_cities(root: None, info: ResolveInfo) -> QuerySet[City]:
         """Results are sorted alphabetically."""
-        # We must manually call the translation function in order to perform the ordering based on the translated values.
-        return City.objects.translated().order_by("translations__name")[
-            : settings.AUTOCOMPLETE_MAX_RESULTS
-        ]
+        return City.objects.translated().order_by("translations__name")
 
     @staticmethod
     def resolve_city(root: None, info: ResolveInfo, id: ID = None) -> Optional[City]:

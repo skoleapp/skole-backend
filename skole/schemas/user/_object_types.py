@@ -67,7 +67,7 @@ class UserObjectType(SkoleDjangoObjectType):
 
     @staticmethod
     def resolve_badges(root: User, info: ResolveInfo) -> QuerySet[Badge]:
-        return root.badges.all()
+        return root.badges.order_by("pk")
 
     @staticmethod
     def resolve_avatar(root: User, info: ResolveInfo) -> str:

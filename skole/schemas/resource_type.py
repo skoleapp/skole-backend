@@ -1,5 +1,4 @@
 import graphene
-from django.conf import settings
 from django.db.models import QuerySet
 
 from skole.models import ResourceType
@@ -22,20 +21,8 @@ class Query(SkoleObjectType):
     # Querying a single ResourceType is not needed.
 
     @staticmethod
-    def resolve_resource_types(root: None, info: ResolveInfo) -> QuerySet[ResourceType]:
-        """
-        Return unlimited amount of resource types.
-
-        Results are sorted by creation time.
-        """
-        return ResourceType.objects.all()
-
-    @staticmethod
     def resolve_autocomplete_resource_types(
         root: None, info: ResolveInfo
     ) -> QuerySet[ResourceType]:
-        """Results are sorted alphabetically."""
-        # We must manually call the translation function in order to perform the ordering based on the translated values.
-        return ResourceType.objects.translated().order_by("translations__name")[
-            : settings.AUTOCOMPLETE_MAX_RESULTS
-        ]
+        """Results are sorted by creation time."""
+        return ResourceType.objects.order_by("pk")

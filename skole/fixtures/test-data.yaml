@@ -778,55 +778,55 @@
   fields:
     master: 1
     language_code: en
-    name: Exam
+    name: Exercise
 - model: skole.ResourceTypeTranslation
   pk: 2
   fields:
     master: 1
     language_code: fi
-    name: Tentti
+    name: Harjoitustehtävä
 - model: skole.ResourceTypeTranslation
   pk: 3
   fields:
     master: 1
     language_code: sv
-    name: Tentamen
+    name: Uppgift
 - model: skole.ResourceTypeTranslation
   pk: 4
   fields:
     master: 2
     language_code: en
-    name: Exercise
+    name: Note
 - model: skole.ResourceTypeTranslation
   pk: 5
   fields:
     master: 2
     language_code: fi
-    name: Harjoitustehtävä
+    name: Muistiinpano
 - model: skole.ResourceTypeTranslation
   pk: 6
   fields:
     master: 2
     language_code: sv
-    name: Uppgift
+    name: Minnesanteckning
 - model: skole.ResourceTypeTranslation
   pk: 7
   fields:
     master: 3
     language_code: en
-    name: Note
+    name: Exam
 - model: skole.ResourceTypeTranslation
   pk: 8
   fields:
     master: 3
     language_code: fi
-    name: Muistiinpano
+    name: Tentti
 - model: skole.ResourceTypeTranslation
   pk: 9
   fields:
     master: 3
     language_code: sv
-    name: Minnesanteckning
+    name: Tentamen
 - model: skole.ResourceTypeTranslation
   pk: 10
   fields:

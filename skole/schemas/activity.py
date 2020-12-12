@@ -114,7 +114,7 @@ class Query(SkoleObjectType):
         Results are sorted by creation time.
         """
         user = cast(User, info.context.user)
-        qs = user.activities.all()
+        qs = user.activities.order_by("pk")
         return get_paginator(qs, page_size, page, PaginatedActivityObjectType)
 
     @staticmethod

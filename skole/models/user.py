@@ -122,7 +122,9 @@ class User(SkoleModel, AbstractBaseUser, PermissionsMixin):
     modified = models.DateTimeField(auto_now=True)
 
     last_my_data_query = models.DateTimeField(
-        null=True, help_text="The time when the user last used the GDPR `myData` query."
+        null=True,
+        blank=True,
+        help_text="The time when the user last used the GDPR `myData` query.",
     )
 
     objects = UserManager()

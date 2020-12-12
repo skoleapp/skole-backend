@@ -53,15 +53,15 @@ class ResourceTypeSchemaTests(SkoleSchemaTestCase):
         assert len(resource_types) == 4
         # ResourceTypes should be ordered by IDs.
         assert resource_types[0]["id"] == "1"
-        assert resource_types[0]["name"] == "Exam"
+        assert resource_types[0]["name"] == "Exercise"
         assert resource_types[1]["id"] == "2"
-        assert resource_types[1]["name"] == "Exercise"
+        assert resource_types[1]["name"] == "Note"
 
     def test_autocomplete_resource_types(self) -> None:
         resource_types = self.query_autocomplete_resource_types()
         assert len(resource_types) == 4
         # ResourceTypes should be ordered by IDs.
         assert resource_types[0]["id"] == "1"
-        assert resource_types[0]["name"] == "Exam"
+        assert resource_types[0]["name"] == "Exercise"
         assert resource_types[1]["id"] == "2"
-        assert resource_types[1]["name"] == "Exercise"
+        assert resource_types[1]["name"] == "Note"

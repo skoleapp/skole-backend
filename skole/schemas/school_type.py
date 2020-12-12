@@ -1,7 +1,6 @@
 from typing import Optional
 
 import graphene
-from django.conf import settings
 from django.db.models import QuerySet
 
 from skole.models import SchoolType
@@ -26,7 +25,7 @@ class Query(SkoleObjectType):
         root: None, info: ResolveInfo
     ) -> QuerySet[SchoolType]:
         """Results are sorted by creation time."""
-        return SchoolType.objects.all()[: settings.AUTOCOMPLETE_MAX_RESULTS]
+        return SchoolType.objects.translated()
 
     @staticmethod
     def resolve_school_type(

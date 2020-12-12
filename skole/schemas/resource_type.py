@@ -1,5 +1,4 @@
 import graphene
-from django.conf import settings
 from django.db.models import QuerySet
 
 from skole.models import ResourceType
@@ -36,6 +35,4 @@ class Query(SkoleObjectType):
     ) -> QuerySet[ResourceType]:
         """Results are sorted alphabetically."""
         # We must manually call the translation function in order to perform the ordering based on the translated values.
-        return ResourceType.objects.translated().order_by("translations__name")[
-            : settings.AUTOCOMPLETE_MAX_RESULTS
-        ]
+        return ResourceType.objects.translated()

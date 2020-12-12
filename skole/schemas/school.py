@@ -52,7 +52,6 @@ class Query(SkoleObjectType):
             qs = School.objects.translated()
 
         qs = qs.order_by("translations__name")
-
         return qs[: settings.AUTOCOMPLETE_MAX_RESULTS]
 
     @staticmethod

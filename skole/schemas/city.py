@@ -23,7 +23,6 @@ class Query(SkoleObjectType):
     @staticmethod
     def resolve_autocomplete_cities(root: None, info: ResolveInfo) -> QuerySet[City]:
         """Results are sorted alphabetically."""
-        # We must manually call the translation function in order to perform the ordering based on the translated values.
         return City.objects.translated().order_by("translations__name")
 
     @staticmethod

@@ -25,7 +25,7 @@ class Query(SkoleObjectType):
         root: None, info: ResolveInfo
     ) -> QuerySet[SchoolType]:
         """Results are sorted by creation time."""
-        return SchoolType.objects.translated()
+        return SchoolType.objects.order_by("pk")
 
     @staticmethod
     def resolve_school_type(

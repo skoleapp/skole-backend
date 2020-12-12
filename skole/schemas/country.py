@@ -25,7 +25,6 @@ class Query(SkoleObjectType):
         root: None, info: ResolveInfo
     ) -> QuerySet[Country]:
         """Results are sorted alphabetically."""
-        # We must manually call the translation function in order to perform the ordering based on the translated values.
         return Country.objects.translated().order_by("translations__name")
 
     @staticmethod

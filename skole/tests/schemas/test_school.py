@@ -12,10 +12,10 @@ class SchoolSchemaTests(SkoleSchemaTestCase):
             id
             name
             subjects {
-              id
+                id
             }
             courses {
-              id
+                id
             }
             schoolType {
                 id

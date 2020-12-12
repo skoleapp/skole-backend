@@ -1,8 +1,8 @@
-from typing import Optional, Union, cast
+from typing import Any, Optional, Union, cast
 
 from django import forms
 from django.conf import settings
-from django.contrib.auth import authenticate, get_user_model
+from django.contrib.auth import authenticate, get_user_model, password_validation
 from django.core.files import File
 
 from skole.models import User
@@ -15,7 +15,6 @@ from .base import SkoleForm, SkoleModelForm
 
 class RegisterForm(SkoleModelForm):
     username = forms.CharField(min_length=settings.USERNAME_MIN_LENGTH)
-    password = forms.CharField(min_length=settings.PASSWORD_MIN_LENGTH)
 
     class Meta:
         model = get_user_model()
@@ -32,6 +31,17 @@ class RegisterForm(SkoleModelForm):
         if get_user_model().objects.filter(email__iexact=email):
             raise forms.ValidationError(ValidationErrors.EMAIL_TAKEN)
         return email
+
+    def _post_clean(self) -> None:
+        """Mimics the way Django's `UserCreationForm` does the password validation."""
+        # Ignore: Mypy for some reason thinks that super doesn't define this method.
+        super()._post_clean()  # type: ignore[misc]
+        if password := self.cleaned_data.get("password"):
+            # If form validation has failed, the password will not be in cleaned data.
+            try:
+                password_validation.validate_password(password, self.instance)
+            except forms.ValidationError as error:
+                self.add_error("password", error)
 
     def save(self, commit: bool = True) -> User:
         return get_user_model().objects.create_user(**self.cleaned_data)
@@ -119,13 +129,16 @@ class UpdateUserForm(SkoleModelForm):
 
 class ChangePasswordForm(SkoleModelForm):
     old_password = forms.CharField()
-    new_password = forms.CharField(min_length=settings.PASSWORD_MIN_LENGTH)
 
     class Meta:
         model = get_user_model()
-        fields = ("old_password", "new_password")
+        fields = ()
 
-    def clean_old_password(self) -> None:
+    def __init__(self, **kwargs: Any) -> None:
+        super().__init__(**kwargs)
+        self.fields["new_password"] = get_user_model().formfield("password")
+
+    def clean_old_password(self) -> str:
         old_password = self.cleaned_data["old_password"]
 
         if not self.instance.check_password(old_password):
@@ -133,9 +146,16 @@ class ChangePasswordForm(SkoleModelForm):
 
         return old_password
 
+    def clean_new_password(self) -> str:
+        new_password = self.cleaned_data["new_password"]
+        password_validation.validate_password(new_password, self.instance)
+        return new_password
+
 
 class SetPasswordForm(TokenForm):
-    new_password = forms.CharField(min_length=settings.PASSWORD_MIN_LENGTH)
+    def __init__(self, **kwargs: Any) -> None:
+        super().__init__(**kwargs)
+        self.fields["new_password"] = get_user_model().formfield("password")
 
 
 class DeleteUserForm(SkoleModelForm):
@@ -143,7 +163,7 @@ class DeleteUserForm(SkoleModelForm):
         model = get_user_model()
         fields = ("password",)
 
-    def clean_password(self) -> None:
+    def clean_password(self) -> str:
         password = self.cleaned_data["password"]
 
         if not self.instance.check_password(password):

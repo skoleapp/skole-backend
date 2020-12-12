@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core import mail
 
@@ -82,7 +83,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         *,
         username: str = "newuser",
         email: str = "newemail@test.com",
-        password: str = "password",
+        password: str = "somenewpassword",
     ) -> JsonDict:
         return self.execute_input_mutation(
             name="register",
@@ -132,7 +133,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         )
 
     def mutate_change_password(
-        self, *, old_password: str = "password", new_password: str = "newpassword"
+        self, *, old_password: str = "password", new_password: str = "newpassword1234"
     ) -> JsonDict:
         return self.execute_input_mutation(
             name="changePassword",
@@ -190,9 +191,15 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         self.authenticated_user = None
 
         assert len(mail.outbox) == 0
-        res = self.mutate_register()
+        email = "newemail@test.com"
+        res = self.mutate_register(email=email)
         assert not res["errors"]
         assert res["successMessage"] == Messages.USER_REGISTERED
+
+        assert len(mail.outbox) == 1
+        sent = mail.outbox[0]
+        assert sent.from_email == settings.EMAIL_NO_REPLY
+        assert sent.to == [email]
 
         # Username should keep its casing, mut email should be lowercased.
         self.mutate_register(username="MYUSERNAME", email="MAIL@example.COM")
@@ -202,10 +209,13 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert user.email == "mail@example.com"
 
         assert len(mail.outbox) == 2
-        assert "Verify" in mail.outbox[1].subject
-        res = self.mutate_verify_account(
-            token=get_token_from_email(mail.outbox[1].body)
-        )
+
+        sent = mail.outbox[1]
+        assert sent.from_email == settings.EMAIL_NO_REPLY
+        assert sent.to == ["mail@example.com"]
+        assert "Verify" in sent.subject
+
+        res = self.mutate_verify_account(token=get_token_from_email(sent.body))
         assert not res["errors"]
         assert res["successMessage"] == Messages.ACCOUNT_VERIFIED
 
@@ -234,7 +244,27 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
 
         # Too short password.
         res = self.mutate_register(password="short")
-        assert "Ensure this value has at least" in get_form_error(res)
+        assert "too short" in get_form_error(res)
+
+        # Too common password.
+        res = self.mutate_register(password="superman123")
+        assert "too common" in get_form_error(res)
+
+        # Too long password.
+        res = self.mutate_register(password="a" * 129)
+        assert "Ensure this value has at most" in get_form_error(res)
+
+        # Password cannot be entirely numeric.
+        res = self.mutate_register(password="0123456789101213")
+        assert "numeric" in get_form_error(res)
+
+        # Password cannot be too similar to username.
+        res = self.mutate_register(password="newuser")
+        assert "too similar to the username" in get_form_error(res)
+
+        # Password cannot be too similar to email.
+        res = self.mutate_register(password="email")
+        assert "too similar to the email" in get_form_error(res)
 
     def test_verify_error(self) -> None:
         res = self.mutate_verify_account(token="badtoken")
@@ -253,13 +283,15 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         self.authenticated_user = 3  # Not yet verified.
         res = self.mutate_resend_verification_email()
         assert not res["errors"]
+
         assert len(mail.outbox) == 1
-        assert "Verify" in mail.outbox[0].subject
+        sent = mail.outbox[0]
+        assert sent.from_email == settings.EMAIL_NO_REPLY
+        assert sent.to == ["testuser3@test.com"]
+        assert "Verify" in sent.subject
 
         # Works with the token that was sent in the email.
-        res = self.mutate_verify_account(
-            token=get_token_from_email(mail.outbox[0].body)
-        )
+        res = self.mutate_verify_account(token=get_token_from_email(sent.body))
         assert not res["errors"]
         assert res["successMessage"] == Messages.ACCOUNT_VERIFIED
 
@@ -297,24 +329,25 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
     def test_register_and_login(self) -> None:
         self.authenticated_user = None
 
-        res = self.mutate_register(
-            username="newuser2",
-            email="newemail2@test.com",
-        )
-
+        username = "newuser2"
+        email = "newemail2@test.com"
+        password = "asupersecurepassword"
+        res = self.mutate_register(username=username, email=email, password=password)
         assert not res["errors"]
         assert res["successMessage"] == Messages.USER_REGISTERED
 
         # Login with email.
-        res = self.mutate_login(username_or_email="newemail2@test.com")
-        assert res["user"]["email"] == "newemail2@test.com"
-        assert res["user"]["username"] == "newuser2"
+        res = self.mutate_login(username_or_email=email, password=password)
+        assert not res["errors"]
+        assert res["user"]["email"] == email
+        assert res["user"]["username"] == username
         assert res["successMessage"] == Messages.LOGGED_IN
 
         # Login with username.
-        res = self.mutate_login(username_or_email="newuser2")
-        assert res["user"]["email"] == "newemail2@test.com"
-        assert res["user"]["username"] == "newuser2"
+        res = self.mutate_login(username_or_email=username, password=password)
+        assert not res["errors"]
+        assert res["user"]["email"] == email
+        assert res["user"]["username"] == username
         assert res["successMessage"] == Messages.LOGGED_IN
 
     def test_user(self) -> None:
@@ -373,8 +406,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert res["successMessage"] == Messages.USER_UPDATED
 
         # User is currently verified.
-        # Ignore: Mypy complains that pk could be `None`, but it's not.
-        current_user = get_user_model().objects.get(pk=self.authenticated_user)  # type: ignore[misc]
+        current_user = self.get_authenticated_user()
         assert current_user.verified
 
         # Changing the email should unverify the user, and lowercase the email.
@@ -462,11 +494,11 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert is_slug_match(UPLOADED_AVATAR_JPG, res["user"]["avatar"])
 
         # Delete the avatar.
-        assert get_user_model().objects.get(pk=2).avatar
+        assert self.get_authenticated_user().avatar
         res = self.mutate_update_user(avatar="")
         assert res["user"]["avatar"] == ""
         assert self.query_user_me()["avatar"] == ""
-        assert not get_user_model().objects.get(pk=2).avatar
+        assert not self.get_authenticated_user().avatar
 
     def test_delete_user_ok(self) -> None:
         # Delete the logged in testuser2.
@@ -475,7 +507,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert res["successMessage"] == Messages.USER_DELETED
 
         # Test that the user cannot be found anymore.
-        assert get_user_model().objects.filter(pk=2).count() == 0
+        assert not get_user_model().objects.filter(pk=2)
 
     def test_delete_user_error(self) -> None:
         # Delete the logged in testuser2.
@@ -483,39 +515,102 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert get_form_error(res) == ValidationErrors.INVALID_PASSWORD
 
         # Test that the user didn't get deleted.
-        assert get_user_model().objects.filter(pk=2).count() == 1
+        assert get_user_model().objects.filter(pk=2)
 
     def test_change_password_ok(self) -> None:
-        old_hash = get_user_model().objects.get(pk=2).password
+        old_hash = self.get_authenticated_user().password
         res = self.mutate_change_password()
         assert not res["errors"]
         assert res["successMessage"] == Messages.PASSWORD_UPDATED
-        user = get_user_model().objects.get(pk=2)
+        user = self.get_authenticated_user()
         assert old_hash != user.password
-        assert user.check_password("newpassword")
+        assert user.check_password("newpassword1234")
 
     def test_change_password_error(self) -> None:
+        # Invalid old password.
         res = self.mutate_change_password(old_password="badpass")
         assert get_form_error(res) == ValidationErrors.INVALID_OLD_PASSWORD
 
-    def test_reset_password(self) -> None:
-        res = self.mutate_send_password_reset_email()
+        # Can't change password to an invalid one:
+
+        # Too short password.
+        res = self.mutate_change_password(new_password="short")
+        assert "too short" in get_form_error(res)
+
+        # Too common password.
+        res = self.mutate_change_password(new_password="superman123")
+        assert "too common" in get_form_error(res)
+
+        # Too long password.
+        res = self.mutate_change_password(new_password="a" * 129)
+        assert "Ensure this value has at most" in get_form_error(res)
+
+        # Password cannot be entirely numeric.
+        res = self.mutate_change_password(new_password="0123456789101213")
+        assert "numeric" in get_form_error(res)
+
+        # Password cannot be too similar to username.
+        res = self.mutate_change_password(new_password="testuser2")
+        assert "too similar to the username" in get_form_error(res)
+
+        # Password cannot be too similar to email.
+        res = self.mutate_change_password(new_password="testuser2@test.com")
+        assert "too similar to the email" in get_form_error(res)
+
+    def test_reset_password_ok(self) -> None:
+        email = "testuser2@test.com"
+        res = self.mutate_send_password_reset_email(email=email)
         assert not res["errors"]
         assert res["successMessage"] == Messages.PASSWORD_RESET_EMAIL_SENT
+
         assert len(mail.outbox) == 1
-        assert "Reset your password" in mail.outbox[0].subject
+        sent = mail.outbox[0]
+        assert sent.from_email == settings.EMAIL_NO_REPLY
+        assert sent.to == [email]
+        assert "Reset your password" in sent.subject
 
         new_password = "some_new_password"
         res = self.mutate_reset_password(
-            token=get_token_from_email(mail.outbox[0].body),
+            token=get_token_from_email(sent.body),
             new_password=new_password,
         )
         assert not res["errors"]
-        user = get_user_model().objects.get(pk=2)
+        user = self.get_authenticated_user()
         assert user.check_password(new_password)
 
+    def test_reset_password_error(self) -> None:
+        self.mutate_send_password_reset_email()
+        token = get_token_from_email(mail.outbox[0].body)
+
         # Can't reset password when not verified.
+        user = self.get_authenticated_user()
         user.verified = False
         user.save()
         res = self.mutate_send_password_reset_email()
         assert res["errors"] == MutationErrors.NOT_VERIFIED_RESET_PASSWORD
+
+        # Can't reset password to an invalid one:
+
+        # Too short password.
+        res = self.mutate_reset_password(token=token, new_password="short")
+        assert "too short" in get_form_error(res)
+
+        # Too common password.
+        res = self.mutate_reset_password(token=token, new_password="superman123")
+        assert "too common" in get_form_error(res)
+
+        # Too long password.
+        res = self.mutate_reset_password(token=token, new_password="a" * 129)
+        assert "Ensure this value has at most" in get_form_error(res)
+
+        # Password cannot be entirely numeric.
+        res = self.mutate_reset_password(token=token, new_password="0123456789101213")
+        assert "numeric" in get_form_error(res)
+
+        # Password cannot be too similar to username.
+        res = self.mutate_reset_password(token=token, new_password="testuser2")
+        assert "too similar to the username" in get_form_error(res)
+
+        # Password cannot be too similar to email.
+        res = self.mutate_reset_password(token=token, new_password="testuser2@test.com")
+        assert "too similar to the email" in get_form_error(res)

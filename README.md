@@ -15,52 +15,25 @@ See detailed description for all top-level dependencies in [`dependencies.md`](d
 
 A quick look at the top-level files and directories excluding Git ignored locations.
 
-```
-.
-├── .circleci/
-├── .github/
-├── .idea/
-├── config/
-├── media/
-├── skole/
-├── .dockerignore
-├── .flake8
-├── .gitignore
-├── .graphqlconfig
-├── Dockerfile
-├── Dockerfile.prod
-├── README.md
-├── dependencies.md
-├── docker-compose-circleci.yml
-├── manage.py
-├── mypy.ini
-├── pyproject.toml
-├── requirements-dev.txt
-├── requirements.txt
-└── schema.graphql
-```
-
-1.  **`.circleci/`**: Configuration for [CircleCI](https://circleci.com/).
-2.  **`.github/`**: Configuration for [Github Actions](https://github.com/features/actions).
-3.  **`.idea/`**: [Jetbrains](https://www.jetbrains.com/) editor configuration.
-4.  **`config/`**: Configuration for [Django](https://www.djangoproject.com/) project.
-5.  **`media/`**: Static assets and media.
-6.  **`skole/`**: Source code.
-7.  **`.dockerignore`**: List of files ignored by [Docker](https://www.docker.com/).
-8.  **`.flake8`**: Configuration for [Flake8](https://flake8.pycqa.org/en/latest/).
-9. **`.gitignore`**: List of files ignored by [Git](https://git-scm.com/).
-10. **`.graphqlconfig`**: GraphQL configuration file, used by e.g. Jetbrains editors.
-11. **`Dockerfile`**: Docker configuration for development.
-12. **`Dockerfile.prod`**: Docker configuration for production.
-13. **`README.md`**: Text file containing useful reference information about this project.
-14. **`dependencies`**: Documentation for top-level dependencies.
-15. **`docker-compose-circleci.yml`**: Docker configuration for CircleCI pipelines.
-16. **`manage.py`**: Auto-generated for Django project, see [docs](https://docs.djangoproject.com/en/3.1/ref/django-admin/).
-17. **`mypy.ini`**: Configuration for [Mypy](http://mypy-lang.org/).
-18. **`pyproject.toml`**: Configuration for various Python tools.
-19. **`requirements-dev.txt`**: List of development requirements.
-20. **`requirements.txt`**: List of production requirements.
-21. **`schema.graphql`**: GraphQL schema for noticing schema changes quickly from PRs.
+1.  [**`.circleci/`**](.circleci/): Configuration for [CircleCI](https://circleci.com/).
+2.  [**`.github/`**](.github/): Configuration for [Github Actions](https://github.com/features/actions).
+3.  [**`.idea/`**](.idea/): [Jetbrains](https://www.jetbrains.com/) editor configuration.
+4.  [**`config/`**](config/): Configuration for [Django](https://www.djangoproject.com/) project.
+5.  [**`media/`**](media/): Few media files for testing.
+6.  [**`skole/`**](skole/): Source code.
+7.  [**`.dockerignore`**](.dockerignore): List of files ignored by [Docker](https://www.docker.com/).
+8.  [**`.flake8`**](.flake8): Configuration for [Flake8](https://flake8.pycqa.org/en/latest/).
+9.  [**`.gitignore`**](.gitignore): List of files ignored by [Git](https://git-scm.com/).
+10. [**`.graphqlconfig`**](.graphqlconfig): GraphQL configuration file, used by [JS GraphQL](https://plugins.jetbrains.com/plugin/8097-js-graphql)  JetBrains IDE plugin.
+11. [**`Dockerfile`**](Dockerfile): Formal instructions for Docker how to build the image for the app.
+12. [**`README.md`**](README.md): The file you're reading.
+13. [**`dependencies.md`**](dependencies.md): Documentation about the project's top-level dependencies.
+14. [**`manage.py`**](manage.py): Auto-generated for a Django project, see [docs](https://docs.djangoproject.com/en/stable/ref/django-admin/).
+15. [**`mypy.ini`**](mypy.ini): Configuration for [Mypy](http://mypy-lang.org/).
+16. [**`pyproject.toml`**](pyproject.toml): Configuration for various Python tools.
+17. [**`requirements-dev.txt`**](requirements-dev.txt): List of development requirements.
+18. [**`requirements.txt`**](requirements.txt): List of production requirements.
+19. [**`schema.graphql`**](schema.graphql): GraphQL schema for noticing schema changes quickly from PRs.
 
 ## Development Tips 🚀
 

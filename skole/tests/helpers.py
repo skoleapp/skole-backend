@@ -16,6 +16,7 @@ from graphql_jwt.settings import jwt_settings
 from graphql_jwt.shortcuts import get_token
 from graphql_jwt.utils import delete_cookie
 
+from skole.models import User
 from skole.types import ID, JsonDict
 
 FileData = Optional[Collection[Tuple[str, File]]]
@@ -276,6 +277,17 @@ class SkoleSchemaTestCase(TestCase):
         for field in res["fields"]:
             self.assertIn(field["name"], field_fragment)
 
+    def get_authenticated_user(self) -> User:
+        """
+        Return the currently authenticated user.
+
+        Raises:
+            ValueError: If `self.authenticated_user` was `None`.
+        """
+        if self.authenticated_user is None:
+            raise ValueError("Can't call if `self.authenticated_user` is `None`.")
+        return get_user_model().objects.get(pk=self.authenticated_user)
+
     def _assert_response_no_errors(self, response: HttpResponse) -> None:
         content = json.loads(response.content)
         self.assertNotIn("errors", content)
@@ -296,7 +308,9 @@ def get_form_error(res: JsonDict, /) -> str:
     try:
         return res["errors"][0]["messages"][0]
     except (IndexError, KeyError, TypeError):
-        assert False, f"`res` didn't contain a form mutation error: \n{res}"
+        raise AssertionError(
+            f"`res` didn't contain a form mutation error: \n{res}"
+        ) from None
 
 
 def get_graphql_error(res: JsonDict, /) -> str:
@@ -304,7 +318,7 @@ def get_graphql_error(res: JsonDict, /) -> str:
     try:
         return res["errors"][0]["message"]
     except (IndexError, KeyError, TypeError):
-        assert False, f"`res` didn't contain a GraphQL error: \n{res}"
+        raise AssertionError(f"`res` didn't contain a GraphQL error: \n{res}") from None
 
 
 def is_iso_datetime(datetime_string: str, /) -> bool:
@@ -354,12 +368,19 @@ def is_slug_match(file_path: str, url_with_slug: str) -> bool:
 
 def checksum(obj: Any) -> str:
     """
-    Return a stable 10 digit hex checksum for the given object based on its source code.
+    Return a stable 20 digit hex checksum for the given object based on its source code.
 
     Useful for testing if a source code of the object has changed.
     For objects wrapped with `@wraps` or `update_wrapper`, this returns an hash for the
     *original* object's source code, since `inspect.getsource` always "unwraps" the
     object before finding the source.
+
+    Does not work with builtin objects, or others where `getsource` doens't work.
+
+    Examples:
+        >>> def foo(): pass
+        >>> checksum(foo)
+        'f5895e0ae9566948c330'
     """
     return hashlib.shake_256(  # pylint: disable=too-many-function-args
         inspect.getsource(obj).encode()
@@ -377,5 +398,20 @@ def open_as_file(path: Union[str, Path]) -> Generator[File, None, None]:
 
 
 def get_token_from_email(body: str) -> str:
+    """
+    Return the token from an email body that has an URL with a token query param.
+
+    Returns an empty string if no token was found.
+
+    Examples:
+        >>> get_token_from_email("https://foo.com/?token=secret")
+        'secret'
+        >>> get_token_from_email("Hello user www.foo.com?token=secret bye!")
+        'secret'
+        >>> get_token_from_email("Hello https://foo.com/ dude.")
+        ''
+        >>> get_token_from_email("")
+        ''
+    """
     match = re.search(r"\?token=(\S*)", body)
     return match.group(1) if match else ""

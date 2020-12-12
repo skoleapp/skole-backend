@@ -1309,7 +1309,7 @@
     master: 1
     language_code: fi
     name: Testaaja
-    description: Käyttäjille jotka tykkäävät testaamisesta
+    description: Käyttäjille jotka tykkäävät testaamisesta.
 - model: skole.BadgeTranslation
   pk: 3
   fields:

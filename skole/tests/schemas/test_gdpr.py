@@ -5,6 +5,7 @@ import zipfile
 from pathlib import Path
 
 import magic
+from django.conf import settings
 from django.core import mail
 
 from skole.tests.helpers import SkoleSchemaTestCase, get_form_error, get_graphql_error
@@ -29,7 +30,9 @@ class GdprSchemaTests(SkoleSchemaTestCase):
         res = self.mutate_my_data()
         assert not res["errors"]
         assert res["successMessage"] == Messages.DATA_REQUEST_RECEIVED
+
         assert len(mail.outbox) == 1
+        sent = mail.outbox[0]
 
         # The mutation has a rate limit.
         res = self.mutate_my_data()
@@ -37,8 +40,12 @@ class GdprSchemaTests(SkoleSchemaTestCase):
         assert "next time in" in get_form_error(res)
         assert len(mail.outbox) == 1
 
-        assert len(mail.outbox[0].attachments) == 1
-        filename, content, mimetype = mail.outbox[0].attachments[0]
+        assert "Your data request" in sent.subject
+        assert sent.from_email == settings.EMAIL_NO_REPLY
+        assert sent.to == ["testuser2@test.com"]
+
+        assert len(sent.attachments) == 1
+        filename, content, mimetype = sent.attachments[0]
         assert re.match(r"^testuser2_data_\d{8}.zip$", filename)
         assert mimetype == "application/zip"
 

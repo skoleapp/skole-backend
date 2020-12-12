@@ -406,8 +406,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert res["successMessage"] == Messages.USER_UPDATED
 
         # User is currently verified.
-        # Ignore: Mypy complains that pk could be `None`, but it's not.
-        current_user = get_user_model().objects.get(pk=self.authenticated_user)  # type: ignore[misc]
+        current_user = self.get_authenticated_user()
         assert current_user.verified
 
         # Changing the email should unverify the user, and lowercase the email.
@@ -495,11 +494,11 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert is_slug_match(UPLOADED_AVATAR_JPG, res["user"]["avatar"])
 
         # Delete the avatar.
-        assert get_user_model().objects.get(pk=2).avatar
+        assert self.get_authenticated_user().avatar
         res = self.mutate_update_user(avatar="")
         assert res["user"]["avatar"] == ""
         assert self.query_user_me()["avatar"] == ""
-        assert not get_user_model().objects.get(pk=2).avatar
+        assert not self.get_authenticated_user().avatar
 
     def test_delete_user_ok(self) -> None:
         # Delete the logged in testuser2.
@@ -508,7 +507,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert res["successMessage"] == Messages.USER_DELETED
 
         # Test that the user cannot be found anymore.
-        assert get_user_model().objects.filter(pk=2).count() == 0
+        assert not get_user_model().objects.filter(pk=2)
 
     def test_delete_user_error(self) -> None:
         # Delete the logged in testuser2.
@@ -516,14 +515,14 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert get_form_error(res) == ValidationErrors.INVALID_PASSWORD
 
         # Test that the user didn't get deleted.
-        assert get_user_model().objects.filter(pk=2).count() == 1
+        assert get_user_model().objects.filter(pk=2)
 
     def test_change_password_ok(self) -> None:
-        old_hash = get_user_model().objects.get(pk=2).password
+        old_hash = self.get_authenticated_user().password
         res = self.mutate_change_password()
         assert not res["errors"]
         assert res["successMessage"] == Messages.PASSWORD_UPDATED
-        user = get_user_model().objects.get(pk=2)
+        user = self.get_authenticated_user()
         assert old_hash != user.password
         assert user.check_password("newpassword1234")
 
@@ -576,7 +575,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
             new_password=new_password,
         )
         assert not res["errors"]
-        user = get_user_model().objects.get(pk=2)
+        user = self.get_authenticated_user()
         assert user.check_password(new_password)
 
     def test_reset_password_error(self) -> None:

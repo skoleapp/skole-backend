@@ -1,5 +1,3 @@
-from django.contrib.auth import get_user_model
-
 from skole.models import Comment, Course, Resource
 from skole.tests.helpers import (
     TEST_ATTACHMENT_PNG,
@@ -178,7 +176,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         # Can't add an attachment to the comment without having a verified account.
 
         self.authenticated_user = 3
-        assert not get_user_model().objects.get(pk=self.authenticated_user).verified
+        assert not self.get_authenticated_user().verified
 
         with open_as_file(TEST_ATTACHMENT_PNG) as attachment:
             res = self.mutate_create_comment(
@@ -255,7 +253,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         # Can't update attachment when account is not verified.
 
         self.authenticated_user = 3
-        assert not get_user_model().objects.get(pk=self.authenticated_user).verified
+        assert not self.get_authenticated_user().verified
 
         with open_as_file(TEST_ATTACHMENT_PNG) as attachment:
             res = self.mutate_update_comment(

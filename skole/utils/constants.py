@@ -2,7 +2,7 @@ from typing import Any, Dict, Tuple, Type, TypeVar, cast
 
 from django.utils.translation import gettext_lazy as _
 
-from skole.types._aliases import FormError
+from skole.types import FormError
 
 
 class Admin:

@@ -257,8 +257,8 @@ class MyDataMutation(SkoleObjectType, graphene.Mutation):
     @lru_cache
     def __target_case() -> Case:
         # Critical that `comment` is the first case here:
-        # 1. Activity queries below use this fact to take the comment as the target of
-        #    the activity if one exists.
+        # 1. Activity queries use this fact to take the comment as the target of the
+        #    activity if one exists.
         # 2. Star query slices the first case away, since comments cannot be starred.
         return Case(
             When(comment__isnull=False, then=Concat(Value("comment "), "comment")),

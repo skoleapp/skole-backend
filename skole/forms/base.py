@@ -7,10 +7,10 @@ from skole.utils.constants import ValidationErrors
 
 
 class _SkoleFormMixin:
-    def __init__(self, **kwargs: Any) -> None:
-        # Cannot be a required parameter since DjangoModelFormMutation
+    def __init__(self, *, request: Optional[HttpRequest] = None, **kwargs: Any) -> None:
+        # `request` cannot be a required parameter since `DjangoModelFormMutation`
         # initializes all forms once without passing in any args.
-        self.request: Optional[HttpRequest] = kwargs.pop("request", None)
+        self.request = request
         files = kwargs.pop("files", None) or getattr(self.request, "FILES", None)
         # Ignore: `object` doesn't take these kwargs, but forms do.
         super().__init__(**kwargs, files=files)  # type: ignore[call-arg]

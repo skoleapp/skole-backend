@@ -4,6 +4,7 @@ from ._aliases import (
     CommentableModel,
     CourseOrderingOption,
     Fixture,
+    FormError,
     JsonDict,
     PaginableModel,
     StarrableModel,

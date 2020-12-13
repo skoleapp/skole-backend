@@ -3,8 +3,7 @@ from typing import Any, Type, TypeVar
 from django import forms
 from django.db.models import Model
 
-from skole.types import JsonDict
-from skole.types._aliases import FormError
+from skole.types import FormError, JsonDict
 from skole.utils.constants import ValidationErrors
 
 T = TypeVar("T")

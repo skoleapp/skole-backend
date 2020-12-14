@@ -84,7 +84,7 @@ class SchoolSchemaTests(SkoleSchemaTestCase):
         assert res[0] == self.query_school(id=4)  # Turku University of Applied Sciences
         assert res[1] == self.query_school(id=1)  # University of Turku
 
-        # No duplicate schools returned (Trello#616).
+        # No duplicate schools returned (https://trello.com/c/PWAtHaeN).
         res = self.query_autocomplete_schools(name="Aalto")
         assert len(res) == 1
 

@@ -25,6 +25,7 @@ addopts = "--nomigrations --doctest-modules"
 
 
 [tool.pylint.master]
+ignore = "migrations"
 jobs = 0  # Use 1 process per CPU core.
 
 [tool.pylint.messages_control]

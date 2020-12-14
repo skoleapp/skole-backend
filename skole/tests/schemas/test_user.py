@@ -230,6 +230,10 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         res = self.mutate_register(username="TESTUSER2")
         assert ValidationErrors.USERNAME_TAKEN == get_form_error(res)
 
+        # Invalid characters in username.
+        res = self.mutate_register(username="@testuser")
+        assert ValidationErrors.INVALID_USERNAME == get_form_error(res)
+
         # Email taken.
         res = self.mutate_register(email="testuser2@test.com")
         assert ValidationErrors.EMAIL_TAKEN == get_form_error(res)
@@ -458,6 +462,10 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert len(res["errors"]) == 1
         assert get_form_error(res) == ValidationErrors.USERNAME_TAKEN
         assert res["user"] is None
+
+        # Invalid characters in username.
+        res = self.mutate_update_user(username="test-user")
+        assert ValidationErrors.INVALID_USERNAME == get_form_error(res)
 
         # Same username with different casing is already taken.
         res = self.mutate_update_user(username="TESTUSER3")

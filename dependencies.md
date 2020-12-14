@@ -40,28 +40,19 @@ This document explains the need for every top level dependency the project has.
 | [pytest-django](https://pypi.org/project/pytest-django/) | Django specific pytest fixtures and a lot more |
 | [pytest](https://pypi.org/project/pytest/)               | Unit testing                                   |
 
-## Alpine Packages
+## Debian Packages
 
-### Build time packages
-
-| Dependency                                                                             | Reason                                   |
-| :------------------------------------------------------------------------------------- | :--------------------------------------- |
-| [gcc](https://pkgs.alpinelinux.org/package/edge/main/x86_64/gcc)                       | Build the wheels for Pillow and psycopg2 |
-| [musl-dev](https://pkgs.alpinelinux.org/package/edge/main/x86_64/musl-dev)             | Build the wheel for Pillow               |
-| [postgresql-dev](https://pkgs.alpinelinux.org/package/edge/main/x86_64/postgresql-dev) | Build the wheel for psycopg2             |
-| [zlib-dev](https://pkgs.alpinelinux.org/package/edge/main/x86_64/zlib-dev)             | Build the wheel for Pillow               |
-
-### Runtime packages
-
-| Dependency                                                                                                    | Reason                                        |
-| :------------------------------------------------------------------------------------------------------------ | :-------------------------------------------- |
-| [cairo-dev](https://pkgs.alpinelinux.org/package/edge/main/x86_64/cairo-dev)                                  | Build and use mat2 to clean file metadata     |
-| [exiftool](https://pkgs.alpinelinux.org/package/edge/community/x86_64/exiftool)                               | Use mat2 to clean file metadata               |
-| [gdk-pixbuf-dev](https://pkgs.alpinelinux.org/package/edge/main/x86_64/gdk-pixbuf-dev)                        | Use mat2 to clean file metadata               |
-| [gettext](https://pkgs.alpinelinux.org/package/edge/main/x86_64/gettext)                                      | Run Django compilemessages                    |
-| [gobject-introspection-dev](https://pkgs.alpinelinux.org/package/edge/main/x86_64/gobject-introspection-dev)  | Build and use mat2 to clean file metadata     |
-| [jpeg-dev](https://pkgs.alpinelinux.org/package/edge/main/x86_64/jpeg-dev)                                    | Build and use Pillow                          |
-| [libmagic](https://pkgs.alpinelinux.org/package/edge/main/x86_64/libmagic)                                    | Guess file types with python-magic            |
-| [librsvg-dev](https://pkgs.alpinelinux.org/package/edge/community/x86_64/librsvg-dev)                         | Use mat2 to clean file metadata               |
-| [poppler-dev](https://pkgs.alpinelinux.org/package/edge/main/x86_64/poppler-dev)                              | Use mat2 to clean file metadata               |
-| [postgresql-client](https://pkgs.alpinelinux.org/package/edge/main/x86_64/postgresql-client)                  | Connect to PostgreSQL with psycopg2           |
+| Dependency                                                                             | Reason                                        |
+| :------------------------------------------------------------------------------------- | :-------------------------------------------- |
+| [gcc](https://packages.debian.org/buster/gcc)                                          | Build the wheels for Pillow and psycopg2      |
+| [gettext](https://packages.debian.org/buster/gettext)                                  | Run Django's makemessages and compilemessages |
+| [gir1.2-gdkpixbuf-2.0](https://packages.debian.org/buster/gir1.2-gdkpixbuf-2.0)        | Use mat2 to clean file metadata               |
+| [gir1.2-poppler-0.18](https://packages.debian.org/buster/gir1.2-poppler-0.18)          | Use mat2 to clean file metadata               |
+| [gir1.2-rsvg-2.0](https://packages.debian.org/buster/gir1.2-rsvg-2.0)                  | Use mat2 to clean file metadata               |
+| [libcairo2-dev](https://packages.debian.org/buster/libcairo2-dev)                      | Build and use mat2 to clean file metadata     |
+| [libgirepository1.0-dev](https://packages.debian.org/buster/libgirepository1.0-dev)    | Use mat2 to clean file metadata               |
+| [libmagic-dev](https://packages.debian.org/buster/libmagic-dev)                        | Guess file types with python-magic            |
+| [libimage-exiftool-perl](https://packages.debian.org/buster/libimage-exiftool-perl)    | Use mat2 to clean file metadata               |
+| [libpq-dev](https://packages.debian.org/buster/libpq-dev)                              | Connect to PostgreSQL with psycopg2           |
+| [python3-gi-cairo](https://packages.debian.org/buster/python3-gi-cairo)                | Use mat2 to clean file metadata               |
+| [python3-mutagen](https://packages.debian.org/buster/python3-mutagen)                  | Use mat2 to clean file metadata               |

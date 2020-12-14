@@ -1,6 +1,7 @@
-FROM python:3.9.1-alpine3.12 AS dev
+FROM python:3.9.1-slim-buster AS dev
 
-RUN adduser --disabled-password user
+RUN groupadd --gid=10001 user \
+    && useradd --gid=user --uid=10000 --create-home user
 WORKDIR /home/user/app
 RUN chown user:user /home/user/app
 
@@ -19,26 +20,22 @@ ARG dev_requirements=requirements.txt
 COPY --chown=user:user requirements.txt .
 COPY --chown=user:user ${dev_requirements} .
 
-RUN apk update \
-    && apk add \
-        cairo-dev \
-        exiftool \
-        gettext \
-        gdk-pixbuf-dev \
-        gobject-introspection-dev \
-        jpeg-dev \
-        libmagic \
-        librsvg-dev \
-        poppler-dev \
-        postgresql-client \
-    && apk add --virtual=/tmp/build_deps \
+RUN apt-get update \
+    && apt-get install --no-install-recommends --assume-yes \
         gcc \
-        musl-dev \
-        postgresql-dev \
-        zlib-dev \
-    && su user -c 'pip install --user --no-cache-dir --disable-pip-version-check pip==20.3.1' \
-    && su user -c "pip install --user --no-cache-dir -r requirements.txt $([ -f requirements-dev.txt ] && echo '-r requirements-dev.txt')" \
-    && apk del /tmp/build_deps && rm -rf /var/cache/apk/*
+        gettext \
+        gir1.2-gdkpixbuf-2.0 \
+        gir1.2-poppler-0.18 \
+        gir1.2-rsvg-2.0 \
+        libcairo2-dev \
+        libgirepository1.0-dev \
+        libmagic-dev \
+        libimage-exiftool-perl \
+        libpq-dev \
+        python3-gi-cairo \
+        python3-mutagen \
+    && su user --command='pip install --user --no-cache-dir --disable-pip-version-check pip==20.3.1' \
+    && su user --command="pip install --user --no-cache-dir -r requirements.txt $([ -f requirements-dev.txt ] && echo '-r requirements-dev.txt')"
 
 USER user
 

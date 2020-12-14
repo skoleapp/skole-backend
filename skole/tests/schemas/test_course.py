@@ -262,9 +262,12 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         assert res["errors"] == MutationErrors.AUTH_REQUIRED
 
     def test_delete_course(self) -> None:
+        old_count = Course.objects.count()
+
         res = self.mutate_delete_course(id=1)
         assert res["successMessage"] == Messages.COURSE_DELETED
         assert Course.objects.get_or_none(pk=1) is None
+        assert Course.objects.count() == old_count - 1
 
         # Can't delete the same course again.
         res = self.mutate_delete_course(id=1, assert_error=True)
@@ -273,6 +276,8 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         # Can't delete an other user's course.
         res = self.mutate_delete_course(id=2)
         assert res["errors"] == MutationErrors.NOT_OWNER
+
+        assert Course.objects.count() == old_count - 1
 
     def test_courses(self) -> None:  # pylint: disable=too-many-statements
         # When searching courses the default ordering is by names, so the order will be:

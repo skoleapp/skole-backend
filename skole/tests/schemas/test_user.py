@@ -509,6 +509,8 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert not self.get_authenticated_user().avatar
 
     def test_delete_user_ok(self) -> None:
+        old_count = get_user_model().objects.count()
+
         # Delete the logged in testuser2.
         res = self.mutate_delete_user()
         assert not res["errors"]
@@ -516,14 +518,18 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
 
         # Test that the user cannot be found anymore.
         assert not get_user_model().objects.filter(pk=2)
+        assert get_user_model().objects.count() == old_count - 1
 
     def test_delete_user_error(self) -> None:
+        old_count = get_user_model().objects.count()
+
         # Delete the logged in testuser2.
         res = self.mutate_delete_user(password="wrongpass")
         assert get_form_error(res) == ValidationErrors.INVALID_PASSWORD
 
         # Test that the user didn't get deleted.
         assert get_user_model().objects.filter(pk=2)
+        assert get_user_model().objects.count() == old_count
 
     def test_change_password_ok(self) -> None:
         old_hash = self.get_authenticated_user().password
@@ -590,12 +596,12 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         self.mutate_send_password_reset_email()
         token = get_token_from_email(mail.outbox[0].body)
 
-        # Can't reset password when not verified.
+        # Email not found.
         user = self.get_authenticated_user()
         user.verified = False
         user.save()
-        res = self.mutate_send_password_reset_email()
-        assert res["errors"] == MutationErrors.NOT_VERIFIED_RESET_PASSWORD
+        res = self.mutate_send_password_reset_email(email="foobar@test.com")
+        assert res["errors"] == MutationErrors.USER_NOT_FOUND_WITH_EMAIL
 
         # Can't reset password to an invalid one:
 

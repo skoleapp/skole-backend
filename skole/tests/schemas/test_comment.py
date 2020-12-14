@@ -276,13 +276,18 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         assert res["comment"] is None
 
     def test_delete_comment(self) -> None:
+        old_count = Comment.objects.count()
+
         assert Comment.objects.filter(pk=1)
         res = self.mutate_delete_comment(id=1)
         assert res["successMessage"] == Messages.COMMENT_DELETED
         assert not Comment.objects.filter(pk=1)
+        assert Comment.objects.count() == old_count - 1
 
         res = self.mutate_delete_comment(id=1, assert_error=True)
         assert get_graphql_error(res) == "Comment matching query does not exist."
 
         res = self.mutate_delete_comment(id=2)
         assert get_form_error(res) == ValidationErrors.NOT_OWNER
+
+        assert Comment.objects.count() == old_count - 1

@@ -33,7 +33,7 @@ from skole.utils.email import (
     send_password_reset_email,
     send_verification_email,
 )
-from skole.utils.exceptions import TokenScopeError, UserAlreadyVerified, UserNotVerified
+from skole.utils.exceptions import TokenScopeError, UserAlreadyVerified
 from skole.utils.token import get_token_payload, revoke_user_refresh_tokens
 
 from ..base import SkoleCreateUpdateMutationMixin, SkoleObjectType
@@ -167,16 +167,6 @@ class SendPasswordResetEmailMutation(
         except SMTPException:
             return cls(errors=MutationErrors.EMAIL_ERROR)
 
-        except UserNotVerified:
-            user = get_user_model().objects.get(email=email)
-
-            try:
-                resend_verification_email(user, info)
-                return cls(errors=MutationErrors.NOT_VERIFIED_RESET_PASSWORD)
-
-            except SMTPException:
-                return cls(errors=MutationErrors.EMAIL_ERROR)
-
 
 class ResetPasswordMutation(
     SkoleCreateUpdateMutationMixin, SuccessMessageMixin, DjangoFormMutation
@@ -290,7 +280,7 @@ class ChangePasswordMutation(
 ):
     """Change password with a requirement of knowing the old password."""
 
-    verification_required = True
+    login_required = True
 
     class Meta:
         form_class = ChangePasswordForm

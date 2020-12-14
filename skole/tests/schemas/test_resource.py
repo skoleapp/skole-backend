@@ -416,9 +416,12 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
         assert res["resource"] is None
 
     def test_delete_resource(self) -> None:
+        old_count = Resource.objects.count()
+
         res = self.mutate_delete_resource(id=1)
         assert res["successMessage"] == Messages.RESOURCE_DELETED
         assert Resource.objects.get_or_none(pk=1) is None
+        assert Resource.objects.count() == old_count - 1
 
         # Can't delete the same resource again.
         res = self.mutate_delete_resource(id=1, assert_error=True)
@@ -427,6 +430,8 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
         # Can't delete an other user's resource.
         res = self.mutate_delete_resource(id=2)
         assert res["errors"] == MutationErrors.NOT_OWNER
+
+        assert Resource.objects.count() == old_count - 1
 
     def test_download_resource(self) -> None:
         resource = Resource.objects.get(pk=1)

@@ -223,5 +223,11 @@ class SkoleDeleteMutationMixin(SkoleCreateUpdateMutationMixin, SuccessMessageMix
     def perform_mutate(
         cls, form: SkoleUpdateModelForm, info: ResolveInfo
     ) -> SkoleDeleteMutationMixin:
+        # Don't call super here, because we don't want to end up calling
+        # `DjangoModelFormMutation.perform_mutate()` which then calls `form.save()`,
+        # and immediately creates a new instance with the just deleted objects data.
+        # We also don't want to first call super, and then delete the instance, since
+        # that just creates one extra `save()` call that we don't need.
         form.instance.delete()
-        return super().perform_mutate(form, info)
+        # Ignore: This call is valid in subclasses which inherit from `ObjectType`.
+        return cls(success_message=cls.success_message_value)  # type: ignore[call-arg]

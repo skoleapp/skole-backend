@@ -3069,16 +3069,6 @@
     modified: "2020-03-15 12:00:00.000000+00:00"
     created: "2020-03-15 12:00:00.000000+00:00"
 - model: skole.Course
-  pk: 416
-  fields:
-    name: "Testijakso 2 uusitesti kolmastesti 29062020"
-    code: "ÖPAIRAH2"
-    subjects: [78, 79]
-    school: 1
-    user: null
-    modified: "2020-03-15 12:00:00.000000+00:00"
-    created: "2020-03-15 12:00:00.000000+00:00"
-- model: skole.Course
   pk: 417
   fields:
     name: "KVPG Kansainvälisen liiketoiminnan pro gradu -tutkielma"
@@ -53089,16 +53079,6 @@
     modified: "2020-03-15 12:00:00.000000+00:00"
     created: "2020-03-15 12:00:00.000000+00:00"
 - model: skole.Course
-  pk: 5418
-  fields:
-    name: "TESTITESTITESTI"
-    code: "TEST9001"
-    subjects: [147]
-    school: 1
-    user: null
-    modified: "2020-03-15 12:00:00.000000+00:00"
-    created: "2020-03-15 12:00:00.000000+00:00"
-- model: skole.Course
   pk: 5419
   fields:
     name: "VE Muualla suoritetut opinnot III"
@@ -68424,16 +68404,6 @@
     name: "Sisätautien rotaatio"
     code: "SISÄ9004"
     subjects: [87]
-    school: 1
-    user: null
-    modified: "2020-03-15 12:00:00.000000+00:00"
-    created: "2020-03-15 12:00:00.000000+00:00"
-- model: skole.Course
-  pk: 6952
-  fields:
-    name: "Toinen testi 23042020 testi"
-    code: "ÖANTES"
-    subjects: [211]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"

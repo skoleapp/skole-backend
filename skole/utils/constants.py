@@ -158,3 +158,13 @@ class ActivityTypes:
     COMMENT_REPLY = "comment_reply"
     COURSE_COMMENT = "course_comment"
     RESOURCE_COMMENT = "resource_comment"
+
+
+class VerboseNames:
+    USERNAME = _("username")
+    EMAIL = _("email")
+
+
+DJANGO_STANDARD_MESSAGES_TO_OVERRIDE = [
+    _("The password is too similar to the %(verbose_name)s.")
+]

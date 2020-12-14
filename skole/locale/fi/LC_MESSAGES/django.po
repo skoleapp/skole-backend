@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-11 15:42+0000\n"
+"POT-Creation-Date: 2020-12-14 17:47+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Skole\n"
@@ -309,3 +309,16 @@ msgstr "Tohtori"
 #: skole/utils/constants.py:152
 msgid "Professor"
 msgstr "Professori"
+
+#: skole/utils/constants.py:164
+msgid "username"
+msgstr "käyttäjänimi"
+
+#: skole/utils/constants.py:165
+msgid "email"
+msgstr "sähköposti"
+
+#: skole/utils/constants.py:169
+#, python-format
+msgid "The password is too similar to the %(verbose_name)s."
+msgstr "Salasana on liian samankaltainen kuin %(verbose_name)s."

@@ -9,7 +9,7 @@ from django.utils import timezone
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
 
-from skole.utils.constants import Ranks, TokenAction, ValidationErrors
+from skole.utils.constants import Ranks, TokenAction, ValidationErrors, VerboseNames
 from skole.utils.exceptions import UserAlreadyVerified
 from skole.utils.token import get_token_payload
 from skole.utils.validators import ValidateFileSizeAndType
@@ -65,6 +65,7 @@ class User(SkoleModel, AbstractBaseUser, PermissionsMixin):
     _identifier_field = "username"
 
     username = models.CharField(
+        VerboseNames.USERNAME,
         max_length=30,
         unique=True,
         error_messages={"unique": ValidationErrors.USERNAME_TAKEN},
@@ -74,7 +75,9 @@ class User(SkoleModel, AbstractBaseUser, PermissionsMixin):
     )
 
     email = models.EmailField(
-        unique=True, error_messages={"unique": ValidationErrors.EMAIL_TAKEN}
+        VerboseNames.EMAIL,
+        unique=True,
+        error_messages={"unique": ValidationErrors.EMAIL_TAKEN},
     )
 
     title = models.CharField(max_length=100, blank=True)

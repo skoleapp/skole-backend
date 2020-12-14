@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-14 17:47+0000\n"
+"POT-Creation-Date: 2020-12-14 20:11+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Skole\n"
@@ -246,31 +246,23 @@ msgstr ""
 "Käyttäjää ei löytynyt antamallasi sähköpostiosoitteella. Ole hyvä ja "
 "tarkista sähköpostiosoitteesi."
 
-#: skole/utils/constants.py:115
-msgid ""
-"You must verify your account before resetting your password. A new "
-"verification email was sent. Please check your email."
-msgstr ""
-"Sinun tulee vahvistaa tilisi ennen kuin voit nollata salasanasi.Uusi "
-"vahvistussähköposti lähetettiin. Ole hyvä ja tarkista sähköpostisi."
-
-#: skole/utils/constants.py:118
+#: skole/utils/constants.py:114
 msgid "This account has been removed."
 msgstr "Tämä tili on poistettu."
 
-#: skole/utils/constants.py:120
+#: skole/utils/constants.py:116
 msgid "Token expired. Please request new password reset link."
 msgstr "Token vanhentunut. Ole hyvä ja pyydä uutta salasanan nollauslinkkiä."
 
-#: skole/utils/constants.py:123
+#: skole/utils/constants.py:119
 msgid "Invalid token. Please request new password reset link."
 msgstr "Virheellinen token. Ole hyvä ja pyydä uutta salasanan nollauslinkkiä."
 
-#: skole/utils/constants.py:125
+#: skole/utils/constants.py:121
 msgid "This action is only allowed for authenticated users."
 msgstr "Tämä toiminto on sallittu ainoastaan kirjautuneille käyttäjille."
 
-#: skole/utils/constants.py:127
+#: skole/utils/constants.py:123
 msgid ""
 "This action is only allowed for users who have verified their accounts. "
 "Please verify your account."
@@ -278,47 +270,47 @@ msgstr ""
 "Tämä toiminto on sallittu ainoastaan käyttäjille jotka ovat vahvistaneet "
 "tilinsä. Ole hyvä ja vahista tilisi."
 
-#: skole/utils/constants.py:130
+#: skole/utils/constants.py:126
 msgid "You can request this next time in {} min."
 msgstr "Voit pyytää tätä uudestaan {} minuutin kuluttua."
 
-#: skole/utils/constants.py:146
+#: skole/utils/constants.py:142
 msgid "Freshman"
 msgstr "Fuksi"
 
-#: skole/utils/constants.py:147
+#: skole/utils/constants.py:143
 msgid "Tutor"
 msgstr "Tuutori"
 
-#: skole/utils/constants.py:148
+#: skole/utils/constants.py:144
 msgid "Mentor"
 msgstr "Mentori"
 
-#: skole/utils/constants.py:149
+#: skole/utils/constants.py:145
 msgid "Bachelor"
 msgstr "Kandidaatti"
 
-#: skole/utils/constants.py:150
+#: skole/utils/constants.py:146
 msgid "Master"
 msgstr "Maisteri"
 
-#: skole/utils/constants.py:151
+#: skole/utils/constants.py:147
 msgid "Doctor"
 msgstr "Tohtori"
 
-#: skole/utils/constants.py:152
+#: skole/utils/constants.py:148
 msgid "Professor"
 msgstr "Professori"
 
-#: skole/utils/constants.py:164
+#: skole/utils/constants.py:160
 msgid "username"
 msgstr "käyttäjänimi"
 
-#: skole/utils/constants.py:165
+#: skole/utils/constants.py:161
 msgid "email"
 msgstr "sähköposti"
 
-#: skole/utils/constants.py:169
+#: skole/utils/constants.py:165
 #, python-format
 msgid "The password is too similar to the %(verbose_name)s."
 msgstr "Salasana on liian samankaltainen kuin %(verbose_name)s."

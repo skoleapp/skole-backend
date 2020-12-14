@@ -590,12 +590,12 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         self.mutate_send_password_reset_email()
         token = get_token_from_email(mail.outbox[0].body)
 
-        # Can't reset password when not verified.
+        # Email not found.
         user = self.get_authenticated_user()
         user.verified = False
         user.save()
-        res = self.mutate_send_password_reset_email()
-        assert res["errors"] == MutationErrors.NOT_VERIFIED_RESET_PASSWORD
+        res = self.mutate_send_password_reset_email(email="foobar@test.com")
+        assert res["errors"] == MutationErrors.USER_NOT_FOUND_WITH_EMAIL
 
         # Can't reset password to an invalid one:
 

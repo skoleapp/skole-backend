@@ -11,7 +11,7 @@ from django.utils.html import strip_tags
 from skole.models import User
 from skole.types import JsonDict, ResolveInfo
 from skole.utils.constants import Email, TokenAction
-from skole.utils.exceptions import UserAlreadyVerified, UserNotVerified
+from skole.utils.exceptions import UserAlreadyVerified
 from skole.utils.token import get_token
 
 
@@ -75,9 +75,6 @@ def resend_verification_email(user: User, info: ResolveInfo) -> None:
 
 
 def send_password_reset_email(user: User, info: ResolveInfo, recipient: str) -> None:
-    if not user.verified:
-        raise UserNotVerified
-
     email_context = _get_auth_email_context(
         user, info, settings.PASSWORD_RESET_PATH_ON_EMAIL, TokenAction.PASSWORD_RESET
     )

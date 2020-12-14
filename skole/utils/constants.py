@@ -111,10 +111,6 @@ class MutationErrors(metaclass=_MutationErrorsMeta):
     USER_NOT_FOUND_WITH_EMAIL = _c(_(
         "User with the provided email was not found. Please check you email address."
     ))
-    NOT_VERIFIED_RESET_PASSWORD = _c(_(
-        "You must verify your account before resetting your password."
-        " A new verification email was sent. Please check your email."
-    ))
     ACCOUNT_REMOVED = _c(_("This account has been removed."))
     TOKEN_EXPIRED_RESET_PASSWORD = _c(_(
         "Token expired. Please request new password reset link."

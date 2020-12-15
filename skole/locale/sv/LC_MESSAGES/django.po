@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-14 20:11+0000\n"
+"POT-Creation-Date: 2020-12-15 20:49+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Skole\n"
@@ -13,21 +13,25 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: skole/templates/email/my_data_email_body.html:3
-#: skole/templates/email/reset_password_body.html:3
-#: skole/templates/email/verify_account_body.html:3
+#: skole/templates/email/_signature.html:2
+msgid "P.S. You can always reply to our emails."
+msgstr "P.S. Du kan alltid svara på vår e-post."
+
+#: skole/templates/email/my_data.html:2
+#: skole/templates/email/reset_password.html:2
+#: skole/templates/email/verify_account.html:2
 msgid "Hello"
 msgstr "Hej"
 
-#: skole/templates/email/my_data_email_body.html:5
+#: skole/templates/email/my_data.html:4
 msgid "Please find your data attached."
 msgstr "Din data är bifogad."
 
-#: skole/templates/email/reset_password_body.html:5
+#: skole/templates/email/reset_password.html:4
 msgid "Reset your password on the link:"
 msgstr "Återställ ditt lösenord på länken:"
 
-#: skole/templates/email/verify_account_body.html:5
+#: skole/templates/email/verify_account.html:4
 msgid "Please verify your account on the link:"
 msgstr "Kontrollera ditt konto på länken:"
 

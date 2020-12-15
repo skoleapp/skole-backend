@@ -1,7 +1,8 @@
 {% load i18n %}
-
 <p>{% translate "Hello" %} {{ user.username }}!</p>
 
-<p>{% translate "Reset your password on the link:" %}</p>
+<p>{% translate "Please verify your account on the link:" %}</p>
 
 <a href="{{ url }}">{{ url }}</a>
+
+{% include "email/_signature.html" %}

@@ -41,7 +41,7 @@ class GdprSchemaTests(SkoleSchemaTestCase):
         assert len(mail.outbox) == 1
 
         assert "Your data request" in sent.subject
-        assert sent.from_email == settings.EMAIL_NO_REPLY
+        assert sent.from_email == settings.EMAIL_ADDRESS
         assert sent.to == ["testuser2@test.com"]
 
         assert len(sent.attachments) == 1

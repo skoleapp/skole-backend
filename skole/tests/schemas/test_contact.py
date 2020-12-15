@@ -39,8 +39,8 @@ class ContactSchemaTests(SkoleSchemaTestCase):
         assert len(mail.outbox) == 1
         sent = mail.outbox[0]
 
-        assert sent.from_email == settings.EMAIL_CONTACT_FROM
-        assert sent.to == [settings.EMAIL_CONTACT_TO]
+        assert sent.from_email == settings.EMAIL_ADDRESS
+        assert sent.to == [settings.EMAIL_ADDRESS]
 
         assert subject in sent.subject
         assert name in sent.body

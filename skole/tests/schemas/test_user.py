@@ -198,7 +198,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
 
         assert len(mail.outbox) == 1
         sent = mail.outbox[0]
-        assert sent.from_email == settings.EMAIL_NO_REPLY
+        assert sent.from_email == settings.EMAIL_ADDRESS
         assert sent.to == [email]
 
         # Username should keep its casing, mut email should be lowercased.
@@ -211,7 +211,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert len(mail.outbox) == 2
 
         sent = mail.outbox[1]
-        assert sent.from_email == settings.EMAIL_NO_REPLY
+        assert sent.from_email == settings.EMAIL_ADDRESS
         assert sent.to == ["mail@example.com"]
         assert "Verify" in sent.subject
 
@@ -290,7 +290,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
 
         assert len(mail.outbox) == 1
         sent = mail.outbox[0]
-        assert sent.from_email == settings.EMAIL_NO_REPLY
+        assert sent.from_email == settings.EMAIL_ADDRESS
         assert sent.to == ["testuser3@test.com"]
         assert "Verify" in sent.subject
 
@@ -579,7 +579,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
 
         assert len(mail.outbox) == 1
         sent = mail.outbox[0]
-        assert sent.from_email == settings.EMAIL_NO_REPLY
+        assert sent.from_email == settings.EMAIL_ADDRESS
         assert sent.to == [email]
         assert "Reset your password" in sent.subject
 

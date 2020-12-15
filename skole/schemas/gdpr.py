@@ -203,13 +203,12 @@ class MyDataMutation(SkoleObjectType, graphene.Mutation):
 
     @classmethod
     def __send_email(cls, user: User, json_data: str) -> None:
-        html_message = render_to_string(
-            settings.EMAIL_TEMPLATE_MY_DATA, context={"user": user}
-        )
+        html_message = render_to_string("email/my_data.html", context={"user": user})
+
         mail = EmailMultiAlternatives(
             subject=Email.MY_DATA_SUBJECT,
             body=strip_tags(html_message),
-            from_email=settings.EMAIL_NO_REPLY,
+            from_email=settings.EMAIL_ADDRESS,
             to=(user.email,),
             connection=get_connection(),
         )

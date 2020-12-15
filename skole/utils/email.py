@@ -27,7 +27,7 @@ def _send(
 
     send_mail(
         subject=subject,
-        from_email=settings.EMAIL_NO_REPLY,
+        from_email=settings.EMAIL_ADDRESS,
         message=message,
         html_message=html_message,
         recipient_list=(recipient_list or [user.email]),
@@ -48,18 +48,6 @@ def _get_auth_email_context(
 
 
 def send_verification_email(user: User, info: ResolveInfo) -> None:
-    email_context = _get_auth_email_context(
-        user, info, settings.VERIFICATION_PATH_ON_EMAIL, TokenAction.VERIFICATION
-    )
-    return _send(
-        subject=Email.VERIFY_ACCOUNT_SUBJECT,
-        template=settings.EMAIL_TEMPLATE_VERIFICATION,
-        context=email_context,
-        user=user,
-    )
-
-
-def resend_verification_email(user: User, info: ResolveInfo) -> None:
     if user.verified:
         raise UserAlreadyVerified
 
@@ -68,9 +56,9 @@ def resend_verification_email(user: User, info: ResolveInfo) -> None:
     )
     return _send(
         subject=Email.VERIFY_ACCOUNT_SUBJECT,
-        template=settings.EMAIL_TEMPLATE_VERIFICATION,
-        user=user,
+        template="email/verify_account.html",
         context=email_context,
+        user=user,
     )
 
 
@@ -80,7 +68,7 @@ def send_password_reset_email(user: User, info: ResolveInfo, recipient: str) -> 
     )
     return _send(
         subject=Email.RESET_PASSWORD_SUBJECT,
-        template=settings.EMAIL_TEMPLATE_PASSWORD_RESET,
+        template="email/reset_password.html",
         user=user,
         context=email_context,
         recipient_list=[recipient],

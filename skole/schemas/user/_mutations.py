@@ -28,11 +28,7 @@ from skole.overridden import login_required
 from skole.schemas.mixins import SuccessMessageMixin
 from skole.types import JsonDict, ResolveInfo
 from skole.utils.constants import Messages, MutationErrors, TokenAction
-from skole.utils.email import (
-    resend_verification_email,
-    send_password_reset_email,
-    send_verification_email,
-)
+from skole.utils.email import send_password_reset_email, send_verification_email
 from skole.utils.exceptions import TokenScopeError, UserAlreadyVerified
 from skole.utils.token import get_token_payload, revoke_user_refresh_tokens
 
@@ -125,7 +121,7 @@ class ResendVerificationEmailMutation(SkoleObjectType, graphene.Mutation):
         user = cast(User, info.context.user)
 
         try:
-            resend_verification_email(user, info)
+            send_verification_email(user, info)
             return cls(success_message=Messages.VERIFICATION_EMAIL_SENT)
         except SMTPException:
             return cls(errors=MutationErrors.EMAIL_ERROR)

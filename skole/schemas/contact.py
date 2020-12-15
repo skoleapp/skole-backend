@@ -37,18 +37,16 @@ class ContactMutation(
             "email": email,
         }
 
-        message_template = settings.EMAIL_TEMPLATE_CONTACT
-
-        html_message = render_to_string(message_template, context)
+        html_message = render_to_string("email/contact.html", context)
         message = strip_tags(html_message)
 
         try:
             send_mail(
                 subject=subject,
-                from_email=settings.EMAIL_CONTACT_FROM,
+                from_email=settings.EMAIL_ADDRESS,
                 message=message,
                 html_message=html_message,
-                recipient_list=[settings.EMAIL_CONTACT_TO],
+                recipient_list=[settings.EMAIL_ADDRESS],
                 fail_silently=False,
             )
 

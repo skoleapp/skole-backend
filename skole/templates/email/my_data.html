@@ -1,5 +1,6 @@
 {% load i18n %}
-
 <p>{% translate "Hello" %} {{ user.username }}!</p>
 
 <p>{% translate "Please find your data attached." %}</p>
+
+{% include "email/_signature.html" %}

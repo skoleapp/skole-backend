@@ -199,19 +199,9 @@ else:
     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 # Custom email settings
-EMAIL_NO_REPLY = os.environ.get("EMAIL_NO_REPLY", default="noreply@test.com")
-EMAIL_CONTACT_FROM = os.environ.get(
-    "EMAIL_CONTACT_FROM", default="contact.sender@test.com"
-)
-EMAIL_CONTACT_TO = os.environ.get(
-    "EMAIL_CONTACT_TO", default="contact.recipient@test.com"
-)
-VERIFICATION_PATH_ON_EMAIL = "account/verify-account"
-PASSWORD_RESET_PATH_ON_EMAIL = "account/reset-password"
-EMAIL_TEMPLATE_PASSWORD_RESET = "email/reset_password_body.html"
-EMAIL_TEMPLATE_VERIFICATION = "email/verify_account_body.html"
-EMAIL_TEMPLATE_CONTACT = "email/contact_email_body.html"
-EMAIL_TEMPLATE_MY_DATA = "email/my_data_email_body.html"
+EMAIL_ADDRESS = os.environ.get("EMAIL_ADDRESS", default="contact@test.com")
+VERIFICATION_PATH_ON_EMAIL = "account/verify-account"  # Have to match with frontend.
+PASSWORD_RESET_PATH_ON_EMAIL = "account/reset-password"  # Have to match with frontend.
 
 # Maximum amount of results for autocomplete queries.
 AUTOCOMPLETE_MAX_RESULTS = 50

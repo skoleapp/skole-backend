@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core import mail
+from django.utils import translation
 
 from skole.tests.helpers import (
     TEST_AVATAR_JPG,
@@ -293,6 +294,24 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert sent.from_email == settings.EMAIL_ADDRESS
         assert sent.to == ["testuser3@test.com"]
         assert "Verify" in sent.subject
+        assert "http://localhost:3001/account/verify-account" in sent.body
+
+        # Test that the language appears correctly in the urls.
+        with translation.override("fi"):
+            self.mutate_resend_verification_email()
+        assert len(mail.outbox) == 2
+        sent = mail.outbox[1]
+        assert "http://localhost:3001/fi/account/verify-account" in sent.body
+        with translation.override("sv"):
+            self.mutate_resend_verification_email()
+        assert len(mail.outbox) == 3
+        sent = mail.outbox[2]
+        assert "http://localhost:3001/sv/account/verify-account" in sent.body
+        with translation.override("en"):
+            self.mutate_resend_verification_email()
+        assert len(mail.outbox) == 4
+        sent = mail.outbox[3]
+        assert "http://localhost:3001/account/verify-account" in sent.body
 
         # Works with the token that was sent in the email.
         res = self.mutate_verify_account(token=get_token_from_email(sent.body))

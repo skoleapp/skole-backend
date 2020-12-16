@@ -7,6 +7,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
+from django.utils.translation import get_language
 
 from skole.models import User
 from skole.types import JsonDict, ResolveInfo
@@ -42,7 +43,12 @@ def _get_auth_email_context(
     site = get_current_site(info.context)
     protocol = "http" if settings.DEBUG else "https"
 
-    url = f"{protocol}://{site.domain}/{path}?token={token}"
+    if (active := get_language()) != settings.LANGUAGE_CODE:
+        lang = f"{active}/"
+    else:
+        lang = ""
+
+    url = f"{protocol}://{site.domain}/{lang}{path}?token={token}"
 
     return {"user": user, "url": url}
 

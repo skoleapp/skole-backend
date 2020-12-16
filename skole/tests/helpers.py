@@ -12,6 +12,7 @@ from django.contrib.auth import get_user_model
 from django.core.files import File
 from django.http import HttpResponse
 from django.test import TestCase
+from django.utils.translation import get_language
 from graphql_jwt.settings import jwt_settings
 from graphql_jwt.shortcuts import get_token
 from graphql_jwt.utils import delete_cookie
@@ -115,7 +116,12 @@ class SkoleSchemaTestCase(TestCase):
             data = json.dumps(body)
             extra.update({"content_type": "application/json"})
 
-        return self.client.post(path="/graphql/", data=data, **extra)
+        return self.client.post(
+            path="/graphql/",
+            data=data,
+            **extra,
+            HTTP_ACCEPT_LANGUAGE=get_language(),
+        )
 
     def execute(
         self, graphql: str, *, assert_error: bool = False, **kwargs: Any

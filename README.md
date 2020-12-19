@@ -38,7 +38,7 @@ A quick look at the top-level files and directories excluding Git ignored locati
 ## Development Tips 🚀
 
 - No pull requests can be merged without CircleCI first building and running [`Dockerfile`](Dockerfile) against it.
-  See the bottommost `CMD` in it for the full list of stuff it runs and validates.
+  See the `CMD` of the `circleci` stage for the full list of stuff it runs and validates.
   CircleCI also verifies the code style, so there is no need to argue about formatting.
 
 - Use [Google style](https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html) docstrings.

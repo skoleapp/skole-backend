@@ -81,8 +81,8 @@ class MyDataMutation(SkoleObjectType, graphene.Mutation):
                 "verified": user.verified,
                 "is_active": user.is_active,
                 "last_login": user.last_login,
-                "modified": user.created,
-                "created": user.modified,
+                "modified": user.modified,
+                "created": user.created,
                 "last_my_data_query": user.last_my_data_query,
                 # Related models
                 "created_comments": cls._created_comments(user),

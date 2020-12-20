@@ -43,7 +43,7 @@ class ContactMutation(
         try:
             send_mail(
                 subject=subject,
-                from_email=settings.EMAIL_ADDRESS,
+                from_email=settings.EMAIL_CONTACT_FORM_SENDER,
                 message=message,
                 html_message=html_message,
                 recipient_list=[settings.EMAIL_ADDRESS],

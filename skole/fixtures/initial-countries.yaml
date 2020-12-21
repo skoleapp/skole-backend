@@ -16,7 +16,4312 @@
     language_code: sv
     name: Finland
     master: 1
+- model: skole.CountryTranslation
+  pk: 2
+  fields:
+    language_code: en
+    name: Afghanistan
+    master: 2
+- model: skole.CountryTranslation
+  pk: 3
+  fields:
+    language_code: fi
+    name: Afganistan
+    master: 2
+- model: skole.CountryTranslation
+  pk: 4
+  fields:
+    language_code: sv
+    name: Afghanistan
+    master: 2
+- model: skole.CountryTranslation
+  pk: 5
+  fields:
+    language_code: en
+    name: Albania
+    master: 3
+- model: skole.CountryTranslation
+  pk: 6
+  fields:
+    language_code: fi
+    name: Albania
+    master: 3
+- model: skole.CountryTranslation
+  pk: 7
+  fields:
+    language_code: sv
+    name: Albanien
+    master: 3
+- model: skole.CountryTranslation
+  pk: 8
+  fields:
+    language_code: en
+    name: Algeria
+    master: 4
+- model: skole.CountryTranslation
+  pk: 9
+  fields:
+    language_code: fi
+    name: Algeria
+    master: 4
+- model: skole.CountryTranslation
+  pk: 10
+  fields:
+    language_code: sv
+    name: Algeriet
+    master: 4
+- model: skole.CountryTranslation
+  pk: 11
+  fields:
+    language_code: en
+    name: Andorra
+    master: 5
+- model: skole.CountryTranslation
+  pk: 12
+  fields:
+    language_code: fi
+    name: Andorra
+    master: 5
+- model: skole.CountryTranslation
+  pk: 13
+  fields:
+    language_code: sv
+    name: Andorra
+    master: 5
+- model: skole.CountryTranslation
+  pk: 14
+  fields:
+    language_code: en
+    name: Angola
+    master: 6
+- model: skole.CountryTranslation
+  pk: 15
+  fields:
+    language_code: fi
+    name: Angola
+    master: 6
+- model: skole.CountryTranslation
+  pk: 16
+  fields:
+    language_code: sv
+    name: Angola
+    master: 6
+- model: skole.CountryTranslation
+  pk: 17
+  fields:
+    language_code: en
+    name: Antigua and Barbuda
+    master: 7
+- model: skole.CountryTranslation
+  pk: 18
+  fields:
+    language_code: fi
+    name: Antigua ja Barbuda
+    master: 7
+- model: skole.CountryTranslation
+  pk: 19
+  fields:
+    language_code: sv
+    name: Antigua och Barbuda
+    master: 7
+- model: skole.CountryTranslation
+  pk: 20
+  fields:
+    language_code: en
+    name: Argentina
+    master: 8
+- model: skole.CountryTranslation
+  pk: 21
+  fields:
+    language_code: fi
+    name: Argentiina
+    master: 8
+- model: skole.CountryTranslation
+  pk: 22
+  fields:
+    language_code: sv
+    name: Argentina
+    master: 8
+- model: skole.CountryTranslation
+  pk: 23
+  fields:
+    language_code: en
+    name: Armenia
+    master: 9
+- model: skole.CountryTranslation
+  pk: 24
+  fields:
+    language_code: fi
+    name: Armenia
+    master: 9
+- model: skole.CountryTranslation
+  pk: 25
+  fields:
+    language_code: sv
+    name: Armenien
+    master: 9
+- model: skole.CountryTranslation
+  pk: 26
+  fields:
+    language_code: en
+    name: Australia
+    master: 10
+- model: skole.CountryTranslation
+  pk: 27
+  fields:
+    language_code: fi
+    name: Australia
+    master: 10
+- model: skole.CountryTranslation
+  pk: 28
+  fields:
+    language_code: sv
+    name: Australien
+    master: 10
+- model: skole.CountryTranslation
+  pk: 29
+  fields:
+    language_code: en
+    name: Austria
+    master: 11
+- model: skole.CountryTranslation
+  pk: 30
+  fields:
+    language_code: fi
+    name: Itävalta
+    master: 11
+- model: skole.CountryTranslation
+  pk: 31
+  fields:
+    language_code: sv
+    name: Österrike
+    master: 11
+- model: skole.CountryTranslation
+  pk: 32
+  fields:
+    language_code: en
+    name: Azerbaijan
+    master: 12
+- model: skole.CountryTranslation
+  pk: 33
+  fields:
+    language_code: fi
+    name: Azerbaidžan
+    master: 12
+- model: skole.CountryTranslation
+  pk: 34
+  fields:
+    language_code: sv
+    name: Azerbajdzjan
+    master: 12
+- model: skole.CountryTranslation
+  pk: 35
+  fields:
+    language_code: en
+    name: Bahamas
+    master: 13
+- model: skole.CountryTranslation
+  pk: 36
+  fields:
+    language_code: fi
+    name: Bahama
+    master: 13
+- model: skole.CountryTranslation
+  pk: 37
+  fields:
+    language_code: sv
+    name: Bahamas
+    master: 13
+- model: skole.CountryTranslation
+  pk: 38
+  fields:
+    language_code: en
+    name: Bahrain
+    master: 14
+- model: skole.CountryTranslation
+  pk: 39
+  fields:
+    language_code: fi
+    name: Bahrain
+    master: 14
+- model: skole.CountryTranslation
+  pk: 40
+  fields:
+    language_code: sv
+    name: Bahrain
+    master: 14
+- model: skole.CountryTranslation
+  pk: 41
+  fields:
+    language_code: en
+    name: Bangladesh
+    master: 15
+- model: skole.CountryTranslation
+  pk: 42
+  fields:
+    language_code: fi
+    name: Bangladesh
+    master: 15
+- model: skole.CountryTranslation
+  pk: 43
+  fields:
+    language_code: sv
+    name: Bangladesh
+    master: 15
+- model: skole.CountryTranslation
+  pk: 44
+  fields:
+    language_code: en
+    name: Barbados
+    master: 16
+- model: skole.CountryTranslation
+  pk: 45
+  fields:
+    language_code: fi
+    name: Barbados
+    master: 16
+- model: skole.CountryTranslation
+  pk: 46
+  fields:
+    language_code: sv
+    name: Barbados
+    master: 16
+- model: skole.CountryTranslation
+  pk: 47
+  fields:
+    language_code: en
+    name: Belarus
+    master: 17
+- model: skole.CountryTranslation
+  pk: 48
+  fields:
+    language_code: fi
+    name: Valko-Venäjä
+    master: 17
+- model: skole.CountryTranslation
+  pk: 49
+  fields:
+    language_code: sv
+    name: Vitryssland
+    master: 17
+- model: skole.CountryTranslation
+  pk: 50
+  fields:
+    language_code: en
+    name: Belgium
+    master: 18
+- model: skole.CountryTranslation
+  pk: 51
+  fields:
+    language_code: fi
+    name: Belgia
+    master: 18
+- model: skole.CountryTranslation
+  pk: 52
+  fields:
+    language_code: sv
+    name: Belgien
+    master: 18
+- model: skole.CountryTranslation
+  pk: 53
+  fields:
+    language_code: en
+    name: Belize
+    master: 19
+- model: skole.CountryTranslation
+  pk: 54
+  fields:
+    language_code: fi
+    name: Belize
+    master: 19
+- model: skole.CountryTranslation
+  pk: 55
+  fields:
+    language_code: sv
+    name: Belize
+    master: 19
+- model: skole.CountryTranslation
+  pk: 56
+  fields:
+    language_code: en
+    name: Benin
+    master: 20
+- model: skole.CountryTranslation
+  pk: 57
+  fields:
+    language_code: fi
+    name: Benin
+    master: 20
+- model: skole.CountryTranslation
+  pk: 58
+  fields:
+    language_code: sv
+    name: Benin
+    master: 20
+- model: skole.CountryTranslation
+  pk: 59
+  fields:
+    language_code: en
+    name: Bhutan
+    master: 21
+- model: skole.CountryTranslation
+  pk: 60
+  fields:
+    language_code: fi
+    name: Bhutan
+    master: 21
+- model: skole.CountryTranslation
+  pk: 61
+  fields:
+    language_code: sv
+    name: Bhutan
+    master: 21
+- model: skole.CountryTranslation
+  pk: 62
+  fields:
+    language_code: en
+    name: Bolivia
+    master: 22
+- model: skole.CountryTranslation
+  pk: 63
+  fields:
+    language_code: fi
+    name: Bolivia
+    master: 22
+- model: skole.CountryTranslation
+  pk: 64
+  fields:
+    language_code: sv
+    name: Bolivia
+    master: 22
+- model: skole.CountryTranslation
+  pk: 65
+  fields:
+    language_code: en
+    name: Bosnia and Herzegovina
+    master: 23
+- model: skole.CountryTranslation
+  pk: 66
+  fields:
+    language_code: fi
+    name: Bosnia ja Hertsegovina
+    master: 23
+- model: skole.CountryTranslation
+  pk: 67
+  fields:
+    language_code: sv
+    name: Bosnien och Hercegovina
+    master: 23
+- model: skole.CountryTranslation
+  pk: 68
+  fields:
+    language_code: en
+    name: Botswana
+    master: 24
+- model: skole.CountryTranslation
+  pk: 69
+  fields:
+    language_code: fi
+    name: Botswana
+    master: 24
+- model: skole.CountryTranslation
+  pk: 70
+  fields:
+    language_code: sv
+    name: Botswana
+    master: 24
+- model: skole.CountryTranslation
+  pk: 71
+  fields:
+    language_code: en
+    name: Brazil
+    master: 25
+- model: skole.CountryTranslation
+  pk: 72
+  fields:
+    language_code: fi
+    name: Brasilia
+    master: 25
+- model: skole.CountryTranslation
+  pk: 73
+  fields:
+    language_code: sv
+    name: Brasilien
+    master: 25
+- model: skole.CountryTranslation
+  pk: 74
+  fields:
+    language_code: en
+    name: Brunei
+    master: 26
+- model: skole.CountryTranslation
+  pk: 75
+  fields:
+    language_code: fi
+    name: Brunei
+    master: 26
+- model: skole.CountryTranslation
+  pk: 76
+  fields:
+    language_code: sv
+    name: Brunei
+    master: 26
+- model: skole.CountryTranslation
+  pk: 77
+  fields:
+    language_code: en
+    name: Bulgaria
+    master: 27
+- model: skole.CountryTranslation
+  pk: 78
+  fields:
+    language_code: fi
+    name: Bulgaria
+    master: 27
+- model: skole.CountryTranslation
+  pk: 79
+  fields:
+    language_code: sv
+    name: Bulgarien
+    master: 27
+- model: skole.CountryTranslation
+  pk: 80
+  fields:
+    language_code: en
+    name: Burkina Faso
+    master: 28
+- model: skole.CountryTranslation
+  pk: 81
+  fields:
+    language_code: fi
+    name: Burkina Faso
+    master: 28
+- model: skole.CountryTranslation
+  pk: 82
+  fields:
+    language_code: sv
+    name: Burkina Faso
+    master: 28
+- model: skole.CountryTranslation
+  pk: 83
+  fields:
+    language_code: en
+    name: Burundi
+    master: 29
+- model: skole.CountryTranslation
+  pk: 84
+  fields:
+    language_code: fi
+    name: Burundi
+    master: 29
+- model: skole.CountryTranslation
+  pk: 85
+  fields:
+    language_code: sv
+    name: Burundi
+    master: 29
+- model: skole.CountryTranslation
+  pk: 86
+  fields:
+    language_code: en
+    name: Cambodia
+    master: 30
+- model: skole.CountryTranslation
+  pk: 87
+  fields:
+    language_code: fi
+    name: Kambodža
+    master: 30
+- model: skole.CountryTranslation
+  pk: 88
+  fields:
+    language_code: sv
+    name: Kambodja
+    master: 30
+- model: skole.CountryTranslation
+  pk: 89
+  fields:
+    language_code: en
+    name: Cameroon
+    master: 31
+- model: skole.CountryTranslation
+  pk: 90
+  fields:
+    language_code: fi
+    name: Kamerun
+    master: 31
+- model: skole.CountryTranslation
+  pk: 91
+  fields:
+    language_code: sv
+    name: Kamerun
+    master: 31
+- model: skole.CountryTranslation
+  pk: 92
+  fields:
+    language_code: en
+    name: Canada
+    master: 32
+- model: skole.CountryTranslation
+  pk: 93
+  fields:
+    language_code: fi
+    name: Kanada
+    master: 32
+- model: skole.CountryTranslation
+  pk: 94
+  fields:
+    language_code: sv
+    name: Kanada
+    master: 32
+- model: skole.CountryTranslation
+  pk: 95
+  fields:
+    language_code: en
+    name: Cape Verde
+    master: 33
+- model: skole.CountryTranslation
+  pk: 96
+  fields:
+    language_code: fi
+    name: Kap Verde
+    master: 33
+- model: skole.CountryTranslation
+  pk: 97
+  fields:
+    language_code: sv
+    name: Kap Verde
+    master: 33
+- model: skole.CountryTranslation
+  pk: 98
+  fields:
+    language_code: en
+    name: Central African Republic
+    master: 34
+- model: skole.CountryTranslation
+  pk: 99
+  fields:
+    language_code: fi
+    name: Keski-Afrikan tasavalta
+    master: 34
+- model: skole.CountryTranslation
+  pk: 100
+  fields:
+    language_code: sv
+    name: Centralafrikanska republiken
+    master: 34
+- model: skole.CountryTranslation
+  pk: 101
+  fields:
+    language_code: en
+    name: Chad
+    master: 35
+- model: skole.CountryTranslation
+  pk: 102
+  fields:
+    language_code: fi
+    name: Tšad
+    master: 35
+- model: skole.CountryTranslation
+  pk: 103
+  fields:
+    language_code: sv
+    name: Tchad
+    master: 35
+- model: skole.CountryTranslation
+  pk: 104
+  fields:
+    language_code: en
+    name: Chile
+    master: 36
+- model: skole.CountryTranslation
+  pk: 105
+  fields:
+    language_code: fi
+    name: Chile
+    master: 36
+- model: skole.CountryTranslation
+  pk: 106
+  fields:
+    language_code: sv
+    name: Chile
+    master: 36
+- model: skole.CountryTranslation
+  pk: 107
+  fields:
+    language_code: en
+    name: China
+    master: 37
+- model: skole.CountryTranslation
+  pk: 108
+  fields:
+    language_code: fi
+    name: Kiina
+    master: 37
+- model: skole.CountryTranslation
+  pk: 109
+  fields:
+    language_code: sv
+    name: Kina
+    master: 37
+- model: skole.CountryTranslation
+  pk: 110
+  fields:
+    language_code: en
+    name: Colombia
+    master: 38
+- model: skole.CountryTranslation
+  pk: 111
+  fields:
+    language_code: fi
+    name: Kolumbia
+    master: 38
+- model: skole.CountryTranslation
+  pk: 112
+  fields:
+    language_code: sv
+    name: Colombia
+    master: 38
+- model: skole.CountryTranslation
+  pk: 113
+  fields:
+    language_code: en
+    name: Comoros
+    master: 39
+- model: skole.CountryTranslation
+  pk: 114
+  fields:
+    language_code: fi
+    name: Komorit
+    master: 39
+- model: skole.CountryTranslation
+  pk: 115
+  fields:
+    language_code: sv
+    name: Komorerna
+    master: 39
+- model: skole.CountryTranslation
+  pk: 116
+  fields:
+    language_code: en
+    name: Costa Rica
+    master: 40
+- model: skole.CountryTranslation
+  pk: 117
+  fields:
+    language_code: fi
+    name: Costa Rica
+    master: 40
+- model: skole.CountryTranslation
+  pk: 118
+  fields:
+    language_code: sv
+    name: Costa Rica
+    master: 40
+- model: skole.CountryTranslation
+  pk: 119
+  fields:
+    language_code: en
+    name: Ivory Coast
+    master: 41
+- model: skole.CountryTranslation
+  pk: 120
+  fields:
+    language_code: fi
+    name: Norsunluurannikko
+    master: 41
+- model: skole.CountryTranslation
+  pk: 121
+  fields:
+    language_code: sv
+    name: Elfenbenskusten
+    master: 41
+- model: skole.CountryTranslation
+  pk: 122
+  fields:
+    language_code: en
+    name: Croatia
+    master: 42
+- model: skole.CountryTranslation
+  pk: 123
+  fields:
+    language_code: fi
+    name: Kroatia
+    master: 42
+- model: skole.CountryTranslation
+  pk: 124
+  fields:
+    language_code: sv
+    name: Kroatien
+    master: 42
+- model: skole.CountryTranslation
+  pk: 125
+  fields:
+    language_code: en
+    name: Cuba
+    master: 43
+- model: skole.CountryTranslation
+  pk: 126
+  fields:
+    language_code: fi
+    name: Kuuba
+    master: 43
+- model: skole.CountryTranslation
+  pk: 127
+  fields:
+    language_code: sv
+    name: Kuba
+    master: 43
+- model: skole.CountryTranslation
+  pk: 128
+  fields:
+    language_code: en
+    name: Cyprus
+    master: 44
+- model: skole.CountryTranslation
+  pk: 129
+  fields:
+    language_code: fi
+    name: Kypros
+    master: 44
+- model: skole.CountryTranslation
+  pk: 130
+  fields:
+    language_code: sv
+    name: Cypern
+    master: 44
+- model: skole.CountryTranslation
+  pk: 131
+  fields:
+    language_code: en
+    name: Czech Republic
+    master: 45
+- model: skole.CountryTranslation
+  pk: 132
+  fields:
+    language_code: fi
+    name: Tšekki
+    master: 45
+- model: skole.CountryTranslation
+  pk: 133
+  fields:
+    language_code: sv
+    name: Tjeckien
+    master: 45
+- model: skole.CountryTranslation
+  pk: 134
+  fields:
+    language_code: en
+    name: Democratic Republic of the Congo
+    master: 46
+- model: skole.CountryTranslation
+  pk: 135
+  fields:
+    language_code: fi
+    name: Kongon demokraattinen tasavalta
+    master: 46
+- model: skole.CountryTranslation
+  pk: 136
+  fields:
+    language_code: sv
+    name: Demokratiska republiken Kongo
+    master: 46
+- model: skole.CountryTranslation
+  pk: 137
+  fields:
+    language_code: en
+    name: Denmark
+    master: 47
+- model: skole.CountryTranslation
+  pk: 138
+  fields:
+    language_code: fi
+    name: Tanska
+    master: 47
+- model: skole.CountryTranslation
+  pk: 139
+  fields:
+    language_code: sv
+    name: Danmark
+    master: 47
+- model: skole.CountryTranslation
+  pk: 140
+  fields:
+    language_code: en
+    name: Djibouti
+    master: 48
+- model: skole.CountryTranslation
+  pk: 141
+  fields:
+    language_code: fi
+    name: Djibouti
+    master: 48
+- model: skole.CountryTranslation
+  pk: 142
+  fields:
+    language_code: sv
+    name: Djibouti
+    master: 48
+- model: skole.CountryTranslation
+  pk: 143
+  fields:
+    language_code: en
+    name: Dominica
+    master: 49
+- model: skole.CountryTranslation
+  pk: 144
+  fields:
+    language_code: fi
+    name: Dominica
+    master: 49
+- model: skole.CountryTranslation
+  pk: 145
+  fields:
+    language_code: sv
+    name: Dominica
+    master: 49
+- model: skole.CountryTranslation
+  pk: 146
+  fields:
+    language_code: en
+    name: Dominican Republic
+    master: 50
+- model: skole.CountryTranslation
+  pk: 147
+  fields:
+    language_code: fi
+    name: Dominikaaninen tasavalta
+    master: 50
+- model: skole.CountryTranslation
+  pk: 148
+  fields:
+    language_code: sv
+    name: Dominikanska republiken
+    master: 50
+- model: skole.CountryTranslation
+  pk: 149
+  fields:
+    language_code: en
+    name: East Timor
+    master: 51
+- model: skole.CountryTranslation
+  pk: 150
+  fields:
+    language_code: fi
+    name: Itä-Timor
+    master: 51
+- model: skole.CountryTranslation
+  pk: 151
+  fields:
+    language_code: sv
+    name: Östtimor
+    master: 51
+- model: skole.CountryTranslation
+  pk: 152
+  fields:
+    language_code: en
+    name: Ecuador
+    master: 52
+- model: skole.CountryTranslation
+  pk: 153
+  fields:
+    language_code: fi
+    name: Ecuador
+    master: 52
+- model: skole.CountryTranslation
+  pk: 154
+  fields:
+    language_code: sv
+    name: Ecuador
+    master: 52
+- model: skole.CountryTranslation
+  pk: 155
+  fields:
+    language_code: en
+    name: Egypt
+    master: 53
+- model: skole.CountryTranslation
+  pk: 156
+  fields:
+    language_code: fi
+    name: Egypti
+    master: 53
+- model: skole.CountryTranslation
+  pk: 157
+  fields:
+    language_code: sv
+    name: Egypten
+    master: 53
+- model: skole.CountryTranslation
+  pk: 158
+  fields:
+    language_code: en
+    name: El Salvador
+    master: 54
+- model: skole.CountryTranslation
+  pk: 159
+  fields:
+    language_code: fi
+    name: El Salvador
+    master: 54
+- model: skole.CountryTranslation
+  pk: 160
+  fields:
+    language_code: sv
+    name: El Salvador
+    master: 54
+- model: skole.CountryTranslation
+  pk: 161
+  fields:
+    language_code: en
+    name: Equatorial Guinea
+    master: 55
+- model: skole.CountryTranslation
+  pk: 162
+  fields:
+    language_code: fi
+    name: Päiväntasaajan Guinea
+    master: 55
+- model: skole.CountryTranslation
+  pk: 163
+  fields:
+    language_code: sv
+    name: Ekvatorialguinea
+    master: 55
+- model: skole.CountryTranslation
+  pk: 164
+  fields:
+    language_code: en
+    name: Eritrea
+    master: 56
+- model: skole.CountryTranslation
+  pk: 165
+  fields:
+    language_code: fi
+    name: Eritrea
+    master: 56
+- model: skole.CountryTranslation
+  pk: 166
+  fields:
+    language_code: sv
+    name: Eritrea
+    master: 56
+- model: skole.CountryTranslation
+  pk: 167
+  fields:
+    language_code: en
+    name: Estonia
+    master: 57
+- model: skole.CountryTranslation
+  pk: 168
+  fields:
+    language_code: fi
+    name: Viro
+    master: 57
+- model: skole.CountryTranslation
+  pk: 169
+  fields:
+    language_code: sv
+    name: Estland
+    master: 57
+- model: skole.CountryTranslation
+  pk: 170
+  fields:
+    language_code: en
+    name: Ethiopia
+    master: 58
+- model: skole.CountryTranslation
+  pk: 171
+  fields:
+    language_code: fi
+    name: Etiopia
+    master: 58
+- model: skole.CountryTranslation
+  pk: 172
+  fields:
+    language_code: sv
+    name: Etiopien
+    master: 58
+- model: skole.CountryTranslation
+  pk: 173
+  fields:
+    language_code: en
+    name: Fiji
+    master: 59
+- model: skole.CountryTranslation
+  pk: 174
+  fields:
+    language_code: fi
+    name: Fidži
+    master: 59
+- model: skole.CountryTranslation
+  pk: 175
+  fields:
+    language_code: sv
+    name: Fiji
+    master: 59
+- model: skole.CountryTranslation
+  pk: 176
+  fields:
+    language_code: en
+    name: France
+    master: 60
+- model: skole.CountryTranslation
+  pk: 177
+  fields:
+    language_code: fi
+    name: Ranska
+    master: 60
+- model: skole.CountryTranslation
+  pk: 178
+  fields:
+    language_code: sv
+    name: Frankrike
+    master: 60
+- model: skole.CountryTranslation
+  pk: 179
+  fields:
+    language_code: en
+    name: Gabon
+    master: 61
+- model: skole.CountryTranslation
+  pk: 180
+  fields:
+    language_code: fi
+    name: Gabon
+    master: 61
+- model: skole.CountryTranslation
+  pk: 181
+  fields:
+    language_code: sv
+    name: Gabon
+    master: 61
+- model: skole.CountryTranslation
+  pk: 182
+  fields:
+    language_code: en
+    name: Gambia
+    master: 62
+- model: skole.CountryTranslation
+  pk: 183
+  fields:
+    language_code: fi
+    name: Gambia
+    master: 62
+- model: skole.CountryTranslation
+  pk: 184
+  fields:
+    language_code: sv
+    name: Gambia
+    master: 62
+- model: skole.CountryTranslation
+  pk: 185
+  fields:
+    language_code: en
+    name: Georgia
+    master: 63
+- model: skole.CountryTranslation
+  pk: 186
+  fields:
+    language_code: fi
+    name: Georgia
+    master: 63
+- model: skole.CountryTranslation
+  pk: 187
+  fields:
+    language_code: sv
+    name: Georgien
+    master: 63
+- model: skole.CountryTranslation
+  pk: 188
+  fields:
+    language_code: en
+    name: Germany
+    master: 64
+- model: skole.CountryTranslation
+  pk: 189
+  fields:
+    language_code: fi
+    name: Saksa
+    master: 64
+- model: skole.CountryTranslation
+  pk: 190
+  fields:
+    language_code: sv
+    name: Tyskland
+    master: 64
+- model: skole.CountryTranslation
+  pk: 191
+  fields:
+    language_code: en
+    name: Ghana
+    master: 65
+- model: skole.CountryTranslation
+  pk: 192
+  fields:
+    language_code: fi
+    name: Ghana
+    master: 65
+- model: skole.CountryTranslation
+  pk: 193
+  fields:
+    language_code: sv
+    name: Ghana
+    master: 65
+- model: skole.CountryTranslation
+  pk: 194
+  fields:
+    language_code: en
+    name: Greece
+    master: 66
+- model: skole.CountryTranslation
+  pk: 195
+  fields:
+    language_code: fi
+    name: Kreikka
+    master: 66
+- model: skole.CountryTranslation
+  pk: 196
+  fields:
+    language_code: sv
+    name: Grekland
+    master: 66
+- model: skole.CountryTranslation
+  pk: 197
+  fields:
+    language_code: en
+    name: Grenada
+    master: 67
+- model: skole.CountryTranslation
+  pk: 198
+  fields:
+    language_code: fi
+    name: Grenada
+    master: 67
+- model: skole.CountryTranslation
+  pk: 199
+  fields:
+    language_code: sv
+    name: Grenada
+    master: 67
+- model: skole.CountryTranslation
+  pk: 200
+  fields:
+    language_code: en
+    name: Guatemala
+    master: 68
+- model: skole.CountryTranslation
+  pk: 201
+  fields:
+    language_code: fi
+    name: Guatemala
+    master: 68
+- model: skole.CountryTranslation
+  pk: 202
+  fields:
+    language_code: sv
+    name: Guatemala
+    master: 68
+- model: skole.CountryTranslation
+  pk: 203
+  fields:
+    language_code: en
+    name: Guinea
+    master: 69
+- model: skole.CountryTranslation
+  pk: 204
+  fields:
+    language_code: fi
+    name: Guinea
+    master: 69
+- model: skole.CountryTranslation
+  pk: 205
+  fields:
+    language_code: sv
+    name: Guinea
+    master: 69
+- model: skole.CountryTranslation
+  pk: 206
+  fields:
+    language_code: en
+    name: Guinea-Bissau
+    master: 70
+- model: skole.CountryTranslation
+  pk: 207
+  fields:
+    language_code: fi
+    name: Guinea-Bissau
+    master: 70
+- model: skole.CountryTranslation
+  pk: 208
+  fields:
+    language_code: sv
+    name: Guinea-Bissau
+    master: 70
+- model: skole.CountryTranslation
+  pk: 209
+  fields:
+    language_code: en
+    name: Guyana
+    master: 71
+- model: skole.CountryTranslation
+  pk: 210
+  fields:
+    language_code: fi
+    name: Guyana
+    master: 71
+- model: skole.CountryTranslation
+  pk: 211
+  fields:
+    language_code: sv
+    name: Guyana
+    master: 71
+- model: skole.CountryTranslation
+  pk: 212
+  fields:
+    language_code: en
+    name: Haiti
+    master: 72
+- model: skole.CountryTranslation
+  pk: 213
+  fields:
+    language_code: fi
+    name: Haiti
+    master: 72
+- model: skole.CountryTranslation
+  pk: 214
+  fields:
+    language_code: sv
+    name: Haiti
+    master: 72
+- model: skole.CountryTranslation
+  pk: 215
+  fields:
+    language_code: en
+    name: Honduras
+    master: 73
+- model: skole.CountryTranslation
+  pk: 216
+  fields:
+    language_code: fi
+    name: Honduras
+    master: 73
+- model: skole.CountryTranslation
+  pk: 217
+  fields:
+    language_code: sv
+    name: Honduras
+    master: 73
+- model: skole.CountryTranslation
+  pk: 218
+  fields:
+    language_code: en
+    name: Hungary
+    master: 74
+- model: skole.CountryTranslation
+  pk: 219
+  fields:
+    language_code: fi
+    name: Unkari
+    master: 74
+- model: skole.CountryTranslation
+  pk: 220
+  fields:
+    language_code: sv
+    name: Ungern
+    master: 74
+- model: skole.CountryTranslation
+  pk: 221
+  fields:
+    language_code: en
+    name: Iceland
+    master: 75
+- model: skole.CountryTranslation
+  pk: 222
+  fields:
+    language_code: fi
+    name: Islanti
+    master: 75
+- model: skole.CountryTranslation
+  pk: 223
+  fields:
+    language_code: sv
+    name: Island
+    master: 75
+- model: skole.CountryTranslation
+  pk: 224
+  fields:
+    language_code: en
+    name: India
+    master: 76
+- model: skole.CountryTranslation
+  pk: 225
+  fields:
+    language_code: fi
+    name: Intia
+    master: 76
+- model: skole.CountryTranslation
+  pk: 226
+  fields:
+    language_code: sv
+    name: Indien
+    master: 76
+- model: skole.CountryTranslation
+  pk: 227
+  fields:
+    language_code: en
+    name: Indonesia
+    master: 77
+- model: skole.CountryTranslation
+  pk: 228
+  fields:
+    language_code: fi
+    name: Indonesia
+    master: 77
+- model: skole.CountryTranslation
+  pk: 229
+  fields:
+    language_code: sv
+    name: Indonesien
+    master: 77
+- model: skole.CountryTranslation
+  pk: 230
+  fields:
+    language_code: en
+    name: Iran
+    master: 78
+- model: skole.CountryTranslation
+  pk: 231
+  fields:
+    language_code: fi
+    name: Iran
+    master: 78
+- model: skole.CountryTranslation
+  pk: 232
+  fields:
+    language_code: sv
+    name: Iran
+    master: 78
+- model: skole.CountryTranslation
+  pk: 233
+  fields:
+    language_code: en
+    name: Iraq
+    master: 79
+- model: skole.CountryTranslation
+  pk: 234
+  fields:
+    language_code: fi
+    name: Irak
+    master: 79
+- model: skole.CountryTranslation
+  pk: 235
+  fields:
+    language_code: sv
+    name: Irak
+    master: 79
+- model: skole.CountryTranslation
+  pk: 236
+  fields:
+    language_code: en
+    name: Ireland
+    master: 80
+- model: skole.CountryTranslation
+  pk: 237
+  fields:
+    language_code: fi
+    name: Irlanti
+    master: 80
+- model: skole.CountryTranslation
+  pk: 238
+  fields:
+    language_code: sv
+    name: Irland
+    master: 80
+- model: skole.CountryTranslation
+  pk: 239
+  fields:
+    language_code: en
+    name: Israel
+    master: 81
+- model: skole.CountryTranslation
+  pk: 240
+  fields:
+    language_code: fi
+    name: Israel
+    master: 81
+- model: skole.CountryTranslation
+  pk: 241
+  fields:
+    language_code: sv
+    name: Israel
+    master: 81
+- model: skole.CountryTranslation
+  pk: 242
+  fields:
+    language_code: en
+    name: Italy
+    master: 82
+- model: skole.CountryTranslation
+  pk: 243
+  fields:
+    language_code: fi
+    name: Italia
+    master: 82
+- model: skole.CountryTranslation
+  pk: 244
+  fields:
+    language_code: sv
+    name: Italien
+    master: 82
+- model: skole.CountryTranslation
+  pk: 245
+  fields:
+    language_code: en
+    name: Jamaica
+    master: 83
+- model: skole.CountryTranslation
+  pk: 246
+  fields:
+    language_code: fi
+    name: Jamaika
+    master: 83
+- model: skole.CountryTranslation
+  pk: 247
+  fields:
+    language_code: sv
+    name: Jamaica
+    master: 83
+- model: skole.CountryTranslation
+  pk: 248
+  fields:
+    language_code: en
+    name: Japan
+    master: 84
+- model: skole.CountryTranslation
+  pk: 249
+  fields:
+    language_code: fi
+    name: Japani
+    master: 84
+- model: skole.CountryTranslation
+  pk: 250
+  fields:
+    language_code: sv
+    name: Japan
+    master: 84
+- model: skole.CountryTranslation
+  pk: 251
+  fields:
+    language_code: en
+    name: Jordan
+    master: 85
+- model: skole.CountryTranslation
+  pk: 252
+  fields:
+    language_code: fi
+    name: Jordan
+    master: 85
+- model: skole.CountryTranslation
+  pk: 253
+  fields:
+    language_code: sv
+    name: Jordan
+    master: 85
+- model: skole.CountryTranslation
+  pk: 254
+  fields:
+    language_code: en
+    name: Kazakhstan
+    master: 86
+- model: skole.CountryTranslation
+  pk: 255
+  fields:
+    language_code: fi
+    name: Kazakstan
+    master: 86
+- model: skole.CountryTranslation
+  pk: 256
+  fields:
+    language_code: sv
+    name: Kazakstan
+    master: 86
+- model: skole.CountryTranslation
+  pk: 257
+  fields:
+    language_code: en
+    name: Kenya
+    master: 87
+- model: skole.CountryTranslation
+  pk: 258
+  fields:
+    language_code: fi
+    name: Kenia
+    master: 87
+- model: skole.CountryTranslation
+  pk: 259
+  fields:
+    language_code: sv
+    name: Kenya
+    master: 87
+- model: skole.CountryTranslation
+  pk: 260
+  fields:
+    language_code: en
+    name: Kiribati
+    master: 88
+- model: skole.CountryTranslation
+  pk: 261
+  fields:
+    language_code: fi
+    name: Kiribati
+    master: 88
+- model: skole.CountryTranslation
+  pk: 262
+  fields:
+    language_code: sv
+    name: Kiribati
+    master: 88
+- model: skole.CountryTranslation
+  pk: 263
+  fields:
+    language_code: en
+    name: Kuwait
+    master: 89
+- model: skole.CountryTranslation
+  pk: 264
+  fields:
+    language_code: fi
+    name: Kuwait
+    master: 89
+- model: skole.CountryTranslation
+  pk: 265
+  fields:
+    language_code: sv
+    name: Kuwait
+    master: 89
+- model: skole.CountryTranslation
+  pk: 266
+  fields:
+    language_code: en
+    name: Kyrgyzstan
+    master: 90
+- model: skole.CountryTranslation
+  pk: 267
+  fields:
+    language_code: fi
+    name: Kirgisia
+    master: 90
+- model: skole.CountryTranslation
+  pk: 268
+  fields:
+    language_code: sv
+    name: Kirgizistan
+    master: 90
+- model: skole.CountryTranslation
+  pk: 269
+  fields:
+    language_code: en
+    name: Laos
+    master: 91
+- model: skole.CountryTranslation
+  pk: 270
+  fields:
+    language_code: fi
+    name: Laos
+    master: 91
+- model: skole.CountryTranslation
+  pk: 271
+  fields:
+    language_code: sv
+    name: Laos
+    master: 91
+- model: skole.CountryTranslation
+  pk: 272
+  fields:
+    language_code: en
+    name: Latvia
+    master: 92
+- model: skole.CountryTranslation
+  pk: 273
+  fields:
+    language_code: fi
+    name: Latvia
+    master: 92
+- model: skole.CountryTranslation
+  pk: 274
+  fields:
+    language_code: sv
+    name: Lettland
+    master: 92
+- model: skole.CountryTranslation
+  pk: 275
+  fields:
+    language_code: en
+    name: Lebanon
+    master: 93
+- model: skole.CountryTranslation
+  pk: 276
+  fields:
+    language_code: fi
+    name: Libanon
+    master: 93
+- model: skole.CountryTranslation
+  pk: 277
+  fields:
+    language_code: sv
+    name: Libanon
+    master: 93
+- model: skole.CountryTranslation
+  pk: 278
+  fields:
+    language_code: en
+    name: Lesotho
+    master: 94
+- model: skole.CountryTranslation
+  pk: 279
+  fields:
+    language_code: fi
+    name: Lesotho
+    master: 94
+- model: skole.CountryTranslation
+  pk: 280
+  fields:
+    language_code: sv
+    name: Lesotho
+    master: 94
+- model: skole.CountryTranslation
+  pk: 281
+  fields:
+    language_code: en
+    name: Liberia
+    master: 95
+- model: skole.CountryTranslation
+  pk: 282
+  fields:
+    language_code: fi
+    name: Liberia
+    master: 95
+- model: skole.CountryTranslation
+  pk: 283
+  fields:
+    language_code: sv
+    name: Liberia
+    master: 95
+- model: skole.CountryTranslation
+  pk: 284
+  fields:
+    language_code: en
+    name: Libya
+    master: 96
+- model: skole.CountryTranslation
+  pk: 285
+  fields:
+    language_code: fi
+    name: Libya
+    master: 96
+- model: skole.CountryTranslation
+  pk: 286
+  fields:
+    language_code: sv
+    name: Libyen
+    master: 96
+- model: skole.CountryTranslation
+  pk: 287
+  fields:
+    language_code: en
+    name: Liechtenstein
+    master: 97
+- model: skole.CountryTranslation
+  pk: 288
+  fields:
+    language_code: fi
+    name: Liechtenstein
+    master: 97
+- model: skole.CountryTranslation
+  pk: 289
+  fields:
+    language_code: sv
+    name: Liechtenstein
+    master: 97
+- model: skole.CountryTranslation
+  pk: 290
+  fields:
+    language_code: en
+    name: Lithuania
+    master: 98
+- model: skole.CountryTranslation
+  pk: 291
+  fields:
+    language_code: fi
+    name: Liettua
+    master: 98
+- model: skole.CountryTranslation
+  pk: 292
+  fields:
+    language_code: sv
+    name: Litauen
+    master: 98
+- model: skole.CountryTranslation
+  pk: 293
+  fields:
+    language_code: en
+    name: Luxembourg
+    master: 99
+- model: skole.CountryTranslation
+  pk: 294
+  fields:
+    language_code: fi
+    name: Luxemburg
+    master: 99
+- model: skole.CountryTranslation
+  pk: 295
+  fields:
+    language_code: sv
+    name: Luxemburg
+    master: 99
+- model: skole.CountryTranslation
+  pk: 296
+  fields:
+    language_code: en
+    name: Madagascar
+    master: 100
+- model: skole.CountryTranslation
+  pk: 297
+  fields:
+    language_code: fi
+    name: Madagaskar
+    master: 100
+- model: skole.CountryTranslation
+  pk: 298
+  fields:
+    language_code: sv
+    name: Madagaskar
+    master: 100
+- model: skole.CountryTranslation
+  pk: 299
+  fields:
+    language_code: en
+    name: Malawi
+    master: 101
+- model: skole.CountryTranslation
+  pk: 300
+  fields:
+    language_code: fi
+    name: Malawi
+    master: 101
+- model: skole.CountryTranslation
+  pk: 301
+  fields:
+    language_code: sv
+    name: Malawi
+    master: 101
+- model: skole.CountryTranslation
+  pk: 302
+  fields:
+    language_code: en
+    name: Malaysia
+    master: 102
+- model: skole.CountryTranslation
+  pk: 303
+  fields:
+    language_code: fi
+    name: Malesia
+    master: 102
+- model: skole.CountryTranslation
+  pk: 304
+  fields:
+    language_code: sv
+    name: Malaysia
+    master: 102
+- model: skole.CountryTranslation
+  pk: 305
+  fields:
+    language_code: en
+    name: Maldives
+    master: 103
+- model: skole.CountryTranslation
+  pk: 306
+  fields:
+    language_code: fi
+    name: Malediivit
+    master: 103
+- model: skole.CountryTranslation
+  pk: 307
+  fields:
+    language_code: sv
+    name: Maldiverna
+    master: 103
+- model: skole.CountryTranslation
+  pk: 308
+  fields:
+    language_code: en
+    name: Mali
+    master: 104
+- model: skole.CountryTranslation
+  pk: 309
+  fields:
+    language_code: fi
+    name: Mali
+    master: 104
+- model: skole.CountryTranslation
+  pk: 310
+  fields:
+    language_code: sv
+    name: Mali
+    master: 104
+- model: skole.CountryTranslation
+  pk: 311
+  fields:
+    language_code: en
+    name: Malta
+    master: 105
+- model: skole.CountryTranslation
+  pk: 312
+  fields:
+    language_code: fi
+    name: Malta
+    master: 105
+- model: skole.CountryTranslation
+  pk: 313
+  fields:
+    language_code: sv
+    name: Malta
+    master: 105
+- model: skole.CountryTranslation
+  pk: 314
+  fields:
+    language_code: en
+    name: Marshall Islands
+    master: 106
+- model: skole.CountryTranslation
+  pk: 315
+  fields:
+    language_code: fi
+    name: Marshallinsaaret
+    master: 106
+- model: skole.CountryTranslation
+  pk: 316
+  fields:
+    language_code: sv
+    name: Marshallöarna
+    master: 106
+- model: skole.CountryTranslation
+  pk: 317
+  fields:
+    language_code: en
+    name: Mauritania
+    master: 107
+- model: skole.CountryTranslation
+  pk: 318
+  fields:
+    language_code: fi
+    name: Mauritania
+    master: 107
+- model: skole.CountryTranslation
+  pk: 319
+  fields:
+    language_code: sv
+    name: Mauretanien
+    master: 107
+- model: skole.CountryTranslation
+  pk: 320
+  fields:
+    language_code: en
+    name: Mauritius
+    master: 108
+- model: skole.CountryTranslation
+  pk: 321
+  fields:
+    language_code: fi
+    name: Mauritius
+    master: 108
+- model: skole.CountryTranslation
+  pk: 322
+  fields:
+    language_code: sv
+    name: Mauritius
+    master: 108
+- model: skole.CountryTranslation
+  pk: 323
+  fields:
+    language_code: en
+    name: Mexico
+    master: 109
+- model: skole.CountryTranslation
+  pk: 324
+  fields:
+    language_code: fi
+    name: Meksiko
+    master: 109
+- model: skole.CountryTranslation
+  pk: 325
+  fields:
+    language_code: sv
+    name: Mexiko
+    master: 109
+- model: skole.CountryTranslation
+  pk: 326
+  fields:
+    language_code: en
+    name: Micronesia
+    master: 110
+- model: skole.CountryTranslation
+  pk: 327
+  fields:
+    language_code: fi
+    name: Mikronesia
+    master: 110
+- model: skole.CountryTranslation
+  pk: 328
+  fields:
+    language_code: sv
+    name: Mikronesien
+    master: 110
+- model: skole.CountryTranslation
+  pk: 329
+  fields:
+    language_code: en
+    name: Moldova
+    master: 111
+- model: skole.CountryTranslation
+  pk: 330
+  fields:
+    language_code: fi
+    name: Moldova
+    master: 111
+- model: skole.CountryTranslation
+  pk: 331
+  fields:
+    language_code: sv
+    name: Moldavien
+    master: 111
+- model: skole.CountryTranslation
+  pk: 332
+  fields:
+    language_code: en
+    name: Monaco
+    master: 112
+- model: skole.CountryTranslation
+  pk: 333
+  fields:
+    language_code: fi
+    name: Monaco
+    master: 112
+- model: skole.CountryTranslation
+  pk: 334
+  fields:
+    language_code: sv
+    name: Monaco
+    master: 112
+- model: skole.CountryTranslation
+  pk: 335
+  fields:
+    language_code: en
+    name: Mongolia
+    master: 113
+- model: skole.CountryTranslation
+  pk: 336
+  fields:
+    language_code: fi
+    name: Mongolia
+    master: 113
+- model: skole.CountryTranslation
+  pk: 337
+  fields:
+    language_code: sv
+    name: Mongoliet
+    master: 113
+- model: skole.CountryTranslation
+  pk: 338
+  fields:
+    language_code: en
+    name: Montenegro
+    master: 114
+- model: skole.CountryTranslation
+  pk: 339
+  fields:
+    language_code: fi
+    name: Montenegro
+    master: 114
+- model: skole.CountryTranslation
+  pk: 340
+  fields:
+    language_code: sv
+    name: Montenegro
+    master: 114
+- model: skole.CountryTranslation
+  pk: 341
+  fields:
+    language_code: en
+    name: Morocco
+    master: 115
+- model: skole.CountryTranslation
+  pk: 342
+  fields:
+    language_code: fi
+    name: Marokko
+    master: 115
+- model: skole.CountryTranslation
+  pk: 343
+  fields:
+    language_code: sv
+    name: Marocko
+    master: 115
+- model: skole.CountryTranslation
+  pk: 344
+  fields:
+    language_code: en
+    name: Mozambique
+    master: 116
+- model: skole.CountryTranslation
+  pk: 345
+  fields:
+    language_code: fi
+    name: Mosambik
+    master: 116
+- model: skole.CountryTranslation
+  pk: 346
+  fields:
+    language_code: sv
+    name: Moçambique
+    master: 116
+- model: skole.CountryTranslation
+  pk: 347
+  fields:
+    language_code: en
+    name: Myanmar
+    master: 117
+- model: skole.CountryTranslation
+  pk: 348
+  fields:
+    language_code: fi
+    name: Myanmar
+    master: 117
+- model: skole.CountryTranslation
+  pk: 349
+  fields:
+    language_code: sv
+    name: Burma
+    master: 117
+- model: skole.CountryTranslation
+  pk: 350
+  fields:
+    language_code: en
+    name: Namibia
+    master: 118
+- model: skole.CountryTranslation
+  pk: 351
+  fields:
+    language_code: fi
+    name: Namibia
+    master: 118
+- model: skole.CountryTranslation
+  pk: 352
+  fields:
+    language_code: sv
+    name: Namibia
+    master: 118
+- model: skole.CountryTranslation
+  pk: 353
+  fields:
+    language_code: en
+    name: Nauru
+    master: 119
+- model: skole.CountryTranslation
+  pk: 354
+  fields:
+    language_code: fi
+    name: Nauru
+    master: 119
+- model: skole.CountryTranslation
+  pk: 355
+  fields:
+    language_code: sv
+    name: Nauru
+    master: 119
+- model: skole.CountryTranslation
+  pk: 356
+  fields:
+    language_code: en
+    name: Nepal
+    master: 120
+- model: skole.CountryTranslation
+  pk: 357
+  fields:
+    language_code: fi
+    name: Nepal
+    master: 120
+- model: skole.CountryTranslation
+  pk: 358
+  fields:
+    language_code: sv
+    name: Nepal
+    master: 120
+- model: skole.CountryTranslation
+  pk: 359
+  fields:
+    language_code: en
+    name: Netherlands
+    master: 121
+- model: skole.CountryTranslation
+  pk: 360
+  fields:
+    language_code: fi
+    name: Alankomaat
+    master: 121
+- model: skole.CountryTranslation
+  pk: 361
+  fields:
+    language_code: sv
+    name: Nederländerna
+    master: 121
+- model: skole.CountryTranslation
+  pk: 362
+  fields:
+    language_code: en
+    name: New Zealand
+    master: 122
+- model: skole.CountryTranslation
+  pk: 363
+  fields:
+    language_code: fi
+    name: Uusi-Seelanti
+    master: 122
+- model: skole.CountryTranslation
+  pk: 364
+  fields:
+    language_code: sv
+    name: Nya Zeeland
+    master: 122
+- model: skole.CountryTranslation
+  pk: 365
+  fields:
+    language_code: en
+    name: Nicaragua
+    master: 123
+- model: skole.CountryTranslation
+  pk: 366
+  fields:
+    language_code: fi
+    name: Nicaragua
+    master: 123
+- model: skole.CountryTranslation
+  pk: 367
+  fields:
+    language_code: sv
+    name: Nicaragua
+    master: 123
+- model: skole.CountryTranslation
+  pk: 368
+  fields:
+    language_code: en
+    name: Niger
+    master: 124
+- model: skole.CountryTranslation
+  pk: 369
+  fields:
+    language_code: fi
+    name: Niger
+    master: 124
+- model: skole.CountryTranslation
+  pk: 370
+  fields:
+    language_code: sv
+    name: Niger
+    master: 124
+- model: skole.CountryTranslation
+  pk: 371
+  fields:
+    language_code: en
+    name: Nigeria
+    master: 125
+- model: skole.CountryTranslation
+  pk: 372
+  fields:
+    language_code: fi
+    name: Nigeria
+    master: 125
+- model: skole.CountryTranslation
+  pk: 373
+  fields:
+    language_code: sv
+    name: Nigeria
+    master: 125
+- model: skole.CountryTranslation
+  pk: 374
+  fields:
+    language_code: en
+    name: North Korea
+    master: 126
+- model: skole.CountryTranslation
+  pk: 375
+  fields:
+    language_code: fi
+    name: Pohjois-Korea
+    master: 126
+- model: skole.CountryTranslation
+  pk: 376
+  fields:
+    language_code: sv
+    name: Nordkorea
+    master: 126
+- model: skole.CountryTranslation
+  pk: 377
+  fields:
+    language_code: en
+    name: Norway
+    master: 127
+- model: skole.CountryTranslation
+  pk: 378
+  fields:
+    language_code: fi
+    name: Norja
+    master: 127
+- model: skole.CountryTranslation
+  pk: 379
+  fields:
+    language_code: sv
+    name: Norge
+    master: 127
+- model: skole.CountryTranslation
+  pk: 380
+  fields:
+    language_code: en
+    name: Oman
+    master: 128
+- model: skole.CountryTranslation
+  pk: 381
+  fields:
+    language_code: fi
+    name: Oman
+    master: 128
+- model: skole.CountryTranslation
+  pk: 382
+  fields:
+    language_code: sv
+    name: Oman
+    master: 128
+- model: skole.CountryTranslation
+  pk: 383
+  fields:
+    language_code: en
+    name: Pakistan
+    master: 129
+- model: skole.CountryTranslation
+  pk: 384
+  fields:
+    language_code: fi
+    name: Pakistan
+    master: 129
+- model: skole.CountryTranslation
+  pk: 385
+  fields:
+    language_code: sv
+    name: Pakistan
+    master: 129
+- model: skole.CountryTranslation
+  pk: 386
+  fields:
+    language_code: en
+    name: Palau
+    master: 130
+- model: skole.CountryTranslation
+  pk: 387
+  fields:
+    language_code: fi
+    name: Palau
+    master: 130
+- model: skole.CountryTranslation
+  pk: 388
+  fields:
+    language_code: sv
+    name: Palau
+    master: 130
+- model: skole.CountryTranslation
+  pk: 389
+  fields:
+    language_code: en
+    name: Panama
+    master: 131
+- model: skole.CountryTranslation
+  pk: 390
+  fields:
+    language_code: fi
+    name: Panama
+    master: 131
+- model: skole.CountryTranslation
+  pk: 391
+  fields:
+    language_code: sv
+    name: Panama
+    master: 131
+- model: skole.CountryTranslation
+  pk: 392
+  fields:
+    language_code: en
+    name: Papua New Guinea
+    master: 132
+- model: skole.CountryTranslation
+  pk: 393
+  fields:
+    language_code: fi
+    name: Papua-Uusi-Guinea
+    master: 132
+- model: skole.CountryTranslation
+  pk: 394
+  fields:
+    language_code: sv
+    name: Papua Nya Guinea
+    master: 132
+- model: skole.CountryTranslation
+  pk: 395
+  fields:
+    language_code: en
+    name: Paraguay
+    master: 133
+- model: skole.CountryTranslation
+  pk: 396
+  fields:
+    language_code: fi
+    name: Paraguay
+    master: 133
+- model: skole.CountryTranslation
+  pk: 397
+  fields:
+    language_code: sv
+    name: Paraguay
+    master: 133
+- model: skole.CountryTranslation
+  pk: 398
+  fields:
+    language_code: en
+    name: Peru
+    master: 134
+- model: skole.CountryTranslation
+  pk: 399
+  fields:
+    language_code: fi
+    name: Peru
+    master: 134
+- model: skole.CountryTranslation
+  pk: 400
+  fields:
+    language_code: sv
+    name: Peru
+    master: 134
+- model: skole.CountryTranslation
+  pk: 401
+  fields:
+    language_code: en
+    name: Philippines
+    master: 135
+- model: skole.CountryTranslation
+  pk: 402
+  fields:
+    language_code: fi
+    name: Filippiinit
+    master: 135
+- model: skole.CountryTranslation
+  pk: 403
+  fields:
+    language_code: sv
+    name: Filippinerna
+    master: 135
+- model: skole.CountryTranslation
+  pk: 404
+  fields:
+    language_code: en
+    name: Poland
+    master: 136
+- model: skole.CountryTranslation
+  pk: 405
+  fields:
+    language_code: fi
+    name: Puola
+    master: 136
+- model: skole.CountryTranslation
+  pk: 406
+  fields:
+    language_code: sv
+    name: Polen
+    master: 136
+- model: skole.CountryTranslation
+  pk: 407
+  fields:
+    language_code: en
+    name: Portugal
+    master: 137
+- model: skole.CountryTranslation
+  pk: 408
+  fields:
+    language_code: fi
+    name: Portugali
+    master: 137
+- model: skole.CountryTranslation
+  pk: 409
+  fields:
+    language_code: sv
+    name: Portugal
+    master: 137
+- model: skole.CountryTranslation
+  pk: 410
+  fields:
+    language_code: en
+    name: Qatar
+    master: 138
+- model: skole.CountryTranslation
+  pk: 411
+  fields:
+    language_code: fi
+    name: Qatar
+    master: 138
+- model: skole.CountryTranslation
+  pk: 412
+  fields:
+    language_code: sv
+    name: Qatar
+    master: 138
+- model: skole.CountryTranslation
+  pk: 413
+  fields:
+    language_code: en
+    name: Republic of the Congo
+    master: 139
+- model: skole.CountryTranslation
+  pk: 414
+  fields:
+    language_code: fi
+    name: Kongon tasavalta
+    master: 139
+- model: skole.CountryTranslation
+  pk: 415
+  fields:
+    language_code: sv
+    name: Republiken Kongo
+    master: 139
+- model: skole.CountryTranslation
+  pk: 416
+  fields:
+    language_code: en
+    name: Republic of Macedonia
+    master: 140
+- model: skole.CountryTranslation
+  pk: 417
+  fields:
+    language_code: fi
+    name: Makedonia
+    master: 140
+- model: skole.CountryTranslation
+  pk: 418
+  fields:
+    language_code: sv
+    name: Makedonien
+    master: 140
+- model: skole.CountryTranslation
+  pk: 419
+  fields:
+    language_code: en
+    name: Romania
+    master: 141
+- model: skole.CountryTranslation
+  pk: 420
+  fields:
+    language_code: fi
+    name: Romania
+    master: 141
+- model: skole.CountryTranslation
+  pk: 421
+  fields:
+    language_code: sv
+    name: Rumänien
+    master: 141
+- model: skole.CountryTranslation
+  pk: 422
+  fields:
+    language_code: en
+    name: Russia
+    master: 142
+- model: skole.CountryTranslation
+  pk: 423
+  fields:
+    language_code: fi
+    name: Venäjä
+    master: 142
+- model: skole.CountryTranslation
+  pk: 424
+  fields:
+    language_code: sv
+    name: Ryssland
+    master: 142
+- model: skole.CountryTranslation
+  pk: 425
+  fields:
+    language_code: en
+    name: Rwanda
+    master: 143
+- model: skole.CountryTranslation
+  pk: 426
+  fields:
+    language_code: fi
+    name: Ruanda
+    master: 143
+- model: skole.CountryTranslation
+  pk: 427
+  fields:
+    language_code: sv
+    name: Rwanda
+    master: 143
+- model: skole.CountryTranslation
+  pk: 428
+  fields:
+    language_code: en
+    name: Saint Kitts and Nevis
+    master: 144
+- model: skole.CountryTranslation
+  pk: 429
+  fields:
+    language_code: fi
+    name: Saint Kitts ja Nevis
+    master: 144
+- model: skole.CountryTranslation
+  pk: 430
+  fields:
+    language_code: sv
+    name: Saint Kitts och Nevis
+    master: 144
+- model: skole.CountryTranslation
+  pk: 431
+  fields:
+    language_code: en
+    name: Saint Lucia
+    master: 145
+- model: skole.CountryTranslation
+  pk: 432
+  fields:
+    language_code: fi
+    name: Saint Lucia
+    master: 145
+- model: skole.CountryTranslation
+  pk: 433
+  fields:
+    language_code: sv
+    name: Saint Lucia
+    master: 145
+- model: skole.CountryTranslation
+  pk: 434
+  fields:
+    language_code: en
+    name: Saint Vincent and the Grenadines
+    master: 146
+- model: skole.CountryTranslation
+  pk: 435
+  fields:
+    language_code: fi
+    name: Saint Vincent ja Grenadiinit
+    master: 146
+- model: skole.CountryTranslation
+  pk: 436
+  fields:
+    language_code: sv
+    name: Saint Vincent och Grenadinerna
+    master: 146
+- model: skole.CountryTranslation
+  pk: 437
+  fields:
+    language_code: en
+    name: Samoa
+    master: 147
+- model: skole.CountryTranslation
+  pk: 438
+  fields:
+    language_code: fi
+    name: Samoa
+    master: 147
+- model: skole.CountryTranslation
+  pk: 439
+  fields:
+    language_code: sv
+    name: Samoa
+    master: 147
+- model: skole.CountryTranslation
+  pk: 440
+  fields:
+    language_code: en
+    name: San Marino
+    master: 148
+- model: skole.CountryTranslation
+  pk: 441
+  fields:
+    language_code: fi
+    name: San Marino
+    master: 148
+- model: skole.CountryTranslation
+  pk: 442
+  fields:
+    language_code: sv
+    name: San Marino
+    master: 148
+- model: skole.CountryTranslation
+  pk: 443
+  fields:
+    language_code: en
+    name: Sao Tome and Principe
+    master: 149
+- model: skole.CountryTranslation
+  pk: 444
+  fields:
+    language_code: fi
+    name: São Tomé ja Príncipe
+    master: 149
+- model: skole.CountryTranslation
+  pk: 445
+  fields:
+    language_code: sv
+    name: São Tomé och Príncipe
+    master: 149
+- model: skole.CountryTranslation
+  pk: 446
+  fields:
+    language_code: en
+    name: Saudi Arabia
+    master: 150
+- model: skole.CountryTranslation
+  pk: 447
+  fields:
+    language_code: fi
+    name: Saudi-Arabia
+    master: 150
+- model: skole.CountryTranslation
+  pk: 448
+  fields:
+    language_code: sv
+    name: Saudiarabien
+    master: 150
+- model: skole.CountryTranslation
+  pk: 449
+  fields:
+    language_code: en
+    name: Senegal
+    master: 151
+- model: skole.CountryTranslation
+  pk: 450
+  fields:
+    language_code: fi
+    name: Senegal
+    master: 151
+- model: skole.CountryTranslation
+  pk: 451
+  fields:
+    language_code: sv
+    name: Senegal
+    master: 151
+- model: skole.CountryTranslation
+  pk: 452
+  fields:
+    language_code: en
+    name: Serbia
+    master: 152
+- model: skole.CountryTranslation
+  pk: 453
+  fields:
+    language_code: fi
+    name: Serbia
+    master: 152
+- model: skole.CountryTranslation
+  pk: 454
+  fields:
+    language_code: sv
+    name: Serbien
+    master: 152
+- model: skole.CountryTranslation
+  pk: 455
+  fields:
+    language_code: en
+    name: Seychelles
+    master: 153
+- model: skole.CountryTranslation
+  pk: 456
+  fields:
+    language_code: fi
+    name: Seychellit
+    master: 153
+- model: skole.CountryTranslation
+  pk: 457
+  fields:
+    language_code: sv
+    name: Seychellerna
+    master: 153
+- model: skole.CountryTranslation
+  pk: 458
+  fields:
+    language_code: en
+    name: Sierra Leone
+    master: 154
+- model: skole.CountryTranslation
+  pk: 459
+  fields:
+    language_code: fi
+    name: Sierra Leone
+    master: 154
+- model: skole.CountryTranslation
+  pk: 460
+  fields:
+    language_code: sv
+    name: Sierra Leone
+    master: 154
+- model: skole.CountryTranslation
+  pk: 461
+  fields:
+    language_code: en
+    name: Singapore
+    master: 155
+- model: skole.CountryTranslation
+  pk: 462
+  fields:
+    language_code: fi
+    name: Singapore
+    master: 155
+- model: skole.CountryTranslation
+  pk: 463
+  fields:
+    language_code: sv
+    name: Singapore
+    master: 155
+- model: skole.CountryTranslation
+  pk: 464
+  fields:
+    language_code: en
+    name: Slovakia
+    master: 156
+- model: skole.CountryTranslation
+  pk: 465
+  fields:
+    language_code: fi
+    name: Slovakia
+    master: 156
+- model: skole.CountryTranslation
+  pk: 466
+  fields:
+    language_code: sv
+    name: Slovakien
+    master: 156
+- model: skole.CountryTranslation
+  pk: 467
+  fields:
+    language_code: en
+    name: Slovenia
+    master: 157
+- model: skole.CountryTranslation
+  pk: 468
+  fields:
+    language_code: fi
+    name: Slovenia
+    master: 157
+- model: skole.CountryTranslation
+  pk: 469
+  fields:
+    language_code: sv
+    name: Slovenien
+    master: 157
+- model: skole.CountryTranslation
+  pk: 470
+  fields:
+    language_code: en
+    name: Solomon Islands
+    master: 158
+- model: skole.CountryTranslation
+  pk: 471
+  fields:
+    language_code: fi
+    name: Salomonsaaret
+    master: 158
+- model: skole.CountryTranslation
+  pk: 472
+  fields:
+    language_code: sv
+    name: Salomonöarna
+    master: 158
+- model: skole.CountryTranslation
+  pk: 473
+  fields:
+    language_code: en
+    name: Somalia
+    master: 159
+- model: skole.CountryTranslation
+  pk: 474
+  fields:
+    language_code: fi
+    name: Somalia
+    master: 159
+- model: skole.CountryTranslation
+  pk: 475
+  fields:
+    language_code: sv
+    name: Somalia
+    master: 159
+- model: skole.CountryTranslation
+  pk: 476
+  fields:
+    language_code: en
+    name: South Africa
+    master: 160
+- model: skole.CountryTranslation
+  pk: 477
+  fields:
+    language_code: fi
+    name: Etelä-Afrikka
+    master: 160
+- model: skole.CountryTranslation
+  pk: 478
+  fields:
+    language_code: sv
+    name: Sydafrika
+    master: 160
+- model: skole.CountryTranslation
+  pk: 479
+  fields:
+    language_code: en
+    name: South Korea
+    master: 161
+- model: skole.CountryTranslation
+  pk: 480
+  fields:
+    language_code: fi
+    name: Etelä-Korea
+    master: 161
+- model: skole.CountryTranslation
+  pk: 481
+  fields:
+    language_code: sv
+    name: Sydkorea
+    master: 161
+- model: skole.CountryTranslation
+  pk: 482
+  fields:
+    language_code: en
+    name: South Sudan
+    master: 162
+- model: skole.CountryTranslation
+  pk: 483
+  fields:
+    language_code: fi
+    name: Etelä-Sudan
+    master: 162
+- model: skole.CountryTranslation
+  pk: 484
+  fields:
+    language_code: sv
+    name: Sydsudan
+    master: 162
+- model: skole.CountryTranslation
+  pk: 485
+  fields:
+    language_code: en
+    name: Spain
+    master: 163
+- model: skole.CountryTranslation
+  pk: 486
+  fields:
+    language_code: fi
+    name: Espanja
+    master: 163
+- model: skole.CountryTranslation
+  pk: 487
+  fields:
+    language_code: sv
+    name: Spanien
+    master: 163
+- model: skole.CountryTranslation
+  pk: 488
+  fields:
+    language_code: en
+    name: Sri Lanka
+    master: 164
+- model: skole.CountryTranslation
+  pk: 489
+  fields:
+    language_code: fi
+    name: Sri Lanka
+    master: 164
+- model: skole.CountryTranslation
+  pk: 490
+  fields:
+    language_code: sv
+    name: Sri Lanka
+    master: 164
+- model: skole.CountryTranslation
+  pk: 491
+  fields:
+    language_code: en
+    name: Sudan
+    master: 165
+- model: skole.CountryTranslation
+  pk: 492
+  fields:
+    language_code: fi
+    name: Sudan
+    master: 165
+- model: skole.CountryTranslation
+  pk: 493
+  fields:
+    language_code: sv
+    name: Sudan
+    master: 165
+- model: skole.CountryTranslation
+  pk: 494
+  fields:
+    language_code: en
+    name: Suriname
+    master: 166
+- model: skole.CountryTranslation
+  pk: 495
+  fields:
+    language_code: fi
+    name: Suriname
+    master: 166
+- model: skole.CountryTranslation
+  pk: 496
+  fields:
+    language_code: sv
+    name: Surinam
+    master: 166
+- model: skole.CountryTranslation
+  pk: 497
+  fields:
+    language_code: en
+    name: Swaziland
+    master: 167
+- model: skole.CountryTranslation
+  pk: 498
+  fields:
+    language_code: fi
+    name: Swazimaa
+    master: 167
+- model: skole.CountryTranslation
+  pk: 499
+  fields:
+    language_code: sv
+    name: Swaziland
+    master: 167
+- model: skole.CountryTranslation
+  pk: 500
+  fields:
+    language_code: en
+    name: Sweden
+    master: 168
+- model: skole.CountryTranslation
+  pk: 501
+  fields:
+    language_code: fi
+    name: Ruotsi
+    master: 168
+- model: skole.CountryTranslation
+  pk: 502
+  fields:
+    language_code: sv
+    name: Sverige
+    master: 168
+- model: skole.CountryTranslation
+  pk: 503
+  fields:
+    language_code: en
+    name: Switzerland
+    master: 169
+- model: skole.CountryTranslation
+  pk: 504
+  fields:
+    language_code: fi
+    name: Sveitsi
+    master: 169
+- model: skole.CountryTranslation
+  pk: 505
+  fields:
+    language_code: sv
+    name: Schweiz
+    master: 169
+- model: skole.CountryTranslation
+  pk: 506
+  fields:
+    language_code: en
+    name: Syria
+    master: 170
+- model: skole.CountryTranslation
+  pk: 507
+  fields:
+    language_code: fi
+    name: Syyria
+    master: 170
+- model: skole.CountryTranslation
+  pk: 508
+  fields:
+    language_code: sv
+    name: Syrien
+    master: 170
+- model: skole.CountryTranslation
+  pk: 509
+  fields:
+    language_code: en
+    name: Tajikistan
+    master: 171
+- model: skole.CountryTranslation
+  pk: 510
+  fields:
+    language_code: fi
+    name: Tadžikistan
+    master: 171
+- model: skole.CountryTranslation
+  pk: 511
+  fields:
+    language_code: sv
+    name: Tadzjikistan
+    master: 171
+- model: skole.CountryTranslation
+  pk: 512
+  fields:
+    language_code: en
+    name: Tanzania
+    master: 172
+- model: skole.CountryTranslation
+  pk: 513
+  fields:
+    language_code: fi
+    name: Tansania
+    master: 172
+- model: skole.CountryTranslation
+  pk: 514
+  fields:
+    language_code: sv
+    name: Tanzania
+    master: 172
+- model: skole.CountryTranslation
+  pk: 515
+  fields:
+    language_code: en
+    name: Thailand
+    master: 173
+- model: skole.CountryTranslation
+  pk: 516
+  fields:
+    language_code: fi
+    name: Thaimaa
+    master: 173
+- model: skole.CountryTranslation
+  pk: 517
+  fields:
+    language_code: sv
+    name: Thailand
+    master: 173
+- model: skole.CountryTranslation
+  pk: 518
+  fields:
+    language_code: en
+    name: Togo
+    master: 174
+- model: skole.CountryTranslation
+  pk: 519
+  fields:
+    language_code: fi
+    name: Togo
+    master: 174
+- model: skole.CountryTranslation
+  pk: 520
+  fields:
+    language_code: sv
+    name: Togo
+    master: 174
+- model: skole.CountryTranslation
+  pk: 521
+  fields:
+    language_code: en
+    name: Tonga
+    master: 175
+- model: skole.CountryTranslation
+  pk: 522
+  fields:
+    language_code: fi
+    name: Tonga
+    master: 175
+- model: skole.CountryTranslation
+  pk: 523
+  fields:
+    language_code: sv
+    name: Tonga
+    master: 175
+- model: skole.CountryTranslation
+  pk: 524
+  fields:
+    language_code: en
+    name: Trinidad and Tobago
+    master: 176
+- model: skole.CountryTranslation
+  pk: 525
+  fields:
+    language_code: fi
+    name: Trinidad ja Tobago
+    master: 176
+- model: skole.CountryTranslation
+  pk: 526
+  fields:
+    language_code: sv
+    name: Trinidad och Tobago
+    master: 176
+- model: skole.CountryTranslation
+  pk: 527
+  fields:
+    language_code: en
+    name: Tunisia
+    master: 177
+- model: skole.CountryTranslation
+  pk: 528
+  fields:
+    language_code: fi
+    name: Tunisia
+    master: 177
+- model: skole.CountryTranslation
+  pk: 529
+  fields:
+    language_code: sv
+    name: Tunisien
+    master: 177
+- model: skole.CountryTranslation
+  pk: 530
+  fields:
+    language_code: en
+    name: Turkey
+    master: 178
+- model: skole.CountryTranslation
+  pk: 531
+  fields:
+    language_code: fi
+    name: Turkki
+    master: 178
+- model: skole.CountryTranslation
+  pk: 532
+  fields:
+    language_code: sv
+    name: Turkiet
+    master: 178
+- model: skole.CountryTranslation
+  pk: 533
+  fields:
+    language_code: en
+    name: Turkmenistan
+    master: 179
+- model: skole.CountryTranslation
+  pk: 534
+  fields:
+    language_code: fi
+    name: Turkmenistan
+    master: 179
+- model: skole.CountryTranslation
+  pk: 535
+  fields:
+    language_code: sv
+    name: Turkmenistan
+    master: 179
+- model: skole.CountryTranslation
+  pk: 536
+  fields:
+    language_code: en
+    name: Tuvalu
+    master: 180
+- model: skole.CountryTranslation
+  pk: 537
+  fields:
+    language_code: fi
+    name: Tuvalu
+    master: 180
+- model: skole.CountryTranslation
+  pk: 538
+  fields:
+    language_code: sv
+    name: Tuvalu
+    master: 180
+- model: skole.CountryTranslation
+  pk: 539
+  fields:
+    language_code: en
+    name: Uganda
+    master: 181
+- model: skole.CountryTranslation
+  pk: 540
+  fields:
+    language_code: fi
+    name: Uganda
+    master: 181
+- model: skole.CountryTranslation
+  pk: 541
+  fields:
+    language_code: sv
+    name: Uganda
+    master: 181
+- model: skole.CountryTranslation
+  pk: 542
+  fields:
+    language_code: en
+    name: Ukraine
+    master: 182
+- model: skole.CountryTranslation
+  pk: 543
+  fields:
+    language_code: fi
+    name: Ukraina
+    master: 182
+- model: skole.CountryTranslation
+  pk: 544
+  fields:
+    language_code: sv
+    name: Ukraina
+    master: 182
+- model: skole.CountryTranslation
+  pk: 545
+  fields:
+    language_code: en
+    name: United Arab Emirates
+    master: 183
+- model: skole.CountryTranslation
+  pk: 546
+  fields:
+    language_code: fi
+    name: Yhdistyneet arabiemiirikunnat
+    master: 183
+- model: skole.CountryTranslation
+  pk: 547
+  fields:
+    language_code: sv
+    name: Förenade Arabemiraten
+    master: 183
+- model: skole.CountryTranslation
+  pk: 548
+  fields:
+    language_code: en
+    name: United Kingdom
+    master: 184
+- model: skole.CountryTranslation
+  pk: 549
+  fields:
+    language_code: fi
+    name: Yhdistynyt kuningaskunta
+    master: 184
+- model: skole.CountryTranslation
+  pk: 550
+  fields:
+    language_code: sv
+    name: Storbritannien
+    master: 184
+- model: skole.CountryTranslation
+  pk: 551
+  fields:
+    language_code: en
+    name: United States of America
+    master: 185
+- model: skole.CountryTranslation
+  pk: 552
+  fields:
+    language_code: fi
+    name: Yhdysvallat
+    master: 185
+- model: skole.CountryTranslation
+  pk: 553
+  fields:
+    language_code: sv
+    name: USA
+    master: 185
+- model: skole.CountryTranslation
+  pk: 554
+  fields:
+    language_code: en
+    name: Uruguay
+    master: 186
+- model: skole.CountryTranslation
+  pk: 555
+  fields:
+    language_code: fi
+    name: Uruguay
+    master: 186
+- model: skole.CountryTranslation
+  pk: 556
+  fields:
+    language_code: sv
+    name: Uruguay
+    master: 186
+- model: skole.CountryTranslation
+  pk: 557
+  fields:
+    language_code: en
+    name: Uzbekistan
+    master: 187
+- model: skole.CountryTranslation
+  pk: 558
+  fields:
+    language_code: fi
+    name: Uzbekistan
+    master: 187
+- model: skole.CountryTranslation
+  pk: 559
+  fields:
+    language_code: sv
+    name: Uzbekistan
+    master: 187
+- model: skole.CountryTranslation
+  pk: 560
+  fields:
+    language_code: en
+    name: Vanuatu
+    master: 188
+- model: skole.CountryTranslation
+  pk: 561
+  fields:
+    language_code: fi
+    name: Vanuatu
+    master: 188
+- model: skole.CountryTranslation
+  pk: 562
+  fields:
+    language_code: sv
+    name: Vanuatu
+    master: 188
+- model: skole.CountryTranslation
+  pk: 563
+  fields:
+    language_code: en
+    name: Venezuela
+    master: 189
+- model: skole.CountryTranslation
+  pk: 564
+  fields:
+    language_code: fi
+    name: Venezuela
+    master: 189
+- model: skole.CountryTranslation
+  pk: 565
+  fields:
+    language_code: sv
+    name: Venezuela
+    master: 189
+- model: skole.CountryTranslation
+  pk: 566
+  fields:
+    language_code: en
+    name: Vietnam
+    master: 190
+- model: skole.CountryTranslation
+  pk: 567
+  fields:
+    language_code: fi
+    name: Vietnam
+    master: 190
+- model: skole.CountryTranslation
+  pk: 568
+  fields:
+    language_code: sv
+    name: Vietnam
+    master: 190
+- model: skole.CountryTranslation
+  pk: 569
+  fields:
+    language_code: en
+    name: Yemen
+    master: 191
+- model: skole.CountryTranslation
+  pk: 570
+  fields:
+    language_code: fi
+    name: Jemen
+    master: 191
+- model: skole.CountryTranslation
+  pk: 571
+  fields:
+    language_code: sv
+    name: Jemen
+    master: 191
+- model: skole.CountryTranslation
+  pk: 572
+  fields:
+    language_code: en
+    name: Zambia
+    master: 192
+- model: skole.CountryTranslation
+  pk: 573
+  fields:
+    language_code: fi
+    name: Sambia
+    master: 192
+- model: skole.CountryTranslation
+  pk: 574
+  fields:
+    language_code: sv
+    name: Zambia
+    master: 192
+- model: skole.CountryTranslation
+  pk: 575
+  fields:
+    language_code: en
+    name: Zimbabwe
+    master: 193
+- model: skole.CountryTranslation
+  pk: 576
+  fields:
+    language_code: fi
+    name: Zimbabwe
+    master: 193
+- model: skole.CountryTranslation
+  pk: 577
+  fields:
+    language_code: sv
+    name: Zimbabwe
+    master: 193
+- model: skole.CountryTranslation
+  pk: 578
+  fields:
+    language_code: en
+    name: Palestine
+    master: 194
+- model: skole.CountryTranslation
+  pk: 579
+  fields:
+    language_code: fi
+    name: Palestiina
+    master: 194
+- model: skole.CountryTranslation
+  pk: 580
+  fields:
+    language_code: sv
+    name: Palestina
+    master: 194
+- model: skole.CountryTranslation
+  pk: 581
+  fields:
+    language_code: en
+    name: Vatican City
+    master: 195
+- model: skole.CountryTranslation
+  pk: 582
+  fields:
+    language_code: fi
+    name: Vatikaani
+    master: 195
+- model: skole.CountryTranslation
+  pk: 583
+  fields:
+    language_code: sv
+    name: Vatikanstaten
+    master: 195
+- model: skole.CountryTranslation
+  pk: 584
+  fields:
+    language_code: en
+    name: Abkhazia
+    master: 196
+- model: skole.CountryTranslation
+  pk: 585
+  fields:
+    language_code: fi
+    name: Abhasia
+    master: 196
+- model: skole.CountryTranslation
+  pk: 586
+  fields:
+    language_code: sv
+    name: Abchazien
+    master: 196
+- model: skole.CountryTranslation
+  pk: 587
+  fields:
+    language_code: en
+    name: Artsakh
+    master: 197
+- model: skole.CountryTranslation
+  pk: 588
+  fields:
+    language_code: fi
+    name: Artsakh
+    master: 197
+- model: skole.CountryTranslation
+  pk: 589
+  fields:
+    language_code: sv
+    name: Artsach
+    master: 197
+- model: skole.CountryTranslation
+  pk: 590
+  fields:
+    language_code: en
+    name: Cook Islands
+    master: 198
+- model: skole.CountryTranslation
+  pk: 591
+  fields:
+    language_code: fi
+    name: Cookinsaaret
+    master: 198
+- model: skole.CountryTranslation
+  pk: 592
+  fields:
+    language_code: sv
+    name: Cooköarna
+    master: 198
+- model: skole.CountryTranslation
+  pk: 593
+  fields:
+    language_code: en
+    name: Kosovo
+    master: 199
+- model: skole.CountryTranslation
+  pk: 594
+  fields:
+    language_code: fi
+    name: Kosovo
+    master: 199
+- model: skole.CountryTranslation
+  pk: 595
+  fields:
+    language_code: sv
+    name: Kosovo
+    master: 199
+- model: skole.CountryTranslation
+  pk: 596
+  fields:
+    language_code: en
+    name: Niue
+    master: 200
+- model: skole.CountryTranslation
+  pk: 597
+  fields:
+    language_code: fi
+    name: Niue
+    master: 200
+- model: skole.CountryTranslation
+  pk: 598
+  fields:
+    language_code: sv
+    name: Niue
+    master: 200
+- model: skole.CountryTranslation
+  pk: 599
+  fields:
+    language_code: en
+    name: Northern Cyprus
+    master: 201
+- model: skole.CountryTranslation
+  pk: 600
+  fields:
+    language_code: fi
+    name: Pohjois-Kypros
+    master: 201
+- model: skole.CountryTranslation
+  pk: 601
+  fields:
+    language_code: sv
+    name: Nordcypern
+    master: 201
+- model: skole.CountryTranslation
+  pk: 602
+  fields:
+    language_code: en
+    name: Sahrawi Arab Democratic Republic
+    master: 202
+- model: skole.CountryTranslation
+  pk: 603
+  fields:
+    language_code: fi
+    name: Saharan demokraattinen arabitasavalta
+    master: 202
+- model: skole.CountryTranslation
+  pk: 604
+  fields:
+    language_code: sv
+    name: Sahariska arabiska demokratiska republiken
+    master: 202
+- model: skole.CountryTranslation
+  pk: 605
+  fields:
+    language_code: en
+    name: Somaliland
+    master: 203
+- model: skole.CountryTranslation
+  pk: 606
+  fields:
+    language_code: fi
+    name: Somalimaa
+    master: 203
+- model: skole.CountryTranslation
+  pk: 607
+  fields:
+    language_code: sv
+    name: Somaliland
+    master: 203
+- model: skole.CountryTranslation
+  pk: 608
+  fields:
+    language_code: en
+    name: South Ossetia
+    master: 204
+- model: skole.CountryTranslation
+  pk: 609
+  fields:
+    language_code: fi
+    name: Etelä-Ossetia
+    master: 204
+- model: skole.CountryTranslation
+  pk: 610
+  fields:
+    language_code: sv
+    name: Sydossetien
+    master: 204
+- model: skole.CountryTranslation
+  pk: 611
+  fields:
+    language_code: en
+    name: Taiwan
+    master: 205
+- model: skole.CountryTranslation
+  pk: 612
+  fields:
+    language_code: fi
+    name: Taiwan
+    master: 205
+- model: skole.CountryTranslation
+  pk: 613
+  fields:
+    language_code: sv
+    name: Taiwan
+    master: 205
+- model: skole.CountryTranslation
+  pk: 614
+  fields:
+    language_code: en
+    name: Transnistria
+    master: 206
+- model: skole.CountryTranslation
+  pk: 615
+  fields:
+    language_code: fi
+    name: Transnistria
+    master: 206
+- model: skole.CountryTranslation
+  pk: 616
+  fields:
+    language_code: sv
+    name: Transnistria
+    master: 206
 
 - model: skole.Country
   pk: 1
+  fields: {}
+- model: skole.Country
+  pk: 2
+  fields: {}
+- model: skole.Country
+  pk: 3
+  fields: {}
+- model: skole.Country
+  pk: 4
+  fields: {}
+- model: skole.Country
+  pk: 5
+  fields: {}
+- model: skole.Country
+  pk: 6
+  fields: {}
+- model: skole.Country
+  pk: 7
+  fields: {}
+- model: skole.Country
+  pk: 8
+  fields: {}
+- model: skole.Country
+  pk: 9
+  fields: {}
+- model: skole.Country
+  pk: 10
+  fields: {}
+- model: skole.Country
+  pk: 11
+  fields: {}
+- model: skole.Country
+  pk: 12
+  fields: {}
+- model: skole.Country
+  pk: 13
+  fields: {}
+- model: skole.Country
+  pk: 14
+  fields: {}
+- model: skole.Country
+  pk: 15
+  fields: {}
+- model: skole.Country
+  pk: 16
+  fields: {}
+- model: skole.Country
+  pk: 17
+  fields: {}
+- model: skole.Country
+  pk: 18
+  fields: {}
+- model: skole.Country
+  pk: 19
+  fields: {}
+- model: skole.Country
+  pk: 20
+  fields: {}
+- model: skole.Country
+  pk: 21
+  fields: {}
+- model: skole.Country
+  pk: 22
+  fields: {}
+- model: skole.Country
+  pk: 23
+  fields: {}
+- model: skole.Country
+  pk: 24
+  fields: {}
+- model: skole.Country
+  pk: 25
+  fields: {}
+- model: skole.Country
+  pk: 26
+  fields: {}
+- model: skole.Country
+  pk: 27
+  fields: {}
+- model: skole.Country
+  pk: 28
+  fields: {}
+- model: skole.Country
+  pk: 29
+  fields: {}
+- model: skole.Country
+  pk: 30
+  fields: {}
+- model: skole.Country
+  pk: 31
+  fields: {}
+- model: skole.Country
+  pk: 32
+  fields: {}
+- model: skole.Country
+  pk: 33
+  fields: {}
+- model: skole.Country
+  pk: 34
+  fields: {}
+- model: skole.Country
+  pk: 35
+  fields: {}
+- model: skole.Country
+  pk: 36
+  fields: {}
+- model: skole.Country
+  pk: 37
+  fields: {}
+- model: skole.Country
+  pk: 38
+  fields: {}
+- model: skole.Country
+  pk: 39
+  fields: {}
+- model: skole.Country
+  pk: 40
+  fields: {}
+- model: skole.Country
+  pk: 41
+  fields: {}
+- model: skole.Country
+  pk: 42
+  fields: {}
+- model: skole.Country
+  pk: 43
+  fields: {}
+- model: skole.Country
+  pk: 44
+  fields: {}
+- model: skole.Country
+  pk: 45
+  fields: {}
+- model: skole.Country
+  pk: 46
+  fields: {}
+- model: skole.Country
+  pk: 47
+  fields: {}
+- model: skole.Country
+  pk: 48
+  fields: {}
+- model: skole.Country
+  pk: 49
+  fields: {}
+- model: skole.Country
+  pk: 50
+  fields: {}
+- model: skole.Country
+  pk: 51
+  fields: {}
+- model: skole.Country
+  pk: 52
+  fields: {}
+- model: skole.Country
+  pk: 53
+  fields: {}
+- model: skole.Country
+  pk: 54
+  fields: {}
+- model: skole.Country
+  pk: 55
+  fields: {}
+- model: skole.Country
+  pk: 56
+  fields: {}
+- model: skole.Country
+  pk: 57
+  fields: {}
+- model: skole.Country
+  pk: 58
+  fields: {}
+- model: skole.Country
+  pk: 59
+  fields: {}
+- model: skole.Country
+  pk: 60
+  fields: {}
+- model: skole.Country
+  pk: 61
+  fields: {}
+- model: skole.Country
+  pk: 62
+  fields: {}
+- model: skole.Country
+  pk: 63
+  fields: {}
+- model: skole.Country
+  pk: 64
+  fields: {}
+- model: skole.Country
+  pk: 65
+  fields: {}
+- model: skole.Country
+  pk: 66
+  fields: {}
+- model: skole.Country
+  pk: 67
+  fields: {}
+- model: skole.Country
+  pk: 68
+  fields: {}
+- model: skole.Country
+  pk: 69
+  fields: {}
+- model: skole.Country
+  pk: 70
+  fields: {}
+- model: skole.Country
+  pk: 71
+  fields: {}
+- model: skole.Country
+  pk: 72
+  fields: {}
+- model: skole.Country
+  pk: 73
+  fields: {}
+- model: skole.Country
+  pk: 74
+  fields: {}
+- model: skole.Country
+  pk: 75
+  fields: {}
+- model: skole.Country
+  pk: 76
+  fields: {}
+- model: skole.Country
+  pk: 77
+  fields: {}
+- model: skole.Country
+  pk: 78
+  fields: {}
+- model: skole.Country
+  pk: 79
+  fields: {}
+- model: skole.Country
+  pk: 80
+  fields: {}
+- model: skole.Country
+  pk: 81
+  fields: {}
+- model: skole.Country
+  pk: 82
+  fields: {}
+- model: skole.Country
+  pk: 83
+  fields: {}
+- model: skole.Country
+  pk: 84
+  fields: {}
+- model: skole.Country
+  pk: 85
+  fields: {}
+- model: skole.Country
+  pk: 86
+  fields: {}
+- model: skole.Country
+  pk: 87
+  fields: {}
+- model: skole.Country
+  pk: 88
+  fields: {}
+- model: skole.Country
+  pk: 89
+  fields: {}
+- model: skole.Country
+  pk: 90
+  fields: {}
+- model: skole.Country
+  pk: 91
+  fields: {}
+- model: skole.Country
+  pk: 92
+  fields: {}
+- model: skole.Country
+  pk: 93
+  fields: {}
+- model: skole.Country
+  pk: 94
+  fields: {}
+- model: skole.Country
+  pk: 95
+  fields: {}
+- model: skole.Country
+  pk: 96
+  fields: {}
+- model: skole.Country
+  pk: 97
+  fields: {}
+- model: skole.Country
+  pk: 98
+  fields: {}
+- model: skole.Country
+  pk: 99
+  fields: {}
+- model: skole.Country
+  pk: 100
+  fields: {}
+- model: skole.Country
+  pk: 101
+  fields: {}
+- model: skole.Country
+  pk: 102
+  fields: {}
+- model: skole.Country
+  pk: 103
+  fields: {}
+- model: skole.Country
+  pk: 104
+  fields: {}
+- model: skole.Country
+  pk: 105
+  fields: {}
+- model: skole.Country
+  pk: 106
+  fields: {}
+- model: skole.Country
+  pk: 107
+  fields: {}
+- model: skole.Country
+  pk: 108
+  fields: {}
+- model: skole.Country
+  pk: 109
+  fields: {}
+- model: skole.Country
+  pk: 110
+  fields: {}
+- model: skole.Country
+  pk: 111
+  fields: {}
+- model: skole.Country
+  pk: 112
+  fields: {}
+- model: skole.Country
+  pk: 113
+  fields: {}
+- model: skole.Country
+  pk: 114
+  fields: {}
+- model: skole.Country
+  pk: 115
+  fields: {}
+- model: skole.Country
+  pk: 116
+  fields: {}
+- model: skole.Country
+  pk: 117
+  fields: {}
+- model: skole.Country
+  pk: 118
+  fields: {}
+- model: skole.Country
+  pk: 119
+  fields: {}
+- model: skole.Country
+  pk: 120
+  fields: {}
+- model: skole.Country
+  pk: 121
+  fields: {}
+- model: skole.Country
+  pk: 122
+  fields: {}
+- model: skole.Country
+  pk: 123
+  fields: {}
+- model: skole.Country
+  pk: 124
+  fields: {}
+- model: skole.Country
+  pk: 125
+  fields: {}
+- model: skole.Country
+  pk: 126
+  fields: {}
+- model: skole.Country
+  pk: 127
+  fields: {}
+- model: skole.Country
+  pk: 128
+  fields: {}
+- model: skole.Country
+  pk: 129
+  fields: {}
+- model: skole.Country
+  pk: 130
+  fields: {}
+- model: skole.Country
+  pk: 131
+  fields: {}
+- model: skole.Country
+  pk: 132
+  fields: {}
+- model: skole.Country
+  pk: 133
+  fields: {}
+- model: skole.Country
+  pk: 134
+  fields: {}
+- model: skole.Country
+  pk: 135
+  fields: {}
+- model: skole.Country
+  pk: 136
+  fields: {}
+- model: skole.Country
+  pk: 137
+  fields: {}
+- model: skole.Country
+  pk: 138
+  fields: {}
+- model: skole.Country
+  pk: 139
+  fields: {}
+- model: skole.Country
+  pk: 140
+  fields: {}
+- model: skole.Country
+  pk: 141
+  fields: {}
+- model: skole.Country
+  pk: 142
+  fields: {}
+- model: skole.Country
+  pk: 143
+  fields: {}
+- model: skole.Country
+  pk: 144
+  fields: {}
+- model: skole.Country
+  pk: 145
+  fields: {}
+- model: skole.Country
+  pk: 146
+  fields: {}
+- model: skole.Country
+  pk: 147
+  fields: {}
+- model: skole.Country
+  pk: 148
+  fields: {}
+- model: skole.Country
+  pk: 149
+  fields: {}
+- model: skole.Country
+  pk: 150
+  fields: {}
+- model: skole.Country
+  pk: 151
+  fields: {}
+- model: skole.Country
+  pk: 152
+  fields: {}
+- model: skole.Country
+  pk: 153
+  fields: {}
+- model: skole.Country
+  pk: 154
+  fields: {}
+- model: skole.Country
+  pk: 155
+  fields: {}
+- model: skole.Country
+  pk: 156
+  fields: {}
+- model: skole.Country
+  pk: 157
+  fields: {}
+- model: skole.Country
+  pk: 158
+  fields: {}
+- model: skole.Country
+  pk: 159
+  fields: {}
+- model: skole.Country
+  pk: 160
+  fields: {}
+- model: skole.Country
+  pk: 161
+  fields: {}
+- model: skole.Country
+  pk: 162
+  fields: {}
+- model: skole.Country
+  pk: 163
+  fields: {}
+- model: skole.Country
+  pk: 164
+  fields: {}
+- model: skole.Country
+  pk: 165
+  fields: {}
+- model: skole.Country
+  pk: 166
+  fields: {}
+- model: skole.Country
+  pk: 167
+  fields: {}
+- model: skole.Country
+  pk: 168
+  fields: {}
+- model: skole.Country
+  pk: 169
+  fields: {}
+- model: skole.Country
+  pk: 170
+  fields: {}
+- model: skole.Country
+  pk: 171
+  fields: {}
+- model: skole.Country
+  pk: 172
+  fields: {}
+- model: skole.Country
+  pk: 173
+  fields: {}
+- model: skole.Country
+  pk: 174
+  fields: {}
+- model: skole.Country
+  pk: 175
+  fields: {}
+- model: skole.Country
+  pk: 176
+  fields: {}
+- model: skole.Country
+  pk: 177
+  fields: {}
+- model: skole.Country
+  pk: 178
+  fields: {}
+- model: skole.Country
+  pk: 179
+  fields: {}
+- model: skole.Country
+  pk: 180
+  fields: {}
+- model: skole.Country
+  pk: 181
+  fields: {}
+- model: skole.Country
+  pk: 182
+  fields: {}
+- model: skole.Country
+  pk: 183
+  fields: {}
+- model: skole.Country
+  pk: 184
+  fields: {}
+- model: skole.Country
+  pk: 185
+  fields: {}
+- model: skole.Country
+  pk: 186
+  fields: {}
+- model: skole.Country
+  pk: 187
+  fields: {}
+- model: skole.Country
+  pk: 188
+  fields: {}
+- model: skole.Country
+  pk: 189
+  fields: {}
+- model: skole.Country
+  pk: 190
+  fields: {}
+- model: skole.Country
+  pk: 191
+  fields: {}
+- model: skole.Country
+  pk: 192
+  fields: {}
+- model: skole.Country
+  pk: 193
+  fields: {}
+- model: skole.Country
+  pk: 194
+  fields: {}
+- model: skole.Country
+  pk: 195
+  fields: {}
+- model: skole.Country
+  pk: 196
+  fields: {}
+- model: skole.Country
+  pk: 197
+  fields: {}
+- model: skole.Country
+  pk: 198
+  fields: {}
+- model: skole.Country
+  pk: 199
+  fields: {}
+- model: skole.Country
+  pk: 200
+  fields: {}
+- model: skole.Country
+  pk: 201
+  fields: {}
+- model: skole.Country
+  pk: 202
+  fields: {}
+- model: skole.Country
+  pk: 203
+  fields: {}
+- model: skole.Country
+  pk: 204
+  fields: {}
+- model: skole.Country
+  pk: 205
+  fields: {}
+- model: skole.Country
+  pk: 206
   fields: {}

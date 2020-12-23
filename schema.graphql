@@ -315,6 +315,7 @@ type Query {
   subjects(school: ID, page: Int, pageSize: Int): PaginatedSubjectObjectType
   autocompleteSubjects(name: String): [SubjectObjectType]
   subject(id: ID): SubjectObjectType
+  sitemap: SitemapObjectType
   autocompleteSchoolTypes: [SchoolTypeObjectType]
   schoolType(id: ID): SchoolTypeObjectType
   autocompleteSchools(name: String): [SchoolObjectType]
@@ -418,6 +419,18 @@ type SendPasswordResetEmailMutationPayload {
   errors: [ErrorType]
   successMessage: String
   clientMutationId: String
+}
+
+type SitemapEntryObjectType {
+  id: ID!
+  modified: DateTime
+}
+
+type SitemapObjectType {
+  courses: [SitemapEntryObjectType!]!
+  resources: [SitemapEntryObjectType!]!
+  schools: [SitemapEntryObjectType!]!
+  users: [SitemapEntryObjectType!]!
 }
 
 input StarMutationInput {

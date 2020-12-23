@@ -11,6 +11,7 @@ import skole.schemas.resource
 import skole.schemas.resource_type
 import skole.schemas.school
 import skole.schemas.school_type
+import skole.schemas.sitemap
 import skole.schemas.star
 import skole.schemas.subject
 import skole.schemas.user
@@ -26,6 +27,7 @@ class Query(
     skole.schemas.resource_type.Query,
     skole.schemas.school.Query,
     skole.schemas.school_type.Query,
+    skole.schemas.sitemap.Query,
     skole.schemas.subject.Query,
     skole.schemas.user.Query,
 ):

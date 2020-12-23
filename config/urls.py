@@ -7,7 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import RedirectView
 from graphql_jwt.decorators import jwt_cookie
 
-from skole.views import SkoleGraphQLView, health_check
+from skole.views import SkoleGraphQLView, health_check, sitemap
 
 urlpatterns = [
     path(
@@ -19,6 +19,7 @@ urlpatterns = [
         csrf_exempt(jwt_cookie(SkoleGraphQLView.as_view(graphiql=settings.DEBUG))),
     ),
     path("healthz/", health_check),
+    path("sitemap/", sitemap),
     path("", RedirectView.as_view(url=reverse_lazy("admin:index"))),
     *i18n_patterns(path("admin/", admin.site.urls)),
     *static(prefix=settings.MEDIA_URL, document_root=settings.MEDIA_ROOT),

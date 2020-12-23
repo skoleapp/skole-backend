@@ -2,10 +2,11 @@ import json
 from typing import Any, Dict, List, Union, cast
 
 from django.core.files.uploadedfile import UploadedFile
-from django.http import HttpRequest, HttpResponse, QueryDict
+from django.http import HttpRequest, HttpResponse, JsonResponse, QueryDict
 from django.utils.datastructures import MultiValueDict
 from graphene_django.views import GraphQLView
 
+from skole.models import Course, Resource, School, User
 from skole.types import AnyJson, JsonDict
 
 
@@ -79,3 +80,15 @@ class SkoleGraphQLView(GraphQLView):
                 ops = cast(AnyJson, place_file_in_ops(ops, path, files[key]))
 
         return ops
+
+
+def sitemap(request: HttpRequest) -> JsonResponse:
+    """Return the dynamic page IDs that frontend needs to build its `sitemap.xml`."""
+    return JsonResponse(
+        {
+            "courses": list(Course.objects.all().values_list("pk", flat=True)),
+            "resources": list(Resource.objects.all().values_list("pk", flat=True)),
+            "schools": list(School.objects.all().values_list("pk", flat=True)),
+            "users": list(User.objects.all().values_list("pk", flat=True)),
+        }
+    )

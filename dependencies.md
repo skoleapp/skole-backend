@@ -54,5 +54,6 @@ This document explains the need for every top level dependency the project has.
 | [libmagic-dev](https://packages.debian.org/buster/libmagic-dev)                        | Guess file types with python-magic            |
 | [libimage-exiftool-perl](https://packages.debian.org/buster/libimage-exiftool-perl)    | Use mat2 to clean file metadata               |
 | [libpq-dev](https://packages.debian.org/buster/libpq-dev)                              | Connect to PostgreSQL with psycopg2           |
+| [postgresql-client](https://packages.debian.org/buster/postgresql-client)              | Use Django's dbshell / psql in production     |
 | [python3-gi-cairo](https://packages.debian.org/buster/python3-gi-cairo)                | Use mat2 to clean file metadata               |
 | [python3-mutagen](https://packages.debian.org/buster/python3-mutagen)                  | Use mat2 to clean file metadata               |

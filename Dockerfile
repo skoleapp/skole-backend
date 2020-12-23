@@ -32,6 +32,7 @@ RUN apt-get update \
         libmagic-dev \
         libimage-exiftool-perl \
         libpq-dev \
+        postgresql-client \
         python3-gi-cairo \
         python3-mutagen \
     && su user --command='pip install --user --no-cache-dir --disable-pip-version-check pip==20.3.1' \

@@ -1,5 +1,6 @@
 Django==3.1.4
 Pillow==8.0.1
+PyJWT==1.7.1
 PyYAML==5.3.1
 dj-database-url==0.5.0
 django-amazon-ses==4.0.0

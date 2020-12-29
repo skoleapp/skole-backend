@@ -1,13 +1,13 @@
 # Skole Backend 🎓
 
 [![circleci status](https://circleci.com/gh/skoleapp/skole-backend.svg?style=shield&circle-token=7a11678cc5b06b270fa5460f456fd0da8368dae2)](https://circleci.com/gh/skoleapp/skole-backend)
-[![codecov](https://codecov.io/gh/skoleapp/skole-backend/branch/develop/graph/badge.svg?token=EHHHpM9EJO)](https://codecov.io/gh/ruohola/skole-backend)
+[![codecov](https://codecov.io/gh/skoleapp/skole-backend/branch/develop/graph/badge.svg?token=EHHHpM9EJO)](https://codecov.io/gh/skoleapp/skole-backend)
 [![mypy checked](http://www.mypy-lang.org/static/mypy_badge.svg)](http://mypy-lang.org/)
 [![code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 This is the GraphQL backend for the Skole app.
 
-Also check out the [README from `skole` repo](https://github.com/ruohola/skole/blob/develop/README.md).
+Also check out the [README from `skole` repo](https://github.com/skoleapp/skole/blob/develop/README.md).
 
 See detailed description for all top-level dependencies in [`dependencies.md`](dependencies.md) file.
 

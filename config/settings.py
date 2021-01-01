@@ -201,7 +201,7 @@ else:
 # Custom email settings
 EMAIL_ADDRESS = os.environ.get("EMAIL_ADDRESS", default="contact@test.com")
 EMAIL_CONTACT_FORM_SENDER = os.environ.get(
-    "EMAIL_ADDRESS", default="Contact form <contact-form@test.com>"
+    "EMAIL_CONTACT_FORM_SENDER", default="Contact form <contact-form@test.com>"
 )
 VERIFICATION_PATH_ON_EMAIL = "account/verify-account"  # Have to match with frontend.
 PASSWORD_RESET_PATH_ON_EMAIL = "account/reset-password"  # Have to match with frontend.

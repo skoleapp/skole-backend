@@ -135,9 +135,6 @@ class SendPasswordResetEmailMutation(
     """
     Send password reset email.
 
-    For non-verified users, send a verification email instead and
-    return an according error message.
-
     Return an error in the following cases:
     - A user account with the provided email address was not found.
     - An unknown error while sending the email occurred.
@@ -153,7 +150,7 @@ class SendPasswordResetEmailMutation(
         email = form.cleaned_data.get("email")
 
         try:
-            user = get_user_model().objects.get(email=email)
+            user = get_user_model().objects.get(email__iexact=email)
             send_password_reset_email(user, info, recipient=email)
             return cls(success_message=Messages.PASSWORD_RESET_EMAIL_SENT)
 

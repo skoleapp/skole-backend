@@ -326,10 +326,22 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert res["user"]["username"] == "testuser2"
         assert res["successMessage"] == Messages.LOGGED_IN
 
+        # Username is not case sensitive on login.
+        res = self.mutate_login(username_or_email="TestUSER2")
+        assert res["user"]["email"] == "testuser2@test.com"
+        assert res["user"]["username"] == "testuser2"
+        assert res["successMessage"] == Messages.LOGGED_IN
+
     def test_login_ok_with_email(self) -> None:
         self.authenticated_user = None
 
         res = self.mutate_login(username_or_email="testuser2@test.com")
+        assert res["user"]["email"] == "testuser2@test.com"
+        assert res["user"]["username"] == "testuser2"
+        assert res["successMessage"] == Messages.LOGGED_IN
+
+        # Email is not case sensitive on login.
+        res = self.mutate_login(username_or_email="TESTUSER2@test.COM")
         assert res["user"]["email"] == "testuser2@test.com"
         assert res["user"]["username"] == "testuser2"
         assert res["successMessage"] == Messages.LOGGED_IN
@@ -610,6 +622,13 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert not res["errors"]
         user = self.get_authenticated_user()
         assert user.check_password(new_password)
+
+        # Email is not case sensitive
+        email = "TESTUSER2@TEST.com"
+        res = self.mutate_send_password_reset_email(email=email)
+        assert not res["errors"]
+        assert res["successMessage"] == Messages.PASSWORD_RESET_EMAIL_SENT
+        assert len(mail.outbox) == 2
 
     def test_reset_password_error(self) -> None:
         self.mutate_send_password_reset_email()

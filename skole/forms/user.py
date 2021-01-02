@@ -71,9 +71,9 @@ class LoginForm(SkoleModelForm):
         password = self.cleaned_data.get("password")
 
         if "@" in username_or_email:
-            query = {"email": username_or_email}
+            query = {"email__iexact": username_or_email}
         else:
-            query = {"username": username_or_email}
+            query = {"username__iexact": username_or_email}
 
         user: Optional[User]
 

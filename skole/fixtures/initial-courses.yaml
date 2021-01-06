@@ -211,7 +211,7 @@
 - model: skole.Course
   pk: 22
   fields:
-    name: "Data Analysys and Knowledge Discovery"
+    name: "Data Analysis and Knowledge Discovery"
     code: "TKO_3103"
     subjects: [18]
     school: 1

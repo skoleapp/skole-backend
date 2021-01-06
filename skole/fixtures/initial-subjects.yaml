@@ -4444,6 +4444,24 @@
     language_code: sv
     name: Andra språkstudier
     master: 247
+- model: skole.SubjectTranslation
+  pk: 742
+  fields:
+    language_code: en
+    name: Software Engineering
+    master: 248
+- model: skole.SubjectTranslation
+  pk: 743
+  fields:
+    language_code: fi
+    name: Ohjelmistotekniikka
+    master: 248
+- model: skole.SubjectTranslation
+  pk: 744
+  fields:
+    language_code: sv
+    name: Programvaruutveckling
+    master: 248
 
 - model: skole.Subject
   pk: 1
@@ -5185,4 +5203,7 @@
   fields: {}
 - model: skole.Subject
   pk: 247
+  fields: {}
+- model: skole.Subject
+  pk: 248
   fields: {}

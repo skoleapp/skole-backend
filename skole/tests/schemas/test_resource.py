@@ -232,6 +232,10 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
             assert_error=assert_error,
         )
 
+    def test_field_fragment(self) -> None:
+        self.authenticated_user = None
+        self.assert_field_fragment_matches_schema(self.resource_fields)
+
     def test_resources(self) -> None:
         page = 1
         page_size = 1

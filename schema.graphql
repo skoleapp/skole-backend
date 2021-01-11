@@ -13,6 +13,12 @@ type ActivityObjectType {
   description: String
 }
 
+type AuthorObjectType {
+  id: ID!
+  name: String!
+  user: UserObjectType
+}
+
 type BadgeObjectType {
   id: ID!
   name: String!
@@ -132,6 +138,7 @@ input CreateResourceMutationInput {
   resourceType: ID!
   course: ID!
   date: Date
+  author: String
   clientMutationId: String
 }
 
@@ -381,6 +388,7 @@ type ResourceObjectType {
   course: CourseObjectType!
   downloads: Int!
   user: UserObjectType
+  author: AuthorObjectType
   modified: DateTime!
   created: DateTime!
   comments: [CommentObjectType!]!
@@ -483,6 +491,7 @@ input UpdateResourceMutationInput {
   title: String!
   resourceType: ID!
   date: Date
+  author: String
   id: ID
   clientMutationId: String
 }

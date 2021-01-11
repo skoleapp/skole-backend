@@ -86,6 +86,6 @@ class Comment(SkoleModel):
         elif self.text != "":
             return f"{user}: {self.text}"
         elif self.attachment != "":
-            return f"{user}: attachment Comment: {self.pk}"
+            return f"{user}: attachment comment: {self.pk}"
         else:
             raise ValueError("Invalid comment with neither text nor attachment.")

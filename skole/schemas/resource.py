@@ -14,6 +14,7 @@ from skole.forms import (
 )
 from skole.models import Resource, School
 from skole.overridden import login_required
+from skole.schemas.author import AuthorObjectType
 from skole.schemas.base import (
     SkoleCreateUpdateMutationMixin,
     SkoleDeleteMutationMixin,
@@ -48,6 +49,7 @@ def order_resources_with_secret_algorithm(qs: QuerySet[Resource]) -> QuerySet[Re
 class ResourceObjectType(VoteMixin, StarMixin, DjangoObjectType):
     resource_type = graphene.Field(ResourceTypeObjectType)
     school = graphene.Field(SchoolObjectType)
+    author = graphene.Field(AuthorObjectType)
     star_count = graphene.Int()
     comment_count = graphene.Int()
 
@@ -61,6 +63,7 @@ class ResourceObjectType(VoteMixin, StarMixin, DjangoObjectType):
             "course",
             "downloads",
             "user",
+            "author",
             "modified",
             "created",
             "comments",

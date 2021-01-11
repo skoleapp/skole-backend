@@ -69,6 +69,15 @@ class Resource(SkoleModel):
         related_name="created_resources",
     )
 
+    author = models.ForeignKey(
+        "skole.Author",
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+        related_name="authored_resources",
+        help_text="The author (=copyright owner) of the resource.",
+    )
+
     modified = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 

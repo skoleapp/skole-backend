@@ -6,7 +6,7 @@ import libmat2.pdf
 from django.http import HttpResponse
 from django.test import override_settings
 
-from skole.models import Resource
+from skole.models import Author, Resource
 from skole.tests.helpers import (
     TEST_ATTACHMENT_PNG,
     TEST_RESOURCE_PDF,
@@ -45,6 +45,13 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
             }
             user {
                 id
+            }
+            author {
+                id
+                name
+                user {
+                    id
+                }
             }
             course {
                 id
@@ -170,6 +177,7 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
         resource_type: ID = 1,
         course: ID = 1,
         date: Optional[datetime.datetime] = None,
+        author: Optional[str] = None,
         file_data: FileData = None,
     ) -> JsonDict:
         return self.execute_input_mutation(
@@ -181,6 +189,7 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
                 "resourceType": resource_type,
                 "course": course,
                 "date": date,
+                "author": author,
             },
             result="resource { ...resourceFields }",
             fragment=self.resource_fields,
@@ -194,6 +203,7 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
         title: str = "test title",
         resource_type: ID = 1,
         date: Optional[datetime.datetime] = None,
+        author: Optional[str] = None,
     ) -> JsonDict:
         return self.execute_input_mutation(
             name="updateResource",
@@ -203,6 +213,7 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
                 "title": title,
                 "resourceType": resource_type,
                 "date": date,
+                "author": author,
             },
             result="resource { ...resourceFields }",
             fragment=self.resource_fields,
@@ -354,7 +365,7 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
 
         assert self.query_resource(id=999) is None
 
-    def test_create_resource(self) -> None:
+    def test_create_resource_ok(self) -> None:  # pylint: disable=too-many-statements
         # Create a resource with a PDF file.
         with mock.patch(
             target="libmat2.pdf.PDFParser.remove_all",
@@ -369,6 +380,7 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
         assert not res["errors"]
         assert resource["id"] == "15"
         assert resource["title"] == "test title"
+        assert resource["author"] is None
         assert is_slug_match(UPLOADED_RESOURCE_PDF, resource["file"])
 
         # These should be 0 by default.
@@ -387,6 +399,48 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
         resource = res["resource"]
         assert not res["errors"]
 
+        author_count = Author.objects.count()
+
+        # Create a resource with the author set.
+        with open_as_file(TEST_RESOURCE_PDF) as file:
+            author = "Some Guy"
+            res = self.mutate_create_resource(author=author, file_data=[("file", file)])
+            resource = res["resource"]
+            assert not res["errors"]
+            assert resource["author"]["id"] == "1"
+            assert resource["author"]["name"] == author
+            assert resource["author"]["user"] is None
+            assert Author.objects.count() == author_count + 1
+
+        # Should reuse the same Author model instance for same names.
+        with open_as_file(TEST_RESOURCE_PDF) as file:
+            res = self.mutate_create_resource(author=author, file_data=[("file", file)])
+            resource = res["resource"]
+            assert not res["errors"]
+            assert resource["author"]["name"] == author
+            assert resource["author"]["user"] is None
+            assert Author.objects.count() == author_count + 1
+
+        # Different name should get a new Author ID.
+        with open_as_file(TEST_RESOURCE_PDF) as file:
+            author = "Other Guy"
+            res = self.mutate_create_resource(author=author, file_data=[("file", file)])
+            resource = res["resource"]
+            assert not res["errors"]
+            assert resource["author"]["name"] == author
+            assert resource["author"]["user"] is None
+            assert Author.objects.count() == author_count + 2
+
+        # If the author is set to a user's username it links to it.
+        with open_as_file(TEST_RESOURCE_PDF) as file:
+            author = self.get_authenticated_user().username
+            res = self.mutate_create_resource(author=author, file_data=[("file", file)])
+            resource = res["resource"]
+            assert not res["errors"]
+            assert resource["author"]["name"] == ""
+            assert resource["author"]["user"]["id"] == "2"
+
+    def test_create_resource_error(self) -> None:
         # Can't create a resource with no file.
         res = self.mutate_create_resource()
         assert res["resource"] is None
@@ -413,6 +467,30 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
         assert resource["title"] == new_title
         assert resource["resourceType"]["name"] == "Exam"
         assert resource["date"] == "2012-12-12"
+
+        # Set the author.
+        author = "New Guy"
+        res = self.mutate_update_resource(
+            title=new_title,
+            resource_type=new_resource_type,
+            author=author,
+        )
+        resource = res["resource"]
+        assert not res["errors"]
+        assert resource["author"]["name"] == author
+        assert resource["author"]["user"] is None
+
+        # If the author is set to a user's username it links to it.
+        author = "testuser4"
+        res = self.mutate_update_resource(
+            title=new_title,
+            resource_type=new_resource_type,
+            author=author,
+        )
+        resource = res["resource"]
+        assert not res["errors"]
+        assert resource["author"]["name"] == ""
+        assert resource["author"]["user"]["id"] == "4"
 
         # Can't update someone else's resource.
         res = self.mutate_update_resource(id=2)

@@ -15,8 +15,8 @@ type ActivityObjectType {
 
 type BadgeObjectType {
   id: ID!
-  name: String
-  description: String
+  name: String!
+  description: String!
 }
 
 input ChangePasswordMutationInput {

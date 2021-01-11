@@ -12,10 +12,7 @@ from skole.utils.shortcuts import validate_single_target
 from .base import SkoleModelForm, SkoleUpdateModelForm
 
 
-class _CommentFormMixin:
-
-    attachment = forms.CharField(required=False)
-
+class _BaseCreateUpdateCommentForm(SkoleModelForm):
     def clean_attachment(self) -> Union[File, str]:
         attachment = clean_file_field(
             form=cast(SkoleModelForm, self),
@@ -23,14 +20,13 @@ class _CommentFormMixin:
             created_file_name="attachment",
         )
 
-        # Ignore: Will be defined in subclasses.
-        if self.cleaned_data["text"] == "" and attachment == "":  # type: ignore[attr-defined]
+        if self.cleaned_data["text"] == "" and attachment == "":
             raise forms.ValidationError(ValidationErrors.COMMENT_EMPTY)
 
         return attachment
 
 
-class CreateCommentForm(_CommentFormMixin, SkoleModelForm):
+class CreateCommentForm(_BaseCreateUpdateCommentForm, SkoleModelForm):
     user = forms.CharField(required=False)
 
     class Meta:
@@ -63,7 +59,7 @@ class CreateCommentForm(_CommentFormMixin, SkoleModelForm):
         return super().save(commit)
 
 
-class UpdateCommentForm(_CommentFormMixin, SkoleUpdateModelForm):
+class UpdateCommentForm(_BaseCreateUpdateCommentForm, SkoleUpdateModelForm):
     class Meta:
         model = Comment
         fields = ("id", "text", "attachment")

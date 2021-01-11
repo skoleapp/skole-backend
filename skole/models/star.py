@@ -77,4 +77,4 @@ class Star(SkoleModel):
         elif self.resource is not None:
             return f"{self.user} - {self.resource}"
         else:
-            raise ValueError("Invalid star object.")
+            raise ValueError("Invalid Star object.")

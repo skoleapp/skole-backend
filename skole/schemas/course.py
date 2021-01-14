@@ -1,4 +1,4 @@
-from typing import List, Optional, get_args
+from typing import List, Optional, cast, get_args
 
 import graphene
 from django.conf import settings
@@ -52,9 +52,9 @@ def get_suggested_courses(user: User, num_results: int) -> QuerySet[Course]:
     In the end, rank them by score and limit the number of results.
     """
 
-    qs = Course.objects.filter(school=user.school.pk, subjects=user.subject.pk).exclude(stars__user=user.pk)
+    qs = Course.objects.filter(school=user.school, subjects=user.subject).exclude(stars__user=user)
 
-    starred_by_others = Course.objects.filter(stars__user__school=user.school.pk, stars__user__subject=user.subject.pk).exclude(stars__user=user.pk)
+    starred_by_others = Course.objects.filter(stars__user__school=user.school, stars__user__subject=user.subject).exclude(stars__user=user)
     qs = qs.union(starred_by_others)
 
     if qs.count() < num_results:
@@ -261,15 +261,17 @@ class Query(SkoleObjectType):
 
     @staticmethod
     @login_required
-    def resolve_suggested_courses(root: None, info: ResolveInfo) -> List[CourseObjectType]:
+    def resolve_suggested_courses(root: None, info: ResolveInfo) -> QuerySet[Course]:
         """Return suggested courses based on secret Skole AI-powered algorithms."""
-        return get_suggested_courses(user=info.context.user, num_results=settings.SUGGESTIONS_COUNT)
+        user = cast(User, info.context.user)
+        return get_suggested_courses(user=user, num_results=settings.SUGGESTIONS_COUNT)
 
     @staticmethod
     @login_required
-    def resolve_suggested_courses_preview(root: None, info: ResolveInfo) -> List[CourseObjectType]:
+    def resolve_suggested_courses_preview(root: None, info: ResolveInfo) -> QuerySet[Course]:
         """Return preview of suggested courses based on secret Skole AI-powered algorithms."""
-        return get_suggested_courses(user=info.context.user, num_results=settings.SUGGESTIONS_PREVIEW_COUNT)
+        user = cast(User, info.context.user)
+        return get_suggested_courses(user=user, num_results=settings.SUGGESTIONS_PREVIEW_COUNT)
 
     @staticmethod
     def resolve_course(

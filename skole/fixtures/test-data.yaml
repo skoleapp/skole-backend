@@ -772,6 +772,106 @@
     user: 4
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Course
+  pk: 16
+  fields:
+    name: Test Engineering Course 16
+    code: TEST00016
+    subjects: [1]
+    school: 1
+    user: 4
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Course
+  pk: 17
+  fields:
+    name: Test Engineering Course 17
+    code: TEST00017
+    subjects: [1]
+    school: 1
+    user: 4
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Course
+  pk: 18
+  fields:
+    name: Test Engineering Course 18
+    code: TEST00018
+    subjects: [1]
+    school: 1
+    user: 4
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Course
+  pk: 19
+  fields:
+    name: Test Engineering Course 19
+    code: TEST00019
+    subjects: [1]
+    school: 1
+    user: 4
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Course
+  pk: 20
+  fields:
+    name: Test Engineering Course 20
+    code: TEST00020
+    subjects: [1]
+    school: 1
+    user: 4
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Course
+  pk: 21
+  fields:
+    name: Test Engineering Course 21
+    code: TEST00021
+    subjects: [1]
+    school: 1
+    user: 4
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Course
+  pk: 22
+  fields:
+    name: Test Engineering Course 22
+    code: TEST00022
+    subjects: [1]
+    school: 1
+    user: 4
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Course
+  pk: 23
+  fields:
+    name: Test Engineering Course 23
+    code: TEST00023
+    subjects: [1]
+    school: 1
+    user: 4
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Course
+  pk: 24
+  fields:
+    name: Test Engineering Course 24
+    code: TEST00024
+    subjects: [1]
+    school: 1
+    user: 4
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Course
+  pk: 25
+  fields:
+    name: Test Engineering Course 25
+    code: TEST00025
+    subjects: [1]
+    school: 1
+    user: 4
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 
 - model: skole.ResourceTypeTranslation
   pk: 1

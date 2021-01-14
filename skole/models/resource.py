@@ -8,6 +8,7 @@ from django.db.models import Count, Sum, Value
 from django.db.models.functions import Coalesce
 from django.db.models.query import QuerySet
 
+from skole.utils.shortcuts import safe_annotation
 from skole.utils.validators import ValidateFileSizeAndType
 
 from .base import SkoleManager, SkoleModel
@@ -16,11 +17,15 @@ from .base import SkoleManager, SkoleModel
 class ResourceManager(SkoleManager["Resource"]):
     def get_queryset(self) -> QuerySet[Resource]:
         qs = super().get_queryset()
+
         return qs.annotate(
-            score=Coalesce(Sum("votes__status"), Value(0)),
-            star_count=Count("stars", distinct=True),
-            comment_count=Count("comments", distinct=True)
-            + Count("comments__reply_comments", distinct=True),
+            score=safe_annotation(qs, Coalesce(Sum("votes__status"), Value(0))),
+            star_count=safe_annotation(qs, Count("stars", distinct=True)),
+            comment_count=safe_annotation(
+                qs,
+                Count("comments", distinct=True)
+                + Count("comments__reply_comments", distinct=True),
+            ),
         )
 
     @staticmethod

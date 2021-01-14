@@ -5,18 +5,24 @@ from django.db import models
 from django.db.models import Count, QuerySet, Sum, Value
 from django.db.models.functions import Coalesce
 
+from skole.utils.shortcuts import safe_annotation
+
 from .base import SkoleManager, SkoleModel
 
 
 class CourseManager(SkoleManager["Course"]):
     def get_queryset(self) -> QuerySet[Course]:
         qs = super().get_queryset()
+
         return qs.annotate(
-            score=Coalesce(Sum("votes__status", distinct=True), Value(0)),
-            star_count=Count("stars", distinct=True),
-            resource_count=Count("resources", distinct=True),
-            comment_count=Count("comments", distinct=True)
-            + Count("comments__reply_comments", distinct=True),
+            score=safe_annotation(qs, Coalesce(Sum("votes__status"), Value(0))),
+            star_count=safe_annotation(qs, Count("stars", distinct=True)),
+            resource_count=safe_annotation(qs, Count("resources", distinct=True)),
+            comment_count=safe_annotation(
+                qs,
+                Count("comments", distinct=True)
+                + Count("comments__reply_comments", distinct=True),
+            ),
         )
 
 

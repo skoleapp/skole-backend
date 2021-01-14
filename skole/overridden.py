@@ -5,10 +5,10 @@ import graphql_jwt.decorators
 import graphql_jwt.exceptions
 from django.http import HttpRequest
 
-Func = TypeVar("Func", bound=Callable[..., Any])
+C = TypeVar("C", bound=Callable[..., Any])
 
 
-def login_required(func: Func) -> Func:
+def login_required(func: C) -> C:
     """
     Custom version of `graphql_jwt.decorators.login_required`, behavior is the same.
 
@@ -25,4 +25,4 @@ def login_required(func: Func) -> Func:
         raise graphql_jwt.exceptions.PermissionDenied
 
     setattr(wrapper, "login_required", True)
-    return cast(Func, wrapper)
+    return cast(C, wrapper)

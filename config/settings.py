@@ -233,4 +233,4 @@ MY_DATA_RATE_LIMIT = timedelta(seconds=5) if DEBUG else timedelta(minutes=10)
 SUGGESTIONS_COUNT = 20
 
 # Amount of results returned by the suggestions preview query.
-SUGGESTIONS_PREVIEW_COUNT = 10
+SUGGESTIONS_PREVIEW_COUNT = 5

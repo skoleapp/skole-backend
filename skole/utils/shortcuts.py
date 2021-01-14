@@ -1,7 +1,7 @@
 from typing import Any, Type, TypeVar
 
 from django import forms
-from django.db.models import Model
+from django.db.models import Func, Model, OuterRef, QuerySet, Subquery
 
 from skole.types import FormError, JsonDict
 from skole.utils.constants import ValidationErrors
@@ -84,3 +84,13 @@ E = TypeVar("E", bound=FormError)
 def format_form_error(error: E, *args: Any, **kwargs: Any) -> E:
     error[0]["messages"][0] = error[0]["messages"][0].format(*args, **kwargs)
     return error
+
+
+def safe_annotation(qs: QuerySet[Any], expression: Func) -> Subquery:
+    """
+    Return a subquery that can be safely used in an `annotate()` call with mixed `Sum`
+    and `Count` expressions.
+
+    More info: https://stackoverflow.com/a/56619484/9835872
+    """
+    return Subquery(qs.annotate(res=expression).filter(pk=OuterRef("pk")).values("res"))

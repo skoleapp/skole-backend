@@ -114,7 +114,7 @@ class Query(SkoleObjectType):
         Results are sorted by creation time.
         """
         user = cast(User, info.context.user)
-        qs = user.activities.order_by("pk")
+        qs = user.activities.order_by("read", "pk")
         return get_paginator(qs, page_size, page, PaginatedActivityObjectType)
 
     @staticmethod
@@ -122,4 +122,4 @@ class Query(SkoleObjectType):
     def resolve_activity_preview(root: None, info: ResolveInfo) -> QuerySet[Activity]:
         """Return limited amount of activity of user making the query for a preview."""
         user = cast(User, info.context.user)
-        return user.activities.all()[: settings.ACTIVITY_PREVIEW_COUNT]
+        return user.activities.order_by("read", "pk")[: settings.ACTIVITY_PREVIEW_COUNT]

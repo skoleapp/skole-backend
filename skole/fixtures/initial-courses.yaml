@@ -232,7 +232,7 @@
   pk: 24
   fields:
     name: "Declarative Programming"
-    code: "DTEK24"
+    code: "DTEK0024"
     subjects: [14]
     school: 1
     user: null
@@ -1162,7 +1162,7 @@
   pk: 117
   fields:
     name: "Modelling parallel systems"
-    code: "DTEK36"
+    code: "DTEK0036"
     subjects: [14]
     school: 1
     user: null

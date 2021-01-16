@@ -230,7 +230,7 @@ USER_AVATAR_ALLOWED_FILETYPES = [("image/jpeg", "JPEG"), ("image/png", "PNG")]
 MY_DATA_RATE_LIMIT = timedelta(seconds=5) if DEBUG else timedelta(minutes=10)
 
 # Amount of results returned by the suggestions query.
-SUGGESTIONS_COUNT = 20
+SUGGESTIONS_COUNT = 21
 
 # Amount of results returned by the suggestions preview query.
-SUGGESTIONS_PREVIEW_COUNT = 5
+SUGGESTIONS_PREVIEW_COUNT = 6

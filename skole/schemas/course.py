@@ -1,14 +1,14 @@
-from typing import List, Optional, cast, get_args
+from typing import Optional, get_args
 
 import graphene
 from django.conf import settings
-from django.db.models import F, QuerySet
+from django.db.models import QuerySet
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphql import GraphQLError
 
 from skole.forms import CreateCourseForm, DeleteCourseForm
-from skole.models import Course, User
+from skole.models import Course
 from skole.overridden import login_required
 from skole.schemas.base import (
     SkoleCreateUpdateMutationMixin,
@@ -39,30 +39,6 @@ def order_courses_with_secret_algorithm(qs: QuerySet[Course]) -> QuerySet[Course
     return qs.order_by(
         -(3 * F("score") + 2 * F("resource_count") + F("comment_count")), "name"
     )
-
-
-def get_suggested_courses(user: User, num_results: int) -> QuerySet[Course]:
-    """
-    Get the courses from the user's school/subject.
-
-    Add courses that have been starred by other users who have the same school/subject to the queryset.
-
-    If there are not enough results, add other random popular courses to the queryset.
-
-    In the end, rank them by score and limit the number of results.
-    """
-
-    qs = Course.objects.filter(school=user.school, subjects=user.subject).exclude(stars__user=user)
-
-    starred_by_others = Course.objects.filter(stars__user__school=user.school, stars__user__subject=user.subject).exclude(stars__user=user)
-    qs = qs.union(starred_by_others)
-
-    if qs.count() < num_results:
-        num_extra_courses = num_results - qs.count()
-        extra_courses = Course.objects.all()[:num_extra_courses]
-        qs = qs.union(extra_courses)
-
-    return qs.order_by("-score")[:num_results]
 
 
 class CourseObjectType(VoteMixin, StarMixin, DjangoObjectType):
@@ -167,8 +143,6 @@ class Query(SkoleObjectType):
         page_size=graphene.Int(),
     )
 
-    suggested_courses = graphene.List(CourseObjectType)
-    suggested_courses_preview = graphene.List(CourseObjectType)
     course = graphene.Field(CourseObjectType, id=graphene.ID())
 
     @staticmethod
@@ -258,20 +232,6 @@ class Query(SkoleObjectType):
         qs = Course.objects.filter(stars__user__pk=info.context.user.pk)
         qs = qs.order_by("pk")
         return get_paginator(qs, page_size, page, PaginatedCourseObjectType)
-
-    @staticmethod
-    @login_required
-    def resolve_suggested_courses(root: None, info: ResolveInfo) -> QuerySet[Course]:
-        """Return suggested courses based on secret Skole AI-powered algorithms."""
-        user = cast(User, info.context.user)
-        return get_suggested_courses(user=user, num_results=settings.SUGGESTIONS_COUNT)
-
-    @staticmethod
-    @login_required
-    def resolve_suggested_courses_preview(root: None, info: ResolveInfo) -> QuerySet[Course]:
-        """Return preview of suggested courses based on secret Skole AI-powered algorithms."""
-        user = cast(User, info.context.user)
-        return get_suggested_courses(user=user, num_results=settings.SUGGESTIONS_PREVIEW_COUNT)
 
     @staticmethod
     def resolve_course(

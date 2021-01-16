@@ -1,8 +1,5 @@
 from typing import Collection, List, Optional, cast
 
-from django.conf import settings
-from django.contrib.auth import get_user_model
-
 from skole.models import Course, User, Vote
 from skole.tests.helpers import (
     SkoleSchemaTestCase,
@@ -319,23 +316,15 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         assert Course.objects.count() == old_count - 1
 
     def test_courses(self) -> None:  # pylint: disable=too-many-statements
-        # When searching courses the default ordering is by names, so the order will be:
-        # Test Engineering Course 1
-        # Test Engineering Course 10
-        # Test Engineering Course 11
-        # Test Engineering Course 12
-        # Test Engineering Course 2
-        # Test Engineering Course 3
-        # ...
-        # ...
-        assert self.query_courses() == self.query_courses(ordering="name")
+        # When searching courses the default ordering is `best`.
+        assert self.query_courses() == self.query_courses(ordering="best")
 
         page_size = 4
         page = 1
         res = self.query_courses(page=page, page_size=page_size)
         assert len(res["objects"]) == page_size
         assert res["objects"][0] == self.query_course(id=1)
-        assert res["objects"][1]["id"] == "10"
+        assert res["objects"][1]["id"] == "2"
         assert res["count"] == 25
         assert res["page"] == page
         assert res["pages"] == 7
@@ -344,8 +333,8 @@ class CourseSchemaTests(SkoleSchemaTestCase):
 
         page = 2
         res = self.query_courses(page=page, page_size=page_size)
-        assert res["objects"][0]["id"] == "13"
-        assert res["objects"][1]["id"] == "14"
+        assert res["objects"][0]["id"] == "5"
+        assert res["objects"][1]["id"] == "6"
         assert len(res["objects"]) == page_size
         assert res["count"] == 25
         assert res["page"] == page
@@ -355,8 +344,8 @@ class CourseSchemaTests(SkoleSchemaTestCase):
 
         page = 3
         res = self.query_courses(page=page, page_size=page_size)
-        assert res["objects"][0]["id"] == "17"
-        assert res["objects"][1]["id"] == "18"
+        assert res["objects"][0]["id"] == "11"
+        assert res["objects"][1]["id"] == "12"
         assert len(res["objects"]) == page_size
         assert res["count"] == 25
         assert res["page"] == page
@@ -512,25 +501,6 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         assert "permission" in get_graphql_error(res)
         assert res["data"] == {"starredCourses": None}
 
-    def test_suggested_courses(self) -> None:
-        assert self.authenticated_user
-        user = get_user_model().objects.get(pk=self.authenticated_user)
-
-        # Test full suggestions.
-        res = self.query_suggested_courses()
-        assert len(res) == settings.SUGGESTIONS_COUNT
-
-        # Test suggestions preview.
-        res = self.query_suggested_courses_preview()
-        assert len(res) == settings.SUGGESTIONS_PREVIEW_COUNT
-
-        # Test that both suggestion queries throw error when unauthenticated.
-        self.authenticated_user = None
-        self.query_suggested_courses(assert_error=True)
-        self.query_suggested_courses_preview(assert_error=True)
-
-        # TODO: Test remaining cases for the suggestions algorithm.
-
     def test_course(self) -> None:
         course = self.query_course(id=1)
         assert course["id"] == "1"
@@ -540,7 +510,7 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         assert course["school"] == {"id": "1"}
         assert course["user"] == {"id": "2"}
         assert course["starCount"] == 1
-        assert course["resourceCount"] == 4
+        assert course["resourceCount"] == 7
         assert course["commentCount"] == 18
         assert is_iso_datetime(course["modified"])
         assert is_iso_datetime(course["created"])

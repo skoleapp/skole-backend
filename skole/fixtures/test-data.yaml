@@ -963,7 +963,7 @@
   pk: 1
   fields:
     resource_type: 1
-    title: Sample exam 1
+    title: Sample Exam 1
     file: uploads/resources/test_resource.pdf
     date: 2012-12-12
     course: 1
@@ -974,7 +974,7 @@
   pk: 2
   fields:
     resource_type: 1
-    title: Sample exam 2
+    title: Sample Exam 2
     file: uploads/resources/test_resource.pdf
     date: 2012-12-12
     course: 1
@@ -997,6 +997,39 @@
   fields:
     resource_type: 2
     title: Sample exercise 2
+    file: uploads/resources/test_resource.pdf
+    date: 2012-12-12
+    course: 1
+    user: 2
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Resource
+  pk: 5
+  fields:
+    resource_type: 2
+    title: Sample exercise 3
+    file: uploads/resources/test_resource.pdf
+    date: 2012-12-12
+    course: 1
+    user: 2
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Resource
+  pk: 6
+  fields:
+    resource_type: 2
+    title: Sample exercise 4
+    file: uploads/resources/test_resource.pdf
+    date: 2012-12-12
+    course: 1
+    user: 2
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Resource
+  pk: 7
+  fields:
+    resource_type: 2
+    title: Sample exercise 6
     file: uploads/resources/test_resource.pdf
     date: 2012-12-12
     course: 1
@@ -1242,6 +1275,138 @@
     attachment: ""
     resource: 1
     course: null
+    comment: null
+    user: null
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Comment
+  pk: 23
+  fields:
+    text: An anonymous comment to a resource.
+    attachment: ""
+    resource: 2
+    course: null
+    comment: null
+    user: null
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Comment
+  pk: 24
+  fields:
+    text: An anonymous comment to a resource.
+    attachment: ""
+    resource: 3
+    course: null
+    comment: null
+    user: null
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Comment
+  pk: 25
+  fields:
+    text: An anonymous comment to a resource.
+    attachment: ""
+    resource: 4
+    course: null
+    comment: null
+    user: null
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Comment
+  pk: 26
+  fields:
+    text: An anonymous comment to a resource.
+    attachment: ""
+    resource: 5
+    course: null
+    comment: null
+    user: null
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Comment
+  pk: 27
+  fields:
+    text: An anonymous comment to a resource.
+    attachment: ""
+    resource: 6
+    course: null
+    comment: null
+    user: null
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Comment
+  pk: 28
+  fields:
+    text: An anonymous comment to a resource.
+    attachment: ""
+    resource: 7
+    course: null
+    comment: null
+    user: null
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Comment
+  pk: 29
+  fields:
+    text: An anonymous comment to a course.
+    attachment: ""
+    resource: null
+    course: 2
+    comment: null
+    user: null
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Comment
+  pk: 30
+  fields:
+    text: An anonymous comment to a course.
+    attachment: ""
+    resource: null
+    course: 3
+    comment: null
+    user: null
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Comment
+  pk: 31
+  fields:
+    text: An anonymous comment to a course.
+    attachment: ""
+    resource: null
+    course: 4
+    comment: null
+    user: null
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Comment
+  pk: 32
+  fields:
+    text: An anonymous comment to a course.
+    attachment: ""
+    resource: null
+    course: 5
+    comment: null
+    user: null
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Comment
+  pk: 33
+  fields:
+    text: An anonymous comment to a course.
+    attachment: ""
+    resource: null
+    course: 6
+    comment: null
+    user: null
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Comment
+  pk: 34
+  fields:
+    text: An anonymous comment to a course.
+    attachment: ""
+    resource: null
+    course: 7
     comment: null
     user: null
     modified: 2020-01-01 12:00:00.000000+00:00

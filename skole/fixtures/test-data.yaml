@@ -646,7 +646,7 @@
   pk: 3
   fields:
     name: Test Engineering Course 3
-    code: TEST0003
+    code: TEST0003, TEST0033, TEST0333
     subjects: [1]
     school: 1
     user: 4

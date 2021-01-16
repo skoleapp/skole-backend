@@ -4462,6 +4462,78 @@
     language_code: sv
     name: Programvaruutveckling
     master: 248
+- model: skole.SubjectTranslation
+  pk: 745
+  fields:
+    language_code: en
+    name: Engineering and Business
+    master: 249
+- model: skole.SubjectTranslation
+  pk: 746
+  fields:
+    language_code: fi
+    name: Tekniikka ja liiketoiminta
+    master: 249
+- model: skole.SubjectTranslation
+  pk: 747
+  fields:
+    language_code: sv
+    name: Teknik och affärsverksamhet
+    master: 249
+- model: skole.SubjectTranslation
+  pk: 748
+  fields:
+    language_code: en
+    name: Health and Well-being
+    master: 250
+- model: skole.SubjectTranslation
+  pk: 749
+  fields:
+    language_code: fi
+    name: Terveys ja hyvinvointi
+    master: 250
+- model: skole.SubjectTranslation
+  pk: 750
+  fields:
+    language_code: sv
+    name: Hälsa och välmående
+    master: 250
+- model: skole.SubjectTranslation
+  pk: 751
+  fields:
+    language_code: en
+    name: Arts Academy
+    master: 251
+- model: skole.SubjectTranslation
+  pk: 752
+  fields:
+    language_code: fi
+    name: Taideakatemia
+    master: 251
+- model: skole.SubjectTranslation
+  pk: 753
+  fields:
+    language_code: sv
+    name: Konstakademi
+    master: 251
+- model: skole.SubjectTranslation
+  pk: 754
+  fields:
+    language_code: en
+    name: Corporate Services
+    master: 252
+- model: skole.SubjectTranslation
+  pk: 755
+  fields:
+    language_code: fi
+    name: Yhteiset palvelut
+    master: 252
+- model: skole.SubjectTranslation
+  pk: 756
+  fields:
+    language_code: sv
+    name: Gemensamma tjänster
+    master: 252
 
 - model: skole.Subject
   pk: 1
@@ -5206,4 +5278,16 @@
   fields: {}
 - model: skole.Subject
   pk: 248
+  fields: {}
+- model: skole.Subject
+  pk: 249
+  fields: {}
+- model: skole.Subject
+  pk: 250
+  fields: {}
+- model: skole.Subject
+  pk: 251
+  fields: {}
+- model: skole.Subject
+  pk: 252
   fields: {}

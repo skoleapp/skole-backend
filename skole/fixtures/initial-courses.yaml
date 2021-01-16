@@ -5771,7 +5771,7 @@
 - model: skole.Course
   pk: 687
   fields:
-    name: " Introduction to Bedrock Geology"
+    name: "Introduction to Bedrock Geology"
     code: "GEOL1132"
     subjects: [31]
     school: 1
@@ -5891,7 +5891,7 @@
 - model: skole.Course
   pk: 699
   fields:
-    name: " Resources of the Earth"
+    name: "Resources of the Earth"
     code: "GEOL1112"
     subjects: [31]
     school: 1
@@ -6211,7 +6211,7 @@
 - model: skole.Course
   pk: 731
   fields:
-    name: " Harjoitustyö, Tulevaisuuden teknologioiden laitos"
+    name: "Harjoitustyö, Tulevaisuuden teknologioiden laitos"
     code: "TKO_2023"
     subjects: [18]
     school: 1
@@ -7711,7 +7711,7 @@
 - model: skole.Course
   pk: 881
   fields:
-    name: " Software Architectures"
+    name: "Software Architectures"
     code: "DTEK1056"
     subjects: [14]
     school: 1
@@ -8501,7 +8501,7 @@
 - model: skole.Course
   pk: 960
   fields:
-    name: " Global Health Policy and Ethics in Health Care"
+    name: "Global Health Policy and Ethics in Health Care"
     code: "HOIT6703"
     subjects: [109]
     school: 1
@@ -9841,7 +9841,7 @@
 - model: skole.Course
   pk: 1094
   fields:
-    name: " Object Oriented Software"
+    name: "Object Oriented Software"
     code: "DTEK0025"
     subjects: [14]
     school: 1
@@ -9941,7 +9941,7 @@
 - model: skole.Course
   pk: 1104
   fields:
-    name: " Thesis Research Project, part 1"
+    name: "Thesis Research Project, part 1"
     code: "BIOI4465"
     subjects: [18]
     school: 1
@@ -9971,7 +9971,7 @@
 - model: skole.Course
   pk: 1107
   fields:
-    name: " Natural Language Processing"
+    name: "Natural Language Processing"
     code: "TKO_2101"
     subjects: [18]
     school: 1
@@ -9981,7 +9981,7 @@
 - model: skole.Course
   pk: 1108
   fields:
-    name: " Text Mining"
+    name: "Text Mining"
     code: "TKO_2099"
     subjects: [18]
     school: 1
@@ -9991,7 +9991,7 @@
 - model: skole.Course
   pk: 1109
   fields:
-    name: " Information Retrieval"
+    name: "Information Retrieval"
     code: "TKO_2098"
     subjects: [18]
     school: 1
@@ -10521,7 +10521,7 @@
 - model: skole.Course
   pk: 1162
   fields:
-    name: " thesis Research Project, part 2"
+    name: "Thesis Research Project, part 2"
     code: "BIOI4466"
     subjects: [18]
     school: 1
@@ -10541,7 +10541,7 @@
 - model: skole.Course
   pk: 1164
   fields:
-    name: " Thesis Research Project, part 3"
+    name: "Thesis Research Project, part 3"
     code: "BIOI4467"
     subjects: [18]
     school: 1
@@ -10561,7 +10561,7 @@
 - model: skole.Course
   pk: 1166
   fields:
-    name: " Master's Thesis"
+    name: "Master's Thesis"
     code: "BIOI4468"
     subjects: [18]
     school: 1
@@ -13621,7 +13621,7 @@
 - model: skole.Course
   pk: 1472
   fields:
-    name: "Understanding East Asia *"
+    name: "Understanding East Asia"
     code: "MPAS2001"
     subjects: [136]
     school: 1
@@ -13701,7 +13701,7 @@
 - model: skole.Course
   pk: 1480
   fields:
-    name: "Transformations of Korean Society *"
+    name: "Transformations of Korean Society"
     code: "MPAS2137"
     subjects: [136]
     school: 1
@@ -14871,7 +14871,7 @@
 - model: skole.Course
   pk: 1597
   fields:
-    name: " Project"
+    name: "Project"
     code: "TKO_2102"
     subjects: [18]
     school: 1
@@ -14951,7 +14951,7 @@
 - model: skole.Course
   pk: 1605
   fields:
-    name: " Gamification"
+    name: "Gamification"
     code: "TKO_3111"
     subjects: [18]
     school: 1
@@ -15221,7 +15221,7 @@
 - model: skole.Course
   pk: 1632
   fields:
-    name: " tieteellinen viestintä I"
+    name: "Tieteellinen viestintä I"
     code: "KEMI6126"
     subjects: [16]
     school: 1
@@ -15381,7 +15381,7 @@
 - model: skole.Course
   pk: 1648
   fields:
-    name: " laitteistot ja kestävä kehitys"
+    name: "Laitteistot ja kestävä kehitys"
     code: "DTEK1204"
     subjects: [14]
     school: 1
@@ -15641,7 +15641,7 @@
 - model: skole.Course
   pk: 1674
   fields:
-    name: " Seminar on Software Engineering"
+    name: "Seminar on Software Engineering"
     code: "DTEK0031"
     subjects: [14]
     school: 1
@@ -15731,7 +15731,7 @@
 - model: skole.Course
   pk: 1683
   fields:
-    name: " MOOC 3"
+    name: "MOOC 3"
     code: "DTEK2019"
     subjects: [14]
     school: 1
@@ -15741,7 +15741,7 @@
 - model: skole.Course
   pk: 1684
   fields:
-    name: " MOOC 4"
+    name: "MOOC 4"
     code: "DTEK2020"
     subjects: [14]
     school: 1
@@ -15751,7 +15751,7 @@
 - model: skole.Course
   pk: 1685
   fields:
-    name: " Wearable Computing"
+    name: "Wearable Computing"
     code: "DTEK1073"
     subjects: [14]
     school: 1
@@ -15771,7 +15771,7 @@
 - model: skole.Course
   pk: 1687
   fields:
-    name: " Microsensors"
+    name: "Microsensors"
     code: "DTEK2031"
     subjects: [14]
     school: 1
@@ -15841,7 +15841,7 @@
 - model: skole.Course
   pk: 1694
   fields:
-    name: " Engineering Profession"
+    name: "Engineering Profession"
     code: "DTEK2022"
     subjects: [14]
     school: 1
@@ -16111,7 +16111,7 @@
 - model: skole.Course
   pk: 1721
   fields:
-    name: "*siirtyy FM: Methods in GIS II"
+    name: "Methods in GIS II"
     code: "MAAN6733"
     subjects: [30]
     school: 1
@@ -16131,7 +16131,7 @@
 - model: skole.Course
   pk: 1723
   fields:
-    name: "* siirtyy FM: Methods in Remote Sensing II"
+    name: "Methods in Remote Sensing II"
     code: "MAAN6735"
     subjects: [30]
     school: 1
@@ -27741,7 +27741,7 @@
 - model: skole.Course
   pk: 2884
   fields:
-    name: " Ranskan valinnaisia opintoja"
+    name: "Ranskan valinnaisia opintoja"
     code: "RANSX"
     subjects: [73]
     school: 1
@@ -34781,7 +34781,7 @@
 - model: skole.Course
   pk: 3588
   fields:
-    name: " Landscape ecology and land changes"
+    name: "Landscape ecology and land changes"
     code: "MAAN7342"
     subjects: [30]
     school: 1
@@ -34841,7 +34841,7 @@
 - model: skole.Course
   pk: 3594
   fields:
-    name: " Urban regeneration projects and place marketing"
+    name: "Urban regeneration projects and place marketing"
     code: "MAAN7562"
     subjects: [30]
     school: 1
@@ -36581,8 +36581,8 @@
 - model: skole.Course
   pk: 3768
   fields:
-    name: "-aided Drug Design"
-    code: "BKEM"
+    name: "Computer Aided Drug Design"
+    code: "ÅA__2137"
     subjects: [115]
     school: 1
     user: null
@@ -37021,7 +37021,7 @@
 - model: skole.Course
   pk: 3812
   fields:
-    name: " kasvibiologisessa tutkimusryhmässä"
+    name: "Kasvibiologisessa tutkimusryhmässä"
     code: "KABI5001"
     subjects: [122]
     school: 1
@@ -39031,7 +39031,7 @@
 - model: skole.Course
   pk: 4013
   fields:
-    name: " period II in Food Development"
+    name: "Period II in Food Development"
     code: "DEKE0110"
     subjects: [152]
     school: 1
@@ -41461,7 +41461,7 @@
 - model: skole.Course
   pk: 4256
   fields:
-    name: "Macrophyte Ecology (ÅA)"
+    name: "Macrophyte Ecology"
     code: "ÅA__3091"
     subjects: [11, 205]
     school: 1
@@ -41471,7 +41471,7 @@
 - model: skole.Course
   pk: 4257
   fields:
-    name: "Baltic Sea Ecosystems (ÅA)"
+    name: "Baltic Sea Ecosystems"
     code: "ÅA__3093"
     subjects: [11, 205]
     school: 1
@@ -41481,7 +41481,7 @@
 - model: skole.Course
   pk: 4258
   fields:
-    name: "Functional Marine Biology (ÅA)"
+    name: "Functional Marine Biology"
     code: "ÅA__3092"
     subjects: [11, 205]
     school: 1
@@ -41811,7 +41811,7 @@
 - model: skole.Course
   pk: 4291
   fields:
-    name: " Embedded C-programming"
+    name: "Embedded C-programming"
     code: "DTEK2035"
     subjects: [14]
     school: 1
@@ -41881,7 +41881,7 @@
 - model: skole.Course
   pk: 4298
   fields:
-    name: " Spatial biodiversity informatics and landscape ecology"
+    name: "Spatial biodiversity informatics and landscape ecology"
     code: "ÖMAAN776"
     subjects: [30, 218]
     school: 1
@@ -42971,7 +42971,7 @@
 - model: skole.Course
   pk: 4407
   fields:
-    name: "Behavioural Ecology (ÅA)"
+    name: "Behavioural Ecology"
     code: "ÅA__3098"
     subjects: [11, 117]
     school: 1
@@ -53551,7 +53551,7 @@
 - model: skole.Course
   pk: 5466
   fields:
-    name: "Chinese Politics and Society*"
+    name: "Chinese Politics and Society"
     code: "EA00BA30"
     subjects: [136]
     school: 1
@@ -53561,7 +53561,7 @@
 - model: skole.Course
   pk: 5467
   fields:
-    name: "South Korean Politics and Society*"
+    name: "South Korean Politics and Society"
     code: "EA00BA31"
     subjects: [136]
     school: 1
@@ -53571,7 +53571,7 @@
 - model: skole.Course
   pk: 5468
   fields:
-    name: "Japanese Politics and Society*"
+    name: "Japanese Politics and Society"
     code: "EA00BA32"
     subjects: [136]
     school: 1

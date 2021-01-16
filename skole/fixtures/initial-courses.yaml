@@ -9852,7 +9852,7 @@
   pk: 1095
   fields:
     name: "Medical Instrumentation"
-    code: "DTEK8080"
+    code: "DTEK8080, DTE28080"
     subjects: [14]
     school: 1
     user: null
@@ -15712,7 +15712,7 @@
   pk: 1681
   fields:
     name: "Human Element in Information Security"
-    code: "DTEK2029"
+    code: "DTEK2029, DTE22029"
     subjects: [14]
     school: 1
     user: null
@@ -15792,7 +15792,7 @@
   pk: 1689
   fields:
     name: "Diplomityöseminaari"
-    code: "DTEK1020"
+    code: "DTEK1020, DTE21020"
     subjects: [14]
     school: 1
     user: null
@@ -32482,7 +32482,7 @@
   pk: 3358
   fields:
     name: "Communication Technologies and Security in IoT"
-    code: "DTEK2034"
+    code: "DTEK2034, DTE22034"
     subjects: [14]
     school: 1
     user: null
@@ -44142,7 +44142,7 @@
   pk: 4524
   fields:
     name: "Software Engineering Seminar"
-    code: "DTEK8104"
+    code: "DTEK8104, DTE28104"
     subjects: [14]
     school: 1
     user: null
@@ -44402,7 +44402,7 @@
   pk: 4550
   fields:
     name: "Teollisuustalouden ja tuote- ja palveluliiketoiminnan opintojakso"
-    code: "DTEK1044"
+    code: "DTEK1044, DTE21044"
     subjects: [14]
     school: 1
     user: null
@@ -51592,7 +51592,7 @@
   pk: 5269
   fields:
     name: "Digitalisaatio sosiaali- ja terveydenhuollon palveluissa"
-    code: "DTEK8111"
+    code: "DTEK8111, DTE28111"
     subjects: [14]
     school: 1
     user: null
@@ -57402,7 +57402,7 @@
   pk: 5851
   fields:
     name: "Digitalisaatio ja kyberturvallisuus"
-    code: "DTEK0061"
+    code: "DTEK0061, DTE20061"
     subjects: [238]
     school: 1
     user: null
@@ -57412,7 +57412,7 @@
   pk: 5852
   fields:
     name: "Elektroniikan perusteet"
-    code: "DTEK0062"
+    code: "DTEK0062, DTE20062"
     subjects: [14]
     school: 1
     user: null
@@ -57442,7 +57442,7 @@
   pk: 5855
   fields:
     name: "Ohjelmoinnin laboratoriotyökurssi"
-    code: "DTEK0065"
+    code: "DTEK0065, DTE20065"
     subjects: [14]
     school: 1
     user: null
@@ -57462,7 +57462,7 @@
   pk: 5857
   fields:
     name: "Järjestelmätekniikan laboratoriotyöt"
-    code: "DTEK0067"
+    code: "DTEK0067, DTE20067"
     subjects: [14]
     school: 1
     user: null
@@ -58142,7 +58142,7 @@
   pk: 5925
   fields:
     name: "Software Testing and Quality Assurance"
-    code: "DTEK0073"
+    code: "DTEK0073, DTE20073"
     subjects: [14]
     school: 1
     user: null
@@ -60962,7 +60962,7 @@
   pk: 6207
   fields:
     name: "IT ohjelmoinnin perusteet"
-    code: "DTEK0074"
+    code: "DTEK0074, DTE20074"
     subjects: [14]
     school: 1
     user: null
@@ -61212,7 +61212,7 @@
   pk: 6232
   fields:
     name: "Robotics and Autonomous Systems"
-    code: "DTEK0080"
+    code: "DTEK0080, DTE20080"
     subjects: [14]
     school: 1
     user: null

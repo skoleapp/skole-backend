@@ -27,7 +27,6 @@ class SuggestionSchemaTests(SkoleSchemaTestCase):
                 id
                 title
                 score
-                date
                 starCount
                 commentCount
                 downloads
@@ -45,13 +44,18 @@ class SuggestionSchemaTests(SkoleSchemaTestCase):
                 attachment
                 created
                 score
+                replyCount
                 user {
                     id
                     username
-                    avatarThumbnail
                 }
-                replyComments {
+                course {
                     id
+                    name
+                }
+                resource {
+                    id
+                    title
                 }
             }
         }
@@ -142,4 +146,11 @@ class SuggestionSchemaTests(SkoleSchemaTestCase):
             courses == resources == comments == settings.SUGGESTIONS_PREVIEW_COUNT / 3
         )
 
-        # TODO: Test remaining cases for the suggestions algorithm.
+        # TODO: Test the following cases on the suggestions algorithm:
+        # - Test that the newest comments are returned for both anonymous and authenticated users.
+        # - Test that the courses and resources do not include such instances that have comments already included in the results.
+        # - Test that the courses and resources have at least one comment.
+        # - Test that the courses and resources are ordered by their comment count.
+        # - Test that if the user is logged in, the courses and resources do not include such results that have been
+        # created, starred, voted or commented (including reply comments) by the user.
+        # - Test that the results are randomly shuffled each time.

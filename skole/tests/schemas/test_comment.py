@@ -25,6 +25,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
             score
             modified
             created
+            replyCount
             user {
                 id
             }
@@ -124,7 +125,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         res = self.mutate_create_comment(text=text, resource=2)
         comment = res["comment"]
         assert not res["errors"]
-        assert comment["id"] == "36"
+        assert comment["id"] == "43"
         assert comment["text"] == text
         assert Comment.objects.count() == old_count + 2
         assert Resource.objects.get(pk=2).comments.count() == 2
@@ -135,7 +136,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         res = self.mutate_create_comment(text=text, course=2)
         comment = res["comment"]
         assert not res["errors"]
-        assert comment["id"] == "37"
+        assert comment["id"] == "44"
         assert comment["text"] == text
         assert Comment.objects.count() == old_count + 3
         assert Course.objects.get(pk=2).comments.count() == 2

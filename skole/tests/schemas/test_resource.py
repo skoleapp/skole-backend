@@ -247,9 +247,9 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
         for course in res["objects"]:
             assert int(course["user"]["id"]) == self.authenticated_user
 
-        assert res["count"] == 5
+        assert res["count"] == 12
         assert res["page"] == page
-        assert res["pages"] == 5
+        assert res["pages"] == 12
         assert res["hasNext"] is True
         assert res["hasPrev"] is False
 
@@ -265,7 +265,7 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
 
         # Test that only resources of the correct course are returned.
 
-        page = 7
+        page = 14
         course_pk = "1"
 
         res = self.query_resources(course=course_pk, page=page, page_size=page_size)
@@ -275,9 +275,9 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
         for resource in res["objects"]:
             assert resource["course"]["id"] == course_pk
 
-        assert res["count"] == 7
+        assert res["count"] == 14
         assert res["page"] == page
-        assert res["pages"] == 7
+        assert res["pages"] == 14
         assert res["hasNext"] is False
         assert res["hasPrev"] is True
 
@@ -363,7 +363,7 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
 
         resource = res["resource"]
         assert not res["errors"]
-        assert resource["id"] == "8"
+        assert resource["id"] == "15"
         assert resource["title"] == "test title"
         assert is_slug_match(UPLOADED_RESOURCE_PDF, resource["file"])
 

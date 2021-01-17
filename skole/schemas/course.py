@@ -2,7 +2,7 @@ from typing import Optional, get_args
 
 import graphene
 from django.conf import settings
-from django.db.models import QuerySet
+from django.db.models import F, QuerySet
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphql import GraphQLError

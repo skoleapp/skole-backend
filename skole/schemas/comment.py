@@ -15,6 +15,8 @@ from skole.utils.constants import Messages
 
 
 class CommentObjectType(VoteMixin, DjangoObjectType):
+    reply_count = graphene.Int()
+
     class Meta:
         model = Comment
         fields = (
@@ -26,6 +28,7 @@ class CommentObjectType(VoteMixin, DjangoObjectType):
             "resource",
             "comment",
             "reply_comments",
+            "reply_count",
             "score",
             "modified",
             "created",
@@ -34,6 +37,14 @@ class CommentObjectType(VoteMixin, DjangoObjectType):
     @staticmethod
     def resolve_attachment(root: Comment, info: ResolveInfo) -> str:
         return root.attachment.url if root.attachment else ""
+
+    @staticmethod
+    def resolve_reply_count(root: Comment, info: ResolveInfo) -> int:
+        # When the Comment is created and returned from a ModelForm it will not have
+        # this field computed (it gets annotated only in the model manager) since the
+        # value of this would be obviously 0 at the time of the comment's creation,
+        # it's ok to return it as the default here.
+        return getattr(root, "reply_count", 0)
 
 
 class CreateCommentMutation(

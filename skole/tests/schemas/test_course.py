@@ -510,7 +510,7 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         assert course["school"] == {"id": "1"}
         assert course["user"] == {"id": "2"}
         assert course["starCount"] == 1
-        assert course["resourceCount"] == 7
+        assert course["resourceCount"] == 14
         assert course["commentCount"] == 18
         assert is_iso_datetime(course["modified"])
         assert is_iso_datetime(course["created"])

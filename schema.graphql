@@ -49,6 +49,7 @@ type CommentObjectType {
   replyComments: [CommentObjectType!]!
   score: Int
   vote: VoteObjectType
+  replyCount: Int
 }
 
 input ContactMutationInput {

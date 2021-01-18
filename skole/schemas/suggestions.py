@@ -15,12 +15,12 @@ from skole.types import ResolveInfo
 
 
 def get_suggestions(
-    user: [Union[User, AnonymousUser]], num_results: int
+    user: Union[User, AnonymousUser], num_results: int
 ) -> List[Union[Course, Resource, Comment]]:
     """
     Courses, resources and comments each get a cut of third of the total amount. Get
-    courses and resources that have been commented most recently and the newest
-    comments.
+    courses and resources that have been commented most recently and the newest comments
+    that are not replies and do not have a negative score.
 
     Exclude courses and resources which comments are already included in the suggestions.
     In addition, if the user is logged in, exclude the following items:
@@ -30,29 +30,35 @@ def get_suggestions(
     - Comments that have been made, starred, voted or replied by the user.
     """
 
-    cut = num_results / 3
+    cut = int(num_results / 3)
 
     if user.is_anonymous:
-        comment_qs = Comment.objects.order_by("-pk")[:cut]
+        comment_qs = Comment.objects.filter(comment=None, score__gte=0).order_by("-pk")[
+            :cut
+        ]
 
         course_qs = (
             Course.objects.exclude(comments__in=comment_qs)
             .filter(comment_count__gt=0)
-            .order_by("-comment_count")[:cut]
+            .order_by("-comments__pk")[:cut]
         )
 
         resource_qs = (
             Resource.objects.exclude(comments__in=comment_qs)
             .filter(comment_count__gt=0)
-            .order_by("-comment_count")[:cut]
+            .order_by("-comments__pk")[:cut]
         )
 
     else:
-        comment_qs = Comment.objects.exclude(
-            user=user,
-            reply_comments__user=user,
-            votes__user=user,
-        ).order_by("-pk")[:cut]
+        comment_qs = (
+            Comment.objects.filter(comment=None, score__gte=0)
+            .exclude(
+                user=user,
+                reply_comments__user=user,
+                votes__user=user,
+            )
+            .order_by("-pk")[:cut]
+        )
 
         course_qs = (
             Course.objects.exclude(
@@ -64,7 +70,7 @@ def get_suggestions(
                 comments__reply_comments__user=user,
             )
             .filter(comment_count__gt=0)
-            .order_by("-comment_count")[:cut]
+            .order_by("-comments__pk")[:cut]
         )
 
         resource_qs = (
@@ -77,7 +83,7 @@ def get_suggestions(
                 comments__reply_comments__user=user,
             )
             .filter(comment_count__gt=0)
-            .order_by("-comment_count")[:cut]
+            .order_by("-comments__pk")[:cut]
         )
 
     results = [*course_qs, *resource_qs, *comment_qs]

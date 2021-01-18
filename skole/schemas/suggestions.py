@@ -4,9 +4,8 @@ from typing import List, Union
 import graphene
 from django.conf import settings
 from django.contrib.auth.models import AnonymousUser
-from django.db.models import QuerySet
 
-from skole.models import Comment, Course, Resource, User
+from skole.models import Comment, Course, Resource, SkoleModel, User
 from skole.schemas.base import SkoleObjectType
 from skole.schemas.comment import CommentObjectType
 from skole.schemas.course import CourseObjectType
@@ -16,7 +15,7 @@ from skole.types import ResolveInfo
 
 def get_suggestions(
     user: Union[User, AnonymousUser], num_results: int
-) -> List[Union[Course, Resource, Comment]]:
+) -> List[SkoleModel]:
     """
     Courses, resources and comments each get a cut of third of the total amount. Get
     courses and resources that have been commented most recently and the newest comments
@@ -32,26 +31,28 @@ def get_suggestions(
 
     cut = int(num_results / 3)
 
+    # Ignore: All of the ignores below exist due to Mypy not inferring types from the model classes.
+
     if user.is_anonymous:
-        comment_qs = Comment.objects.filter(comment=None, score__gte=0).order_by("-pk")[
+        comment_qs = Comment.objects.filter(comment=None, score__gte=0).order_by("-pk")[  # type: ignore[misc]
             :cut
         ]
 
         course_qs = (
             Course.objects.exclude(comments__in=comment_qs)
-            .filter(comment_count__gt=0)
+            .filter(comment_count__gt=0)  # type: ignore[misc]
             .order_by("-comments__pk")[:cut]
         )
 
         resource_qs = (
             Resource.objects.exclude(comments__in=comment_qs)
-            .filter(comment_count__gt=0)
+            .filter(comment_count__gt=0)  # type: ignore[misc]
             .order_by("-comments__pk")[:cut]
         )
 
     else:
         comment_qs = (
-            Comment.objects.filter(comment=None, score__gte=0)
+            Comment.objects.filter(comment=None, score__gte=0)  # type: ignore[misc]
             .exclude(
                 user=user,
                 reply_comments__user=user,
@@ -69,7 +70,7 @@ def get_suggestions(
                 comments__user=user,
                 comments__reply_comments__user=user,
             )
-            .filter(comment_count__gt=0)
+            .filter(comment_count__gt=0)  # type: ignore[misc]
             .order_by("-comments__pk")[:cut]
         )
 
@@ -82,7 +83,7 @@ def get_suggestions(
                 comments__user=user,
                 comments__reply_comments__user=user,
             )
-            .filter(comment_count__gt=0)
+            .filter(comment_count__gt=0)  # type: ignore[misc]
             .order_by("-comments__pk")[:cut]
         )
 
@@ -101,9 +102,7 @@ class Query(SkoleObjectType):
     suggestions_preview = graphene.List(SuggestionsUnion)
 
     @staticmethod
-    def resolve_suggestions(
-        root: None, info: ResolveInfo
-    ) -> QuerySet[Union[Course, Resource, Comment]]:
+    def resolve_suggestions(root: None, info: ResolveInfo) -> List[SkoleModel]:
         """Return suggested courses, resources and comments based on secret Skole AI-
         powered algorithms."""
 
@@ -111,9 +110,7 @@ class Query(SkoleObjectType):
         return get_suggestions(user, settings.SUGGESTIONS_COUNT)
 
     @staticmethod
-    def resolve_suggestions_preview(
-        root: None, info: ResolveInfo
-    ) -> QuerySet[Union[Course, Resource, Comment]]:
+    def resolve_suggestions_preview(root: None, info: ResolveInfo) -> List[SkoleModel]:
         """Return preview of the suggestions."""
 
         user = info.context.user

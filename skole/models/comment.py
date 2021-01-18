@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from django.conf import settings
 from django.db import models
-from django.db.models import Sum, Value
+from django.db.models import Count, Sum, Value
 from django.db.models.functions import Coalesce
 from django.db.models.query import QuerySet
 
@@ -16,7 +16,10 @@ class CommentManager(SkoleManager["Comment"]):
         qs = super().get_queryset()
         return qs.order_by(
             "id"  # We always want to get comments in their creation order.
-        ).annotate(score=Coalesce(Sum("votes__status"), Value(0)))
+        ).annotate(
+            score=Coalesce(Sum("votes__status"), Value(0)),
+            reply_count=Count("reply_comments", distinct=True),
+        )
 
 
 class Comment(SkoleModel):

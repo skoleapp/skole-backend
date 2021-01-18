@@ -25,6 +25,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
             score
             modified
             created
+            replyCount
             user {
                 id
             }
@@ -124,27 +125,30 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         res = self.mutate_create_comment(text=text, resource=2)
         comment = res["comment"]
         assert not res["errors"]
+        assert comment["id"] == "43"
         assert comment["text"] == text
         assert Comment.objects.count() == old_count + 2
-        assert Resource.objects.get(pk=2).comments.count() == 1
-        assert Resource.objects.get(pk=2).comments.first().text == text  # type: ignore[union-attr]
-        assert Resource.objects.get(pk=2).comments.first().pk == int(comment["id"])  # type: ignore[union-attr]
+        assert Resource.objects.get(pk=2).comments.count() == 2
+        assert Resource.objects.get(pk=2).comments.last().text == text  # type: ignore[union-attr]
+        assert Resource.objects.get(pk=2).comments.last().pk == int(comment["id"])  # type: ignore[union-attr]
 
         # Create a comment to a course.
         res = self.mutate_create_comment(text=text, course=2)
         comment = res["comment"]
         assert not res["errors"]
+        assert comment["id"] == "44"
         assert comment["text"] == text
         assert Comment.objects.count() == old_count + 3
-        assert Course.objects.get(pk=2).comments.count() == 1
-        assert Course.objects.get(pk=2).comments.first().text == text  # type: ignore[union-attr]
-        assert Course.objects.get(pk=2).comments.first().pk == int(comment["id"])  # type: ignore[union-attr]
+        assert Course.objects.get(pk=2).comments.count() == 2
+        assert Course.objects.get(pk=2).comments.last().text == text  # type: ignore[union-attr]
+        assert Course.objects.get(pk=2).comments.last().pk == int(comment["id"])  # type: ignore[union-attr]
 
         # Create a comment with an attachment.
         with open_as_file(TEST_ATTACHMENT_PNG) as attachment:
             res = self.mutate_create_comment(
                 text=text, course=2, file_data=[("attachment", attachment)]
             )
+
         assert not res["errors"]
         assert comment["text"] == text
         assert Comment.objects.count() == old_count + 4

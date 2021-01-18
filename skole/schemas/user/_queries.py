@@ -13,7 +13,6 @@ from ._object_types import UserObjectType
 
 class Query(SkoleObjectType):
     user_me = graphene.Field(UserObjectType)
-
     user = graphene.Field(UserObjectType, id=graphene.ID())
 
     @staticmethod

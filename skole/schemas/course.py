@@ -130,16 +130,19 @@ class Query(SkoleObjectType):
         page_size=graphene.Int(),
         ordering=graphene.String(),
     )
+
     autocomplete_courses = graphene.List(
         CourseObjectType,
         school=graphene.ID(),
         name=graphene.String(),
     )
+
     starred_courses = graphene.Field(
         PaginatedCourseObjectType,
         page=graphene.Int(),
         page_size=graphene.Int(),
     )
+
     course = graphene.Field(CourseObjectType, id=graphene.ID())
 
     @staticmethod

@@ -14,6 +14,7 @@ import skole.schemas.school_type
 import skole.schemas.sitemap
 import skole.schemas.star
 import skole.schemas.subject
+import skole.schemas.suggestions
 import skole.schemas.user
 import skole.schemas.vote
 
@@ -30,6 +31,7 @@ class Query(
     skole.schemas.sitemap.Query,
     skole.schemas.subject.Query,
     skole.schemas.user.Query,
+    skole.schemas.suggestions.Query,
 ):
     pass
 

@@ -772,6 +772,106 @@
     user: 4
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Course
+  pk: 16
+  fields:
+    name: Test Engineering Course 16
+    code: TEST00016
+    subjects: [1]
+    school: 1
+    user: 4
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Course
+  pk: 17
+  fields:
+    name: Test Engineering Course 17
+    code: TEST00017
+    subjects: [1]
+    school: 1
+    user: 4
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Course
+  pk: 18
+  fields:
+    name: Test Engineering Course 18
+    code: TEST00018
+    subjects: [1]
+    school: 1
+    user: 4
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Course
+  pk: 19
+  fields:
+    name: Test Engineering Course 19
+    code: TEST00019
+    subjects: [1]
+    school: 1
+    user: 4
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Course
+  pk: 20
+  fields:
+    name: Test Engineering Course 20
+    code: TEST00020
+    subjects: [1]
+    school: 1
+    user: 4
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Course
+  pk: 21
+  fields:
+    name: Test Engineering Course 21
+    code: TEST00021
+    subjects: [1]
+    school: 1
+    user: 4
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Course
+  pk: 22
+  fields:
+    name: Test Engineering Course 22
+    code: TEST00022
+    subjects: [1]
+    school: 1
+    user: 4
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Course
+  pk: 23
+  fields:
+    name: Test Engineering Course 23
+    code: TEST00023
+    subjects: [1]
+    school: 1
+    user: 4
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Course
+  pk: 24
+  fields:
+    name: Test Engineering Course 24
+    code: TEST00024
+    subjects: [1]
+    school: 1
+    user: 4
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Course
+  pk: 25
+  fields:
+    name: Test Engineering Course 25
+    code: TEST00025
+    subjects: [1]
+    school: 1
+    user: 4
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 
 - model: skole.ResourceTypeTranslation
   pk: 1
@@ -863,7 +963,7 @@
   pk: 1
   fields:
     resource_type: 1
-    title: Sample exam 1
+    title: Sample Exam 1
     file: uploads/resources/test_resource.pdf
     date: 2012-12-12
     course: 1
@@ -874,7 +974,7 @@
   pk: 2
   fields:
     resource_type: 1
-    title: Sample exam 2
+    title: Sample Exam 2
     file: uploads/resources/test_resource.pdf
     date: 2012-12-12
     course: 1
@@ -885,7 +985,7 @@
   pk: 3
   fields:
     resource_type: 2
-    title: Sample exercise
+    title: Sample Exercise
     file: uploads/resources/test_resource.pdf
     date: 2012-12-12
     course: 1
@@ -896,7 +996,117 @@
   pk: 4
   fields:
     resource_type: 2
-    title: Sample exercise 2
+    title: Sample Exercise 2
+    file: uploads/resources/test_resource.pdf
+    date: 2012-12-12
+    course: 1
+    user: 2
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Resource
+  pk: 5
+  fields:
+    resource_type: 2
+    title: Sample Exercise 3
+    file: uploads/resources/test_resource.pdf
+    date: 2012-12-12
+    course: 1
+    user: 2
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Resource
+  pk: 6
+  fields:
+    resource_type: 2
+    title: Sample Exercise 4
+    file: uploads/resources/test_resource.pdf
+    date: 2012-12-12
+    course: 1
+    user: 2
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Resource
+  pk: 7
+  fields:
+    resource_type: 2
+    title: Sample Exercise 6
+    file: uploads/resources/test_resource.pdf
+    date: 2012-12-12
+    course: 1
+    user: 2
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Resource
+  pk: 8
+  fields:
+    resource_type: 2
+    title: Sample Exercise 7
+    file: uploads/resources/test_resource.pdf
+    date: 2012-12-12
+    course: 1
+    user: 2
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Resource
+  pk: 9
+  fields:
+    resource_type: 2
+    title: Sample Exercise 8
+    file: uploads/resources/test_resource.pdf
+    date: 2012-12-12
+    course: 1
+    user: 2
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Resource
+  pk: 10
+  fields:
+    resource_type: 2
+    title: Sample Exercise 9
+    file: uploads/resources/test_resource.pdf
+    date: 2012-12-12
+    course: 1
+    user: 2
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Resource
+  pk: 11
+  fields:
+    resource_type: 2
+    title: Sample Exercise 10
+    file: uploads/resources/test_resource.pdf
+    date: 2012-12-12
+    course: 1
+    user: 2
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Resource
+  pk: 12
+  fields:
+    resource_type: 2
+    title: Sample Exercise 11
+    file: uploads/resources/test_resource.pdf
+    date: 2012-12-12
+    course: 1
+    user: 2
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Resource
+  pk: 13
+  fields:
+    resource_type: 2
+    title: Sample Exercise 12
+    file: uploads/resources/test_resource.pdf
+    date: 2012-12-12
+    course: 1
+    user: 2
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Resource
+  pk: 14
+  fields:
+    resource_type: 2
+    title: Sample Exercise 13
     file: uploads/resources/test_resource.pdf
     date: 2012-12-12
     course: 1
@@ -1141,6 +1351,215 @@
     text: An anonymous comment to a resource.
     attachment: ""
     resource: 1
+    course: null
+    comment: null
+    user: null
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Comment
+  pk: 23
+  fields:
+    text: An anonymous comment to a resource.
+    attachment: ""
+    resource: 2
+    course: null
+    comment: null
+    user: null
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Comment
+  pk: 24
+  fields:
+    text: An anonymous comment to a resource.
+    attachment: ""
+    resource: 3
+    course: null
+    comment: null
+    user: null
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Comment
+  pk: 25
+  fields:
+    text: An anonymous comment to a resource.
+    attachment: ""
+    resource: 4
+    course: null
+    comment: null
+    user: null
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Comment
+  pk: 26
+  fields:
+    text: An anonymous comment to a resource.
+    attachment: ""
+    resource: 5
+    course: null
+    comment: null
+    user: null
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Comment
+  pk: 27
+  fields:
+    text: An anonymous comment to a resource.
+    attachment: ""
+    resource: 6
+    course: null
+    comment: null
+    user: null
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Comment
+  pk: 28
+  fields:
+    text: An anonymous comment to a resource.
+    attachment: ""
+    resource: 7
+    course: null
+    comment: null
+    user: null
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Comment
+  pk: 29
+  fields:
+    text: An anonymous comment to a course.
+    attachment: ""
+    resource: null
+    course: 2
+    comment: null
+    user: null
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Comment
+  pk: 30
+  fields:
+    text: An anonymous comment to a course.
+    attachment: ""
+    resource: null
+    course: 3
+    comment: null
+    user: null
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Comment
+  pk: 31
+  fields:
+    text: An anonymous comment to a course.
+    attachment: ""
+    resource: null
+    course: 4
+    comment: null
+    user: null
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Comment
+  pk: 32
+  fields:
+    text: An anonymous comment to a course.
+    attachment: ""
+    resource: null
+    course: 5
+    comment: null
+    user: null
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Comment
+  pk: 33
+  fields:
+    text: An anonymous comment to a course.
+    attachment: ""
+    resource: null
+    course: 6
+    comment: null
+    user: null
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Comment
+  pk: 34
+  fields:
+    text: An anonymous comment to a course.
+    attachment: ""
+    resource: null
+    course: 7
+    comment: null
+    user: null
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Comment
+  pk: 35
+  fields:
+    text: An anonymous comment to a resource.
+    attachment: ""
+    resource: 8
+    course: null
+    comment: null
+    user: null
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Comment
+  pk: 36
+  fields:
+    text: An anonymous comment to a resource.
+    attachment: ""
+    resource: 9
+    course: null
+    comment: null
+    user: null
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Comment
+  pk: 37
+  fields:
+    text: An anonymous comment to a resource.
+    attachment: ""
+    resource: 10
+    course: null
+    comment: null
+    user: null
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Comment
+  pk: 38
+  fields:
+    text: An anonymous comment to a resource.
+    attachment: ""
+    resource: 11
+    course: null
+    comment: null
+    user: null
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Comment
+  pk: 39
+  fields:
+    text: An anonymous comment to a resource.
+    attachment: ""
+    resource: 12
+    course: null
+    comment: null
+    user: null
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Comment
+  pk: 40
+  fields:
+    text: An anonymous comment to a resource.
+    attachment: ""
+    resource: 13
+    course: null
+    comment: null
+    user: null
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Comment
+  pk: 41
+  fields:
+    text: An anonymous comment to a resource.
+    attachment: ""
+    resource: 14
     course: null
     comment: null
     user: null

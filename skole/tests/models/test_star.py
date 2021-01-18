@@ -9,7 +9,7 @@ def test_str(db: Fixture) -> None:
     star1 = Star.objects.get(pk=1)
     star3 = Star.objects.get(pk=3)
     assert str(star1) == "testuser2 - Test Engineering Course 1 TEST0001"
-    assert str(star3) == "testuser2 - Sample exam 1"
+    assert str(star3) == "testuser2 - Sample Exam 1"
 
 
 def test_manager_perform_star_ok(db: Fixture) -> None:

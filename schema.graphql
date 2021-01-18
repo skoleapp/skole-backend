@@ -49,6 +49,7 @@ type CommentObjectType {
   replyComments: [CommentObjectType!]!
   score: Int
   vote: VoteObjectType
+  replyCount: Int
 }
 
 input ContactMutationInput {
@@ -310,6 +311,8 @@ type PaginatedSubjectObjectType {
 }
 
 type Query {
+  suggestions: [SuggestionsUnion]
+  suggestionsPreview: [SuggestionsUnion]
   userMe: UserObjectType
   user(id: ID): UserObjectType
   subjects(school: ID, page: Int, pageSize: Int): PaginatedSubjectObjectType
@@ -459,6 +462,8 @@ type SubjectObjectType {
   courseCount: Int
   resourceCount: Int
 }
+
+union SuggestionsUnion = CourseObjectType | ResourceObjectType | CommentObjectType
 
 input UpdateCommentMutationInput {
   text: String

@@ -78,11 +78,14 @@ class Comment(SkoleModel):
     score: int
 
     def __str__(self) -> str:
+        """This is only used implicitly in Django admin."""
+        user = self.user.username if self.user else "Community User"
+
         if self.text and len(self.text) > 40:
-            return f"{self.text[:40]}..."
+            return f"{user}: {self.text[:40]}..."
         elif self.text != "":
-            return f"{self.text}"
+            return f"{user}: {self.text}"
         elif self.attachment != "":
-            return f"Attachment Comment: {self.pk}"
+            return f"{user}: attachment comment: {self.pk}"
         else:
             raise ValueError("Invalid comment with neither text nor attachment.")

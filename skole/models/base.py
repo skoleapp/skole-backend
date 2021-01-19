@@ -54,9 +54,9 @@ class SkoleModel(models.Model):
         return f"<{self.__class__.__name__}:{self.pk}{identifier}>"
 
     @classmethod
-    def formfield(cls, field: str) -> forms.Field:
+    def formfield(cls, field: str, **kwargs: Any) -> forms.Field:
         """Return a form field made from the given model field."""
-        return cls._meta.get_field(field).formfield()
+        return cls._meta.get_field(field).formfield(**kwargs)
 
 
 class TranslatableSkoleModel(SkoleModel, parler.models.TranslatableModel):

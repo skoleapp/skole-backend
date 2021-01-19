@@ -5,8 +5,8 @@ from skole.schemas.base import SkoleDjangoObjectType
 
 
 class BadgeObjectType(SkoleDjangoObjectType):
-    name = graphene.String()
-    description = graphene.String()
+    name = graphene.NonNull(graphene.String)
+    description = graphene.NonNull(graphene.String)
 
     class Meta:
         model = Badge

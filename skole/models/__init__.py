@@ -1,5 +1,6 @@
 from .activity import Activity
 from .activity_type import ActivityType
+from .author import Author
 from .badge import Badge
 from .base import SkoleModel, TranslatableSkoleModel
 from .city import City
@@ -18,6 +19,7 @@ from .vote import Vote
 __all__ = [
     "Activity",
     "ActivityType",
+    "Author",
     "Badge",
     "City",
     "Comment",

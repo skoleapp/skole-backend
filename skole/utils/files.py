@@ -1,14 +1,17 @@
+import datetime
 import logging
 import os
 import tempfile
+from contextlib import contextmanager
 from pathlib import Path
-from typing import Callable, Optional, Union
+from typing import Callable, Generator, Optional, Union
 
 import libmat2.parser_factory
 import requests
 from django import forms
 from django.conf import settings
 from django.core.files.base import ContentFile, File
+from django.core.files.storage import default_storage
 
 from skole.forms.base import SkoleModelForm
 from skole.utils.constants import ValidationErrors
@@ -148,3 +151,17 @@ def _clean_metadata(file: File) -> File:
         logger.exception(f"Failed to open the cleaned file `{parser.output_filename}`")
 
     return file
+
+
+@contextmanager
+def override_s3_file_age(age: datetime.timedelta) -> Generator[None, None, None]:
+    if settings.DEBUG:
+        yield
+        return  # No S3 in the dev env.
+
+    initial = default_storage.settings.AWS_S3_MAX_AGE_SECONDS
+    default_storage.settings.AWS_S3_MAX_AGE_SECONDS = age.total_seconds()
+    try:
+        yield
+    finally:
+        default_storage.settings.AWS_S3_MAX_AGE_SECONDS = initial

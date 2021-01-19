@@ -1,4 +1,3 @@
-import io
 import json
 import re
 import zipfile
@@ -44,19 +43,17 @@ class GdprSchemaTests(SkoleSchemaTestCase):
         assert sent.from_email == settings.EMAIL_ADDRESS
         assert sent.to == ["testuser2@test.com"]
 
-        assert len(sent.attachments) == 1
-        filename, content, mimetype = sent.attachments[0]
-        assert re.match(r"^testuser2_data_\d{8}.zip$", filename)
-        assert mimetype == "application/zip"
+        match = re.search(r"generated/my_data/testuser2_data_\d{8}.zip", sent.body)
+        assert match
+        filepath = match.group(0)
 
-        directory = Path(filename).stem
+        directory = Path(filepath).stem
 
         data = f"{directory}/data.json"
         png = f"{directory}/uploads/attachments/test_attachment.png"
         pdf = f"{directory}/uploads/resources/test_resource.pdf"
-        buffer = io.BytesIO(content)
 
-        with zipfile.ZipFile(buffer) as f:
+        with zipfile.ZipFile(Path(settings.MEDIA_ROOT) / filepath) as f:
             namelist = f.namelist()
             assert len(namelist) == 3
             assert data in namelist  # The order is not stable, so check individually.

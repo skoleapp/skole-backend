@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-15 20:49+0000\n"
+"POT-Creation-Date: 2021-01-19 21:47+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Skole\n"
@@ -23,9 +23,14 @@ msgstr "P.S. Voit aina vastata sähköposteihimme."
 msgid "Hello"
 msgstr "Hei"
 
-#: skole/templates/email/my_data.html:4
-msgid "Please find your data attached."
-msgstr "Datasi on liitteenä."
+#: skole/templates/email/my_data.html:5
+#, python-format
+msgid ""
+"Your data request has completed. The data will be accessible for %(days)s "
+"days with the following link:"
+msgstr ""
+"Datapyyntösi on valmistunut. Voit ladata tietosi oheisesta linkistä %(days)s "
+"päivän ajan:"
 
 #: skole/templates/email/reset_password.html:4
 msgid "Reset your password on the link:"

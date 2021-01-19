@@ -229,6 +229,11 @@ USER_AVATAR_ALLOWED_FILETYPES = [("image/jpeg", "JPEG"), ("image/png", "PNG")]
 # Shorter rate limiting in dev env for increased convenience.
 MY_DATA_RATE_LIMIT = timedelta(seconds=5) if DEBUG else timedelta(minutes=10)
 
+# How long the `myData` file is available for download.
+# TODO: add a management command that runs in the background
+#   and deletes all generated `myData` files older than 7 days.
+MY_DATA_FILE_AVAILABLE_FOR = timedelta(days=7)
+
 # Both values below are divisible by three so we can include the same amount of courses, resources and comments in the suggestions.
 
 # Amount of results returned by the suggestions query.

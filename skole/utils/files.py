@@ -160,7 +160,7 @@ def override_s3_file_age(age: datetime.timedelta) -> Generator[None, None, None]
         return  # No S3 in the dev env.
 
     initial = default_storage.settings.AWS_S3_MAX_AGE_SECONDS
-    default_storage.settings.AWS_S3_MAX_AGE_SECONDS = age.total_seconds()
+    default_storage.settings.AWS_S3_MAX_AGE_SECONDS = int(age.total_seconds())
     try:
         yield
     finally:

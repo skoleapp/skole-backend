@@ -5,6 +5,7 @@ from unittest import mock
 import libmat2.pdf
 from django.http import HttpResponse
 from django.test import override_settings
+from django.utils import timezone
 
 from skole.models import Author, Resource
 from skole.tests.helpers import (
@@ -176,7 +177,7 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
         file: str = "",
         resource_type: ID = 1,
         course: ID = 1,
-        date: Optional[datetime.datetime] = None,
+        date: Optional[datetime.date] = None,
         author: Optional[str] = None,
         file_data: FileData = None,
     ) -> JsonDict:
@@ -202,7 +203,7 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
         id: ID = 1,
         title: str = "test title",
         resource_type: ID = 1,
-        date: Optional[datetime.datetime] = None,
+        date: Optional[datetime.date] = None,
         author: Optional[str] = None,
     ) -> JsonDict:
         return self.execute_input_mutation(
@@ -399,6 +400,15 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
         resource = res["resource"]
         assert not res["errors"]
 
+        # Set the date to the current day.
+        with open_as_file(TEST_RESOURCE_PDF) as file:
+            date = timezone.localdate()
+            res = self.mutate_create_resource(date=date, file_data=[("file", file)])
+            resource = res["resource"]
+            assert not res["errors"]
+            assert resource["date"] is not None
+            assert resource["date"] == date.isoformat()
+
         author_count = Author.objects.count()
 
         # Create a resource with the author set.
@@ -454,6 +464,13 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
         res = self.mutate_create_resource()
         assert res["errors"] == MutationErrors.AUTH_REQUIRED
 
+        # The date cannot be in the future.
+        with open_as_file(TEST_RESOURCE_PDF) as file:
+            self.authenticated_user = 2
+            date = timezone.localdate() + datetime.timedelta(days=2)
+            res = self.mutate_create_resource(date=date, file_data=[("file", file)])
+            assert "future" in get_form_error(res)
+
     def test_update_resource(self) -> None:
         new_title = "new title"
         new_resource_type = 3
@@ -467,6 +484,14 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
         assert resource["title"] == new_title
         assert resource["resourceType"]["name"] == "Exam"
         assert resource["date"] == "2012-12-12"
+
+        # Set the date to the current day.
+        date = timezone.localdate()
+        res = self.mutate_update_resource(date=date)
+        resource = res["resource"]
+        assert not res["errors"]
+        assert resource["date"] is not None
+        assert resource["date"] == date.isoformat()
 
         # Set the author.
         author = "New Guy"
@@ -496,6 +521,11 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
         res = self.mutate_update_resource(id=2)
         assert get_form_error(res) == ValidationErrors.NOT_OWNER
         assert res["resource"] is None
+
+        # The date cannot be in the future.
+        date = timezone.localdate() + datetime.timedelta(days=2)
+        res = self.mutate_update_resource(date=date)
+        assert "future" in get_form_error(res)
 
     def test_delete_resource(self) -> None:
         old_count = Resource.objects.count()

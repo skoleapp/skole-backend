@@ -1,4 +1,5 @@
 import datetime
+import functools
 import hashlib
 import inspect
 import json
@@ -11,6 +12,7 @@ from typing import Any, Optional, Union
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.files import File
+from django.core.serializers.json import DjangoJSONEncoder
 from django.http import HttpResponse
 from django.test import TestCase
 from django.utils.translation import get_language
@@ -33,6 +35,8 @@ TEST_RESOURCE_PDF = "media/uploads/resources/test_resource.pdf"
 UPLOADED_ATTACHMENT_PNG = "media/uploads/attachments/attachment.png"
 UPLOADED_AVATAR_JPG = "media/uploads/avatars/avatar.jpg"
 UPLOADED_RESOURCE_PDF = "media/uploads/resources/resource.pdf"
+
+json_encode = functools.partial(json.dumps, cls=DjangoJSONEncoder)
 
 
 class SkoleSchemaTestCase(TestCase):
@@ -108,13 +112,13 @@ class SkoleSchemaTestCase(TestCase):
                 file_dict[str(i)] = file
 
             data: Union[JsonDict, str] = {
-                "operations": json.dumps(body),
-                "map": json.dumps(variable_map),
+                "operations": json_encode(body),
+                "map": json_encode(variable_map),
                 **file_dict,
             }
 
         else:
-            data = json.dumps(body)
+            data = json_encode(body)
             extra.update({"content_type": "application/json"})
 
         return self.client.post(

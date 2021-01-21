@@ -4,6 +4,7 @@ from typing import Any, Optional, Union
 from django import forms
 from django.contrib.auth import get_user_model
 from django.core.files import File
+from django.utils import timezone
 
 from skole.models import Author, Resource
 from skole.utils.files import clean_file_field, convert_to_pdf
@@ -35,6 +36,13 @@ class _BaseCreateUpdateResourceForm(SkoleModelForm):
             return Author.objects.get_or_create(name=cleaned_author)[0]
         return None
 
+    def clean_date(self) -> Optional[datetime.date]:
+        cleaned_date = self.cleaned_data["date"]
+        if cleaned_date:
+            if cleaned_date > timezone.localdate() + datetime.timedelta(days=1):
+                raise forms.ValidationError("The date cannot be in the future.")
+        return cleaned_date
+
     def save(self, commit: bool = True) -> Resource:
         assert self.request is not None
 
@@ -63,13 +71,11 @@ class CreateResourceForm(_BaseCreateUpdateResourceForm, SkoleModelForm):
 
     def clean_date(self) -> datetime.date:
         # pylint: disable=protected-access
+        cleaned_date = super().clean_date()
 
         # If the user did provide a date for the resource, use that,
         # otherwise just use the default from the model.
-        return (
-            self.cleaned_data.get("date")
-            or Resource._meta.get_field("date").get_default()
-        )
+        return cleaned_date or Resource._meta.get_field("date").get_default()
 
 
 class UpdateResourceForm(_BaseCreateUpdateResourceForm, SkoleUpdateModelForm):
@@ -78,9 +84,11 @@ class UpdateResourceForm(_BaseCreateUpdateResourceForm, SkoleUpdateModelForm):
         fields = ("id", "title", "resource_type", "date", "author")
 
     def clean_date(self) -> datetime.date:
+        cleaned_date = super().clean_date()
+
         # If a new date wasn't provided, just use the currently set one
         # instead of setting it to None (which would fail).
-        return self.cleaned_data.get("date") or self.instance.date
+        return cleaned_date or self.instance.date
 
 
 class DeleteResourceForm(SkoleUpdateModelForm):

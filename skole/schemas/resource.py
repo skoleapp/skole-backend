@@ -28,6 +28,7 @@ from skole.schemas.mixins import (
 )
 from skole.schemas.resource_type import ResourceTypeObjectType
 from skole.schemas.school import SchoolObjectType
+from skole.schemas.course import CourseObjectType
 from skole.types import ID, ResolveInfo
 from skole.utils.constants import Messages
 from skole.utils.pagination import get_paginator
@@ -49,6 +50,7 @@ def order_resources_with_secret_algorithm(qs: QuerySet[Resource]) -> QuerySet[Re
 class ResourceObjectType(VoteMixin, StarMixin, DjangoObjectType):
     resource_type = graphene.Field(ResourceTypeObjectType)
     school = graphene.Field(SchoolObjectType)
+    course = graphene.Field(CourseObjectType)
     author = graphene.Field(AuthorObjectType)
     star_count = graphene.Int()
     comment_count = graphene.Int()

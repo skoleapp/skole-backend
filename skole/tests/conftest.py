@@ -1,6 +1,6 @@
 import shutil
 import tempfile
-from typing import Generator
+from collections.abc import Generator
 
 import django.core.cache
 from django.conf import settings

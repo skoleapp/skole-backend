@@ -1,4 +1,4 @@
-from typing import Any, Dict, Tuple, Type, TypeVar, cast
+from typing import Any, TypeVar, cast
 
 from django.utils.translation import gettext_lazy as _
 
@@ -81,7 +81,7 @@ T = TypeVar("T", bound="_MutationErrorsMeta")
 
 class _MutationErrorsMeta(type):
     def __new__(
-        mcs: Type[T], name: str, bases: Tuple[type, ...], attrs: Dict[str, Any]
+        mcs: type[T], name: str, bases: tuple[type, ...], attrs: dict[str, Any]
     ) -> T:
         """Add the GraphQL form error structure for all class attributes."""
         for key, value in attrs.items():

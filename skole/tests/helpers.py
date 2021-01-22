@@ -3,9 +3,10 @@ import hashlib
 import inspect
 import json
 import re
+from collections.abc import Collection, Generator
 from contextlib import contextmanager
 from pathlib import Path
-from typing import Any, Collection, Generator, Optional, Tuple, Union
+from typing import Any, Optional, Union
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -20,7 +21,7 @@ from graphql_jwt.utils import delete_cookie
 from skole.models import User
 from skole.types import ID, JsonDict
 
-FileData = Optional[Collection[Tuple[str, File]]]
+FileData = Optional[Collection[tuple[str, File]]]
 
 # Files that exist in the repo for testing.
 TEST_ATTACHMENT_PNG = "media/uploads/attachments/test_attachment.png"
@@ -144,7 +145,7 @@ class SkoleSchemaTestCase(TestCase):
             Otherwise returns both the "error" and "data" sections.
 
             Note: The return value is type hinted for simplicity to be a `JsonDict`,
-            but it can actually be `List[JsonDict]` in cases when we're fetching a list
+            but it can actually be `list[JsonDict]` in cases when we're fetching a list
             of objects. In those cases we'll do a `cast()` before accessing the data.
         """
 
@@ -156,9 +157,7 @@ class SkoleSchemaTestCase(TestCase):
 
         headers.update(kwargs.pop("headers", {}))
 
-        # Ignore: Mypy thinks its getting multiple values for `headers`, but they are
-        #   popped from the `kwargs`.
-        response = self.query(graphql, **kwargs, headers=headers)  # type: ignore[misc]
+        response = self.query(graphql, **kwargs, headers=headers)
 
         if not self.authenticated_user:
             delete_cookie(response, jwt_settings.JWT_COOKIE_NAME)

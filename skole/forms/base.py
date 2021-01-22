@@ -1,4 +1,4 @@
-from typing import Any, Dict, Optional
+from typing import Any, Optional
 
 from django import forms
 from django.http import HttpRequest
@@ -27,7 +27,7 @@ class SkoleModelForm(_SkoleFormMixin, forms.ModelForm):
 class SkoleUpdateModelForm(SkoleModelForm):
     """Base class for forms that are used for updating objects."""
 
-    def clean(self) -> Dict[str, str]:
+    def clean(self) -> dict[str, str]:
         data = super().clean()
 
         user = getattr(self.request, "user", None)

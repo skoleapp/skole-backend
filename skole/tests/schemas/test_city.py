@@ -1,4 +1,4 @@
-from typing import List, cast
+from typing import cast
 
 from skole.tests.helpers import SkoleSchemaTestCase
 from skole.types import ID, JsonDict
@@ -14,7 +14,7 @@ class CitySchemaTests(SkoleSchemaTestCase):
         }
     """
 
-    def query_autocomplete_cities(self) -> List[JsonDict]:
+    def query_autocomplete_cities(self) -> list[JsonDict]:
         # language=GraphQL
         graphql = (
             self.city_fields
@@ -26,7 +26,7 @@ class CitySchemaTests(SkoleSchemaTestCase):
             }
             """
         )
-        return cast(List[JsonDict], self.execute(graphql))
+        return cast(list[JsonDict], self.execute(graphql))
 
     def query_city(self, *, id: ID) -> JsonDict:
         variables = {"id": id}

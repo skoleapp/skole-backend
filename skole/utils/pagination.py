@@ -1,4 +1,4 @@
-from typing import Type, TypeVar
+from typing import TypeVar
 
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db.models import QuerySet
@@ -10,7 +10,7 @@ T = TypeVar("T", bound=SkoleObjectType)
 
 
 def get_paginator(
-    qs: QuerySet[PaginableModel], page_size: int, page: int, paginated_type: Type[T]
+    qs: QuerySet[PaginableModel], page_size: int, page: int, paginated_type: type[T]
 ) -> T:
 
     p = Paginator(qs, page_size)

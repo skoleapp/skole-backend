@@ -1,5 +1,5 @@
 import random
-from typing import List, Union
+from typing import Union
 
 import graphene
 from django.conf import settings
@@ -15,7 +15,7 @@ from skole.types import ResolveInfo
 
 def get_suggestions(
     user: Union[User, AnonymousUser], num_results: int
-) -> List[SkoleModel]:
+) -> list[SkoleModel]:
     """
     Courses, resources and comments each get a cut of third of the total amount. Get
     courses and resources that have been commented most recently and the newest comments
@@ -102,7 +102,7 @@ class Query(SkoleObjectType):
     suggestions_preview = graphene.List(SuggestionsUnion)
 
     @staticmethod
-    def resolve_suggestions(root: None, info: ResolveInfo) -> List[SkoleModel]:
+    def resolve_suggestions(root: None, info: ResolveInfo) -> list[SkoleModel]:
         """Return suggested courses, resources and comments based on secret Skole AI-
         powered algorithms."""
 
@@ -110,7 +110,7 @@ class Query(SkoleObjectType):
         return get_suggestions(user, settings.SUGGESTIONS_COUNT)
 
     @staticmethod
-    def resolve_suggestions_preview(root: None, info: ResolveInfo) -> List[SkoleModel]:
+    def resolve_suggestions_preview(root: None, info: ResolveInfo) -> list[SkoleModel]:
         """Return preview of the suggestions."""
 
         user = info.context.user

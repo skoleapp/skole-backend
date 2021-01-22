@@ -1,7 +1,7 @@
 """This module contains retyped versions of third party code."""
 from __future__ import annotations
 
-from typing import List, Optional, Union
+from typing import Optional, Union
 
 from django.http import HttpRequest
 from graphql.language.ast import Field, OperationDefinition
@@ -39,7 +39,7 @@ class ResolveInfo:  # pylint: disable=too-many-instance-attributes
     def __init__(
         self,
         field_name: str,
-        field_asts: List[Field],
+        field_asts: list[Field],
         return_type: Union[GraphQLList, GraphQLObjectType, GraphQLScalarType],
         parent_type: GraphQLObjectType,
         schema: GraphQLSchema,
@@ -48,7 +48,7 @@ class ResolveInfo:  # pylint: disable=too-many-instance-attributes
         operation: OperationDefinition,
         variable_values: JsonDict,
         context: HttpRequest,
-        path: Optional[Union[List[Union[int, str]], List[str]]] = None,
+        path: Optional[Union[list[Union[int, str]], list[str]]] = None,
     ) -> None:
         self.field_name = field_name
         self.field_asts = field_asts

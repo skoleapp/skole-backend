@@ -2,9 +2,10 @@ import datetime
 import logging
 import os
 import tempfile
+from collections.abc import Generator
 from contextlib import contextmanager
 from pathlib import Path
-from typing import Callable, Generator, Optional, Union
+from typing import Callable, Optional, Union
 
 import libmat2.parser_factory
 import requests

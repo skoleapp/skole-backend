@@ -7,7 +7,7 @@ import math
 import zipfile
 from functools import lru_cache
 from pathlib import Path
-from typing import Any, Set, cast
+from typing import Any, cast
 
 import graphene
 from django.conf import settings
@@ -193,7 +193,7 @@ class MyDataMutation(SkoleObjectType, graphene.Mutation):
         return user.badges.translated().values_list("translations__name", flat=True)
 
     @staticmethod
-    def _uploaded_files(user: User) -> Set[FieldFile]:
+    def _uploaded_files(user: User) -> set[FieldFile]:
         # Objects basically shouldn't have duplicate files, but our test data
         # at least has those, so better to filter them away with a `set`.
         return {
@@ -288,11 +288,7 @@ class MyDataMutation(SkoleObjectType, graphene.Mutation):
     @staticmethod
     @lru_cache
     def __file_case(field: str) -> Case:
-        # Ignore: Mypy thinks that `When` is getting multiple values for the `then` arg.
-        return Case(
-            When(**{field: ""}, then=None),  # type: ignore[misc]
-            default=field,
-        )
+        return Case(When(**{field: ""}, then=None), default=field)
 
 
 class Mutation(SkoleObjectType):

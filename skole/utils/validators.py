@@ -1,6 +1,6 @@
 import mimetypes
+from collections.abc import Collection
 from pathlib import Path
-from typing import Collection, Tuple
 
 import magic
 from django.core.exceptions import ValidationError
@@ -14,7 +14,7 @@ from skole.utils.constants import ValidationErrors
 class ValidateFileSizeAndType:
     """Use as a field validator to validate the the file type and size."""
 
-    def __init__(self, limit: float, types: Collection[Tuple[str, str]]) -> None:
+    def __init__(self, limit: float, types: Collection[tuple[str, str]]) -> None:
         """
         Args:
             limit: The maximum allowed file size in MB.

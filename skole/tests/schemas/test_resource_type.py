@@ -1,4 +1,4 @@
-from typing import List, cast
+from typing import cast
 
 from skole.tests.helpers import SkoleSchemaTestCase
 from skole.types import JsonDict
@@ -14,7 +14,7 @@ class ResourceTypeSchemaTests(SkoleSchemaTestCase):
         }
     """
 
-    def query_autocomplete_resource_types(self) -> List[JsonDict]:
+    def query_autocomplete_resource_types(self) -> list[JsonDict]:
         # language=GraphQL
         graphql = (
             self.resource_type_fields
@@ -27,7 +27,7 @@ class ResourceTypeSchemaTests(SkoleSchemaTestCase):
             """
         )
 
-        return cast(List[JsonDict], self.execute(graphql))
+        return cast(list[JsonDict], self.execute(graphql))
 
     def test_field_fragment(self) -> None:
         self.authenticated_user = None

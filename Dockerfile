@@ -15,9 +15,9 @@ ENV PYTHONTRACEMALLOC=1
 # When building the non-production image this will specified to be `requirements-dev.txt`,
 # so that that file gets copied also. When the value is not specified for the prod image
 # the default value of it just copies the normal requirements file again.
-ARG dev_requirements=requirements.txt
+ARG dev_requirements=requirements.lock
 
-COPY --chown=user:user requirements.txt .
+COPY --chown=user:user requirements.lock .
 COPY --chown=user:user ${dev_requirements} .
 
 RUN apt-get update \
@@ -35,8 +35,9 @@ RUN apt-get update \
         postgresql-client \
         python3-gi-cairo \
         python3-mutagen \
-    && su user --command='pip install --user --no-cache-dir --disable-pip-version-check pip==20.3.3' \
-    && su user --command="pip install --user --no-cache-dir -r requirements.txt $([ -f requirements-dev.txt ] && echo '-r requirements-dev.txt')"
+    && su user --command="pip install --user --no-cache-dir --disable-pip-version-check $(grep '^pip==' requirements.lock)" \
+    && if [ -f requirements-dev.txt ]; then su user --command='pip install --user --no-cache-dir -r requirements-dev.txt'; fi \
+    && su user --command='pip install --user --no-cache-dir -r requirements.lock'
 
 USER user
 

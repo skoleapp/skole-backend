@@ -213,7 +213,6 @@ class MyDataMutation(SkoleObjectType, graphene.Mutation):
         file = Path(
             f"{user.username}_data_{user.last_my_data_query.strftime('%Y%m%d')}.zip"
         )
-        storage_name = f"generated/my_data/{file.name}"
 
         buffer = io.BytesIO()
         with zipfile.ZipFile(buffer, "w") as f:
@@ -223,7 +222,9 @@ class MyDataMutation(SkoleObjectType, graphene.Mutation):
             f.writestr(f"{file.stem}/data.json", json_data)
 
         with override_s3_file_age(settings.MY_DATA_FILE_AVAILABLE_FOR):
-            default_storage.save(name=storage_name, content=buffer)
+            storage_name = default_storage.save(
+                name=f"generated/my_data/{file.name}", content=buffer
+            )
             url = default_storage.url(name=storage_name)
 
         if settings.DEBUG:

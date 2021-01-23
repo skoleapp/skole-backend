@@ -43,11 +43,12 @@ class GdprSchemaTests(SkoleSchemaTestCase):
         assert sent.from_email == settings.EMAIL_ADDRESS
         assert sent.to == ["testuser2@test.com"]
 
-        match = re.search(r"generated/my_data/testuser2_data_\d{8}.zip", sent.body)
+        match = re.search(
+            r"generated/my_data/(testuser2_data_\d{8})\w*\.zip", sent.body
+        )
         assert match
         filepath = match.group(0)
-
-        directory = Path(filepath).stem
+        directory = match.group(1)
 
         data = f"{directory}/data.json"
         png = f"{directory}/uploads/attachments/test_attachment.png"

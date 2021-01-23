@@ -78,7 +78,7 @@ class MyDataMutation(SkoleObjectType, graphene.Mutation):
                 "email": user.email,
                 "title": user.title,
                 "bio": user.bio,
-                "avatar": Path(user.avatar.name).name if user.avatar else None,
+                "avatar": user.avatar.name if user.avatar else None,
                 "school": user.school.name if user.school else None,
                 "subject": user.subject.name if user.subject else None,
                 "score": user.score,

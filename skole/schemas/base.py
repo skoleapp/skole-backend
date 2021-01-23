@@ -1,17 +1,7 @@
 from __future__ import annotations
 
 import inspect
-from typing import (
-    Any,
-    Callable,
-    ClassVar,
-    Dict,
-    Tuple,
-    Type,
-    TypeVar,
-    cast,
-    get_type_hints,
-)
+from typing import Any, Callable, ClassVar, TypeVar, cast, get_type_hints
 
 import graphene.utils.orderedtype
 import graphene_django
@@ -42,7 +32,7 @@ class SkoleObjectTypeMeta(SubclassWithMeta_Meta):
     """
 
     def __new__(  # pylint: disable=arguments-differ; (parent's signature is unidiomatic)
-        mcs: Type[T], name: str, bases: Tuple[type, ...], attrs: Dict[str, Any]
+        mcs: type[T], name: str, bases: tuple[type, ...], attrs: dict[str, Any]
     ) -> T:
         cls = cast(T, super().__new__(mcs, name, bases, attrs))
 
@@ -181,7 +171,7 @@ class SkoleCreateUpdateMutationMixin(metaclass=SkoleObjectTypeMeta):
         return kwargs
 
     @classmethod
-    def mutate(cls: Type[M], root: None, info: ResolveInfo, **input: JsonDict) -> M:
+    def mutate(cls: type[M], root: None, info: ResolveInfo, **input: JsonDict) -> M:
         user = info.context.user
 
         if cls.login_required or cls.verification_required:

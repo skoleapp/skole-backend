@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Literal, Optional, Tuple
+from typing import Literal, Optional
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -20,7 +20,7 @@ from .user import User
 class VoteManager(SkoleManager["Vote"]):
     def perform_vote(
         self, user: User, status: Literal[1, -1], target: VotableModel
-    ) -> Tuple[Optional[Vote], int]:
+    ) -> tuple[Optional[Vote], int]:
         """Create a new vote to the target or delete it if it already exists."""
 
         if isinstance(target, Comment):

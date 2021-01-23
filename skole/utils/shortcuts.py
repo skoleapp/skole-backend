@@ -1,4 +1,4 @@
-from typing import Any, Type, TypeVar
+from typing import Any, TypeVar
 
 from django import forms
 from django.db.models import Func, Model, OuterRef, QuerySet, Subquery
@@ -20,7 +20,7 @@ def full_refresh_from_db(instance: M, /) -> M:
     return instance.__class__.objects.get(pk=instance.pk)
 
 
-def validate_is_first_inherited(decorated: Type[T]) -> Type[T]:
+def validate_is_first_inherited(decorated: type[T]) -> type[T]:
     """
     Add as a decorator to a class to ensure that it's the first class ever inherited.
 
@@ -42,7 +42,7 @@ def validate_is_first_inherited(decorated: Type[T]) -> Type[T]:
         TypeError: Foo needs to be the first inherited class.
     """
 
-    def init_subclass_with_validation(cls: Type[Any]) -> None:
+    def init_subclass_with_validation(cls: type[Any]) -> None:
         super(decorated, cls).__init_subclass__()
         found = False
         while True:

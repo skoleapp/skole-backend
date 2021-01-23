@@ -1,5 +1,5 @@
 import json
-from typing import Any, Dict, List, Union, cast
+from typing import Any, Union, cast
 
 from django.core.files.uploadedfile import UploadedFile
 from django.http import HttpRequest, HttpResponse, QueryDict
@@ -32,7 +32,7 @@ class SkoleGraphQLView(GraphQLView):
 
     def parse_body(
         self, request: HttpRequest
-    ) -> Union[JsonDict, QueryDict, List[JsonDict]]:
+    ) -> Union[JsonDict, QueryDict, list[JsonDict]]:
         """
         Overridden to enable uploading files.
 
@@ -51,13 +51,13 @@ class SkoleGraphQLView(GraphQLView):
     @staticmethod
     def _place_files_in_operations(
         ops: AnyJson,
-        files_map: Dict[str, List[str]],
+        files_map: dict[str, list[str]],
         files: MultiValueDict[str, UploadedFile],
     ) -> AnyJson:
         """Works with the way Apollo client places file uploads in the operations."""
 
         def place_file_in_ops(
-            ops: AnyJson, path: List[str], file: UploadedFile
+            ops: AnyJson, path: list[str], file: UploadedFile
         ) -> Union[AnyJson, UploadedFile]:
             if len(path) == 0:
                 return file

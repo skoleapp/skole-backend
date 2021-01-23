@@ -1,5 +1,5 @@
 """This module contains all the custom type aliases that are used in the app."""
-from typing import TYPE_CHECKING, Any, Dict, List, Literal, TypedDict, Union
+from typing import TYPE_CHECKING, Any, Literal, TypedDict, Union
 
 if TYPE_CHECKING:  # pragma: no cover
     # To avoid circular import.
@@ -42,7 +42,7 @@ Fixtures are just functions that are decorated with @pytest.fixture.
 Using this as the type of a parameter makes its purpose immediately clear.
 """
 
-JsonDict = Dict[str, Any]
+JsonDict = dict[str, Any]
 """
 A type representing a JSON object like dictionary.
 
@@ -50,12 +50,12 @@ Exactly the same as `mypy.types.JsonDict`, just defined here, to avoid having my
 as a production dependency.
 """
 
-AnyJson = Union[JsonDict, List[JsonDict]]
+AnyJson = Union[JsonDict, list[JsonDict]]
 
 
 class _FormErrorDict(TypedDict):  # pylint: disable=inherit-non-class
     field: str
-    messages: List[str]
+    messages: list[str]
 
 
-FormError = List[_FormErrorDict]
+FormError = list[_FormErrorDict]

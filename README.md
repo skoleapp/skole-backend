@@ -31,9 +31,10 @@ A quick look at the top-level files and directories excluding Git ignored locati
 14. [**`manage.py`**](manage.py): Auto-generated for a Django project, see [docs](https://docs.djangoproject.com/en/stable/ref/django-admin/).
 15. [**`mypy.ini`**](mypy.ini): Configuration for [Mypy](http://mypy-lang.org/).
 16. [**`pyproject.toml`**](pyproject.toml): Configuration for various Python tools.
-17. [**`requirements-dev.txt`**](requirements-dev.txt): List of development requirements.
-18. [**`requirements.txt`**](requirements.txt): List of production requirements.
-19. [**`schema.graphql`**](schema.graphql): GraphQL schema for noticing schema changes quickly from PRs.
+17. [**`requirements-dev.txt`**](requirements-dev.txt): List of top-level development requirements.
+18. [**`requirements.lock`**](requirements.lock): Exact pinned versions of production requirements and all peer dependencies.
+19. [**`requirements.txt`**](requirements.txt): List of top-level production requirements.
+20. [**`schema.graphql`**](schema.graphql): GraphQL schema for noticing schema changes quickly from PRs.
 
 ## Development Tips 🚀
 

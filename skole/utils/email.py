@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import List, Optional
+from typing import Optional
 
 from django.conf import settings
 from django.contrib.sites.shortcuts import get_current_site
@@ -21,7 +21,7 @@ def _send(
     template: str,
     context: JsonDict,
     user: User,
-    recipient_list: Optional[List[str]] = None,
+    recipient_list: Optional[list[str]] = None,
 ) -> None:
     html_message = render_to_string(template, context)
     message = strip_tags(html_message)

@@ -1,4 +1,4 @@
-FROM python:3.9.1-slim-buster AS dev
+FROM python:3.9.1-slim-buster@sha256:b2013807b8af03d66f60a979f20d4e93e4e4a111df1287d9632c8cfd41ecfa33 AS dev
 
 RUN groupadd --gid=10001 user \
     && useradd --gid=user --uid=10000 --create-home user
@@ -10,14 +10,14 @@ ENV PYTHONUNBUFFERED=1
 
 # This helps debug misbehaving async code.
 # It's unset in the prod layer.
-ENV PYTHONTRACEMALLOC=1
+ENV PYTHONASYNCIODEBUG=1
 
 # When building the non-production image this will specified to be `requirements-dev.txt`,
 # so that that file gets copied also. When the value is not specified for the prod image
 # the default value of it just copies the normal requirements file again.
-ARG dev_requirements=requirements.txt
+ARG dev_requirements=requirements.lock
 
-COPY --chown=user:user requirements.txt .
+COPY --chown=user:user requirements.lock .
 COPY --chown=user:user ${dev_requirements} .
 
 RUN apt-get update \
@@ -35,8 +35,9 @@ RUN apt-get update \
         postgresql-client \
         python3-gi-cairo \
         python3-mutagen \
-    && su user --command='pip install --user --no-cache-dir --disable-pip-version-check pip==20.3.1' \
-    && su user --command="pip install --user --no-cache-dir -r requirements.txt $([ -f requirements-dev.txt ] && echo '-r requirements-dev.txt')"
+    && su user --command="pip install --user --no-cache-dir --disable-pip-version-check $(grep '^pip==' requirements.lock)" \
+    && if [ -f requirements-dev.txt ]; then su user --command='pip install --user --no-cache-dir -r requirements-dev.txt'; fi \
+    && su user --command='pip install --user --no-cache-dir -r requirements.lock'
 
 USER user
 
@@ -67,7 +68,7 @@ CMD python manage.py graphql_schema --out=/tmp/compare.graphql && diff schema.gr
 FROM circleci as prod
 
 # Has to be set to an empty string for it to have no effect.
-ENV PYTHONTRACEMALLOC=
+ENV PYTHONASYNCIODEBUG=
 
 ENV PYTHONOPTIMIZE=1
 

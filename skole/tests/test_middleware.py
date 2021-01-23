@@ -30,8 +30,7 @@ class MiddlewareTests(SkoleSchemaTestCase):
     """
 
     def test_introspection_enabled(self) -> None:
-        # Ignore: Mypy 0.790 doesn't yet understand Python 3.9's dict merging.
-        with override_settings(GRAPHENE=settings.GRAPHENE | {"MIDDLEWARE": []}):  # type: ignore[operator]
+        with override_settings(GRAPHENE=settings.GRAPHENE | {"MIDDLEWARE": []}):
 
             # Calling `override_settings` will trigger
             # `graphene_django.settings.reload_graphene_settings` just fine.
@@ -56,8 +55,7 @@ class MiddlewareTests(SkoleSchemaTestCase):
 
     def test_introspection_disabled(self) -> None:
         with override_settings(
-            # Ignore: Mypy 0.790 doesn't yet understand Python 3.9's dict merging.
-            GRAPHENE=settings.GRAPHENE  # type: ignore[operator]
+            GRAPHENE=settings.GRAPHENE
             | {"MIDDLEWARE": ["skole.middleware.DisableIntrospectionMiddleware"]}
         ):
             importlib.reload(graphene_django.views)

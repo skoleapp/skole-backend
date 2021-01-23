@@ -1,4 +1,5 @@
-from typing import Collection, List, Optional, cast
+from collections.abc import Collection
+from typing import Optional, cast
 
 from skole.models import Course, User, Vote
 from skole.tests.helpers import (
@@ -50,7 +51,7 @@ class CourseSchemaTests(SkoleSchemaTestCase):
 
     def query_autocomplete_courses(
         self, *, school: ID = None, name: str = ""
-    ) -> List[JsonDict]:
+    ) -> list[JsonDict]:
         variables = {"school": school, "name": name}
 
         # language=GraphQL
@@ -65,7 +66,7 @@ class CourseSchemaTests(SkoleSchemaTestCase):
             """
         )
 
-        return cast(List[JsonDict], self.execute(graphql, variables=variables))
+        return cast(list[JsonDict], self.execute(graphql, variables=variables))
 
     def query_courses(
         self,

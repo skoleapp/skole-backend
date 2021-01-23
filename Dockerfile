@@ -10,7 +10,7 @@ ENV PYTHONUNBUFFERED=1
 
 # This helps debug misbehaving async code.
 # It's unset in the prod layer.
-ENV PYTHONTRACEMALLOC=1
+ENV PYTHONASYNCIODEBUG=1
 
 # When building the non-production image this will specified to be `requirements-dev.txt`,
 # so that that file gets copied also. When the value is not specified for the prod image
@@ -68,7 +68,7 @@ CMD python manage.py graphql_schema --out=/tmp/compare.graphql && diff schema.gr
 FROM circleci as prod
 
 # Has to be set to an empty string for it to have no effect.
-ENV PYTHONTRACEMALLOC=
+ENV PYTHONASYNCIODEBUG=
 
 ENV PYTHONOPTIMIZE=1
 

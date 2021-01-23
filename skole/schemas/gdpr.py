@@ -98,7 +98,12 @@ class MyDataMutation(SkoleObjectType, graphene.Mutation):
                 "activities": cls._activities(user),
                 "caused_activities": cls._caused_activities(user),
             }
-        json_data = json.dumps(data, indent=4, cls=DjangoQuerySetJsonEncoder)
+        json_data = json.dumps(
+            data,
+            indent=4,
+            ensure_ascii=False,
+            cls=DjangoQuerySetJsonEncoder,
+        )
         data_url = cls.__create_zip(user, json_data, request=info.context)
         cls.__send_email(user, data_url)
         return cls(success_message=Messages.DATA_REQUEST_RECEIVED)

@@ -6,6 +6,7 @@ from django.db.models import Count, Sum, Value
 from django.db.models.functions import Coalesce
 from django.db.models.query import QuerySet
 
+from skole.utils.shortcuts import safe_annotation
 from skole.utils.validators import ValidateFileSizeAndType
 
 from .base import SkoleManager, SkoleModel
@@ -14,11 +15,12 @@ from .base import SkoleManager, SkoleModel
 class CommentManager(SkoleManager["Comment"]):
     def get_queryset(self) -> QuerySet[Comment]:
         qs = super().get_queryset()
+
         return qs.order_by(
             "id"  # We always want to get comments in their creation order.
         ).annotate(
-            score=Coalesce(Sum("votes__status"), Value(0)),
-            reply_count=Count("reply_comments", distinct=True),
+            score=safe_annotation(qs, Coalesce(Sum("votes__status"), Value(0))),
+            reply_count=safe_annotation(qs, Count("reply_comments", distinct=True)),
         )
 
 

@@ -51,15 +51,18 @@ class GdprSchemaTests(SkoleSchemaTestCase):
 
         data = f"{directory}/data.json"
         png = f"{directory}/uploads/attachments/test_attachment.png"
+        jpg = f"{directory}/uploads/avatars/test_avatar.jpg"
         pdf = f"{directory}/uploads/resources/test_resource.pdf"
 
         with zipfile.ZipFile(Path(settings.MEDIA_ROOT) / filepath) as f:
             namelist = f.namelist()
-            assert len(namelist) == 3
+            assert len(namelist) == 4
             assert data in namelist  # The order is not stable, so check individually.
             assert png in namelist
+            assert jpg in namelist
             assert pdf in namelist
             assert "PNG" in magic.from_buffer(f.read(png))
+            assert "JPEG" in magic.from_buffer(f.read(jpg))
             assert "PDF" in magic.from_buffer(f.read(pdf))
             content = json.loads(f.read(data))
 

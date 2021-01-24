@@ -8,6 +8,7 @@ from ._aliases import (
     JsonDict,
     PaginableModel,
     StarrableModel,
+    SuggestionModel,
     VotableModel,
 )
 from ._retyped import ResolveInfo

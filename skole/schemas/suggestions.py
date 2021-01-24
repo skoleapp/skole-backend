@@ -1,95 +1,62 @@
 import random
-from typing import Union
+from typing import TypeVar, Union, cast
 
 import graphene
 from django.conf import settings
 from django.contrib.auth.models import AnonymousUser
+from django.db.models import QuerySet
 
-from skole.models import Comment, Course, Resource, SkoleModel, User
+from skole.models import Comment, Course, Resource, User
 from skole.schemas.base import SkoleObjectType
 from skole.schemas.comment import CommentObjectType
 from skole.schemas.course import CourseObjectType
 from skole.schemas.resource import ResourceObjectType
-from skole.types import ResolveInfo
+from skole.types import ResolveInfo, SuggestionModel
+
+T = TypeVar("T", bound=SuggestionModel)
 
 
 def get_suggestions(
     user: Union[User, AnonymousUser], num_results: int
-) -> list[SkoleModel]:
+) -> list[SuggestionModel]:
     """
-    Courses, resources and comments each get a cut of third of the total amount. Get
-    courses and resources that have been commented most recently and the newest comments
-    that are not replies and do not have a negative score.
+    Return a selection of trending comments, courses, and resources for suggestions.
 
-    Exclude courses and resources which comments are already included in the suggestions.
-    In addition, if the user is logged in, exclude the following items:
-
-    - Courses and resources that have been starred, voted, commented by the user.
-    - Courses and resources which reply comments from the user.
-    - Comments that have been made, starred, voted or replied by the user.
+    Gets a selection of courses and resources that have been commented most recently and
+    the newest comments that do not have a negative score.
     """
 
-    cut = int(num_results / 3)
+    def sample(qs: QuerySet[T]) -> list[T]:
+        # Don't use `random.sample` since it raises en error if there aren't enough results.
+        ls = list(qs[:num_results])
+        random.shuffle(ls)
+        return ls[: num_results // 3]
 
-    # Ignore: All of the ignores below exist due to Mypy not inferring types from the model classes.
+    # Ignore: All of the ignores below exist due to Mypy not inferring annotated fields.
 
-    if user.is_anonymous:
-        comment_qs = Comment.objects.filter(comment=None, score__gte=0).order_by("-pk")[  # type: ignore[misc]
-            :cut
-        ]
+    comments = sample(
+        Comment.objects.filter(score__gte=0).order_by("-pk")  # type: ignore[misc]
+    )
 
-        course_qs = (
-            Course.objects.exclude(comments__in=comment_qs)
-            .filter(comment_count__gt=0)  # type: ignore[misc]
-            .order_by("-comments__pk")[:cut]
+    courses = sample(
+        Course.objects.exclude(
+            comments__in=comments,
         )
+        .filter(comment_count__gt=0)  # type: ignore[misc]
+        .order_by("-comments__pk")
+    )
 
-        resource_qs = (
-            Resource.objects.exclude(comments__in=comment_qs)
-            .filter(comment_count__gt=0)  # type: ignore[misc]
-            .order_by("-comments__pk")[:cut]
+    resources = sample(
+        Resource.objects.exclude(
+            comments__in=comments,
         )
+        .filter(comment_count__gt=0)  # type: ignore[misc]
+        .order_by("-comments__pk")
+    )
 
-    else:
-        comment_qs = (
-            Comment.objects.filter(comment=None, score__gte=0)  # type: ignore[misc]
-            .exclude(
-                user=user,
-                reply_comments__user=user,
-                votes__user=user,
-            )
-            .order_by("-pk")[:cut]
-        )
-
-        course_qs = (
-            Course.objects.exclude(
-                comments__in=comment_qs,
-                user=user,
-                stars__user=user,
-                votes__user=user,
-                comments__user=user,
-                comments__reply_comments__user=user,
-            )
-            .filter(comment_count__gt=0)  # type: ignore[misc]
-            .order_by("-comments__pk")[:cut]
-        )
-
-        resource_qs = (
-            Resource.objects.exclude(
-                comments__in=comment_qs,
-                user=user,
-                stars__user=user,
-                votes__user=user,
-                comments__user=user,
-                comments__reply_comments__user=user,
-            )
-            .filter(comment_count__gt=0)  # type: ignore[misc]
-            .order_by("-comments__pk")[:cut]
-        )
-
-    results = [*course_qs, *resource_qs, *comment_qs]
+    results = [*comments, *courses, *resources]
     random.shuffle(results)
-    return results
+    return cast(list[SuggestionModel], results)
 
 
 class SuggestionsUnion(graphene.Union):
@@ -102,7 +69,7 @@ class Query(SkoleObjectType):
     suggestions_preview = graphene.List(SuggestionsUnion)
 
     @staticmethod
-    def resolve_suggestions(root: None, info: ResolveInfo) -> list[SkoleModel]:
+    def resolve_suggestions(root: None, info: ResolveInfo) -> list[SuggestionModel]:
         """Return suggested courses, resources and comments based on secret Skole AI-
         powered algorithms."""
 
@@ -110,7 +77,9 @@ class Query(SkoleObjectType):
         return get_suggestions(user, settings.SUGGESTIONS_COUNT)
 
     @staticmethod
-    def resolve_suggestions_preview(root: None, info: ResolveInfo) -> list[SkoleModel]:
+    def resolve_suggestions_preview(
+        root: None, info: ResolveInfo
+    ) -> list[SuggestionModel]:
         """Return preview of the suggestions."""
 
         user = info.context.user

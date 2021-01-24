@@ -10,6 +10,8 @@ PaginableModel = Union["Course", "Resource", "User", "Activity"]
 VotableModel = Union["Comment", "Course", "Resource"]
 StarrableModel = Union["Course", "Resource"]
 
+SuggestionModel = Union["Comment", "Course", "Resource"]
+
 CourseOrderingOption = Literal["best", "score", "name", "-name"]
 
 ID = Union[str, int, None]

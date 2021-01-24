@@ -32,6 +32,7 @@ class Query(
     skole.schemas.subject.Query,
     skole.schemas.user.Query,
     skole.schemas.suggestions.Query,
+    skole.schemas.comment.Query,
 ):
     pass
 

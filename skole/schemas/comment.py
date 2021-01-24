@@ -1,4 +1,6 @@
 import graphene
+from django.conf import settings
+from django.db.models import QuerySet
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 
@@ -9,9 +11,10 @@ from skole.schemas.base import (
     SkoleDeleteMutationMixin,
     SkoleObjectType,
 )
-from skole.schemas.mixins import SuccessMessageMixin, VoteMixin
-from skole.types import ResolveInfo
+from skole.schemas.mixins import PaginationMixin, SuccessMessageMixin, VoteMixin
+from skole.types import ID, ResolveInfo
 from skole.utils.constants import Messages
+from skole.utils.pagination import get_paginator
 
 
 class CommentObjectType(VoteMixin, DjangoObjectType):
@@ -45,6 +48,13 @@ class CommentObjectType(VoteMixin, DjangoObjectType):
         # value of this would be obviously 0 at the time of the comment's creation,
         # it's ok to return it as the default here.
         return getattr(root, "reply_count", 0)
+
+
+class PaginatedCommentObjectType(PaginationMixin, SkoleObjectType):
+    objects = graphene.List(CommentObjectType)
+
+    class Meta:
+        description = Comment.__doc__
 
 
 class CreateCommentMutation(
@@ -86,6 +96,32 @@ class DeleteCommentMutation(SkoleDeleteMutationMixin, DjangoModelFormMutation):
 
     class Meta(SkoleDeleteMutationMixin.Meta):
         form_class = DeleteCommentForm
+
+
+class Query(SkoleObjectType):
+    comments = graphene.Field(
+        PaginatedCommentObjectType,
+        user=graphene.ID(),
+        page=graphene.Int(),
+        page_size=graphene.Int(),
+    )
+
+    @staticmethod
+    def resolve_comments(
+        root: None,
+        info: ResolveInfo,
+        user: ID = None,
+        page: int = 1,
+        page_size: int = settings.DEFAULT_PAGE_SIZE,
+    ) -> PaginatedCommentObjectType:
+        """Return comments filtered by query params."""
+
+        qs: QuerySet[Comment] = Comment.objects.all()
+
+        if user is not None:
+            qs = qs.filter(user__pk=user)
+
+        return get_paginator(qs, page_size, page, PaginatedCommentObjectType)
 
 
 class Mutation(SkoleObjectType):

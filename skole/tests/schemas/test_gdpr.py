@@ -43,23 +43,27 @@ class GdprSchemaTests(SkoleSchemaTestCase):
         assert sent.from_email == settings.EMAIL_ADDRESS
         assert sent.to == ["testuser2@test.com"]
 
-        match = re.search(r"generated/my_data/testuser2_data_\d{8}.zip", sent.body)
+        match = re.search(
+            r"generated/my_data/(testuser2_data_\d{8})\w*\.zip", sent.body
+        )
         assert match
         filepath = match.group(0)
-
-        directory = Path(filepath).stem
+        directory = match.group(1)
 
         data = f"{directory}/data.json"
         png = f"{directory}/uploads/attachments/test_attachment.png"
+        jpg = f"{directory}/uploads/avatars/test_avatar.jpg"
         pdf = f"{directory}/uploads/resources/test_resource.pdf"
 
         with zipfile.ZipFile(Path(settings.MEDIA_ROOT) / filepath) as f:
             namelist = f.namelist()
-            assert len(namelist) == 3
+            assert len(namelist) == 4
             assert data in namelist  # The order is not stable, so check individually.
             assert png in namelist
+            assert jpg in namelist
             assert pdf in namelist
             assert "PNG" in magic.from_buffer(f.read(png))
+            assert "JPEG" in magic.from_buffer(f.read(jpg))
             assert "PDF" in magic.from_buffer(f.read(pdf))
             content = json.loads(f.read(data))
 

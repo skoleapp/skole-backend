@@ -111,7 +111,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         email: str = "testuser2@test.com",
         title: str = "",
         bio: str = "",
-        avatar: str = "",
+        avatar: str = "uploads/avatars/test_avatar.jpg",
         school: ID = 1,
         subject: ID = 1,
         file_data: FileData = None,
@@ -508,12 +508,20 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert self.query_user_me() == user_old
 
     def test_update_user_avatar(self) -> None:
-        # No avatar at the beginning.
+        # Avatar at the beginning.
+        assert self.query_user_me()["avatar"]
+
+        # Delete the avatar.
+        assert self.get_authenticated_user().avatar
+        res = self.mutate_update_user(avatar="")
+        assert res["user"]["avatar"] == ""
         assert self.query_user_me()["avatar"] == ""
+        assert not self.get_authenticated_user().avatar
 
         # Set an avatar.
         with open_as_file(TEST_AVATAR_JPG) as avatar:
             res = self.mutate_update_user(file_data=[("avatar", avatar)])
+        assert not res["errors"]
         file_url = res["user"]["avatar"]
         assert is_slug_match(UPLOADED_AVATAR_JPG, file_url)
         assert self.query_user_me()["avatar"] == file_url
@@ -531,13 +539,6 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         res = self.mutate_update_user(avatar="badvalue")
         assert not res["errors"]
         assert is_slug_match(UPLOADED_AVATAR_JPG, res["user"]["avatar"])
-
-        # Delete the avatar.
-        assert self.get_authenticated_user().avatar
-        res = self.mutate_update_user(avatar="")
-        assert res["user"]["avatar"] == ""
-        assert self.query_user_me()["avatar"] == ""
-        assert not self.get_authenticated_user().avatar
 
     def test_delete_user_ok(self) -> None:
         old_count = get_user_model().objects.count()

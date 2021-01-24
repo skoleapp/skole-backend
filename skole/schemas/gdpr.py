@@ -78,7 +78,7 @@ class MyDataMutation(SkoleObjectType, graphene.Mutation):
                 "email": user.email,
                 "title": user.title,
                 "bio": user.bio,
-                "avatar": Path(user.avatar.name).name if user.avatar else None,
+                "avatar": user.avatar.name if user.avatar else None,
                 "school": user.school.name if user.school else None,
                 "subject": user.subject.name if user.subject else None,
                 "score": user.score,
@@ -98,7 +98,12 @@ class MyDataMutation(SkoleObjectType, graphene.Mutation):
                 "activities": cls._activities(user),
                 "caused_activities": cls._caused_activities(user),
             }
-        json_data = json.dumps(data, indent=4, cls=DjangoQuerySetJsonEncoder)
+        json_data = json.dumps(
+            data,
+            indent=4,
+            ensure_ascii=False,
+            cls=DjangoQuerySetJsonEncoder,
+        )
         data_url = cls.__create_zip(user, json_data, request=info.context)
         cls.__send_email(user, data_url)
         return cls(success_message=Messages.DATA_REQUEST_RECEIVED)
@@ -213,7 +218,6 @@ class MyDataMutation(SkoleObjectType, graphene.Mutation):
         file = Path(
             f"{user.username}_data_{user.last_my_data_query.strftime('%Y%m%d')}.zip"
         )
-        storage_name = f"generated/my_data/{file.name}"
 
         buffer = io.BytesIO()
         with zipfile.ZipFile(buffer, "w") as f:
@@ -223,7 +227,9 @@ class MyDataMutation(SkoleObjectType, graphene.Mutation):
             f.writestr(f"{file.stem}/data.json", json_data)
 
         with override_s3_file_age(settings.MY_DATA_FILE_AVAILABLE_FOR):
-            default_storage.save(name=storage_name, content=buffer)
+            storage_name = default_storage.save(
+                name=f"generated/my_data/{file.name}", content=buffer
+            )
             url = default_storage.url(name=storage_name)
 
         if settings.DEBUG:

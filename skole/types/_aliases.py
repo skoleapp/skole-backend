@@ -6,7 +6,7 @@ if TYPE_CHECKING:  # pragma: no cover
     from skole.models import Activity, Comment, Course, Resource, User  # noqa: F401
 
 CommentableModel = Union["Comment", "Course", "Resource"]
-PaginableModel = Union["Course", "Resource", "User", "Activity"]
+PaginableModel = Union["Course", "Resource", "User", "Activity", "Comment"]
 VotableModel = Union["Comment", "Course", "Resource"]
 StarrableModel = Union["Course", "Resource"]
 

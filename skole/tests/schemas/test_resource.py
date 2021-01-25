@@ -260,8 +260,8 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
 
         assert len(res["objects"]) == page_size
 
-        for course in res["objects"]:
-            assert int(course["user"]["id"]) == self.authenticated_user
+        for resource in res["objects"]:
+            assert int(resource["user"]["id"]) == self.authenticated_user
 
         assert res["count"] == 12
         assert res["page"] == page
@@ -297,7 +297,7 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
         assert res["hasNext"] is False
         assert res["hasPrev"] is True
 
-        # Test for some course that has no courses.
+        # Test for some course that has no resources.
 
         page = 1
         res = self.query_resources(course=9, page=page, page_size=page_size)

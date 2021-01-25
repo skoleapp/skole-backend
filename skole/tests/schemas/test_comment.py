@@ -1,3 +1,5 @@
+from typing import Optional
+
 from skole.models import Comment, Course, Resource
 from skole.tests.helpers import (
     TEST_ATTACHMENT_PNG,
@@ -47,6 +49,49 @@ class CommentSchemaTests(SkoleSchemaTestCase):
             }
         }
     """
+
+    def query_comments(
+        self,
+        *,
+        user: ID = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        assert_error: bool = False,
+    ) -> JsonDict:
+        variables = {
+            "user": user,
+            "page": page,
+            "pageSize": page_size,
+        }
+
+        # language=GraphQL
+        graphql = (
+            self.comment_fields
+            + """
+                query Comments (
+                    $user: ID,
+                    $page: Int,
+                    $pageSize: Int
+                ) {
+                    comments (
+                        user: $user,
+                        page: $page,
+                        pageSize: $pageSize
+                    ) {
+                        page
+                        pages
+                        hasNext
+                        hasPrev
+                        count
+                        objects {
+                            ...commentFields
+                        }
+                    }
+                }
+            """
+        )
+
+        return self.execute(graphql, variables=variables, assert_error=assert_error)
 
     def mutate_create_comment(
         self,
@@ -295,3 +340,34 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         assert get_form_error(res) == ValidationErrors.NOT_OWNER
 
         assert Comment.objects.count() == old_count - 1
+
+    def test_comments(self) -> None:
+        page = 1
+        page_size = 1
+
+        # Test that only comments of the correct user are returned.
+
+        res = self.query_comments(
+            user=self.authenticated_user, page=page, page_size=page_size
+        )
+
+        assert len(res["objects"]) == page_size
+
+        for comment in res["objects"]:
+            assert int(comment["user"]["id"]) == self.authenticated_user
+
+        assert res["count"] == 17
+        assert res["page"] == page
+        assert res["pages"] == 17
+        assert res["hasNext"] is True
+        assert res["hasPrev"] is False
+
+        # Test for some user that has created no comments.
+
+        page = 1
+        res = self.query_comments(user=10, page=page, page_size=page_size)
+        assert res["count"] == 0
+        assert res["page"] == page
+        assert res["pages"] == 1
+        assert res["hasNext"] is False
+        assert res["hasPrev"] is False

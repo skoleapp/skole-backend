@@ -290,6 +290,15 @@ type PaginatedActivityObjectType {
   objects: [ActivityObjectType]
 }
 
+type PaginatedCommentObjectType {
+  page: Int
+  pages: Int
+  hasNext: Boolean
+  hasPrev: Boolean
+  count: Int
+  objects: [CommentObjectType]
+}
+
 type PaginatedCourseObjectType {
   page: Int
   pages: Int
@@ -318,6 +327,7 @@ type PaginatedSubjectObjectType {
 }
 
 type Query {
+  comments(user: ID, page: Int, pageSize: Int): PaginatedCommentObjectType
   suggestions: [SuggestionsUnion]
   suggestionsPreview: [SuggestionsUnion]
   userMe: UserObjectType

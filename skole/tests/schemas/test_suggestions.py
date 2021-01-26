@@ -147,12 +147,10 @@ class SuggestionSchemaTests(SkoleSchemaTestCase):
         )
 
         # TODO: Test the following cases on the suggestions algorithm:
-        # - Test that the newest comments are returned for both anonymous and authenticated users.
+        # - Test that the newest comments are returned.
         # - Test that no reply comments are included.
         # - Test that no comments with negative score are included.
         # - Test that the courses and resources do not include such instances that have comments already included in the results.
         # - Test that the courses and resources have at least one comment.
         # - Test that the courses and resources are ordered by most recent comments.
-        # - Test that if the user is logged in, the courses and resources do not include such results that have been
-        # created, starred, voted or commented (including reply comments) by the user.
         # - Test that the results are randomly shuffled each time.

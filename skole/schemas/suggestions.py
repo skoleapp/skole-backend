@@ -23,7 +23,7 @@ def get_suggestions(
     Return a selection of trending comments, courses, and resources for suggestions.
 
     Gets a selection of courses and resources that have been commented most recently and
-    the newest comments that do not have a negative score.
+    the newest top-level comments that do not have a negative score.
     """
 
     def sample(qs: QuerySet[T]) -> list[T]:
@@ -35,7 +35,7 @@ def get_suggestions(
     # Ignore: All of the ignores below exist due to Mypy not inferring annotated fields.
 
     comments = sample(
-        Comment.objects.filter(score__gte=0).order_by("-pk")  # type: ignore[misc]
+        Comment.objects.filter(comment=None, score__gte=0).order_by("-pk")  # type: ignore[misc]
     )
 
     courses = sample(

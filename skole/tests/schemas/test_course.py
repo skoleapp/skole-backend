@@ -71,8 +71,7 @@ class CourseSchemaTests(SkoleSchemaTestCase):
     def query_courses(
         self,
         *,
-        course_name: Optional[str] = None,
-        course_code: Optional[str] = None,
+        search_term: Optional[str] = None,
         subject: ID = None,
         school: ID = None,
         school_type: ID = None,
@@ -85,8 +84,7 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         assert_error: bool = False,
     ) -> JsonDict:
         variables = {
-            "courseName": course_name,
-            "courseCode": course_code,
+            "searchTerm": search_term,
             "subject": subject,
             "school": school,
             "schoolType": school_type,
@@ -103,8 +101,7 @@ class CourseSchemaTests(SkoleSchemaTestCase):
             self.course_fields
             + """
             query Courses (
-                $courseName: String,
-                $courseCode: String,
+                $searchTerm: String,
                 $subject: ID,
                 $school: ID,
                 $schoolType: ID,
@@ -116,8 +113,7 @@ class CourseSchemaTests(SkoleSchemaTestCase):
                 $ordering: String
             ) {
                 courses(
-                    courseName: $courseName,
-                    courseCode: $courseCode,
+                    searchTerm: $searchTerm,
                     subject: $subject,
                     school: $school,
                     schoolType: $schoolType,
@@ -389,11 +385,11 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         res = self.query_courses(ordering="score", page_size=25)
         assert res["objects"][-1]["id"] == str(course.pk)
 
-        res = self.query_courses(course_name="Course 7")
+        res = self.query_courses(search_term="Course 7")
         assert res["objects"][0]["id"] == "7"
         assert res["count"] == 1
 
-        res = self.query_courses(course_code="0001")
+        res = self.query_courses(search_term="0001")
         assert res["objects"][0]["id"] == "1"
         assert res["objects"][1]["id"] == "10"
         assert res["objects"][2]["id"] == "11"
@@ -413,8 +409,7 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         assert res["count"] == 0
 
         res = self.query_courses(
-            course_name="Test Engineering",
-            course_code="2",
+            search_term="2",
             subject=1,
             school=1,
             school_type=1,

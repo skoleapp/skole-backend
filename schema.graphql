@@ -347,7 +347,7 @@ type Query {
   resources(user: ID, course: ID, page: Int, pageSize: Int, ordering: String): PaginatedResourceObjectType
   starredResources(page: Int, pageSize: Int): PaginatedResourceObjectType
   resource(id: ID): ResourceObjectType
-  courses(courseName: String, courseCode: String, subject: ID, school: ID, schoolType: ID, country: ID, city: ID, user: ID, page: Int, pageSize: Int, ordering: String): PaginatedCourseObjectType
+  courses(searchTerm: String, subject: ID, school: ID, schoolType: ID, country: ID, city: ID, user: ID, page: Int, pageSize: Int, ordering: String): PaginatedCourseObjectType
   autocompleteCourses(school: ID, name: String): [CourseObjectType]
   starredCourses(page: Int, pageSize: Int): PaginatedCourseObjectType
   course(id: ID): CourseObjectType

@@ -24,6 +24,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
             id
             text
             attachment
+            attachmentThumbnail
             score
             modified
             created
@@ -193,9 +194,11 @@ class CommentSchemaTests(SkoleSchemaTestCase):
             res = self.mutate_create_comment(
                 text=text, course=2, file_data=[("attachment", attachment)]
             )
-
+        comment = res["comment"]
         assert not res["errors"]
         assert comment["text"] == text
+        assert is_slug_match(UPLOADED_ATTACHMENT_PNG, comment["attachment"])
+        assert comment["attachmentThumbnail"]
         assert Comment.objects.count() == old_count + 4
 
         self.authenticated_user = None

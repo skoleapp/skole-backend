@@ -5,6 +5,8 @@ from django.db import models
 from django.db.models import Count, Sum, Value
 from django.db.models.functions import Coalesce
 from django.db.models.query import QuerySet
+from imagekit.models import ImageSpecField
+from imagekit.processors import ResizeToFill
 
 from skole.utils.shortcuts import safe_annotation
 from skole.utils.validators import ValidateFileSizeAndType
@@ -45,6 +47,13 @@ class Comment(SkoleModel):
                 settings.COMMENT_ATTACHMENT_ALLOWED_FILETYPES,
             )
         ],
+    )
+
+    attachment_thumbnail = ImageSpecField(
+        source="attachment",
+        processors=[ResizeToFill(100, 100)],
+        format="JPEG",
+        options={"quality": 60},
     )
 
     course = models.ForeignKey(

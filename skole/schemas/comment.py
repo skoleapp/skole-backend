@@ -19,6 +19,7 @@ from skole.utils.pagination import get_paginator
 
 class CommentObjectType(VoteMixin, DjangoObjectType):
     reply_count = graphene.Int()
+    attachment_thumbnail = graphene.String()
 
     class Meta:
         model = Comment
@@ -27,6 +28,7 @@ class CommentObjectType(VoteMixin, DjangoObjectType):
             "user",
             "text",
             "attachment",
+            "attachment_thumbnail",
             "course",
             "resource",
             "comment",
@@ -40,6 +42,10 @@ class CommentObjectType(VoteMixin, DjangoObjectType):
     @staticmethod
     def resolve_attachment(root: Comment, info: ResolveInfo) -> str:
         return root.attachment.url if root.attachment else ""
+
+    @staticmethod
+    def resolve_attachment_thumbnail(root: Comment, info: ResolveInfo) -> str:
+        return root.attachment_thumbnail.url if root.attachment_thumbnail else ""
 
     @staticmethod
     def resolve_reply_count(root: Comment, info: ResolveInfo) -> int:

@@ -101,12 +101,12 @@ class SuggestionSchemaTests(SkoleSchemaTestCase):
     def test_field_fragment(self) -> None:
         pass
 
-    def test_suggestestions(self) -> None:
+    def test_suggestions(self) -> None:
         self.authenticated_user = None
 
         # Test full suggestions.
         res = self.query_suggestions()
-        assert len(res) == settings.SUGGESTIONS_COUNT
+        assert len(res) <= settings.SUGGESTIONS_COUNT
 
         courses = 0
         resources = 0

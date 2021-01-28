@@ -112,6 +112,12 @@ class Query(SkoleObjectType):
         page_size=graphene.Int(),
     )
 
+    discussion = graphene.List(
+        CommentObjectType,
+        course=graphene.ID(),
+        resource=graphene.ID(),
+    )
+
     @staticmethod
     def resolve_comments(
         root: None,
@@ -128,6 +134,24 @@ class Query(SkoleObjectType):
             qs = qs.filter(user__pk=user)
 
         return get_paginator(qs, page_size, page, PaginatedCommentObjectType)
+
+    @staticmethod
+    def resolve_discussion(
+        root: None,
+        info: ResolveInfo,
+        course: ID = None,
+        resource: ID = None,
+    ) -> QuerySet[Comment]:
+        """Return comments filtered by query params."""
+
+        qs = Comment.objects.all()
+
+        if course is not None:
+            qs = qs.filter(course__pk=course)
+        if resource is not None:
+            qs = qs.filter(resource__pk=resource)
+
+        return qs
 
 
 class Mutation(SkoleObjectType):

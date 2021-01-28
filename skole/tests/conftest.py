@@ -1,3 +1,4 @@
+import random
 import shutil
 import tempfile
 from collections.abc import Generator
@@ -26,6 +27,13 @@ def no_api_keys() -> Generator[None, None, None]:
     """We really really do not want to call the API during tests."""
     with override_settings(CLOUDMERSIVE_API_KEY=None):
         yield
+
+
+@fixture(scope="session", autouse=True)
+def seed_random_generator() -> Generator[None, None, None]:
+    """Make sure that random numbers generated during tests are always predictable."""
+    random.seed(0)
+    yield
 
 
 @fixture(scope="session", autouse=True)

@@ -94,6 +94,35 @@ class CommentSchemaTests(SkoleSchemaTestCase):
 
         return self.execute(graphql, variables=variables, assert_error=assert_error)
 
+    def query_discussion(
+        self,
+        *,
+        course: ID = None,
+        resource: ID = None,
+        assert_error: bool = False,
+    ) -> JsonDict:
+        variables = {
+            "course": course,
+            "resource": resource,
+        }
+
+        # language=GraphQL
+        graphql = (
+            self.comment_fields
+            + """
+                query Discussion(
+                    $course: ID,
+                    $resource: ID
+                ) {
+                    discussion(course: $course, resource: $resource) {
+                        ...commentFields
+                    }
+                }
+            """
+        )
+
+        return self.execute(graphql, variables=variables, assert_error=assert_error)
+
     def mutate_create_comment(
         self,
         *,
@@ -374,3 +403,34 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         assert res["pages"] == 1
         assert res["hasNext"] is False
         assert res["hasPrev"] is False
+
+    def test_discussion(self) -> None:
+        # Test that only comments of the correct course are returned.
+
+        course = 1
+        res = self.query_discussion(course=course)
+
+        # Ignore: Mypy expects a type `Union[int, slice]` for the course ID field.
+        for comment in res:
+            assert int(comment["course"]["id"]) == course  # type: ignore[index]
+
+        # Test for some course that has created no comments.
+
+        course = 22
+        res = self.query_discussion(course=course)
+        assert len(res) == 0
+
+        # Test that only comments of the correct resource are returned.
+
+        resource = 1
+        res = self.query_discussion(resource=resource)
+
+        # Ignore: Mypy expects a type `Union[int, slice]` for the course ID field.
+        for comment in res:
+            assert int(comment["resource"]["id"]) == resource  # type: ignore[index]
+
+        # Test for some resource that has created no comments.
+
+        resource = 22
+        res = self.query_discussion(resource=resource)
+        assert len(res) == 0

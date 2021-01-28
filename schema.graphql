@@ -329,6 +329,7 @@ type PaginatedSubjectObjectType {
 
 type Query {
   comments(user: ID, page: Int, pageSize: Int): PaginatedCommentObjectType
+  discussion(course: ID, resource: ID): [CommentObjectType]
   suggestions: [SuggestionsUnion]
   suggestionsPreview: [SuggestionsUnion]
   userMe: UserObjectType

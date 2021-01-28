@@ -2,7 +2,7 @@ from typing import Optional, get_args
 
 import graphene
 from django.conf import settings
-from django.db.models import F, QuerySet
+from django.db.models import F, Q, QuerySet
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphql import GraphQLError
@@ -210,7 +210,7 @@ class Query(SkoleObjectType):
             qs = qs.filter(school__pk=school)
 
         if name != "":
-            qs = qs.filter(name__icontains=name)
+            qs = qs.filter(Q(name__icontains=name) | Q(code__icontains=name))
 
         qs = order_courses_with_secret_algorithm(qs)
         return qs[: settings.AUTOCOMPLETE_MAX_RESULTS]

@@ -453,7 +453,14 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         assert courses[-1] == self.query_course(id=9)  # Worst
 
         # Query by course name
-        assert self.query_autocomplete_courses(name="18")[0] == self.query_course(id=18)
+        assert self.query_autocomplete_courses(name="Test Engineering Course 18")[
+            0
+        ] == self.query_course(id=18)
+
+        # The same field allows also querying with the code.
+        assert self.query_autocomplete_courses(name="TEST0033")[0] == self.query_course(
+            id=3
+        )
 
     def test_starred_courses(self) -> None:
         page = 1

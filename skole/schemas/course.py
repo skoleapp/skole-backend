@@ -118,8 +118,7 @@ class DeleteCourseMutation(SkoleDeleteMutationMixin, DjangoModelFormMutation):
 class Query(SkoleObjectType):
     courses = graphene.Field(
         PaginatedCourseObjectType,
-        course_name=graphene.String(),
-        course_code=graphene.String(),
+        search_term=graphene.String(),
         subject=graphene.ID(),
         school=graphene.ID(),
         school_type=graphene.ID(),
@@ -149,8 +148,7 @@ class Query(SkoleObjectType):
     def resolve_courses(
         root: None,
         info: ResolveInfo,
-        course_name: Optional[str] = None,
-        course_code: Optional[str] = None,
+        search_term: Optional[str] = None,
         subject: ID = None,
         school: ID = None,
         school_type: ID = None,
@@ -164,16 +162,18 @@ class Query(SkoleObjectType):
         """
         Return courses filtered by query params.
 
+        The `search_term` can be either the course name or the course code.
+
         Results are sorted either manually based on query params or by secret Skole AI-
         powered algorithms.
         """
 
         qs: QuerySet[Course] = Course.objects.all()
 
-        if course_name is not None:
-            qs = qs.filter(name__icontains=course_name)
-        if course_code is not None:
-            qs = qs.filter(code__icontains=course_code)
+        if search_term is not None:
+            qs = qs.filter(
+                Q(name__icontains=search_term) | Q(code__icontains=search_term)
+            )
         if subject is not None:
             qs = qs.filter(subjects__pk=subject)
         if school is not None:

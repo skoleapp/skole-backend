@@ -80,6 +80,14 @@ class Comment(SkoleModel):
         related_name="reply_comments",
     )
 
+    school = models.ForeignKey(
+        "skole.School",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="comments",
+    )
+
     modified = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 

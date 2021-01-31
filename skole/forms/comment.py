@@ -31,7 +31,7 @@ class CreateCommentForm(_BaseCreateUpdateCommentForm, SkoleModelForm):
 
     class Meta:
         model = Comment
-        fields = ("text", "attachment", "course", "resource", "comment")
+        fields = ("text", "attachment", "course", "resource", "comment", "school")
 
     def __init__(self, **kwargs: Any) -> None:
         super().__init__(**kwargs)
@@ -41,7 +41,7 @@ class CreateCommentForm(_BaseCreateUpdateCommentForm, SkoleModelForm):
 
     def clean(self) -> JsonDict:
         data = super().clean()
-        validate_single_target(data, "course", "comment", "resource")
+        validate_single_target(data, "course", "comment", "resource", "school")
         return data
 
     def save(self, commit: bool = True) -> Comment:

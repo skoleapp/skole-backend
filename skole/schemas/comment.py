@@ -31,6 +31,7 @@ class CommentObjectType(VoteMixin, DjangoObjectType):
             "attachment_thumbnail",
             "course",
             "resource",
+            "school",
             "comment",
             "reply_comments",
             "reply_count",

@@ -117,6 +117,7 @@ class Query(SkoleObjectType):
         CommentObjectType,
         course=graphene.ID(),
         resource=graphene.ID(),
+        school=graphene.ID(),
     )
 
     @staticmethod
@@ -142,6 +143,7 @@ class Query(SkoleObjectType):
         info: ResolveInfo,
         course: ID = None,
         resource: ID = None,
+        school: ID = None,
     ) -> QuerySet[Comment]:
         """Return comments filtered by query params."""
 
@@ -151,6 +153,8 @@ class Query(SkoleObjectType):
             qs = qs.filter(course__pk=course)
         if resource is not None:
             qs = qs.filter(resource__pk=resource)
+        if school is not None:
+            qs = qs.filter(school__pk=school)
 
         return qs
 

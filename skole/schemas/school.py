@@ -19,6 +19,7 @@ class SchoolObjectType(SkoleDjangoObjectType):
     city = graphene.Field(CityObjectType)
     country = graphene.Field(CountryObjectType)
     subjects = graphene.List(SubjectObjectType)
+    comment_count = graphene.Int()
 
     class Meta:
         model = School
@@ -30,6 +31,7 @@ class SchoolObjectType(SkoleDjangoObjectType):
             "country",
             "subjects",
             "courses",
+            "comment_count"
         )
 
     @staticmethod

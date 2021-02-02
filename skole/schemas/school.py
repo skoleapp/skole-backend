@@ -31,7 +31,7 @@ class SchoolObjectType(SkoleDjangoObjectType):
             "country",
             "subjects",
             "courses",
-            "comment_count"
+            "comment_count",
         )
 
     @staticmethod

@@ -1,6 +1,6 @@
 from typing import Optional
 
-from skole.models import Comment, Course, Resource
+from skole.models import Comment, Course, Resource, School
 from skole.tests.helpers import (
     TEST_ATTACHMENT_PNG,
     UPLOADED_ATTACHMENT_PNG,
@@ -36,6 +36,9 @@ class CommentSchemaTests(SkoleSchemaTestCase):
                 id
             }
             resource {
+                id
+            }
+            school {
                 id
             }
             comment {
@@ -131,6 +134,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         attachment: str = "",
         course: ID = None,
         resource: ID = None,
+        school: ID = None,
         comment: ID = None,
         file_data: FileData = None,
     ) -> JsonDict:
@@ -142,6 +146,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
                 "text": text,
                 "attachment": attachment,
                 "course": course,
+                "school": school,
                 "resource": resource,
                 "comment": comment,
             },
@@ -218,17 +223,30 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         assert Course.objects.get(pk=2).comments.last().text == text  # type: ignore[union-attr]
         assert Course.objects.get(pk=2).comments.last().pk == int(comment["id"])  # type: ignore[union-attr]
 
+        # Create a comment to a school.
+
+        res = self.mutate_create_comment(text=text, school=1)
+        comment = res["comment"]
+        assert not res["errors"]
+        assert comment["id"] == "45"
+        assert comment["text"] == text
+        assert Comment.objects.count() == old_count + 4
+        assert School.objects.get(pk=1).comments.count() == 1
+        assert School.objects.get(pk=1).comments.last().text == text  # type: ignore[union-attr]
+        assert School.objects.get(pk=1).comments.last().pk == int(comment["id"])  # type: ignore[union-attr]
+
         # Create a comment with an attachment.
         with open_as_file(TEST_ATTACHMENT_PNG) as attachment:
             res = self.mutate_create_comment(
                 text=text, course=2, file_data=[("attachment", attachment)]
             )
+
         comment = res["comment"]
         assert not res["errors"]
         assert comment["text"] == text
         assert is_slug_match(UPLOADED_ATTACHMENT_PNG, comment["attachment"])
         assert comment["attachmentThumbnail"]
-        assert Comment.objects.count() == old_count + 4
+        assert Comment.objects.count() == old_count + 5
 
         self.authenticated_user = None
 
@@ -239,7 +257,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         assert comment["text"] == text
         assert comment["course"]["id"] == "3"
         assert comment["user"] is None
-        assert Comment.objects.count() == old_count + 5
+        assert Comment.objects.count() == old_count + 6
 
         # Can't add an attachment to the comment without logging in.
         with open_as_file(TEST_ATTACHMENT_PNG) as attachment:
@@ -253,6 +271,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         assert not res["errors"]
         assert res["comment"]["attachment"] == ""  # Note that no attachment here.
         assert res["comment"]["text"] == text
+        assert Comment.objects.count() == old_count + 7
 
         # Can't add an attachment to the comment without having a verified account.
 
@@ -270,7 +289,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         assert not res["errors"]
         assert res["comment"]["attachment"] == ""  # Note that no attachment here.
         assert res["comment"]["text"] == text
-        assert Comment.objects.count() == old_count + 7
+        assert Comment.objects.count() == old_count + 8
 
         self.authenticated_user = 2
 
@@ -287,7 +306,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         assert get_form_error(res) == ValidationErrors.COMMENT_EMPTY
 
         # Check that the comment count hasn't changed.
-        assert Comment.objects.count() == old_count + 7
+        assert Comment.objects.count() == old_count + 8
 
         # Test creating anonymous comment as authenticated user.
         res = self.mutate_create_comment(user=None, text=text, course=2)

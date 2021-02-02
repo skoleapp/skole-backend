@@ -19,6 +19,8 @@ class SchoolManager(SkoleManager["School"]):
                 + Count("comments__reply_comments", distinct=True),
             ),
         )
+
+
 class School(TranslatableSkoleModel):
     """Models one school on the platform."""
 

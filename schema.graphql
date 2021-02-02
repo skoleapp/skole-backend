@@ -50,6 +50,7 @@ type CommentObjectType {
   course: CourseObjectType
   resource: ResourceObjectType
   comment: CommentObjectType
+  school: SchoolObjectType
   modified: DateTime!
   created: DateTime!
   replyComments: [CommentObjectType!]!
@@ -107,6 +108,7 @@ input CreateCommentMutationInput {
   course: ID
   resource: ID
   comment: ID
+  school: ID
   user: String
   clientMutationId: String
 }
@@ -329,7 +331,7 @@ type PaginatedSubjectObjectType {
 
 type Query {
   comments(user: ID, page: Int, pageSize: Int): PaginatedCommentObjectType
-  discussion(course: ID, resource: ID): [CommentObjectType]
+  discussion(course: ID, resource: ID, school: ID): [CommentObjectType]
   suggestions: [SuggestionsUnion]
   suggestionsPreview: [SuggestionsUnion]
   userMe: UserObjectType
@@ -425,6 +427,7 @@ type SchoolObjectType {
   name: String
   country: CountryObjectType
   subjects: [SubjectObjectType]
+  commentCount: Int
 }
 
 type SchoolTypeObjectType {

@@ -4,10 +4,8 @@ from django import forms
 from django.core.files import File
 
 from skole.models import Comment
-from skole.types import JsonDict
 from skole.utils.constants import ValidationErrors
 from skole.utils.files import clean_file_field
-from skole.utils.shortcuts import validate_single_target
 
 from .base import SkoleModelForm, SkoleUpdateModelForm
 
@@ -38,11 +36,6 @@ class CreateCommentForm(_BaseCreateUpdateCommentForm, SkoleModelForm):
         if self.request:
             if not self.request.user.is_authenticated or not self.request.user.verified:
                 self.fields.pop("attachment")
-
-    def clean(self) -> JsonDict:
-        data = super().clean()
-        validate_single_target(data, "course", "comment", "resource", "school")
-        return data
 
     def save(self, commit: bool = True) -> Comment:
         assert self.request is not None

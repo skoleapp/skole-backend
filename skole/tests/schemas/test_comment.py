@@ -212,20 +212,31 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         res = self.mutate_create_comment(text=text, resource=2)
         comment = res["comment"]
         assert not res["errors"]
-        assert comment["id"] == "44"
         assert comment["text"] == text
         assert Comment.objects.count() == old_count + 2
         assert Resource.objects.get(pk=2).comments.count() == 2
         assert Resource.objects.get(pk=2).comments.last().text == text  # type: ignore[union-attr]
         assert Resource.objects.get(pk=2).comments.last().pk == int(comment["id"])  # type: ignore[union-attr]
 
+        # Create a comment to resource and course.
+        res = self.mutate_create_comment(text=text, course=1, resource=2)
+        comment = res["comment"]
+        assert not res["errors"]
+        assert comment["text"] == text
+        assert Comment.objects.count() == old_count + 3
+        assert Resource.objects.get(pk=2).comments.count() == 3
+        assert Resource.objects.get(pk=2).comments.last().text == text  # type: ignore[union-attr]
+        assert Resource.objects.get(pk=2).comments.last().pk == int(comment["id"])  # type: ignore[union-attr]
+        assert Course.objects.get(pk=1).comments.count() == 9
+        assert Course.objects.get(pk=1).comments.last().text == text  # type: ignore[union-attr]
+        assert Course.objects.get(pk=1).comments.last().pk == int(comment["id"])  # type: ignore[union-attr]
+
         # Create a comment to a course.
         res = self.mutate_create_comment(text=text, course=2)
         comment = res["comment"]
         assert not res["errors"]
-        assert comment["id"] == "45"
         assert comment["text"] == text
-        assert Comment.objects.count() == old_count + 3
+        assert Comment.objects.count() == old_count + 4
         assert Course.objects.get(pk=2).comments.count() == 2
         assert Course.objects.get(pk=2).comments.last().text == text  # type: ignore[union-attr]
         assert Course.objects.get(pk=2).comments.last().pk == int(comment["id"])  # type: ignore[union-attr]
@@ -235,9 +246,8 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         res = self.mutate_create_comment(text=text, school=1)
         comment = res["comment"]
         assert not res["errors"]
-        assert comment["id"] == "46"
         assert comment["text"] == text
-        assert Comment.objects.count() == old_count + 4
+        assert Comment.objects.count() == old_count + 5
         assert School.objects.get(pk=1).comments.count() == 2
         assert School.objects.get(pk=1).comments.last().text == text  # type: ignore[union-attr]
         assert School.objects.get(pk=1).comments.last().pk == int(comment["id"])  # type: ignore[union-attr]
@@ -253,7 +263,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         assert comment["text"] == text
         assert is_slug_match(UPLOADED_ATTACHMENT_PNG, comment["attachment"])
         assert comment["attachmentThumbnail"]
-        assert Comment.objects.count() == old_count + 5
+        assert Comment.objects.count() == old_count + 6
 
         self.authenticated_user = None
 
@@ -264,7 +274,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         assert comment["text"] == text
         assert comment["course"]["id"] == "3"
         assert comment["user"] is None
-        assert Comment.objects.count() == old_count + 6
+        assert Comment.objects.count() == old_count + 7
 
         # Can't add an attachment to the comment without logging in.
         with open_as_file(TEST_ATTACHMENT_PNG) as attachment:
@@ -278,7 +288,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         assert not res["errors"]
         assert res["comment"]["attachment"] == ""  # Note that no attachment here.
         assert res["comment"]["text"] == text
-        assert Comment.objects.count() == old_count + 7
+        assert Comment.objects.count() == old_count + 8
 
         # Can't add an attachment to the comment without having a verified account.
 
@@ -296,24 +306,16 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         assert not res["errors"]
         assert res["comment"]["attachment"] == ""  # Note that no attachment here.
         assert res["comment"]["text"] == text
-        assert Comment.objects.count() == old_count + 8
+        assert Comment.objects.count() == old_count + 9
 
         self.authenticated_user = 2
-
-        # Can't create a comment with 2 targets.
-        res = self.mutate_create_comment(text=text, course=1, resource=1)
-        assert get_form_error(res) == ValidationErrors.MUTATION_INVALID_TARGET
-
-        # Can't create a comment with 3 targets.
-        res = self.mutate_create_comment(text=text, course=1, resource=1, comment=1)
-        assert get_form_error(res) == ValidationErrors.MUTATION_INVALID_TARGET
 
         # Can't create a comment with no text and no attachment.
         res = self.mutate_create_comment(text="", attachment="", course=1)
         assert get_form_error(res) == ValidationErrors.COMMENT_EMPTY
 
         # Check that the comment count hasn't changed.
-        assert Comment.objects.count() == old_count + 8
+        assert Comment.objects.count() == old_count + 9
 
         # Test creating anonymous comment as authenticated user.
         res = self.mutate_create_comment(user=None, text=text, course=2)

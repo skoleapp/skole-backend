@@ -5,14 +5,17 @@ from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 
 from skole.forms import CreateCommentForm, DeleteCommentForm, UpdateCommentForm
-from skole.models import Comment
+from skole.models import Comment, Course, Resource, School
 from skole.schemas.base import (
     SkoleCreateUpdateMutationMixin,
     SkoleDeleteMutationMixin,
     SkoleObjectType,
 )
+from skole.schemas.course import CourseObjectType
 from skole.schemas.mixins import PaginationMixin, SuccessMessageMixin, VoteMixin
-from skole.types import ID, ResolveInfo
+from skole.schemas.resource import ResourceObjectType
+from skole.schemas.school import SchoolObjectType
+from skole.types import ID, DiscussionModel, ResolveInfo
 from skole.utils.constants import Messages
 from skole.utils.pagination import get_paginator
 
@@ -105,6 +108,11 @@ class DeleteCommentMutation(SkoleDeleteMutationMixin, DjangoModelFormMutation):
         form_class = DeleteCommentForm
 
 
+class DiscussionsUnion(graphene.Union):
+    class Meta:
+        types = (CourseObjectType, ResourceObjectType, SchoolObjectType)
+
+
 class Query(SkoleObjectType):
     comments = graphene.Field(
         PaginatedCommentObjectType,
@@ -118,6 +126,10 @@ class Query(SkoleObjectType):
         course=graphene.ID(),
         resource=graphene.ID(),
         school=graphene.ID(),
+    )
+
+    autocomplete_discussions = graphene.List(
+        DiscussionsUnion, search_term=graphene.String()
     )
 
     @staticmethod
@@ -157,6 +169,26 @@ class Query(SkoleObjectType):
             qs = qs.filter(school__pk=school)
 
         return qs
+
+    @staticmethod
+    def resolve_autocomplete_discussions(
+        root: None, info: ResolveInfo, search_term: str = ""
+    ) -> list[DiscussionModel]:
+        """Results are sorted alphabetically."""
+        courses = Course.objects.order_by("name")
+        resources = Resource.objects.order_by("title")
+
+        if search_term != "":
+            courses = courses.filter(name__icontains=search_term)
+            resources = resources.filter(title__icontains=search_term)
+            schools = School.objects.translated(name__icontains=search_term).order_by(
+                "translations__name"
+            )
+        else:
+            schools = School.objects.translated().order_by("translations__name")
+
+        cut = 20
+        return [*courses[:cut], *resources[:cut], *schools[:cut]]
 
 
 class Mutation(SkoleObjectType):

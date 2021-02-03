@@ -11,6 +11,7 @@ VotableModel = Union["Comment", "Course", "Resource"]
 StarrableModel = Union["Course", "Resource"]
 
 SuggestionModel = Union["Comment", "Course", "Resource"]
+DiscussionModel = Union["Course", "Resource", "School"]
 
 CourseOrderingOption = Literal["best", "score", "name", "-name"]
 

@@ -3,6 +3,7 @@ from ._aliases import (
     AnyJson,
     CommentableModel,
     CourseOrderingOption,
+    DiscussionModel,
     Fixture,
     FormError,
     JsonDict,

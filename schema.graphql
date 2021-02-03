@@ -200,6 +200,8 @@ type DeleteUserMutationPayload {
   clientMutationId: String
 }
 
+union DiscussionsUnion = CourseObjectType | ResourceObjectType | SchoolObjectType
+
 input DownloadResourceMutationInput {
   id: ID
   clientMutationId: String
@@ -332,6 +334,7 @@ type PaginatedSubjectObjectType {
 type Query {
   comments(user: ID, page: Int, pageSize: Int): PaginatedCommentObjectType
   discussion(course: ID, resource: ID, school: ID): [CommentObjectType]
+  autocompleteDiscussions(searchTerm: String): [DiscussionsUnion]
   suggestions: [SuggestionsUnion]
   suggestionsPreview: [SuggestionsUnion]
   userMe: UserObjectType

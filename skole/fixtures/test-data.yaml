@@ -1121,6 +1121,7 @@
     attachment: uploads/attachments/test_attachment.png
     resource: 1
     course: null
+    school: null
     comment: null
     user: 2
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -1132,6 +1133,7 @@
     attachment: ""
     resource: 1
     course: null
+    school: null
     comment: null
     user: 3
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -1143,6 +1145,7 @@
     attachment: uploads/attachments/test_attachment.png
     resource: 1
     course: null
+    school: null
     comment: null
     user: 9
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -1154,6 +1157,7 @@
     attachment: ""
     resource: null
     course: 1
+    school: null
     comment: null
     user: 2
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -1165,6 +1169,7 @@
     attachment: ""
     resource: null
     course: 1
+    school: null
     comment: null
     user: 2
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -1176,6 +1181,7 @@
     attachment: ""
     resource: null
     course: 1
+    school: null
     comment: null
     user: 2
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -1187,6 +1193,7 @@
     attachment: ""
     resource: null
     course: 1
+    school: null
     comment: null
     user: 2
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -1198,6 +1205,7 @@
     attachment: ""
     resource: null
     course: 1
+    school: null
     comment: null
     user: 2
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -1209,6 +1217,7 @@
     attachment: ""
     resource: null
     course: 1
+    school: null
     comment: null
     user: 3
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -1220,6 +1229,7 @@
     attachment: ""
     resource: null
     course: 1
+    school: null
     comment: null
     user: 2
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -1231,6 +1241,7 @@
     attachment: ""
     resource: null
     course: 1
+    school: null
     comment: null
     user: 2
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -1242,6 +1253,7 @@
     attachment: ""
     resource: null
     course: null
+    school: null
     comment: 4
     user: 3
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -1253,6 +1265,7 @@
     attachment: ""
     resource: null
     course: null
+    school: null
     comment: 4
     user: 2
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -1264,6 +1277,7 @@
     attachment: ""
     resource: null
     course: null
+    school: null
     comment: 4
     user: 2
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -1275,6 +1289,7 @@
     attachment: ""
     resource: null
     course: null
+    school: null
     comment: 4
     user: 2
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -1286,6 +1301,7 @@
     attachment: ""
     resource: null
     course: null
+    school: null
     comment: 4
     user: 2
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -1297,6 +1313,7 @@
     attachment: ""
     resource: null
     course: null
+    school: null
     comment: 4
     user: 2
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -1308,6 +1325,7 @@
     attachment: ""
     resource: null
     course: null
+    school: null
     comment: 4
     user: 2
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -1319,6 +1337,7 @@
     attachment: ""
     resource: null
     course: null
+    school: null
     comment: 4
     user: 2
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -1330,6 +1349,7 @@
     attachment: ""
     resource: null
     course: null
+    school: null
     comment: 4
     user: 2
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -1341,6 +1361,7 @@
     attachment: ""
     resource: null
     course: null
+    school: null
     comment: 4
     user: 2
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -1352,6 +1373,7 @@
     attachment: ""
     resource: 1
     course: null
+    school: null
     comment: null
     user: null
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -1363,6 +1385,7 @@
     attachment: ""
     resource: 2
     course: null
+    school: null
     comment: null
     user: null
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -1374,6 +1397,7 @@
     attachment: ""
     resource: 3
     course: null
+    school: null
     comment: null
     user: null
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -1385,6 +1409,7 @@
     attachment: ""
     resource: 4
     course: null
+    school: null
     comment: null
     user: null
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -1396,6 +1421,7 @@
     attachment: ""
     resource: 5
     course: null
+    school: null
     comment: null
     user: null
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -1407,6 +1433,7 @@
     attachment: ""
     resource: 6
     course: null
+    school: null
     comment: null
     user: null
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -1418,6 +1445,7 @@
     attachment: ""
     resource: 7
     course: null
+    school: null
     comment: null
     user: null
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -1429,6 +1457,7 @@
     attachment: ""
     resource: null
     course: 2
+    school: null
     comment: null
     user: null
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -1440,6 +1469,7 @@
     attachment: ""
     resource: null
     course: 3
+    school: null
     comment: null
     user: null
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -1451,6 +1481,7 @@
     attachment: ""
     resource: null
     course: 4
+    school: null
     comment: null
     user: null
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -1462,6 +1493,7 @@
     attachment: ""
     resource: null
     course: 5
+    school: null
     comment: null
     user: null
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -1473,6 +1505,7 @@
     attachment: ""
     resource: null
     course: 6
+    school: null
     comment: null
     user: null
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -1484,6 +1517,7 @@
     attachment: ""
     resource: null
     course: 7
+    school: null
     comment: null
     user: null
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -1495,6 +1529,7 @@
     attachment: ""
     resource: 8
     course: null
+    school: null
     comment: null
     user: null
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -1506,6 +1541,7 @@
     attachment: ""
     resource: 9
     course: null
+    school: null
     comment: null
     user: null
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -1517,6 +1553,7 @@
     attachment: ""
     resource: 10
     course: null
+    school: null
     comment: null
     user: null
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -1529,6 +1566,7 @@
     resource: 11
     course: null
     comment: null
+    school: null
     user: null
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
@@ -1540,6 +1578,7 @@
     resource: 12
     course: null
     comment: null
+    school: null
     user: null
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
@@ -1551,6 +1590,7 @@
     resource: 13
     course: null
     comment: null
+    school: null
     user: null
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
@@ -1561,6 +1601,19 @@
     attachment: ""
     resource: 14
     course: null
+    school: null
+    comment: null
+    user: null
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Comment
+  pk: 42
+  fields:
+    text: An anonymous comment to a school.
+    attachment: ""
+    resource: null
+    course: null
+    school: 1
     comment: null
     user: null
     modified: 2020-01-01 12:00:00.000000+00:00

@@ -11,6 +11,7 @@ class SchoolSchemaTests(SkoleSchemaTestCase):
         fragment schoolFields on SchoolObjectType {
             id
             name
+            commentCount
             subjects {
                 id
             }

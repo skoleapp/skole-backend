@@ -102,11 +102,13 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         *,
         course: ID = None,
         resource: ID = None,
+        school: ID = None,
         assert_error: bool = False,
     ) -> JsonDict:
         variables = {
             "course": course,
             "resource": resource,
+            "school": school,
         }
 
         # language=GraphQL
@@ -115,9 +117,14 @@ class CommentSchemaTests(SkoleSchemaTestCase):
             + """
                 query Discussion(
                     $course: ID,
-                    $resource: ID
+                    $resource: ID,
+                    $school: ID
                 ) {
-                    discussion(course: $course, resource: $resource) {
+                    discussion(
+                        course: $course,
+                        resource: $resource,
+                        school: $school
+                    ) {
                         ...commentFields
                     }
                 }
@@ -205,7 +212,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         res = self.mutate_create_comment(text=text, resource=2)
         comment = res["comment"]
         assert not res["errors"]
-        assert comment["id"] == "43"
+        assert comment["id"] == "44"
         assert comment["text"] == text
         assert Comment.objects.count() == old_count + 2
         assert Resource.objects.get(pk=2).comments.count() == 2
@@ -216,7 +223,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         res = self.mutate_create_comment(text=text, course=2)
         comment = res["comment"]
         assert not res["errors"]
-        assert comment["id"] == "44"
+        assert comment["id"] == "45"
         assert comment["text"] == text
         assert Comment.objects.count() == old_count + 3
         assert Course.objects.get(pk=2).comments.count() == 2
@@ -228,10 +235,10 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         res = self.mutate_create_comment(text=text, school=1)
         comment = res["comment"]
         assert not res["errors"]
-        assert comment["id"] == "45"
+        assert comment["id"] == "46"
         assert comment["text"] == text
         assert Comment.objects.count() == old_count + 4
-        assert School.objects.get(pk=1).comments.count() == 1
+        assert School.objects.get(pk=1).comments.count() == 2
         assert School.objects.get(pk=1).comments.last().text == text  # type: ignore[union-attr]
         assert School.objects.get(pk=1).comments.last().pk == int(comment["id"])  # type: ignore[union-attr]
 
@@ -444,7 +451,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         resource = 1
         res = self.query_discussion(resource=resource)
 
-        # Ignore: Mypy expects a type `Union[int, slice]` for the course ID field.
+        # Ignore: Mypy expects a type `Union[int, slice]` for the resource ID field.
         for comment in res:
             assert int(comment["resource"]["id"]) == resource  # type: ignore[index]
 
@@ -452,4 +459,19 @@ class CommentSchemaTests(SkoleSchemaTestCase):
 
         resource = 22
         res = self.query_discussion(resource=resource)
+        assert len(res) == 0
+
+        # Test that only comments of the correct school are returned.
+
+        school = 1
+        res = self.query_discussion(school=school)
+
+        # Ignore: Mypy expects a type `Union[int, slice]` for the school ID field.
+        for comment in res:
+            assert int(comment["school"]["id"]) == school  # type: ignore[index]
+
+        # Test for some resource that has created no comments.
+
+        school = 2
+        res = self.query_discussion(school=school)
         assert len(res) == 0

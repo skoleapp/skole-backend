@@ -4,11 +4,11 @@ from parler.models import TranslatedFields
 
 from skole.utils.shortcuts import safe_annotation
 
-from .base import SkoleManager, TranslatableSkoleModel
+from .base import TranslatableSkoleManager, TranslatableSkoleModel
 from .subject import Subject
 
 
-class SchoolManager(SkoleManager["School"]):
+class SchoolManager(TranslatableSkoleManager["School"]):
     def get_queryset(self) -> QuerySet["School"]:
         qs = super().get_queryset()
 

@@ -3,9 +3,16 @@ from typing import TYPE_CHECKING, Any, Literal, TypedDict, Union
 
 if TYPE_CHECKING:  # pragma: no cover
     # To avoid circular import.
-    from skole.models import Activity, Comment, Course, Resource, User  # noqa: F401
+    from skole.models import (  # noqa: F401
+        Activity,
+        Comment,
+        Course,
+        Resource,
+        School,
+        User,
+    )
 
-CommentableModel = Union["Comment", "Course", "Resource"]
+CommentableModel = Union["Comment", "Course", "Resource", "School"]
 PaginableModel = Union["Course", "Resource", "User", "Activity", "Comment"]
 VotableModel = Union["Comment", "Course", "Resource"]
 StarrableModel = Union["Course", "Resource"]

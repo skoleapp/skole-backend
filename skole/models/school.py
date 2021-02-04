@@ -2,8 +2,6 @@ from django.db import models
 from django.db.models import Count, QuerySet
 from parler.models import TranslatedFields
 
-from skole.utils.shortcuts import safe_annotation
-
 from .base import TranslatableSkoleManager, TranslatableSkoleModel
 from .subject import Subject
 
@@ -13,11 +11,8 @@ class SchoolManager(TranslatableSkoleManager["School"]):
         qs = super().get_queryset()
 
         return qs.annotate(
-            comment_count=safe_annotation(
-                qs,
-                Count("comments", distinct=True)
-                + Count("comments__reply_comments", distinct=True),
-            ),
+            comment_count=Count("comments", distinct=True)
+            + Count("comments__reply_comments", distinct=True)
         )
 
 

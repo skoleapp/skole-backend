@@ -12,13 +12,12 @@ if TYPE_CHECKING:  # pragma: no cover
         User,
     )
 
-CommentableModel = Union["Comment", "Course", "Resource"]
+CommentableModel = Union["Comment", "Course", "Resource", "School"]
 PaginableModel = Union["Course", "Resource", "User", "Activity", "Comment"]
 VotableModel = Union["Comment", "Course", "Resource"]
 StarrableModel = Union["Course", "Resource"]
 
 SuggestionModel = Union["Comment", "Course", "Resource"]
-DiscussionModel = Union["Course", "Resource", "School"]
 
 CourseOrderingOption = Literal["best", "score", "name", "-name"]
 

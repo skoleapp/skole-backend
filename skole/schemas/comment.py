@@ -15,7 +15,7 @@ from skole.schemas.course import CourseObjectType
 from skole.schemas.mixins import PaginationMixin, SuccessMessageMixin, VoteMixin
 from skole.schemas.resource import ResourceObjectType
 from skole.schemas.school import SchoolObjectType
-from skole.types import ID, DiscussionModel, ResolveInfo
+from skole.types import ID, CommentableModel, ResolveInfo
 from skole.utils.constants import Messages
 from skole.utils.pagination import get_paginator
 
@@ -173,7 +173,7 @@ class Query(SkoleObjectType):
     @staticmethod
     def resolve_autocomplete_discussions(
         root: None, info: ResolveInfo, search_term: str = ""
-    ) -> list[DiscussionModel]:
+    ) -> list[CommentableModel]:
         """Results are sorted alphabetically."""
         courses = Course.objects.order_by("name")
         resources = Resource.objects.order_by("title")

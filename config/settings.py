@@ -210,7 +210,7 @@ PASSWORD_RESET_PATH_ON_EMAIL = "account/reset-password"  # Have to match with fr
 AUTOCOMPLETE_MAX_RESULTS = 50
 
 # Amount of results that are returned for paginated queries by default.
-DEFAULT_PAGE_SIZE = 25
+DEFAULT_PAGE_SIZE = 10
 
 # Amount of results shown in the activity preview menu.
 ACTIVITY_PREVIEW_COUNT = 10

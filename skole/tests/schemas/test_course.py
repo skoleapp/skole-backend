@@ -1,6 +1,8 @@
 from collections.abc import Collection
 from typing import Optional, cast
 
+from django.conf import settings
+
 from skole.models import Course, User, Vote
 from skole.tests.helpers import (
     SkoleSchemaTestCase,
@@ -364,9 +366,9 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         res = self.query_courses()
         assert res == self.query_courses(ordering="best")
         assert res["objects"][0]["id"] == "1"
-        assert res["objects"][-1]["id"] == "9"
-        assert len(res["objects"]) == 25
-        assert res["pages"] == 1
+        assert res["objects"][-1]["id"] == "12"
+        assert len(res["objects"]) == settings.DEFAULT_PAGE_SIZE
+        assert res["pages"] == 3
 
         res = self.query_courses(ordering="-name")
         assert res["objects"][0] == self.query_course(id=9)

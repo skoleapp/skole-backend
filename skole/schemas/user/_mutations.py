@@ -21,7 +21,8 @@ from skole.forms import (
     RegisterForm,
     SetPasswordForm,
     TokenForm,
-    UpdateUserForm,
+    UpdateAccountSettingsForm,
+    UpdateProfileForm,
 )
 from skole.models import User
 from skole.overridden import login_required
@@ -301,17 +302,39 @@ class ChangePasswordMutation(
         return cls(success_message=Messages.PASSWORD_UPDATED)
 
 
-class UpdateUserMutation(
+class UpdateProfileMutation(
     SkoleCreateUpdateMutationMixin, SuccessMessageMixin, DjangoModelFormMutation
 ):
-    """Update some user model fields."""
+    """Update public profile fields for a user."""
 
     login_required = True
-    success_message_value = Messages.USER_UPDATED
+    success_message_value = Messages.PROFILE_UPDATED
     user = graphene.Field(UserObjectType)
 
     class Meta:
-        form_class = UpdateUserForm
+        form_class = UpdateProfileForm
+        exclude_fields = ("id",)
+
+    @classmethod
+    def get_form_kwargs(
+        cls, root: None, info: ResolveInfo, **input: JsonDict
+    ) -> JsonDict:
+        form_kwargs = super().get_form_kwargs(root, info, **input)
+        form_kwargs["instance"] = info.context.user
+        return form_kwargs
+
+
+class UpdateAccountSettingsMutation(
+    SkoleCreateUpdateMutationMixin, SuccessMessageMixin, DjangoModelFormMutation
+):
+    """Update private account settings for a user."""
+
+    login_required = True
+    success_message_value = Messages.ACCOUNT_SETTINGS_UPDATED
+    user = graphene.Field(UserObjectType)
+
+    class Meta:
+        form_class = UpdateAccountSettingsForm
         exclude_fields = ("id",)
 
     @classmethod
@@ -324,10 +347,11 @@ class UpdateUserMutation(
 
     @classmethod
     def perform_mutate(
-        cls, form: UpdateUserForm, info: ResolveInfo
-    ) -> UpdateUserMutation:
+        cls, form: UpdateAccountSettingsForm, info: ResolveInfo
+    ) -> UpdateAccountSettingsMutation:
         if "email" in form.changed_data:
             form.instance.verified = False
+
         return super().perform_mutate(form, info)
 
 
@@ -371,5 +395,6 @@ class Mutation(SkoleObjectType):
     login = LoginMutation.Field()
     logout = LogoutMutation.Field()
     change_password = ChangePasswordMutation.Field()
-    update_user = UpdateUserMutation.Field()
+    update_profile = UpdateProfileMutation.Field()
+    update_account_settings = UpdateAccountSettingsMutation.Field()
     delete_user = DeleteUserMutation.Field()

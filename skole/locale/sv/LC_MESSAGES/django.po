@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-13 12:25+0000\n"
+"POT-Creation-Date: 2021-02-15 13:34+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Skole\n"
@@ -173,66 +173,70 @@ msgid "Logged in successfully!"
 msgstr "Inloggad!"
 
 #: skole/utils/constants.py:61
-msgid "User deleted successfully!"
-msgstr "Användaren raderad!"
+msgid "Account deleted successfully!"
+msgstr "Kontot har tagits bort!"
 
 #: skole/utils/constants.py:62
-msgid "User details updated successfully!"
-msgstr "Användarinformation uppdaterad framgångsrikt!"
+msgid "Profile updated successfully!"
+msgstr "Profilen har uppdaterats!"
 
 #: skole/utils/constants.py:63
+msgid "Account settings updated successfully!"
+msgstr "Kontoinställningarna har uppdaterats!"
+
+#: skole/utils/constants.py:64
 msgid "Course created successfully!"
 msgstr "Kurs skapad!"
 
-#: skole/utils/constants.py:64
+#: skole/utils/constants.py:65
 msgid "Course deleted successfully!"
 msgstr "Kurs raderad!"
 
-#: skole/utils/constants.py:65
+#: skole/utils/constants.py:66
 msgid "Resource deleted successfully!"
 msgstr "Resurs raderad!"
 
-#: skole/utils/constants.py:66
+#: skole/utils/constants.py:67
 msgid "Resource created successfully!"
 msgstr "Resurs skapad!"
 
-#: skole/utils/constants.py:67
+#: skole/utils/constants.py:68
 msgid "Resource updated successfully!"
 msgstr "Resurs har uppdaterats!"
 
-#: skole/utils/constants.py:68
+#: skole/utils/constants.py:69
 msgid "Resource downloads updated!"
 msgstr "Resursnedladdningar uppdaterade!"
 
-#: skole/utils/constants.py:69
+#: skole/utils/constants.py:70
 msgid "Comment updated successfully!"
 msgstr "Kommentaren har uppdaterats!"
 
-#: skole/utils/constants.py:70
+#: skole/utils/constants.py:71
 msgid "Comment deleted successfully!"
 msgstr "Kommentaren raderad!"
 
-#: skole/utils/constants.py:71
+#: skole/utils/constants.py:72
 msgid "Data request received successfully!"
 msgstr "Dataförfrågan mottagen!"
 
-#: skole/utils/constants.py:75
+#: skole/utils/constants.py:76
 msgid "Your data request on Skole"
 msgstr "Din dataförfrågan på Skole"
 
-#: skole/utils/constants.py:76
+#: skole/utils/constants.py:77
 msgid "Verify your account on Skole"
 msgstr "Verifiera ditt konto på Skole"
 
-#: skole/utils/constants.py:77
+#: skole/utils/constants.py:78
 msgid "Reset your password on Skole"
 msgstr "Återställ ditt lösenord på Skole"
 
-#: skole/utils/constants.py:103
+#: skole/utils/constants.py:104
 msgid "Error while sending email."
 msgstr "Fel vid sändning av meddelande."
 
-#: skole/utils/constants.py:105
+#: skole/utils/constants.py:106
 msgid ""
 "Your account has been registered but we encountered an error while sending "
 "email. You may still log in using your credentials. Please try verifying "
@@ -242,38 +246,38 @@ msgstr ""
 "Du kan fortfarande logga in med dina referenser. Försök verifiera ditt konto "
 "senare."
 
-#: skole/utils/constants.py:110
+#: skole/utils/constants.py:111
 msgid "Token expired. Please request new verification link."
 msgstr "Token har löpt ut. Begär ny verifieringslänk."
 
-#: skole/utils/constants.py:111
+#: skole/utils/constants.py:112
 msgid "Invalid token. Please request new verification link."
 msgstr "Ogiltigt token. Begär ny verifieringslänk."
 
-#: skole/utils/constants.py:113
+#: skole/utils/constants.py:114
 msgid ""
 "User with the provided email was not found. Please check you email address."
 msgstr ""
 "Användare med den medföljande e-postadressen hittades inte. Kontrollera din "
 "e-postadress."
 
-#: skole/utils/constants.py:115
+#: skole/utils/constants.py:116
 msgid "This account has been removed."
 msgstr "Det här kontot har tagits bort."
 
-#: skole/utils/constants.py:117
+#: skole/utils/constants.py:118
 msgid "Token expired. Please request new password reset link."
 msgstr "Token har löpt ut. Be om ny länk för återställning av lösenord."
 
-#: skole/utils/constants.py:120
+#: skole/utils/constants.py:121
 msgid "Invalid token. Please request new password reset link."
 msgstr "Ogiltigt token. Be om ny länk till återställning av lösenord."
 
-#: skole/utils/constants.py:122
+#: skole/utils/constants.py:123
 msgid "This action is only allowed for authenticated users."
 msgstr "Den här åtgärden är endast tillåten för autentiserade användare."
 
-#: skole/utils/constants.py:124
+#: skole/utils/constants.py:125
 msgid ""
 "This action is only allowed for users who have verified their accounts. "
 "Please verify your account."
@@ -281,47 +285,47 @@ msgstr ""
 "Den här åtgärden är endast tillåten för användare som har verifierat sina "
 "konton.Bekräfta ditt konto."
 
-#: skole/utils/constants.py:127
+#: skole/utils/constants.py:128
 msgid "You can request this next time in {} min."
 msgstr "Du kan begära detta igen inom {} min."
 
-#: skole/utils/constants.py:143
+#: skole/utils/constants.py:144
 msgid "Freshman"
 msgstr "Gulis"
 
-#: skole/utils/constants.py:144
+#: skole/utils/constants.py:145
 msgid "Tutor"
 msgstr "Handledare"
 
-#: skole/utils/constants.py:145
+#: skole/utils/constants.py:146
 msgid "Mentor"
 msgstr "Mentor"
 
-#: skole/utils/constants.py:146
+#: skole/utils/constants.py:147
 msgid "Bachelor"
 msgstr "Kandidat"
 
-#: skole/utils/constants.py:147
+#: skole/utils/constants.py:148
 msgid "Master"
 msgstr "Magister"
 
-#: skole/utils/constants.py:148
+#: skole/utils/constants.py:149
 msgid "Doctor"
 msgstr "Doktor"
 
-#: skole/utils/constants.py:149
+#: skole/utils/constants.py:150
 msgid "Professor"
 msgstr "Professor"
 
-#: skole/utils/constants.py:161
+#: skole/utils/constants.py:162
 msgid "username"
 msgstr "användarnamn"
 
-#: skole/utils/constants.py:162
+#: skole/utils/constants.py:163
 msgid "email"
 msgstr "e-post"
 
-#: skole/utils/constants.py:166
+#: skole/utils/constants.py:167
 #, python-format
 msgid "The password is too similar to the %(verbose_name)s."
 msgstr "Lösenordet är för likt %(verbose_name)s."

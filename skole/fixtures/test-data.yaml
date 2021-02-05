@@ -459,6 +459,8 @@
     bio: ""
     avatar: ""
     verified: True
+    product_update_email_permission: True
+    blog_post_email_permission: True
     is_active: True
     is_staff: True
     is_superuser: True
@@ -475,6 +477,8 @@
     bio: ""
     avatar: uploads/avatars/test_avatar.jpg
     verified: True
+    product_update_email_permission: True
+    blog_post_email_permission: True
     is_active: True
     is_staff: False
     is_superuser: False
@@ -494,6 +498,8 @@
     bio: ""
     avatar: ""
     verified: False
+    product_update_email_permission: True
+    blog_post_email_permission: True
     is_active: True
     is_staff: False
     is_superuser: False
@@ -513,6 +519,8 @@
     bio: ""
     avatar: ""
     verified: True
+    product_update_email_permission: True
+    blog_post_email_permission: True
     is_active: True
     is_staff: False
     is_superuser: False
@@ -530,6 +538,8 @@
     bio: ""
     avatar: ""
     verified: True
+    product_update_email_permission: True
+    blog_post_email_permission: True
     is_active: True
     is_staff: False
     is_superuser: False
@@ -547,6 +557,8 @@
     bio: ""
     avatar: ""
     verified: True
+    product_update_email_permission: True
+    blog_post_email_permission: True
     is_active: True
     is_staff: False
     is_superuser: False
@@ -564,6 +576,8 @@
     bio: ""
     avatar: ""
     verified: True
+    product_update_email_permission: True
+    blog_post_email_permission: True
     is_active: True
     is_staff: False
     is_superuser: False
@@ -581,6 +595,8 @@
     bio: ""
     avatar: ""
     verified: True
+    product_update_email_permission: True
+    blog_post_email_permission: True
     is_active: True
     is_staff: False
     is_superuser: False
@@ -598,6 +614,8 @@
     bio: ""
     avatar: ""
     verified: True
+    product_update_email_permission: True
+    blog_post_email_permission: True
     is_active: True
     is_staff: False
     is_superuser: False
@@ -614,6 +632,8 @@
     bio: ""
     avatar: ""
     verified: True
+    product_update_email_permission: True
+    blog_post_email_permission: True
     is_active: True
     is_staff: False
     is_superuser: False
@@ -630,6 +650,8 @@
     bio: ""
     avatar: ""
     verified: True
+    product_update_email_permission: True
+    blog_post_email_permission: True
     is_active: True
     is_staff: False
     is_superuser: False
@@ -646,6 +668,8 @@
     bio: ""
     avatar: ""
     verified: True
+    product_update_email_permission: True
+    blog_post_email_permission: True
     is_active: True
     is_staff: False
     is_superuser: False

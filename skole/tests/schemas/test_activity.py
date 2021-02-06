@@ -118,7 +118,7 @@ class ActivitySchemaTests(SkoleSchemaTestCase):
         page = 1
         res = self.query_activities(page=page, page_size=page_size)
         assert len(res["objects"]) == page_size
-        assert res["objects"][0]["id"] == "1"
+        assert res["objects"][0]["id"] == "3"
         assert res["objects"][-1]["id"] == "2"
         assert res["count"] == 3
         assert res["page"] == page
@@ -128,7 +128,7 @@ class ActivitySchemaTests(SkoleSchemaTestCase):
 
         page = 2
         res = self.query_activities(page=page, page_size=page_size)
-        assert res["objects"][0]["id"] == "3"
+        assert res["objects"][0]["id"] == "1"
         assert len(res["objects"]) == 1  # Last page only has one result.
         assert res["count"] == 3
         assert res["page"] == page

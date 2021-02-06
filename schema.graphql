@@ -334,7 +334,7 @@ type PaginatedSubjectObjectType {
 type Query {
   comments(user: ID, page: Int, pageSize: Int): PaginatedCommentObjectType
   discussion(course: ID, resource: ID, school: ID): [CommentObjectType]
-  autocompleteDiscussions(searchTerm: String): [DiscussionsUnion]
+  discussionSuggestions: [DiscussionsUnion]
   suggestions: [SuggestionsUnion]
   suggestionsPreview: [SuggestionsUnion]
   userMe: UserObjectType

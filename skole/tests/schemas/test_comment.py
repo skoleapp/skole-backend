@@ -1,5 +1,7 @@
 from typing import Optional
 
+from django.conf import settings
+
 from skole.models import Comment, Course, Resource, School
 from skole.tests.helpers import (
     TEST_ATTACHMENT_PNG,
@@ -132,6 +134,34 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         )
 
         return self.execute(graphql, variables=variables, assert_error=assert_error)
+
+    def query_discussion_suggestions(
+        self,
+        *,
+        assert_error: bool = False,
+    ) -> JsonDict:
+        # language=GraphQL
+        graphql = """
+            query DiscussionSuggestions {
+                discussionSuggestions {
+                    ... on CourseObjectType {
+                        id
+                        courseName: name
+                        code
+                    }
+                    ... on ResourceObjectType {
+                        id
+                        title
+                    }
+                    ... on SchoolObjectType {
+                        id
+                        name
+                    }
+                }
+            }
+        """
+
+        return self.execute(graphql, assert_error=assert_error)
 
     def mutate_create_comment(
         self,
@@ -477,3 +507,15 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         school = 2
         res = self.query_discussion(school=school)
         assert len(res) == 0
+
+    def test_discussion_suggestions(self) -> None:
+        res = self.query_discussion_suggestions()
+        assert len(res) <= settings.DISCUSSION_SUGGESTIONS_COUNT
+
+        # Test that anonymous users cannot query discussion suggestions.
+
+        self.authenticated_user = None
+        res = self.query_discussion_suggestions(assert_error=True)
+        assert "permission" in get_graphql_error(res)
+
+        # TODO: Test the remaining cases for the discussion suggestions.

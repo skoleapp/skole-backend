@@ -1,11 +1,14 @@
+from typing import Union, cast
+
 import graphene
 from django.conf import settings
-from django.db.models import QuerySet
+from django.db.models import Q, QuerySet
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 
 from skole.forms import CreateCommentForm, DeleteCommentForm, UpdateCommentForm
-from skole.models import Comment, Course, Resource, School
+from skole.models import Comment, Course, Resource, School, User
+from skole.overridden import login_required
 from skole.schemas.base import (
     SkoleCreateUpdateMutationMixin,
     SkoleDeleteMutationMixin,
@@ -15,7 +18,7 @@ from skole.schemas.course import CourseObjectType
 from skole.schemas.mixins import PaginationMixin, SuccessMessageMixin, VoteMixin
 from skole.schemas.resource import ResourceObjectType
 from skole.schemas.school import SchoolObjectType
-from skole.types import ID, CommentableModel, ResolveInfo
+from skole.types import ID, ResolveInfo
 from skole.utils.constants import Messages
 from skole.utils.pagination import get_paginator
 
@@ -128,9 +131,7 @@ class Query(SkoleObjectType):
         school=graphene.ID(),
     )
 
-    autocomplete_discussions = graphene.List(
-        DiscussionsUnion, search_term=graphene.String()
-    )
+    discussion_suggestions = graphene.List(DiscussionsUnion)
 
     @staticmethod
     def resolve_comments(
@@ -171,24 +172,101 @@ class Query(SkoleObjectType):
         return qs
 
     @staticmethod
-    def resolve_autocomplete_discussions(
-        root: None, info: ResolveInfo, search_term: str = ""
-    ) -> list[CommentableModel]:
-        """Results are sorted alphabetically."""
-        courses = Course.objects.order_by("name")
-        resources = Resource.objects.order_by("title")
+    @login_required
+    def resolve_discussion_suggestions(
+        root: None, info: ResolveInfo
+    ) -> list[Union[School, Course, Resource]]:
+        """Return a selection of courses, resources and schools that are most relevant
+        to discuss for the given user."""
 
-        if search_term != "":
-            courses = courses.filter(name__icontains=search_term)
-            resources = resources.filter(title__icontains=search_term)
-            schools = School.objects.translated(name__icontains=search_term).order_by(
-                "translations__name"
+        user = cast(User, info.context.user)
+        city = getattr(user.school, "city", None)
+        country = getattr(city, "country", None)
+        cut = settings.DISCUSSION_SUGGESTIONS_COUNT // 3
+
+        # Include schools that:
+        # - Is the user's school.
+        # - Have been commented by the user.
+        # - Have reply comments from the user.
+        schools = (
+            School.objects.filter(
+                Q(users=user)
+                | Q(comments__user=user)
+                | Q(comments__reply_comments__user=user)
             )
-        else:
-            schools = School.objects.translated().order_by("translations__name")
+            .order_by("-comment_count")
+            .distinct()
+        )
 
-        cut = 20
-        return [*courses[:cut], *resources[:cut], *schools[:cut]]
+        # If there are not enough schools in the queryset, add the best schools from the user's city.
+        if len(schools) < cut:
+            schools = schools.union(
+                School.objects.filter(city=city).order_by("-comment_count")
+            ).distinct()
+
+        # If there are still not enough schools, do the same based on the user's country.
+        if len(schools) < cut:
+            schools = schools.union(
+                School.objects.filter(city__country=country).order_by("-comment_count")
+            ).distinct()
+
+        # Include courses that:
+        # - Are created by the user.
+        # - Have been starred by the user.
+        # - Have been voted by the user.
+        # - Have been commented by the user.
+        # - Have reply comments from the user.
+        # - Have resources added by the user.
+        courses = (
+            Course.objects.filter(
+                Q(user=user)
+                | Q(stars__user=user)
+                | Q(votes__user=user)
+                | Q(comments__user=user)
+                | Q(comments__reply_comments__user=user)
+                | Q(resources__user=user)
+            )
+            .order_by("-score", "-resource_count", "-comment_count")
+            .distinct()
+        )
+
+        # If there are not enough courses in the queryset, add the best courses from the user's subject.
+        if len(courses) < cut:
+            courses = courses.union(
+                Course.objects.filter(subjects=user.subject).order_by(
+                    "-score", "-resource_count", "-comment_count"
+                )
+            ).distinct()
+
+        # Include resources that:
+        # - Are created by the user.
+        # - Have their course created by the user.
+        # - Have been starred by the user.
+        # - Have been voted by the user.
+        # - Have been commented by the user.
+        # - Have reply comments from the user.
+        resources = (
+            Resource.objects.filter(
+                Q(user=user)
+                | Q(course__user=user)
+                | Q(stars__user=user)
+                | Q(votes__user=user)
+                | Q(comments__user=user)
+                | Q(comments__reply_comments__user=user)
+            )
+            .order_by("-score", "-comment_count")
+            .distinct()
+        )
+
+        # If there are not enough resources in the queryset, add the best resources from the user's subject.
+        if len(resources) < cut:
+            resources = resources.union(
+                Resource.objects.filter(course__subjects=user.subject).order_by(
+                    "-score", "-comment_count"
+                )
+            ).distinct()
+
+        return [*schools[:cut], *courses[:cut], *resources[:cut]]
 
 
 class Mutation(SkoleObjectType):

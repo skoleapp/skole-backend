@@ -1,3 +1,4 @@
+from autoslug import AutoSlugField
 from django.db import models
 from django.db.models import Count, QuerySet
 from parler.models import TranslatedFields
@@ -18,6 +19,14 @@ class SchoolManager(TranslatableSkoleManager["School"]):
 
 class School(TranslatableSkoleModel):
     """Models one school on the platform."""
+
+    slug = AutoSlugField(
+        null=True,
+        default=None,
+        populate_from="__str__",
+        unique=True,
+        always_update=True,
+    )
 
     school_type = models.ForeignKey(
         "skole.SchoolType", on_delete=models.PROTECT, related_name="schools"

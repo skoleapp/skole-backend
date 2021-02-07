@@ -1,7 +1,7 @@
 from typing import cast
 
 from skole.tests.helpers import SkoleSchemaTestCase
-from skole.types import ID, JsonDict
+from skole.types import JsonDict
 
 
 class CitySchemaTests(SkoleSchemaTestCase):
@@ -9,7 +9,7 @@ class CitySchemaTests(SkoleSchemaTestCase):
     # language=GraphQL
     city_fields = """
         fragment cityFields on CityObjectType {
-            id
+            slug
             name
         }
     """
@@ -28,20 +28,21 @@ class CitySchemaTests(SkoleSchemaTestCase):
         )
         return cast(list[JsonDict], self.execute(graphql))
 
-    def query_city(self, *, id: ID) -> JsonDict:
-        variables = {"id": id}
+    def query_city(self, *, slug: str) -> JsonDict:
+        variables = {"slug": slug}
 
         # language=GraphQL
         graphql = (
             self.city_fields
             + """
-            query City($id: ID) {
-                city(id: $id) {
+            query City($slug: String) {
+                city(slug: $slug) {
                     ...cityFields
                 }
             }
             """
         )
+
         return self.execute(graphql, variables=variables)
 
     def test_field_fragment(self) -> None:
@@ -52,14 +53,14 @@ class CitySchemaTests(SkoleSchemaTestCase):
         cities = self.query_autocomplete_cities()
         assert len(cities) == 5
         # Cities should be ordered alphabetically.
-        assert cities[0] == self.query_city(id=3)
-        assert cities[0]["id"] == "3"
+        assert cities[0]["slug"] == "espoo"
         assert cities[0]["name"] == "Espoo"
-        assert cities[1]["id"] == "2"
+        assert cities[1]["slug"] == "helsinki"
         assert cities[1]["name"] == "Helsinki"
 
     def test_city(self) -> None:
-        city = self.query_city(id=1)
-        assert city["id"] == "1"
+        slug = "turku"
+        city = self.query_city(slug=slug)
+        assert city["slug"] == slug
         assert city["name"] == "Turku"
-        assert self.query_city(id=999) is None
+        assert self.query_city(slug="not-found") is None

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from autoslug import AutoSlugField
 from django.db import models
 from django.db.models import Count
 from django.db.models.query import QuerySet
@@ -19,6 +20,14 @@ class SubjectManager(TranslatableSkoleManager["Subject"]):
 
 class Subject(TranslatableSkoleModel):
     """Models one studyable subject, e.g. Computer Engineering."""
+
+    slug = AutoSlugField(
+        null=True,
+        default=None,
+        populate_from="__str__",
+        unique=True,
+        always_update=True,
+    )
 
     translations = TranslatedFields(name=models.CharField(max_length=100))
 

@@ -1,3 +1,5 @@
+from django.contrib.auth import get_user_model
+
 from skole.tests.helpers import SkoleSchemaTestCase
 from skole.types import ID, JsonDict
 
@@ -9,19 +11,19 @@ class SitemapTests(SkoleSchemaTestCase):
     sitemap_fields = """
         fragment sitemapFields on SitemapObjectType {
             courses {
-              id
+              slug
               modified
             }
             resources {
-              id
+              slug
               modified
             }
             schools {
-              id
+              slug
               modified
             }
             users {
-              id
+              slug
               modified
             }
         }
@@ -52,14 +54,19 @@ class SitemapTests(SkoleSchemaTestCase):
         assert "resources" in sitemap
         assert "schools" in sitemap
         assert "users" in sitemap
-        assert sitemap["courses"][0]["id"] == "1"
+        assert sitemap["courses"][0]["slug"] == "test-engineering-course-1-test0001"
         assert sitemap["courses"][0]["modified"] == "2020-01-01"
-        assert sitemap["resources"][0]["id"] == "1"
+        assert sitemap["resources"][0]["slug"] == "sample-exam-1-2012-12-12"
         assert sitemap["resources"][0]["modified"] == "2020-01-01"
-        assert sitemap["users"][0]["id"] == "1"
+        assert sitemap["users"][0]["slug"] == "testuser2"
         assert sitemap["users"][0]["modified"] == "2020-01-01"
-        assert sitemap["schools"][-1]["id"] == "6"
-        assert sitemap["schools"][-1]["modified"] is None
+        assert sitemap["schools"][0]["slug"] == "university-of-turku"
+        assert not sitemap["schools"][0]["modified"]
+
+        # Test that no superusers are included in sitemap users.
+        for user in sitemap["users"]:
+            user_from_db = get_user_model().objects.get(slug=user["slug"])
+            assert not user_from_db.is_superuser
 
         # Works when logged in (although this is really pointless)
         self.authenticated_user = 2

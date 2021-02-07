@@ -1,4 +1,4 @@
-from typing import Optional, get_args
+from typing import Optional, cast, get_args
 
 import graphene
 from django.conf import settings
@@ -8,7 +8,7 @@ from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphql import GraphQLError
 
 from skole.forms import CreateCourseForm, DeleteCourseForm
-from skole.models import Course
+from skole.models import Course, User
 from skole.overridden import login_required
 from skole.schemas.base import (
     SkoleCreateUpdateMutationMixin,
@@ -21,7 +21,7 @@ from skole.schemas.mixins import (
     SuccessMessageMixin,
     VoteMixin,
 )
-from skole.types import ID, CourseOrderingOption, ResolveInfo
+from skole.types import CourseOrderingOption, ResolveInfo
 from skole.utils.constants import GraphQLErrors, Messages
 from skole.utils.pagination import get_paginator
 
@@ -42,6 +42,7 @@ def order_courses_with_secret_algorithm(qs: QuerySet[Course]) -> QuerySet[Course
 
 
 class CourseObjectType(VoteMixin, StarMixin, DjangoObjectType):
+    slug = graphene.String()
     star_count = graphene.Int()
     resource_count = graphene.Int()
     comment_count = graphene.Int()
@@ -50,6 +51,7 @@ class CourseObjectType(VoteMixin, StarMixin, DjangoObjectType):
         model = Course
         fields = (
             "id",
+            "slug",
             "name",
             "code",
             "subjects",
@@ -119,12 +121,12 @@ class Query(SkoleObjectType):
     courses = graphene.Field(
         PaginatedCourseObjectType,
         search_term=graphene.String(),
-        subject=graphene.ID(),
-        school=graphene.ID(),
-        school_type=graphene.ID(),
-        country=graphene.ID(),
-        city=graphene.ID(),
-        user=graphene.ID(),
+        subject=graphene.String(),
+        school=graphene.String(),
+        school_type=graphene.String(),
+        country=graphene.String(),
+        city=graphene.String(),
+        user=graphene.String(),
         page=graphene.Int(),
         page_size=graphene.Int(),
         ordering=graphene.String(),
@@ -132,7 +134,7 @@ class Query(SkoleObjectType):
 
     autocomplete_courses = graphene.List(
         CourseObjectType,
-        school=graphene.ID(),
+        school=graphene.String(),
         name=graphene.String(),
     )
 
@@ -142,19 +144,19 @@ class Query(SkoleObjectType):
         page_size=graphene.Int(),
     )
 
-    course = graphene.Field(CourseObjectType, id=graphene.ID())
+    course = graphene.Field(CourseObjectType, slug=graphene.String())
 
     @staticmethod
     def resolve_courses(
         root: None,
         info: ResolveInfo,
         search_term: Optional[str] = None,
-        subject: ID = None,
-        school: ID = None,
-        school_type: ID = None,
-        country: ID = None,
-        city: ID = None,
-        user: ID = None,
+        subject: str = "",
+        school: str = "",
+        school_type: str = "",
+        country: str = "",
+        city: str = "",
+        user: str = "",
         page: int = 1,
         page_size: int = settings.DEFAULT_PAGE_SIZE,
         ordering: CourseOrderingOption = "best",
@@ -174,18 +176,19 @@ class Query(SkoleObjectType):
             qs = qs.filter(
                 Q(name__icontains=search_term) | Q(code__icontains=search_term)
             )
-        if subject is not None:
-            qs = qs.filter(subjects__pk=subject)
-        if school is not None:
-            qs = qs.filter(school__pk=school)
-        if school_type is not None:
-            qs = qs.filter(school__school_type__pk=school_type)
-        if country is not None:
-            qs = qs.filter(school__city__country__pk=country)
-        if city is not None:
-            qs = qs.filter(school__city__pk=city)
-        if user is not None:
-            qs = qs.filter(user__pk=user)
+
+        if subject != "":
+            qs = qs.filter(subjects__slug=subject)
+        if school != "":
+            qs = qs.filter(school__slug=school)
+        if school_type != "":
+            qs = qs.filter(school__school_type__slug=school_type)
+        if country != "":
+            qs = qs.filter(school__city__country__slug=country)
+        if city != "":
+            qs = qs.filter(school__city__slug=city)
+        if user != "":
+            qs = qs.filter(user__slug=user)
 
         if ordering not in get_args(CourseOrderingOption):
             raise GraphQLError(GraphQLErrors.INVALID_ORDERING)
@@ -201,13 +204,13 @@ class Query(SkoleObjectType):
 
     @staticmethod
     def resolve_autocomplete_courses(
-        root: None, info: ResolveInfo, school: ID = None, name: str = ""
+        root: None, info: ResolveInfo, school: str = "", name: str = ""
     ) -> QuerySet[Course]:
         """Results are sorted by secret Skole AI-powered algorithms."""
         qs: QuerySet[Course] = Course.objects.order_by("name")
 
-        if school is not None:
-            qs = qs.filter(school__pk=school)
+        if school != "":
+            qs = qs.filter(school__slug=school)
 
         if name != "":
             qs = qs.filter(Q(name__icontains=name) | Q(code__icontains=name))
@@ -229,15 +232,16 @@ class Query(SkoleObjectType):
         Results are sorted by creation time. Return an empty list for unauthenticated
         users.
         """
-        qs = Course.objects.filter(stars__user__pk=info.context.user.pk)
+        user = cast(User, info.context.user)
+        qs = Course.objects.filter(stars__user=user)
         qs = qs.order_by("pk")
         return get_paginator(qs, page_size, page, PaginatedCourseObjectType)
 
     @staticmethod
     def resolve_course(
-        root: None, info: ResolveInfo, id: ID = None
+        root: None, info: ResolveInfo, slug: str = ""
     ) -> Optional[Course]:
-        return Course.objects.get_or_none(pk=id)
+        return Course.objects.get_or_none(slug=slug)
 
 
 class Mutation(SkoleObjectType):

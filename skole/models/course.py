@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from autoslug import AutoSlugField
 from django.conf import settings
 from django.db import models
 from django.db.models import Count, QuerySet, Sum, Value
@@ -28,6 +29,14 @@ class CourseManager(SkoleManager["Course"]):
 
 class Course(SkoleModel):
     """Models one course."""
+
+    slug = AutoSlugField(
+        null=True,
+        default=None,
+        populate_from="__str__",
+        unique_with=("name", "code"),
+        always_update=True,
+    )
 
     name = models.CharField(max_length=200)
     code = models.CharField(max_length=30, blank=True)

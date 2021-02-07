@@ -1,3 +1,4 @@
+from autoslug import AutoSlugField
 from django.db import models
 from parler.models import TranslatedFields
 
@@ -6,6 +7,14 @@ from .base import TranslatableSkoleModel
 
 class City(TranslatableSkoleModel):
     """Models one city, e.g. Turku or Helsinki."""
+
+    slug = AutoSlugField(
+        null=True,
+        default=None,
+        populate_from="__str__",
+        unique=True,
+        always_update=True,
+    )
 
     country = models.ForeignKey(
         "skole.Country", on_delete=models.PROTECT, related_name="cities"

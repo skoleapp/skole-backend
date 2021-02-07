@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from autoslug import AutoSlugField
 from django.conf import settings
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
@@ -63,6 +64,10 @@ class User(SkoleModel, AbstractBaseUser, PermissionsMixin):
     """Models one user on the platform."""
 
     _identifier_field = "username"
+
+    slug = AutoSlugField(
+        null=True, default=None, populate_from="username", always_update=True
+    )
 
     username = models.CharField(
         VerboseNames.USERNAME,

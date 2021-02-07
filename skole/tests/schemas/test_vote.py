@@ -23,7 +23,13 @@ class VoteSchemaTests(SkoleSchemaTestCase):
                 "course": course,
                 "resource": resource,
             },
-            result="vote { id status } targetScore",
+            result="""
+                vote {
+                    id
+                    status
+                }
+                targetScore
+            """,
         )
 
     def test_vote_comment_ok(self) -> None:

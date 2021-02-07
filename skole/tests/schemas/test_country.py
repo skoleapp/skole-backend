@@ -1,7 +1,7 @@
 from typing import cast
 
 from skole.tests.helpers import SkoleSchemaTestCase
-from skole.types import ID, JsonDict
+from skole.types import JsonDict
 
 
 class CountrySchemaTests(SkoleSchemaTestCase):
@@ -9,7 +9,7 @@ class CountrySchemaTests(SkoleSchemaTestCase):
     # language=GraphQL
     country_fields = """
         fragment countryFields on CountryObjectType {
-            id
+            slug
             name
         }
     """
@@ -28,15 +28,15 @@ class CountrySchemaTests(SkoleSchemaTestCase):
         )
         return cast(list[JsonDict], self.execute(graphql))
 
-    def query_country(self, *, id: ID) -> JsonDict:
-        variables = {"id": id}
+    def query_country(self, *, slug: str) -> JsonDict:
+        variables = {"slug": slug}
 
         # language=GraphQL
         graphql = (
             self.country_fields
             + """
-            query Country($id: ID) {
-                country(id: $id) {
+            query Country($slug: String) {
+                country(slug: $slug) {
                     ...countryFields
                 }
             }
@@ -51,10 +51,11 @@ class CountrySchemaTests(SkoleSchemaTestCase):
     def test_autocomplete_countries(self) -> None:
         countries = self.query_autocomplete_countries()
         assert len(countries) == 1
-        assert countries[0] == self.query_country(id=1)
+        assert countries[0] == self.query_country(slug="finland")
 
     def test_country(self) -> None:
-        country = self.query_country(id=1)
-        assert country["id"] == "1"
+        slug = "finland"
+        country = self.query_country(slug=slug)
+        assert country["slug"] == slug
         assert country["name"] == "Finland"
-        assert self.query_country(id=999) is None
+        assert self.query_country(slug="not-found") is None

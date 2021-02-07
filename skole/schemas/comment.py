@@ -119,7 +119,7 @@ class DiscussionsUnion(graphene.Union):
 class Query(SkoleObjectType):
     comments = graphene.Field(
         PaginatedCommentObjectType,
-        user=graphene.ID(),
+        user=graphene.String(),
         page=graphene.Int(),
         page_size=graphene.Int(),
     )
@@ -137,7 +137,7 @@ class Query(SkoleObjectType):
     def resolve_comments(
         root: None,
         info: ResolveInfo,
-        user: ID = None,
+        user: str = "",
         page: int = 1,
         page_size: int = settings.DEFAULT_PAGE_SIZE,
     ) -> PaginatedCommentObjectType:
@@ -145,8 +145,8 @@ class Query(SkoleObjectType):
 
         qs: QuerySet[Comment] = Comment.objects.all()
 
-        if user is not None:
-            qs = qs.filter(user__pk=user)
+        if user != "":
+            qs = qs.filter(user__slug=user)
 
         return get_paginator(qs, page_size, page, PaginatedCommentObjectType)
 

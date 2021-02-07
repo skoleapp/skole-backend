@@ -19,9 +19,9 @@ class MiddlewareTests(SkoleSchemaTestCase):
     """
     # language=GraphQL
     normal_query = """
-        query Country($id: ID) {
-            country(id: $id) {
-                id
+        query Country($slug: String) {
+            country(slug: $slug) {
+                slug
                 name
             }
         }
@@ -47,8 +47,9 @@ class MiddlewareTests(SkoleSchemaTestCase):
                 res = self.execute(self.schema_query)
                 assert isinstance(res["types"][0]["name"], str)
 
-                res = self.execute(self.normal_query, variables={"id": 1})
-                assert res["id"] == "1"
+                slug = "finland"
+                res = self.execute(self.normal_query, variables={"slug": slug})
+                assert res["slug"] == slug
 
     def test_introspection_disabled(self) -> None:
         with reload_module(graphene_django.views) as loader:
@@ -60,5 +61,6 @@ class MiddlewareTests(SkoleSchemaTestCase):
                 self.execute(self.schema_query, assert_error=True)
 
                 # Fine to make a query which doesn't introspect the schema.
-                res = self.execute(self.normal_query, variables={"id": 1})
-                assert res["id"] == "1"
+                slug = "finland"
+                res = self.execute(self.normal_query, variables={"slug": slug})
+                assert res["slug"] == slug

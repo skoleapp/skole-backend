@@ -21,6 +21,7 @@ class CourseSchemaTests(SkoleSchemaTestCase):
     course_fields = """
         fragment courseFields on CourseObjectType {
             id
+            slug
             name
             code
             score
@@ -31,16 +32,16 @@ class CourseSchemaTests(SkoleSchemaTestCase):
             created
             modified
             subjects {
-                id
+                slug
             }
             school {
-                id
+                slug
             }
             user {
-                id
+                slug
             }
             resources {
-                id
+                slug
             }
             comments {
                 id
@@ -60,7 +61,7 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         graphql = (
             self.course_fields
             + """
-            query AutocompleteCourses($school: ID, $name: String) {
+            query AutocompleteCourses($school: String, $name: String) {
                 autocompleteCourses(school: $school, name: $name) {
                     ...courseFields
                 }
@@ -74,12 +75,12 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         self,
         *,
         search_term: Optional[str] = None,
-        subject: ID = None,
-        school: ID = None,
-        school_type: ID = None,
-        country: ID = None,
-        city: ID = None,
-        user: ID = None,
+        subject: str = "",
+        school: str = "",
+        school_type: str = "",
+        country: str = "",
+        city: str = "",
+        user: str = "",
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         ordering: Optional[CourseOrderingOption] = None,
@@ -104,12 +105,12 @@ class CourseSchemaTests(SkoleSchemaTestCase):
             + """
             query Courses (
                 $searchTerm: String,
-                $subject: ID,
-                $school: ID,
-                $schoolType: ID,
-                $country: ID,
-                $city: ID,
-                $user: ID,
+                $subject: String,
+                $school: String,
+                $schoolType: String,
+                $country: String,
+                $city: String,
+                $user: String,
                 $page: Int,
                 $pageSize: Int,
                 $ordering: String
@@ -215,15 +216,15 @@ class CourseSchemaTests(SkoleSchemaTestCase):
 
         return self.execute(graphql, assert_error=assert_error)
 
-    def query_course(self, *, id: ID) -> JsonDict:
-        variables = {"id": id}
+    def query_course(self, *, slug: str) -> JsonDict:
+        variables = {"slug": slug}
 
         # language=GraphQL
         graphql = (
             self.course_fields
             + """
-            query Course($id: ID) {
-                course(id: $id) {
+            query Course($slug: String) {
+                course(slug: $slug) {
                     ...courseFields
                 }
             }
@@ -270,7 +271,7 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         assert course["id"] == "26"
         assert course["name"] == "test course"
         assert course["code"] == "code0001"
-        assert course["user"]["id"] == "2"
+        assert course["user"]["slug"] == "testuser2"
 
         # These should be 0 by default.
         assert course["starCount"] == 0
@@ -322,7 +323,9 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         page = 1
         res = self.query_courses(page=page, page_size=page_size)
         assert len(res["objects"]) == page_size
-        assert res["objects"][0] == self.query_course(id=1)
+        assert res["objects"][0] == self.query_course(
+            slug="test-engineering-course-1-test0001"
+        )
         assert res["objects"][1]["id"] == "2"
         assert res["count"] == 25
         assert res["page"] == page
@@ -371,7 +374,9 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         assert res["pages"] == 3
 
         res = self.query_courses(ordering="-name")
-        assert res["objects"][0] == self.query_course(id=9)
+        assert res["objects"][0] == self.query_course(
+            slug="test-engineering-course-9-test0009"
+        )
 
         # Vote up one course, so it now has the most score.
         course = Course.objects.get(pk=7)
@@ -398,25 +403,27 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         assert res["objects"][3]["id"] == "12"
         assert res["count"] == 11
 
-        res = self.query_courses(country=1)
+        res = self.query_courses(country="finland")
         assert res["count"] == 25
 
-        res = self.query_courses(subject=1)
+        res = self.query_courses(subject="computer-engineering")
         assert res["count"] == 22
 
-        res = self.query_courses(subject=2)
+        res = self.query_courses(subject="computer-science")
         assert res["count"] == 3
 
-        res = self.query_courses(subject=999, school=999, country=999)
+        res = self.query_courses(
+            subject="not-found", school="not-found", country="not-found"
+        )
         assert res["count"] == 0
 
         res = self.query_courses(
             search_term="2",
-            subject=1,
-            school=1,
-            school_type=1,
-            country=1,
-            city=1,
+            subject="computer-engineering",
+            school="university-of-turku",
+            school_type="university",
+            country="finland",
+            city="turku",
             page=1,
             page_size=2,
             ordering="-name",
@@ -428,13 +435,15 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         assert res["objects"][1]["code"] == "TEST00024"
 
         # Test that only courses of the correct user are returned.
-        res = self.query_courses(user=self.authenticated_user)
+
+        user_slug = "testuser2"  # Slug for `self.authenticated_user`.
+        res = self.query_courses(user=user_slug)
 
         for course_obj in res["objects"]:
-            assert int(course_obj["user"]["id"]) == self.authenticated_user
+            assert course_obj["user"]["slug"] == user_slug
 
         # Test for some user that has created no courses.
-        res = self.query_courses(user=10)
+        res = self.query_courses(user="testuser10")
         assert len(res["objects"]) == 0
         assert res["count"] == 0
 
@@ -446,17 +455,21 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         courses = self.query_autocomplete_courses()
         assert len(courses) == 25
         # By default, best courses are returned.
-        assert courses[0] == self.query_course(id=1)  # Best
-        assert courses[-1] == self.query_course(id=9)  # Worst
+        assert courses[0] == self.query_course(
+            slug="test-engineering-course-1-test0001"
+        )  # Best
+        assert courses[-1] == self.query_course(
+            slug="test-engineering-course-9-test0009"
+        )  # Worst
 
         # Query by course name
         assert self.query_autocomplete_courses(name="Test Engineering Course 18")[
             0
-        ] == self.query_course(id=18)
+        ] == self.query_course(slug="test-engineering-course-18-test00018")
 
         # The same field allows also querying with the code.
         assert self.query_autocomplete_courses(name="TEST0033")[0] == self.query_course(
-            id=3
+            slug="test-engineering-course-3-test0003"
         )
 
     def test_starred_courses(self) -> None:
@@ -507,16 +520,21 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         assert res["data"] == {"starredCourses": None}
 
     def test_course(self) -> None:
-        course = self.query_course(id=1)
+        slug = "test-engineering-course-1-test0001"
+        course = self.query_course(slug=slug)
         assert course["id"] == "1"
         assert course["name"] == "Test Engineering Course 1"
         assert course["code"] == "TEST0001"
-        assert course["subjects"] == [{"id": "1"}, {"id": "2"}]
-        assert course["school"] == {"id": "1"}
-        assert course["user"] == {"id": "2"}
+        assert course["slug"] == slug
+        assert course["subjects"] == [
+            {"slug": "computer-engineering"},
+            {"slug": "computer-science"},
+        ]
+        assert course["school"] == {"slug": "university-of-turku"}
+        assert course["user"] == {"slug": "testuser2"}
         assert course["starCount"] == 1
         assert course["resourceCount"] == 14
         assert course["commentCount"] == 18
         assert is_iso_datetime(course["modified"])
         assert is_iso_datetime(course["created"])
-        assert self.query_course(id=999) is None
+        assert self.query_course(slug="not-found") is None

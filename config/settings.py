@@ -146,7 +146,8 @@ GRAPHQL_JWT = {
     "JWT_COOKIE_SAMESITE": "Lax",  # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie/SameSite
     "JWT_COOKIE_SECURE": not DEBUG,
     "JWT_VERIFY_EXPIRATION": not DEBUG,
-    "JWT_EXPIRATION_DELTA": timedelta(days=7),
+    # FIXME: change this to e.g. minutes=15 when the token refreshing works.
+    "JWT_EXPIRATION_DELTA": timedelta(days=60),
     "JWT_REFRESH_EXPIRATION_DELTA": timedelta(days=60),
 }
 

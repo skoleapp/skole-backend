@@ -61,17 +61,17 @@ type CommentObjectType {
 }
 
 input ContactMutationInput {
-  subject: String!
+  subject: String
   name: String
-  email: String!
+  email: String
   message: String!
   clientMutationId: String
 }
 
 type ContactMutationPayload {
-  subject: String!
+  subject: String
   name: String
-  email: String!
+  email: String
   message: String!
   errors: [ErrorType]
   successMessage: String

@@ -32,9 +32,9 @@ class ContactMutation(
 
         context = {
             "subject": subject,
+            "name": name or "-",
+            "email": email or "-",
             "message": message,
-            "name": name if name != "" else "-",
-            "email": email,
         }
 
         html_message = render_to_string("email/contact.html", context)

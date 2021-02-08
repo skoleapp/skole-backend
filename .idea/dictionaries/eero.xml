@@ -25,6 +25,7 @@
       <w>downvote</w>
       <w>espoo</w>
       <w>filepaths</w>
+      <w>filterings</w>
       <w>fkey</w>
       <w>fmap</w>
       <w>fobjs</w>
@@ -51,6 +52,7 @@
       <w>postgresql</w>
       <w>pythonoptimize</w>
       <w>pythonpath</w>
+      <w>querysets</w>
       <w>raisio</w>
       <w>raision</w>
       <w>ratelimit</w>

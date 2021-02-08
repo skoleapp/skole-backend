@@ -452,7 +452,7 @@ type SendPasswordResetEmailMutationPayload {
 
 type SitemapEntryObjectType {
   id: ID!
-  modified: DateTime
+  modified: Date
 }
 
 type SitemapObjectType {

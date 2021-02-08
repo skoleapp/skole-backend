@@ -10,7 +10,7 @@ from skole.types import JsonDict, ResolveInfo
 
 class SitemapEntryObjectType(SkoleObjectType):
     id = graphene.NonNull(graphene.ID)
-    modified = graphene.DateTime()
+    modified = graphene.Date()
 
 
 class SitemapObjectType(SkoleObjectType):

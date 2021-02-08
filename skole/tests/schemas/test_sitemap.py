@@ -53,11 +53,11 @@ class SitemapTests(SkoleSchemaTestCase):
         assert "schools" in sitemap
         assert "users" in sitemap
         assert sitemap["courses"][0]["id"] == "1"
-        assert sitemap["courses"][0]["modified"] == "2020-01-01T12:00:00+00:00"
+        assert sitemap["courses"][0]["modified"] == "2020-01-01"
         assert sitemap["resources"][0]["id"] == "1"
-        assert sitemap["resources"][0]["modified"] == "2020-01-01T12:00:00+00:00"
+        assert sitemap["resources"][0]["modified"] == "2020-01-01"
         assert sitemap["users"][0]["id"] == "1"
-        assert sitemap["users"][0]["modified"] == "2020-01-01T12:00:00+00:00"
+        assert sitemap["users"][0]["modified"] == "2020-01-01"
         assert sitemap["schools"][-1]["id"] == "6"
         assert sitemap["schools"][-1]["modified"] is None
 

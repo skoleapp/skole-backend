@@ -23,7 +23,7 @@ from graphql_jwt.shortcuts import get_token
 from graphql_jwt.utils import delete_cookie
 
 from skole.models import User
-from skole.types import ID, JsonDict
+from skole.types import ID, AnyJson, JsonDict
 
 FileData = Optional[Collection[tuple[str, File]]]
 
@@ -132,7 +132,7 @@ class SkoleSchemaTestCase(TestCase):
 
     def execute(
         self, graphql: str, *, assert_error: bool = False, **kwargs: Any
-    ) -> JsonDict:
+    ) -> Any:
         """
         Run a GraphQL query, if `assert_error` parameter is False assert that status
         code was 200 (=syntax was ok) and that the result didn't have "error" section.
@@ -150,9 +150,9 @@ class SkoleSchemaTestCase(TestCase):
             The resulting JSON data.name section if `assert_error` is False.
             Otherwise returns both the "error" and "data" sections.
 
-            Note: The return value is type hinted for simplicity to be a `JsonDict`,
-            but it can actually be `list[JsonDict]` in cases when we're fetching a list
-            of objects. In those cases we'll do a `cast()` before accessing the data.
+            Note: The return value is type hinted for simplicity to be a `Any`,
+            so that the callers never need to do any casting.
+            In reality this can return either a `JsonDict` or a `list[JsonDict]`.
         """
 
         if self.authenticated_user:
@@ -314,20 +314,22 @@ class SkoleSchemaTestCase(TestCase):
                 assert value is None
 
 
-def get_form_error(res: JsonDict, /) -> str:
+def get_form_error(res: AnyJson, /) -> str:
     """Return the first error message from a result containing a form mutation error."""
     try:
-        return res["errors"][0]["messages"][0]
+        # Ignore: It's fine if `res` is a `list[JsonDict]` and this raises an error.
+        return res["errors"][0]["messages"][0]  # type: ignore[call-overload]
     except (IndexError, KeyError, TypeError):
         raise AssertionError(
             f"`res` didn't contain a form mutation error: \n{res}"
         ) from None
 
 
-def get_graphql_error(res: JsonDict, /) -> str:
+def get_graphql_error(res: AnyJson, /) -> str:
     """Return the first error message from a result containing a GraphQL error."""
     try:
-        return res["errors"][0]["message"]
+        # Ignore: It's fine if `res` is a `list[JsonDict]` and this raises an error.
+        return res["errors"][0]["message"]  # type: ignore[call-overload]
     except (IndexError, KeyError, TypeError):
         raise AssertionError(f"`res` didn't contain a GraphQL error: \n{res}") from None
 

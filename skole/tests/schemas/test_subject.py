@@ -1,4 +1,4 @@
-from typing import Optional, cast
+from typing import Optional
 
 from skole.models import School
 from skole.tests.helpers import SkoleSchemaTestCase
@@ -75,7 +75,7 @@ class SubjectSchemaTests(SkoleSchemaTestCase):
             }
             """
         )
-        return cast(list[JsonDict], self.execute(graphql, variables=variables))
+        return self.execute(graphql, variables=variables)
 
     def query_subject(self, *, slug: str) -> JsonDict:
         variables = {"slug": slug}

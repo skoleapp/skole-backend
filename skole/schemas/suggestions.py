@@ -1,12 +1,11 @@
 import random
-from typing import TypeVar, Union, cast
+from typing import TypeVar, cast
 
 import graphene
 from django.conf import settings
-from django.contrib.auth.models import AnonymousUser
 from django.db.models import QuerySet
 
-from skole.models import Comment, Course, Resource, User
+from skole.models import Comment, Course, Resource
 from skole.schemas.base import SkoleObjectType
 from skole.schemas.comment import CommentObjectType
 from skole.schemas.course import CourseObjectType
@@ -16,9 +15,7 @@ from skole.types import ResolveInfo, SuggestionModel
 T = TypeVar("T", bound=SuggestionModel)
 
 
-def get_suggestions(
-    user: Union[User, AnonymousUser], num_results: int
-) -> list[SuggestionModel]:
+def get_suggestions(num_results: int) -> list[SuggestionModel]:
     """
     Return a selection of trending comments, courses, and resources for suggestions.
 
@@ -72,15 +69,11 @@ class Query(SkoleObjectType):
     def resolve_suggestions(root: None, info: ResolveInfo) -> list[SuggestionModel]:
         """Return suggested courses, resources and comments based on secret Skole AI-
         powered algorithms."""
-
-        user = info.context.user
-        return get_suggestions(user, settings.SUGGESTIONS_COUNT)
+        return get_suggestions(settings.SUGGESTIONS_COUNT)
 
     @staticmethod
     def resolve_suggestions_preview(
         root: None, info: ResolveInfo
     ) -> list[SuggestionModel]:
         """Return preview of the suggestions."""
-
-        user = info.context.user
-        return get_suggestions(user, settings.SUGGESTIONS_PREVIEW_COUNT)
+        return get_suggestions(settings.SUGGESTIONS_PREVIEW_COUNT)

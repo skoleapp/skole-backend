@@ -1,13 +1,15 @@
 import datetime
 import functools
 import hashlib
+import importlib
 import inspect
 import json
 import re
 from collections.abc import Collection, Generator
 from contextlib import contextmanager
 from pathlib import Path
-from typing import Any, Optional, Union
+from types import ModuleType
+from typing import Any, Callable, Optional, TypeVar, Union, cast
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -424,3 +426,22 @@ def get_token_from_email(body: str) -> str:
     """
     match = re.search(r"\?token=(\S*)", body)
     return match.group(1) if match else ""
+
+
+M = TypeVar("M", bound=ModuleType)
+
+
+@contextmanager
+def reload_module(module: M) -> Generator[Callable[[], M], None, None]:
+    """
+    Use as a context manager to reload the module at the end of the block.
+
+    Yields:
+        A function that can be called without any arguments to reload `module`.
+    """
+    try:
+        # The cast is required because `partial` removes argument type information:
+        # https://github.com/python/mypy/issues/1484
+        yield cast(Callable[[], M], functools.partial(importlib.reload, module))
+    finally:
+        importlib.reload(module)

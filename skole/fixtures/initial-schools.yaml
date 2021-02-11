@@ -14,7 +14,7 @@
   pk: 3
   fields:
     language_code: sv
-    name: University of Turku
+    name: Åbo universitet
     master: 1
 - model: skole.SchoolTranslation
   pk: 4
@@ -32,7 +32,7 @@
   pk: 6
   fields:
     language_code: sv
-    name: Turku University of Applied Sciences
+    name: Åbo yrkeshögskola
     master: 2
 - model: skole.SchoolTranslation
   pk: 7
@@ -68,7 +68,7 @@
   pk: 12
   fields:
     language_code: sv
-    name: Diaconia University of Applied Sciences
+    name: Diakoniyrkeshögskolan
     master: 4
 - model: skole.SchoolTranslation
   pk: 13
@@ -104,7 +104,7 @@
   pk: 18
   fields:
     language_code: sv
-    name: Humak University of Applied Sciences
+    name: Humanistiska yrkeshögskolan
     master: 6
 - model: skole.SchoolTranslation
   pk: 19
@@ -122,7 +122,7 @@
   pk: 21
   fields:
     language_code: sv
-    name: Tampere University
+    name: Tammerfors universitet
     master: 7
 - model: skole.SchoolTranslation
   pk: 22
@@ -140,7 +140,7 @@
   pk: 24
   fields:
     language_code: sv
-    name: Tampere University of Applied Sciences
+    name: Tammerfors yrkeshögskola
     master: 8
 - model: skole.SchoolTranslation
   pk: 25
@@ -194,7 +194,7 @@
   pk: 33
   fields:
     language_code: sv
-    name: Metropolia University of Applied Sciences
+    name: Yrkeshögskolan Metropolia
     master: 11
 - model: skole.SchoolTranslation
   pk: 34
@@ -212,7 +212,7 @@
   pk: 36
   fields:
     language_code: sv
-    name: Laurea University of Applied Sciences
+    name: Yrkeshögskolan Laurea
     master: 12
 - model: skole.SchoolTranslation
   pk: 37
@@ -248,7 +248,7 @@
   pk: 42
   fields:
     language_code: sv
-    name: UKonstuniversitetet
+    name: Konstuniversitetet
     master: 14
 - model: skole.SchoolTranslation
   pk: 43
@@ -266,7 +266,7 @@
   pk: 45
   fields:
     language_code: sv
-    name: Haaga-Helia University of Applied Sciences
+    name: Haaga-Helia yrkeshögskola
     master: 15
 - model: skole.SchoolTranslation
   pk: 46
@@ -320,7 +320,7 @@
   pk: 54
   fields:
     language_code: sv
-    name: Arcada University of Applied Sciences
+    name: Yrkeshögskolan Arcada
     master: 18
 - model: skole.SchoolTranslation
   pk: 55
@@ -356,7 +356,7 @@
   pk: 60
   fields:
     language_code: sv
-    name: Satakunta University of Applied Sciences
+    name: Satakunta yrkeshögskola
     master: 20
 - model: skole.SchoolTranslation
   pk: 61
@@ -374,7 +374,7 @@
   pk: 63
   fields:
     language_code: sv
-    name: University of Vaasa
+    name: Vasa universitet
     master: 21
 - model: skole.SchoolTranslation
   pk: 64
@@ -392,7 +392,7 @@
   pk: 66
   fields:
     language_code: sv
-    name: Vaasa University of Applied Sciences
+    name: Vasa yrkeshögskola
     master: 22
 - model: skole.SchoolTranslation
   pk: 67
@@ -410,7 +410,7 @@
   pk: 69
   fields:
     language_code: sv
-    name: University of Jyväskylä
+    name: Jyväskylä universitet
     master: 23
 - model: skole.SchoolTranslation
   pk: 70
@@ -428,7 +428,7 @@
   pk: 72
   fields:
     language_code: sv
-    name: JAMK University of Applied Sciences
+    name: Jyväskylä yrkeshögskola
     master: 24
 - model: skole.SchoolTranslation
   pk: 73
@@ -446,7 +446,7 @@
   pk: 75
   fields:
     language_code: sv
-    name: University of Oulu
+    name: Uleåborgs universitet
     master: 25
 - model: skole.SchoolTranslation
   pk: 76
@@ -464,7 +464,7 @@
   pk: 78
   fields:
     language_code: sv
-    name: Oulu University of Applied Sciences
+    name: Uleåborgs yrkeshögskola
     master: 26
 - model: skole.SchoolTranslation
   pk: 79
@@ -482,7 +482,7 @@
   pk: 81
   fields:
     language_code: sv
-    name: University of Lapland
+    name: Lapplands universitet
     master: 27
 - model: skole.SchoolTranslation
   pk: 82
@@ -500,7 +500,7 @@
   pk: 84
   fields:
     language_code: sv
-    name: Lapland University of Applied Sciences
+    name: Lapplands yrkeshögskola
     master: 28
 - model: skole.SchoolTranslation
   pk: 85
@@ -518,7 +518,7 @@
   pk: 87
   fields:
     language_code: sv
-    name: LUT University
+    name: LUT-universitet
     master: 29
 - model: skole.SchoolTranslation
   pk: 88
@@ -530,13 +530,13 @@
   pk: 89
   fields:
     language_code: fi
-    name: Lahden ammattikorkeakoulu LAB
+    name: LAB-ammattikorkeakoulu
     master: 30
 - model: skole.SchoolTranslation
   pk: 90
   fields:
     language_code: sv
-    name: LAB University of Applied Sciences
+    name: LAB yrkeshögskola
     master: 30
 - model: skole.SchoolTranslation
   pk: 91
@@ -554,7 +554,7 @@
   pk: 93
   fields:
     language_code: sv
-    name: University of Eastern Finland
+    name: Östra Finlands universitet
     master: 31
 - model: skole.SchoolTranslation
   pk: 94
@@ -572,7 +572,7 @@
   pk: 96
   fields:
     language_code: sv
-    name: Karelia University of Applied Sciences
+    name: Karelia yrkeshögskolan
     master: 32
 - model: skole.SchoolTranslation
   pk: 97
@@ -608,7 +608,7 @@
   pk: 102
   fields:
     language_code: sv
-    name: Centria University of Applied Sciences
+    name: Centria yrkeshögskola
     master: 34
 - model: skole.SchoolTranslation
   pk: 103
@@ -626,25 +626,25 @@
   pk: 105
   fields:
     language_code: sv
-    name: Häme University of Applied Sciences
+    name: Tavastlands yrkeshögskola
     master: 35
 - model: skole.SchoolTranslation
   pk: 106
   fields:
     language_code: en
-    name: South-Eastern Finland University of Applied Sciences – Xamk
+    name: South-Eastern Finland University of Applied Sciences (Xamk)
     master: 36
 - model: skole.SchoolTranslation
   pk: 107
   fields:
     language_code: fi
-    name: Kaakkois-Suomen ammattikorkeakoulu – Xamk
+    name: Kaakkois-Suomen ammattikorkeakoulu (Xamk)
     master: 36
 - model: skole.SchoolTranslation
   pk: 108
   fields:
     language_code: sv
-    name: South-Eastern Finland University of Applied Sciences – Xamk
+    name: Sydöstra Finlands yrkeshögskola (Xamk)
     master: 36
 - model: skole.SchoolTranslation
   pk: 109
@@ -662,7 +662,7 @@
   pk: 111
   fields:
     language_code: sv
-    name: Kajaani University of Applied Sciences
+    name: Kajana yrkeshögskola
     master: 37
 - model: skole.SchoolTranslation
   pk: 112
@@ -680,7 +680,7 @@
   pk: 114
   fields:
     language_code: sv
-    name: Savonia University of Applied Sciences
+    name: Yrkeshögskolan Savonia
     master: 38
 - model: skole.SchoolTranslation
   pk: 115
@@ -698,7 +698,7 @@
   pk: 117
   fields:
     language_code: sv
-    name: Seinäjoki University of Applied Sciences
+    name: Seinäjoki yrkeshögskola
     master: 39
 
 - model: skole.School
@@ -896,3 +896,4 @@
   fields:
     school_type: 2
     city: 19
+# Be careful with the pks. There also are Schools that have been created from the admin and aren't here.

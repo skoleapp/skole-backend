@@ -5291,3 +5291,4 @@
 - model: skole.Subject
   pk: 252
   fields: {}
+# Be careful with the pks. There also are Subjects that have been created from the admin and aren't here.

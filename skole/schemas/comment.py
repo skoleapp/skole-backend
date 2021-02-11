@@ -141,9 +141,13 @@ class Query(SkoleObjectType):
         page: int = 1,
         page_size: int = settings.DEFAULT_PAGE_SIZE,
     ) -> PaginatedCommentObjectType:
-        """Return comments filtered by query params."""
+        """
+        Return comments filtered by query params.
 
-        qs: QuerySet[Comment] = Comment.objects.all()
+        Results are sorted by creation time.
+        """
+
+        qs: QuerySet[Comment] = Comment.objects.order_by("-pk")
 
         if user != "":
             qs = qs.filter(user__slug=user)

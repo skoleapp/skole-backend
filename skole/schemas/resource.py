@@ -195,11 +195,14 @@ class Query(SkoleObjectType):
         qs: QuerySet[Resource] = Resource.objects.all()
 
         if user != "":
-            qs = qs.filter(user__slug=user)
+            # Just show these chronologically when querying in a user profile.
+            qs = qs.filter(user__slug=user).order_by("-pk")
+        else:
+            qs = order_resources_with_secret_algorithm(qs)
+
         if course != "":
             qs = qs.filter(course__slug=course)
 
-        qs = order_resources_with_secret_algorithm(qs)
         return get_paginator(qs, page_size, page, PaginatedResourceObjectType)
 
     @staticmethod

@@ -7,18 +7,19 @@ from django.db.models import QuerySet
 from skole.models import Subject
 from skole.schemas.base import SkoleDjangoObjectType, SkoleObjectType
 from skole.schemas.mixins import PaginationMixin
-from skole.types import ID, ResolveInfo
+from skole.types import ResolveInfo
 from skole.utils.pagination import get_paginator
 
 
 class SubjectObjectType(SkoleDjangoObjectType):
+    slug = graphene.String()
     name = graphene.String()
     course_count = graphene.Int()
     resource_count = graphene.Int()
 
     class Meta:
         model = Subject
-        fields = ("id", "name", "course_count", "resource_count")
+        fields = ("id", "slug", "name", "course_count", "resource_count")
 
     # Have to specify these three with resolvers since graphene cannot infer the annotated fields otherwise.
 
@@ -41,7 +42,7 @@ class PaginatedSubjectObjectType(PaginationMixin, SkoleObjectType):
 class Query(SkoleObjectType):
     subjects = graphene.Field(
         PaginatedSubjectObjectType,
-        school=graphene.ID(),
+        school=graphene.String(),
         page=graphene.Int(),
         page_size=graphene.Int(),
     )
@@ -51,13 +52,13 @@ class Query(SkoleObjectType):
         name=graphene.String(),
     )
 
-    subject = graphene.Field(SubjectObjectType, id=graphene.ID())
+    subject = graphene.Field(SubjectObjectType, slug=graphene.String())
 
     @staticmethod
     def resolve_subjects(
         root: None,
         info: ResolveInfo,
-        school: ID = None,
+        school: str = "",
         page: int = 1,
         page_size: int = settings.DEFAULT_PAGE_SIZE,
     ) -> PaginatedSubjectObjectType:
@@ -68,8 +69,8 @@ class Query(SkoleObjectType):
         """
         qs = Subject.objects.translated()
 
-        if school is not None:
-            qs = qs.filter(courses__school__pk=school)
+        if school != "":
+            qs = qs.filter(courses__school__slug=school)
 
         qs = qs.order_by("translations__name")
         return get_paginator(qs, page_size, page, PaginatedSubjectObjectType)
@@ -89,6 +90,6 @@ class Query(SkoleObjectType):
 
     @staticmethod
     def resolve_subject(
-        root: None, info: ResolveInfo, id: ID = None
+        root: None, info: ResolveInfo, slug: str = ""
     ) -> Optional[Subject]:
-        return Subject.objects.get_or_none(pk=id)
+        return Subject.objects.get_or_none(slug=slug)

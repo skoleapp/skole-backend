@@ -7,11 +7,12 @@ from skole.types import ResolveInfo
 
 
 class ResourceTypeObjectType(SkoleDjangoObjectType):
+    slug = graphene.String()
     name = graphene.String()
 
     class Meta:
         model = ResourceType
-        fields = ("id", "name")
+        fields = ("id", "slug", "name")
 
 
 class Query(SkoleObjectType):

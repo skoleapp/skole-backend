@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import datetime
 
+from autoslug import AutoSlugField
 from django.conf import settings
 from django.db import models
 from django.db.models import Count, Sum, Value
@@ -38,8 +39,17 @@ class ResourceManager(SkoleManager["Resource"]):
 class Resource(SkoleModel):
     """Models one user-uploaded resource."""
 
+    slug = AutoSlugField(
+        null=True,
+        default=None,
+        populate_from="__str__",
+        unique_with=("title", "date"),
+        always_update=True,
+    )
+
     resource_type = models.ForeignKey("skole.ResourceType", on_delete=models.PROTECT)
     title = models.CharField(max_length=100)
+    date = models.DateField(default=datetime.date.today, blank=True)
 
     file = models.FileField(
         upload_to="uploads/resources",
@@ -52,8 +62,6 @@ class Resource(SkoleModel):
             )
         ],
     )
-
-    date = models.DateField(default=datetime.date.today, blank=True)
 
     course = models.ForeignKey(
         "skole.Course", on_delete=models.CASCADE, related_name="resources"
@@ -89,4 +97,4 @@ class Resource(SkoleModel):
     comment_count: int
 
     def __str__(self) -> str:
-        return f"{self.title}"
+        return f"{self.title} {self.date}"

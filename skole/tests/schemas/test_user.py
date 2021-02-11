@@ -26,6 +26,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         fragment userFields on UserObjectType {
             id
             username
+            slug
             email
             score
             title
@@ -49,15 +50,15 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         }
     """
 
-    def query_user(self, *, id: ID) -> JsonDict:
-        variables = {"id": id}
+    def query_user(self, *, slug: str) -> JsonDict:
+        variables = {"slug": slug}
 
         # language=GraphQL
         graphql = (
             self.user_fields
             + """
-            query User($id: ID!) {
-                user(id: $id) {
+            query User($slug: String!) {
+                user(slug: $slug) {
                     ...userFields
                 }
             }
@@ -387,9 +388,11 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
 
     def test_user(self) -> None:
         # Own user.
-        user1 = self.query_user(id=2)
+        slug = "testuser2"
+        user1 = self.query_user(slug=slug)
         assert user1["id"] == "2"
         assert user1["username"] == "testuser2"
+        assert user1["slug"] == slug
         assert user1["email"] == "testuser2@test.com"
         assert user1["verified"]
         assert user1["rank"] == "Freshman"
@@ -399,9 +402,11 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert len(user1["badges"]) == 1
 
         # Some other user.
-        user2 = self.query_user(id=3)
+        slug = "testuser3"
+        user2 = self.query_user(slug=slug)
         assert user2["id"] == "3"
         assert user2["username"] == "testuser3"
+        assert user2["slug"] == slug
         assert len(user2["badges"]) == 1
         assert user2["badges"][0]["name"] == "Tester"
         assert user2["rank"] == "Tutor"
@@ -410,13 +415,14 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert user2["verified"] is None  # Private field.
         assert user2["school"] is None  # Private field.
 
-        # ID not found.
-        assert self.query_user(id=999) is None
+        # Slug not found.
+        assert self.query_user(slug="not-found") is None
 
     def test_user_me(self) -> None:
         user = self.query_user_me()
         assert user["id"] == "2"
         assert user["username"] == "testuser2"
+        assert user["slug"] == "testuser2"
         assert user["email"] == "testuser2@test.com"
         assert user["verified"]
         assert user["rank"] == "Freshman"
@@ -467,6 +473,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
 
         assert not res["errors"]
         assert res["user"]["username"] == new_username
+        assert res["user"]["slug"] == new_username
         assert res["user"]["title"] == new_title
         assert res["user"]["bio"] == new_bio
         assert res["user"]["school"] == {"id": new_school}

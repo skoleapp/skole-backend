@@ -5,20 +5,21 @@ from django.db.models import QuerySet
 
 from skole.models import SchoolType
 from skole.schemas.base import SkoleDjangoObjectType, SkoleObjectType
-from skole.types import ID, ResolveInfo
+from skole.types import ResolveInfo
 
 
 class SchoolTypeObjectType(SkoleDjangoObjectType):
+    slug = graphene.String()
     name = graphene.String()
 
     class Meta:
         model = SchoolType
-        fields = ("id", "name")
+        fields = ("slug", "name")
 
 
 class Query(SkoleObjectType):
     autocomplete_school_types = graphene.List(SchoolTypeObjectType)
-    school_type = graphene.Field(SchoolTypeObjectType, id=graphene.ID())
+    school_type = graphene.Field(SchoolTypeObjectType, slug=graphene.String())
 
     @staticmethod
     def resolve_autocomplete_school_types(
@@ -29,6 +30,6 @@ class Query(SkoleObjectType):
 
     @staticmethod
     def resolve_school_type(
-        root: None, info: ResolveInfo, id: ID = None
+        root: None, info: ResolveInfo, slug: str = ""
     ) -> Optional[SchoolType]:
-        return SchoolType.objects.get_or_none(pk=id)
+        return SchoolType.objects.get_or_none(slug=slug)

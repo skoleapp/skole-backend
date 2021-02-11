@@ -30,6 +30,7 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
     resource_fields = """
         fragment resourceFields on ResourceObjectType {
             id
+            slug
             title
             file
             date
@@ -46,6 +47,7 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
             }
             user {
                 id
+                slug
             }
             author {
                 id
@@ -56,6 +58,7 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
             }
             course {
                 id
+                slug
             }
             comments {
                 id
@@ -73,8 +76,8 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
     def query_resources(
         self,
         *,
-        user: ID = None,
-        course: ID = None,
+        user: str = "",
+        course: str = "",
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         assert_error: bool = False,
@@ -91,8 +94,8 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
             self.resource_fields
             + """
                 query Resources (
-                    $user: ID,
-                    $course: ID,
+                    $user: String,
+                    $course: String,
                     $page: Int,
                     $pageSize: Int
                 ) {
@@ -155,20 +158,22 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
 
         return self.execute(graphql, variables=variables, assert_error=assert_error)
 
-    def query_resource(self, *, id: ID) -> JsonDict:
+    def query_resource(self, *, slug: str) -> JsonDict:
+        variables = {"slug": slug}
+
         # language=GraphQL
         graphql = (
             self.resource_fields
             + """
-            query Resource($id: ID) {
-                resource(id: $id) {
+            query Resource($slug: String) {
+                resource(slug: $slug) {
                     ...resourceFields
                 }
             }
             """
         )
 
-        return self.execute(graphql, variables={"id": id})
+        return self.execute(graphql, variables=variables)
 
     def mutate_create_resource(
         self,
@@ -254,14 +259,14 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
 
         # Test that only resources of the correct user are returned.
 
-        res = self.query_resources(
-            user=self.authenticated_user, page=page, page_size=page_size
-        )
+        user = "testuser2"  # Slug for `self.authenticated_user`.
+
+        res = self.query_resources(user=user, page=page, page_size=page_size)
 
         assert len(res["objects"]) == page_size
 
         for resource in res["objects"]:
-            assert int(resource["user"]["id"]) == self.authenticated_user
+            assert resource["user"]["slug"] == user
 
         assert res["count"] == 12
         assert res["page"] == page
@@ -272,7 +277,7 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
         # Test for some user that has created no resources.
 
         page = 1
-        res = self.query_resources(user=9, page=page, page_size=page_size)
+        res = self.query_resources(user="testuser9", page=page, page_size=page_size)
         assert res["count"] == 0
         assert res["page"] == page
         assert res["pages"] == 1
@@ -282,14 +287,14 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
         # Test that only resources of the correct course are returned.
 
         page = 14
-        course_pk = "1"
+        course = "test-engineering-course-1-test0001"
 
-        res = self.query_resources(course=course_pk, page=page, page_size=page_size)
+        res = self.query_resources(course=course, page=page, page_size=page_size)
 
         assert len(res["objects"]) == page_size
 
         for resource in res["objects"]:
-            assert resource["course"]["id"] == course_pk
+            assert resource["course"]["slug"] == course
 
         assert res["count"] == 14
         assert res["page"] == page
@@ -300,7 +305,13 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
         # Test for some course that has no resources.
 
         page = 1
-        res = self.query_resources(course=9, page=page, page_size=page_size)
+
+        res = self.query_resources(
+            course="test-engineering-course-9-test0009",
+            page=page,
+            page_size=page_size,
+        )
+
         assert res["count"] == 0
         assert res["page"] == page
         assert res["pages"] == 1
@@ -346,17 +357,22 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
 
         # Shouldn't work without auth.
         self.authenticated_user = None
+
         res = self.query_starred_resources(
             page=page, page_size=page_size, assert_error=True
         )
+
         assert "permission" in get_graphql_error(res)
         assert res["data"] == {"starredResources": None}
 
     def test_resource(self) -> None:
         with override_settings(DEBUG=True):  # To access media.
-            resource = self.query_resource(id=1)
+            slug = "sample-exam-1-2012-12-12"
+            resource = self.query_resource(slug=slug)
             assert resource["id"] == "1"
             assert resource["title"] == "Sample Exam 1"
+            assert resource["date"] == "2012-12-12"
+            assert resource["slug"] == slug
             assert resource["file"] == "/media/uploads/resources/test_resource.pdf"
             assert resource["course"]["id"] == "1"
             assert resource["starCount"] == 1
@@ -364,7 +380,7 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
             assert resource["downloads"] == 0
             assert self.client.get(resource["file"]).status_code == 200
 
-        assert self.query_resource(id=999) is None
+        assert self.query_resource(slug="not-found") is None
 
     def test_create_resource_ok(self) -> None:  # pylint: disable=too-many-statements
         # Create a resource with a PDF file.
@@ -381,6 +397,9 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
         assert not res["errors"]
         assert resource["id"] == "15"
         assert resource["title"] == "test title"
+        current_date = str(datetime.date.today())
+        assert resource["date"] == current_date
+        assert resource["slug"] == f"test-title-{current_date}"
         assert resource["author"] is None
         assert is_slug_match(UPLOADED_RESOURCE_PDF, resource["file"])
 
@@ -484,6 +503,7 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
         assert resource["title"] == new_title
         assert resource["resourceType"]["name"] == "Exam"
         assert resource["date"] == "2012-12-12"
+        assert resource["slug"] == "new-title-2012-12-12"
 
         # Set the date to the current day.
         date = timezone.localdate()

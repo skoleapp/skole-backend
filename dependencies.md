@@ -13,6 +13,7 @@ This document explains the need for every top level dependency the project has.
 | [PyYAML](https://pypi.org/project/PyYAML/)                           | Load Django YAML fixtures                         |
 | [dj-database-url](https://pypi.org/project/dj-database-url/)         | Pass the database credentials as one env variable |
 | [django-amazon-ses](https://pypi.org/project/django-amazon-ses/)     | Use AWS SES as Django's email backend             |
+| [django-autoslug](https://pypi.org/project/django-autoslug/)         | Automatic URL slugs for models                    |
 | [django-cors-headers](https://pypi.org/project/django-cors-headers/) | CORS middleware                                   |
 | [django-graphql-jwt](https://pypi.org/project/django-graphql-jwt/)   | GraphQL JWT authentication                        |
 | [django-imagekit](https://pypi.org/project/django-imagekit/)         | `ImageSpecField` for user avatars                 |

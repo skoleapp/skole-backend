@@ -38,6 +38,7 @@ class UserObjectType(SkoleDjangoObjectType):
     `null` value.
     """
 
+    slug = graphene.String()
     email = graphene.String()
     score = graphene.Int()
     avatar = graphene.String()
@@ -53,6 +54,7 @@ class UserObjectType(SkoleDjangoObjectType):
         model = get_user_model()
         fields = (
             "id",
+            "slug",
             "username",
             "email",
             "score",

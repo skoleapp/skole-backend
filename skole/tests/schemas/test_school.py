@@ -1,7 +1,7 @@
 from typing import cast
 
 from skole.tests.helpers import SkoleSchemaTestCase
-from skole.types import ID, JsonDict
+from skole.types import JsonDict
 
 
 class SchoolSchemaTests(SkoleSchemaTestCase):
@@ -10,24 +10,27 @@ class SchoolSchemaTests(SkoleSchemaTestCase):
     school_fields = """
         fragment schoolFields on SchoolObjectType {
             id
+            slug
             name
             commentCount
             subjects {
-                id
+                slug
+                name
             }
             courses {
-                id
+                slug
+                name
             }
             schoolType {
-                id
+                slug
                 name
             }
             country {
-                id
+                slug
                 name
             }
             city {
-                id
+                slug
                 name
             }
         }
@@ -49,15 +52,15 @@ class SchoolSchemaTests(SkoleSchemaTestCase):
         )
         return cast(list[JsonDict], self.execute(graphql, variables=variables))
 
-    def query_school(self, *, id: ID) -> JsonDict:
-        variables = {"id": id}
+    def query_school(self, *, slug: str) -> JsonDict:
+        variables = {"slug": slug}
 
         # language=GraphQL
         graphql = (
             self.school_fields
             + """
-            query School($id: ID!) {
-                school(id: $id) {
+            query School($slug: String) {
+                school(slug: $slug) {
                     ...schoolFields
                 }
             }
@@ -75,30 +78,34 @@ class SchoolSchemaTests(SkoleSchemaTestCase):
         assert len(schools) == 6
 
         # Schools are ordered alphabetically.
-        assert schools[0] == self.query_school(id=2)  # Aalto
-        assert schools[1] == self.query_school(id=5)  # Metropolia
-        assert schools[2] == self.query_school(id=6)  # Raision lukio
+        assert schools[0] == self.query_school(slug="aalto-university")
+        assert schools[1] == self.query_school(
+            slug="metropolia-university-of-applied-sciences"
+        )
+        assert schools[2] == self.query_school(slug="raision-lukio")
 
         # Query schools by name.
         res = self.query_autocomplete_schools(name="Turku")
         assert len(res) == 2
-        assert res[0] == self.query_school(id=4)  # Turku University of Applied Sciences
-        assert res[1] == self.query_school(id=1)  # University of Turku
+        assert res[0] == self.query_school(slug="turku-university-of-applied-sciences")
+        assert res[1] == self.query_school(slug="university-of-turku")
 
         # No duplicate schools returned (https://trello.com/c/PWAtHaeN).
         res = self.query_autocomplete_schools(name="Aalto")
         assert len(res) == 1
 
     def test_school(self) -> None:
-        school = self.query_school(id=1)
+        slug = "university-of-turku"
+        school = self.query_school(slug=slug)
         assert school["id"] == "1"
         assert school["name"] == "University of Turku"
-        assert school["schoolType"]["id"] == "1"
+        assert school["slug"] == slug
+        assert school["schoolType"]["slug"] == "university"
         assert school["schoolType"]["name"] == "University"
-        assert school["city"]["id"] == "1"
+        assert school["city"]["slug"] == "turku"
         assert school["city"]["name"] == "Turku"
-        assert school["country"]["id"] == "1"
+        assert school["country"]["slug"] == "finland"
         assert school["country"]["name"] == "Finland"
         assert len(school["subjects"]) == 2
         assert len(school["courses"]) == 22
-        assert self.query_school(id=999) is None
+        assert self.query_school(slug="no-found") is None

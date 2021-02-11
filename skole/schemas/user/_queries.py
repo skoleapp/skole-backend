@@ -6,14 +6,14 @@ from django.contrib.auth import get_user_model
 from skole.models import User
 from skole.overridden import login_required
 from skole.schemas.base import SkoleObjectType
-from skole.types import ID, ResolveInfo
+from skole.types import ResolveInfo
 
 from ._object_types import UserObjectType
 
 
 class Query(SkoleObjectType):
     user_me = graphene.Field(UserObjectType)
-    user = graphene.Field(UserObjectType, id=graphene.ID())
+    user = graphene.Field(UserObjectType, slug=graphene.String())
 
     @staticmethod
     @login_required
@@ -22,11 +22,9 @@ class Query(SkoleObjectType):
         return cast(User, info.context.user)
 
     @staticmethod
-    def resolve_user(root: None, info: ResolveInfo, id: ID = None) -> Optional[User]:
+    def resolve_user(root: None, info: ResolveInfo, slug: str = "") -> Optional[User]:
         """Superusers cannot be queried."""
         try:
-            # Ignore: Mypy complains that `get(pk=None)` is not valid.
-            # It might not be the most sensible thing, but it actually doesn't fail at runtime.
-            return get_user_model().objects.filter(is_superuser=False).get(pk=id)  # type: ignore[misc]
+            return get_user_model().objects.filter(is_superuser=False).get(slug=slug)
         except User.DoesNotExist:
             return None

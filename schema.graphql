@@ -38,7 +38,7 @@ type ChangePasswordMutationPayload {
 }
 
 type CityObjectType {
-  id: ID!
+  slug: String
   name: String
 }
 
@@ -79,12 +79,13 @@ type ContactMutationPayload {
 }
 
 type CountryObjectType {
-  id: ID!
+  slug: String
   name: String
 }
 
 type CourseObjectType {
   id: ID!
+  slug: String
   name: String!
   code: String!
   subjects: [SubjectObjectType!]!
@@ -332,34 +333,34 @@ type PaginatedSubjectObjectType {
 }
 
 type Query {
-  comments(user: ID, page: Int, pageSize: Int): PaginatedCommentObjectType
+  comments(user: String, page: Int, pageSize: Int): PaginatedCommentObjectType
   discussion(course: ID, resource: ID, school: ID): [CommentObjectType]
   discussionSuggestions: [DiscussionsUnion]
   suggestions: [SuggestionsUnion]
   suggestionsPreview: [SuggestionsUnion]
   userMe: UserObjectType
-  user(id: ID): UserObjectType
-  subjects(school: ID, page: Int, pageSize: Int): PaginatedSubjectObjectType
+  user(slug: String): UserObjectType
+  subjects(school: String, page: Int, pageSize: Int): PaginatedSubjectObjectType
   autocompleteSubjects(name: String): [SubjectObjectType]
-  subject(id: ID): SubjectObjectType
+  subject(slug: String): SubjectObjectType
   sitemap: SitemapObjectType
   autocompleteSchoolTypes: [SchoolTypeObjectType]
-  schoolType(id: ID): SchoolTypeObjectType
+  schoolType(slug: String): SchoolTypeObjectType
   autocompleteSchools(name: String): [SchoolObjectType]
-  school(id: ID): SchoolObjectType
+  school(slug: String): SchoolObjectType
   resourceTypes: [ResourceTypeObjectType]
   autocompleteResourceTypes: [ResourceTypeObjectType]
-  resources(user: ID, course: ID, page: Int, pageSize: Int, ordering: String): PaginatedResourceObjectType
+  resources(user: String, course: String, page: Int, pageSize: Int, ordering: String): PaginatedResourceObjectType
   starredResources(page: Int, pageSize: Int): PaginatedResourceObjectType
-  resource(id: ID): ResourceObjectType
-  courses(searchTerm: String, subject: ID, school: ID, schoolType: ID, country: ID, city: ID, user: ID, page: Int, pageSize: Int, ordering: String): PaginatedCourseObjectType
-  autocompleteCourses(school: ID, name: String): [CourseObjectType]
+  resource(slug: String): ResourceObjectType
+  courses(searchTerm: String, subject: String, school: String, schoolType: String, country: String, city: String, user: String, page: Int, pageSize: Int, ordering: String): PaginatedCourseObjectType
+  autocompleteCourses(school: String, name: String): [CourseObjectType]
   starredCourses(page: Int, pageSize: Int): PaginatedCourseObjectType
-  course(id: ID): CourseObjectType
+  course(slug: String): CourseObjectType
   autocompleteCountries: [CountryObjectType]
-  country(id: ID): CountryObjectType
+  country(slug: String): CountryObjectType
   autocompleteCities: [CityObjectType]
-  city(id: ID): CityObjectType
+  city(slug: String): CityObjectType
   activities(page: Int, pageSize: Int): PaginatedActivityObjectType
   activityPreview: [ActivityObjectType]
 }
@@ -398,10 +399,11 @@ type ResetPasswordMutationPayload {
 
 type ResourceObjectType {
   id: ID!
+  slug: String
   resourceType: ResourceTypeObjectType
   title: String!
-  file: String!
   date: Date!
+  file: String!
   course: CourseObjectType!
   downloads: Int!
   user: UserObjectType
@@ -419,11 +421,13 @@ type ResourceObjectType {
 
 type ResourceTypeObjectType {
   id: ID!
+  slug: String
   name: String
 }
 
 type SchoolObjectType {
   id: ID!
+  slug: String
   schoolType: SchoolTypeObjectType
   city: CityObjectType
   courses: [CourseObjectType!]!
@@ -434,7 +438,7 @@ type SchoolObjectType {
 }
 
 type SchoolTypeObjectType {
-  id: ID!
+  slug: String
   name: String
 }
 
@@ -451,7 +455,7 @@ type SendPasswordResetEmailMutationPayload {
 }
 
 type SitemapEntryObjectType {
-  id: ID!
+  slug: String
   modified: Date
 }
 
@@ -484,6 +488,7 @@ type StarObjectType {
 
 type SubjectObjectType {
   id: ID!
+  slug: String
   name: String
   courseCount: Int
   resourceCount: Int
@@ -541,6 +546,7 @@ type UpdateUserMutationPayload {
 
 type UserObjectType {
   id: ID!
+  slug: String
   username: String!
   email: String
   title: String!

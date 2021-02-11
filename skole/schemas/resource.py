@@ -28,7 +28,7 @@ from skole.schemas.mixins import (
 )
 from skole.schemas.resource_type import ResourceTypeObjectType
 from skole.schemas.school import SchoolObjectType
-from skole.types import ID, ResolveInfo
+from skole.types import ResolveInfo
 from skole.utils.constants import Messages
 from skole.utils.pagination import get_paginator
 
@@ -47,6 +47,7 @@ def order_resources_with_secret_algorithm(qs: QuerySet[Resource]) -> QuerySet[Re
 
 
 class ResourceObjectType(VoteMixin, StarMixin, DjangoObjectType):
+    slug = graphene.String()
     resource_type = graphene.Field(ResourceTypeObjectType)
     school = graphene.Field(SchoolObjectType)
     author = graphene.Field(AuthorObjectType)
@@ -57,6 +58,7 @@ class ResourceObjectType(VoteMixin, StarMixin, DjangoObjectType):
         model = Resource
         fields = (
             "id",
+            "slug",
             "file",
             "title",
             "date",
@@ -161,8 +163,8 @@ class DownloadResourceMutation(
 class Query(SkoleObjectType):
     resources = graphene.Field(
         PaginatedResourceObjectType,
-        user=graphene.ID(),
-        course=graphene.ID(),
+        user=graphene.String(),
+        course=graphene.String(),
         page=graphene.Int(),
         page_size=graphene.Int(),
         ordering=graphene.String(),
@@ -174,14 +176,14 @@ class Query(SkoleObjectType):
         page_size=graphene.Int(),
     )
 
-    resource = graphene.Field(ResourceObjectType, id=graphene.ID())
+    resource = graphene.Field(ResourceObjectType, slug=graphene.String())
 
     @staticmethod
     def resolve_resources(
         root: None,
         info: ResolveInfo,
-        user: ID = None,
-        course: ID = None,
+        user: str = "",
+        course: str = "",
         page: int = 1,
         page_size: int = settings.DEFAULT_PAGE_SIZE,
     ) -> PaginatedResourceObjectType:
@@ -192,10 +194,10 @@ class Query(SkoleObjectType):
         """
         qs: QuerySet[Resource] = Resource.objects.all()
 
-        if user is not None:
-            qs = qs.filter(user__pk=user)
-        if course is not None:
-            qs = qs.filter(course__pk=course)
+        if user != "":
+            qs = qs.filter(user__slug=user)
+        if course != "":
+            qs = qs.filter(course__slug=course)
 
         qs = order_resources_with_secret_algorithm(qs)
         return get_paginator(qs, page_size, page, PaginatedResourceObjectType)
@@ -219,9 +221,9 @@ class Query(SkoleObjectType):
 
     @staticmethod
     def resolve_resource(
-        root: None, info: ResolveInfo, id: ID = None
+        root: None, info: ResolveInfo, slug: str = ""
     ) -> Optional[Resource]:
-        return Resource.objects.get_or_none(pk=id)
+        return Resource.objects.get_or_none(slug=slug)
 
 
 class Mutation(SkoleObjectType):

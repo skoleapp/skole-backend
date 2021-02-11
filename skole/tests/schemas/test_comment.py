@@ -59,7 +59,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
     def query_comments(
         self,
         *,
-        user: ID = None,
+        user: str = "",
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         assert_error: bool = False,
@@ -75,7 +75,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
             self.comment_fields
             + """
                 query Comments (
-                    $user: ID,
+                    $user: String,
                     $page: Int,
                     $pageSize: Int
                 ) {
@@ -437,9 +437,9 @@ class CommentSchemaTests(SkoleSchemaTestCase):
 
         # Test that only comments of the correct user are returned.
 
-        res = self.query_comments(
-            user=self.authenticated_user, page=page, page_size=page_size
-        )
+        user = "testuser2"  # Slug for `self.authenticated_user`.
+
+        res = self.query_comments(user=user, page=page, page_size=page_size)
 
         assert len(res["objects"]) == page_size
 
@@ -455,7 +455,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         # Test for some user that has created no comments.
 
         page = 1
-        res = self.query_comments(user=10, page=page, page_size=page_size)
+        res = self.query_comments(user="testuser10", page=page, page_size=page_size)
         assert res["count"] == 0
         assert res["page"] == page
         assert res["pages"] == 1

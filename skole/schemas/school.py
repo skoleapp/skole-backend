@@ -10,10 +10,11 @@ from skole.schemas.city import CityObjectType
 from skole.schemas.country import CountryObjectType
 from skole.schemas.school_type import SchoolTypeObjectType
 from skole.schemas.subject import SubjectObjectType
-from skole.types import ID, ResolveInfo
+from skole.types import ResolveInfo
 
 
 class SchoolObjectType(SkoleDjangoObjectType):
+    slug = graphene.String()
     name = graphene.String()
     school_type = graphene.Field(SchoolTypeObjectType)
     city = graphene.Field(CityObjectType)
@@ -25,6 +26,7 @@ class SchoolObjectType(SkoleDjangoObjectType):
         model = School
         fields = (
             "id",
+            "slug",
             "name",
             "school_type",
             "city",
@@ -41,7 +43,7 @@ class SchoolObjectType(SkoleDjangoObjectType):
 
 class Query(SkoleObjectType):
     autocomplete_schools = graphene.List(SchoolObjectType, name=graphene.String())
-    school = graphene.Field(SchoolObjectType, id=graphene.ID())
+    school = graphene.Field(SchoolObjectType, slug=graphene.String())
 
     @staticmethod
     def resolve_autocomplete_schools(
@@ -58,6 +60,6 @@ class Query(SkoleObjectType):
 
     @staticmethod
     def resolve_school(
-        root: None, info: ResolveInfo, id: ID = None
+        root: None, info: ResolveInfo, slug: str = ""
     ) -> Optional[School]:
-        return School.objects.get_or_none(pk=id)
+        return School.objects.get_or_none(slug=slug)

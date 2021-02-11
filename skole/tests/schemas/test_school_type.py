@@ -1,7 +1,7 @@
 from typing import cast
 
 from skole.tests.helpers import SkoleSchemaTestCase
-from skole.types import ID, JsonDict
+from skole.types import JsonDict
 
 
 class SchoolTypeSchemaTests(SkoleSchemaTestCase):
@@ -9,7 +9,7 @@ class SchoolTypeSchemaTests(SkoleSchemaTestCase):
     # language=GraphQL
     school_type_fields = """
         fragment schoolTypeFields on SchoolTypeObjectType {
-            id
+            slug
             name
         }
     """
@@ -28,15 +28,15 @@ class SchoolTypeSchemaTests(SkoleSchemaTestCase):
         )
         return cast(list[JsonDict], self.execute(graphql))
 
-    def query_school_type(self, *, id: ID) -> JsonDict:
-        variables = {"id": id}
+    def query_school_type(self, *, slug: str) -> JsonDict:
+        variables = {"slug": slug}
 
         # language=GraphQL
         graphql = (
             self.school_type_fields
             + """
-            query SchoolType($id: ID) {
-                schoolType(id: $id) {
+            query SchoolType($slug: String) {
+                schoolType(slug: $slug) {
                     ...schoolTypeFields
                 }
             }
@@ -53,14 +53,14 @@ class SchoolTypeSchemaTests(SkoleSchemaTestCase):
         school_types = self.query_autocomplete_school_types()
         assert len(school_types) == 3
         # SchoolTypes should be ordered by IDs.
-        assert school_types[0] == self.query_school_type(id=1)
-        assert school_types[0]["id"] == "1"
+        assert school_types[0]["slug"] == "university"
         assert school_types[0]["name"] == "University"
-        assert school_types[1]["id"] == "2"
+        assert school_types[1]["slug"] == "university-of-applied-sciences"
         assert school_types[1]["name"] == "University of Applied Sciences"
 
     def test_school_type(self) -> None:
-        res = self.query_school_type(id=1)
-        assert res["id"] == "1"
+        slug = "university"
+        res = self.query_school_type(slug=slug)
+        assert res["slug"] == slug
         assert res["name"] == "University"
-        assert self.query_school_type(id=999) is None
+        assert self.query_school_type(slug="not-found") is None

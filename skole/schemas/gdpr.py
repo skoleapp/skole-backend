@@ -135,7 +135,7 @@ class MyDataMutation(SkoleObjectType, graphene.Mutation):
             .values(
                 "id",
                 "name",
-                "code",
+                "codes",
                 "subject_names",
                 "modified",
                 "created",

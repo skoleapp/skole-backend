@@ -148,7 +148,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
                     ... on CourseObjectType {
                         id
                         courseName: name
-                        code
+                        codes
                     }
                     ... on ResourceObjectType {
                         id
@@ -529,7 +529,12 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         # Check that no duplicates are ever returned.
         with override_settings(DISCUSSION_SUGGESTIONS_COUNT=1000):
             res = self.query_discussion_suggestions()
-            assert len(res) == len({tuple(elem.items()) for elem in res})
+            assert len(res) == len(
+                {
+                    (tuple(x) if isinstance(x, list) else x for x in elem.items())
+                    for elem in res
+                }
+            )
 
         # Test that anonymous users cannot query discussion suggestions.
         self.authenticated_user = None

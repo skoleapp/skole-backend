@@ -6,7 +6,7 @@ from .base import SkoleModelForm, SkoleUpdateModelForm
 class CreateCourseForm(SkoleModelForm):
     class Meta:
         model = Course
-        fields = ("name", "code", "subjects", "school")
+        fields = ("name", "codes", "subjects", "school")
 
     def save(self, commit: bool = True) -> Course:
         assert self.request is not None

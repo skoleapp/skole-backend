@@ -656,7 +656,7 @@
   pk: 1
   fields:
     name: Test Engineering Course 1
-    code: TEST0001
+    codes: [TEST0001]
     slug: test-engineering-course-1-test0001
     subjects: [1, 2]
     school: 1
@@ -667,7 +667,7 @@
   pk: 2
   fields:
     name: Test Engineering Course 2
-    code: TEST0002
+    codes: [TEST0002]
     slug: test-engineering-course-2-test0002
     subjects: [1]
     school: 1
@@ -678,7 +678,7 @@
   pk: 3
   fields:
     name: Test Engineering Course 3
-    code: TEST0003, TEST0033, TEST0333
+    codes: [TEST0003, TEST0033, TEST0333]
     slug: test-engineering-course-3-test0003
     subjects: [1]
     school: 1
@@ -689,7 +689,7 @@
   pk: 4
   fields:
     name: Test Engineering Course 4
-    code: TEST0004
+    codes: [TEST0004]
     slug: test-engineering-course-4-test0004
     subjects: [1]
     school: 1
@@ -700,7 +700,7 @@
   pk: 5
   fields:
     name: Test Engineering Course 5
-    code: TEST0005
+    codes: [TEST0005]
     slug: test-engineering-course-5-test0005
     subjects: [1]
     school: 1
@@ -711,7 +711,7 @@
   pk: 6
   fields:
     name: Test Engineering Course 6
-    code: TEST0006
+    codes: [TEST0006]
     slug: test-engineering-course-6-test0006
     subjects: [1]
     school: 1
@@ -722,7 +722,7 @@
   pk: 7
   fields:
     name: Test Engineering Course 7
-    code: TEST0007
+    codes: [TEST0007]
     slug: test-engineering-course-7-test0007
     subjects: [1]
     school: 1
@@ -733,7 +733,7 @@
   pk: 8
   fields:
     name: Test Engineering Course 8
-    code: TEST0008
+    codes: [TEST0008]
     slug: test-engineering-course-8-test0008
     subjects: [1]
     school: 1
@@ -744,7 +744,7 @@
   pk: 9
   fields:
     name: Test Engineering Course 9
-    code: TEST0009
+    codes: [TEST0009]
     slug: test-engineering-course-9-test0009
     subjects: [1]
     school: 1
@@ -755,7 +755,7 @@
   pk: 10
   fields:
     name: Test Engineering Course 10
-    code: TEST00010
+    codes: [TEST00010]
     slug: test-engineering-course-10-test00010
     subjects: [1]
     school: 1
@@ -766,7 +766,7 @@
   pk: 11
   fields:
     name: Test Engineering Course 11
-    code: TEST00011
+    codes: [TEST00011]
     slug: test-engineering-course-11-test00011
     subjects: [1]
     school: 1
@@ -777,7 +777,7 @@
   pk: 12
   fields:
     name: Test Engineering Course 12
-    code: TEST00012
+    codes: [TEST00012]
     slug: test-engineering-course-12-test00012
     subjects: [1]
     school: 1
@@ -788,7 +788,7 @@
   pk: 13
   fields:
     name: Test Engineering Course 13
-    code: TEST00013
+    codes: [TEST00013]
     slug: test-engineering-course-13-test00013
     subjects: [2]
     school: 2
@@ -799,7 +799,7 @@
   pk: 14
   fields:
     name: Test Engineering Course 14
-    code: TEST00014
+    codes: [TEST00014]
     slug: test-engineering-course-14-test00014
     subjects: [2]
     school: 2
@@ -810,7 +810,7 @@
   pk: 15
   fields:
     name: Test Engineering Course 15
-    code: TEST00015
+    codes: [TEST00015]
     slug: test-engineering-course-15-test00015
     subjects: [3]
     school: 3
@@ -821,7 +821,7 @@
   pk: 16
   fields:
     name: Test Engineering Course 16
-    code: TEST00016
+    codes: [TEST00016]
     slug: test-engineering-course-16-test00016
     subjects: [1]
     school: 1
@@ -832,7 +832,7 @@
   pk: 17
   fields:
     name: Test Engineering Course 17
-    code: TEST00017
+    codes: [TEST00017]
     slug: test-engineering-course-17-test00017
     subjects: [1]
     school: 1
@@ -843,7 +843,7 @@
   pk: 18
   fields:
     name: Test Engineering Course 18
-    code: TEST00018
+    codes: [TEST00018]
     slug: test-engineering-course-18-test00018
     subjects: [1]
     school: 1
@@ -854,7 +854,7 @@
   pk: 19
   fields:
     name: Test Engineering Course 19
-    code: TEST00019
+    codes: [TEST00019]
     slug: test-engineering-course-19-test00019
     subjects: [1]
     school: 1
@@ -865,7 +865,7 @@
   pk: 20
   fields:
     name: Test Engineering Course 20
-    code: TEST00020
+    codes: [TEST00020]
     slug: test-engineering-course-20-test00020
     subjects: [1]
     school: 1
@@ -876,7 +876,7 @@
   pk: 21
   fields:
     name: Test Engineering Course 21
-    code: TEST00021
+    codes: [TEST00021]
     slug: test-engineering-course-21-test00021
     subjects: [1]
     school: 1
@@ -887,7 +887,7 @@
   pk: 22
   fields:
     name: Test Engineering Course 22
-    code: TEST00022
+    codes: [TEST00022]
     slug: test-engineering-course-22-test00022
     subjects: [1]
     school: 1
@@ -898,7 +898,7 @@
   pk: 23
   fields:
     name: Test Engineering Course 23
-    code: TEST00023
+    codes: [TEST00023]
     slug: test-engineering-course-23-test00023
     subjects: [1]
     school: 1
@@ -909,7 +909,7 @@
   pk: 24
   fields:
     name: Test Engineering Course 24
-    code: TEST00024
+    codes: [TEST00024]
     slug: test-engineering-course-24-test00024
     subjects: [1]
     school: 1
@@ -920,7 +920,7 @@
   pk: 25
   fields:
     name: Test Engineering Course 25
-    code: TEST00025
+    codes: [TEST00025]
     slug: test-engineering-course-25-test00026
     subjects: [1]
     school: 1

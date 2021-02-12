@@ -39,6 +39,7 @@ class ValidationErrors:
     )
     COULD_NOT_CONVERT_FILE = _("File could not be converted to {} format.")
     VOTE_OWN_CONTENT = _("You cannot vote your own content.")
+    COURSE_CODE_INVALID = _("One of the course codes is invalid.")
 
 
 class GraphQLErrors:

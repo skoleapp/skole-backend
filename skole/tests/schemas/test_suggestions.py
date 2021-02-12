@@ -13,7 +13,7 @@ class SuggestionSchemaTests(SkoleSchemaTestCase):
             ... on CourseObjectType {
                 id
                 name
-                code
+                codes
                 score
                 starCount
                 resourceCount

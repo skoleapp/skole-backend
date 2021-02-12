@@ -108,54 +108,57 @@ class MyDataMutation(SkoleObjectType, graphene.Mutation):
         cls.__send_email(user, data_url)
         return cls(success_message=Messages.DATA_REQUEST_RECEIVED)
 
-    # fmt: off
-    # black slaughters the formatting of long queries.
     @classmethod
     def _created_comments(cls, user: User) -> QuerySet[Comment]:
-        return user.comments.annotate(
-            target=cls.__target_case()
-        ).annotate(
-            uploaded_attachment=cls.__file_case("attachment")
-        ).values(
-            "id",
-            "text",
-            "target",
-            "uploaded_attachment",
-            "modified",
-            "created",
+        return (
+            user.comments.annotate(target=cls.__target_case())
+            .annotate(uploaded_attachment=cls.__file_case("attachment"))
+            .values(
+                "id",
+                "text",
+                "target",
+                "uploaded_attachment",
+                "modified",
+                "created",
+            )
         )
 
     @classmethod
     def _created_courses(cls, user: User) -> QuerySet[Course]:
-        return user.created_courses.filter(
-            subjects__translations__language_code=settings.LANGUAGE_CODE
-        ).annotate(
-            subject_names=ArrayAgg("subjects__translations__name", distinct=True)
-        ).values(
-            "id",
-            "name",
-            "code",
-            "subject_names",
-            "modified",
-            "created",
+        return (
+            user.created_courses.filter(
+                subjects__translations__language_code=settings.LANGUAGE_CODE
+            )
+            .annotate(
+                subject_names=ArrayAgg("subjects__translations__name", distinct=True)
+            )
+            .values(
+                "id",
+                "name",
+                "code",
+                "subject_names",
+                "modified",
+                "created",
+            )
         )
 
     @classmethod
     def _created_resources(cls, user: User) -> QuerySet[Resource]:
-        return user.created_resources.filter(
-            resource_type__translations__language_code=settings.LANGUAGE_CODE
-        ).annotate(
-            uploaded_file=cls.__file_case("file")
-        ).values(
-            "id",
-            "course",
-            "title",
-            "uploaded_file",
-            "modified",
-            "created",
-            type=F("resource_type__translations__name"),
+        return (
+            user.created_resources.filter(
+                resource_type__translations__language_code=settings.LANGUAGE_CODE
+            )
+            .annotate(uploaded_file=cls.__file_case("file"))
+            .values(
+                "id",
+                "course",
+                "title",
+                "uploaded_file",
+                "modified",
+                "created",
+                type=F("resource_type__translations__name"),
+            )
         )
-    # fmt: on
 
     @classmethod
     def _activities(cls, user: User) -> QuerySet[Activity]:

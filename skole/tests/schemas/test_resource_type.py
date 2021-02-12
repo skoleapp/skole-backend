@@ -1,5 +1,3 @@
-from typing import cast
-
 from skole.tests.helpers import SkoleSchemaTestCase
 from skole.types import JsonDict
 
@@ -28,7 +26,7 @@ class ResourceTypeSchemaTests(SkoleSchemaTestCase):
             """
         )
 
-        return cast(list[JsonDict], self.execute(graphql))
+        return self.execute(graphql)
 
     def test_field_fragment(self) -> None:
         self.authenticated_user = None

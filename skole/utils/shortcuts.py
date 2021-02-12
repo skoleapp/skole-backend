@@ -1,7 +1,19 @@
+from collections.abc import Iterable
 from typing import Any, TypeVar
 
 from django import forms
-from django.db.models import Func, Model, OuterRef, QuerySet, Subquery
+from django.db.models import (
+    Case,
+    Func,
+    IntegerField,
+    Model,
+    OuterRef,
+    Q,
+    QuerySet,
+    Subquery,
+    Value,
+    When,
+)
 
 from skole.types import FormError, JsonDict
 from skole.utils.constants import ValidationErrors
@@ -91,6 +103,47 @@ def safe_annotation(qs: QuerySet[Any], expression: Func) -> Subquery:
     Return a subquery that can be safely used in an `annotate()` call with mixed `Sum`
     and `Count` expressions.
 
-    More info: https://stackoverflow.com/a/56619484/9835872
+    References:
+        https://stackoverflow.com/a/56619484/9835872
     """
     return Subquery(qs.annotate(res=expression).filter(pk=OuterRef("pk")).values("res"))
+
+
+def join_queries(
+    model: type[M], *expressions: Q, order_by: Iterable[str] = ()
+) -> QuerySet[M]:
+    """
+    Join queries while preserving their individual order.
+
+    If one would want to join the queries:
+    `Foo.objects.filter(name="foo")` and `Foo.objects.filter(name="bar")` so that the
+    objects from the first query would be at the start of the queryset and the objects
+    from the second query would at the end of the queryset, one could use:
+    `join_querysets(Foo, Q(name="foo"), Q(name="bar"))`
+
+    References:
+        https://stackoverflow.com/q/38583295/9835872
+    """
+    if isinstance(order_by, str):
+        raise TypeError(
+            "`order_by` should be an iterable of strings, and not a string."
+        )
+
+    def values_pk(expr: Q) -> QuerySet[M]:
+        return model.objects.filter(expr).values("pk")
+
+    when_cases = (
+        When(pk__in=values_pk(expr), then=Value(i))
+        for i, expr in enumerate(expressions)
+    )
+
+    return (
+        model.objects.annotate(
+            grouped_ordering=Case(
+                *when_cases,
+                output_field=IntegerField(),
+            ),
+        )
+        .exclude(grouped_ordering__isnull=True)
+        .order_by("grouped_ordering", *order_by)
+    )

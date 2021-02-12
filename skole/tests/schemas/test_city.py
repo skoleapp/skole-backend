@@ -1,5 +1,3 @@
-from typing import cast
-
 from skole.tests.helpers import SkoleSchemaTestCase
 from skole.types import JsonDict
 
@@ -26,7 +24,7 @@ class CitySchemaTests(SkoleSchemaTestCase):
             }
             """
         )
-        return cast(list[JsonDict], self.execute(graphql))
+        return self.execute(graphql)
 
     def query_city(self, *, slug: str) -> JsonDict:
         variables = {"slug": slug}

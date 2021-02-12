@@ -167,7 +167,8 @@ class Query(SkoleObjectType):
         The `search_term` can be either the course name or the course code.
 
         Results are sorted either manually based on query params or by secret Skole AI-
-        powered algorithms.
+        powered algorithms. If the `user` argument is passed the results will always
+        just be sorted by creation time.
         """
 
         qs: QuerySet[Course] = Course.objects.all()
@@ -188,17 +189,18 @@ class Query(SkoleObjectType):
         if city != "":
             qs = qs.filter(school__city__slug=city)
         if user != "":
-            qs = qs.filter(user__slug=user)
+            # Just show these chronologically when querying in a user profile.
+            qs = qs.filter(user__slug=user).order_by("-pk")
+        else:
+            if ordering not in get_args(CourseOrderingOption):
+                raise GraphQLError(GraphQLErrors.INVALID_ORDERING)
 
-        if ordering not in get_args(CourseOrderingOption):
-            raise GraphQLError(GraphQLErrors.INVALID_ORDERING)
-
-        if ordering == "best":
-            qs = order_courses_with_secret_algorithm(qs)
-        elif ordering == "score":
-            qs = qs.order_by("-score", "name")
-        else:  # name or -name
-            qs = qs.order_by(ordering)
+            if ordering == "best":
+                qs = order_courses_with_secret_algorithm(qs)
+            elif ordering == "score":
+                qs = qs.order_by("-score", "name")
+            else:  # name or -name
+                qs = qs.order_by(ordering)
 
         return get_paginator(qs, page_size, page, PaginatedCourseObjectType)
 

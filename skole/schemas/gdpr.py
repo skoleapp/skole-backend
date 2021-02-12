@@ -33,8 +33,8 @@ from skole.utils.files import override_s3_file_age
 from skole.utils.shortcuts import format_form_error
 
 
-class DjangoQuerySetJsonEncoder(DjangoJSONEncoder):
-    """Json encoder which can serialize QuerySets."""
+class DjangoQuerySetJSONEncoder(DjangoJSONEncoder):
+    """JSON encoder which can serialize QuerySets."""
 
     def default(self, o: Any) -> Any:
         if isinstance(o, QuerySet):
@@ -48,7 +48,7 @@ class JSONString(graphene.JSONString):
 
     @staticmethod
     def serialize(dt: Any) -> str:
-        return json.dumps(dt, cls=DjangoQuerySetJsonEncoder)
+        return json.dumps(dt, cls=DjangoQuerySetJSONEncoder)
 
 
 class MyDataMutation(SkoleObjectType, graphene.Mutation):
@@ -102,7 +102,7 @@ class MyDataMutation(SkoleObjectType, graphene.Mutation):
             data,
             indent=4,
             ensure_ascii=False,
-            cls=DjangoQuerySetJsonEncoder,
+            cls=DjangoQuerySetJSONEncoder,
         )
         data_url = cls.__create_zip(user, json_data, request=info.context)
         cls.__send_email(user, data_url)

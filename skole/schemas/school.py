@@ -15,12 +15,12 @@ from skole.types import ResolveInfo
 
 class SchoolObjectType(SkoleDjangoObjectType):
     slug = graphene.String()
-    name = graphene.String()
+    name = graphene.NonNull(graphene.String)
     school_type = graphene.Field(SchoolTypeObjectType)
     city = graphene.Field(CityObjectType)
     country = graphene.Field(CountryObjectType)
     subjects = graphene.List(SubjectObjectType)
-    comment_count = graphene.Int()
+    comment_count = graphene.NonNull(graphene.Int)
 
     class Meta:
         model = School

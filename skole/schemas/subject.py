@@ -13,9 +13,9 @@ from skole.utils.pagination import get_paginator
 
 class SubjectObjectType(SkoleDjangoObjectType):
     slug = graphene.String()
-    name = graphene.String()
-    course_count = graphene.Int()
-    resource_count = graphene.Int()
+    name = graphene.NonNull(graphene.String)
+    course_count = graphene.NonNull(graphene.Int)
+    resource_count = graphene.NonNull(graphene.Int)
 
     class Meta:
         model = Subject

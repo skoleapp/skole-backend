@@ -57,7 +57,7 @@ class MyDataMutation(SkoleObjectType, graphene.Mutation):
     # Can't inherit `SkoleCreateUpdateMutationMixin` since this doesn't use a form.
 
     # Can't use `SuccessMessageMixin` since it only works with `BaseDjangoFormMutation`.
-    success_message = graphene.String()
+    success_message = graphene.NonNull(graphene.String)
 
     errors = graphene.List(ErrorType, default_value=[])
 

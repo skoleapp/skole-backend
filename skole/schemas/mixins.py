@@ -24,7 +24,7 @@ class SuccessMessageMixin:
 
     success_message_value: ClassVar[str]
 
-    success_message = graphene.String()
+    success_message = graphene.NonNull(graphene.String)
 
     @classmethod
     def perform_mutate(
@@ -87,8 +87,8 @@ class StarMixin:
 class PaginationMixin:
     """A mixin that provides a query all the fields required for pagination."""
 
-    page = graphene.Int()
-    pages = graphene.Int()
-    has_next = graphene.Boolean()
-    has_prev = graphene.Boolean()
-    count = graphene.Int()
+    page = graphene.NonNull(graphene.Int)
+    pages = graphene.NonNull(graphene.Int)
+    has_next = graphene.NonNull(graphene.Boolean)
+    has_prev = graphene.NonNull(graphene.Boolean)
+    count = graphene.NonNull(graphene.Int)

@@ -26,7 +26,7 @@ from skole.utils.shortcuts import join_queries
 
 class CommentObjectType(VoteMixin, DjangoObjectType):
     reply_count = graphene.Int()
-    attachment_thumbnail = graphene.String()
+    attachment_thumbnail = graphene.NonNull(graphene.String)
 
     class Meta:
         model = Comment

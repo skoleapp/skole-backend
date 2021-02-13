@@ -22,7 +22,7 @@ from skole.utils.pagination import get_paginator
 
 
 class ActivityObjectType(SkoleDjangoObjectType):
-    description = graphene.String()
+    description = graphene.NonNull(graphene.String)
     read = graphene.Boolean()
 
     class Meta:

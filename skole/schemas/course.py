@@ -44,9 +44,9 @@ def order_courses_with_secret_algorithm(qs: QuerySet[Course]) -> QuerySet[Course
 class CourseObjectType(VoteMixin, StarMixin, DjangoObjectType):
     codes = graphene.NonNull(graphene.String)
     slug = graphene.String()
-    star_count = graphene.Int()
-    resource_count = graphene.Int()
-    comment_count = graphene.Int()
+    star_count = graphene.NonNull(graphene.Int)
+    resource_count = graphene.NonNull(graphene.Int)
+    comment_count = graphene.NonNull(graphene.Int)
 
     class Meta:
         model = Course

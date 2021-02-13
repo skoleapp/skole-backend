@@ -16,8 +16,6 @@ from skole.types import ResolveInfo
 
 
 class VoteObjectType(SkoleDjangoObjectType):
-    status = graphene.Int()
-
     class Meta:
         model = Vote
         fields = ("id", "user", "status", "comment", "course", "resource")
@@ -27,7 +25,7 @@ class VoteMutation(SkoleCreateUpdateMutationMixin, DjangoModelFormMutation):
     """Upvote, downvote or remove a vote from a course, resource or a comment."""
 
     verification_required = True
-    target_score = graphene.Int()
+    target_score = graphene.NonNull(graphene.Int)
 
     class Meta:
         form_class = CreateVoteForm

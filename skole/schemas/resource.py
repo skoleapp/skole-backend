@@ -51,8 +51,8 @@ class ResourceObjectType(VoteMixin, StarMixin, DjangoObjectType):
     resource_type = graphene.Field(ResourceTypeObjectType)
     school = graphene.Field(SchoolObjectType)
     author = graphene.Field(AuthorObjectType)
-    star_count = graphene.Int()
-    comment_count = graphene.Int()
+    star_count = graphene.NonNull(graphene.Int)
+    comment_count = graphene.NonNull(graphene.Int)
 
     class Meta:
         model = Resource

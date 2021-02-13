@@ -40,18 +40,15 @@ class UserObjectType(SkoleDjangoObjectType):
     """
 
     slug = graphene.String()
-    email = graphene.String()
-    score = graphene.Int()
-    avatar = graphene.String()
-    avatar_thumbnail = graphene.String()
-    verified = graphene.Boolean()
+    avatar = graphene.NonNull(graphene.String)
+    avatar_thumbnail = graphene.NonNull(graphene.String)
     school = graphene.Field(SchoolObjectType)
     subject = graphene.Field(SubjectObjectType)
-    rank = graphene.String()
+    rank = graphene.NonNull(graphene.String)
     badges = graphene.List(BadgeObjectType)
-    unread_activity_count = graphene.Int()
-    product_update_email_permission = graphene.Boolean()
-    blog_post_email_permission = graphene.Boolean()
+    unread_activity_count = graphene.NonNull(graphene.Int)
+    product_update_email_permission = graphene.NonNull(graphene.Boolean)
+    blog_post_email_permission = graphene.NonNull(graphene.Boolean)
 
     class Meta:
         model = get_user_model()

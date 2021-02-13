@@ -10,7 +10,7 @@ from skole.types import ResolveInfo
 
 class CityObjectType(SkoleDjangoObjectType):
     slug = graphene.String()
-    name = graphene.String()
+    name = graphene.NonNull(graphene.String)
 
     class Meta:
         model = City

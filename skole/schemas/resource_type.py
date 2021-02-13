@@ -8,7 +8,7 @@ from skole.types import ResolveInfo
 
 class ResourceTypeObjectType(SkoleDjangoObjectType):
     slug = graphene.String()
-    name = graphene.String()
+    name = graphene.NonNull(graphene.String)
 
     class Meta:
         model = ResourceType

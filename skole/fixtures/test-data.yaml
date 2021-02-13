@@ -460,8 +460,8 @@
     avatar: ""
     verified: True
     is_active: True
-    is_staff: true
-    is_superuser: true
+    is_staff: True
+    is_superuser: True
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
 - model: skole.User
@@ -477,7 +477,7 @@
     verified: True
     is_active: True
     is_staff: False
-    is_superuser: false
+    is_superuser: False
     score: 0  # Freshman
     school: 1
     subject: 1
@@ -495,8 +495,8 @@
     avatar: ""
     verified: False
     is_active: True
-    is_staff: false
-    is_superuser: false
+    is_staff: False
+    is_superuser: False
     score: 100  # Tutor
     school: 1
     subject: 1
@@ -514,8 +514,8 @@
     avatar: ""
     verified: True
     is_active: True
-    is_staff: false
-    is_superuser: false
+    is_staff: False
+    is_superuser: False
     score: 250  # Mentor
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
@@ -531,8 +531,8 @@
     avatar: ""
     verified: True
     is_active: True
-    is_staff: false
-    is_superuser: false
+    is_staff: False
+    is_superuser: False
     score: 500  # Bachelor
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
@@ -548,8 +548,8 @@
     avatar: ""
     verified: True
     is_active: True
-    is_staff: false
-    is_superuser: false
+    is_staff: False
+    is_superuser: False
     score: 1000  # Master
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
@@ -565,8 +565,8 @@
     avatar: ""
     verified: True
     is_active: True
-    is_staff: false
-    is_superuser: false
+    is_staff: False
+    is_superuser: False
     score: 2000  # Doctor
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
@@ -582,8 +582,8 @@
     avatar: ""
     verified: True
     is_active: True
-    is_staff: false
-    is_superuser: false
+    is_staff: False
+    is_superuser: False
     score: 5000  # Professor
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
@@ -599,8 +599,8 @@
     avatar: ""
     verified: True
     is_active: True
-    is_staff: false
-    is_superuser: false
+    is_staff: False
+    is_superuser: False
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
 - model: skole.User
@@ -615,8 +615,8 @@
     avatar: ""
     verified: True
     is_active: True
-    is_staff: false
-    is_superuser: false
+    is_staff: False
+    is_superuser: False
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
 - model: skole.User
@@ -631,8 +631,8 @@
     avatar: ""
     verified: True
     is_active: True
-    is_staff: false
-    is_superuser: false
+    is_staff: False
+    is_superuser: False
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
 - model: skole.User
@@ -647,8 +647,8 @@
     avatar: ""
     verified: True
     is_active: True
-    is_staff: false
-    is_superuser: false
+    is_staff: False
+    is_superuser: False
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
 

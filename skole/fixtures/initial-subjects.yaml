@@ -4549,7 +4549,7 @@
   pk: 758
   fields:
     language_code: fi
-    name: Swedish language
+    name: Ruotsin kieli
     master: 253
 - model: skole.SubjectTranslation
   pk: 759
@@ -4567,7 +4567,7 @@
   pk: 761
   fields:
     language_code: fi
-    name: Translation studies
+    name: Kääntäminen
     master: 254
 - model: skole.SubjectTranslation
   pk: 762
@@ -4585,7 +4585,7 @@
   pk: 764
   fields:
     language_code: fi
-    name: Cultural management
+    name: Kulttuurihallinto
     master: 255
 - model: skole.SubjectTranslation
   pk: 765
@@ -4603,7 +4603,7 @@
   pk: 767
   fields:
     language_code: fi
-    name: English language and literature
+    name: Englannin kieli ja kirjallisuus
     master: 256
 - model: skole.SubjectTranslation
   pk: 768
@@ -4621,7 +4621,7 @@
   pk: 770
   fields:
     language_code: fi
-    name: General studies
+    name: Yleiset opinnot
     master: 257
 - model: skole.SubjectTranslation
   pk: 771
@@ -4639,7 +4639,7 @@
   pk: 773
   fields:
     language_code: fi
-    name: Intercultural communication
+    name: Kulttuuriensisäinen kommunikaatio
     master: 258
 - model: skole.SubjectTranslation
   pk: 774
@@ -4657,7 +4657,7 @@
   pk: 776
   fields:
     language_code: fi
-    name: General linguistics
+    name: Yleinen kielitiede
     master: 259
 - model: skole.SubjectTranslation
   pk: 777
@@ -4675,7 +4675,7 @@
   pk: 779
   fields:
     language_code: fi
-    name: Finnish language
+    name: Suomen kieli
     master: 260
 - model: skole.SubjectTranslation
   pk: 780
@@ -4693,7 +4693,7 @@
   pk: 782
   fields:
     language_code: fi
-    name: German language and literature
+    name: Saksan kieli ja kirjallisuus
     master: 261
 - model: skole.SubjectTranslation
   pk: 783
@@ -4711,7 +4711,7 @@
   pk: 785
   fields:
     language_code: fi
-    name: French language and literature
+    name: Ranskan kieli ja kirjallisuus
     master: 262
 - model: skole.SubjectTranslation
   pk: 786
@@ -4729,7 +4729,7 @@
   pk: 788
   fields:
     language_code: fi
-    name: Logopedics (FHPT)
+    name: Logopedia (FHPT)
     master: 263
 - model: skole.SubjectTranslation
   pk: 789
@@ -4747,7 +4747,7 @@
   pk: 791
   fields:
     language_code: fi
-    name: Russian language and literature
+    name: Venäjän kieli ja kirjallisuus
     master: 264
 - model: skole.SubjectTranslation
   pk: 792
@@ -4765,7 +4765,7 @@
   pk: 794
   fields:
     language_code: fi
-    name: Nordic history
+    name: Pohjoismainen historia
     master: 265
 - model: skole.SubjectTranslation
   pk: 795
@@ -4783,7 +4783,7 @@
   pk: 797
   fields:
     language_code: fi
-    name: General history
+    name: Yleinen historia
     master: 266
 - model: skole.SubjectTranslation
   pk: 798
@@ -4801,7 +4801,7 @@
   pk: 800
   fields:
     language_code: fi
-    name: Nordic ethnology
+    name: Pohjoismainen etnologia
     master: 267
 - model: skole.SubjectTranslation
   pk: 801
@@ -4819,7 +4819,7 @@
   pk: 803
   fields:
     language_code: fi
-    name: Studies at the open university
+    name: Avoimen yliopiston opinnot
     master: 268
 - model: skole.SubjectTranslation
   pk: 804
@@ -4837,7 +4837,7 @@
   pk: 806
   fields:
     language_code: fi
-    name: Art history
+    name: Taidehistoria
     master: 269
 - model: skole.SubjectTranslation
   pk: 807
@@ -4855,7 +4855,7 @@
   pk: 809
   fields:
     language_code: fi
-    name: Cultural analysis specifically ethnology and folkloristics
+    name: Kulttuurianalyysi etnologialla and folkloristiikkalla
     master: 270
 - model: skole.SubjectTranslation
   pk: 810
@@ -4873,7 +4873,7 @@
   pk: 812
   fields:
     language_code: fi
-    name: Nordic folkloristics
+    name: Pohjoismainen folkloristiikka
     master: 271
 - model: skole.SubjectTranslation
   pk: 813
@@ -4891,7 +4891,7 @@
   pk: 815
   fields:
     language_code: fi
-    name: Psychology (FHPT)
+    name: Psykologia (FHPT)
     master: 272
 - model: skole.SubjectTranslation
   pk: 816
@@ -4909,7 +4909,7 @@
   pk: 818
   fields:
     language_code: fi
-    name: Cell and molecular bioscience
+    name: Solu- ja molekyylibiologia
     master: 273
 - model: skole.SubjectTranslation
   pk: 819
@@ -4927,7 +4927,7 @@
   pk: 821
   fields:
     language_code: fi
-    name: Visual studies
+    name: Visuaaliset opinnot
     master: 274
 - model: skole.SubjectTranslation
   pk: 822
@@ -4945,7 +4945,7 @@
   pk: 824
   fields:
     language_code: fi
-    name: Bioscience
+    name: Biotiede
     master: 275
 - model: skole.SubjectTranslation
   pk: 825
@@ -4963,7 +4963,7 @@
   pk: 827
   fields:
     language_code: fi
-    name: Environmental and marine biology
+    name: Ympäristö- ja meribiologia
     master: 276
 - model: skole.SubjectTranslation
   pk: 828
@@ -4981,7 +4981,7 @@
   pk: 830
   fields:
     language_code: fi
-    name: Pharmacy
+    name: Farmasia
     master: 277
 - model: skole.SubjectTranslation
   pk: 831
@@ -4999,7 +4999,7 @@
   pk: 833
   fields:
     language_code: fi
-    name: Cell biology
+    name: Solubiologia
     master: 278
 - model: skole.SubjectTranslation
   pk: 834
@@ -5017,7 +5017,7 @@
   pk: 836
   fields:
     language_code: fi
-    name: Biosciences
+    name: Biotieteet
     master: 279
 - model: skole.SubjectTranslation
   pk: 837
@@ -5035,7 +5035,7 @@
   pk: 839
   fields:
     language_code: fi
-    name: Marine biology
+    name: Meribiologia
     master: 280
 - model: skole.SubjectTranslation
   pk: 840
@@ -5053,7 +5053,7 @@
   pk: 842
   fields:
     language_code: fi
-    name: Physical chemistry
+    name: Fysikaalinen kemia
     master: 281
 - model: skole.SubjectTranslation
   pk: 843
@@ -5071,7 +5071,7 @@
   pk: 845
   fields:
     language_code: fi
-    name: Analytical chemistry
+    name: Analyyttinen kemia
     master: 282
 - model: skole.SubjectTranslation
   pk: 846
@@ -5089,7 +5089,7 @@
   pk: 848
   fields:
     language_code: fi
-    name: Organic chemistry
+    name: Orgaaninen kemia
     master: 283
 - model: skole.SubjectTranslation
   pk: 849
@@ -5107,7 +5107,7 @@
   pk: 851
   fields:
     language_code: fi
-    name: Paper coating and converting
+    name: Paperin käsittely
     master: 284
 - model: skole.SubjectTranslation
   pk: 852
@@ -5125,7 +5125,7 @@
   pk: 854
   fields:
     language_code: fi
-    name: Paper chemistry
+    name: Paperikemia
     master: 285
 - model: skole.SubjectTranslation
   pk: 855
@@ -5143,7 +5143,7 @@
   pk: 857
   fields:
     language_code: fi
-    name: Process chemistry
+    name: Prosessikemia
     master: 286
 - model: skole.SubjectTranslation
   pk: 858
@@ -5161,7 +5161,7 @@
   pk: 860
   fields:
     language_code: fi
-    name: Inorganic chemistry
+    name: Epäorgaaninen kemia
     master: 287
 - model: skole.SubjectTranslation
   pk: 861
@@ -5179,7 +5179,7 @@
   pk: 863
   fields:
     language_code: fi
-    name: Energy and environmental engineering
+    name: Energia- ja ympäristötekniikka
     master: 288
 - model: skole.SubjectTranslation
   pk: 864
@@ -5197,7 +5197,7 @@
   pk: 866
   fields:
     language_code: fi
-    name: Minor study block
+    name: Sivuaine
     master: 289
 - model: skole.SubjectTranslation
   pk: 867
@@ -5215,7 +5215,7 @@
   pk: 869
   fields:
     language_code: fi
-    name: Mathematics and statistics
+    name: Matematiikka ja tilastotiede
     master: 290
 - model: skole.SubjectTranslation
   pk: 870
@@ -5233,7 +5233,7 @@
   pk: 872
   fields:
     language_code: fi
-    name: Computer technology
+    name: Tietotekniikka
     master: 291
 - model: skole.SubjectTranslation
   pk: 873
@@ -5251,7 +5251,7 @@
   pk: 875
   fields:
     language_code: fi
-    name: Process and systems engineering
+    name: Prosessi- ja systeemitekniikka
     master: 292
 - model: skole.SubjectTranslation
   pk: 876
@@ -5269,7 +5269,7 @@
   pk: 878
   fields:
     language_code: fi
-    name: Natural materials technology
+    name: Luonnonmateriaalien teknologia
     master: 293
 - model: skole.SubjectTranslation
   pk: 879
@@ -5287,7 +5287,7 @@
   pk: 881
   fields:
     language_code: fi
-    name: Optional studies
+    name: Valinnaiset opinnot
     master: 294
 - model: skole.SubjectTranslation
   pk: 882
@@ -5305,7 +5305,7 @@
   pk: 884
   fields:
     language_code: fi
-    name: Organization and management
+    name: Organisointi ja johtaminen
     master: 295
 - model: skole.SubjectTranslation
   pk: 885
@@ -5323,7 +5323,7 @@
   pk: 887
   fields:
     language_code: fi
-    name: Information studies
+    name: Informaatiotiede
     master: 296
 - model: skole.SubjectTranslation
   pk: 888
@@ -5341,7 +5341,7 @@
   pk: 890
   fields:
     language_code: fi
-    name: Cultural anthropology
+    name: Kulttuurinen antropologia
     master: 297
 - model: skole.SubjectTranslation
   pk: 891
@@ -5359,7 +5359,7 @@
   pk: 893
   fields:
     language_code: fi
-    name: International marketing
+    name: Kansainvälinen markkinointi
     master: 298
 - model: skole.SubjectTranslation
   pk: 894
@@ -5377,7 +5377,7 @@
   pk: 896
   fields:
     language_code: fi
-    name: Commercial law
+    name: Kauppaoikeus
     master: 299
 - model: skole.SubjectTranslation
   pk: 897
@@ -5395,7 +5395,7 @@
   pk: 899
   fields:
     language_code: fi
-    name: Public international law
+    name: Kansainvälinen julkisoikeus
     master: 300
 - model: skole.SubjectTranslation
   pk: 900
@@ -5413,7 +5413,7 @@
   pk: 902
   fields:
     language_code: fi
-    name: Public law
+    name: Julkisoikeus
     master: 301
 - model: skole.SubjectTranslation
   pk: 903
@@ -5431,7 +5431,7 @@
   pk: 905
   fields:
     language_code: fi
-    name: General studies (FSE)
+    name: Yleiset opinnot (FSE)
     master: 302
 - model: skole.SubjectTranslation
   pk: 906
@@ -5449,7 +5449,7 @@
   pk: 908
   fields:
     language_code: fi
-    name: Public administration
+    name: Julkishallinto
     master: 303
 - model: skole.SubjectTranslation
   pk: 909
@@ -5467,7 +5467,7 @@
   pk: 911
   fields:
     language_code: fi
-    name: Process design and systems engineering
+    name: Prosessisuunnittelu ja systeemitekniikka
     master: 304
 - model: skole.SubjectTranslation
   pk: 912
@@ -5485,7 +5485,7 @@
   pk: 914
   fields:
     language_code: fi
-    name: Fibre and cellulose technology
+    name: Kuitu- ja selluloosateknologia
     master: 305
 - model: skole.SubjectTranslation
   pk: 915
@@ -5503,7 +5503,7 @@
   pk: 917
   fields:
     language_code: fi
-    name: Business studies
+    name: Liikehallinto
     master: 306
 - model: skole.SubjectTranslation
   pk: 918
@@ -5521,7 +5521,7 @@
   pk: 920
   fields:
     language_code: fi
-    name: Process control
+    name: Ohjaustekniikka
     master: 307
 - model: skole.SubjectTranslation
   pk: 921
@@ -5539,7 +5539,7 @@
   pk: 923
   fields:
     language_code: fi
-    name: Industrial chemistry and reaction engineering
+    name: Teollinen kemia ja reaktiotekniikka
     master: 308
 - model: skole.SubjectTranslation
   pk: 924
@@ -5557,7 +5557,7 @@
   pk: 926
   fields:
     language_code: fi
-    name: Wood and paper chemistry
+    name: Puu- ja paperikemia
     master: 309
 - model: skole.SubjectTranslation
   pk: 927
@@ -5575,7 +5575,7 @@
   pk: 929
   fields:
     language_code: fi
-    name: Thermal and flow engineering
+    name: Lämpö- ja virtaustekniikka
     master: 310
 - model: skole.SubjectTranslation
   pk: 930
@@ -5593,7 +5593,7 @@
   pk: 932
   fields:
     language_code: fi
-    name: Industrial computer engineering
+    name: Teollinen tietotekniikka
     master: 311
 - model: skole.SubjectTranslation
   pk: 933
@@ -5611,7 +5611,7 @@
   pk: 935
   fields:
     language_code: fi
-    name: Information systems
+    name: Informaatiojärjestelmät
     master: 312
 - model: skole.SubjectTranslation
   pk: 936
@@ -5629,7 +5629,7 @@
   pk: 938
   fields:
     language_code: fi
-    name: Theology
+    name: Teologia
     master: 313
 - model: skole.SubjectTranslation
   pk: 939
@@ -5647,7 +5647,7 @@
   pk: 941
   fields:
     language_code: fi
-    name: General theology
+    name: Yleinen teologia
     master: 314
 - model: skole.SubjectTranslation
   pk: 942
@@ -5665,7 +5665,7 @@
   pk: 944
   fields:
     language_code: fi
-    name: Old testament exegetics
+    name: Vanhan testamentan eksegetiikka
     master: 315
 - model: skole.SubjectTranslation
   pk: 945
@@ -5683,7 +5683,7 @@
   pk: 947
   fields:
     language_code: fi
-    name: Judaic studies
+    name: Judaistiikka
     master: 316
 - model: skole.SubjectTranslation
   pk: 948
@@ -5701,7 +5701,7 @@
   pk: 950
   fields:
     language_code: fi
-    name: Church history
+    name: Kirkkohistoria
     master: 317
 - model: skole.SubjectTranslation
   pk: 951
@@ -5719,7 +5719,7 @@
   pk: 953
   fields:
     language_code: fi
-    name: Dogmatics
+    name: Dogmatiikka
     master: 318
 - model: skole.SubjectTranslation
   pk: 954
@@ -5737,7 +5737,7 @@
   pk: 956
   fields:
     language_code: fi
-    name: Theological ethics and philosophy of religion
+    name: Teologinen etiikka ja uskonnonfilosofia
     master: 319
 - model: skole.SubjectTranslation
   pk: 957
@@ -5755,7 +5755,7 @@
   pk: 959
   fields:
     language_code: fi
-    name: Practical theology
+    name: Käytännöllinen teologia
     master: 320
 - model: skole.SubjectTranslation
   pk: 960
@@ -5791,7 +5791,7 @@
   pk: 965
   fields:
     language_code: fi
-    name: Early childhood
+    name: Lastentarhanopettajan erikoistuminen
     master: 322
 - model: skole.SubjectTranslation
   pk: 966
@@ -5809,7 +5809,7 @@
   pk: 968
   fields:
     language_code: fi
-    name: Teacher focused
+    name: Opettajaksi suuntautuminen
     master: 323
 - model: skole.SubjectTranslation
   pk: 969
@@ -5827,7 +5827,7 @@
   pk: 971
   fields:
     language_code: fi
-    name: General
+    name: Yleinen suuntautuminen
     master: 324
 - model: skole.SubjectTranslation
   pk: 972
@@ -5845,7 +5845,7 @@
   pk: 974
   fields:
     language_code: fi
-    name: Subject didactics for class teachers
+    name: Ainedidaktiikka luokanopettajille
     master: 325
 - model: skole.SubjectTranslation
   pk: 975
@@ -5863,7 +5863,7 @@
   pk: 977
   fields:
     language_code: fi
-    name: Handicrafts
+    name: Tekstiilityö
     master: 326
 - model: skole.SubjectTranslation
   pk: 978
@@ -5881,7 +5881,7 @@
   pk: 980
   fields:
     language_code: fi
-    name: Pedagogics in handicrafts
+    name: Käsityöpedagogiikka
     master: 327
 - model: skole.SubjectTranslation
   pk: 981
@@ -5899,7 +5899,7 @@
   pk: 983
   fields:
     language_code: fi
-    name: Sloyd science
+    name: Käsityötiede
     master: 328
 - model: skole.SubjectTranslation
   pk: 984
@@ -5917,7 +5917,7 @@
   pk: 986
   fields:
     language_code: fi
-    name: Minor subject studies within teacher education
+    name: Opettajakoulutuksen sivuaine
     master: 329
 - model: skole.SubjectTranslation
   pk: 987
@@ -5935,7 +5935,7 @@
   pk: 989
   fields:
     language_code: fi
-    name: Wood and metal work
+    name: Tekninen työ
     master: 330
 - model: skole.SubjectTranslation
   pk: 990
@@ -5953,7 +5953,7 @@
   pk: 992
   fields:
     language_code: fi
-    name: Environmental education
+    name: Ympäristöoppi
     master: 331
 - model: skole.SubjectTranslation
   pk: 993
@@ -5971,7 +5971,7 @@
   pk: 995
   fields:
     language_code: fi
-    name: Media pedagogics
+    name: Mediapedagogiikka
     master: 332
 - model: skole.SubjectTranslation
   pk: 996
@@ -5989,7 +5989,7 @@
   pk: 998
   fields:
     language_code: fi
-    name: Home economics
+    name: Kotitalous
     master: 333
 - model: skole.SubjectTranslation
   pk: 999
@@ -6007,7 +6007,7 @@
   pk: 1001
   fields:
     language_code: fi
-    name: Studies for vocational school teachers
+    name: Ammattiopettajan opinnot
     master: 334
 - model: skole.SubjectTranslation
   pk: 1002
@@ -6025,7 +6025,7 @@
   pk: 1004
   fields:
     language_code: fi
-    name: Health science
+    name: Terveystieto
     master: 335
 - model: skole.SubjectTranslation
   pk: 1005
@@ -6043,7 +6043,7 @@
   pk: 1007
   fields:
     language_code: fi
-    name: Pedagogical studies for teachers
+    name: Opettajan pedagokiset opinnot
     master: 336
 - model: skole.SubjectTranslation
   pk: 1008
@@ -6079,7 +6079,7 @@
   pk: 1013
   fields:
     language_code: fi
-    name: Developmental psychology
+    name: Kehityspsykologia
     master: 338
 - model: skole.SubjectTranslation
   pk: 1014
@@ -6097,7 +6097,7 @@
   pk: 1016
   fields:
     language_code: fi
-    name: Statskunskap med medier och kommunikation
+    name: Valtio-oppi, media ja viestintä
     master: 339
 - model: skole.SubjectTranslation
   pk: 1017
@@ -6115,7 +6115,7 @@
   pk: 1019
   fields:
     language_code: fi
-    name: Political history
+    name: Poliittinen historia
     master: 340
 - model: skole.SubjectTranslation
   pk: 1020
@@ -6133,7 +6133,7 @@
   pk: 1022
   fields:
     language_code: fi
-    name: School psychology
+    name: Koulupsykologia
     master: 341
 - model: skole.SubjectTranslation
   pk: 1023
@@ -6151,7 +6151,7 @@
   pk: 1025
   fields:
     language_code: fi
-    name: Psychology of the workplace
+    name: Työpsykologia
     master: 342
 - model: skole.SubjectTranslation
   pk: 1026
@@ -6169,7 +6169,7 @@
   pk: 1028
   fields:
     language_code: fi
-    name: Crisis psychology
+    name: Kriisipsykologia
     master: 343
 - model: skole.SubjectTranslation
   pk: 1029
@@ -6205,7 +6205,7 @@
   pk: 1034
   fields:
     language_code: fi
-    name: Demography
+    name: Demografia
     master: 345
 - model: skole.SubjectTranslation
   pk: 1035
@@ -6223,7 +6223,7 @@
   pk: 1037
   fields:
     language_code: fi
-    name: Youth studies
+    name: Nuorisotiede
     master: 346
 - model: skole.SubjectTranslation
   pk: 1038
@@ -6241,13 +6241,13 @@
   pk: 1040
   fields:
     language_code: fi
-    name: Peace
+    name: Rauha
     master: 347
 - model: skole.SubjectTranslation
   pk: 1041
   fields:
     language_code: sv
-    name: Peace
+    name: Fred
     master: 347
 - model: skole.SubjectTranslation
   pk: 1042
@@ -6259,7 +6259,7 @@
   pk: 1043
   fields:
     language_code: fi
-    name: Mediation and conflict research
+    name: Meditaatio ja konfliktin tutkiminen
     master: 348
 - model: skole.SubjectTranslation
   pk: 1044
@@ -6277,7 +6277,7 @@
   pk: 1046
   fields:
     language_code: fi
-    name: Caring science
+    name: Hoitotiede
     master: 349
 - model: skole.SubjectTranslation
   pk: 1047
@@ -6295,7 +6295,7 @@
   pk: 1049
   fields:
     language_code: fi
-    name: Caring science didactics
+    name: Hoitotieteen didaktiikka
     master: 350
 - model: skole.SubjectTranslation
   pk: 1050
@@ -6313,7 +6313,7 @@
   pk: 1052
   fields:
     language_code: fi
-    name: Latin
+    name: Latina
     master: 351
 - model: skole.SubjectTranslation
   pk: 1053
@@ -6331,13 +6331,13 @@
   pk: 1055
   fields:
     language_code: fi
-    name: Social Exclusion
+    name: Sosiaalinen syrjäytyminen
     master: 352
 - model: skole.SubjectTranslation
   pk: 1056
   fields:
     language_code: sv
-    name: Social Exclusion
+    name: Social utfrysning
     master: 352
 - model: skole.SubjectTranslation
   pk: 1057
@@ -6349,13 +6349,13 @@
   pk: 1058
   fields:
     language_code: fi
-    name: Governance of digitalization
+    name: Digitalisaation hallinta
     master: 353
 - model: skole.SubjectTranslation
   pk: 1059
   fields:
     language_code: sv
-    name: Governance of digitalization
+    name: Styrning av digitalisering
     master: 353
 - model: skole.SubjectTranslation
   pk: 1060
@@ -6367,7 +6367,7 @@
   pk: 1061
   fields:
     language_code: fi
-    name: Studies of the degree programme
+    name: Koulutusohjelman opinnot
     master: 354
 - model: skole.SubjectTranslation
   pk: 1062
@@ -6385,7 +6385,7 @@
   pk: 1064
   fields:
     language_code: fi
-    name: Major subject
+    name: Pääaine
     master: 355
 - model: skole.SubjectTranslation
   pk: 1065
@@ -6403,7 +6403,7 @@
   pk: 1067
   fields:
     language_code: fi
-    name: Applied sport psychology
+    name: Urheilupsykologia
     master: 356
 - model: skole.SubjectTranslation
   pk: 1068
@@ -6421,7 +6421,7 @@
   pk: 1070
   fields:
     language_code: fi
-    name: New testament exegetics
+    name: Uuden testamentin eksegetiikka
     master: 357
 - model: skole.SubjectTranslation
   pk: 1071
@@ -6457,7 +6457,7 @@
   pk: 1076
   fields:
     language_code: fi
-    name: Forest products chemistry
+    name: Metsätuotteiden kemia
     master: 359
 - model: skole.SubjectTranslation
   pk: 1077
@@ -6475,7 +6475,7 @@
   pk: 1079
   fields:
     language_code: fi
-    name: Technical polymer chemistry
+    name: Tekninen polymeerikemia
     master: 360
 - model: skole.SubjectTranslation
   pk: 1080
@@ -6493,7 +6493,7 @@
   pk: 1082
   fields:
     language_code: fi
-    name: Digital humanities
+    name: Digitaaliset humanistiset tieteet
     master: 361
 - model: skole.SubjectTranslation
   pk: 1083
@@ -6511,7 +6511,7 @@
   pk: 1085
   fields:
     language_code: fi
-    name: Health care administration
+    name: Terveydenhuollon hallinto
     master: 362
 - model: skole.SubjectTranslation
   pk: 1086
@@ -6529,7 +6529,7 @@
   pk: 1088
   fields:
     language_code: fi
-    name: Pre-school pedagogics
+    name: Esikoulupedagokiikka
     master: 363
 - model: skole.SubjectTranslation
   pk: 1089
@@ -6547,7 +6547,7 @@
   pk: 1091
   fields:
     language_code: fi
-    name: Materials engneering
+    name: Materiaalitekniikka
     master: 364
 - model: skole.SubjectTranslation
   pk: 1092
@@ -6565,7 +6565,7 @@
   pk: 1094
   fields:
     language_code: fi
-    name: University pedagogics
+    name: Yliopistopedagogiikka
     master: 365
 - model: skole.SubjectTranslation
   pk: 1095
@@ -6601,7 +6601,7 @@
   pk: 1100
   fields:
     language_code: fi
-    name: Sustainability
+    name: Kestävä kehitys
     master: 367
 - model: skole.SubjectTranslation
   pk: 1101
@@ -6619,7 +6619,7 @@
   pk: 1103
   fields:
     language_code: fi
-    name: Innovation and entrepreneurship
+    name: Innovaatio ja yrittäjyys
     master: 368
 - model: skole.SubjectTranslation
   pk: 1104
@@ -6637,7 +6637,7 @@
   pk: 1106
   fields:
     language_code: fi
-    name: Vocationally oriented courses in pedagogics
+    name: Ammatillisesti suuntautuneet pedagogiikan kurssit
     master: 369
 - model: skole.SubjectTranslation
   pk: 1107
@@ -6655,7 +6655,7 @@
   pk: 1109
   fields:
     language_code: fi
-    name: Mass communication
+    name: Joukkoviestintä
     master: 370
 - model: skole.SubjectTranslation
   pk: 1110
@@ -6673,7 +6673,7 @@
   pk: 1112
   fields:
     language_code: fi
-    name: Health technology
+    name: Terveysteknologia
     master: 371
 - model: skole.SubjectTranslation
   pk: 1113
@@ -6691,7 +6691,7 @@
   pk: 1115
   fields:
     language_code: fi
-    name: Geriatric care
+    name: Vanhustenhoito
     master: 372
 - model: skole.SubjectTranslation
   pk: 1116
@@ -6709,7 +6709,7 @@
   pk: 1118
   fields:
     language_code: fi
-    name: Clinical caring science
+    name: Kliininen hoitotiede
     master: 373
 - model: skole.SubjectTranslation
   pk: 1119
@@ -6727,7 +6727,7 @@
   pk: 1121
   fields:
     language_code: fi
-    name: Minor subject studies
+    name: Sivuaine
     master: 374
 - model: skole.SubjectTranslation
   pk: 1122

@@ -6754,7 +6754,7 @@
   fields:
     name: "Solubiologian luennot"
     codes: ["FYGE1010"]
-    subjects: [119]
+    subjects: [122]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -11694,7 +11694,7 @@
   fields:
     name: "Kehityspsykologian perusteet"
     codes: ["PSYK3393"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -11724,7 +11724,7 @@
   fields:
     name: "Kognitiivisen ja neuropsykologian perusteet"
     codes: ["PSYK3394"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -11794,7 +11794,7 @@
   fields:
     name: "Logopedian perusteet"
     codes: ["LOGO1120"]
-    subjects: [9]
+    subjects: [263]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -11814,7 +11814,7 @@
   fields:
     name: "Persoonallisuuspsykologian perusteet"
     codes: ["PSYK3396"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -11834,7 +11834,7 @@
   fields:
     name: "Terveyden ja mielenterveyden psykologian perusteet"
     codes: ["PSYK3397"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -11904,7 +11904,7 @@
   fields:
     name: "Tutkimuksen teon perusteet"
     codes: ["PSYK3395"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -11914,7 +11914,7 @@
   fields:
     name: "Anatomia ja fysiologia logopediassa"
     codes: ["LOGO1141"]
-    subjects: [9]
+    subjects: [263]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -11964,7 +11964,7 @@
   fields:
     name: "Kehityspsykologia II"
     codes: ["PSYK3398"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -12014,7 +12014,7 @@
   fields:
     name: "Kieli ja elämänkaari I"
     codes: ["LOGO1142"]
-    subjects: [9]
+    subjects: [263]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -12084,7 +12084,7 @@
   fields:
     name: "Kognitiiviset prosessit"
     codes: ["PSYK4007"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -12164,7 +12164,7 @@
   fields:
     name: "Kieli ja elämänkaari II"
     codes: ["LOGO1143"]
-    subjects: [9]
+    subjects: [263]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -12224,7 +12224,7 @@
   fields:
     name: "Cognitive Neuroscience"
     codes: ["PSYK3517"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -12274,7 +12274,7 @@
   fields:
     name: "A.2.4. Aikuisneuropsykologia"
     codes: ["PSYK4119"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -12284,7 +12284,7 @@
   fields:
     name: "Introduction to Bilingualism"
     codes: ["LOGO1241"]
-    subjects: [9]
+    subjects: [263]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -12334,7 +12334,7 @@
   fields:
     name: "A.2.5. Lastenneuropsykologia"
     codes: ["PSYK4109"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -12344,7 +12344,7 @@
   fields:
     name: "Social Psychology I"
     codes: ["PSYK8949"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -12354,7 +12354,7 @@
   fields:
     name: "Persoonallisuuspsykologia II"
     codes: ["PSYK3400"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -12424,7 +12424,7 @@
   fields:
     name: "Sosioemotionaalisen havaitsemisen intensiivikurssi"
     codes: ["PSYK4116"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -12444,7 +12444,7 @@
   fields:
     name: "Psyykkiset häiriöt"
     codes: ["PSYK3285"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -12494,7 +12494,7 @@
   fields:
     name: "Psykologian historia"
     codes: ["PSYK3136"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -12554,7 +12554,7 @@
   fields:
     name: "Psykologian kandidaatintutkielma"
     codes: ["PSYK3407"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -12584,7 +12584,7 @@
   fields:
     name: "Psychology of Language"
     codes: ["PSYK3405"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -12634,7 +12634,7 @@
   fields:
     name: "Introduction to Evolutionary Psychology"
     codes: ["PSYK8950"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -12644,7 +12644,7 @@
   fields:
     name: "Työ- ja organisaatiopsykologia"
     codes: ["PSYK3247"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -12654,7 +12654,7 @@
   fields:
     name: "Sosiaalipsykologia II"
     codes: ["PSYK3402"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -13434,7 +13434,7 @@
   fields:
     name: "Moniammattillinen klinikkakurssi II (sosiaalityö)"
     codes: ["STYÖ7126"]
-    subjects: [9, 56, 61]
+    subjects: [263, 272, 61]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -17344,7 +17344,7 @@
   fields:
     name: "FUTUJ1 Approaches to Scientific Futures Research"
     codes: ["FUTS9014"]
-    subjects: [154]
+    subjects: [82]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -17354,7 +17354,7 @@
   fields:
     name: "FUTUJ2 Futures Studies as a Tool for Long-term Strategic Planning"
     codes: ["FUTS9005"]
-    subjects: [154]
+    subjects: [82]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -17364,7 +17364,7 @@
   fields:
     name: "FUTUJ3 Directions in Futures Studies Methodology"
     codes: ["FUTS9006"]
-    subjects: [154]
+    subjects: [82]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -17374,7 +17374,7 @@
   fields:
     name: "FUTUJ4 Research Seminar"
     codes: ["FUTS9010"]
-    subjects: [154]
+    subjects: [82]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -17384,7 +17384,7 @@
   fields:
     name: "FUTUJ5 Futures Studies Literature"
     codes: ["FUTS9007"]
-    subjects: [154]
+    subjects: [82]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -17394,7 +17394,7 @@
   fields:
     name: "FUTUJ6 Summer School & Summer Conference"
     codes: ["FUTS9008"]
-    subjects: [154]
+    subjects: [82]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -17404,7 +17404,7 @@
   fields:
     name: "FUTUJ7 National Foresight in Finland and Other Countries"
     codes: ["FUTS9009"]
-    subjects: [154]
+    subjects: [82]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -17414,7 +17414,7 @@
   fields:
     name: "FUTUJ10 International Futures Research Conference Presentation"
     codes: ["FUTS9013"]
-    subjects: [154]
+    subjects: [82]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -17424,7 +17424,7 @@
   fields:
     name: "FUTUL Licenciate Thesis"
     codes: ["FUTU9002"]
-    subjects: [154]
+    subjects: [82]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -17434,7 +17434,7 @@
   fields:
     name: "FUTUV Doctoral Thesis"
     codes: ["FUTU9003"]
-    subjects: [154]
+    subjects: [82]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -17554,7 +17554,7 @@
   fields:
     name: "Kuullun ymmärtäminen, sanavaraston kehittäminen ja suulliset harjoitukset, V"
     codes: ["VEKI0700"]
-    subjects: [156]
+    subjects: [59]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -17564,7 +17564,7 @@
   fields:
     name: "Tekstin ymmärtäminen ja kirjalliset harjoitukset, P"
     codes: ["VEKI0701"]
-    subjects: [156]
+    subjects: [59]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -17584,7 +17584,7 @@
   fields:
     name: "Kielioppi, fonetiikka ja ääntämisharjoitukset, P"
     codes: ["VEKI0702"]
-    subjects: [156]
+    subjects: [59]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -17854,7 +17854,7 @@
   fields:
     name: "Suullinen ja kirjallinen esitys, P"
     codes: ["VEKI0923"]
-    subjects: [156]
+    subjects: [59]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -17904,7 +17904,7 @@
   fields:
     name: "Käännösharjoitukset suomi-venäjä, V"
     codes: ["VEKI0704"]
-    subjects: [156]
+    subjects: [59]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -17944,7 +17944,7 @@
   fields:
     name: "Morfologia ja sananmuodostus, P"
     codes: ["VEKI0705"]
-    subjects: [156]
+    subjects: [59]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -17964,7 +17964,7 @@
   fields:
     name: "Verbioppi, P"
     codes: ["VEKI0819"]
-    subjects: [156]
+    subjects: [59]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -17994,7 +17994,7 @@
   fields:
     name: "Ortografia kaksikielisille, V"
     codes: ["VEKI0706"]
-    subjects: [156]
+    subjects: [59]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -18054,7 +18054,7 @@
   fields:
     name: "Venäläisen kulttuurin muita kysymyksiä, V"
     codes: ["VEKI0925"]
-    subjects: [156]
+    subjects: [59]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -18094,7 +18094,7 @@
   fields:
     name: "Proseminaari ja kandidaatin tutkielma, venäjän kieli"
     codes: ["VEKI0928"]
-    subjects: [156]
+    subjects: [59]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -18574,7 +18574,7 @@
   fields:
     name: "KEKO1 Kestävän kehityksen integrointi ja hallinta"
     codes: ["KEKO9001"]
-    subjects: [165]
+    subjects: [367]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -18584,7 +18584,7 @@
   fields:
     name: "KEKO2 Erikoiskurssit: vapaavalintaiset opinnot"
     codes: ["KEKO9002"]
-    subjects: [165]
+    subjects: [367]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -26164,7 +26164,7 @@
   fields:
     name: "Solubiologian menetelmäopinnot"
     codes: ["FYGE4041"]
-    subjects: [11, 119]
+    subjects: [11, 122]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -26194,7 +26194,7 @@
   fields:
     name: "Tieteellisen tekstin tuottaminen ja suullinen viestintä"
     codes: ["VEKI0929"]
-    subjects: [156]
+    subjects: [59]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -26204,7 +26204,7 @@
   fields:
     name: "Syntaksi"
     codes: ["VEKI0825"]
-    subjects: [156]
+    subjects: [59]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -26214,7 +26214,7 @@
   fields:
     name: "Käännös suomi-venäjä"
     codes: ["VEKI1001"]
-    subjects: [156]
+    subjects: [59]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -26224,7 +26224,7 @@
   fields:
     name: "Käännös venäjä-suomi"
     codes: ["VEKI0935"]
-    subjects: [156]
+    subjects: [59]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -26234,7 +26234,7 @@
   fields:
     name: "Tutkielmaseminaari, venäjän kieli"
     codes: ["VEKI0873"]
-    subjects: [156]
+    subjects: [59]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -26244,7 +26244,7 @@
   fields:
     name: "Pro gradu -tutkielma, venäjän kieli"
     codes: ["VEKI0880"]
-    subjects: [156]
+    subjects: [59]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -26254,7 +26254,7 @@
   fields:
     name: "Venäjän kielen historia"
     codes: ["VEKI0784"]
-    subjects: [156]
+    subjects: [59]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -26264,7 +26264,7 @@
   fields:
     name: "Venäjän kielen tutkimus"
     codes: ["VEKI1002"]
-    subjects: [156]
+    subjects: [59]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -26274,7 +26274,7 @@
   fields:
     name: "Venäläinen kirjallisuus"
     codes: ["VEKI1005"]
-    subjects: [156]
+    subjects: [59]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -26284,7 +26284,7 @@
   fields:
     name: "Venäläinen kulttuuri ja yhteiskunta"
     codes: ["VEKI1008"]
-    subjects: [156]
+    subjects: [59]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -26294,7 +26294,7 @@
   fields:
     name: "Venäjän kielen opettaminen vieraana kielenä"
     codes: ["VEKI9803"]
-    subjects: [156]
+    subjects: [59]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -26304,7 +26304,7 @@
   fields:
     name: "Tutkimusprojektikurssi"
     codes: ["VEKI1012"]
-    subjects: [156]
+    subjects: [59]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -26314,7 +26314,7 @@
   fields:
     name: "Muu slaavilainen kieli"
     codes: ["VEKI0750"]
-    subjects: [156]
+    subjects: [59]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -28164,7 +28164,7 @@
   fields:
     name: "Study Skills & Personal Study Planning"
     codes: ["MGEN0004"]
-    subjects: [193]
+    subjects: [192]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -28174,7 +28174,7 @@
   fields:
     name: "Feminist Research Methods"
     codes: ["MGEN0005"]
-    subjects: [193]
+    subjects: [192]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -28184,7 +28184,7 @@
   fields:
     name: "Gendered and Sexualized Society"
     codes: ["MGEN0007"]
-    subjects: [193]
+    subjects: [192]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -28194,7 +28194,7 @@
   fields:
     name: "Feminist Theory"
     codes: ["MGEN0008"]
-    subjects: [193]
+    subjects: [192]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -28204,7 +28204,7 @@
   fields:
     name: "Feminist Methodology and Research Design"
     codes: ["MGEN0009"]
-    subjects: [193]
+    subjects: [192]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -28214,7 +28214,7 @@
   fields:
     name: "Feminist Politics"
     codes: ["MGEN0010"]
-    subjects: [193]
+    subjects: [192]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -28224,7 +28224,7 @@
   fields:
     name: "Studies in Gender Research"
     codes: ["MGEN0011"]
-    subjects: [193]
+    subjects: [192]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -28234,7 +28234,7 @@
   fields:
     name: "MA Seminar I, Master's Degree Programme in Gender Studies"
     codes: ["MGEN0012"]
-    subjects: [193]
+    subjects: [192]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -28244,7 +28244,7 @@
   fields:
     name: "MA Seminar II, Master's Degree Programme in Gender Studies"
     codes: ["MGEN0013"]
-    subjects: [193]
+    subjects: [192]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -28254,7 +28254,7 @@
   fields:
     name: "Master's Thesis, Master's Degree Programme in Gender Studies"
     codes: ["MGEN0014"]
-    subjects: [193]
+    subjects: [192]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -35874,7 +35874,7 @@
   fields:
     name: "Learning, Skill Acquisition and Development of Expertise"
     codes: ["EDUT5255"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -35904,7 +35904,7 @@
   fields:
     name: "Scientific Writing"
     codes: ["EDUT5257"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -35914,7 +35914,7 @@
   fields:
     name: "Introduction to Empirical Data Collection and Analyses"
     codes: ["EDUT5256"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -35924,7 +35924,7 @@
   fields:
     name: "Philosophical Inquiry of Issues in Education"
     codes: ["EDUT5258"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -35944,7 +35944,7 @@
   fields:
     name: "Methodology"
     codes: ["EDUT5259"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -35954,7 +35954,7 @@
   fields:
     name: "Data Analysis"
     codes: ["EDUT5242"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -35964,7 +35964,7 @@
   fields:
     name: "Learning Environments, Motivation and Learning Regulation"
     codes: ["EDUT5261"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -35974,7 +35974,7 @@
   fields:
     name: "Aspects of Sociology and Politics of Education"
     codes: ["EDUK5310"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -35984,7 +35984,7 @@
   fields:
     name: "Educational Equality and Justice"
     codes: ["EDUK5309"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -36004,7 +36004,7 @@
   fields:
     name: "Internship"
     codes: ["EDUT5262"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -36054,7 +36054,7 @@
   fields:
     name: "Internship at the Teacher Training School in Turku and at the Turku International School"
     codes: ["LUON1009"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -36064,7 +36064,7 @@
   fields:
     name: "Project Planning Stage"
     codes: ["EDUT5263"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -36074,7 +36074,7 @@
   fields:
     name: "Project Working Stage"
     codes: ["EDUT5264"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -36084,7 +36084,7 @@
   fields:
     name: "Project Finalization and Evaluation Stage"
     codes: ["EDUT5266"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -36094,7 +36094,7 @@
   fields:
     name: "Final Examination"
     codes: ["EDUT5212"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -36104,7 +36104,7 @@
   fields:
     name: "Education System in Finnish Society"
     codes: ["EDUK5311"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -36114,7 +36114,7 @@
   fields:
     name: "Learning Difficulties in Academic Settings"
     codes: ["EDUT5103"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -36124,7 +36124,7 @@
   fields:
     name: "Educational Leadership, Management and Administration"
     codes: ["EDUT5268"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -36134,7 +36134,7 @@
   fields:
     name: "Research Practicum"
     codes: ["EDUT5269"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -36184,7 +36184,7 @@
   fields:
     name: "Venäjän kirjallisuuden historia, V"
     codes: ["VEKI0743"]
-    subjects: [156]
+    subjects: [59]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -36194,7 +36194,7 @@
   fields:
     name: "Venäläinen kulttuuri, V"
     codes: ["VEKI0744"]
-    subjects: [156]
+    subjects: [59]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -36204,7 +36204,7 @@
   fields:
     name: "Venäjän kielen tutkimus ja kielitiede, V"
     codes: ["VEKI0745"]
-    subjects: [156]
+    subjects: [59]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -36294,7 +36294,7 @@
   fields:
     name: "Workplace Learning"
     codes: ["EDUT5270"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -36304,7 +36304,7 @@
   fields:
     name: "Methodology II"
     codes: ["EDUT5206"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -36314,7 +36314,7 @@
   fields:
     name: "Cultural Responsiveness, Diversity, and Inclusiveness"
     codes: ["EDUT5250"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -36334,7 +36334,7 @@
   fields:
     name: "Culturally and Linguistivally Responsive Teaching"
     codes: ["EDUT5251"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -36344,7 +36344,7 @@
   fields:
     name: "School Choice Policy"
     codes: ["ÖKTL_XXXX"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -36354,7 +36354,7 @@
   fields:
     name: "Cognitive Approaches to Learning"
     codes: ["EDUT5254"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -36364,7 +36364,7 @@
   fields:
     name: "School Experience"
     codes: ["LUON1006"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -36384,7 +36384,7 @@
   fields:
     name: "Data Analysis"
     codes: ["EDUK5308"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -36394,7 +36394,7 @@
   fields:
     name: "Evaluation and effectiveness of educational organisations"
     codes: ["EDUK5207"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -36434,7 +36434,7 @@
   fields:
     name: "Project Phase II"
     codes: ["EDUK5306"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -36464,7 +36464,7 @@
   fields:
     name: "Basics of Instructional Design"
     codes: ["EDUK5305"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -37444,7 +37444,7 @@
   fields:
     name: "Välimerkkien funktiot tekstissä"
     codes: ["VEKI0749"]
-    subjects: [156]
+    subjects: [59]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -37454,7 +37454,7 @@
   fields:
     name: "Muut Venäjällä puhuttavat kielet"
     codes: ["VEKI0756"]
-    subjects: [156]
+    subjects: [59]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -37464,7 +37464,7 @@
   fields:
     name: "Venäläinen elokuva"
     codes: ["VEKI0757"]
-    subjects: [156]
+    subjects: [59]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -37474,7 +37474,7 @@
   fields:
     name: "Venäläinen kertomusperinne"
     codes: ["VEKI0758"]
-    subjects: [156]
+    subjects: [59]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -37484,7 +37484,7 @@
   fields:
     name: "Naisen asema Venäjällä"
     codes: ["VEKI0759"]
-    subjects: [156]
+    subjects: [59]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -37494,7 +37494,7 @@
   fields:
     name: "Venäläisen lapsuuden kulttuurihistoria"
     codes: ["VEKI0760"]
-    subjects: [156]
+    subjects: [59]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -37504,7 +37504,7 @@
   fields:
     name: "1800-luvun kirjallisuuden klassikot"
     codes: ["VEKI0761"]
-    subjects: [156]
+    subjects: [59]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -37514,7 +37514,7 @@
   fields:
     name: "Venäjän nykykirjallisuus"
     codes: ["VEKI0762"]
-    subjects: [156]
+    subjects: [59]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -37524,7 +37524,7 @@
   fields:
     name: "Venäläisen kirjallisuuden tutkimuksen suuntauksia"
     codes: ["VEKI0763"]
-    subjects: [156]
+    subjects: [59]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -37534,7 +37534,7 @@
   fields:
     name: "Venäläinen lastenkirjallisuus"
     codes: ["VEKI0764"]
-    subjects: [156]
+    subjects: [59]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -37544,7 +37544,7 @@
   fields:
     name: "Kognitiivisia näkökulmia venäjän kielen tutkimukseen"
     codes: ["VEKI0765"]
-    subjects: [156]
+    subjects: [59]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -37554,7 +37554,7 @@
   fields:
     name: "Venäjän kieli lingua francana"
     codes: ["VEKI0766"]
-    subjects: [156]
+    subjects: [59]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -37564,7 +37564,7 @@
   fields:
     name: "Venäjän kieli tänään"
     codes: ["VEKI0767"]
-    subjects: [156]
+    subjects: [59]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -37574,7 +37574,7 @@
   fields:
     name: "Slaavilaiset kansat ja kulttuurit"
     codes: ["VEKI0768"]
-    subjects: [156]
+    subjects: [59]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -37914,7 +37914,7 @@
   fields:
     name: "Model Organisms in Biological Research"
     codes: ["ÅA__2835"]
-    subjects: [11, 119]
+    subjects: [11, 122]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -38094,7 +38094,7 @@
   fields:
     name: "Ryhmän ohjaamisen perusteet"
     codes: ["PSYK3475"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -38104,7 +38104,7 @@
   fields:
     name: "Psykologinen arviointi"
     codes: ["PSYK3412"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -38114,7 +38114,7 @@
   fields:
     name: "Moniammatillinen klinikkaopetus: Klinikkakurssi I"
     codes: ["PSYK3286"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -38124,7 +38124,7 @@
   fields:
     name: "Moniammatillinen klinikkaopetus: Klinikkakurssi II"
     codes: ["PSYK3413"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -38134,7 +38134,7 @@
   fields:
     name: "Psykoterapian perusteet"
     codes: ["PSYK3414"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -38144,7 +38144,7 @@
   fields:
     name: "Tutkimusaineiston analyysi"
     codes: ["PSYK4110"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -38904,7 +38904,7 @@
   fields:
     name: "Food Development"
     codes: ["DEKE0100"]
-    subjects: [213]
+    subjects: [152]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -38914,7 +38914,7 @@
   fields:
     name: "Functional Foods"
     codes: ["DEKE0101"]
-    subjects: [213]
+    subjects: [152]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -38934,7 +38934,7 @@
   fields:
     name: "Food Product Safety"
     codes: ["DEKE0102"]
-    subjects: [213]
+    subjects: [152]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -38944,7 +38944,7 @@
   fields:
     name: "Sensory Evaluation of Food"
     codes: ["DEKE0103"]
-    subjects: [213]
+    subjects: [152]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -38954,7 +38954,7 @@
   fields:
     name: "Introductory Laboratory Course in Food Sciences"
     codes: ["DEKE0104"]
-    subjects: [210, 213]
+    subjects: [210, 152]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -38984,7 +38984,7 @@
   fields:
     name: "Advanced Laboratory Exercises in Food Development"
     codes: ["DEKE0105"]
-    subjects: [213]
+    subjects: [152]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -39004,7 +39004,7 @@
   fields:
     name: "Career Prospects in Food Sciences"
     codes: ["DEKE0107"]
-    subjects: [213]
+    subjects: [152]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -39014,7 +39014,7 @@
   fields:
     name: "Applied Multivariate Methods in Food Sciences"
     codes: ["DEKE0108"]
-    subjects: [213]
+    subjects: [152]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -39024,7 +39024,7 @@
   fields:
     name: "Trainee Period in Food Sciences"
     codes: ["DEKE0109"]
-    subjects: [213]
+    subjects: [152]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -39044,7 +39044,7 @@
   fields:
     name: "Working in Research Project of Food Development"
     codes: ["DEKE0111"]
-    subjects: [213]
+    subjects: [152]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -39054,7 +39054,7 @@
   fields:
     name: "Master's Thesis in Technology, Food Development"
     codes: ["DEKE0122"]
-    subjects: [213]
+    subjects: [152]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -39064,7 +39064,7 @@
   fields:
     name: "Master's Thesis Seminar, Food Development"
     codes: ["DEKE0121"]
-    subjects: [213]
+    subjects: [152]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -40794,7 +40794,7 @@
   fields:
     name: "Lastenneuropsykologiset ja kommunikatiiviset häiriöt"
     codes: ["LOGO2176"]
-    subjects: [9]
+    subjects: [263]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -40814,7 +40814,7 @@
   fields:
     name: "Kehitykselliset häiriöt ja niiden logopedinen arviointi"
     codes: ["LOGO2158"]
-    subjects: [9]
+    subjects: [263]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -40824,7 +40824,7 @@
   fields:
     name: "Kehityksellisten häiriöiden logopedinen kuntoutus"
     codes: ["LOGO2159"]
-    subjects: [9]
+    subjects: [263]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -40834,7 +40834,7 @@
   fields:
     name: "Kliininen aikuisneuropsykologia: neurokognitiiviset taustatekijät ja kuntoutus"
     codes: ["LOGO2177"]
-    subjects: [9]
+    subjects: [263]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -40844,7 +40844,7 @@
   fields:
     name: "Hankittujen häiriöiden logopedinen arviointi"
     codes: ["LOGO2162"]
-    subjects: [9]
+    subjects: [263]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -40864,7 +40864,7 @@
   fields:
     name: "Hankittujen häiriöiden logopedinen kuntoutus"
     codes: ["LOGO2163"]
-    subjects: [9]
+    subjects: [263]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -40874,7 +40874,7 @@
   fields:
     name: "Äänihäiriöt"
     codes: ["LOGO2130"]
-    subjects: [9]
+    subjects: [263]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -40884,7 +40884,7 @@
   fields:
     name: "Puhetta tukevat ja korvaavat keinot kommunikoinnissa"
     codes: ["LOGO2115"]
-    subjects: [9]
+    subjects: [263]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -40904,7 +40904,7 @@
   fields:
     name: "Ammattikäytänteet ja kliiniset taidot logopediassa A"
     codes: ["LOGO2168"]
-    subjects: [9]
+    subjects: [263]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -40924,7 +40924,7 @@
   fields:
     name: "Ammattikäytänteet ja kliiniset taidot logopediassa B"
     codes: ["LOGO2169"]
-    subjects: [9]
+    subjects: [263]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -40934,7 +40934,7 @@
   fields:
     name: "Logopedian kliininen jakso A"
     codes: ["LOGO2178"]
-    subjects: [9]
+    subjects: [263]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -40944,7 +40944,7 @@
   fields:
     name: "Logopedian kliininen jakso B"
     codes: ["LOGO2179"]
-    subjects: [9]
+    subjects: [263]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -40954,7 +40954,7 @@
   fields:
     name: "Logopedian kliininen jakso C"
     codes: ["LOGO2180"]
-    subjects: [9]
+    subjects: [263]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -41004,7 +41004,7 @@
   fields:
     name: "Kandidaatintutkielmaseminaari"
     codes: ["LOGO2335"]
-    subjects: [9]
+    subjects: [263]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -41014,7 +41014,7 @@
   fields:
     name: "Kandidaatintutkielma"
     codes: ["LOGO2333"]
-    subjects: [9]
+    subjects: [263]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -41604,7 +41604,7 @@
   fields:
     name: "Orientaatio psykologian opintoihin, osa 1: Psykologian opinnot"
     codes: ["PSYK3098"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -41614,7 +41614,7 @@
   fields:
     name: "Orientaatio psykologian opintoihin, osa 2: HOPS"
     codes: ["PSYK3099"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -41624,7 +41624,7 @@
   fields:
     name: "Efektikoot, luottamusvälit ja meta-analyysi"
     codes: ["PSYK4106"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -41634,7 +41634,7 @@
   fields:
     name: "Kokeellinen tutkimus"
     codes: ["PSYK3317"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -41644,7 +41644,7 @@
   fields:
     name: "Kokeellisen tutkimuksen tilastolliset menetelmät"
     codes: ["PSYK4107"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -41654,7 +41654,7 @@
   fields:
     name: "Psykometriikka"
     codes: ["PSYK3392"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -41664,7 +41664,7 @@
   fields:
     name: "Varhaiset suhteet lapsen kehityskontekstina: teoriat, interventiot ja arviointi"
     codes: ["PSYK8953"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -41674,7 +41674,7 @@
   fields:
     name: "Consciousness and Brain"
     codes: ["PSYK8951"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -41684,7 +41684,7 @@
   fields:
     name: "Affective Neuroscience"
     codes: ["PSYK8959"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -41694,7 +41694,7 @@
   fields:
     name: "Emotions"
     codes: ["PSYK4111"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -41704,7 +41704,7 @@
   fields:
     name: "Introduction to Bilingualism"
     codes: ["PSYK3476"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -41714,7 +41714,7 @@
   fields:
     name: "Forensic Psychological Assessment I"
     codes: ["PSYK8955"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -41724,7 +41724,7 @@
   fields:
     name: "Forensic Psychological Assessment II"
     codes: ["PSYK8956"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -41734,7 +41734,7 @@
   fields:
     name: "MONELLE - Moniammatillinen osaaminen potilaan hoidossa ja kuntoutuksessa"
     codes: ["PSYK4113"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -41744,7 +41744,7 @@
   fields:
     name: "Psykologi ja yhteiskunta"
     codes: ["PSYK4112"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -41754,7 +41754,7 @@
   fields:
     name: "Lasten ja aikuisten kriisit ja traumat"
     codes: ["PSYK4118"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -41764,7 +41764,7 @@
   fields:
     name: "Sexology"
     codes: ["PSYK4114"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -41774,7 +41774,7 @@
   fields:
     name: "Tutkimus- tai opetusharjoittelu"
     codes: ["PSYK4115"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -41914,7 +41914,7 @@
   fields:
     name: "Multicultural Education"
     codes: ["EDUT5271"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -42044,7 +42044,7 @@
   fields:
     name: "Psykologian pro gradu -tutkielma"
     codes: ["PSYK3428"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -42054,7 +42054,7 @@
   fields:
     name: "Orientoituminen psykologin työhön"
     codes: ["PSYK3462"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -42064,7 +42064,7 @@
   fields:
     name: "Psykologian työharjoittelu"
     codes: ["PSYK3431"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -42454,7 +42454,7 @@
   fields:
     name: "Tieteeseen perustuva logopedia"
     codes: ["LOGO2325"]
-    subjects: [9]
+    subjects: [263]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -42464,7 +42464,7 @@
   fields:
     name: "Tilastollisten menetelmien perusteet, alkutentti"
     codes: ["LOGO2165"]
-    subjects: [9]
+    subjects: [263]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -42474,7 +42474,7 @@
   fields:
     name: "Psykometriikka"
     codes: ["LOGO2167"]
-    subjects: [9]
+    subjects: [263]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -42484,7 +42484,7 @@
   fields:
     name: "Foniatria, ortodontia ja audiologia"
     codes: ["LOGO4112"]
-    subjects: [9]
+    subjects: [263]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -42524,7 +42524,7 @@
   fields:
     name: "Erityiskysymykset 1-3"
     codes: ["LOGO0102"]
-    subjects: [9]
+    subjects: [263]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -42594,7 +42594,7 @@
   fields:
     name: "Logopedian syventävä kirjallinen kuulustelu: kehitykselliset häiriöt"
     codes: ["LOGO3304"]
-    subjects: [9]
+    subjects: [263]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -42604,7 +42604,7 @@
   fields:
     name: "Ammatillinen kasvu ja työnohjaus"
     codes: ["LOGO3305"]
-    subjects: [9]
+    subjects: [263]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -42614,7 +42614,7 @@
   fields:
     name: "Moniammatillinen klinikkakurssi I / Moniammatillinen klinikkakurssi II"
     codes: ["LOGO3306"]
-    subjects: [9]
+    subjects: [263]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -42674,7 +42674,7 @@
   fields:
     name: "Logopedian kliininen harjoittelu"
     codes: ["LOGO3307"]
-    subjects: [9]
+    subjects: [263]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -42684,7 +42684,7 @@
   fields:
     name: "Valinnaiset metodiopinnot"
     codes: ["LOGO3308"]
-    subjects: [9]
+    subjects: [263]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -42714,7 +42714,7 @@
   fields:
     name: "Logopedian tutkielmaseminaari"
     codes: ["LOGO3309"]
-    subjects: [9]
+    subjects: [263]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -43214,7 +43214,7 @@
   fields:
     name: "Monelle - Moniammatillinen osaaminen potilaan hoidossa ja kuntoutuksessa"
     codes: ["LOGO3116"]
-    subjects: [9]
+    subjects: [263]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -43344,7 +43344,7 @@
   fields:
     name: "Special Topics in Food Sciences"
     codes: ["DEKE0112"]
-    subjects: [213]
+    subjects: [152]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -43354,7 +43354,7 @@
   fields:
     name: "Introduction to Master's Thesis in Technology, Food Development"
     codes: ["DEKE0120"]
-    subjects: [213]
+    subjects: [152]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -44244,7 +44244,7 @@
   fields:
     name: "A.2.4. Kliininen aikuisneuropsykologia: neurokognitiiviset taustatekijät ja kuntoutus"
     codes: ["PSYK"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -44674,7 +44674,7 @@
   fields:
     name: "School Choice Policy"
     codes: ["KTL_0048"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -44734,7 +44734,7 @@
   fields:
     name: "Tutkimusprojektiin osallistuminen"
     codes: ["LOGO3708"]
-    subjects: [9]
+    subjects: [263]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -44744,7 +44744,7 @@
   fields:
     name: "Konferenssiesityksen pitäminen"
     codes: ["LOGO3310"]
-    subjects: [9]
+    subjects: [263]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -44754,7 +44754,7 @@
   fields:
     name: "Asiantuntijuusopinnot"
     codes: ["LOGO4211"]
-    subjects: [9]
+    subjects: [263]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -44764,7 +44764,7 @@
   fields:
     name: "Opintopassi"
     codes: ["LOGO3311"]
-    subjects: [9]
+    subjects: [263]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -44864,7 +44864,7 @@
   fields:
     name: "Kokeellisen tutkimuksen tilastolliset menetelmät"
     codes: ["LOGO3313"]
-    subjects: [9]
+    subjects: [263]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -44874,7 +44874,7 @@
   fields:
     name: "Kokeellinen tutkimus"
     codes: ["LOGO3312"]
-    subjects: [9]
+    subjects: [263]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -45074,7 +45074,7 @@
   fields:
     name: "Henkilökohtainen opintosuunnitelma"
     codes: ["LOGO4111"]
-    subjects: [9]
+    subjects: [263]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -45234,7 +45234,7 @@
   fields:
     name: "Final Exam in Food Development"
     codes: ["DEKE0113"]
-    subjects: [213]
+    subjects: [152]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -46604,7 +46604,7 @@
   fields:
     name: "Kliininen aikuisneuropsykologia: neurokognitiiviset taustatekijät ja kuntoutus"
     codes: ["PSYK4119"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -46614,7 +46614,7 @@
   fields:
     name: "Lastenneuropsykologiset ja kommunikatiiviset häiriöt"
     codes: ["PSYK4120"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -46644,7 +46644,7 @@
   fields:
     name: "Lisensiaatintutkimus Molekulaarinen biotekniikka ja diagnostiikka"
     codes: ["BTEM9998"]
-    subjects: [225]
+    subjects: [206]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -46704,7 +46704,7 @@
   fields:
     name: "Lisensiaatintutkimus Tähtitiede"
     codes: ["TÄHT9998"]
-    subjects: [226]
+    subjects: [151]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -47064,7 +47064,7 @@
   fields:
     name: "Mindfulness-psykologia"
     codes: ["PSYK4121"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -47364,7 +47364,7 @@
   fields:
     name: "Psykologian orientoiva harjoittelu"
     codes: ["PSYK3234"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -47374,7 +47374,7 @@
   fields:
     name: "Psyykkiset häiriöt (sivuaineopiskelijoille)"
     codes: ["PSYK4122"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -47474,7 +47474,7 @@
   fields:
     name: "Varhainen kehitys ja perhesuhteet"
     codes: ["PSYK4123"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -47484,7 +47484,7 @@
   fields:
     name: "Projektiässät - projektinhallintaosaamisen valmennus"
     codes: ["LOGO3314"]
-    subjects: [9]
+    subjects: [263]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -47624,7 +47624,7 @@
   fields:
     name: "Psykologian erikoiskurssi 1: Kertomusten potentiaali lukupiireissä"
     codes: ["PSYK3133"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -47634,7 +47634,7 @@
   fields:
     name: "Psykologian erikoiskurssi 2: Nudge: Psykologisen tiedon hyödyntäminen valintatilateiden suunnittelussa"
     codes: ["PSYK3135"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -47644,7 +47644,7 @@
   fields:
     name: "Sexologi"
     codes: ["PSYK4124"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -47894,7 +47894,7 @@
   fields:
     name: "Psykologisen tutkimuksen perusteet"
     codes: ["PSYK3494"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -48144,7 +48144,7 @@
   fields:
     name: "DPMLS Väitöskirja, Elintarvikekehitys"
     codes: ["DEKE9999"]
-    subjects: [213]
+    subjects: [152]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -48514,7 +48514,7 @@
   fields:
     name: "Biological Psychology"
     codes: ["PSYK4125"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -48524,7 +48524,7 @@
   fields:
     name: "Palveluiden yhteensovittaminen ja monialaisuus sosiaali- ja terveysaloilla"
     codes: ["YTDK6010"]
-    subjects: [56, 61]
+    subjects: [272, 61]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -48544,7 +48544,7 @@
   fields:
     name: "Pro gradu -tutkielma (Filosofian maisteri)"
     codes: ["PSYK3050"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -48954,7 +48954,7 @@
   fields:
     name: "Puhetaito, venäjän kieli"
     codes: ["VEKI0874"]
-    subjects: [156]
+    subjects: [59]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -48974,7 +48974,7 @@
   fields:
     name: "Sivuaineen tutkielma, venäjän kieli"
     codes: ["VEKI0930"]
-    subjects: [156]
+    subjects: [59]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -49024,7 +49024,7 @@
   fields:
     name: "Logopedian syventävä kirjallinen kuulustelu: hankitut häiriöt"
     codes: ["LOGO3315"]
-    subjects: [9]
+    subjects: [263]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -49564,7 +49564,7 @@
   fields:
     name: "Logopedian erityiskysymyksiä 2"
     codes: ["LOGO3102"]
-    subjects: [9]
+    subjects: [263]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -49574,7 +49574,7 @@
   fields:
     name: "Logopedian erityiskysymyksiä 3: Language impairment and multilingualism"
     codes: ["LOGO3103"]
-    subjects: [9]
+    subjects: [263]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -50404,7 +50404,7 @@
   fields:
     name: "Muut opinnot 1"
     codes: ["LOGO1145"]
-    subjects: [9]
+    subjects: [263]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -50414,7 +50414,7 @@
   fields:
     name: "Muut opinnot 2"
     codes: ["LOGO1146"]
-    subjects: [9]
+    subjects: [263]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -50424,7 +50424,7 @@
   fields:
     name: "Muut opinnot 3"
     codes: ["LOGO1147"]
-    subjects: [9]
+    subjects: [263]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -50614,7 +50614,7 @@
   fields:
     name: "Kognitiivisen psykoterapian perusteet"
     codes: ["PSAY0001"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -50624,7 +50624,7 @@
   fields:
     name: "Yksilönkehitys- ja vuorovaikutusnäkökulma"
     codes: ["PSAY0002"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -50634,7 +50634,7 @@
   fields:
     name: "Kognitiivisen psykoterapian integroivat mallit"
     codes: ["PSAY0003"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -50644,7 +50644,7 @@
   fields:
     name: "Kognitiivinen psykoterapia vaikeissa häiriöissä"
     codes: ["PSAY0004"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -50654,7 +50654,7 @@
   fields:
     name: "Psykoterapiatutkimus ja psykoterapeutin ammatti-indentiteetti"
     codes: ["PSAY0005"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -50664,7 +50664,7 @@
   fields:
     name: "Opinnäytetyö"
     codes: ["PSAY0006"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -50674,7 +50674,7 @@
   fields:
     name: "Työnohjaus"
     codes: ["PSAY0007"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -50684,7 +50684,7 @@
   fields:
     name: "Yksilö- ja ryhmäkoulutuspsykoterapia"
     codes: ["PSAY0008"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -50894,7 +50894,7 @@
   fields:
     name: "Kertomusten potentiaali lukupiireissä"
     codes: ["PSYK"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -50914,7 +50914,7 @@
   fields:
     name: "Lecture and seminar pass"
     codes: ["EDUT5273"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -50924,7 +50924,7 @@
   fields:
     name: "Courses Completed Abroad 1"
     codes: ["DEKE0301"]
-    subjects: [213]
+    subjects: [152]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -50934,7 +50934,7 @@
   fields:
     name: "Courses Completed Abroad 2"
     codes: ["DEKE0302"]
-    subjects: [213]
+    subjects: [152]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -50944,7 +50944,7 @@
   fields:
     name: "Courses Completed Abroad 3"
     codes: ["DEKE0303"]
-    subjects: [213]
+    subjects: [152]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -50954,7 +50954,7 @@
   fields:
     name: "Courses Completed Abroad 4"
     codes: ["DEKE0304"]
-    subjects: [213]
+    subjects: [152]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -50964,7 +50964,7 @@
   fields:
     name: "Courses Completed Abroad 5"
     codes: ["DEKE0305"]
-    subjects: [213]
+    subjects: [152]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -50974,7 +50974,7 @@
   fields:
     name: "Courses Completed Abroad 6"
     codes: ["DEKE0306"]
-    subjects: [213]
+    subjects: [152]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -50984,7 +50984,7 @@
   fields:
     name: "Courses Completed Abroad 7"
     codes: ["DEKE0307"]
-    subjects: [213]
+    subjects: [152]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -50994,7 +50994,7 @@
   fields:
     name: "Courses Completed Abroad 8"
     codes: ["DEKE0308"]
-    subjects: [213]
+    subjects: [152]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -51004,7 +51004,7 @@
   fields:
     name: "Courses Completed Abroad 9"
     codes: ["DEKE0309"]
-    subjects: [213]
+    subjects: [152]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -51474,7 +51474,7 @@
   fields:
     name: "Erikoiskurssi 3: Kulttuuri ja mielenterveys"
     codes: ["PSYK3278"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -51514,7 +51514,7 @@
   fields:
     name: "Teksti ja kuva"
     codes: ["VEKI0600"]
-    subjects: [156]
+    subjects: [59]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -51524,7 +51524,7 @@
   fields:
     name: "1900-luvun kirjallisuus"
     codes: ["VEKI0601"]
-    subjects: [156]
+    subjects: [59]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -51534,7 +51534,7 @@
   fields:
     name: "Venäjän kielen käyttäminen Internetissä"
     codes: ["VEKI0602"]
-    subjects: [156]
+    subjects: [59]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -51824,7 +51824,7 @@
   fields:
     name: "Ryska skriftkulturens utveckling"
     codes: ["ÅA__0613"]
-    subjects: [156]
+    subjects: [59]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -51834,7 +51834,7 @@
   fields:
     name: "Massmediaspråk"
     codes: ["ÅA__9501"]
-    subjects: [156]
+    subjects: [59]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -51994,7 +51994,7 @@
   fields:
     name: "Recombinant Antibody Technologies Seminar"
     codes: ["BTEK1049"]
-    subjects: [225]
+    subjects: [206]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -55664,7 +55664,7 @@
   fields:
     name: "Asiantuntijuusopinnot 2"
     codes: ["LOGO4212"]
-    subjects: [9]
+    subjects: [263]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -58724,7 +58724,7 @@
   fields:
     name: "Monelle – Moniammatillinen osaaminen hoidossa, kuntoutuksessa ja opetuksessa"
     codes: ["SOTE0006"]
-    subjects: [9, 21, 46, 56, 61, 109, 131]
+    subjects: [263, 21, 46, 272, 61, 109, 131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -58744,7 +58744,7 @@
   fields:
     name: "Introduction to University Studies"
     codes: ["ROKL7101"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -59244,7 +59244,7 @@
   fields:
     name: "Student at University"
     codes: ["ROKL7102"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -59254,7 +59254,7 @@
   fields:
     name: "Introduction to Information Technology"
     codes: ["ROKL7103"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -59264,7 +59264,7 @@
   fields:
     name: "Digital Learning and Teaching and Media Education"
     codes: ["ROKL7104"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -59274,7 +59274,7 @@
   fields:
     name: "Multilingualism and Multiculturalism in Education"
     codes: ["ROKL7105"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -59284,7 +59284,7 @@
   fields:
     name: "Introduction to Educational Science"
     codes: ["ROKL7201"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -59294,7 +59294,7 @@
   fields:
     name: "Sociology of Education"
     codes: ["ROKL7202"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -59304,7 +59304,7 @@
   fields:
     name: "Developmental and Educational Psychology"
     codes: ["ROKL7203"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -59314,7 +59314,7 @@
   fields:
     name: "Basics in Didactics"
     codes: ["ROKL7204"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -59324,7 +59324,7 @@
   fields:
     name: "Flourishing and Healthy Learning Communities"
     codes: ["ROKL7205"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -59334,7 +59334,7 @@
   fields:
     name: "Orientation to Teaching Practice in Basic Education"
     codes: ["ROKL7301"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -59344,7 +59344,7 @@
   fields:
     name: "Didactic Teaching Practice in Basic Education"
     codes: ["ROKL7302"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -59354,7 +59354,7 @@
   fields:
     name: "Learning and Pedagogical Support"
     codes: ["ROKL7303"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -59364,7 +59364,7 @@
   fields:
     name: "Research Workshop I"
     codes: ["ROKL7304"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -59374,7 +59374,7 @@
   fields:
     name: "Research Workshop II"
     codes: ["ROKL7305"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -59384,7 +59384,7 @@
   fields:
     name: "Bachelor's Thesis"
     codes: ["ROKL7306"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -59394,7 +59394,7 @@
   fields:
     name: "Introduction to Multidisciplinary Teaching and Learning"
     codes: ["ROKL7601"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -59404,7 +59404,7 @@
   fields:
     name: "Mother Tongue and Literature. Part 1. Developing Language Awareness"
     codes: ["ROKL7602"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -59414,7 +59414,7 @@
   fields:
     name: "Mother Tongue and Literature. Part 2. Becoming a Reader"
     codes: ["ROKL7603"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -59424,7 +59424,7 @@
   fields:
     name: "Pedagogy of Languages and Language Acquisition"
     codes: ["ROKL7604"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -59434,7 +59434,7 @@
   fields:
     name: "Mathematics 1"
     codes: ["ROKL7605"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -59444,7 +59444,7 @@
   fields:
     name: "Mathematics 2"
     codes: ["ROKL7606"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -59454,7 +59454,7 @@
   fields:
     name: "History and Social Studies"
     codes: ["ROKL7607"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -59464,7 +59464,7 @@
   fields:
     name: "Religion"
     codes: ["ROKL7608"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -59474,7 +59474,7 @@
   fields:
     name: "Geography"
     codes: ["ROKL7609"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -59484,7 +59484,7 @@
   fields:
     name: "Biology and Health Education"
     codes: ["ROKL7610"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -59494,7 +59494,7 @@
   fields:
     name: "Physics and Chemistry"
     codes: ["ROKL7611"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -59504,7 +59504,7 @@
   fields:
     name: "Visual Arts 2"
     codes: ["ROKL7613"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -59514,7 +59514,7 @@
   fields:
     name: "Visual Arts 1"
     codes: ["ROKL7612"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -59524,7 +59524,7 @@
   fields:
     name: "Craft, Design and Technology in Primary Education"
     codes: ["ROKL7614"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -59534,7 +59534,7 @@
   fields:
     name: "Music 1"
     codes: ["ROKL7615"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -59544,7 +59544,7 @@
   fields:
     name: "Music 2"
     codes: ["ROKL7616"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -59554,7 +59554,7 @@
   fields:
     name: "Physical Education 1"
     codes: ["ROKL7617"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -59564,7 +59564,7 @@
   fields:
     name: "Physical Education 2"
     codes: ["ROKL7618"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -59574,7 +59574,7 @@
   fields:
     name: "Multidisciplinary Competence and Learning Module"
     codes: ["ROKL7619"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -59624,7 +59624,7 @@
   fields:
     name: "Language Development, Pedagogical Interaction and Stories"
     codes: ["ROKL7712"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -60534,7 +60534,7 @@
   fields:
     name: "Teaching as the Learning Profession"
     codes: ["EDUT5274"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -61034,7 +61034,7 @@
   fields:
     name: "Theories of Learning: Cognitive and Socio-Cultural Perspectives"
     codes: ["EDUT6001"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -61434,7 +61434,7 @@
   fields:
     name: "Logopedian kliininen jakso A"
     codes: ["LOGO2181"]
-    subjects: [9]
+    subjects: [263]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -61564,7 +61564,7 @@
   fields:
     name: "Ammattikäytänteet ja kliiniset taidot logopediassa"
     codes: ["LOGO2182"]
-    subjects: [9]
+    subjects: [263]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -61634,7 +61634,7 @@
   fields:
     name: "Vuorovaikutustaidot asiakastyössä"
     codes: ["LOGO3316"]
-    subjects: [9]
+    subjects: [263]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -61904,7 +61904,7 @@
   fields:
     name: "Orientaatio psykologian opintoihin"
     codes: ["PSYK8100"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -61944,7 +61944,7 @@
   fields:
     name: "Kehityspsykologia II"
     codes: ["PSYK8101"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -61954,7 +61954,7 @@
   fields:
     name: "Psykologian historia"
     codes: ["PSYK8102"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -62154,7 +62154,7 @@
   fields:
     name: "Mentalisaatio mielenterveystyössä"
     codes: ["PSYK8103"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -62194,7 +62194,7 @@
   fields:
     name: "Lyhytterapeuttinen työote"
     codes: ["PSYK8104"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -62224,7 +62224,7 @@
   fields:
     name: "Reading Shapes the Human Mind: from Pleasures of Literary Texts to Fake News"
     codes: ["PSYK8105"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -63894,7 +63894,7 @@
   fields:
     name: "Interventiokurssi"
     codes: ["PSYK8106"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -64294,7 +64294,7 @@
   fields:
     name: "Sustainable.now Kestävän kehityksen peruskurssi"
     codes: ["XXXXXXXX"]
-    subjects: [165]
+    subjects: [367]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -64634,7 +64634,7 @@
   fields:
     name: "Study Skills & Personal Study Planning"
     codes: ["MGEN0015"]
-    subjects: [193]
+    subjects: [192]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -64644,7 +64644,7 @@
   fields:
     name: "Feminist Research Methods"
     codes: ["MGEN0016"]
-    subjects: [193]
+    subjects: [192]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -65204,7 +65204,7 @@
   fields:
     name: "Inquiry of Issues in Education"
     codes: ["EDUT6002"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -65214,7 +65214,7 @@
   fields:
     name: "Qualitative Data Analysis"
     codes: ["EDUT5275"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -65234,7 +65234,7 @@
   fields:
     name: "Quantitative Data Analysis"
     codes: ["EDUT5276"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -65254,7 +65254,7 @@
   fields:
     name: "Thesis Planning"
     codes: ["EDUT5277"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -65264,7 +65264,7 @@
   fields:
     name: "Thesis Research I"
     codes: ["EDUT5278"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -65284,7 +65284,7 @@
   fields:
     name: "Thesis Finalization"
     codes: ["EDUT5280"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -65294,7 +65294,7 @@
   fields:
     name: "Thesis Research II"
     codes: ["EDUT5279"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -65324,7 +65324,7 @@
   fields:
     name: "Basic Statistics"
     codes: ["EDUT5281"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -65384,7 +65384,7 @@
   fields:
     name: "Educational Psychology"
     codes: ["EDUT5282"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -65494,7 +65494,7 @@
   fields:
     name: "Ammatillinen kasvu"
     codes: ["LOGO3317"]
-    subjects: [9]
+    subjects: [263]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -65604,7 +65604,7 @@
   fields:
     name: "Learning Difficulties"
     codes: ["EDUT5283"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -66484,7 +66484,7 @@
   fields:
     name: "Työterveyspsykologia"
     codes: ["PSYK8107"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -66494,7 +66494,7 @@
   fields:
     name: "Uni, terveys ja yhteiskunta"
     codes: ["PSYK8108"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -66514,7 +66514,7 @@
   fields:
     name: "Adult Clinical Neuropsychology: Neurocognitive Mechanisms and Rehabilitation"
     codes: ["PSYK8109"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -66524,7 +66524,7 @@
   fields:
     name: "Adult Clinical Neuropsychology: Neurocognitive Mechanisms and Rehabilitation"
     codes: ["LOGO2183"]
-    subjects: [9]
+    subjects: [263]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -66544,7 +66544,7 @@
   fields:
     name: "Understanding Aphasia Research Improves Evidence-Based Practice"
     codes: ["LOGO3318"]
-    subjects: [9]
+    subjects: [263]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -66574,7 +66574,7 @@
   fields:
     name: "Pahan psykologia"
     codes: ["PSYK8110"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -66654,7 +66654,7 @@
   fields:
     name: "Cognitive Psychology"
     codes: ["PSYK8111"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -66684,7 +66684,7 @@
   fields:
     name: "Recombinant Antibody Technologies"
     codes: ["MBID0024"]
-    subjects: [225]
+    subjects: [206]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -66694,7 +66694,7 @@
   fields:
     name: "Affective Neuroscience"
     codes: ["PSYK8112"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -66714,7 +66714,7 @@
   fields:
     name: "Introduction to Finnish Educational System"
     codes: ["ROKL7106"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -66784,7 +66784,7 @@
   fields:
     name: "Kulttuuri ja mielenterveys"
     codes: ["PSYK8113"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -66804,7 +66804,7 @@
   fields:
     name: "Psychology of Language"
     codes: ["LOGO3319"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -66814,7 +66814,7 @@
   fields:
     name: "Adult Clinical Neuropsychology: Neurocognitive Mechanisms and Rehabilitation"
     codes: ["PSYK8109"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -66874,7 +66874,7 @@
   fields:
     name: "Orientation and Personal Learning Plan"
     codes: ["KTDK5103"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -66934,7 +66934,7 @@
   fields:
     name: "Asiantuntijuusopinnot"
     codes: ["LOGO3320"]
-    subjects: [9]
+    subjects: [263]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -67064,7 +67064,7 @@
   fields:
     name: "Augmentative and Alternative Communication"
     codes: ["LOGO2184"]
-    subjects: [9]
+    subjects: [263]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -67094,7 +67094,7 @@
   fields:
     name: "Valinnaiset metodiopinnot"
     codes: ["LOGO3321"]
-    subjects: [9]
+    subjects: [263]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -67154,7 +67154,7 @@
   fields:
     name: "Multicultural Education"
     codes: ["EDUK5210"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -67204,7 +67204,7 @@
   fields:
     name: "Biological Psychology"
     codes: ["PSYK8114"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -67214,7 +67214,7 @@
   fields:
     name: "Sukupuolen ja seksuaalisuuden moninaisuus"
     codes: ["PSYK8115"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -67224,7 +67224,7 @@
   fields:
     name: "Sosiaalipsykologia I"
     codes: ["PSYK8116"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -67284,7 +67284,7 @@
   fields:
     name: "Education System in Finnish Society"
     codes: ["EDUK5411"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -67294,7 +67294,7 @@
   fields:
     name: "School Visits"
     codes: ["EDUT5211"]
-    subjects: [207]
+    subjects: [131]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -67534,7 +67534,7 @@
   fields:
     name: "Evoluutiopsykologian kirjallisuus 1"
     codes: ["BIOL3505"]
-    subjects: [56, 244]
+    subjects: [272, 244]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -67544,7 +67544,7 @@
   fields:
     name: "Evoluutiopsykologian kirjallisuus 2"
     codes: ["BIOL3506"]
-    subjects: [56, 244]
+    subjects: [272, 244]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -67554,7 +67554,7 @@
   fields:
     name: "Evoluutiopsykologian kirjallisuus 3"
     codes: ["BIOL3507"]
-    subjects: [56, 244]
+    subjects: [272, 244]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -67584,7 +67584,7 @@
   fields:
     name: "Evidence Based Practice in Speech Language Pathology"
     codes: ["LOGO2185"]
-    subjects: [9]
+    subjects: [263]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -67594,7 +67594,7 @@
   fields:
     name: "Mindfulness-psykologia"
     codes: ["PSYK8117"]
-    subjects: [56]
+    subjects: [272]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -89608,7 +89608,7 @@
   fields:
     name: "Introduction to Gender Studies"
     codes: ["119000.0"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -89638,7 +89638,7 @@
   fields:
     name: "Theory I"
     codes: ["119004.0"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -89648,7 +89648,7 @@
   fields:
     name: "Methods and Theory 2: Gender Studies"
     codes: ["119206.0"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -89668,7 +89668,7 @@
   fields:
     name: "Feminist reading of media"
     codes: ["119017.0"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -89698,7 +89698,7 @@
   fields:
     name: "GenusKan(d)"
     codes: ["119203.0"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -89708,7 +89708,7 @@
   fields:
     name: "Bodily Practices"
     codes: ["119013.1"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -89718,7 +89718,7 @@
   fields:
     name: "Early Feminist Thinking"
     codes: ["119005.0"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -89728,7 +89728,7 @@
   fields:
     name: "Feminist theory II"
     codes: ["119201.0"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -89738,7 +89738,7 @@
   fields:
     name: "Gender in African Women's Literature"
     codes: ["119205.1"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -89748,7 +89748,7 @@
   fields:
     name: "Feminist Perspectives on Equality Work"
     codes: ["119504.0"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -89778,7 +89778,7 @@
   fields:
     name: "Internship"
     codes: ["119211.1"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -89788,7 +89788,7 @@
   fields:
     name: "Feminist Theory III"
     codes: ["119501.0"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -89808,7 +89808,7 @@
   fields:
     name: "Advanced methodology"
     codes: ["119502.0"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -89838,7 +89838,7 @@
   fields:
     name: "Grassroots: Theorizing Activism"
     codes: ["119012.1"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -89858,7 +89858,7 @@
   fields:
     name: "Master's Thesis in Gender Studies"
     codes: ["119991.0"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -89868,7 +89868,7 @@
   fields:
     name: "Thematic studies connected to the MA-thesis"
     codes: ["119505.0"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -89888,7 +89888,7 @@
   fields:
     name: "Master EGALES"
     codes: ["119551.1"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -89898,7 +89898,7 @@
   fields:
     name: "The matter of the Saussurean Sign"
     codes: ["119520.0"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -89908,7 +89908,7 @@
   fields:
     name: "Bachelor's Thesis (Gender Studies)"
     codes: ["119990.0"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -89918,7 +89918,7 @@
   fields:
     name: "Introduction to Finnish Gender Studies"
     codes: ["119014.1"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -89928,7 +89928,7 @@
   fields:
     name: "MA seminar in Gender Studies"
     codes: ["119598.0"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -89938,7 +89938,7 @@
   fields:
     name: "Current Feminist Research"
     codes: ["119002.1"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -89958,7 +89958,7 @@
   fields:
     name: "EGALES: Intensive course in Lyon"
     codes: ["119550.1"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -91228,7 +91228,7 @@
   fields:
     name: "Inorganic chemistry"
     codes: ["267101.0"]
-    subjects: [16, 286, 287, 288, 289]
+    subjects: [16, 286, 287, 288]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -91248,7 +91248,7 @@
   fields:
     name: "Probability theory and statistics"
     codes: ["271007.0"]
-    subjects: [43, 286, 290, 291, 292, 293]
+    subjects: [43, 286, 290, 14, 292, 293]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -91298,7 +91298,7 @@
   fields:
     name: "Engineering Mathematics II"
     codes: ["271010.0"]
-    subjects: [291]
+    subjects: [14]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -91318,7 +91318,7 @@
   fields:
     name: "Engineering Mathematics I"
     codes: ["271009.0"]
-    subjects: [291]
+    subjects: [14]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -91438,7 +91438,7 @@
   fields:
     name: "Medicines and the environment"
     codes: ["280100.0"]
-    subjects: [268, 277, 294]
+    subjects: [268, 277]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -94448,7 +94448,7 @@
   fields:
     name: "Programming IV"
     codes: ["451106.0"]
-    subjects: [18, 291]
+    subjects: [18, 14]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -94468,7 +94468,7 @@
   fields:
     name: "Programming III"
     codes: ["451104.0"]
-    subjects: [18, 291]
+    subjects: [18, 14]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -94498,7 +94498,7 @@
   fields:
     name: "Project course"
     codes: ["451000.0"]
-    subjects: [18, 291]
+    subjects: [18, 14]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -94508,7 +94508,7 @@
   fields:
     name: "Academic studies for IT"
     codes: ["451001.0"]
-    subjects: [18, 291]
+    subjects: [18, 14]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -94538,7 +94538,7 @@
   fields:
     name: "Wireless digital communication"
     codes: ["453101.0"]
-    subjects: [291, 311]
+    subjects: [14, 311]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -94548,7 +94548,7 @@
   fields:
     name: "Software engineering laboratory course"
     codes: ["452303.0"]
-    subjects: [291]
+    subjects: [14]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -94558,7 +94558,7 @@
   fields:
     name: "Operating Systems"
     codes: ["453302.0"]
-    subjects: [18, 291]
+    subjects: [18, 14]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -94568,7 +94568,7 @@
   fields:
     name: "Real-Time Systems"
     codes: ["453306.0"]
-    subjects: [291]
+    subjects: [14]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -94578,7 +94578,7 @@
   fields:
     name: "Software Testing"
     codes: ["452502.0"]
-    subjects: [18, 291]
+    subjects: [18, 14]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -94598,7 +94598,7 @@
   fields:
     name: "Programming I"
     codes: ["456110.0"]
-    subjects: [18, 291, 312]
+    subjects: [18, 14, 312]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -94608,7 +94608,7 @@
   fields:
     name: "Data structures"
     codes: ["456312.0"]
-    subjects: [18, 291]
+    subjects: [18, 14]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -94618,7 +94618,7 @@
   fields:
     name: "Applied Signal Processing, theory"
     codes: ["454506.1"]
-    subjects: [291]
+    subjects: [14]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -94628,7 +94628,7 @@
   fields:
     name: "Logic"
     codes: ["456109.0"]
-    subjects: [18, 291]
+    subjects: [18, 14]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -94638,7 +94638,7 @@
   fields:
     name: "Software Development Projects"
     codes: ["452304.0"]
-    subjects: [18, 291, 312]
+    subjects: [18, 14, 312]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -94648,7 +94648,7 @@
   fields:
     name: "Programming II"
     codes: ["456111.0"]
-    subjects: [18, 291]
+    subjects: [18, 14]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -94658,7 +94658,7 @@
   fields:
     name: "Introduction to signal processing"
     codes: ["454300.0"]
-    subjects: [291, 311]
+    subjects: [14, 311]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -94668,7 +94668,7 @@
   fields:
     name: "Algorithms"
     codes: ["456313.0"]
-    subjects: [18, 291]
+    subjects: [18, 14]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -94698,7 +94698,7 @@
   fields:
     name: "Computer Organization"
     codes: ["456301.0"]
-    subjects: [291]
+    subjects: [14]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -94718,7 +94718,7 @@
   fields:
     name: "Software Safety"
     codes: ["456501.0"]
-    subjects: [18, 291]
+    subjects: [18, 14]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -94728,7 +94728,7 @@
   fields:
     name: "Program derivation"
     codes: ["456505.0"]
-    subjects: [18, 291]
+    subjects: [18, 14]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -94738,7 +94738,7 @@
   fields:
     name: "Software Architectures"
     codes: ["456502.0"]
-    subjects: [291]
+    subjects: [14]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -95448,7 +95448,7 @@
   fields:
     name: "Sociology of Education"
     codes: ["631112.0"]
-    subjects: [23, 132, 324]
+    subjects: [23, 132]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -95458,7 +95458,7 @@
   fields:
     name: "Psychology of Education"
     codes: ["631111.0"]
-    subjects: [23, 132, 324]
+    subjects: [23, 132]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -95468,7 +95468,7 @@
   fields:
     name: "Educational leadership in an organizational perspective"
     codes: ["631113.0"]
-    subjects: [23, 324]
+    subjects: [23]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -95478,7 +95478,7 @@
   fields:
     name: "Educational leadership in a societal perspective"
     codes: ["631114.0"]
-    subjects: [23, 324]
+    subjects: [23]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -95498,7 +95498,7 @@
   fields:
     name: "Essay in general education"
     codes: ["631212.0"]
-    subjects: [23, 324]
+    subjects: [23]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -95508,7 +95508,7 @@
   fields:
     name: "The history of ideas of society and education"
     codes: ["631201.0"]
-    subjects: [23, 324]
+    subjects: [23]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -95518,7 +95518,7 @@
   fields:
     name: "Foundations of Multiculturalism"
     codes: ["631228.0"]
-    subjects: [23, 132, 324]
+    subjects: [23, 132]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -95528,7 +95528,7 @@
   fields:
     name: "HRM from a pedagogic perspective"
     codes: ["631229.0"]
-    subjects: [23, 324]
+    subjects: [23]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -95538,7 +95538,7 @@
   fields:
     name: "Practice II"
     codes: ["631413.0"]
-    subjects: [23, 132, 324]
+    subjects: [23, 132]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -95548,7 +95548,7 @@
   fields:
     name: "Education and etics"
     codes: ["631403.0"]
-    subjects: [23, 324]
+    subjects: [23]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -95558,7 +95558,7 @@
   fields:
     name: "Educational planning and evaluation"
     codes: ["631226.0"]
-    subjects: [23, 324]
+    subjects: [23]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -95598,7 +95598,7 @@
   fields:
     name: "School development and leadership"
     codes: ["631409.0"]
-    subjects: [23, 324]
+    subjects: [23]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -95608,7 +95608,7 @@
   fields:
     name: "Qualitative methods II"
     codes: ["631417.0"]
-    subjects: [23, 132, 324]
+    subjects: [23, 132]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -95628,7 +95628,7 @@
   fields:
     name: "Conceptual Physics"
     codes: ["640033.6"]
-    subjects: [294, 329]
+    subjects: [329]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -95708,7 +95708,7 @@
   fields:
     name: "Everyday Chemistry"
     codes: ["640033.7"]
-    subjects: [294, 329]
+    subjects: [329]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -98638,7 +98638,7 @@
   fields:
     name: "Feminist Theory"
     codes: ["119006.0"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -98648,7 +98648,7 @@
   fields:
     name: "Normcritical Feminist Pedagogy"
     codes: ["119016.1"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -98658,7 +98658,7 @@
   fields:
     name: "Thematic specialization in gender studies"
     codes: ["119018.1"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -98668,7 +98668,7 @@
   fields:
     name: "African sexuality, gender, race, desire and pleasure"
     codes: ["119216.0"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -98698,7 +98698,7 @@
   fields:
     name: "Blogriot Slash Feminism"
     codes: ["119019.0"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -98718,7 +98718,7 @@
   fields:
     name: "Safer Spaces - A Feminist perspective"
     codes: ["119020.0"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -98728,7 +98728,7 @@
   fields:
     name: "Current Theoretical Debates in Gender Studies"
     codes: ["119208.0"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -98738,7 +98738,7 @@
   fields:
     name: "Gender, Environment and Global Economics"
     codes: ["119217.0"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -98748,7 +98748,7 @@
   fields:
     name: "Feminist Epistemologies"
     codes: ["119207.0"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -98758,7 +98758,7 @@
   fields:
     name: "Feminist Methodology"
     codes: ["119209.0"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -98768,7 +98768,7 @@
   fields:
     name: "Advanced Feminist Methodology"
     codes: ["119511.0"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -98778,7 +98778,7 @@
   fields:
     name: "Feminist Theory"
     codes: ["119510.0"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -98788,7 +98788,7 @@
   fields:
     name: "Introduction to the Gender Studies Master's Degree Programme"
     codes: ["119515.0"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -98798,7 +98798,7 @@
   fields:
     name: "Gender and Sexuality in Society"
     codes: ["119560.0"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -98838,7 +98838,7 @@
   fields:
     name: "Feminist Politics"
     codes: ["119561.0"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -99508,7 +99508,7 @@
   fields:
     name: "Equipment Design"
     codes: ["411103.0"]
-    subjects: [354]
+    subjects: []
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -99708,7 +99708,7 @@
   fields:
     name: "Experimentation in Computer Science and Engineering"
     codes: ["451503.0"]
-    subjects: [18, 291]
+    subjects: [18, 14]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -99738,7 +99738,7 @@
   fields:
     name: "Cloud Computing"
     codes: ["451502.0"]
-    subjects: [291]
+    subjects: [14]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -99778,7 +99778,7 @@
   fields:
     name: "Bachelor's thesis with seminars in Computer Engineering"
     codes: ["451497.0"]
-    subjects: [291]
+    subjects: [14]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -99798,7 +99798,7 @@
   fields:
     name: "Research methodology for IT"
     codes: ["451107.0"]
-    subjects: [18, 291]
+    subjects: [18, 14]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -99808,7 +99808,7 @@
   fields:
     name: "Special course in Computer Science: Reliable Distributed Systems"
     codes: ["456400.9"]
-    subjects: [18, 291]
+    subjects: [18, 14]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -99818,7 +99818,7 @@
   fields:
     name: "Specification Methods"
     codes: ["456309.0"]
-    subjects: [18, 291]
+    subjects: [18, 14]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -99838,7 +99838,7 @@
   fields:
     name: "Code optimization"
     codes: ["455304.0"]
-    subjects: [18, 291]
+    subjects: [18, 14]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -99868,7 +99868,7 @@
   fields:
     name: "System architecture of IoT"
     codes: ["453507.0"]
-    subjects: [291]
+    subjects: [14]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -100088,7 +100088,7 @@
   fields:
     name: "Bachelor's thesis"
     codes: ["631209.0"]
-    subjects: [23, 132, 324]
+    subjects: [23, 132]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -100098,7 +100098,7 @@
   fields:
     name: "Qualitative methods I"
     codes: ["631207.0"]
-    subjects: [23, 132, 324]
+    subjects: [23, 132]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -100108,7 +100108,7 @@
   fields:
     name: "Leadership and psychology"
     codes: ["631225.0"]
-    subjects: [23, 324]
+    subjects: [23]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -100128,7 +100128,7 @@
   fields:
     name: "Practice I"
     codes: ["635102.0"]
-    subjects: [23, 132, 324]
+    subjects: [23, 132]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -100138,7 +100138,7 @@
   fields:
     name: "Quantitative research methods I"
     codes: ["635106.0"]
-    subjects: [23, 132, 324]
+    subjects: [23, 132]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -100148,7 +100148,7 @@
   fields:
     name: "The educational research process"
     codes: ["635105.0"]
-    subjects: [23, 132, 324]
+    subjects: [23, 132]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -100228,7 +100228,7 @@
   fields:
     name: "Writing workshop - collaborative writing 1"
     codes: ["641118.0"]
-    subjects: [355]
+    subjects: []
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -101288,7 +101288,7 @@
   fields:
     name: "Development of Client-side Interactive Web Applications"
     codes: ["DT00BN92"]
-    subjects: [291]
+    subjects: [14]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -101318,7 +101318,7 @@
   fields:
     name: "Multidimensional sensing techniques"
     codes: ["DT00BQ89"]
-    subjects: [291]
+    subjects: [14]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -101358,7 +101358,7 @@
   fields:
     name: "Master's Thesis Seminar in Information Technologies"
     codes: ["IT00BN52"]
-    subjects: [18, 291]
+    subjects: [18, 14]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -102718,7 +102718,7 @@
   fields:
     name: "Advanced Feminist Theory 1"
     codes: ["GV00BN35"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -102728,7 +102728,7 @@
   fields:
     name: "Advanced Feminist Methodology 1"
     codes: ["GV00BN37"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -102738,7 +102738,7 @@
   fields:
     name: "Advanced Feminist Theory 2"
     codes: ["GV00BN36"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -102748,7 +102748,7 @@
   fields:
     name: "Advanced Feminist Methodology 2"
     codes: ["GV00BN38"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -105358,7 +105358,7 @@
   fields:
     name: "Methods and theory 2: Gender Studies"
     codes: ["1100BG46"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -105478,7 +105478,7 @@
   fields:
     name: "Bachelor's thesis (Gender Studies)"
     codes: ["1100BG94"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -105508,7 +105508,7 @@
   fields:
     name: "Early feminist thinking"
     codes: ["1100BG84"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -105528,7 +105528,7 @@
   fields:
     name: "Feministic Theory"
     codes: ["1100BG82"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -105548,7 +105548,7 @@
   fields:
     name: "Introduction to Gender Studies"
     codes: ["1100BG80"]
-    subjects: [193, 268]
+    subjects: [192, 268]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -105558,7 +105558,7 @@
   fields:
     name: "Feminist Methodology"
     codes: ["1100BG86"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -105588,7 +105588,7 @@
   fields:
     name: "GenusKan(d)"
     codes: ["1100BG92"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -105608,7 +105608,7 @@
   fields:
     name: "Current Theoretical Debates in Gender Studies"
     codes: ["1100BG90"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -105618,7 +105618,7 @@
   fields:
     name: "Feminist epistemologies"
     codes: ["1100BG88"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -105998,7 +105998,7 @@
   fields:
     name: "Ethnographic fieldmethods"
     codes: ["1100BH76"]
-    subjects: [146, 155, 193, 253, 267, 270, 271, 361]
+    subjects: [146, 155, 192, 253, 267, 270, 271, 361]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -106408,7 +106408,7 @@
   fields:
     name: "Ethnographic fieldmethods"
     codes: ["1100BI56"]
-    subjects: [146, 155, 193, 253, 267, 270, 271, 361]
+    subjects: [146, 155, 192, 253, 267, 270, 271, 361]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -106928,7 +106928,7 @@
   fields:
     name: "Masters thesis, part 2"
     codes: ["AP00BK12"]
-    subjects: [23, 324]
+    subjects: [23]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -106978,7 +106978,7 @@
   fields:
     name: "Seminars"
     codes: ["AP00BM07"]
-    subjects: [23, 324]
+    subjects: [23]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -106998,7 +106998,7 @@
   fields:
     name: "Masters thesis, part 1"
     codes: ["AP00BK11"]
-    subjects: [23, 324]
+    subjects: [23]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -107018,7 +107018,7 @@
   fields:
     name: "Masters Thesis, part 3."
     codes: ["AP00BK13"]
-    subjects: [23, 324]
+    subjects: [23]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -108358,7 +108358,7 @@
   fields:
     name: "Master's Thesis in Gender Studies"
     codes: ["GV00BM77"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -108458,7 +108458,7 @@
   fields:
     name: "Politics & Equality 1"
     codes: ["GV00BN03"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -108468,7 +108468,7 @@
   fields:
     name: "Race, Ethnicity and Religion 1"
     codes: ["GV00BN01"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -108478,7 +108478,7 @@
   fields:
     name: "Media, Power & Popular Culture 1"
     codes: ["GV00BN05"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -108488,7 +108488,7 @@
   fields:
     name: "Politics & Equality 2"
     codes: ["GV00BN08"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -108498,7 +108498,7 @@
   fields:
     name: "Gender, sexuality & embodiment 2"
     codes: ["GV00BN12"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -108508,7 +108508,7 @@
   fields:
     name: "Race, Ethnicity, Migration and Religion 2"
     codes: ["GV00BN06"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -108518,7 +108518,7 @@
   fields:
     name: "Media, Power & Popular Culture 2"
     codes: ["GV00BN10"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -108528,7 +108528,7 @@
   fields:
     name: "Nature, Culture and Materiality 2"
     codes: ["GV00BN09"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -108538,7 +108538,7 @@
   fields:
     name: "Gender, Sexuality & Embodiment 1"
     codes: ["GV00BN02"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -108548,7 +108548,7 @@
   fields:
     name: "Nature, Culture & Materiality 1"
     codes: ["GV00BN04"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -108558,7 +108558,7 @@
   fields:
     name: "Gender, Sexuality & Embodiment 2"
     codes: ["GV00BN07"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -108568,7 +108568,7 @@
   fields:
     name: "New Media, New methods"
     codes: ["GV00BN11"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -108578,7 +108578,7 @@
   fields:
     name: "Gender, sexuality & embodiment 2"
     codes: ["GV00BN13"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -108648,7 +108648,7 @@
   fields:
     name: "Master's Thesis Seminar in Gender Studies"
     codes: ["GV00BN16"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -109688,7 +109688,7 @@
   fields:
     name: "Philosophy of educational leadership"
     codes: ["AV00BP24"]
-    subjects: [23, 132, 324]
+    subjects: [23, 132]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -109708,7 +109708,7 @@
   fields:
     name: "Pedagogical perspectives on digitization"
     codes: ["AV00BP27"]
-    subjects: [23, 132, 324]
+    subjects: [23, 132]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -109718,7 +109718,7 @@
   fields:
     name: "Educational action research and practice theories"
     codes: ["AV00BP23"]
-    subjects: [23, 132, 324]
+    subjects: [23, 132]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -109728,7 +109728,7 @@
   fields:
     name: "Collaborative learning processes"
     codes: ["AV00BP25"]
-    subjects: [23, 132, 324]
+    subjects: [23, 132]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -109758,7 +109758,7 @@
   fields:
     name: "Competence and competence development"
     codes: ["AV00BP26"]
-    subjects: [23, 132, 324]
+    subjects: [23, 132]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -110078,7 +110078,7 @@
   fields:
     name: ""
     codes: ["UL00BP81"]
-    subjects: [23, 324]
+    subjects: [23]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -110098,7 +110098,7 @@
   fields:
     name: ""
     codes: ["UL00BP80"]
-    subjects: [23, 324]
+    subjects: [23]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -110368,7 +110368,7 @@
   fields:
     name: "White Women & White Feminism"
     codes: ["GV00BQ14"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -110398,7 +110398,7 @@
   fields:
     name: "Quantitative Research Methods II"
     codes: ["AV00BQ28"]
-    subjects: [23, 324]
+    subjects: [23]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -110418,7 +110418,7 @@
   fields:
     name: "Qualitative methods II"
     codes: ["AV00BQ27"]
-    subjects: [23, 132, 324]
+    subjects: [23, 132]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -110908,7 +110908,7 @@
   fields:
     name: "Gendered Violence"
     codes: ["GV00BQ82"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -110918,7 +110918,7 @@
   fields:
     name: "Introduction to Trans Studies"
     codes: ["GV00BQ81"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -110948,7 +110948,7 @@
   fields:
     name: "Analytics for industrial internet"
     codes: ["DT00BQ86"]
-    subjects: [291]
+    subjects: [14]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -111378,7 +111378,7 @@
   fields:
     name: "Practical work experience in Information Technology"
     codes: ["IT00BS20"]
-    subjects: [18, 291]
+    subjects: [18, 14]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -111448,7 +111448,7 @@
   fields:
     name: "Student activities (Faculty of Science and Engineering)"
     codes: ["FN00BS22"]
-    subjects: [16, 18, 115, 121, 215, 273, 276, 277, 278, 286, 291, 292, 293, 364]
+    subjects: [16, 18, 115, 121, 215, 273, 276, 277, 278, 286, 14, 292, 293, 364]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -111658,7 +111658,7 @@
   fields:
     name: "Development of Server-side Web Services"
     codes: ["DT00BT67"]
-    subjects: [291]
+    subjects: [14]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -111758,7 +111758,7 @@
   fields:
     name: "Engineering Mathematics I"
     codes: ["2700BT80"]
-    subjects: [291]
+    subjects: [14]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -111788,7 +111788,7 @@
   fields:
     name: "Probability theory and statistics"
     codes: ["2700BT76"]
-    subjects: [43, 286, 290, 291, 292, 293]
+    subjects: [43, 286, 290, 14, 292, 293]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -113308,7 +113308,7 @@
   fields:
     name: "Project Management, Resourcing and Evaluation"
     codes: ["UF00BY05"]
-    subjects: [23, 324]
+    subjects: [23]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -113438,7 +113438,7 @@
   fields:
     name: "Gender and Social Movements in Finland 1960-1990"
     codes: ["GV00BY92"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -113448,7 +113448,7 @@
   fields:
     name: "Feminist and Intercectional Pedagogy"
     codes: ["GV00BY91"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -113678,7 +113678,7 @@
   fields:
     name: "Introduction to the Master's Degree Programme in Gender Studies"
     codes: ["GV00BZ27"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -113688,7 +113688,7 @@
   fields:
     name: "Gendered and sexualized society"
     codes: ["GV00BZ28"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -113698,7 +113698,7 @@
   fields:
     name: "Gender Equality as Work"
     codes: ["GV00BZ29"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -113748,7 +113748,7 @@
   fields:
     name: "Studies in Gender Research"
     codes: ["GV00BZ30"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -113998,7 +113998,7 @@
   fields:
     name: ""
     codes: ["AV00BZ68"]
-    subjects: [23, 324]
+    subjects: [23]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -114008,7 +114008,7 @@
   fields:
     name: "Writing workshop - collaborative writing"
     codes: ["FP00BZ69"]
-    subjects: [294, 355]
+    subjects: []
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -114428,7 +114428,7 @@
   fields:
     name: "Feminist methodology"
     codes: ["GV00CA15"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -114878,7 +114878,7 @@
   fields:
     name: "Diversity, Equality, Inclusion"
     codes: ["GV00CB97"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -115998,7 +115998,7 @@
   fields:
     name: "Object-oriented Design"
     codes: ["IT00CD36"]
-    subjects: [18, 291]
+    subjects: [18, 14]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -116008,7 +116008,7 @@
   fields:
     name: "Software Engineering"
     codes: ["IT00CD37"]
-    subjects: [18, 291]
+    subjects: [18, 14]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -116038,7 +116038,7 @@
   fields:
     name: "Research methods in Computer Science and Engineering"
     codes: ["IT00CD44"]
-    subjects: [18, 291]
+    subjects: [18, 14]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -116048,7 +116048,7 @@
   fields:
     name: "Research Project"
     codes: ["IT00CD43"]
-    subjects: [18, 291]
+    subjects: [18, 14]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -116138,7 +116138,7 @@
   fields:
     name: "Fashion and Gender (Hilma)"
     codes: ["GV00CD58"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -116168,7 +116168,7 @@
   fields:
     name: "Gender Perspectives on Finland (Hilma)"
     codes: ["GV00CD61"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -116178,7 +116178,7 @@
   fields:
     name: "Programming I"
     codes: ["IT00CD69"]
-    subjects: [18, 291, 312]
+    subjects: [18, 14, 312]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -116218,7 +116218,7 @@
   fields:
     name: "Feminist Food Studies (Hilma)"
     codes: ["GV00CD60"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -116228,7 +116228,7 @@
   fields:
     name: "Programming II"
     codes: ["IT00CD71"]
-    subjects: [18, 291]
+    subjects: [18, 14]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -116258,7 +116258,7 @@
   fields:
     name: "Computer Organization"
     codes: ["IT00CD74"]
-    subjects: [291]
+    subjects: [14]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -116268,7 +116268,7 @@
   fields:
     name: "Algorithms"
     codes: ["IT00CD75"]
-    subjects: [18, 291]
+    subjects: [18, 14]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -116288,7 +116288,7 @@
   fields:
     name: "Data structures"
     codes: ["IT00CD73"]
-    subjects: [18, 291]
+    subjects: [18, 14]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -116308,7 +116308,7 @@
   fields:
     name: "Logic"
     codes: ["IT00CD70"]
-    subjects: [18, 291]
+    subjects: [18, 14]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -116318,7 +116318,7 @@
   fields:
     name: "Introduction to signal processing"
     codes: ["IT00CD83"]
-    subjects: [291, 311]
+    subjects: [14, 311]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -116338,7 +116338,7 @@
   fields:
     name: "Academic studies for IT"
     codes: ["IT00CD82"]
-    subjects: [18, 291]
+    subjects: [18, 14]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -116348,7 +116348,7 @@
   fields:
     name: "Software Requirements Analysis"
     codes: ["IT00CD72"]
-    subjects: [18, 291]
+    subjects: [18, 14]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -116368,7 +116368,7 @@
   fields:
     name: "Research methodology for IT"
     codes: ["IT00CD80"]
-    subjects: [18, 291]
+    subjects: [18, 14]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -116378,7 +116378,7 @@
   fields:
     name: "Formal languages and automata"
     codes: ["IT00CD77"]
-    subjects: [18, 291]
+    subjects: [18, 14]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -116388,7 +116388,7 @@
   fields:
     name: "Code Optimization"
     codes: ["IT00CD90"]
-    subjects: [18, 291]
+    subjects: [18, 14]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -116408,7 +116408,7 @@
   fields:
     name: "Operating Systems"
     codes: ["IT00CD85"]
-    subjects: [18, 291]
+    subjects: [18, 14]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -116438,7 +116438,7 @@
   fields:
     name: "Analytics for Industrial Internet"
     codes: ["IT00CE00"]
-    subjects: [291]
+    subjects: [14]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -116448,7 +116448,7 @@
   fields:
     name: "System Architecture of IoT"
     codes: ["IT00CD96"]
-    subjects: [291]
+    subjects: [14]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -116458,7 +116458,7 @@
   fields:
     name: "Specification Methods"
     codes: ["IT00CE03"]
-    subjects: [18, 291]
+    subjects: [18, 14]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -116478,7 +116478,7 @@
   fields:
     name: "Multidimensional Sensing Techniques"
     codes: ["IT00CD99"]
-    subjects: [291]
+    subjects: [14]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -116488,7 +116488,7 @@
   fields:
     name: "Wireless Digital Communication"
     codes: ["IT00CD97"]
-    subjects: [291]
+    subjects: [14]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -116508,7 +116508,7 @@
   fields:
     name: "Software Safety"
     codes: ["IT00CE02"]
-    subjects: [18, 291]
+    subjects: [18, 14]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -116518,7 +116518,7 @@
   fields:
     name: "Real-Time Systems"
     codes: ["IT00CE01"]
-    subjects: [291]
+    subjects: [14]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -116528,7 +116528,7 @@
   fields:
     name: "Code optimization"
     codes: ["IT00CD98"]
-    subjects: [18, 291]
+    subjects: [18, 14]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -116538,7 +116538,7 @@
   fields:
     name: "Software Testing"
     codes: ["IT00CE12"]
-    subjects: [18, 291]
+    subjects: [18, 14]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -116548,7 +116548,7 @@
   fields:
     name: "Cloud Computing"
     codes: ["IT00CE11"]
-    subjects: [291]
+    subjects: [14]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -116558,7 +116558,7 @@
   fields:
     name: "Bachelor's thesis with seminars in Computer Engineering"
     codes: ["IT00CE14"]
-    subjects: [291]
+    subjects: [14]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -116568,7 +116568,7 @@
   fields:
     name: "Reliable Distributed Systems"
     codes: ["IT00CE04"]
-    subjects: [18, 291]
+    subjects: [18, 14]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -116778,7 +116778,7 @@
   fields:
     name: "Grassroots-theorizing Activism (Hilma)"
     codes: ["GV00CE46"]
-    subjects: [193]
+    subjects: [192]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -117268,7 +117268,7 @@
   fields:
     name: "Educational legislation and administration"
     codes: ["AV00CE99"]
-    subjects: [23, 324]
+    subjects: [23]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -117308,7 +117308,7 @@
   fields:
     name: "Educational leadership and development"
     codes: ["AV00CE98"]
-    subjects: [23, 132, 324]
+    subjects: [23, 132]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -117348,7 +117348,7 @@
   fields:
     name: "The philosophy, ethics and policy of pedagogic leadership."
     codes: ["AV00CE97"]
-    subjects: [23, 132, 324]
+    subjects: [23, 132]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -117718,7 +117718,7 @@
   fields:
     name: "Teaching Practice within Educational Leadership"
     codes: ["UL00CF63"]
-    subjects: [23, 374]
+    subjects: [23]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -118328,7 +118328,7 @@
   fields:
     name: ""
     codes: ["AV00CG32"]
-    subjects: [23, 132, 324]
+    subjects: [23, 132]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"

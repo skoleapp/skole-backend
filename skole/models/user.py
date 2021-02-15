@@ -20,7 +20,11 @@ from .base import SkoleManager, SkoleModel
 
 class UserManager(SkoleManager["User"], BaseUserManager["User"]):
     def create_user(self, username: str, email: str, password: str) -> User:
-        user = self.model(username=username, email=self.normalize_email(email))
+        user = self.model(
+            username=username,
+            email=self.normalize_email(email),
+        )
+
         user.set_password(password)
         user.save()
         return user
@@ -128,6 +132,8 @@ class User(SkoleModel, AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     modified = models.DateTimeField(auto_now=True)
+    product_update_email_permission = models.BooleanField(default=True)
+    blog_post_email_permission = models.BooleanField(default=True)
 
     last_my_data_query = models.DateTimeField(
         null=True,

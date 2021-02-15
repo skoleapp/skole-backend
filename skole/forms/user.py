@@ -98,14 +98,19 @@ class LoginForm(SkoleModelForm):
         return self.cleaned_data
 
 
-class UpdateUserForm(SkoleModelForm):
+class UpdateProfileForm(SkoleModelForm):
 
     username = forms.CharField(min_length=settings.USERNAME_MIN_LENGTH)
     avatar = forms.CharField(required=False)
 
     class Meta:
         model = get_user_model()
-        fields = ("username", "email", "title", "bio", "avatar", "school", "subject")
+        fields = (
+            "username",
+            "title",
+            "bio",
+            "avatar",
+        )
 
     def clean_avatar(self) -> Union[File, str]:
         return clean_file_field(
@@ -119,11 +124,24 @@ class UpdateUserForm(SkoleModelForm):
                 raise forms.ValidationError(ValidationErrors.USERNAME_TAKEN)
         return username
 
+
+class UpdateAccountSettingsForm(SkoleModelForm):
+    class Meta:
+        model = get_user_model()
+        fields = (
+            "email",
+            "school",
+            "subject",
+            "product_update_email_permission",
+            "blog_post_email_permission",
+        )
+
     def clean_email(self) -> str:
         email = self.cleaned_data["email"].lower()
         if "email" in self.changed_data:
             if get_user_model().objects.filter(email__iexact=email):
                 raise forms.ValidationError(ValidationErrors.EMAIL_TAKEN)
+
         return email
 
 

@@ -37,6 +37,8 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
             verified
             rank
             unreadActivityCount
+            productUpdateEmailPermission
+            blogPostEmailPermission
             badges {
                 id
                 name
@@ -90,7 +92,11 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         return self.execute_input_mutation(
             name="register",
             input_type="RegisterMutationInput!",
-            input={"username": username, "email": email, "password": password},
+            input={
+                "username": username,
+                "email": email,
+                "password": password,
+            },
             result="successMessage",
         )
 
@@ -105,7 +111,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
             fragment=self.user_fields,
         )
 
-    def mutate_update_user(
+    def mutate_update_profile(
         self,
         *,
         username: str = "testuser2",
@@ -118,20 +124,40 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         file_data: FileData = None,
     ) -> JsonDict:
         return self.execute_input_mutation(
-            name="updateUser",
-            input_type="UpdateUserMutationInput!",
+            name="updateProfile",
+            input_type="UpdateProfileMutationInput!",
             input={
                 "username": username,
-                "email": email,
                 "title": title,
                 "bio": bio,
                 "avatar": avatar,
-                "school": school,
-                "subject": subject,
             },
             result="user { ...userFields } successMessage",
             fragment=self.user_fields,
             file_data=file_data,
+        )
+
+    def mutate_update_account_settings(
+        self,
+        *,
+        email: str = "testuser2@test.com",
+        school: ID = 1,
+        subject: ID = 1,
+        product_update_email_permission: bool = True,
+        blog_post_email_permission: bool = True,
+    ) -> JsonDict:
+        return self.execute_input_mutation(
+            name="updateAccountSettings",
+            input_type="UpdateAccountSettingsMutationInput!",
+            input={
+                "email": email,
+                "school": school,
+                "subject": subject,
+                "productUpdateEmailPermission": product_update_email_permission,
+                "blogPostEmailPermission": blog_post_email_permission,
+            },
+            result="user { ...userFields } successMessage",
+            fragment=self.user_fields,
         )
 
     def mutate_change_password(
@@ -197,11 +223,19 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         res = self.mutate_register(email=email)
         assert not res["errors"]
         assert res["successMessage"] == Messages.USER_REGISTERED
+        user = get_user_model().objects.order_by("created").last()
+        # Ignore: Mypy doesn't understand that `first()` couldn't return None here.
 
         assert len(mail.outbox) == 1
         sent = mail.outbox[0]
         assert sent.from_email == settings.EMAIL_ADDRESS
         assert sent.to == [email]
+
+        # Can set marketing permission to False.
+        res = self.mutate_register(username="unique", email="unique@test.test")
+        assert not res["errors"]
+        user = get_user_model().objects.order_by("created").last()
+        # Ignore: Mypy doesn't understand that `first()` couldn't return None here.
 
         # Username should keep its casing, mut email should be lowercased.
         self.mutate_register(username="MYUSERNAME", email="MAIL@example.COM")
@@ -210,9 +244,9 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert user.username == "MYUSERNAME"
         assert user.email == "mail@example.com"
 
-        assert len(mail.outbox) == 2
+        assert len(mail.outbox) == 3
 
-        sent = mail.outbox[1]
+        sent = mail.outbox[-1]
         assert sent.from_email == settings.EMAIL_ADDRESS
         assert sent.to == ["mail@example.com"]
         assert "Verify" in sent.subject
@@ -438,37 +472,27 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert "permission" in get_graphql_error(res)
         assert res["data"] == {"userMe": None}
 
-    def test_update_user_ok(self) -> None:
+    def test_update_profile(self) -> None:
         # Fine to not change anything.
         user = self.query_user_me()
-        res = self.mutate_update_user()
+        res = self.mutate_update_profile()
         assert not res["errors"]
         assert res["user"] == user
-        assert res["successMessage"] == Messages.USER_UPDATED
+        assert res["successMessage"] == Messages.PROFILE_UPDATED
 
         # User is currently verified.
         current_user = self.get_authenticated_user()
         assert current_user.verified
 
-        # Changing the email should unverify the user, and lowercase the email.
-        res = self.mutate_update_user(email="NEWMAIL@email.com")
-        assert res["user"]["email"] == "newmail@email.com"
-        current_user.refresh_from_db()
-        assert not current_user.verified
-
         # Update some fields.
         new_username = "newusername"
         new_title = "My new Title."
         new_bio = "My new bio."
-        new_school = "2"
-        new_subject = "2"
 
-        res = self.mutate_update_user(
+        res = self.mutate_update_profile(
             username=new_username,
             title=new_title,
             bio=new_bio,
-            school=new_school,
-            subject=new_subject,
         )
 
         assert not res["errors"]
@@ -476,37 +500,22 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert res["user"]["slug"] == new_username
         assert res["user"]["title"] == new_title
         assert res["user"]["bio"] == new_bio
-        assert res["user"]["school"] == {"id": new_school}
-        assert res["user"]["school"] == {"id": new_subject}
-        assert res["successMessage"] == Messages.USER_UPDATED
+        assert res["successMessage"] == Messages.PROFILE_UPDATED
 
-    def test_update_user_error(self) -> None:
         user_old = self.query_user_me()
 
-        # Email is already taken.
-        res = self.mutate_update_user(email="admin@admin.com")
-        assert len(res["errors"]) == 1
-        assert get_form_error(res) == ValidationErrors.EMAIL_TAKEN
-        assert res["user"] is None
-
-        # Same email with different casing is already taken.
-        res = self.mutate_update_user(email="ADMIN@admin.com")
-        assert len(res["errors"]) == 1
-        assert get_form_error(res) == ValidationErrors.EMAIL_TAKEN
-        assert res["user"] is None
-
         # Username is already taken.
-        res = self.mutate_update_user(username="testuser3")
+        res = self.mutate_update_profile(username="testuser3")
         assert len(res["errors"]) == 1
         assert get_form_error(res) == ValidationErrors.USERNAME_TAKEN
         assert res["user"] is None
 
         # Invalid characters in username.
-        res = self.mutate_update_user(username="test-user")
+        res = self.mutate_update_profile(username="test-user")
         assert ValidationErrors.INVALID_USERNAME == get_form_error(res)
 
         # Same username with different casing is already taken.
-        res = self.mutate_update_user(username="TESTUSER3")
+        res = self.mutate_update_profile(username="TESTUSER3")
         assert len(res["errors"]) == 1
         assert get_form_error(res) == ValidationErrors.USERNAME_TAKEN
         assert res["user"] is None
@@ -514,20 +523,20 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         # Check that nothing has changed.
         assert self.query_user_me() == user_old
 
-    def test_update_user_avatar(self) -> None:
+    def test_update_avatar(self) -> None:
         # Avatar at the beginning.
         assert self.query_user_me()["avatar"]
 
         # Delete the avatar.
         assert self.get_authenticated_user().avatar
-        res = self.mutate_update_user(avatar="")
+        res = self.mutate_update_profile(avatar="")
         assert res["user"]["avatar"] == ""
         assert self.query_user_me()["avatar"] == ""
         assert not self.get_authenticated_user().avatar
 
         # Set an avatar.
         with open_as_file(TEST_AVATAR_JPG) as avatar:
-            res = self.mutate_update_user(file_data=[("avatar", avatar)])
+            res = self.mutate_update_profile(file_data=[("avatar", avatar)])
         assert not res["errors"]
         file_url = res["user"]["avatar"]
         assert is_slug_match(UPLOADED_AVATAR_JPG, file_url)
@@ -536,18 +545,77 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         # Update some other fields, avatar should stay when sending the old value.
         new_title = "new title"
         new_bio = "new bio"
-        res = self.mutate_update_user(title=new_title, bio=new_bio, avatar=file_url)
+        res = self.mutate_update_profile(title=new_title, bio=new_bio, avatar=file_url)
         assert is_slug_match(UPLOADED_AVATAR_JPG, res["user"]["avatar"])
         assert res["user"]["title"] == new_title
         assert res["user"]["bio"] == new_bio
 
         # Setting avatar to some random value shouldn't change it,
         # and it also shouldn't give any errors.
-        res = self.mutate_update_user(avatar="badvalue")
+        res = self.mutate_update_profile(avatar="badvalue")
         assert not res["errors"]
         assert is_slug_match(UPLOADED_AVATAR_JPG, res["user"]["avatar"])
 
-    def test_delete_user_ok(self) -> None:
+    def test_update_account_settings(self) -> None:
+        # Fine to not change anything.
+        user = self.query_user_me()
+        res = self.mutate_update_account_settings()
+        assert not res["errors"]
+        assert res["user"] == user
+        assert res["successMessage"] == Messages.ACCOUNT_SETTINGS_UPDATED
+
+        # User is currently verified.
+        current_user = self.get_authenticated_user()
+        assert current_user.verified
+
+        # Changing the email should unverify the user, and lowercase the email.
+        res = self.mutate_update_account_settings(email="NEWMAIL@email.com")
+        assert res["user"]["email"] == "newmail@email.com"
+        current_user.refresh_from_db()
+        assert not current_user.verified
+
+        # Update some fields.
+        new_school = "2"
+        new_subject = "2"
+
+        res = self.mutate_update_account_settings(
+            school=new_school,
+            subject=new_subject,
+        )
+
+        assert not res["errors"]
+        assert res["user"]["school"] == {"id": new_school}
+        assert res["user"]["school"] == {"id": new_subject}
+        assert res["successMessage"] == Messages.ACCOUNT_SETTINGS_UPDATED
+
+        user_old = self.query_user_me()
+
+        # Email is already taken.
+        res = self.mutate_update_account_settings(email="admin@admin.com")
+        assert len(res["errors"]) == 1
+        assert get_form_error(res) == ValidationErrors.EMAIL_TAKEN
+        assert res["user"] is None
+
+        # Same email with different casing is already taken.
+        res = self.mutate_update_account_settings(email="ADMIN@admin.com")
+        assert len(res["errors"]) == 1
+        assert get_form_error(res) == ValidationErrors.EMAIL_TAKEN
+        assert res["user"] is None
+
+        # Check that nothing has changed.
+        assert self.query_user_me() == user_old
+
+    def test_delete_user(self) -> None:
+        old_count = get_user_model().objects.count()
+
+        # Test deleting user with wrong password.
+        res = self.mutate_delete_user(password="wrongpass")
+        assert get_form_error(res) == ValidationErrors.INVALID_PASSWORD
+
+        # Test that the user didn't get deleted.
+        assert get_user_model().objects.filter(pk=2)
+        assert get_user_model().objects.count() == old_count
+
         old_count = get_user_model().objects.count()
 
         # Delete the logged in testuser2.
@@ -559,28 +627,8 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert not get_user_model().objects.filter(pk=2)
         assert get_user_model().objects.count() == old_count - 1
 
-    def test_delete_user_error(self) -> None:
-        old_count = get_user_model().objects.count()
-
-        # Delete the logged in testuser2.
-        res = self.mutate_delete_user(password="wrongpass")
-        assert get_form_error(res) == ValidationErrors.INVALID_PASSWORD
-
-        # Test that the user didn't get deleted.
-        assert get_user_model().objects.filter(pk=2)
-        assert get_user_model().objects.count() == old_count
-
-    def test_change_password_ok(self) -> None:
-        old_hash = self.get_authenticated_user().password
-        res = self.mutate_change_password()
-        assert not res["errors"]
-        assert res["successMessage"] == Messages.PASSWORD_UPDATED
-        user = self.get_authenticated_user()
-        assert old_hash != user.password
-        assert user.check_password("newpassword1234")
-
-    def test_change_password_error(self) -> None:
-        # Invalid old password.
+    def test_change_password(self) -> None:
+        # Test that invalid old password fails.
         res = self.mutate_change_password(old_password="badpass")
         assert get_form_error(res) == ValidationErrors.INVALID_OLD_PASSWORD
 
@@ -610,7 +658,16 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         res = self.mutate_change_password(new_password="testuser2@test.com")
         assert "too similar to the email" in get_form_error(res)
 
-    def test_reset_password_ok(self) -> None:
+        # Test that it works!
+        old_hash = self.get_authenticated_user().password
+        res = self.mutate_change_password()
+        assert not res["errors"]
+        assert res["successMessage"] == Messages.PASSWORD_UPDATED
+        user = self.get_authenticated_user()
+        assert old_hash != user.password
+        assert user.check_password("newpassword1234")
+
+    def test_reset_password(self) -> None:
         email = "testuser2@test.com"
         res = self.mutate_send_password_reset_email(email=email)
         assert not res["errors"]
@@ -638,11 +695,10 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert res["successMessage"] == Messages.PASSWORD_RESET_EMAIL_SENT
         assert len(mail.outbox) == 2
 
-    def test_reset_password_error(self) -> None:
         self.mutate_send_password_reset_email()
         token = get_token_from_email(mail.outbox[0].body)
 
-        # Email not found.
+        # Test that resetting password with a random email fails.
         user = self.get_authenticated_user()
         user.verified = False
         user.save()

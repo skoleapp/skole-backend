@@ -32,7 +32,8 @@ def private_field(func: UserResolver[T]) -> UserResolver[Optional[T]]:
 class UserObjectType(SkoleDjangoObjectType):
     """
     The following fields are private, meaning they are returned only if the user is
-    querying one's own profile: `email`, `verified`, `school`, `subject`.
+    querying one's own profile: `email`, `verified`, `product_update_email_permission`,
+    `blog_post_email_permission`, `school`, `subject`.
 
     For instances that are not the user's own user profile, these fields will return a
     `null` value.
@@ -49,6 +50,8 @@ class UserObjectType(SkoleDjangoObjectType):
     rank = graphene.String()
     badges = graphene.List(BadgeObjectType)
     unread_activity_count = graphene.Int()
+    product_update_email_permission = graphene.Boolean()
+    blog_post_email_permission = graphene.Boolean()
 
     class Meta:
         model = get_user_model()
@@ -65,6 +68,8 @@ class UserObjectType(SkoleDjangoObjectType):
             "created",
             "verified",
             "unread_activity_count",
+            "product_update_email_permission",
+            "blog_post_email_permission",
         )
 
     @staticmethod
@@ -103,3 +108,13 @@ class UserObjectType(SkoleDjangoObjectType):
     @private_field
     def resolve_unread_activity_count(root: User, info: ResolveInfo) -> int:
         return root.activities.filter(read=False).order_by().count()
+
+    @staticmethod
+    @private_field
+    def resolve_product_update_email_permission(root: User, info: ResolveInfo) -> bool:
+        return root.product_update_email_permission
+
+    @staticmethod
+    @private_field
+    def resolve_blog_post_email_permission(root: User, info: ResolveInfo) -> bool:
+        return root.blog_post_email_permission

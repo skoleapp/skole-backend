@@ -17,6 +17,7 @@ from .user import (
     RegisterForm,
     SetPasswordForm,
     TokenForm,
-    UpdateUserForm,
+    UpdateAccountSettingsForm,
+    UpdateProfileForm,
 )
 from .vote import CreateVoteForm

@@ -265,7 +265,8 @@ type Mutation {
   login(input: LoginMutationInput!): LoginMutationPayload
   logout: LogoutMutation
   changePassword(input: ChangePasswordMutationInput!): ChangePasswordMutationPayload
-  updateUser(input: UpdateUserMutationInput!): UpdateUserMutationPayload
+  updateProfile(input: UpdateProfileMutationInput!): UpdateProfileMutationPayload
+  updateAccountSettings(input: UpdateAccountSettingsMutationInput!): UpdateAccountSettingsMutationPayload
   deleteUser(input: DeleteUserMutationInput!): DeleteUserMutationPayload
   createResource(input: CreateResourceMutationInput!): CreateResourceMutationPayload
   updateResource(input: UpdateResourceMutationInput!): UpdateResourceMutationPayload
@@ -496,6 +497,22 @@ type SubjectObjectType {
 
 union SuggestionsUnion = CourseObjectType | ResourceObjectType | CommentObjectType
 
+input UpdateAccountSettingsMutationInput {
+  email: String!
+  school: ID
+  subject: ID
+  productUpdateEmailPermission: Boolean
+  blogPostEmailPermission: Boolean
+  clientMutationId: String
+}
+
+type UpdateAccountSettingsMutationPayload {
+  user: UserObjectType
+  errors: [ErrorType]
+  successMessage: String
+  clientMutationId: String
+}
+
 input UpdateCommentMutationInput {
   text: String
   attachment: String
@@ -505,6 +522,21 @@ input UpdateCommentMutationInput {
 
 type UpdateCommentMutationPayload {
   comment: CommentObjectType
+  errors: [ErrorType]
+  successMessage: String
+  clientMutationId: String
+}
+
+input UpdateProfileMutationInput {
+  username: String!
+  title: String
+  bio: String
+  avatar: String
+  clientMutationId: String
+}
+
+type UpdateProfileMutationPayload {
+  user: UserObjectType
   errors: [ErrorType]
   successMessage: String
   clientMutationId: String
@@ -526,24 +558,6 @@ type UpdateResourceMutationPayload {
   clientMutationId: String
 }
 
-input UpdateUserMutationInput {
-  username: String!
-  email: String!
-  title: String
-  bio: String
-  avatar: String
-  school: ID
-  subject: ID
-  clientMutationId: String
-}
-
-type UpdateUserMutationPayload {
-  user: UserObjectType
-  errors: [ErrorType]
-  successMessage: String
-  clientMutationId: String
-}
-
 type UserObjectType {
   id: ID!
   slug: String
@@ -555,6 +569,8 @@ type UserObjectType {
   score: Int
   created: DateTime!
   verified: Boolean
+  productUpdateEmailPermission: Boolean
+  blogPostEmailPermission: Boolean
   avatarThumbnail: String
   school: SchoolObjectType
   subject: SubjectObjectType

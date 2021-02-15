@@ -1,11 +1,13 @@
 from __future__ import annotations
 
+import django.contrib.postgres.fields
 from autoslug import AutoSlugField
 from django.conf import settings
 from django.db import models
 from django.db.models import Count, QuerySet, Sum, Value
 from django.db.models.functions import Coalesce
 
+from skole.utils.constants import ValidationErrors
 from skole.utils.shortcuts import safe_annotation
 
 from .base import SkoleManager, SkoleModel
@@ -34,12 +36,21 @@ class Course(SkoleModel):
         null=True,
         default=None,
         populate_from="__str__",
-        unique_with=("name", "code"),
+        unique_with=("name", "codes"),
         always_update=True,
     )
 
     name = models.CharField(max_length=200)
-    code = models.CharField(max_length=30, blank=True)
+
+    codes = django.contrib.postgres.fields.ArrayField(
+        base_field=models.CharField(max_length=30, blank=True),
+        size=10,
+        blank=True,
+        default=list,
+        error_messages={
+            "item_invalid": ValidationErrors.COURSE_CODE_INVALID,
+        },
+    )
 
     subjects = models.ManyToManyField(
         "skole.Subject", related_name="courses", blank=True
@@ -69,4 +80,4 @@ class Course(SkoleModel):
     comment_count: int
 
     def __str__(self) -> str:
-        return f"{self.name} {self.code}" if self.code else self.name
+        return f"{self.name} ({', '.join(self.codes)})" if self.codes else self.name

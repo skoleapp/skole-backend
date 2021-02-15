@@ -87,7 +87,7 @@ type CourseObjectType {
   id: ID!
   slug: String
   name: String!
-  code: String!
+  codes: String!
   subjects: [SubjectObjectType!]!
   school: SchoolObjectType!
   user: UserObjectType
@@ -123,7 +123,7 @@ type CreateCommentMutationPayload {
 
 input CreateCourseMutationInput {
   name: String!
-  code: String
+  codes: String
   subjects: [ID]
   school: ID!
   clientMutationId: String

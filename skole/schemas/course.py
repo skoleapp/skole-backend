@@ -42,6 +42,7 @@ def order_courses_with_secret_algorithm(qs: QuerySet[Course]) -> QuerySet[Course
 
 
 class CourseObjectType(VoteMixin, StarMixin, DjangoObjectType):
+    codes = graphene.NonNull(graphene.String)
     slug = graphene.String()
     star_count = graphene.Int()
     resource_count = graphene.Int()
@@ -53,7 +54,7 @@ class CourseObjectType(VoteMixin, StarMixin, DjangoObjectType):
             "id",
             "slug",
             "name",
-            "code",
+            "codes",
             "subjects",
             "school",
             "user",
@@ -66,6 +67,10 @@ class CourseObjectType(VoteMixin, StarMixin, DjangoObjectType):
             "modified",
             "created",
         )
+
+    @staticmethod
+    def resolve_codes(root: Course, info: ResolveInfo) -> str:
+        return ", ".join(root.codes)
 
     # Have to specify these with resolvers since graphene
     # cannot infer the annotated fields otherwise.
@@ -175,7 +180,7 @@ class Query(SkoleObjectType):
 
         if search_term is not None:
             qs = qs.filter(
-                Q(name__icontains=search_term) | Q(code__icontains=search_term)
+                Q(name__icontains=search_term) | Q(codes__icontains=search_term)
             )
 
         if subject != "":
@@ -215,7 +220,7 @@ class Query(SkoleObjectType):
             qs = qs.filter(school__slug=school)
 
         if name != "":
-            qs = qs.filter(Q(name__icontains=name) | Q(code__icontains=name))
+            qs = qs.filter(Q(name__icontains=name) | Q(codes__icontains=name))
 
         qs = order_courses_with_secret_algorithm(qs)
         return qs[: settings.AUTOCOMPLETE_MAX_RESULTS]

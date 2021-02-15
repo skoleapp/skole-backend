@@ -23,7 +23,7 @@ class CourseSchemaTests(SkoleSchemaTestCase):
             id
             slug
             name
-            code
+            codes
             score
             starCount
             resourceCount
@@ -237,7 +237,7 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         self,
         *,
         name: str = "test course",
-        code: str = "code0001",
+        codes: str = "code0001",
         subjects: Collection[ID] = (1,),
         school: ID = 1,
         assert_error: bool = False,
@@ -245,7 +245,12 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         return self.execute_input_mutation(
             name="createCourse",
             input_type="CreateCourseMutationInput!",
-            input={"name": name, "code": code, "subjects": subjects, "school": school},
+            input={
+                "name": name,
+                "codes": codes,
+                "subjects": subjects,
+                "school": school,
+            },
             result="course { ...courseFields }",
             fragment=self.course_fields,
             assert_error=assert_error,
@@ -270,8 +275,16 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         course = res["course"]
         assert course["id"] == "26"
         assert course["name"] == "test course"
-        assert course["code"] == "code0001"
+        assert course["codes"] == "code0001"
         assert course["user"]["slug"] == "testuser2"
+
+        # Course codes input gets split into an array field, and then joined
+        # with spaced commas when resolving the value.
+        res = self.mutate_create_course(codes="foo,bar")
+        assert not res["errors"]
+        course = res["course"]
+        assert course["id"] == "27"
+        assert course["codes"] == "foo, bar"
 
         # These should be 0 by default.
         assert course["starCount"] == 0
@@ -283,11 +296,11 @@ class CourseSchemaTests(SkoleSchemaTestCase):
 
         # Subjects are not required.
         res = self.mutate_create_course(subjects=[])
-        assert res["course"]["id"] == "27"
-
-        # Can omit name but not code.
-        res = self.mutate_create_course(code="")
         assert res["course"]["id"] == "28"
+
+        # Can omit name but not codes.
+        res = self.mutate_create_course(codes="")
+        assert res["course"]["id"] == "29"
         res = self.mutate_create_course(name="")
         assert get_form_error(res) == "This field is required."
         assert res["course"] is None
@@ -431,8 +444,8 @@ class CourseSchemaTests(SkoleSchemaTestCase):
 
         assert res["count"] == 8
         assert len(res["objects"]) == 2
-        assert res["objects"][0]["code"] == "TEST00025"
-        assert res["objects"][1]["code"] == "TEST00024"
+        assert res["objects"][0]["codes"] == "TEST00025"
+        assert res["objects"][1]["codes"] == "TEST00024"
 
         # Test that only courses of the correct user are returned.
 
@@ -524,7 +537,7 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         course = self.query_course(slug=slug)
         assert course["id"] == "1"
         assert course["name"] == "Test Engineering Course 1"
-        assert course["code"] == "TEST0001"
+        assert course["codes"] == "TEST0001"
         assert course["slug"] == slug
         assert course["subjects"] == [
             {"slug": "computer-engineering"},

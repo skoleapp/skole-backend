@@ -165,14 +165,14 @@ class Query(SkoleObjectType):
     ) -> QuerySet[Comment]:
         """Return comments filtered by query params."""
 
-        qs = Comment.objects.all()
+        qs = Comment.objects.none()
 
         if course is not None:
-            qs = qs.filter(course__pk=course)
+            qs = Comment.objects.filter(course__pk=course)
         if resource is not None:
-            qs = qs.filter(resource__pk=resource)
+            qs = Comment.objects.filter(resource__pk=resource)
         if school is not None:
-            qs = qs.filter(school__pk=school)
+            qs = Comment.objects.filter(school__pk=school)
 
         return qs
 

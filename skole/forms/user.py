@@ -22,13 +22,14 @@ class RegisterForm(SkoleModelForm):
 
     def clean_username(self) -> str:
         username = self.cleaned_data["username"]
-        if get_user_model().objects.filter(username__iexact=username):
+        if get_user_model().objects.filter(username__iexact=username).exists():
             raise forms.ValidationError(ValidationErrors.USERNAME_TAKEN)
         return username
 
     def clean_email(self) -> str:
+        # Call `lower()` since we want all saved email to be lowercase,
         email = self.cleaned_data["email"].lower()
-        if get_user_model().objects.filter(email__iexact=email):
+        if get_user_model().objects.filter(email__iexact=email).exists():
             raise forms.ValidationError(ValidationErrors.EMAIL_TAKEN)
         return email
 

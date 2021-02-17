@@ -85434,16 +85434,6 @@
     modified: "2021-02-13 12:00:00.000000+00:00"
     created: "2021-02-13 12:00:00.000000+00:00"
 - model: skole.Course
-  pk: 8497
-  fields:
-    name: ""
-    codes: ["105500.0"]
-    subjects: [260]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
   pk: 8498
   fields:
     name: "Introduction to German history and society"
@@ -96214,16 +96204,6 @@
     modified: "2021-02-13 12:00:00.000000+00:00"
     created: "2021-02-13 12:00:00.000000+00:00"
 - model: skole.Course
-  pk: 9575
-  fields:
-    name: "-"
-    codes: ["660102.0"]
-    subjects: [327, 328, 330]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
   pk: 9576
   fields:
     name: "Decorative Textile Techniques"
@@ -96288,16 +96268,6 @@
   fields:
     name: "Product planning, textiles"
     codes: ["660012.3"]
-    subjects: [326, 327, 328]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
-  pk: 9583
-  fields:
-    name: "-"
-    codes: ["660103.0"]
     subjects: [326, 327, 328]
     school: 3
     user: null
@@ -97599,16 +97569,6 @@
     name: "Ethics and health"
     codes: ["707034.0"]
     subjects: [335, 349]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
-  pk: 9714
-  fields:
-    name: ""
-    codes: ["707041.0"]
-    subjects: [349]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -101134,16 +101094,6 @@
     modified: "2021-02-13 12:00:00.000000+00:00"
     created: "2021-02-13 12:00:00.000000+00:00"
 - model: skole.Course
-  pk: 10067
-  fields:
-    name: ""
-    codes: ["PRIVRÄTTMAG1"]
-    subjects: [299]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
   pk: 10068
   fields:
     name: "Master's Thesis in Private Law"
@@ -101169,16 +101119,6 @@
     name: "Master's thesis in public law"
     codes: ["OFFRÄTTMAG1"]
     subjects: [301]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
-  pk: 10071
-  fields:
-    name: ""
-    codes: ["6700BP14"]
-    subjects: [333, 333]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -101339,16 +101279,6 @@
     name: "Physical Basics of Medical Imaging (UTU)"
     codes: ["BV00BN89"]
     subjects: [153]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
-  pk: 10088
-  fields:
-    name: ""
-    codes: ["118222.0"]
-    subjects: [272]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -102654,16 +102584,6 @@
     modified: "2021-02-13 12:00:00.000000+00:00"
     created: "2021-02-13 12:00:00.000000+00:00"
 - model: skole.Course
-  pk: 10219
-  fields:
-    name: ""
-    codes: ["KO008"]
-    subjects: [269]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
   pk: 10220
   fields:
     name: "Theme III"
@@ -102829,16 +102749,6 @@
     name: "Advanced Specialization in the Study of Religions"
     codes: ["RV00BN49"]
     subjects: [146]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
-  pk: 10237
-  fields:
-    name: ""
-    codes: ["JNJNJN"]
-    subjects: [358]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -103054,16 +102964,6 @@
     modified: "2021-02-13 12:00:00.000000+00:00"
     created: "2021-02-13 12:00:00.000000+00:00"
 - model: skole.Course
-  pk: 10259
-  fields:
-    name: ""
-    codes: ["PH00BC07"]
-    subjects: [52]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
   pk: 10260
   fields:
     name: "Seminar II: Methods for Studies of Social Exclusion"
@@ -103268,26 +103168,6 @@
   fields:
     name: "Romantiscm and Revolt: ca 1750-1914"
     codes: ["KO00BC46"]
-    subjects: [269]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
-  pk: 10281
-  fields:
-    name: ""
-    codes: ["KO00BC43"]
-    subjects: [269]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
-  pk: 10282
-  fields:
-    name: ""
-    codes: ["XY00BC42"]
     subjects: [269]
     school: 3
     user: null
@@ -103764,16 +103644,6 @@
     modified: "2021-02-13 12:00:00.000000+00:00"
     created: "2021-02-13 12:00:00.000000+00:00"
 - model: skole.Course
-  pk: 10330
-  fields:
-    name: ""
-    codes: ["FI00BD10"]
-    subjects: [52]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
   pk: 10331
   fields:
     name: "Master's thesis seminars (Leadership, strategy and organization)"
@@ -103874,16 +103744,6 @@
     modified: "2021-02-13 12:00:00.000000+00:00"
     created: "2021-02-13 12:00:00.000000+00:00"
 - model: skole.Course
-  pk: 10341
-  fields:
-    name: ""
-    codes: ["MA00BD22"]
-    subjects: [43]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
   pk: 10342
   fields:
     name: "MA Thesis in English language and literature"
@@ -103969,16 +103829,6 @@
     name: "Seminars in Energy Technology"
     codes: ["ET00BD37"]
     subjects: [288]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
-  pk: 10351
-  fields:
-    name: ""
-    codes: ["KE00BD49"]
-    subjects: [283]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -104424,16 +104274,6 @@
     modified: "2021-02-13 12:00:00.000000+00:00"
     created: "2021-02-13 12:00:00.000000+00:00"
 - model: skole.Course
-  pk: 10396
-  fields:
-    name: ""
-    codes: ["NE00BE31"]
-    subjects: [22]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
   pk: 10397
   fields:
     name: "Master's thesis in Economics, part 3"
@@ -104739,16 +104579,6 @@
     name: "Political Communication"
     codes: ["SM00BF01"]
     subjects: [339]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
-  pk: 10428
-  fields:
-    name: ""
-    codes: ["SM00BF06"]
-    subjects: [337]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -105834,16 +105664,6 @@
     modified: "2021-02-13 12:00:00.000000+00:00"
     created: "2021-02-13 12:00:00.000000+00:00"
 - model: skole.Course
-  pk: 10537
-  fields:
-    name: ""
-    codes: ["KO00BH40"]
-    subjects: [269]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
   pk: 10538
   fields:
     name: "Architecture in Åbo"
@@ -106654,16 +106474,6 @@
     modified: "2021-02-13 12:00:00.000000+00:00"
     created: "2021-02-13 12:00:00.000000+00:00"
 - model: skole.Course
-  pk: 10619
-  fields:
-    name: ""
-    codes: ["RV00BJ28"]
-    subjects: [146]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
   pk: 10620
   fields:
     name: "Introduction to comparative religion"
@@ -106708,16 +106518,6 @@
   fields:
     name: "Bachelor of Arts and seminar"
     codes: ["1100BJ30"]
-    subjects: [146]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
-  pk: 10625
-  fields:
-    name: ""
-    codes: ["RV00BJ26"]
     subjects: [146]
     school: 3
     user: null
@@ -106844,16 +106644,6 @@
     modified: "2021-02-13 12:00:00.000000+00:00"
     created: "2021-02-13 12:00:00.000000+00:00"
 - model: skole.Course
-  pk: 10638
-  fields:
-    name: ""
-    codes: ["SP00BJ94"]
-    subjects: [133]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
   pk: 10639
   fields:
     name: "Ethical and Theoretical Perspectives on Special Education"
@@ -106868,16 +106658,6 @@
   fields:
     name: "Consumption and Economics II"
     codes: ["HV00BK00"]
-    subjects: [333, 333]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
-  pk: 10641
-  fields:
-    name: ""
-    codes: ["HV00BK01"]
     subjects: [333, 333]
     school: 3
     user: null
@@ -107118,16 +106898,6 @@
   fields:
     name: "The human beings basic needs in a caring perspective"
     codes: ["VV00BK25"]
-    subjects: [349]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
-  pk: 10666
-  fields:
-    name: ""
-    codes: ["VV00BK27"]
     subjects: [349]
     school: 3
     user: null
@@ -107624,16 +107394,6 @@
     modified: "2021-02-13 12:00:00.000000+00:00"
     created: "2021-02-13 12:00:00.000000+00:00"
 - model: skole.Course
-  pk: 10716
-  fields:
-    name: ""
-    codes: ["SS00BL24"]
-    subjects: [253]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
   pk: 10717
   fields:
     name: "Master's Thesis, part 1"
@@ -107679,26 +107439,6 @@
     name: "The Political History of the Modern United States"
     codes: ["HI00BL32"]
     subjects: [34]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
-  pk: 10722
-  fields:
-    name: ""
-    codes: ["SP00BL33"]
-    subjects: [133]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
-  pk: 10723
-  fields:
-    name: ""
-    codes: ["UO00BL27"]
-    subjects: [338]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -107899,16 +107639,6 @@
     name: "Auscultation and teaching practice II"
     codes: ["VD00BL69"]
     subjects: [350]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
-  pk: 10744
-  fields:
-    name: ""
-    codes: ["UV00BL70"]
-    subjects: [346]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -108119,16 +107849,6 @@
     name: "The Development of American Society"
     codes: ["PX00BM22"]
     subjects: [337, 340]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
-  pk: 10766
-  fields:
-    name: ""
-    codes: ["PX00BM24"]
-    subjects: [340]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -108684,31 +108404,11 @@
     modified: "2021-02-13 12:00:00.000000+00:00"
     created: "2021-02-13 12:00:00.000000+00:00"
 - model: skole.Course
-  pk: 10822
-  fields:
-    name: ""
-    codes: ["1000BN24"]
-    subjects: [261]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
   pk: 10823
   fields:
     name: "Curating"
     codes: ["KL00BN25"]
     subjects: [255]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
-  pk: 10824
-  fields:
-    name: ""
-    codes: ["1000BN26"]
-    subjects: [261]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -108729,16 +108429,6 @@
     name: "Archipelago Business Lab"
     codes: ["MF00BN28"]
     subjects: [298]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
-  pk: 10827
-  fields:
-    name: ""
-    codes: ["UM00BN41"]
-    subjects: [347, 348]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -108994,16 +108684,6 @@
     modified: "2021-02-13 12:00:00.000000+00:00"
     created: "2021-02-13 12:00:00.000000+00:00"
 - model: skole.Course
-  pk: 10853
-  fields:
-    name: ""
-    codes: ["PH00BO20"]
-    subjects: [52]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
   pk: 10854
   fields:
     name: "Special Course A in Philosophy"
@@ -109039,26 +108719,6 @@
     name: "Gas Technology"
     codes: ["ET00BO25"]
     subjects: [288]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
-  pk: 10858
-  fields:
-    name: ""
-    codes: ["ET00BO26"]
-    subjects: [288]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
-  pk: 10859
-  fields:
-    name: ""
-    codes: ["BP00BO30"]
-    subjects: [23, 322]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -109129,16 +108789,6 @@
     name: "Multiliteracy"
     codes: ["BP00BO41"]
     subjects: [321]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
-  pk: 10867
-  fields:
-    name: ""
-    codes: ["BP00BO40"]
-    subjects: [23, 322]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -109279,16 +108929,6 @@
     name: "Relations, cooperation and internship; early childhood education conflicts"
     codes: ["BP00BO48"]
     subjects: [321]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
-  pk: 10882
-  fields:
-    name: ""
-    codes: ["PY00BO53"]
-    subjects: [272]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -109638,16 +109278,6 @@
   fields:
     name: "Persuasion and social influence through language"
     codes: ["SS00BP03"]
-    subjects: [253]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
-  pk: 10918
-  fields:
-    name: ""
-    codes: ["SS00BP11"]
     subjects: [253]
     school: 3
     user: null
@@ -110074,31 +109704,11 @@
     modified: "2021-02-13 12:00:00.000000+00:00"
     created: "2021-02-13 12:00:00.000000+00:00"
 - model: skole.Course
-  pk: 10961
-  fields:
-    name: ""
-    codes: ["UL00BP81"]
-    subjects: [23]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
   pk: 10962
   fields:
     name: "Teacherhood and working community"
     codes: ["LP00BP76"]
     subjects: [23, 323]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
-  pk: 10963
-  fields:
-    name: ""
-    codes: ["UL00BP80"]
-    subjects: [23]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -110209,16 +109819,6 @@
     name: "Organizational Communication"
     codes: ["EN00BP94"]
     subjects: [256]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
-  pk: 10975
-  fields:
-    name: ""
-    codes: ["SP00BP95"]
-    subjects: [133]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -110824,16 +110424,6 @@
     modified: "2021-02-13 12:00:00.000000+00:00"
     created: "2021-02-13 12:00:00.000000+00:00"
 - model: skole.Course
-  pk: 11036
-  fields:
-    name: ""
-    codes: ["1100BQ61"]
-    subjects: [146]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
   pk: 11037
   fields:
     name: "Environmental Engineering and Design"
@@ -111019,16 +110609,6 @@
     name: "Research seminars, Caring Science"
     codes: ["HV00BR26"]
     subjects: [349]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
-  pk: 11056
-  fields:
-    name: ""
-    codes: ["SV00BR15"]
-    subjects: [338]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -111469,16 +111049,6 @@
     name: "Licentiate Exam (for doctoral students admitted before 1.3.2019)"
     codes: ["BV00BT17"]
     subjects: [276, 278]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
-  pk: 11101
-  fields:
-    name: ""
-    codes: ["ÄP00BT27"]
-    subjects: [23, 323]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -112138,16 +111708,6 @@
   fields:
     name: "Greenland – language, culture and history"
     codes: ["SS00BU78"]
-    subjects: [253]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
-  pk: 11168
-  fields:
-    name: ""
-    codes: ["SS00BU77"]
     subjects: [253]
     school: 3
     user: null
@@ -113804,16 +113364,6 @@
     modified: "2021-02-13 12:00:00.000000+00:00"
     created: "2021-02-13 12:00:00.000000+00:00"
 - model: skole.Course
-  pk: 11334
-  fields:
-    name: ""
-    codes: ["SV00BZ40"]
-    subjects: [328]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
   pk: 11335
   fields:
     name: "Craft project"
@@ -113994,16 +113544,6 @@
     modified: "2021-02-13 12:00:00.000000+00:00"
     created: "2021-02-13 12:00:00.000000+00:00"
 - model: skole.Course
-  pk: 11353
-  fields:
-    name: ""
-    codes: ["AV00BZ68"]
-    subjects: [23]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
   pk: 11354
   fields:
     name: "Writing workshop - collaborative writing"
@@ -114019,16 +113559,6 @@
     name: "Comparative Democratisation"
     codes: ["375115.0"]
     subjects: [137]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
-  pk: 11356
-  fields:
-    name: ""
-    codes: ["OL00BZ70"]
-    subjects: [295]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -114294,16 +113824,6 @@
     modified: "2021-02-13 12:00:00.000000+00:00"
     created: "2021-02-13 12:00:00.000000+00:00"
 - model: skole.Course
-  pk: 11383
-  fields:
-    name: ""
-    codes: ["KO00BZ97"]
-    subjects: [269]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
   pk: 11384
   fields:
     name: "Ecological sustainability"
@@ -114489,16 +114009,6 @@
     name: "Master´s thesis in mathematics (Mathematical statistics)"
     codes: ["MA00CA79"]
     subjects: [43]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
-  pk: 11403
-  fields:
-    name: ""
-    codes: ["AV00CA82"]
-    subjects: [132]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -115654,16 +115164,6 @@
     modified: "2021-02-13 12:00:00.000000+00:00"
     created: "2021-02-13 12:00:00.000000+00:00"
 - model: skole.Course
-  pk: 11519
-  fields:
-    name: ""
-    codes: ["MA00CC95"]
-    subjects: [43]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
   pk: 11520
   fields:
     name: "Texts and Communication"
@@ -116054,26 +115554,6 @@
     modified: "2021-02-13 12:00:00.000000+00:00"
     created: "2021-02-13 12:00:00.000000+00:00"
 - model: skole.Course
-  pk: 11559
-  fields:
-    name: ""
-    codes: ["AS00CD46"]
-    subjects: [304]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
-  pk: 11560
-  fields:
-    name: ""
-    codes: ["VS00CD45"]
-    subjects: [310]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
   pk: 11561
   fields:
     name: "Communication, Media Activism and Social Change"
@@ -116109,16 +115589,6 @@
     name: "Data Analysis and Machine Learning"
     codes: ["PS00CD54"]
     subjects: [292]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
-  pk: 11565
-  fields:
-    name: ""
-    codes: ["NM00CD48"]
-    subjects: [293]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -116604,31 +116074,11 @@
     modified: "2021-02-13 12:00:00.000000+00:00"
     created: "2021-02-13 12:00:00.000000+00:00"
 - model: skole.Course
-  pk: 11614
-  fields:
-    name: ""
-    codes: ["PS00CE21"]
-    subjects: [292]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
   pk: 11615
   fields:
     name: "Compilation Exam 2 (Finnish Language)"
     codes: ["FI00CE17"]
     subjects: [260]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
-  pk: 11616
-  fields:
-    name: ""
-    codes: ["NM00CE22"]
-    subjects: [293]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -116854,16 +116304,6 @@
     modified: "2021-02-13 12:00:00.000000+00:00"
     created: "2021-02-13 12:00:00.000000+00:00"
 - model: skole.Course
-  pk: 11639
-  fields:
-    name: ""
-    codes: ["HT00CE57"]
-    subjects: [371]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
   pk: 11640
   fields:
     name: "Leading digital change"
@@ -116898,26 +116338,6 @@
   fields:
     name: "Innovation and research in welfare technology"
     codes: ["HT00CE60"]
-    subjects: [371]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
-  pk: 11644
-  fields:
-    name: ""
-    codes: ["HT00CE56"]
-    subjects: [371]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
-  pk: 11645
-  fields:
-    name: ""
-    codes: ["HT00CE55"]
     subjects: [371]
     school: 3
     user: null
@@ -117354,30 +116774,10 @@
     modified: "2021-02-13 12:00:00.000000+00:00"
     created: "2021-02-13 12:00:00.000000+00:00"
 - model: skole.Course
-  pk: 11689
-  fields:
-    name: ""
-    codes: ["ÄD00CF23"]
-    subjects: [325]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
   pk: 11690
   fields:
     name: "Multiprofessional collaboration and consultation III"
     codes: ["SP00CF12"]
-    subjects: [133]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
-  pk: 11691
-  fields:
-    name: ""
-    codes: ["SP00CF11"]
     subjects: [133]
     school: 3
     user: null
@@ -117744,16 +117144,6 @@
     modified: "2021-02-13 12:00:00.000000+00:00"
     created: "2021-02-13 12:00:00.000000+00:00"
 - model: skole.Course
-  pk: 11728
-  fields:
-    name: ""
-    codes: ["HV00CF66"]
-    subjects: [333]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
   pk: 11729
   fields:
     name: "Perspectives on being a teacher in early childhood education"
@@ -118024,31 +117414,11 @@
     modified: "2021-02-13 12:00:00.000000+00:00"
     created: "2021-02-13 12:00:00.000000+00:00"
 - model: skole.Course
-  pk: 11756
-  fields:
-    name: ""
-    codes: ["FA00CF94"]
-    subjects: [277]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
   pk: 11757
   fields:
     name: "Formelhafte Sprache"
     codes: ["DE00CF96"]
     subjects: [261]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
-  pk: 11758
-  fields:
-    name: ""
-    codes: ["BK00CF97"]
-    subjects: [115]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -118119,16 +117489,6 @@
     name: "Work Practice: Religion and Culture"
     codes: ["RV00CG05"]
     subjects: [146]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
-  pk: 11766
-  fields:
-    name: ""
-    codes: ["HT00CG04"]
-    subjects: [371]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -118324,16 +117684,6 @@
     modified: "2021-02-13 12:00:00.000000+00:00"
     created: "2021-02-13 12:00:00.000000+00:00"
 - model: skole.Course
-  pk: 11786
-  fields:
-    name: ""
-    codes: ["AV00CG32"]
-    subjects: [23, 132]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
   pk: 11787
   fields:
     name: "Reading Shapes the Human Mind: from Pleasures of Literary Texts to Fake News"
@@ -118369,16 +117719,6 @@
     name: "Sixties in the United States"
     codes: ["HI00CG51"]
     subjects: [34]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
-  pk: 11791
-  fields:
-    name: ""
-    codes: ["TF00CG54"]
-    subjects: [313]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -118544,16 +117884,6 @@
     modified: "2021-02-13 12:00:00.000000+00:00"
     created: "2021-02-13 12:00:00.000000+00:00"
 - model: skole.Course
-  pk: 11808
-  fields:
-    name: ""
-    codes: ["GE00CG75"]
-    subjects: [215]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
   pk: 11809
   fields:
     name: "Field course II: Fennoscandian Quaternary Glacial Enivronment and Sequence Stratigraphy (UTU)"
@@ -118574,30 +117904,10 @@
     modified: "2021-02-13 12:00:00.000000+00:00"
     created: "2021-02-13 12:00:00.000000+00:00"
 - model: skole.Course
-  pk: 11811
-  fields:
-    name: ""
-    codes: ["FY00CG78"]
-    subjects: [121]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
   pk: 11812
   fields:
     name: "Magnetic Resonance Theory (UTU)"
     codes: ["FY00CG77"]
-    subjects: [121]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
-  pk: 11813
-  fields:
-    name: ""
-    codes: ["FY00CG85"]
     subjects: [121]
     school: 3
     user: null
@@ -118719,16 +118029,6 @@
     name: "Using GAS-Method in Speech and Language Pathology"
     codes: ["LO00CH03"]
     subjects: [263]
-    school: 3
-    user: null
-    modified: "2021-02-13 12:00:00.000000+00:00"
-    created: "2021-02-13 12:00:00.000000+00:00"
-- model: skole.Course
-  pk: 11826
-  fields:
-    name: ""
-    codes: ["1100CG99"]
-    subjects: [272]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"

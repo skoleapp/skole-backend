@@ -18574,7 +18574,7 @@
   fields:
     name: "KEKO1 Kestävän kehityksen integrointi ja hallinta"
     codes: ["KEKO9001"]
-    subjects: [367]
+    subjects: [165]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -18584,7 +18584,7 @@
   fields:
     name: "KEKO2 Erikoiskurssit: vapaavalintaiset opinnot"
     codes: ["KEKO9002"]
-    subjects: [367]
+    subjects: [165]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -64293,8 +64293,8 @@
   pk: 6540
   fields:
     name: "Sustainable.now Kestävän kehityksen peruskurssi"
-    codes: ["XXXXXXXX"]
-    subjects: [367]
+    codes: ["YH000042"]
+    subjects: [165]
     school: 1
     user: null
     modified: "2020-03-15 12:00:00.000000+00:00"
@@ -111168,7 +111168,7 @@
   fields:
     name: "Social sustainability"
     codes: ["SU00BT52"]
-    subjects: [367]
+    subjects: [165]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -111198,7 +111198,7 @@
   fields:
     name: "Sustainability in a Nordic perspective"
     codes: ["SU00BT53"]
-    subjects: [367]
+    subjects: [165]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -113828,7 +113828,7 @@
   fields:
     name: "Ecological sustainability"
     codes: ["SU00CA07"]
-    subjects: [367]
+    subjects: [165]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -113838,7 +113838,7 @@
   fields:
     name: "I, a Consumer"
     codes: ["SU00CA06"]
-    subjects: [367]
+    subjects: [165]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -113888,7 +113888,7 @@
   fields:
     name: "Sustainable and circular economy"
     codes: ["SU00CA12"]
-    subjects: [367]
+    subjects: [165]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -117798,7 +117798,7 @@
   fields:
     name: "Ethics, Meaning and Inner Sustainability"
     codes: ["SU00CG62"]
-    subjects: [367]
+    subjects: [165]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"
@@ -118128,7 +118128,7 @@
   fields:
     name: "Sustainability in Development (25 sp, online) 2020-2021"
     codes: ["PI00CH27"]
-    subjects: [367]
+    subjects: [165]
     school: 3
     user: null
     modified: "2021-02-13 12:00:00.000000+00:00"

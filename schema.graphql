@@ -85,9 +85,9 @@ type CountryObjectType {
 
 type CourseObjectType {
   id: ID!
-  slug: String
   name: String!
   codes: String!
+  slug: String
   subjects: [SubjectObjectType!]!
   school: SchoolObjectType!
   user: UserObjectType

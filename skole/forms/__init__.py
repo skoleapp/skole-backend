@@ -2,6 +2,7 @@ from .activity import MarkActivityAsReadForm
 from .comment import CreateCommentForm, DeleteCommentForm, UpdateCommentForm
 from .contact import ContactForm
 from .course import CreateCourseForm, DeleteCourseForm
+from .email_subscription import CreateEmailSubscriptionForm, UpdateEmailSubscriptionForm
 from .resource import (
     CreateResourceForm,
     DeleteResourceForm,

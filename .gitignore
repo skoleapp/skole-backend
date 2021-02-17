@@ -22,6 +22,9 @@ static/
 
 # Ignore every media file except these three.
 media/*
+!media/marketing_emails
+media/marketing_emails/*
+!media/marketing_emails/test_marketing_email.html
 !media/uploads
 media/uploads/*
 !media/uploads/attachments

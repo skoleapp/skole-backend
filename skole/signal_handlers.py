@@ -5,6 +5,7 @@ from django.dispatch import receiver
 
 from skole.models import Activity, ActivityType, Comment
 from skole.utils.constants import ActivityTypes
+from skole.utils.email import send_email_notification
 
 
 @receiver(post_save, sender=Comment)
@@ -19,20 +20,27 @@ def create_activity(
 
     target_user = instance.user
 
-    if instance.comment:
-        if instance.comment.user and instance.comment.user != target_user:
-            Activity.objects.create(
-                user=instance.comment.user,
-                target_user=target_user,
-                course=instance.comment.course,
-                resource=instance.comment.resource,
-                comment=instance.comment,
-                activity_type=ActivityType.objects.get(
-                    name=ActivityTypes.COMMENT_REPLY
-                ),
-            )
-    elif instance.course:
-        if instance.course.user and instance.course.user != target_user:
+    if (
+        instance.comment
+        and instance.comment.user
+        and instance.comment.user != target_user
+    ):
+        # Reply comment.
+        Activity.objects.create(
+            user=instance.comment.user,
+            target_user=target_user,
+            course=instance.comment.course,
+            resource=instance.comment.resource,
+            comment=instance.comment,
+            activity_type=ActivityType.objects.get(name=ActivityTypes.COMMENT_REPLY),
+        )
+    else:
+        if (
+            instance.course
+            and instance.course.user
+            and instance.course.user != target_user
+        ):
+            # Course comment.
             Activity.objects.create(
                 user=instance.course.user,
                 target_user=target_user,
@@ -43,8 +51,13 @@ def create_activity(
                     name=ActivityTypes.COURSE_COMMENT
                 ),
             )
-    elif instance.resource:
-        if instance.resource.user and instance.resource.user != target_user:
+
+        if (
+            instance.resource
+            and instance.resource.user
+            and instance.resource.user != target_user
+        ):
+            # Resource comment.
             Activity.objects.create(
                 user=instance.resource.user,
                 target_user=target_user,
@@ -55,3 +68,32 @@ def create_activity(
                     name=ActivityTypes.RESOURCE_COMMENT
                 ),
             )
+
+
+@receiver(post_save, sender=Activity)
+def send_activity_email(
+    sender: Activity, instance: Activity, created: bool, raw: bool, **kwargs: Any
+) -> None:
+    """Send email notification for new activities."""
+
+    if not created or raw:
+        # Skip when installing fixtures or when updating an activity.
+        return
+
+    kwargs = {
+        "user": instance.user,
+        "target_user": instance.target_user,
+        "description": instance.activity_type.description,
+    }
+
+    # Reply comment.
+    if instance.comment and instance.user.comment_reply_email_permission:
+        send_email_notification(**kwargs)
+    else:
+        # Course comment.
+        if instance.course and instance.user.course_comment_email_permission:
+            send_email_notification(**kwargs)
+
+        # Resource comment.
+        if instance.resource and instance.user.resource_comment_email_permission:
+            send_email_notification(**kwargs)

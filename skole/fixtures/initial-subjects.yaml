@@ -273,7 +273,7 @@
   pk: 49
   fields:
     language_code: en
-    name: Communication ja Media Studies
+    name: Communication and Media Studies
     master: 17
 - model: skole.SubjectTranslation
   pk: 50
@@ -489,7 +489,7 @@
   pk: 85
   fields:
     language_code: en
-    name: French studies
+    name: French Studies
     master: 29
 - model: skole.SubjectTranslation
   pk: 86
@@ -561,7 +561,7 @@
   pk: 97
   fields:
     language_code: en
-    name: German studies
+    name: German Studies
     master: 33
 - model: skole.SubjectTranslation
   pk: 98
@@ -957,7 +957,7 @@
   pk: 169
   fields:
     language_code: en
-    name: Process technology
+    name: Process Technology
     master: 57
 - model: skole.SubjectTranslation
   pk: 170
@@ -993,7 +993,7 @@
   pk: 175
   fields:
     language_code: en
-    name: Russian studies
+    name: Russian Studies
     master: 59
 - model: skole.SubjectTranslation
   pk: 176
@@ -1065,7 +1065,7 @@
   pk: 187
   fields:
     language_code: en
-    name: Swedish studies
+    name: Swedish Studies
     master: 63
 - model: skole.SubjectTranslation
   pk: 188
@@ -1335,7 +1335,7 @@
   pk: 232
   fields:
     language_code: en
-    name: English language
+    name: English Language
     master: 78
 - model: skole.SubjectTranslation
   pk: 233
@@ -2757,7 +2757,7 @@
   pk: 481
   fields:
     language_code: en
-    name: European Ethn. and Comp. Religion
+    name: European Ethn. And Comp. Religion
     master: 161
 - model: skole.SubjectTranslation
   pk: 482
@@ -4271,7 +4271,7 @@
   pk: 748
   fields:
     language_code: en
-    name: Health and Well-being
+    name: Health and Well-Being
     master: 250
 - model: skole.SubjectTranslation
   pk: 749
@@ -4327,7 +4327,7 @@
   pk: 757
   fields:
     language_code: en
-    name: Swedish language
+    name: Swedish Language
     master: 253
 - model: skole.SubjectTranslation
   pk: 758
@@ -4345,7 +4345,7 @@
   pk: 760
   fields:
     language_code: en
-    name: Translation studies
+    name: Translation Studies
     master: 254
 - model: skole.SubjectTranslation
   pk: 761
@@ -4363,7 +4363,7 @@
   pk: 763
   fields:
     language_code: en
-    name: Cultural management
+    name: Cultural Management
     master: 255
 - model: skole.SubjectTranslation
   pk: 764
@@ -4381,7 +4381,7 @@
   pk: 766
   fields:
     language_code: en
-    name: English language and literature
+    name: English Language and Literature
     master: 256
 - model: skole.SubjectTranslation
   pk: 767
@@ -4417,7 +4417,7 @@
   pk: 772
   fields:
     language_code: en
-    name: Intercultural communication
+    name: Intercultural Communication
     master: 258
 - model: skole.SubjectTranslation
   pk: 773
@@ -4435,7 +4435,7 @@
   pk: 775
   fields:
     language_code: en
-    name: General linguistics
+    name: General Linguistics
     master: 259
 - model: skole.SubjectTranslation
   pk: 776
@@ -4453,7 +4453,7 @@
   pk: 778
   fields:
     language_code: en
-    name: Finnish language
+    name: Finnish Language
     master: 260
 - model: skole.SubjectTranslation
   pk: 779
@@ -4471,7 +4471,7 @@
   pk: 781
   fields:
     language_code: en
-    name: German language and literature
+    name: German Language and Literature
     master: 261
 - model: skole.SubjectTranslation
   pk: 782
@@ -4489,7 +4489,7 @@
   pk: 784
   fields:
     language_code: en
-    name: French language and literature
+    name: French Language and Literature
     master: 262
 - model: skole.SubjectTranslation
   pk: 785
@@ -4525,7 +4525,7 @@
   pk: 790
   fields:
     language_code: en
-    name: Russian language and literature
+    name: Russian Language and Literature
     master: 264
 - model: skole.SubjectTranslation
   pk: 791
@@ -4543,7 +4543,7 @@
   pk: 793
   fields:
     language_code: en
-    name: Nordic history
+    name: Nordic History
     master: 265
 - model: skole.SubjectTranslation
   pk: 794
@@ -4561,7 +4561,7 @@
   pk: 796
   fields:
     language_code: en
-    name: General history
+    name: General History
     master: 266
 - model: skole.SubjectTranslation
   pk: 797
@@ -4579,7 +4579,7 @@
   pk: 799
   fields:
     language_code: en
-    name: Nordic ethnology
+    name: Nordic Ethnology
     master: 267
 - model: skole.SubjectTranslation
   pk: 800
@@ -4597,7 +4597,7 @@
   pk: 802
   fields:
     language_code: en
-    name: Studies at the open university
+    name: Studies at the Open University
     master: 268
 - model: skole.SubjectTranslation
   pk: 803
@@ -4615,7 +4615,7 @@
   pk: 805
   fields:
     language_code: en
-    name: Art history
+    name: Art History
     master: 269
 - model: skole.SubjectTranslation
   pk: 806
@@ -4633,7 +4633,7 @@
   pk: 808
   fields:
     language_code: en
-    name: Cultural analysis specifically ethnology and folkloristics
+    name: Cultural Analysis Specifically Ethnology and Folkloristics
     master: 270
 - model: skole.SubjectTranslation
   pk: 809
@@ -4651,7 +4651,7 @@
   pk: 811
   fields:
     language_code: en
-    name: Nordic folkloristics
+    name: Nordic Folkloristics
     master: 271
 - model: skole.SubjectTranslation
   pk: 812
@@ -4687,7 +4687,7 @@
   pk: 817
   fields:
     language_code: en
-    name: Cell and molecular bioscience
+    name: Cell and Molecular Bioscience
     master: 273
 - model: skole.SubjectTranslation
   pk: 818
@@ -4705,7 +4705,7 @@
   pk: 820
   fields:
     language_code: en
-    name: Visual studies
+    name: Visual Studies
     master: 274
 - model: skole.SubjectTranslation
   pk: 821
@@ -4741,7 +4741,7 @@
   pk: 826
   fields:
     language_code: en
-    name: Environmental and marine biology
+    name: Environmental and Marine Biology
     master: 276
 - model: skole.SubjectTranslation
   pk: 827
@@ -4777,7 +4777,7 @@
   pk: 832
   fields:
     language_code: en
-    name: Cell biology
+    name: Cell Biology
     master: 278
 - model: skole.SubjectTranslation
   pk: 833
@@ -4813,7 +4813,7 @@
   pk: 838
   fields:
     language_code: en
-    name: Marine biology
+    name: Marine Biology
     master: 280
 - model: skole.SubjectTranslation
   pk: 839
@@ -4831,7 +4831,7 @@
   pk: 841
   fields:
     language_code: en
-    name: Physical chemistry
+    name: Physical Chemistry
     master: 281
 - model: skole.SubjectTranslation
   pk: 842
@@ -4849,7 +4849,7 @@
   pk: 844
   fields:
     language_code: en
-    name: Analytical chemistry
+    name: Analytical Chemistry
     master: 282
 - model: skole.SubjectTranslation
   pk: 845
@@ -4867,7 +4867,7 @@
   pk: 847
   fields:
     language_code: en
-    name: Organic chemistry
+    name: Organic Chemistry
     master: 283
 - model: skole.SubjectTranslation
   pk: 848
@@ -4885,7 +4885,7 @@
   pk: 850
   fields:
     language_code: en
-    name: Paper coating and converting
+    name: Paper Coating and Converting
     master: 284
 - model: skole.SubjectTranslation
   pk: 851
@@ -4903,7 +4903,7 @@
   pk: 853
   fields:
     language_code: en
-    name: Paper chemistry
+    name: Paper Chemistry
     master: 285
 - model: skole.SubjectTranslation
   pk: 854
@@ -4921,7 +4921,7 @@
   pk: 856
   fields:
     language_code: en
-    name: Process chemistry
+    name: Process Chemistry
     master: 286
 - model: skole.SubjectTranslation
   pk: 857
@@ -4939,7 +4939,7 @@
   pk: 859
   fields:
     language_code: en
-    name: Inorganic chemistry
+    name: Inorganic Chemistry
     master: 287
 - model: skole.SubjectTranslation
   pk: 860
@@ -4957,7 +4957,7 @@
   pk: 862
   fields:
     language_code: en
-    name: Energy and environmental engineering
+    name: Energy and Environmental Engineering
     master: 288
 - model: skole.SubjectTranslation
   pk: 863
@@ -4975,7 +4975,7 @@
   pk: 868
   fields:
     language_code: en
-    name: Mathematics and statistics
+    name: Mathematics and Statistics
     master: 290
 - model: skole.SubjectTranslation
   pk: 869
@@ -4993,7 +4993,7 @@
   pk: 874
   fields:
     language_code: en
-    name: Process and systems engineering
+    name: Process and Systems Engineering
     master: 292
 - model: skole.SubjectTranslation
   pk: 875
@@ -5011,7 +5011,7 @@
   pk: 877
   fields:
     language_code: en
-    name: Natural materials technology
+    name: Natural Materials Technology
     master: 293
 - model: skole.SubjectTranslation
   pk: 878
@@ -5029,7 +5029,7 @@
   pk: 883
   fields:
     language_code: en
-    name: Organization and management
+    name: Organization and Management
     master: 295
 - model: skole.SubjectTranslation
   pk: 884
@@ -5047,7 +5047,7 @@
   pk: 886
   fields:
     language_code: en
-    name: Information studies
+    name: Information Studies
     master: 296
 - model: skole.SubjectTranslation
   pk: 887
@@ -5065,7 +5065,7 @@
   pk: 889
   fields:
     language_code: en
-    name: Cultural anthropology
+    name: Cultural Anthropology
     master: 297
 - model: skole.SubjectTranslation
   pk: 890
@@ -5083,7 +5083,7 @@
   pk: 892
   fields:
     language_code: en
-    name: International marketing
+    name: International Marketing
     master: 298
 - model: skole.SubjectTranslation
   pk: 893
@@ -5101,7 +5101,7 @@
   pk: 895
   fields:
     language_code: en
-    name: Commercial law
+    name: Commercial Law
     master: 299
 - model: skole.SubjectTranslation
   pk: 896
@@ -5119,7 +5119,7 @@
   pk: 898
   fields:
     language_code: en
-    name: Public international law
+    name: Public International Law
     master: 300
 - model: skole.SubjectTranslation
   pk: 899
@@ -5137,7 +5137,7 @@
   pk: 901
   fields:
     language_code: en
-    name: Public law
+    name: Public Law
     master: 301
 - model: skole.SubjectTranslation
   pk: 902
@@ -5155,7 +5155,7 @@
   pk: 904
   fields:
     language_code: en
-    name: General studies
+    name: General Studies
     master: 302
 - model: skole.SubjectTranslation
   pk: 905
@@ -5173,7 +5173,7 @@
   pk: 907
   fields:
     language_code: en
-    name: Public administration
+    name: Public Administration
     master: 303
 - model: skole.SubjectTranslation
   pk: 908
@@ -5191,7 +5191,7 @@
   pk: 910
   fields:
     language_code: en
-    name: Process design and systems engineering
+    name: Process Design and Systems Engineering
     master: 304
 - model: skole.SubjectTranslation
   pk: 911
@@ -5209,7 +5209,7 @@
   pk: 913
   fields:
     language_code: en
-    name: Fibre and cellulose technology
+    name: Fibre and Cellulose Technology
     master: 305
 - model: skole.SubjectTranslation
   pk: 914
@@ -5227,7 +5227,7 @@
   pk: 916
   fields:
     language_code: en
-    name: Business studies
+    name: Business Studies
     master: 306
 - model: skole.SubjectTranslation
   pk: 917
@@ -5245,7 +5245,7 @@
   pk: 919
   fields:
     language_code: en
-    name: Process control
+    name: Process Control
     master: 307
 - model: skole.SubjectTranslation
   pk: 920
@@ -5263,7 +5263,7 @@
   pk: 922
   fields:
     language_code: en
-    name: Industrial chemistry and reaction engineering
+    name: Industrial Chemistry and Reaction Engineering
     master: 308
 - model: skole.SubjectTranslation
   pk: 923
@@ -5281,7 +5281,7 @@
   pk: 925
   fields:
     language_code: en
-    name: Wood and paper chemistry
+    name: Wood and Paper Chemistry
     master: 309
 - model: skole.SubjectTranslation
   pk: 926
@@ -5299,7 +5299,7 @@
   pk: 928
   fields:
     language_code: en
-    name: Thermal and flow engineering
+    name: Thermal and Flow Engineering
     master: 310
 - model: skole.SubjectTranslation
   pk: 929
@@ -5317,7 +5317,7 @@
   pk: 931
   fields:
     language_code: en
-    name: Industrial computer engineering
+    name: Industrial Computer Engineering
     master: 311
 - model: skole.SubjectTranslation
   pk: 932
@@ -5335,7 +5335,7 @@
   pk: 934
   fields:
     language_code: en
-    name: Information systems
+    name: Information Systems
     master: 312
 - model: skole.SubjectTranslation
   pk: 935
@@ -5371,7 +5371,7 @@
   pk: 940
   fields:
     language_code: en
-    name: General theology
+    name: General Theology
     master: 314
 - model: skole.SubjectTranslation
   pk: 941
@@ -5389,7 +5389,7 @@
   pk: 943
   fields:
     language_code: en
-    name: Old testament exegetics
+    name: Old Testament Exegetics
     master: 315
 - model: skole.SubjectTranslation
   pk: 944
@@ -5407,7 +5407,7 @@
   pk: 946
   fields:
     language_code: en
-    name: Judaic studies
+    name: Judaic Studies
     master: 316
 - model: skole.SubjectTranslation
   pk: 947
@@ -5425,7 +5425,7 @@
   pk: 949
   fields:
     language_code: en
-    name: Church history
+    name: Church History
     master: 317
 - model: skole.SubjectTranslation
   pk: 950
@@ -5461,7 +5461,7 @@
   pk: 955
   fields:
     language_code: en
-    name: Theological ethics and philosophy of religion
+    name: Theological Ethics and Philosophy of Religion
     master: 319
 - model: skole.SubjectTranslation
   pk: 956
@@ -5479,7 +5479,7 @@
   pk: 958
   fields:
     language_code: en
-    name: Practical theology
+    name: Practical Theology
     master: 320
 - model: skole.SubjectTranslation
   pk: 959
@@ -5497,7 +5497,7 @@
   pk: 961
   fields:
     language_code: en
-    name: Early childhood education
+    name: Early Childhood Education
     master: 321
 - model: skole.SubjectTranslation
   pk: 962
@@ -5533,7 +5533,7 @@
   pk: 967
   fields:
     language_code: en
-    name: Teacher focused
+    name: Teacher Focused
     master: 323
 - model: skole.SubjectTranslation
   pk: 968
@@ -5551,7 +5551,7 @@
   pk: 973
   fields:
     language_code: en
-    name: Subject didactics for class teachers
+    name: Subject Didactics for Class Teachers
     master: 325
 - model: skole.SubjectTranslation
   pk: 974
@@ -5587,7 +5587,7 @@
   pk: 979
   fields:
     language_code: en
-    name: Pedagogics in handicrafts
+    name: Pedagogics in Handicrafts
     master: 327
 - model: skole.SubjectTranslation
   pk: 980
@@ -5605,7 +5605,7 @@
   pk: 982
   fields:
     language_code: en
-    name: Sloyd science
+    name: Sloyd Science
     master: 328
 - model: skole.SubjectTranslation
   pk: 983
@@ -5623,7 +5623,7 @@
   pk: 985
   fields:
     language_code: en
-    name: Minor subject studies within teacher education
+    name: Minor Subject Studies Within Teacher Education
     master: 329
 - model: skole.SubjectTranslation
   pk: 986
@@ -5641,7 +5641,7 @@
   pk: 988
   fields:
     language_code: en
-    name: Wood and metal work
+    name: Wood and Metal Work
     master: 330
 - model: skole.SubjectTranslation
   pk: 989
@@ -5659,7 +5659,7 @@
   pk: 991
   fields:
     language_code: en
-    name: Environmental education
+    name: Environmental Education
     master: 331
 - model: skole.SubjectTranslation
   pk: 992
@@ -5677,7 +5677,7 @@
   pk: 994
   fields:
     language_code: en
-    name: Media pedagogics
+    name: Media Pedagogics
     master: 332
 - model: skole.SubjectTranslation
   pk: 995
@@ -5695,7 +5695,7 @@
   pk: 997
   fields:
     language_code: en
-    name: Home economics
+    name: Home Economics
     master: 333
 - model: skole.SubjectTranslation
   pk: 998
@@ -5713,7 +5713,7 @@
   pk: 1000
   fields:
     language_code: en
-    name: Studies for vocational school teachers
+    name: Studies for Vocational School Teachers
     master: 334
 - model: skole.SubjectTranslation
   pk: 1001
@@ -5731,7 +5731,7 @@
   pk: 1003
   fields:
     language_code: en
-    name: Health science
+    name: Health Science
     master: 335
 - model: skole.SubjectTranslation
   pk: 1004
@@ -5749,7 +5749,7 @@
   pk: 1006
   fields:
     language_code: en
-    name: Pedagogical studies for teachers
+    name: Pedagogical Studies for Teachers
     master: 336
 - model: skole.SubjectTranslation
   pk: 1007
@@ -5767,7 +5767,7 @@
   pk: 1009
   fields:
     language_code: en
-    name: Political science with mass communication
+    name: Political Science With Mass Communication
     master: 337
 - model: skole.SubjectTranslation
   pk: 1010
@@ -5785,7 +5785,7 @@
   pk: 1012
   fields:
     language_code: en
-    name: Developmental psychology
+    name: Developmental Psychology
     master: 338
 - model: skole.SubjectTranslation
   pk: 1013
@@ -5803,7 +5803,7 @@
   pk: 1015
   fields:
     language_code: en
-    name: Political Science with Media and Communication
+    name: Political Science With Media and Communication
     master: 339
 - model: skole.SubjectTranslation
   pk: 1016
@@ -5821,7 +5821,7 @@
   pk: 1018
   fields:
     language_code: en
-    name: Political history
+    name: Political History
     master: 340
 - model: skole.SubjectTranslation
   pk: 1019
@@ -5839,7 +5839,7 @@
   pk: 1021
   fields:
     language_code: en
-    name: School psychology
+    name: School Psychology
     master: 341
 - model: skole.SubjectTranslation
   pk: 1022
@@ -5857,7 +5857,7 @@
   pk: 1024
   fields:
     language_code: en
-    name: Psychology of the workplace
+    name: Psychology of the Workplace
     master: 342
 - model: skole.SubjectTranslation
   pk: 1025
@@ -5875,7 +5875,7 @@
   pk: 1027
   fields:
     language_code: en
-    name: Crisis psychology
+    name: Crisis Psychology
     master: 343
 - model: skole.SubjectTranslation
   pk: 1028
@@ -5893,7 +5893,7 @@
   pk: 1030
   fields:
     language_code: en
-    name: Regional science
+    name: Regional Science
     master: 344
 - model: skole.SubjectTranslation
   pk: 1031
@@ -5929,7 +5929,7 @@
   pk: 1036
   fields:
     language_code: en
-    name: Youth studies
+    name: Youth Studies
     master: 346
 - model: skole.SubjectTranslation
   pk: 1037
@@ -5965,7 +5965,7 @@
   pk: 1042
   fields:
     language_code: en
-    name: Mediation and conflict research
+    name: Mediation and Conflict Research
     master: 348
 - model: skole.SubjectTranslation
   pk: 1043
@@ -5983,7 +5983,7 @@
   pk: 1045
   fields:
     language_code: en
-    name: Caring science
+    name: Caring Science
     master: 349
 - model: skole.SubjectTranslation
   pk: 1046
@@ -6001,7 +6001,7 @@
   pk: 1048
   fields:
     language_code: en
-    name: Caring science didactics
+    name: Caring Science Didactics
     master: 350
 - model: skole.SubjectTranslation
   pk: 1049
@@ -6055,7 +6055,7 @@
   pk: 1057
   fields:
     language_code: en
-    name: Governance of digitalization
+    name: Governance of Digitalization
     master: 353
 - model: skole.SubjectTranslation
   pk: 1058
@@ -6073,7 +6073,7 @@
   pk: 1066
   fields:
     language_code: en
-    name: Applied sport psychology
+    name: Applied Sport Psychology
     master: 356
 - model: skole.SubjectTranslation
   pk: 1067
@@ -6091,7 +6091,7 @@
   pk: 1069
   fields:
     language_code: en
-    name: New testament exegetics
+    name: New Testament Exegetics
     master: 357
 - model: skole.SubjectTranslation
   pk: 1070
@@ -6127,7 +6127,7 @@
   pk: 1075
   fields:
     language_code: en
-    name: Forest products chemistry
+    name: Forest Products Chemistry
     master: 359
 - model: skole.SubjectTranslation
   pk: 1076
@@ -6145,7 +6145,7 @@
   pk: 1078
   fields:
     language_code: en
-    name: Technical polymer chemistry
+    name: Technical Polymer Chemistry
     master: 360
 - model: skole.SubjectTranslation
   pk: 1079
@@ -6163,7 +6163,7 @@
   pk: 1081
   fields:
     language_code: en
-    name: Digital humanities
+    name: Digital Humanities
     master: 361
 - model: skole.SubjectTranslation
   pk: 1082
@@ -6181,7 +6181,7 @@
   pk: 1084
   fields:
     language_code: en
-    name: Health care administration
+    name: Health Care Administration
     master: 362
 - model: skole.SubjectTranslation
   pk: 1085
@@ -6199,7 +6199,7 @@
   pk: 1087
   fields:
     language_code: en
-    name: Pre-school pedagogics
+    name: Pre-School Pedagogics
     master: 363
 - model: skole.SubjectTranslation
   pk: 1088
@@ -6217,7 +6217,7 @@
   pk: 1090
   fields:
     language_code: en
-    name: Materials engneering
+    name: Materials Engneering
     master: 364
 - model: skole.SubjectTranslation
   pk: 1091
@@ -6235,7 +6235,7 @@
   pk: 1093
   fields:
     language_code: en
-    name: University pedagogics
+    name: University Pedagogics
     master: 365
 - model: skole.SubjectTranslation
   pk: 1094
@@ -6253,7 +6253,7 @@
   pk: 1096
   fields:
     language_code: en
-    name: Minority studies
+    name: Minority Studies
     master: 366
 - model: skole.SubjectTranslation
   pk: 1097
@@ -6271,7 +6271,7 @@
   pk: 1102
   fields:
     language_code: en
-    name: Innovation and entrepreneurship
+    name: Innovation and Entrepreneurship
     master: 368
 - model: skole.SubjectTranslation
   pk: 1103
@@ -6289,7 +6289,7 @@
   pk: 1105
   fields:
     language_code: en
-    name: Vocationally oriented courses in pedagogics
+    name: Vocationally Oriented Courses in Pedagogics
     master: 369
 - model: skole.SubjectTranslation
   pk: 1106
@@ -6307,7 +6307,7 @@
   pk: 1108
   fields:
     language_code: en
-    name: Mass communication
+    name: Mass Communication
     master: 370
 - model: skole.SubjectTranslation
   pk: 1109
@@ -6325,7 +6325,7 @@
   pk: 1111
   fields:
     language_code: en
-    name: Health technology
+    name: Health Technology
     master: 371
 - model: skole.SubjectTranslation
   pk: 1112
@@ -6343,7 +6343,7 @@
   pk: 1114
   fields:
     language_code: en
-    name: Geriatric care
+    name: Geriatric Care
     master: 372
 - model: skole.SubjectTranslation
   pk: 1115
@@ -6361,7 +6361,7 @@
   pk: 1117
   fields:
     language_code: en
-    name: Clinical caring science
+    name: Clinical Caring Science
     master: 373
 - model: skole.SubjectTranslation
   pk: 1118

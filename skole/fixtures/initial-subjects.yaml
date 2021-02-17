@@ -6402,9 +6402,6 @@
   pk: 8
   fields: {}
 - model: skole.Subject
-  pk: 9
-  fields: {}
-- model: skole.Subject
   pk: 10
   fields: {}
 - model: skole.Subject
@@ -6501,9 +6498,6 @@
   pk: 41
   fields: {}
 - model: skole.Subject
-  pk: 42
-  fields: {}
-- model: skole.Subject
   pk: 43
   fields: {}
 - model: skole.Subject
@@ -6541,9 +6535,6 @@
   fields: {}
 - model: skole.Subject
   pk: 55
-  fields: {}
-- model: skole.Subject
-  pk: 56
   fields: {}
 - model: skole.Subject
   pk: 57
@@ -6610,9 +6601,6 @@
   fields: {}
 - model: skole.Subject
   pk: 78
-  fields: {}
-- model: skole.Subject
-  pk: 79
   fields: {}
 - model: skole.Subject
   pk: 80
@@ -6732,9 +6720,6 @@
   pk: 118
   fields: {}
 - model: skole.Subject
-  pk: 119
-  fields: {}
-- model: skole.Subject
   pk: 120
   fields: {}
 - model: skole.Subject
@@ -6837,13 +6822,7 @@
   pk: 153
   fields: {}
 - model: skole.Subject
-  pk: 154
-  fields: {}
-- model: skole.Subject
   pk: 155
-  fields: {}
-- model: skole.Subject
-  pk: 156
   fields: {}
 - model: skole.Subject
   pk: 157
@@ -6954,9 +6933,6 @@
   pk: 192
   fields: {}
 - model: skole.Subject
-  pk: 193
-  fields: {}
-- model: skole.Subject
   pk: 194
   fields: {}
 - model: skole.Subject
@@ -6996,9 +6972,6 @@
   pk: 206
   fields: {}
 - model: skole.Subject
-  pk: 207
-  fields: {}
-- model: skole.Subject
   pk: 208
   fields: {}
 - model: skole.Subject
@@ -7012,9 +6985,6 @@
   fields: {}
 - model: skole.Subject
   pk: 212
-  fields: {}
-- model: skole.Subject
-  pk: 213
   fields: {}
 - model: skole.Subject
   pk: 214
@@ -7048,12 +7018,6 @@
   fields: {}
 - model: skole.Subject
   pk: 224
-  fields: {}
-- model: skole.Subject
-  pk: 225
-  fields: {}
-- model: skole.Subject
-  pk: 226
   fields: {}
 - model: skole.Subject
   pk: 227
@@ -7121,9 +7085,9 @@
 - model: skole.Subject
   pk: 248
   fields: {}
-- model: skole.Subject
 
 # TUAS
+- model: skole.Subject
   pk: 249
   fields: {}
 - model: skole.Subject
@@ -7246,22 +7210,13 @@
   pk: 288
   fields: {}
 - model: skole.Subject
-  pk: 289
-  fields: {}
-- model: skole.Subject
   pk: 290
-  fields: {}
-- model: skole.Subject
-  pk: 291
   fields: {}
 - model: skole.Subject
   pk: 292
   fields: {}
 - model: skole.Subject
   pk: 293
-  fields: {}
-- model: skole.Subject
-  pk: 294
   fields: {}
 - model: skole.Subject
   pk: 295
@@ -7351,9 +7306,6 @@
   pk: 323
   fields: {}
 - model: skole.Subject
-  pk: 324
-  fields: {}
-- model: skole.Subject
   pk: 325
   fields: {}
 - model: skole.Subject
@@ -7441,12 +7393,6 @@
   pk: 353
   fields: {}
 - model: skole.Subject
-  pk: 354
-  fields: {}
-- model: skole.Subject
-  pk: 355
-  fields: {}
-- model: skole.Subject
   pk: 356
   fields: {}
 - model: skole.Subject
@@ -7480,9 +7426,6 @@
   pk: 366
   fields: {}
 - model: skole.Subject
-  pk: 367
-  fields: {}
-- model: skole.Subject
   pk: 368
   fields: {}
 - model: skole.Subject
@@ -7499,8 +7442,5 @@
   fields: {}
 - model: skole.Subject
   pk: 373
-  fields: {}
-- model: skole.Subject
-  pk: 374
   fields: {}
 # Be careful with the pks. There also are Subjects that have been created from the admin and aren't here.

@@ -6379,1068 +6379,1422 @@
 # UTU
 - model: skole.Subject
   pk: 1
-  fields: {}
+  fields:
+    slug: accounting
 - model: skole.Subject
   pk: 2
-  fields: {}
+  fields:
+    slug: aeronautical-engineering
 - model: skole.Subject
   pk: 3
-  fields: {}
+  fields:
+    slug: agriculture-and-forestry
 - model: skole.Subject
   pk: 4
-  fields: {}
+  fields:
+    slug: anatomy-and-physiology
 - model: skole.Subject
   pk: 5
-  fields: {}
+  fields:
+    slug: anthropology
 - model: skole.Subject
   pk: 6
-  fields: {}
+  fields:
+    slug: archaeology
 - model: skole.Subject
   pk: 7
-  fields: {}
+  fields:
+    slug: architecture
 - model: skole.Subject
   pk: 8
-  fields: {}
+  fields:
+    slug: art-and-design
 - model: skole.Subject
   pk: 10
-  fields: {}
+  fields:
+    slug: biotechnology
 - model: skole.Subject
   pk: 11
-  fields: {}
+  fields:
+    slug: biology
 - model: skole.Subject
   pk: 12
-  fields: {}
+  fields:
+    slug: building
 - model: skole.Subject
   pk: 13
-  fields: {}
+  fields:
+    slug: business-and-management-studies
 - model: skole.Subject
   pk: 14
-  fields: {}
+  fields:
+    slug: computer-engineering
 - model: skole.Subject
   pk: 15
-  fields: {}
+  fields:
+    slug: chemical-engineering
 - model: skole.Subject
   pk: 16
-  fields: {}
+  fields:
+    slug: chemistry
 - model: skole.Subject
   pk: 17
-  fields: {}
+  fields:
+    slug: communication-ja-media-studies
 - model: skole.Subject
   pk: 18
-  fields: {}
+  fields:
+    slug: computer-science
 - model: skole.Subject
   pk: 19
-  fields: {}
+  fields:
+    slug: finance
 - model: skole.Subject
   pk: 20
-  fields: {}
+  fields:
+    slug: finnish-studies
 - model: skole.Subject
   pk: 21
-  fields: {}
+  fields:
+    slug: dentistry
 - model: skole.Subject
   pk: 22
-  fields: {}
+  fields:
+    slug: economics
 - model: skole.Subject
   pk: 23
-  fields: {}
+  fields:
+    slug: education
 - model: skole.Subject
   pk: 24
-  fields: {}
+  fields:
+    slug: electrical-and-electronic-engineering
 - model: skole.Subject
   pk: 25
-  fields: {}
+  fields:
+    slug: english
 - model: skole.Subject
   pk: 26
-  fields: {}
+  fields:
+    slug: film-making
 - model: skole.Subject
   pk: 27
-  fields: {}
+  fields:
+    slug: food-science
 - model: skole.Subject
   pk: 28
-  fields: {}
+  fields:
+    slug: forensic-science
 - model: skole.Subject
   pk: 29
-  fields: {}
+  fields:
+    slug: french-studies
 - model: skole.Subject
   pk: 30
-  fields: {}
+  fields:
+    slug: geography
 - model: skole.Subject
   pk: 31
-  fields: {}
+  fields:
+    slug: geology
 - model: skole.Subject
   pk: 32
-  fields: {}
+  fields:
+    slug: general-engineering
 - model: skole.Subject
   pk: 33
-  fields: {}
+  fields:
+    slug: german-studies
 - model: skole.Subject
   pk: 34
-  fields: {}
+  fields:
+    slug: history
 - model: skole.Subject
   pk: 35
-  fields: {}
+  fields:
+    slug: history-of-art-architecture-and-design
 - model: skole.Subject
   pk: 36
-  fields: {}
+  fields:
+    slug: hospitality-leisure-recreation-and-tourism
 - model: skole.Subject
   pk: 37
-  fields: {}
+  fields:
+    slug: italian
 - model: skole.Subject
   pk: 38
-  fields: {}
+  fields:
+    slug: law
 - model: skole.Subject
   pk: 39
-  fields: {}
+  fields:
+    slug: linguistics
 - model: skole.Subject
   pk: 40
-  fields: {}
+  fields:
+    slug: manufacturing-engineering
 - model: skole.Subject
   pk: 41
-  fields: {}
+  fields:
+    slug: marketing
 - model: skole.Subject
   pk: 43
-  fields: {}
+  fields:
+    slug: mathematics
 - model: skole.Subject
   pk: 44
-  fields: {}
+  fields:
+    slug: mechanical-engineering
 - model: skole.Subject
   pk: 45
-  fields: {}
+  fields:
+    slug: medical-technology
 - model: skole.Subject
   pk: 46
-  fields: {}
+  fields:
+    slug: medicine
 - model: skole.Subject
   pk: 47
-  fields: {}
+  fields:
+    slug: music
 - model: skole.Subject
   pk: 48
-  fields: {}
+  fields:
+    slug: phonetics
 - model: skole.Subject
   pk: 49
-  fields: {}
+  fields:
+    slug: nursing
 - model: skole.Subject
   pk: 50
-  fields: {}
+  fields:
+    slug: occupational-therapy
 - model: skole.Subject
   pk: 51
-  fields: {}
+  fields:
+    slug: pharmacology
 - model: skole.Subject
   pk: 52
-  fields: {}
+  fields:
+    slug: philosophy
 - model: skole.Subject
   pk: 53
-  fields: {}
+  fields:
+    slug: physics-and-astronomy
 - model: skole.Subject
   pk: 54
-  fields: {}
+  fields:
+    slug: physiotherapy
 - model: skole.Subject
   pk: 55
-  fields: {}
+  fields:
+    slug: politics
 - model: skole.Subject
   pk: 57
-  fields: {}
+  fields:
+    slug: process-technology
 - model: skole.Subject
   pk: 58
-  fields: {}
+  fields:
+    slug: robotics
 - model: skole.Subject
   pk: 59
-  fields: {}
+  fields:
+    slug: russian-studies
 - model: skole.Subject
   pk: 60
-  fields: {}
+  fields:
+    slug: social-science
 - model: skole.Subject
   pk: 61
-  fields: {}
+  fields:
+    slug: social-work
 - model: skole.Subject
   pk: 62
-  fields: {}
+  fields:
+    slug: sociology
 - model: skole.Subject
   pk: 63
-  fields: {}
+  fields:
+    slug: swedish-studies
 - model: skole.Subject
   pk: 64
-  fields: {}
+  fields:
+    slug: sports-science
 - model: skole.Subject
   pk: 65
-  fields: {}
+  fields:
+    slug: theology-and-religious-studies
 - model: skole.Subject
   pk: 66
-  fields: {}
+  fields:
+    slug: veterinary-medicine
 - model: skole.Subject
   pk: 67
-  fields: {}
+  fields:
+    slug: youth-work
 - model: skole.Subject
   pk: 68
-  fields: {}
+  fields:
+    slug: management
 - model: skole.Subject
   pk: 69
-  fields: {}
+  fields:
+    slug: international-management
 - model: skole.Subject
   pk: 70
-  fields: {}
+  fields:
+    slug: economic-geography
 - model: skole.Subject
   pk: 71
-  fields: {}
+  fields:
+    slug: information-systems-science
 - model: skole.Subject
   pk: 72
-  fields: {}
+  fields:
+    slug: supply-chain-management
 - model: skole.Subject
   pk: 73
-  fields: {}
+  fields:
+    slug: french
 - model: skole.Subject
   pk: 74
-  fields: {}
+  fields:
+    slug: german
 - model: skole.Subject
   pk: 75
-  fields: {}
+  fields:
+    slug: finnish
 - model: skole.Subject
   pk: 76
-  fields: {}
+  fields:
+    slug: international-business
 - model: skole.Subject
   pk: 77
-  fields: {}
+  fields:
+    slug: entrepreneurship
 - model: skole.Subject
   pk: 78
-  fields: {}
+  fields:
+    slug: english-language
 - model: skole.Subject
   pk: 80
-  fields: {}
+  fields:
+    slug: business-law
 - model: skole.Subject
   pk: 81
-  fields: {}
+  fields:
+    slug: business-and-innovation-development
 - model: skole.Subject
   pk: 82
-  fields: {}
+  fields:
+    slug: futures-studies
 - model: skole.Subject
   pk: 83
-  fields: {}
+  fields:
+    slug: management-and-organisation
 - model: skole.Subject
   pk: 84
-  fields: {}
+  fields:
+    slug: spanish
 - model: skole.Subject
   pk: 85
-  fields: {}
+  fields:
+    slug: general-practice
 - model: skole.Subject
   pk: 86
-  fields: {}
+  fields:
+    slug: physiology
 - model: skole.Subject
   pk: 87
-  fields: {}
+  fields:
+    slug: internal-medicine
 - model: skole.Subject
   pk: 88
-  fields: {}
+  fields:
+    slug: cell-biology-and-anatomy
 - model: skole.Subject
   pk: 89
-  fields: {}
+  fields:
+    slug: business-spanish
 - model: skole.Subject
   pk: 90
-  fields: {}
+  fields:
+    slug: dermatology-and-venereal-diseases
 - model: skole.Subject
   pk: 91
-  fields: {}
+  fields:
+    slug: psychiatry
 - model: skole.Subject
   pk: 92
-  fields: {}
+  fields:
+    slug: speech-comm
 - model: skole.Subject
   pk: 93
-  fields: {}
+  fields:
+    slug: pulmonary-diseases
 - model: skole.Subject
   pk: 94
-  fields: {}
+  fields:
+    slug: pulmonary-diseases-and-clinical-allergology
 - model: skole.Subject
   pk: 95
-  fields: {}
+  fields:
+    slug: surgery
 - model: skole.Subject
   pk: 96
-  fields: {}
+  fields:
+    slug: pharmacology-and-clinical-pharmacology
 - model: skole.Subject
   pk: 97
-  fields: {}
+  fields:
+    slug: obstetrics-and-gynaecology
 - model: skole.Subject
   pk: 98
-  fields: {}
+  fields:
+    slug: orthopaedics-and-traumatology
 - model: skole.Subject
   pk: 99
-  fields: {}
+  fields:
+    slug: anaesthesiology-and-intensive-care
 - model: skole.Subject
   pk: 100
-  fields: {}
+  fields:
+    slug: clinical-physiology-and-isotope-medicine
 - model: skole.Subject
   pk: 101
-  fields: {}
+  fields:
+    slug: pathology
 - model: skole.Subject
   pk: 102
-  fields: {}
+  fields:
+    slug: neurology
 - model: skole.Subject
   pk: 103
-  fields: {}
+  fields:
+    slug: physical-and-rehabilitation-medicine
 - model: skole.Subject
   pk: 104
-  fields: {}
+  fields:
+    slug: swedish
 - model: skole.Subject
   pk: 105
-  fields: {}
+  fields:
+    slug: public-health-science
 - model: skole.Subject
   pk: 106
-  fields: {}
+  fields:
+    slug: child-psychiatry
 - model: skole.Subject
   pk: 107
-  fields: {}
+  fields:
+    slug: forensic-medicine
 - model: skole.Subject
   pk: 108
-  fields: {}
+  fields:
+    slug: occupational-health
 - model: skole.Subject
   pk: 109
-  fields: {}
+  fields:
+    slug: nursing-science
 - model: skole.Subject
   pk: 110
-  fields: {}
+  fields:
+    slug: medical-biochemistry-and-genetics
 - model: skole.Subject
   pk: 111
-  fields: {}
+  fields:
+    slug: biostatistics
 - model: skole.Subject
   pk: 112
-  fields: {}
+  fields:
+    slug: ophthalmology
 - model: skole.Subject
   pk: 113
-  fields: {}
+  fields:
+    slug: italian-2
 - model: skole.Subject
   pk: 114
-  fields: {}
+  fields:
+    slug: bioinformatics
 - model: skole.Subject
   pk: 115
-  fields: {}
+  fields:
+    slug: biochemistry
 - model: skole.Subject
   pk: 116
-  fields: {}
+  fields:
+    slug: statistics
 - model: skole.Subject
   pk: 117
-  fields: {}
+  fields:
+    slug: ecology-and-evolutionary-biology
 - model: skole.Subject
   pk: 118
-  fields: {}
+  fields:
+    slug: environmental-science
 - model: skole.Subject
   pk: 120
-  fields: {}
+  fields:
+    slug: astrobiology
 - model: skole.Subject
   pk: 121
-  fields: {}
+  fields:
+    slug: physics
 - model: skole.Subject
   pk: 122
-  fields: {}
+  fields:
+    slug: molecular-plant-biology
 - model: skole.Subject
   pk: 123
-  fields: {}
+  fields:
+    slug: business-competence
 - model: skole.Subject
   pk: 124
-  fields: {}
+  fields:
+    slug: finnish-language-and-business-communication
 - model: skole.Subject
   pk: 125
-  fields: {}
+  fields:
+    slug: business-english
 - model: skole.Subject
   pk: 126
-  fields: {}
+  fields:
+    slug: industrial-management
 - model: skole.Subject
   pk: 127
-  fields: {}
+  fields:
+    slug: quantitative-methods-in-management
 - model: skole.Subject
   pk: 128
-  fields: {}
+  fields:
+    slug: japanese
 - model: skole.Subject
   pk: 129
-  fields: {}
+  fields:
+    slug: molecular-systems-biology
 - model: skole.Subject
   pk: 130
-  fields: {}
+  fields:
+    slug: business-french
 - model: skole.Subject
   pk: 131
-  fields: {}
+  fields:
+    slug: educational-sciences
 - model: skole.Subject
   pk: 132
-  fields: {}
+  fields:
+    slug: adult-education
 - model: skole.Subject
   pk: 133
-  fields: {}
+  fields:
+    slug: special-education
 - model: skole.Subject
   pk: 134
-  fields: {}
+  fields:
+    slug: russian
 - model: skole.Subject
   pk: 135
-  fields: {}
+  fields:
+    slug: finnish-as-a-foreign-language
 - model: skole.Subject
   pk: 136
-  fields: {}
+  fields:
+    slug: east-asian-studies
 - model: skole.Subject
   pk: 137
-  fields: {}
+  fields:
+    slug: political-science
 - model: skole.Subject
   pk: 138
-  fields: {}
+  fields:
+    slug: contemporary-history
 - model: skole.Subject
   pk: 139
-  fields: {}
+  fields:
+    slug: didactics-of-handicrafts
 - model: skole.Subject
   pk: 140
-  fields: {}
+  fields:
+    slug: social-policy
 - model: skole.Subject
   pk: 141
-  fields: {}
+  fields:
+    slug: economic-sociology
 - model: skole.Subject
   pk: 142
-  fields: {}
+  fields:
+    slug: history-and-archaeology
 - model: skole.Subject
   pk: 143
-  fields: {}
+  fields:
+    slug: cultural-history
 - model: skole.Subject
   pk: 144
-  fields: {}
+  fields:
+    slug: finnish-history
 - model: skole.Subject
   pk: 145
-  fields: {}
+  fields:
+    slug: european-and-world-history
 - model: skole.Subject
   pk: 146
-  fields: {}
+  fields:
+    slug: comparative-religion
 - model: skole.Subject
   pk: 147
-  fields: {}
+  fields:
+    slug: folkloristics
 - model: skole.Subject
   pk: 148
-  fields: {}
+  fields:
+    slug: ethnology
 - model: skole.Subject
   pk: 149
-  fields: {}
+  fields:
+    slug: life-philosophy
 - model: skole.Subject
   pk: 150
-  fields: {}
+  fields:
+    slug: theoretical-physics
 - model: skole.Subject
   pk: 151
-  fields: {}
+  fields:
+    slug: astronomy
 - model: skole.Subject
   pk: 152
-  fields: {}
+  fields:
+    slug: food-development
 - model: skole.Subject
   pk: 153
-  fields: {}
+  fields:
+    slug: biomedical-imaging
 - model: skole.Subject
   pk: 155
-  fields: {}
+  fields:
+    slug: musicology
 - model: skole.Subject
   pk: 157
-  fields: {}
+  fields:
+    slug: finnish-literature
 - model: skole.Subject
   pk: 158
-  fields: {}
+  fields:
+    slug: comparative-literature
 - model: skole.Subject
   pk: 159
-  fields: {}
+  fields:
+    slug: finnish-and-finno-ugric-languages
 - model: skole.Subject
   pk: 160
-  fields: {}
+  fields:
+    slug: literature
 - model: skole.Subject
   pk: 161
-  fields: {}
+  fields:
+    slug: european-ethn-and-comp-religion
 - model: skole.Subject
   pk: 162
-  fields: {}
+  fields:
+    slug: european-ethnology
 - model: skole.Subject
   pk: 163
-  fields: {}
+  fields:
+    slug: romanian-language-and-culture
 - model: skole.Subject
   pk: 164
-  fields: {}
+  fields:
+    slug: scandinavian-languages
 - model: skole.Subject
   pk: 165
-  fields: {}
+  fields:
+    slug: sustainable-development
 - model: skole.Subject
   pk: 166
-  fields: {}
+  fields:
+    slug: museology
 - model: skole.Subject
   pk: 167
-  fields: {}
+  fields:
+    slug: cultural-and-experience-tourism
 - model: skole.Subject
   pk: 168
-  fields: {}
+  fields:
+    slug: greek-philology
 - model: skole.Subject
   pk: 169
-  fields: {}
+  fields:
+    slug: applied-mathematics
 - model: skole.Subject
   pk: 170
-  fields: {}
+  fields:
+    slug: biomedicine
 - model: skole.Subject
   pk: 171
-  fields: {}
+  fields:
+    slug: cariology-and-restorative-dentistry
 - model: skole.Subject
   pk: 172
-  fields: {}
+  fields:
+    slug: business-swedish
 - model: skole.Subject
   pk: 173
-  fields: {}
+  fields:
+    slug: business-german
 - model: skole.Subject
   pk: 174
-  fields: {}
+  fields:
+    slug: business-russian
 - model: skole.Subject
   pk: 175
-  fields: {}
+  fields:
+    slug: business-japanese
 - model: skole.Subject
   pk: 176
-  fields: {}
+  fields:
+    slug: business-chinese
 - model: skole.Subject
   pk: 177
-  fields: {}
+  fields:
+    slug: community-dentistry
 - model: skole.Subject
   pk: 178
-  fields: {}
+  fields:
+    slug: prosthetic-dentistry
 - model: skole.Subject
   pk: 179
-  fields: {}
+  fields:
+    slug: business-italian
 - model: skole.Subject
   pk: 180
-  fields: {}
+  fields:
+    slug: oral-pathology-and-oral-radiology
 - model: skole.Subject
   pk: 181
-  fields: {}
+  fields:
+    slug: multilingual-business-communication
 - model: skole.Subject
   pk: 182
-  fields: {}
+  fields:
+    slug: oral-development-and-orthodontics
 - model: skole.Subject
   pk: 183
-  fields: {}
+  fields:
+    slug: biomaterials-science
 - model: skole.Subject
   pk: 184
-  fields: {}
+  fields:
+    slug: medical-physics
 - model: skole.Subject
   pk: 185
-  fields: {}
+  fields:
+    slug: periodontology
 - model: skole.Subject
   pk: 186
-  fields: {}
+  fields:
+    slug: oral-and-maxillofacial-surgery
 - model: skole.Subject
   pk: 187
-  fields: {}
+  fields:
+    slug: otorhinolaryngology-head-and-neck-surgery
 - model: skole.Subject
   pk: 188
-  fields: {}
+  fields:
+    slug: paediatrics
 - model: skole.Subject
   pk: 189
-  fields: {}
+  fields:
+    slug: german-2
 - model: skole.Subject
   pk: 190
-  fields: {}
+  fields:
+    slug: physiology-and-genetics
 - model: skole.Subject
   pk: 191
-  fields: {}
+  fields:
+    slug: latin-philology
 - model: skole.Subject
   pk: 192
-  fields: {}
+  fields:
+    slug: gender-studies
 - model: skole.Subject
   pk: 194
-  fields: {}
+  fields:
+    slug: estonian-language-and-culture
 - model: skole.Subject
   pk: 195
-  fields: {}
+  fields:
+    slug: cultural-management-studies
 - model: skole.Subject
   pk: 196
-  fields: {}
+  fields:
+    slug: digital-culture
 - model: skole.Subject
   pk: 197
-  fields: {}
+  fields:
+    slug: cultural-heritage-studies
 - model: skole.Subject
   pk: 198
-  fields: {}
+  fields:
+    slug: landscape-studies
 - model: skole.Subject
   pk: 199
-  fields: {}
+  fields:
+    slug: hungarian-language-and-culture
 - model: skole.Subject
   pk: 200
-  fields: {}
+  fields:
+    slug: finnish-language-and-culture
 - model: skole.Subject
   pk: 201
-  fields: {}
+  fields:
+    slug: records-and-archives-management
 - model: skole.Subject
   pk: 202
-  fields: {}
+  fields:
+    slug: chinese
 - model: skole.Subject
   pk: 203
-  fields: {}
+  fields:
+    slug: classics
 - model: skole.Subject
   pk: 204
-  fields: {}
+  fields:
+    slug: creative-writing
 - model: skole.Subject
   pk: 205
-  fields: {}
+  fields:
+    slug: ecology
 - model: skole.Subject
   pk: 206
-  fields: {}
+  fields:
+    slug: molecular-biotechnology-and-diagnostics
 - model: skole.Subject
   pk: 208
-  fields: {}
+  fields:
+    slug: classical-archaeology
 - model: skole.Subject
   pk: 209
-  fields: {}
+  fields:
+    slug: nordic-cultural-and-social-resilience
 - model: skole.Subject
   pk: 210
-  fields: {}
+  fields:
+    slug: food-chemistry
 - model: skole.Subject
   pk: 211
-  fields: {}
+  fields:
+    slug: asian-studies
 - model: skole.Subject
   pk: 212
-  fields: {}
+  fields:
+    slug: clinical-chemistry
 - model: skole.Subject
   pk: 214
-  fields: {}
+  fields:
+    slug: bedrock-geology
 - model: skole.Subject
   pk: 215
-  fields: {}
+  fields:
+    slug: geology-and-mineralogy
 - model: skole.Subject
   pk: 216
-  fields: {}
+  fields:
+    slug: quaternary-geology
 - model: skole.Subject
   pk: 217
-  fields: {}
+  fields:
+    slug: chemistry-of-drug-development
 - model: skole.Subject
   pk: 218
-  fields: {}
+  fields:
+    slug: geoinformatics
 - model: skole.Subject
   pk: 219
-  fields: {}
+  fields:
+    slug: anatomy
 - model: skole.Subject
   pk: 220
-  fields: {}
+  fields:
+    slug: languages
 - model: skole.Subject
   pk: 221
-  fields: {}
+  fields:
+    slug: cardiology-and-cardiovascular-medicine
 - model: skole.Subject
   pk: 222
-  fields: {}
+  fields:
+    slug: physical-geography
 - model: skole.Subject
   pk: 223
-  fields: {}
+  fields:
+    slug: human-geography
 - model: skole.Subject
   pk: 224
-  fields: {}
+  fields:
+    slug: materials-science
 - model: skole.Subject
   pk: 227
-  fields: {}
+  fields:
+    slug: applied-geology
 - model: skole.Subject
   pk: 228
-  fields: {}
+  fields:
+    slug: discrete-matehmatics
 - model: skole.Subject
   pk: 229
-  fields: {}
+  fields:
+    slug: mathematical-modelling
 - model: skole.Subject
   pk: 230
-  fields: {}
+  fields:
+    slug: electronics
 - model: skole.Subject
   pk: 231
-  fields: {}
+  fields:
+    slug: medical-microbiology-and-immunology
 - model: skole.Subject
   pk: 232
-  fields: {}
+  fields:
+    slug: medical-biochemistry-and-molecular-biology
 - model: skole.Subject
   pk: 233
-  fields: {}
+  fields:
+    slug: korean
 - model: skole.Subject
   pk: 234
-  fields: {}
+  fields:
+    slug: infectious-diseases
 - model: skole.Subject
   pk: 235
-  fields: {}
+  fields:
+    slug: drug-discovery-and-development
 - model: skole.Subject
   pk: 236
-  fields: {}
+  fields:
+    slug: cultural-production-and-landscape-studies
 - model: skole.Subject
   pk: 237
-  fields: {}
+  fields:
+    slug: empowering-social-work
 - model: skole.Subject
   pk: 238
-  fields: {}
+  fields:
+    slug: communication-systems
 - model: skole.Subject
   pk: 239
-  fields: {}
+  fields:
+    slug: management-studies-in-specialist-training
 - model: skole.Subject
   pk: 240
-  fields: {}
+  fields:
+    slug: finnish-nordic-society-and-culture
 - model: skole.Subject
   pk: 241
-  fields: {}
+  fields:
+    slug: medical-genetics
 - model: skole.Subject
   pk: 242
-  fields: {}
+  fields:
+    slug: drug-development-science
 - model: skole.Subject
   pk: 243
-  fields: {}
+  fields:
+    slug: north-american-studies
 - model: skole.Subject
   pk: 244
-  fields: {}
+  fields:
+    slug: evolutionary-biology
 - model: skole.Subject
   pk: 245
-  fields: {}
+  fields:
+    slug: finnish-and-other-finno-ugric-lang
 - model: skole.Subject
   pk: 246
-  fields: {}
+  fields:
+    slug: estonian
 - model: skole.Subject
   pk: 247
-  fields: {}
+  fields:
+    slug: other-language
 - model: skole.Subject
   pk: 248
-  fields: {}
+  fields:
+    slug: software-engineering
 
 # TUAS
 - model: skole.Subject
   pk: 249
-  fields: {}
+  fields:
+    slug: engineering-and-business
 - model: skole.Subject
   pk: 250
-  fields: {}
+  fields:
+    slug: health-and-well-being
 - model: skole.Subject
   pk: 251
-  fields: {}
+  fields:
+    slug: arts-academy
 - model: skole.Subject
   pk: 252
-  fields: {}
+  fields:
+    slug: corporate-services
 
 # ÅA
 - model: skole.Subject
   pk: 253
-  fields: {}
+  fields:
+    slug: swedish-language
 - model: skole.Subject
   pk: 254
-  fields: {}
+  fields:
+    slug: translation-studies
 - model: skole.Subject
   pk: 255
-  fields: {}
+  fields:
+    slug: cultural-management
 - model: skole.Subject
   pk: 256
-  fields: {}
+  fields:
+    slug: english-language-and-literature
 - model: skole.Subject
   pk: 257
-  fields: {}
+  fields:
+    slug: common-studies
 - model: skole.Subject
   pk: 258
-  fields: {}
+  fields:
+    slug: intercultural-communication
 - model: skole.Subject
   pk: 259
-  fields: {}
+  fields:
+    slug: general-linguistics
 - model: skole.Subject
   pk: 260
-  fields: {}
+  fields:
+    slug: finnish-language
 - model: skole.Subject
   pk: 261
-  fields: {}
+  fields:
+    slug: german-language-and-literature
 - model: skole.Subject
   pk: 262
-  fields: {}
+  fields:
+    slug: french-language-and-literature
 - model: skole.Subject
   pk: 263
-  fields: {}
+  fields:
+    slug: logopedics
 - model: skole.Subject
   pk: 264
-  fields: {}
+  fields:
+    slug: russian-language-and-literature
 - model: skole.Subject
   pk: 265
-  fields: {}
+  fields:
+    slug: nordic-history
 - model: skole.Subject
   pk: 266
-  fields: {}
+  fields:
+    slug: general-history
 - model: skole.Subject
   pk: 267
-  fields: {}
+  fields:
+    slug: nordic-ethnology
 - model: skole.Subject
   pk: 268
-  fields: {}
+  fields:
+    slug: studies-at-the-open-university
 - model: skole.Subject
   pk: 269
-  fields: {}
+  fields:
+    slug: art-history
 - model: skole.Subject
   pk: 270
-  fields: {}
+  fields:
+    slug: cultural-analysis-specifically-ethnology-and-folkl
 - model: skole.Subject
   pk: 271
-  fields: {}
+  fields:
+    slug: nordic-folkloristics
 - model: skole.Subject
   pk: 272
-  fields: {}
+  fields:
+    slug: psychology
 - model: skole.Subject
   pk: 273
-  fields: {}
+  fields:
+    slug: cell-and-molecular-bioscience
 - model: skole.Subject
   pk: 274
-  fields: {}
+  fields:
+    slug: visual-studies
 - model: skole.Subject
   pk: 275
-  fields: {}
+  fields:
+    slug: bioscience
 - model: skole.Subject
   pk: 276
-  fields: {}
+  fields:
+    slug: environmental-and-marine-biology
 - model: skole.Subject
   pk: 277
-  fields: {}
+  fields:
+    slug: pharmacy
 - model: skole.Subject
   pk: 278
-  fields: {}
+  fields:
+    slug: cell-biology
 - model: skole.Subject
   pk: 279
-  fields: {}
+  fields:
+    slug: biosciences
 - model: skole.Subject
   pk: 280
-  fields: {}
+  fields:
+    slug: marine-biology
 - model: skole.Subject
   pk: 281
-  fields: {}
+  fields:
+    slug: physical-chemistry
 - model: skole.Subject
   pk: 282
-  fields: {}
+  fields:
+    slug: analytical-chemistry
 - model: skole.Subject
   pk: 283
-  fields: {}
+  fields:
+    slug: organic-chemistry
 - model: skole.Subject
   pk: 284
-  fields: {}
+  fields:
+    slug: paper-coating-and-converting
 - model: skole.Subject
   pk: 285
-  fields: {}
+  fields:
+    slug: paper-chemistry
 - model: skole.Subject
   pk: 286
-  fields: {}
+  fields:
+    slug: process-chemistry
 - model: skole.Subject
   pk: 287
-  fields: {}
+  fields:
+    slug: inorganic-chemistry
 - model: skole.Subject
   pk: 288
-  fields: {}
+  fields:
+    slug: energy-and-environmental-engineering
 - model: skole.Subject
   pk: 290
-  fields: {}
+  fields:
+    slug: mathematics-and-statistics
 - model: skole.Subject
   pk: 292
-  fields: {}
+  fields:
+    slug: process-and-systems-engineering
 - model: skole.Subject
   pk: 293
-  fields: {}
+  fields:
+    slug: natural-materials-technology
 - model: skole.Subject
   pk: 295
-  fields: {}
+  fields:
+    slug: organization-and-management
 - model: skole.Subject
   pk: 296
-  fields: {}
+  fields:
+    slug: information-studies
 - model: skole.Subject
   pk: 297
-  fields: {}
+  fields:
+    slug: cultural-anthropology
 - model: skole.Subject
   pk: 298
-  fields: {}
+  fields:
+    slug: international-marketing
 - model: skole.Subject
   pk: 299
-  fields: {}
+  fields:
+    slug: commercial-law
 - model: skole.Subject
   pk: 300
-  fields: {}
+  fields:
+    slug: public-international-law
 - model: skole.Subject
   pk: 301
-  fields: {}
+  fields:
+    slug: public-law
 - model: skole.Subject
   pk: 302
-  fields: {}
+  fields:
+    slug: general-studies
 - model: skole.Subject
   pk: 303
-  fields: {}
+  fields:
+    slug: public-administration
 - model: skole.Subject
   pk: 304
-  fields: {}
+  fields:
+    slug: process-design-and-systems-engineering
 - model: skole.Subject
   pk: 305
-  fields: {}
+  fields:
+    slug: fibre-and-cellulose-technology
 - model: skole.Subject
   pk: 306
-  fields: {}
+  fields:
+    slug: business-studies
 - model: skole.Subject
   pk: 307
-  fields: {}
+  fields:
+    slug: process-control
 - model: skole.Subject
   pk: 308
-  fields: {}
+  fields:
+    slug: industrial-chemistry-and-reaction-engineering
 - model: skole.Subject
   pk: 309
-  fields: {}
+  fields:
+    slug: wood-and-paper-chemistry
 - model: skole.Subject
   pk: 310
-  fields: {}
+  fields:
+    slug: thermal-and-flow-engineering
 - model: skole.Subject
   pk: 311
-  fields: {}
+  fields:
+    slug: industrial-computer-engineering
 - model: skole.Subject
   pk: 312
-  fields: {}
+  fields:
+    slug: information-systems
 - model: skole.Subject
   pk: 313
-  fields: {}
+  fields:
+    slug: theology
 - model: skole.Subject
   pk: 314
-  fields: {}
+  fields:
+    slug: general-theology
 - model: skole.Subject
   pk: 315
-  fields: {}
+  fields:
+    slug: old-testament-exegetics
 - model: skole.Subject
   pk: 316
-  fields: {}
+  fields:
+    slug: judaic-studies
 - model: skole.Subject
   pk: 317
-  fields: {}
+  fields:
+    slug: church-history
 - model: skole.Subject
   pk: 318
-  fields: {}
+  fields:
+    slug: dogmatics
 - model: skole.Subject
   pk: 319
-  fields: {}
+  fields:
+    slug: theological-ethics-and-philosophy-of-religion
 - model: skole.Subject
   pk: 320
-  fields: {}
+  fields:
+    slug: practical-theology
 - model: skole.Subject
   pk: 321
-  fields: {}
+  fields:
+    slug: early-childhood-education
 - model: skole.Subject
   pk: 322
-  fields: {}
+  fields:
+    slug: kindergarten-teacher-specialization
 - model: skole.Subject
   pk: 323
-  fields: {}
+  fields:
+    slug: teacher-focused
 - model: skole.Subject
   pk: 325
-  fields: {}
+  fields:
+    slug: subject-didactics-for-class-teachers
 - model: skole.Subject
   pk: 326
-  fields: {}
+  fields:
+    slug: handicrafts
 - model: skole.Subject
   pk: 327
-  fields: {}
+  fields:
+    slug: pedagogics-in-handicrafts
 - model: skole.Subject
   pk: 328
-  fields: {}
+  fields:
+    slug: sloyd-science
 - model: skole.Subject
   pk: 329
-  fields: {}
+  fields:
+    slug: minor-subject-studies-within-teacher-education
 - model: skole.Subject
   pk: 330
-  fields: {}
+  fields:
+    slug: wood-and-metal-work
 - model: skole.Subject
   pk: 331
-  fields: {}
+  fields:
+    slug: environmental-education
 - model: skole.Subject
   pk: 332
-  fields: {}
+  fields:
+    slug: media-pedagogics
 - model: skole.Subject
   pk: 333
-  fields: {}
+  fields:
+    slug: home-economics
 - model: skole.Subject
   pk: 334
-  fields: {}
+  fields:
+    slug: studies-for-vocational-school-teachers
 - model: skole.Subject
   pk: 335
-  fields: {}
+  fields:
+    slug: health-science
 - model: skole.Subject
   pk: 336
-  fields: {}
+  fields:
+    slug: pedagogical-studies-for-teachers
 - model: skole.Subject
   pk: 337
-  fields: {}
+  fields:
+    slug: political-science-with-mass-communication
 - model: skole.Subject
   pk: 338
-  fields: {}
+  fields:
+    slug: developmental-psychology
 - model: skole.Subject
   pk: 339
-  fields: {}
+  fields:
+    slug: political-science-with-media-and-communication
 - model: skole.Subject
   pk: 340
-  fields: {}
+  fields:
+    slug: political-history
 - model: skole.Subject
   pk: 341
-  fields: {}
+  fields:
+    slug: school-psychology
 - model: skole.Subject
   pk: 342
-  fields: {}
+  fields:
+    slug: psychology-of-the-workplace
 - model: skole.Subject
   pk: 343
-  fields: {}
+  fields:
+    slug: crisis-psychology
 - model: skole.Subject
   pk: 344
-  fields: {}
+  fields:
+    slug: regional-science
 - model: skole.Subject
   pk: 345
-  fields: {}
+  fields:
+    slug: demography
 - model: skole.Subject
   pk: 346
-  fields: {}
+  fields:
+    slug: youth-studies
 - model: skole.Subject
   pk: 347
-  fields: {}
+  fields:
+    slug: peace
 - model: skole.Subject
   pk: 348
-  fields: {}
+  fields:
+    slug: mediation-and-conflict-research
 - model: skole.Subject
   pk: 349
-  fields: {}
+  fields:
+    slug: caring-science
 - model: skole.Subject
   pk: 350
-  fields: {}
+  fields:
+    slug: caring-science-didactics
 - model: skole.Subject
   pk: 351
-  fields: {}
+  fields:
+    slug: latin
 - model: skole.Subject
   pk: 352
-  fields: {}
+  fields:
+    slug: social-exclusion
 - model: skole.Subject
   pk: 353
-  fields: {}
+  fields:
+    slug: governance-of-digitalization
 - model: skole.Subject
   pk: 356
-  fields: {}
+  fields:
+    slug: applied-sport-psychology
 - model: skole.Subject
   pk: 357
-  fields: {}
+  fields:
+    slug: new-testament-exegetics
 - model: skole.Subject
   pk: 358
-  fields: {}
+  fields:
+    slug: aggression
 - model: skole.Subject
   pk: 359
-  fields: {}
+  fields:
+    slug: forest-products-chemistry
 - model: skole.Subject
   pk: 360
-  fields: {}
+  fields:
+    slug: technical-polymer-chemistry
 - model: skole.Subject
   pk: 361
-  fields: {}
+  fields:
+    slug: digital-humanities
 - model: skole.Subject
   pk: 362
-  fields: {}
+  fields:
+    slug: health-care-administration
 - model: skole.Subject
   pk: 363
-  fields: {}
+  fields:
+    slug: pre-school-pedagogics
 - model: skole.Subject
   pk: 364
-  fields: {}
+  fields:
+    slug: materials-engneering
 - model: skole.Subject
   pk: 365
-  fields: {}
+  fields:
+    slug: university-pedagogics
 - model: skole.Subject
   pk: 366
-  fields: {}
+  fields:
+    slug: minority-studies
 - model: skole.Subject
   pk: 368
-  fields: {}
+  fields:
+    slug: innovation-and-entrepreneurship
 - model: skole.Subject
   pk: 369
-  fields: {}
+  fields:
+    slug: vocationally-oriented-courses-in-pedagogics
 - model: skole.Subject
   pk: 370
-  fields: {}
+  fields:
+    slug: mass-communication
 - model: skole.Subject
   pk: 371
-  fields: {}
+  fields:
+    slug: health-technology
 - model: skole.Subject
   pk: 372
-  fields: {}
+  fields:
+    slug: geriatric-care
 - model: skole.Subject
   pk: 373
-  fields: {}
+  fields:
+    slug: clinical-caring-science
 # Be careful with the pks. There also are Subjects that have been created from the admin and aren't here.

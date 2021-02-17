@@ -3709,619 +3709,825 @@
 
 - model: skole.Country
   pk: 1
-  fields: {}
+  fields:
+    slug: finland
 - model: skole.Country
   pk: 2
-  fields: {}
+  fields:
+    slug: afghanistan
 - model: skole.Country
   pk: 3
-  fields: {}
+  fields:
+    slug: albania
 - model: skole.Country
   pk: 4
-  fields: {}
+  fields:
+    slug: algeria
 - model: skole.Country
   pk: 5
-  fields: {}
+  fields:
+    slug: andorra
 - model: skole.Country
   pk: 6
-  fields: {}
+  fields:
+    slug: angola
 - model: skole.Country
   pk: 7
-  fields: {}
+  fields:
+    slug: antigua-and-barbuda
 - model: skole.Country
   pk: 8
-  fields: {}
+  fields:
+    slug: argentina
 - model: skole.Country
   pk: 9
-  fields: {}
+  fields:
+    slug: armenia
 - model: skole.Country
   pk: 10
-  fields: {}
+  fields:
+    slug: australia
 - model: skole.Country
   pk: 11
-  fields: {}
+  fields:
+    slug: austria
 - model: skole.Country
   pk: 12
-  fields: {}
+  fields:
+    slug: azerbaijan
 - model: skole.Country
   pk: 13
-  fields: {}
+  fields:
+    slug: bahamas
 - model: skole.Country
   pk: 14
-  fields: {}
+  fields:
+    slug: bahrain
 - model: skole.Country
   pk: 15
-  fields: {}
+  fields:
+    slug: bangladesh
 - model: skole.Country
   pk: 16
-  fields: {}
+  fields:
+    slug: barbados
 - model: skole.Country
   pk: 17
-  fields: {}
+  fields:
+    slug: belarus
 - model: skole.Country
   pk: 18
-  fields: {}
+  fields:
+    slug: belgium
 - model: skole.Country
   pk: 19
-  fields: {}
+  fields:
+    slug: belize
 - model: skole.Country
   pk: 20
-  fields: {}
+  fields:
+    slug: benin
 - model: skole.Country
   pk: 21
-  fields: {}
+  fields:
+    slug: bhutan
 - model: skole.Country
   pk: 22
-  fields: {}
+  fields:
+    slug: bolivia
 - model: skole.Country
   pk: 23
-  fields: {}
+  fields:
+    slug: bosnia-and-herzegovina
 - model: skole.Country
   pk: 24
-  fields: {}
+  fields:
+    slug: botswana
 - model: skole.Country
   pk: 25
-  fields: {}
+  fields:
+    slug: brazil
 - model: skole.Country
   pk: 26
-  fields: {}
+  fields:
+    slug: brunei
 - model: skole.Country
   pk: 27
-  fields: {}
+  fields:
+    slug: bulgaria
 - model: skole.Country
   pk: 28
-  fields: {}
+  fields:
+    slug: burkina-faso
 - model: skole.Country
   pk: 29
-  fields: {}
+  fields:
+    slug: burundi
 - model: skole.Country
   pk: 30
-  fields: {}
+  fields:
+    slug: cambodia
 - model: skole.Country
   pk: 31
-  fields: {}
+  fields:
+    slug: cameroon
 - model: skole.Country
   pk: 32
-  fields: {}
+  fields:
+    slug: canada
 - model: skole.Country
   pk: 33
-  fields: {}
+  fields:
+    slug: cape-verde
 - model: skole.Country
   pk: 34
-  fields: {}
+  fields:
+    slug: central-african-republic
 - model: skole.Country
   pk: 35
-  fields: {}
+  fields:
+    slug: chad
 - model: skole.Country
   pk: 36
-  fields: {}
+  fields:
+    slug: chile
 - model: skole.Country
   pk: 37
-  fields: {}
+  fields:
+    slug: china
 - model: skole.Country
   pk: 38
-  fields: {}
+  fields:
+    slug: colombia
 - model: skole.Country
   pk: 39
-  fields: {}
+  fields:
+    slug: comoros
 - model: skole.Country
   pk: 40
-  fields: {}
+  fields:
+    slug: costa-rica
 - model: skole.Country
   pk: 41
-  fields: {}
+  fields:
+    slug: ivory-coast
 - model: skole.Country
   pk: 42
-  fields: {}
+  fields:
+    slug: croatia
 - model: skole.Country
   pk: 43
-  fields: {}
+  fields:
+    slug: cuba
 - model: skole.Country
   pk: 44
-  fields: {}
+  fields:
+    slug: cyprus
 - model: skole.Country
   pk: 45
-  fields: {}
+  fields:
+    slug: czech-republic
 - model: skole.Country
   pk: 46
-  fields: {}
+  fields:
+    slug: democratic-republic-of-the-congo
 - model: skole.Country
   pk: 47
-  fields: {}
+  fields:
+    slug: denmark
 - model: skole.Country
   pk: 48
-  fields: {}
+  fields:
+    slug: djibouti
 - model: skole.Country
   pk: 49
-  fields: {}
+  fields:
+    slug: dominica
 - model: skole.Country
   pk: 50
-  fields: {}
+  fields:
+    slug: dominican-republic
 - model: skole.Country
   pk: 51
-  fields: {}
+  fields:
+    slug: east-timor
 - model: skole.Country
   pk: 52
-  fields: {}
+  fields:
+    slug: ecuador
 - model: skole.Country
   pk: 53
-  fields: {}
+  fields:
+    slug: egypt
 - model: skole.Country
   pk: 54
-  fields: {}
+  fields:
+    slug: el-salvador
 - model: skole.Country
   pk: 55
-  fields: {}
+  fields:
+    slug: equatorial-guinea
 - model: skole.Country
   pk: 56
-  fields: {}
+  fields:
+    slug: eritrea
 - model: skole.Country
   pk: 57
-  fields: {}
+  fields:
+    slug: estonia
 - model: skole.Country
   pk: 58
-  fields: {}
+  fields:
+    slug: ethiopia
 - model: skole.Country
   pk: 59
-  fields: {}
+  fields:
+    slug: fiji
 - model: skole.Country
   pk: 60
-  fields: {}
+  fields:
+    slug: france
 - model: skole.Country
   pk: 61
-  fields: {}
+  fields:
+    slug: gabon
 - model: skole.Country
   pk: 62
-  fields: {}
+  fields:
+    slug: gambia
 - model: skole.Country
   pk: 63
-  fields: {}
+  fields:
+    slug: georgia
 - model: skole.Country
   pk: 64
-  fields: {}
+  fields:
+    slug: germany
 - model: skole.Country
   pk: 65
-  fields: {}
+  fields:
+    slug: ghana
 - model: skole.Country
   pk: 66
-  fields: {}
+  fields:
+    slug: greece
 - model: skole.Country
   pk: 67
-  fields: {}
+  fields:
+    slug: grenada
 - model: skole.Country
   pk: 68
-  fields: {}
+  fields:
+    slug: guatemala
 - model: skole.Country
   pk: 69
-  fields: {}
+  fields:
+    slug: guinea
 - model: skole.Country
   pk: 70
-  fields: {}
+  fields:
+    slug: guinea-bissau
 - model: skole.Country
   pk: 71
-  fields: {}
+  fields:
+    slug: guyana
 - model: skole.Country
   pk: 72
-  fields: {}
+  fields:
+    slug: haiti
 - model: skole.Country
   pk: 73
-  fields: {}
+  fields:
+    slug: honduras
 - model: skole.Country
   pk: 74
-  fields: {}
+  fields:
+    slug: hungary
 - model: skole.Country
   pk: 75
-  fields: {}
+  fields:
+    slug: iceland
 - model: skole.Country
   pk: 76
-  fields: {}
+  fields:
+    slug: india
 - model: skole.Country
   pk: 77
-  fields: {}
+  fields:
+    slug: indonesia
 - model: skole.Country
   pk: 78
-  fields: {}
+  fields:
+    slug: iran
 - model: skole.Country
   pk: 79
-  fields: {}
+  fields:
+    slug: iraq
 - model: skole.Country
   pk: 80
-  fields: {}
+  fields:
+    slug: ireland
 - model: skole.Country
   pk: 81
-  fields: {}
+  fields:
+    slug: israel
 - model: skole.Country
   pk: 82
-  fields: {}
+  fields:
+    slug: italy
 - model: skole.Country
   pk: 83
-  fields: {}
+  fields:
+    slug: jamaica
 - model: skole.Country
   pk: 84
-  fields: {}
+  fields:
+    slug: japan
 - model: skole.Country
   pk: 85
-  fields: {}
+  fields:
+    slug: jordan
 - model: skole.Country
   pk: 86
-  fields: {}
+  fields:
+    slug: kazakhstan
 - model: skole.Country
   pk: 87
-  fields: {}
+  fields:
+    slug: kenya
 - model: skole.Country
   pk: 88
-  fields: {}
+  fields:
+    slug: kiribati
 - model: skole.Country
   pk: 89
-  fields: {}
+  fields:
+    slug: kuwait
 - model: skole.Country
   pk: 90
-  fields: {}
+  fields:
+    slug: kyrgyzstan
 - model: skole.Country
   pk: 91
-  fields: {}
+  fields:
+    slug: laos
 - model: skole.Country
   pk: 92
-  fields: {}
+  fields:
+    slug: latvia
 - model: skole.Country
   pk: 93
-  fields: {}
+  fields:
+    slug: lebanon
 - model: skole.Country
   pk: 94
-  fields: {}
+  fields:
+    slug: lesotho
 - model: skole.Country
   pk: 95
-  fields: {}
+  fields:
+    slug: liberia
 - model: skole.Country
   pk: 96
-  fields: {}
+  fields:
+    slug: libya
 - model: skole.Country
   pk: 97
-  fields: {}
+  fields:
+    slug: liechtenstein
 - model: skole.Country
   pk: 98
-  fields: {}
+  fields:
+    slug: lithuania
 - model: skole.Country
   pk: 99
-  fields: {}
+  fields:
+    slug: luxembourg
 - model: skole.Country
   pk: 100
-  fields: {}
+  fields:
+    slug: madagascar
 - model: skole.Country
   pk: 101
-  fields: {}
+  fields:
+    slug: malawi
 - model: skole.Country
   pk: 102
-  fields: {}
+  fields:
+    slug: malaysia
 - model: skole.Country
   pk: 103
-  fields: {}
+  fields:
+    slug: maldives
 - model: skole.Country
   pk: 104
-  fields: {}
+  fields:
+    slug: mali
 - model: skole.Country
   pk: 105
-  fields: {}
+  fields:
+    slug: malta
 - model: skole.Country
   pk: 106
-  fields: {}
+  fields:
+    slug: marshall-islands
 - model: skole.Country
   pk: 107
-  fields: {}
+  fields:
+    slug: mauritania
 - model: skole.Country
   pk: 108
-  fields: {}
+  fields:
+    slug: mauritius
 - model: skole.Country
   pk: 109
-  fields: {}
+  fields:
+    slug: mexico
 - model: skole.Country
   pk: 110
-  fields: {}
+  fields:
+    slug: micronesia
 - model: skole.Country
   pk: 111
-  fields: {}
+  fields:
+    slug: moldova
 - model: skole.Country
   pk: 112
-  fields: {}
+  fields:
+    slug: monaco
 - model: skole.Country
   pk: 113
-  fields: {}
+  fields:
+    slug: mongolia
 - model: skole.Country
   pk: 114
-  fields: {}
+  fields:
+    slug: montenegro
 - model: skole.Country
   pk: 115
-  fields: {}
+  fields:
+    slug: morocco
 - model: skole.Country
   pk: 116
-  fields: {}
+  fields:
+    slug: mozambique
 - model: skole.Country
   pk: 117
-  fields: {}
+  fields:
+    slug: myanmar
 - model: skole.Country
   pk: 118
-  fields: {}
+  fields:
+    slug: namibia
 - model: skole.Country
   pk: 119
-  fields: {}
+  fields:
+    slug: nauru
 - model: skole.Country
   pk: 120
-  fields: {}
+  fields:
+    slug: nepal
 - model: skole.Country
   pk: 121
-  fields: {}
+  fields:
+    slug: netherlands
 - model: skole.Country
   pk: 122
-  fields: {}
+  fields:
+    slug: new-zealand
 - model: skole.Country
   pk: 123
-  fields: {}
+  fields:
+    slug: nicaragua
 - model: skole.Country
   pk: 124
-  fields: {}
+  fields:
+    slug: niger
 - model: skole.Country
   pk: 125
-  fields: {}
+  fields:
+    slug: nigeria
 - model: skole.Country
   pk: 126
-  fields: {}
+  fields:
+    slug: north-korea
 - model: skole.Country
   pk: 127
-  fields: {}
+  fields:
+    slug: norway
 - model: skole.Country
   pk: 128
-  fields: {}
+  fields:
+    slug: oman
 - model: skole.Country
   pk: 129
-  fields: {}
+  fields:
+    slug: pakistan
 - model: skole.Country
   pk: 130
-  fields: {}
+  fields:
+    slug: palau
 - model: skole.Country
   pk: 131
-  fields: {}
+  fields:
+    slug: panama
 - model: skole.Country
   pk: 132
-  fields: {}
+  fields:
+    slug: papua-new-guinea
 - model: skole.Country
   pk: 133
-  fields: {}
+  fields:
+    slug: paraguay
 - model: skole.Country
   pk: 134
-  fields: {}
+  fields:
+    slug: peru
 - model: skole.Country
   pk: 135
-  fields: {}
+  fields:
+    slug: philippines
 - model: skole.Country
   pk: 136
-  fields: {}
+  fields:
+    slug: poland
 - model: skole.Country
   pk: 137
-  fields: {}
+  fields:
+    slug: portugal
 - model: skole.Country
   pk: 138
-  fields: {}
+  fields:
+    slug: qatar
 - model: skole.Country
   pk: 139
-  fields: {}
+  fields:
+    slug: republic-of-the-congo
 - model: skole.Country
   pk: 140
-  fields: {}
+  fields:
+    slug: republic-of-macedonia
 - model: skole.Country
   pk: 141
-  fields: {}
+  fields:
+    slug: romania
 - model: skole.Country
   pk: 142
-  fields: {}
+  fields:
+    slug: russia
 - model: skole.Country
   pk: 143
-  fields: {}
+  fields:
+    slug: rwanda
 - model: skole.Country
   pk: 144
-  fields: {}
+  fields:
+    slug: saint-kitts-and-nevis
 - model: skole.Country
   pk: 145
-  fields: {}
+  fields:
+    slug: saint-lucia
 - model: skole.Country
   pk: 146
-  fields: {}
+  fields:
+    slug: saint-vincent-and-the-grenadines
 - model: skole.Country
   pk: 147
-  fields: {}
+  fields:
+    slug: samoa
 - model: skole.Country
   pk: 148
-  fields: {}
+  fields:
+    slug: san-marino
 - model: skole.Country
   pk: 149
-  fields: {}
+  fields:
+    slug: sao-tome-and-principe
 - model: skole.Country
   pk: 150
-  fields: {}
+  fields:
+    slug: saudi-arabia
 - model: skole.Country
   pk: 151
-  fields: {}
+  fields:
+    slug: senegal
 - model: skole.Country
   pk: 152
-  fields: {}
+  fields:
+    slug: serbia
 - model: skole.Country
   pk: 153
-  fields: {}
+  fields:
+    slug: seychelles
 - model: skole.Country
   pk: 154
-  fields: {}
+  fields:
+    slug: sierra-leone
 - model: skole.Country
   pk: 155
-  fields: {}
+  fields:
+    slug: singapore
 - model: skole.Country
   pk: 156
-  fields: {}
+  fields:
+    slug: slovakia
 - model: skole.Country
   pk: 157
-  fields: {}
+  fields:
+    slug: slovenia
 - model: skole.Country
   pk: 158
-  fields: {}
+  fields:
+    slug: solomon-islands
 - model: skole.Country
   pk: 159
-  fields: {}
+  fields:
+    slug: somalia
 - model: skole.Country
   pk: 160
-  fields: {}
+  fields:
+    slug: south-africa
 - model: skole.Country
   pk: 161
-  fields: {}
+  fields:
+    slug: south-korea
 - model: skole.Country
   pk: 162
-  fields: {}
+  fields:
+    slug: south-sudan
 - model: skole.Country
   pk: 163
-  fields: {}
+  fields:
+    slug: spain
 - model: skole.Country
   pk: 164
-  fields: {}
+  fields:
+    slug: sri-lanka
 - model: skole.Country
   pk: 165
-  fields: {}
+  fields:
+    slug: sudan
 - model: skole.Country
   pk: 166
-  fields: {}
+  fields:
+    slug: suriname
 - model: skole.Country
   pk: 167
-  fields: {}
+  fields:
+    slug: swaziland
 - model: skole.Country
   pk: 168
-  fields: {}
+  fields:
+    slug: sweden
 - model: skole.Country
   pk: 169
-  fields: {}
+  fields:
+    slug: switzerland
 - model: skole.Country
   pk: 170
-  fields: {}
+  fields:
+    slug: syria
 - model: skole.Country
   pk: 171
-  fields: {}
+  fields:
+    slug: tajikistan
 - model: skole.Country
   pk: 172
-  fields: {}
+  fields:
+    slug: tanzania
 - model: skole.Country
   pk: 173
-  fields: {}
+  fields:
+    slug: thailand
 - model: skole.Country
   pk: 174
-  fields: {}
+  fields:
+    slug: togo
 - model: skole.Country
   pk: 175
-  fields: {}
+  fields:
+    slug: tonga
 - model: skole.Country
   pk: 176
-  fields: {}
+  fields:
+    slug: trinidad-and-tobago
 - model: skole.Country
   pk: 177
-  fields: {}
+  fields:
+    slug: tunisia
 - model: skole.Country
   pk: 178
-  fields: {}
+  fields:
+    slug: turkey
 - model: skole.Country
   pk: 179
-  fields: {}
+  fields:
+    slug: turkmenistan
 - model: skole.Country
   pk: 180
-  fields: {}
+  fields:
+    slug: tuvalu
 - model: skole.Country
   pk: 181
-  fields: {}
+  fields:
+    slug: uganda
 - model: skole.Country
   pk: 182
-  fields: {}
+  fields:
+    slug: ukraine
 - model: skole.Country
   pk: 183
-  fields: {}
+  fields:
+    slug: united-arab-emirates
 - model: skole.Country
   pk: 184
-  fields: {}
+  fields:
+    slug: united-kingdom
 - model: skole.Country
   pk: 185
-  fields: {}
+  fields:
+    slug: united-states-of-america
 - model: skole.Country
   pk: 186
-  fields: {}
+  fields:
+    slug: uruguay
 - model: skole.Country
   pk: 187
-  fields: {}
+  fields:
+    slug: uzbekistan
 - model: skole.Country
   pk: 188
-  fields: {}
+  fields:
+    slug: vanuatu
 - model: skole.Country
   pk: 189
-  fields: {}
+  fields:
+    slug: venezuela
 - model: skole.Country
   pk: 190
-  fields: {}
+  fields:
+    slug: vietnam
 - model: skole.Country
   pk: 191
-  fields: {}
+  fields:
+    slug: yemen
 - model: skole.Country
   pk: 192
-  fields: {}
+  fields:
+    slug: zambia
 - model: skole.Country
   pk: 193
-  fields: {}
+  fields:
+    slug: zimbabwe
 - model: skole.Country
   pk: 194
-  fields: {}
+  fields:
+    slug: palestine
 - model: skole.Country
   pk: 195
-  fields: {}
+  fields:
+    slug: vatican-city
 - model: skole.Country
   pk: 196
-  fields: {}
+  fields:
+    slug: abkhazia
 - model: skole.Country
   pk: 197
-  fields: {}
+  fields:
+    slug: artsakh
 - model: skole.Country
   pk: 198
-  fields: {}
+  fields:
+    slug: cook-islands
 - model: skole.Country
   pk: 199
-  fields: {}
+  fields:
+    slug: kosovo
 - model: skole.Country
   pk: 200
-  fields: {}
+  fields:
+    slug: niue
 - model: skole.Country
   pk: 201
-  fields: {}
+  fields:
+    slug: northern-cyprus
 - model: skole.Country
   pk: 202
-  fields: {}
+  fields:
+    slug: sahrawi-arab-democratic-republic
 - model: skole.Country
   pk: 203
-  fields: {}
+  fields:
+    slug: somaliland
 - model: skole.Country
   pk: 204
-  fields: {}
+  fields:
+    slug: south-ossetia
 - model: skole.Country
   pk: 205
-  fields: {}
+  fields:
+    slug: taiwan
 - model: skole.Country
   pk: 206
-  fields: {}
+  fields:
+    slug: transnistria

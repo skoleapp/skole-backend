@@ -37,7 +37,9 @@
 
 - model: skole.SchoolType
   pk: 1
-  fields: {}
+  fields:
+    slug: university
 - model: skole.SchoolType
   pk: 2
-  fields: {}
+  fields:
+    slug: university-of-applied-sciences

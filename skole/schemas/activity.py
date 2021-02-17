@@ -78,7 +78,9 @@ class MarkAllActivitiesAsReadMutation(
     def mutate(
         cls, root: None, info: ResolveInfo, **input: JsonDict
     ) -> MarkAllActivitiesAsReadMutation:
-        qs = Activity.objects.mark_all_as_read(user=cast(User, info.context.user))
+        qs = Activity.objects.mark_all_as_read(
+            user=cast(User, info.context.user)
+        ).order_by("-pk")
 
         page_size = settings.DEFAULT_PAGE_SIZE
         page = 1

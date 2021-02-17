@@ -165,16 +165,16 @@ class ActivitySchemaTests(SkoleSchemaTestCase):
         assert not res["activity"]["read"]
 
     def test_mark_all_activities_as_read(self) -> None:
-        test_activity1 = Activity.objects.get(pk=1)
-        test_activity2 = Activity.objects.get(pk=2)
+        # Ignore: Mypy expects a type of `Union[User, int, None]` for the `user` lookup.
+        activities = Activity.objects.filter(user=self.authenticated_user)  # type: ignore[misc]
 
-        assert not test_activity1.read
-        assert not test_activity2.read
+        for activity in activities:
+            assert not activity.read
 
         res = self.mutate_mark_all_activities_as_read()
 
         assert res["activities"]["page"] == 1
-        assert res["activities"]["objects"][0]["id"] == str(test_activity1.pk)
-        assert res["activities"]["objects"][0]["read"]
-        assert res["activities"]["objects"][1]["id"] == str(test_activity2.pk)
-        assert res["activities"]["objects"][1]["read"]
+
+        for activity in res["activities"]["objects"]:
+            # Ignore: Mypy cannot infer the types from dict.
+            assert activity["read"]  # type: ignore[index]

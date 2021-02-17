@@ -32,14 +32,6 @@ class CourseManager(SkoleManager["Course"]):
 class Course(SkoleModel):
     """Models one course."""
 
-    slug = AutoSlugField(
-        null=True,
-        default=None,
-        populate_from="__str__",
-        unique_with=("name", "codes"),
-        always_update=True,
-    )
-
     name = models.CharField(max_length=200)
 
     codes = django.contrib.postgres.fields.ArrayField(
@@ -50,6 +42,14 @@ class Course(SkoleModel):
         error_messages={
             "item_invalid": ValidationErrors.COURSE_CODE_INVALID,
         },
+    )
+
+    slug = AutoSlugField(
+        null=True,
+        default=None,
+        populate_from="__str__",
+        unique_with=("name", "codes"),
+        always_update=True,
     )
 
     subjects = models.ManyToManyField(

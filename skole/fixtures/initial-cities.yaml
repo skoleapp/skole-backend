@@ -344,76 +344,95 @@
 - model: skole.City
   pk: 1
   fields:
+    slug: turku
     country: 1
 - model: skole.City
   pk: 2
   fields:
+    slug: tampere
     country: 1
 - model: skole.City
   pk: 3
   fields:
+    slug: espoo
     country: 1
 - model: skole.City
   pk: 4
   fields:
+    slug: helsinki
     country: 1
 - model: skole.City
   pk: 5
   fields:
+    slug: pori
     country: 1
 - model: skole.City
   pk: 6
   fields:
+    slug: vaasa
     country: 1
 - model: skole.City
   pk: 7
   fields:
+    slug: jyvaskyla
     country: 1
 - model: skole.City
   pk: 8
   fields:
+    slug: oulu
     country: 1
 - model: skole.City
   pk: 9
   fields:
+    slug: rovaniemi
     country: 1
 - model: skole.City
   pk: 10
   fields:
+    slug: lappeenranta
     country: 1
 - model: skole.City
   pk: 11
   fields:
+    slug: joensuu
     country: 1
 - model: skole.City
   pk: 12
   fields:
+    slug: maarianhamina
     country: 1
 - model: skole.City
   pk: 13
   fields:
+    slug: kokkola
     country: 1
 - model: skole.City
   pk: 14
   fields:
+    slug: hameenlinna
     country: 1
 - model: skole.City
   pk: 15
   fields:
+    slug: kouvola
     country: 1
 - model: skole.City
   pk: 16
   fields:
+    slug: kajaani
     country: 1
 - model: skole.City
   pk: 17
   fields:
+    slug: lahti
     country: 1
 - model: skole.City
   pk: 18
   fields:
+    slug: kuopio
     country: 1
 - model: skole.City
   pk: 19
   fields:
+    slug: seinajoki
     country: 1

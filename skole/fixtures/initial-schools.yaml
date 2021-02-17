@@ -704,196 +704,235 @@
 - model: skole.School
   pk: 1
   fields:
+    slug: university-of-turku
     school_type: 1
     city: 1
 - model: skole.School
   pk: 2
   fields:
+    slug: turku-university-of-applied-sciences
     school_type: 2
     city: 1
 - model: skole.School
   pk: 3
   fields:
+    slug: abo-akademi
     school_type: 1
     city: 1
 - model: skole.School
   pk: 4
   fields:
+    slug: diakonia-university-of-applied-sciences
     school_type: 2
     city: 1
 - model: skole.School
   pk: 5
   fields:
+    slug: novia-university-of-applied-sciences
     school_type: 2
     city: 1
 - model: skole.School
   pk: 6
   fields:
+    slug: humak-university-of-applied-sciences
     school_type: 2
     city: 1
 - model: skole.School
   pk: 7
   fields:
+    slug: tampere-university
     school_type: 1
     city: 2
 - model: skole.School
   pk: 8
   fields:
+    slug: tampere-university-of-applied-sciences
     school_type: 2
     city: 2
 - model: skole.School
   pk: 9
   fields:
+    slug: police-university-college
     school_type: 2
     city: 2
 - model: skole.School
   pk: 10
   fields:
+    slug: aalto-university
     school_type: 1
     city: 3
 - model: skole.School
   pk: 11
   fields:
+    slug: metropolia-university-of-applied-sciences
     school_type: 2
     city: 4
 - model: skole.School
   pk: 12
   fields:
+    slug: laurea-university-of-applied-sciences
     school_type: 2
     city: 3
 - model: skole.School
   pk: 13
   fields:
+    slug: university-of-helsinki
     school_type: 1
     city: 4
 - model: skole.School
   pk: 14
   fields:
+    slug: university-of-the-arts-helsinki
     school_type: 1
     city: 4
 - model: skole.School
   pk: 15
   fields:
+    slug: haaga-helia-university-of-applied-sciences
     school_type: 2
     city: 4
 - model: skole.School
   pk: 16
   fields:
+    slug: hanken-school-of-economics
     school_type: 1
     city: 4
 - model: skole.School
   pk: 17
   fields:
+    slug: national-defence-university
     school_type: 1
     city: 4
 - model: skole.School
   pk: 18
   fields:
+    slug: arcada-university-of-applied-sciences
     school_type: 2
     city: 4
 - model: skole.School
   pk: 19
   fields:
+    slug: helbus-helsinki-school-of-business
     school_type: 1
     city: 4
 - model: skole.School
   pk: 20
   fields:
+    slug: satakunta-university-of-applied-sciences
     school_type: 2
     city: 5
 - model: skole.School
   pk: 21
   fields:
+    slug: university-of-vaasa
     school_type: 1
     city: 6
 - model: skole.School
   pk: 22
   fields:
+    slug: vaasa-university-of-applied-sciences
     school_type: 2
     city: 6
 - model: skole.School
   pk: 23
   fields:
+    slug: university-of-jyvaskyla
     school_type: 1
     city: 7
 - model: skole.School
   pk: 24
   fields:
+    slug: jamk-university-of-applied-sciences
     school_type: 2
     city: 7
 - model: skole.School
   pk: 25
   fields:
+    slug: university-of-oulu
     school_type: 1
     city: 8
 - model: skole.School
   pk: 26
   fields:
+    slug: oulu-university-of-applied-sciences
     school_type: 2
     city: 8
 - model: skole.School
   pk: 27
   fields:
+    slug: university-of-lapland
     school_type: 1
     city: 9
 - model: skole.School
   pk: 28
   fields:
+    slug: lapland-university-of-applied-sciences
     school_type: 2
     city: 9
 - model: skole.School
   pk: 29
   fields:
+    slug: lut-university
     school_type: 1
     city: 10
 - model: skole.School
   pk: 30
   fields:
+    slug: lab-university-of-applied-sciences
     school_type: 2
     city: 17
 - model: skole.School
   pk: 31
   fields:
+    slug: university-of-eastern-finland
     school_type: 1
     city: 11
 - model: skole.School
   pk: 32
   fields:
+    slug: karelia-university-of-applied-sciences
     school_type: 2
     city: 11
 - model: skole.School
   pk: 33
   fields:
+    slug: aland-university-of-applied-sciences
     school_type: 2
     city: 12
 - model: skole.School
   pk: 34
   fields:
+    slug: centria-university-of-applied-sciences
     school_type: 2
     city: 13
 - model: skole.School
   pk: 35
   fields:
+    slug: hame-university-of-applied-sciences
     school_type: 2
     city: 14
 - model: skole.School
   pk: 36
   fields:
+    slug: south-eastern-finland-university-of-applied-scienc
     school_type: 2
     city: 15
 - model: skole.School
   pk: 37
   fields:
+    slug: kajaani-university-of-applied-sciences
     school_type: 2
     city: 16
 - model: skole.School
   pk: 38
   fields:
+    slug: savonia-university-of-applied-sciences
     school_type: 2
     city: 18
 - model: skole.School
   pk: 39
   fields:
+    slug: seinajoki-university-of-applied-sciences
     school_type: 2
     city: 19
 # Be careful with the pks. There also are Schools that have been created from the admin and aren't here.

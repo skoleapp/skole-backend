@@ -29,6 +29,8 @@ class CommentManager(SkoleManager["Comment"]):
 class Comment(SkoleModel):
     """Models one comment posted on a comment thread."""
 
+    _identifier_field = "user"
+
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,

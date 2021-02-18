@@ -72,6 +72,8 @@ class VoteManager(SkoleManager["Vote"]):
 class Vote(SkoleModel):
     """Models one vote on either comment, course or resource."""
 
+    _identifier_field = "user"
+
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,

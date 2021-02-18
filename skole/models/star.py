@@ -46,6 +46,8 @@ class StarManager(SkoleManager["Star"]):
 class Star(SkoleModel):
     """Models a star that a user has placed on a course or a resource."""
 
+    _identifier_field = "user"
+
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="stars"
     )

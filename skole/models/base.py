@@ -39,7 +39,7 @@ class SkoleModel(models.Model):
         _identifier_field: The field which value is shown in `__repr__`'s output.
     """
 
-    _identifier_field: ClassVar[str] = "name"
+    _identifier_field: ClassVar[str] = "slug"
 
     objects = SkoleManager()
 

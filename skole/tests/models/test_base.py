@@ -14,8 +14,11 @@ from skole.types import Fixture
 
 def test_repr(db: Fixture) -> None:
     """Test `SkoleModel`'s `__repr__()`."""
-    assert repr(Course.objects.get(pk=1)) == "<Course:1-Test Engineering Course 1>"
-    assert repr(Resource.objects.get(pk=1)) == "<Resource:1>"
+    assert (
+        repr(Course.objects.get(pk=1))
+        == "<Course:1-test-engineering-course-1-test0001>"
+    )
+    assert repr(Resource.objects.get(pk=1)) == "<Resource:1-sample-exam-1-2012-12-12>"
 
 
 def test_model_mro() -> None:

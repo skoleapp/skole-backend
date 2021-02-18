@@ -67,8 +67,6 @@ class UserManager(SkoleManager["User"], BaseUserManager["User"]):
 class User(SkoleModel, AbstractBaseUser, PermissionsMixin):
     """Models one user on the platform."""
 
-    _identifier_field = "username"
-
     slug = AutoSlugField(
         null=True, default=None, populate_from="username", always_update=True
     )

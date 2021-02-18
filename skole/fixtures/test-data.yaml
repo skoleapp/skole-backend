@@ -453,6 +453,7 @@
   pk: 1
   fields:
     username: admin
+    slug: admin
     email: admin@admin.com
     password: pbkdf2_sha256$180000$K3yx1x6poqpd$JoIcbZDtnbTkbyycsraIzioPGBy8THiQcYymvT7Ztz0=  # admin
     title: ""

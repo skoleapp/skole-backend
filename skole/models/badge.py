@@ -8,6 +8,8 @@ from .base import TranslatableSkoleModel
 class Badge(TranslatableSkoleModel):
     """Models a badge awarded for a user, e.g `Moderator`."""
 
+    _identifier_field = "name"
+
     users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="badges")
 
     translations = TranslatedFields(

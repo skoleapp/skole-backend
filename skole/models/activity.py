@@ -19,6 +19,8 @@ class ActivityManager(SkoleManager["Activity"]):
 class Activity(SkoleModel):
     """Models a single activity of a users activity feed."""
 
+    _identifier_field = "activity_type"
+
     # A user who's activity feed this activity belongs to.
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="activities"

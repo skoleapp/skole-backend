@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING, Any, ClassVar, Optional
 import graphene
 from graphene_django.forms.mutation import DjangoModelFormMutation
 
-from skole.models import SkoleModel, Star, Vote
+from skole.models import SkoleModel, Vote
 from skole.types import ResolveInfo
 
 if TYPE_CHECKING:  # pragma: no cover
@@ -55,10 +55,8 @@ class VoteMixin:
         if user.is_anonymous:
             return None
 
-        try:
-            return user.votes.get(**{root.__class__.__name__.lower(): root.pk})
-        except Vote.DoesNotExist:
-            return None
+        # Ignore: Mypy incorrectly thinks that `RelatedManager[Vote]` doesn't have this method.
+        return user.votes.get_or_none(**{root.__class__.__name__.lower(): root.pk})  # type: ignore[attr-defined]
 
 
 class StarMixin:
@@ -75,13 +73,7 @@ class StarMixin:
         if user.is_anonymous:
             return False
 
-        try:
-            return (
-                user.stars.get(**{root.__class__.__name__.lower(): root.pk}) is not None
-            )
-
-        except Star.DoesNotExist:
-            return False
+        return user.stars.filter(**{root.__class__.__name__.lower(): root.pk}).exists()
 
 
 class PaginationMixin:

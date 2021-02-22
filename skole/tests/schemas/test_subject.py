@@ -140,5 +140,5 @@ class SubjectSchemaTests(SkoleSchemaTestCase):
         assert subject["slug"] == slug
         assert subject["name"] == "Computer Engineering"
         assert subject["courseCount"] == 22
-        assert subject["resourceCount"] == 14
+        assert subject["resourceCount"] == 15
         assert self.query_subject(slug="not-found") is None

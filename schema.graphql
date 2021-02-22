@@ -10,7 +10,7 @@ type ActivityObjectType {
   resource: ResourceObjectType
   comment: CommentObjectType
   read: Boolean
-  description: String!
+  description: String
 }
 
 type AuthorObjectType {
@@ -32,14 +32,14 @@ input ChangePasswordMutationInput {
 }
 
 type ChangePasswordMutationPayload {
-  successMessage: String!
+  successMessage: String
   errors: [ErrorType]
   clientMutationId: String
 }
 
 type CityObjectType {
   slug: String
-  name: String!
+  name: String
 }
 
 type CommentObjectType {
@@ -57,7 +57,7 @@ type CommentObjectType {
   score: Int
   vote: VoteObjectType
   replyCount: Int
-  attachmentThumbnail: String!
+  attachmentThumbnail: String
 }
 
 input ContactMutationInput {
@@ -74,13 +74,13 @@ type ContactMutationPayload {
   email: String
   message: String!
   errors: [ErrorType]
-  successMessage: String!
+  successMessage: String
   clientMutationId: String
 }
 
 type CountryObjectType {
   slug: String
-  name: String!
+  name: String
 }
 
 type CourseObjectType {
@@ -98,9 +98,9 @@ type CourseObjectType {
   starred: Boolean
   score: Int
   vote: VoteObjectType
-  starCount: Int!
-  resourceCount: Int!
-  commentCount: Int!
+  starCount: Int
+  resourceCount: Int
+  commentCount: Int
 }
 
 input CreateCommentMutationInput {
@@ -117,7 +117,7 @@ input CreateCommentMutationInput {
 type CreateCommentMutationPayload {
   comment: CommentObjectType
   errors: [ErrorType]
-  successMessage: String!
+  successMessage: String
   clientMutationId: String
 }
 
@@ -132,7 +132,7 @@ input CreateCourseMutationInput {
 type CreateCourseMutationPayload {
   course: CourseObjectType
   errors: [ErrorType]
-  successMessage: String!
+  successMessage: String
   clientMutationId: String
 }
 
@@ -161,7 +161,7 @@ input CreateResourceMutationInput {
 type CreateResourceMutationPayload {
   resource: ResourceObjectType
   errors: [ErrorType]
-  successMessage: String!
+  successMessage: String
   clientMutationId: String
 }
 
@@ -175,7 +175,7 @@ input DeleteCommentMutationInput {
 }
 
 type DeleteCommentMutationPayload {
-  successMessage: String!
+  successMessage: String
   errors: [ErrorType]
   clientMutationId: String
 }
@@ -186,7 +186,7 @@ input DeleteCourseMutationInput {
 }
 
 type DeleteCourseMutationPayload {
-  successMessage: String!
+  successMessage: String
   errors: [ErrorType]
   clientMutationId: String
 }
@@ -197,7 +197,7 @@ input DeleteResourceMutationInput {
 }
 
 type DeleteResourceMutationPayload {
-  successMessage: String!
+  successMessage: String
   errors: [ErrorType]
   clientMutationId: String
 }
@@ -208,7 +208,7 @@ input DeleteUserMutationInput {
 }
 
 type DeleteUserMutationPayload {
-  successMessage: String!
+  successMessage: String
   errors: [ErrorType]
   clientMutationId: String
 }
@@ -223,7 +223,7 @@ input DownloadResourceMutationInput {
 type DownloadResourceMutationPayload {
   resource: ResourceObjectType
   errors: [ErrorType]
-  successMessage: String!
+  successMessage: String
   clientMutationId: String
 }
 
@@ -247,7 +247,7 @@ input LoginMutationInput {
 type LoginMutationPayload {
   user: UserObjectType
   errors: [ErrorType]
-  successMessage: String!
+  successMessage: String
   clientMutationId: String
 }
 
@@ -304,52 +304,52 @@ type Mutation {
 }
 
 type MyDataMutation {
-  successMessage: String!
+  successMessage: String
   errors: [ErrorType]
 }
 
 type PaginatedActivityObjectType {
-  page: Int!
-  pages: Int!
-  hasNext: Boolean!
-  hasPrev: Boolean!
-  count: Int!
+  page: Int
+  pages: Int
+  hasNext: Boolean
+  hasPrev: Boolean
+  count: Int
   objects: [ActivityObjectType]
 }
 
 type PaginatedCommentObjectType {
-  page: Int!
-  pages: Int!
-  hasNext: Boolean!
-  hasPrev: Boolean!
-  count: Int!
+  page: Int
+  pages: Int
+  hasNext: Boolean
+  hasPrev: Boolean
+  count: Int
   objects: [CommentObjectType]
 }
 
 type PaginatedCourseObjectType {
-  page: Int!
-  pages: Int!
-  hasNext: Boolean!
-  hasPrev: Boolean!
-  count: Int!
+  page: Int
+  pages: Int
+  hasNext: Boolean
+  hasPrev: Boolean
+  count: Int
   objects: [CourseObjectType]
 }
 
 type PaginatedResourceObjectType {
-  page: Int!
-  pages: Int!
-  hasNext: Boolean!
-  hasPrev: Boolean!
-  count: Int!
+  page: Int
+  pages: Int
+  hasNext: Boolean
+  hasPrev: Boolean
+  count: Int
   objects: [ResourceObjectType]
 }
 
 type PaginatedSubjectObjectType {
-  page: Int!
-  pages: Int!
-  hasNext: Boolean!
-  hasPrev: Boolean!
-  count: Int!
+  page: Int
+  pages: Int
+  hasNext: Boolean
+  hasPrev: Boolean
+  count: Int
   objects: [SubjectObjectType]
 }
 
@@ -395,13 +395,13 @@ input RegisterMutationInput {
 }
 
 type RegisterMutationPayload {
-  successMessage: String!
+  successMessage: String
   errors: [ErrorType]
   clientMutationId: String
 }
 
 type ResendVerificationEmailMutation {
-  successMessage: String!
+  successMessage: String
   errors: [ErrorType]
 }
 
@@ -415,7 +415,7 @@ type ResetPasswordMutationPayload {
   token: String
   newPassword: String!
   errors: [ErrorType]
-  successMessage: String!
+  successMessage: String
   clientMutationId: String
 }
 
@@ -437,14 +437,14 @@ type ResourceObjectType {
   score: Int
   vote: VoteObjectType
   school: SchoolObjectType
-  starCount: Int!
-  commentCount: Int!
+  starCount: Int
+  commentCount: Int
 }
 
 type ResourceTypeObjectType {
   id: ID!
   slug: String
-  name: String!
+  name: String
 }
 
 type SchoolObjectType {
@@ -453,15 +453,15 @@ type SchoolObjectType {
   schoolType: SchoolTypeObjectType
   city: CityObjectType
   courses: [CourseObjectType!]!
-  name: String!
+  name: String
   country: CountryObjectType
   subjects: [SubjectObjectType]
-  commentCount: Int!
+  commentCount: Int
 }
 
 type SchoolTypeObjectType {
   slug: String
-  name: String!
+  name: String
 }
 
 input SendPasswordResetEmailMutationInput {
@@ -472,7 +472,7 @@ input SendPasswordResetEmailMutationInput {
 type SendPasswordResetEmailMutationPayload {
   email: String!
   errors: [ErrorType]
-  successMessage: String!
+  successMessage: String
   clientMutationId: String
 }
 
@@ -511,9 +511,9 @@ type StarObjectType {
 type SubjectObjectType {
   id: ID!
   slug: String
-  name: String!
-  courseCount: Int!
-  resourceCount: Int!
+  name: String
+  courseCount: Int
+  resourceCount: Int
 }
 
 union SuggestionsUnion = CourseObjectType | ResourceObjectType | CommentObjectType
@@ -524,13 +524,16 @@ input UpdateAccountSettingsMutationInput {
   subject: ID
   productUpdateEmailPermission: Boolean
   blogPostEmailPermission: Boolean
+  commentReplyEmailPermission: Boolean
+  courseCommentEmailPermission: Boolean
+  resourceCommentEmailPermission: Boolean
   clientMutationId: String
 }
 
 type UpdateAccountSettingsMutationPayload {
   user: UserObjectType
   errors: [ErrorType]
-  successMessage: String!
+  successMessage: String
   clientMutationId: String
 }
 
@@ -544,7 +547,7 @@ input UpdateCommentMutationInput {
 type UpdateCommentMutationPayload {
   comment: CommentObjectType
   errors: [ErrorType]
-  successMessage: String!
+  successMessage: String
   clientMutationId: String
 }
 
@@ -573,7 +576,7 @@ input UpdateProfileMutationInput {
 type UpdateProfileMutationPayload {
   user: UserObjectType
   errors: [ErrorType]
-  successMessage: String!
+  successMessage: String
   clientMutationId: String
 }
 
@@ -589,7 +592,7 @@ input UpdateResourceMutationInput {
 type UpdateResourceMutationPayload {
   resource: ResourceObjectType
   errors: [ErrorType]
-  successMessage: String!
+  successMessage: String
   clientMutationId: String
 }
 
@@ -597,21 +600,24 @@ type UserObjectType {
   id: ID!
   slug: String
   username: String!
-  email: String!
+  email: String
   title: String!
   bio: String!
-  avatar: String!
-  score: Int!
+  avatar: String
+  score: Int
   created: DateTime!
-  verified: Boolean!
-  productUpdateEmailPermission: Boolean!
-  blogPostEmailPermission: Boolean!
-  avatarThumbnail: String!
+  verified: Boolean
+  productUpdateEmailPermission: Boolean
+  blogPostEmailPermission: Boolean
+  commentReplyEmailPermission: Boolean
+  courseCommentEmailPermission: Boolean
+  resourceCommentEmailPermission: Boolean
+  avatarThumbnail: String
   school: SchoolObjectType
   subject: SubjectObjectType
-  rank: String!
+  rank: String
   badges: [BadgeObjectType]
-  unreadActivityCount: Int!
+  unreadActivityCount: Int
 }
 
 input VerifyAccountMutationInput {
@@ -622,7 +628,7 @@ input VerifyAccountMutationInput {
 type VerifyAccountMutationPayload {
   token: String
   errors: [ErrorType]
-  successMessage: String!
+  successMessage: String
   clientMutationId: String
 }
 
@@ -637,20 +643,15 @@ input VoteMutationInput {
 type VoteMutationPayload {
   vote: VoteObjectType
   errors: [ErrorType]
-  targetScore: Int!
+  targetScore: Int
   clientMutationId: String
 }
 
 type VoteObjectType {
   id: ID!
   user: UserObjectType
-  status: VoteStatus!
+  status: Int
   comment: CommentObjectType
   course: CourseObjectType
   resource: ResourceObjectType
-}
-
-enum VoteStatus {
-  A_1
-  _1
 }

@@ -84,6 +84,8 @@ class Email:
     MY_DATA_SUBJECT = _("Your data request on Skole")
     VERIFY_ACCOUNT_SUBJECT = _("Verify your account on Skole")
     RESET_PASSWORD_SUBJECT = _("Reset your password on Skole")
+    COMMUNITY_USER = _("Community User")
+    EMAIL_NOTIFICATION_SUBJECT = "{} {} in Skole"
 
 
 T = TypeVar("T", bound="_MutationErrorsMeta")

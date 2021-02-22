@@ -39,6 +39,9 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
             unreadActivityCount
             productUpdateEmailPermission
             blogPostEmailPermission
+            commentReplyEmailPermission
+            courseCommentEmailPermission
+            resourceCommentEmailPermission
             badges {
                 id
                 name
@@ -145,6 +148,9 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         subject: ID = 1,
         product_update_email_permission: bool = True,
         blog_post_email_permission: bool = True,
+        comment_reply_email_permission: bool = True,
+        course_comment_email_permission: bool = True,
+        resource_comment_email_permission: bool = True,
     ) -> JsonDict:
         return self.execute_input_mutation(
             name="updateAccountSettings",
@@ -155,6 +161,9 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
                 "subject": subject,
                 "productUpdateEmailPermission": product_update_email_permission,
                 "blogPostEmailPermission": blog_post_email_permission,
+                "commentReplyEmailPermission": comment_reply_email_permission,
+                "courseCommentEmailPermission": course_comment_email_permission,
+                "resourceCommentEmailPermission": resource_comment_email_permission,
             },
             result="user { ...userFields } successMessage",
             fragment=self.user_fields,
@@ -577,15 +586,30 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         # Update some fields.
         new_school = "2"
         new_subject = "2"
+        product_update_email_permission = False
+        blog_post_email_permission = False
+        comment_reply_email_permission = False
+        course_comment_email_permission = False
+        resource_comment_email_permission = False
 
         res = self.mutate_update_account_settings(
             school=new_school,
             subject=new_subject,
+            product_update_email_permission=product_update_email_permission,
+            blog_post_email_permission=blog_post_email_permission,
+            comment_reply_email_permission=comment_reply_email_permission,
+            course_comment_email_permission=course_comment_email_permission,
+            resource_comment_email_permission=resource_comment_email_permission,
         )
 
         assert not res["errors"]
         assert res["user"]["school"] == {"id": new_school}
         assert res["user"]["school"] == {"id": new_subject}
+        assert not res["user"]["productUpdateEmailPermission"]
+        assert not res["user"]["blogPostEmailPermission"]
+        assert not res["user"]["commentReplyEmailPermission"]
+        assert not res["user"]["courseCommentEmailPermission"]
+        assert not res["user"]["resourceCommentEmailPermission"]
         assert res["successMessage"] == Messages.ACCOUNT_SETTINGS_UPDATED
 
         user_old = self.query_user_me()

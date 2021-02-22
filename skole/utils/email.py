@@ -156,3 +156,37 @@ def send_marketing_email(request: HttpRequest, instance: MarketingEmail) -> None
                 ),
                 recipient_list=[recipient],
             )
+
+
+def _get_email_notification_context(
+    user: User, target_username: str, description: str
+) -> JsonDict:
+    site = Site.objects.get_current()
+    protocol = "http" if settings.DEBUG else "https"
+    path = settings.ACTIVITY_PATH_ON_EMAIL
+    url = f"{protocol}://{site.domain}/{path}"
+
+    return {
+        "user": user,
+        "target_username": target_username,
+        "description": description,
+        "url": url,
+    }
+
+
+def send_email_notification(
+    user: User, description: str, target_user: Optional[User] = None
+) -> None:
+    target_username = target_user.username if target_user else Email.COMMUNITY_USER
+    subject = Email.EMAIL_NOTIFICATION_SUBJECT.format(target_username, description)
+    email_context = _get_email_notification_context(
+        user=user, target_username=target_username, description=description
+    )
+
+    return _send(
+        subject=subject,
+        from_email=settings.EMAIL_ADDRESS,
+        template="email/email_notification.html",
+        user=user,
+        context=email_context,
+    )

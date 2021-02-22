@@ -5,7 +5,7 @@ from skole.types import Fixture
 def test_clear_cache_setup(db: Fixture) -> None:
     a = ActivityType.objects.get(pk=1)
     assert a.name == "comment_reply"
-    assert a.description == "replied to your comment."
+    assert a.description == "replied to your comment"
     a.name = "new name"
     a.description = "new description"
     a.save()
@@ -20,4 +20,4 @@ def test_clear_cache_test(db: Fixture) -> None:
     assert a.name == "comment_reply"
 
     # Would fetch "new description" from cache and fail on this line.
-    assert a.description == "replied to your comment."
+    assert a.description == "replied to your comment"

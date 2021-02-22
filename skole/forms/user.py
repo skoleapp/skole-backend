@@ -27,7 +27,7 @@ class RegisterForm(SkoleModelForm):
         return username
 
     def clean_email(self) -> str:
-        # Call `lower()` since we want all saved email to be lowercase,
+        # Call `lower()` since we want all saved email to be lowercase.
         email = self.cleaned_data["email"].lower()
         if get_user_model().objects.filter(email__iexact=email).exists():
             raise forms.ValidationError(ValidationErrors.EMAIL_TAKEN)
@@ -135,6 +135,9 @@ class UpdateAccountSettingsForm(SkoleModelForm):
             "subject",
             "product_update_email_permission",
             "blog_post_email_permission",
+            "comment_reply_email_permission",
+            "course_comment_email_permission",
+            "resource_comment_email_permission",
         )
 
     def clean_email(self) -> str:

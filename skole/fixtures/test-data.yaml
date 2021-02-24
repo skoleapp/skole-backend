@@ -578,7 +578,7 @@
     avatar: ""
     verified: True
     product_update_email_permission: True
-    blog_post_email_permission: True
+    blog_post_email_permission: False
     is_active: True
     is_staff: False
     is_superuser: False
@@ -597,7 +597,7 @@
     avatar: ""
     verified: True
     product_update_email_permission: True
-    blog_post_email_permission: True
+    blog_post_email_permission: False
     is_active: True
     is_staff: False
     is_superuser: False
@@ -616,7 +616,7 @@
     avatar: ""
     verified: True
     product_update_email_permission: True
-    blog_post_email_permission: True
+    blog_post_email_permission: False
     is_active: True
     is_staff: False
     is_superuser: False
@@ -633,7 +633,7 @@
     bio: ""
     avatar: ""
     verified: True
-    product_update_email_permission: True
+    product_update_email_permission: False
     blog_post_email_permission: True
     is_active: True
     is_staff: False
@@ -651,8 +651,8 @@
     bio: ""
     avatar: ""
     verified: True
-    product_update_email_permission: True
-    blog_post_email_permission: True
+    product_update_email_permission: False
+    blog_post_email_permission: False
     is_active: True
     is_staff: False
     is_superuser: False
@@ -669,8 +669,8 @@
     bio: ""
     avatar: ""
     verified: True
-    product_update_email_permission: True
-    blog_post_email_permission: True
+    product_update_email_permission: False
+    blog_post_email_permission: False
     is_active: True
     is_staff: False
     is_superuser: False
@@ -1211,6 +1211,18 @@
     user: 2
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Resource
+  pk: 15
+  fields:
+    resource_type: 2
+    title: Sample Exercise 13
+    file: uploads/resources/test_resource.pdf
+    date: 2012-12-12
+    slug: sample-exercise-13-2012-12-12
+    course: 1
+    user: 3
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
 
 - model: skole.Comment
   pk: 1
@@ -1747,55 +1759,55 @@
   fields:
     master: 1
     language_code: en
-    description: replied to your comment.
+    description: replied to your comment
 - model: skole.ActivityTypeTranslation
   pk: 2
   fields:
     master: 1
     language_code: fi
-    description: vastasi kommenttiisi.
+    description: vastasi kommenttiisi
 - model: skole.ActivityTypeTranslation
   pk: 3
   fields:
     master: 1
     language_code: sv
-    description: svarade på din kommentar.
+    description: svarade på din kommentar
 - model: skole.ActivityTypeTranslation
   pk: 4
   fields:
     master: 2
     language_code: en
-    description: commented on your course.
+    description: commented on your course
 - model: skole.ActivityTypeTranslation
   pk: 5
   fields:
     master: 2
     language_code: fi
-    description: kommentoi kurssiasi.
+    description: kommentoi kurssiasi
 - model: skole.ActivityTypeTranslation
   pk: 6
   fields:
     master: 2
     language_code: sv
-    description: kommenterade din kurs.
+    description: kommenterade din kurs
 - model: skole.ActivityTypeTranslation
   pk: 7
   fields:
     master: 3
     language_code: en
-    description: commented on your resource.
+    description: commented on your resource
 - model: skole.ActivityTypeTranslation
   pk: 8
   fields:
     master: 3
     language_code: fi
-    description: kommentoi resurssiasi.
+    description: kommentoi resurssiasi
 - model: skole.ActivityTypeTranslation
   pk: 9
   fields:
     master: 3
     language_code: sv
-    description: kommenterade din resurs.
+    description: kommenterade din resurs
 
 - model: skole.ActivityType
   pk: 1
@@ -1892,3 +1904,53 @@
   pk: 1
   fields:
     users: [2, 3]
+
+- model: skole.EmailSubscription
+  pk: 1
+  fields:
+    email: test@test.com
+    product_updates: True
+    blog_posts: True
+
+- model: skole.MarketingEmailSender
+  pk: 1
+  fields:
+    from_email: Sender from Skole <sender@test.com>
+- model: skole.MarketingEmailSender
+  pk: 2
+  fields:
+    from_email: Sender 2 from Skole <sender2@test.com>
+
+- model: skole.MarketingEmail
+  pk: 1
+  fields:
+    subject: Test Product Update Email
+    from_email: 1
+    email_type: product-update
+    contents: marketing_emails/test_marketing_email.html
+    created: 2020-01-01 12:00:00.000000+00:00
+    modified: 2020-01-01 12:00:00.000000+00:00
+    sent: False
+- model: skole.MarketingEmail
+  pk: 2
+  fields:
+    subject: Test Blog Post Email
+    from_email: 2
+    email_type: blog-post
+    contents: marketing_emails/test_marketing_email.html
+    created: 2020-01-01 12:00:00.000000+00:00
+    modified: 2020-01-01 12:00:00.000000+00:00
+    sent: False
+
+- model: skole.EmailSubscription
+  pk: 1
+  fields:
+    email: "subscriber@test.com"
+    product_updates: True
+    blog_posts: False
+- model: skole.EmailSubscription
+  pk: 2
+  fields:
+    email: "subscriber2@test.com"
+    product_updates: False
+    blog_posts: True

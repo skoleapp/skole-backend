@@ -26,7 +26,11 @@ def test_create_user(db: Fixture) -> None:
     assert user.username == username
     assert user.email == email
     assert user.check_password(password)
-    assert user.product_update_email_permission is True
+    assert user.product_update_email_permission
+    assert user.blog_post_email_permission
+    assert user.comment_reply_email_permission
+    assert user.course_comment_email_permission
+    assert user.resource_comment_email_permission
 
     user = User.objects.create_user(
         username="unique",

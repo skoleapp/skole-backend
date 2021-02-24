@@ -1,0 +1,16 @@
+- model: skole.MarketingEmailSender
+  pk: 1
+  fields:
+    from_email: Markus from Skole <markus@skoleapp.com>
+- model: skole.MarketingEmailSender
+  pk: 2
+  fields:
+    from_email: Eero from Skole <eero@skoleapp.com>
+- model: skole.MarketingEmailSender
+  pk: 3
+  fields:
+    from_email: Wiljam from Skole <wiljam@skoleapp.com>
+- model: skole.MarketingEmailSender
+  pk: 4
+  fields:
+    from_email: Werneri from Skole <werneri@skoleapp.com>

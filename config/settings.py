@@ -1,5 +1,6 @@
 import os
 import re
+import sys
 from datetime import timedelta
 from pathlib import Path
 
@@ -49,6 +50,7 @@ DATABASES = {"default": dj_database_url.config()}
 
 # Installed app settings
 INSTALLED_APPS = [
+    "admin_confirm",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -202,10 +204,15 @@ else:
 # Custom email settings
 EMAIL_ADDRESS = os.environ.get("EMAIL_ADDRESS", default="contact@test.com")
 EMAIL_CONTACT_FORM_SENDER = os.environ.get(
-    "EMAIL_CONTACT_FORM_SENDER", default="Contact form <contact-form@test.com>"
+    "EMAIL_CONTACT_FORM_SENDER", default="Contact Form <contact-form@test.com>"
 )
-VERIFICATION_PATH_ON_EMAIL = "verify-account"  # Have to match with frontend.
-PASSWORD_RESET_PATH_ON_EMAIL = "reset-password"  # Have to match with frontend.
+
+# Have to match with frontend.
+VERIFICATION_PATH_ON_EMAIL = "verify-account"
+PASSWORD_RESET_PATH_ON_EMAIL = "reset-password"
+UPDATE_EMAIL_SUBSCRIPTION_PATH_ON_EMAIL = "email-subscription"
+ACCOUNT_SETTINGS_PATH_ON_EMAIL = "account-settings"
+ACTIVITY_PATH_ON_EMAIL = "activity"
 
 # Maximum amount of results for autocomplete queries.
 AUTOCOMPLETE_MAX_RESULTS = 50
@@ -245,3 +252,6 @@ SUGGESTIONS_PREVIEW_COUNT = 6
 
 # Amount of results returned by discussion suggestions.
 DISCUSSION_SUGGESTIONS_COUNT = 6
+
+# Detect if running tests.
+TESTING = sys.argv[1:2] == ["test"]

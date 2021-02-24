@@ -18,11 +18,16 @@ class Languages:
 class TokenAction:
     VERIFICATION = "verification"
     PASSWORD_RESET = "password_reset"
+    UPDATE_EMAIL_SUBSCRIPTION = "update-email-subscription"
 
 
 class ValidationErrors:
     USERNAME_TAKEN = _("This username is taken.")
     EMAIL_TAKEN = _("This email is taken.")
+    EMAIL_ALREADY_SUBSCRIBED = _("A subscription with this email already exists.")
+    ACCOUNT_EMAIL = _(
+        "This email belongs to an account. You can edit your email preferences in your account settings."
+    )
     ACCOUNT_DEACTIVATED = _("This account has been deactivated!")
     AUTH_ERROR = _("Invalid username/email or password.")
     SUPERUSER_LOGIN = _("Cannot log in at this time.")
@@ -70,12 +75,17 @@ class Messages:
     COMMENT_UPDATED = _("Comment updated successfully!")
     COMMENT_DELETED = _("Comment deleted successfully!")
     DATA_REQUEST_RECEIVED = _("Data request received successfully!")
+    SUBSCRIBED = _("Subscribed successfully!")
+    SUBSCRIPTION_UPDATED = _("Subscription updated successfully!")
+    SUBSCRIPTION_DELETED = _("Subscription deleted successfully!")
 
 
 class Email:
     MY_DATA_SUBJECT = _("Your data request on Skole")
     VERIFY_ACCOUNT_SUBJECT = _("Verify your account on Skole")
     RESET_PASSWORD_SUBJECT = _("Reset your password on Skole")
+    COMMUNITY_USER = _("Community User")
+    EMAIL_NOTIFICATION_SUBJECT = "{} {} in Skole"
 
 
 T = TypeVar("T", bound="_MutationErrorsMeta")
@@ -110,6 +120,7 @@ class MutationErrors(metaclass=_MutationErrorsMeta):
     ALREADY_VERIFIED = _c(GraphQLErrors.ALREADY_VERIFIED)
     TOKEN_EXPIRED_VERIFY = _c(_("Token expired. Please request new verification link."))
     INVALID_TOKEN_VERIFY = _c(_("Invalid token. Please request new verification link."))
+    INVALID_TOKEN = _c(_("Invalid token."))
     USER_NOT_FOUND_WITH_EMAIL = _c(_(
         "User with the provided email was not found. Please check you email address."
     ))
@@ -166,3 +177,14 @@ class VerboseNames:
 DJANGO_STANDARD_MESSAGES_TO_OVERRIDE = [
     _("The password is too similar to the %(verbose_name)s.")
 ]
+
+
+class MarketingEmailTypes:
+    PRODUCT_UPDATE = "product-update"
+    BLOG_POST = "blog-post"
+
+
+MARKETING_EMAIL_TYPE_CHOICES = (
+    (MarketingEmailTypes.PRODUCT_UPDATE, "Product Update"),
+    (MarketingEmailTypes.BLOG_POST, "Blog Post"),
+)

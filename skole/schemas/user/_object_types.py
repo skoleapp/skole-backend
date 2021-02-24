@@ -52,6 +52,9 @@ class UserObjectType(SkoleDjangoObjectType):
     unread_activity_count = graphene.Int()
     product_update_email_permission = graphene.Boolean()
     blog_post_email_permission = graphene.Boolean()
+    comment_reply_email_permission = graphene.Boolean()
+    course_comment_email_permission = graphene.Boolean()
+    resource_comment_email_permission = graphene.Boolean()
 
     class Meta:
         model = get_user_model()
@@ -70,6 +73,9 @@ class UserObjectType(SkoleDjangoObjectType):
             "unread_activity_count",
             "product_update_email_permission",
             "blog_post_email_permission",
+            "comment_reply_email_permission",
+            "course_comment_email_permission",
+            "resource_comment_email_permission",
         )
 
     @staticmethod
@@ -118,3 +124,20 @@ class UserObjectType(SkoleDjangoObjectType):
     @private_field
     def resolve_blog_post_email_permission(root: User, info: ResolveInfo) -> bool:
         return root.blog_post_email_permission
+
+    @staticmethod
+    @private_field
+    def resolve_comment_reply_email_permission(root: User, info: ResolveInfo) -> bool:
+        return root.comment_reply_email_permission
+
+    @staticmethod
+    @private_field
+    def resolve_course_comment_email_permission(root: User, info: ResolveInfo) -> bool:
+        return root.course_comment_email_permission
+
+    @staticmethod
+    @private_field
+    def resolve_resource_comment_email_permission(
+        root: User, info: ResolveInfo
+    ) -> bool:
+        return root.resource_comment_email_permission

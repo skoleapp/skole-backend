@@ -1,8 +1,10 @@
+import pytest
+
 from skole.models import SchoolType
-from skole.types import Fixture
 
 
-def test_str(db: Fixture) -> None:
+@pytest.mark.django_db
+def test_str() -> None:
     school_type1 = SchoolType.objects.get(pk=1)
     assert str(school_type1) == "University"
 

@@ -4,10 +4,10 @@ from django.core.exceptions import ValidationError
 from django.core.files.uploadedfile import SimpleUploadedFile
 
 from skole.models import Comment, Course
-from skole.types import Fixture
 
 
-def test_invalid_file_type(db: Fixture) -> None:
+@pytest.mark.django_db
+def test_invalid_file_type() -> None:
     user = get_user_model().objects.get(pk=2)
     course = Course.objects.get(pk=1)
     invalid_file = SimpleUploadedFile("not_an_image.txt", b"file contents")
@@ -18,7 +18,8 @@ def test_invalid_file_type(db: Fixture) -> None:
         ).full_clean()
 
 
-def test_invalid_file_extension(db: Fixture) -> None:
+@pytest.mark.django_db
+def test_invalid_file_extension() -> None:
     user = get_user_model().objects.get(pk=2)
     course = Course.objects.get(pk=1)
     actually_jpeg = SimpleUploadedFile("image.png", b"\xff\xd8\xff")
@@ -29,7 +30,8 @@ def test_invalid_file_extension(db: Fixture) -> None:
         ).full_clean()
 
 
-def test_too_large(db: Fixture) -> None:
+@pytest.mark.django_db
+def test_too_large() -> None:
     user = get_user_model().objects.get(pk=2)
     course = Course.objects.get(pk=1)
     small_enough = SimpleUploadedFile("image.jpeg", b"\xff\xd8\xff" * 1_000_000)

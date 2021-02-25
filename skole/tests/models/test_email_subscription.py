@@ -1,16 +1,18 @@
+import pytest
 from django.core import signing
 
 from skole.models import EmailSubscription
-from skole.types import Fixture
 from skole.utils.constants import TokenAction
 
 
-def test_str(db: Fixture) -> None:
+@pytest.mark.django_db
+def test_str() -> None:
     email_subscription = EmailSubscription.objects.get(pk=1)
     assert str(email_subscription) == "subscriber@test.com"
 
 
-def test_update_email_subscription(db: Fixture) -> None:
+@pytest.mark.django_db
+def test_update_email_subscription() -> None:
     email = "test2@test.com"
     email_subscription = EmailSubscription.objects.create(email=email)
     assert email_subscription.email == email

@@ -1,8 +1,10 @@
+import pytest
+
 from skole.models import Subject
-from skole.types import Fixture
 
 
-def test_str(db: Fixture) -> None:
+@pytest.mark.django_db
+def test_str() -> None:
     subject1 = Subject.objects.get(pk=1)
     assert str(subject1) == "Computer Engineering"
 

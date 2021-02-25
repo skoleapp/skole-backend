@@ -1,8 +1,10 @@
+import pytest
+
 from skole.models import ActivityType
-from skole.types import Fixture
 
 
-def test_clear_cache_setup(db: Fixture) -> None:
+@pytest.mark.django_db
+def test_clear_cache_setup() -> None:
     a = ActivityType.objects.get(pk=1)
     assert a.name == "comment_reply"
     assert a.description == "replied to your comment"
@@ -14,7 +16,8 @@ def test_clear_cache_setup(db: Fixture) -> None:
     assert a.description == "new description"
 
 
-def test_clear_cache_test(db: Fixture) -> None:
+@pytest.mark.django_db
+def test_clear_cache_test() -> None:
     """Without `conftest.clear_cache` autouse fixture, this testcase would fail."""
     a = ActivityType.objects.get(pk=1)
     assert a.name == "comment_reply"

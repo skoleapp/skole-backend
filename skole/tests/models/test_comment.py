@@ -1,8 +1,10 @@
+import pytest
+
 from skole.models import Comment
-from skole.types import Fixture
 
 
-def test_str(db: Fixture) -> None:
+@pytest.mark.django_db
+def test_str() -> None:
     comment1 = Comment.objects.get(pk=1)
     assert str(comment1) == "testuser2: Comment 1 to a resource."
 

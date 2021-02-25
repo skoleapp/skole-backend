@@ -1,8 +1,10 @@
+import pytest
+
 from skole.models import City
-from skole.types import Fixture
 
 
-def test_str(db: Fixture) -> None:
+@pytest.mark.django_db
+def test_str() -> None:
     city1 = City.objects.get(pk=1)
     assert str(city1) == "Turku"
 

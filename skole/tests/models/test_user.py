@@ -1,8 +1,10 @@
+import pytest
+
 from skole.models import User
-from skole.types import Fixture
 
 
-def test_str(db: Fixture) -> None:
+@pytest.mark.django_db
+def test_str() -> None:
     user2 = User.objects.get(pk=2)
     assert str(user2) == "testuser2"
 
@@ -10,7 +12,8 @@ def test_str(db: Fixture) -> None:
     assert str(user3) == "testuser3"
 
 
-def test_create_user(db: Fixture) -> None:
+@pytest.mark.django_db
+def test_create_user() -> None:
     username = "testusername"
     email = "username@example.com"
     password = "password"
@@ -39,7 +42,8 @@ def test_create_user(db: Fixture) -> None:
     )
 
 
-def test_create_superuser(db: Fixture) -> None:
+@pytest.mark.django_db
+def test_create_superuser() -> None:
     username = "testadmin"
     email = "admin@example.com"
     password = "adminpassword"
@@ -53,14 +57,16 @@ def test_create_superuser(db: Fixture) -> None:
     assert user.check_password(password)
 
 
-def test_set_password(db: Fixture) -> None:
+@pytest.mark.django_db
+def test_set_password() -> None:
     user = User.objects.get(pk=2)
     new_pass = "new pass"
     User.objects.set_password(user, new_pass)
     assert user.check_password(new_pass)
 
 
-def test_change_score(db: Fixture) -> None:
+@pytest.mark.django_db
+def test_change_score() -> None:
     user = User.objects.get(pk=2)
     assert user.score == 0
 
@@ -73,7 +79,8 @@ def test_change_score(db: Fixture) -> None:
     assert user.score == 0
 
 
-def test_rank(db: Fixture) -> None:
+@pytest.mark.django_db
+def test_rank() -> None:
     testuser2 = User.objects.get(pk=2)
     assert testuser2.rank == "Freshman"
 

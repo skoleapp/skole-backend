@@ -1,7 +1,9 @@
+import pytest
+
 from skole.models import Country
-from skole.types import Fixture
 
 
-def test_str(db: Fixture) -> None:
+@pytest.mark.django_db
+def test_str() -> None:
     country1 = Country.objects.get(pk=1)
     assert str(country1) == "Finland"

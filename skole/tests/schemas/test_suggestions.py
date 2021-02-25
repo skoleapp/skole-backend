@@ -122,7 +122,10 @@ class SuggestionSchemaTests(SkoleSchemaTestCase):
             if "text" in result:
                 comments += 1
 
-        assert courses == resources == comments == settings.SUGGESTIONS_COUNT // 3
+        sample_size = settings.SUGGESTIONS_COUNT // 3
+        assert courses <= sample_size
+        assert resources <= sample_size
+        assert comments <= sample_size
 
         # Test suggestions preview.
         res = self.query_suggestions_preview()

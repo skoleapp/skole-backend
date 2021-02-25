@@ -1,8 +1,10 @@
+import pytest
+
 from skole.models import School
-from skole.types import Fixture
 
 
-def test_str(db: Fixture) -> None:
+@pytest.mark.django_db
+def test_str() -> None:
     school1 = School.objects.get(pk=1)
     assert str(school1) == "University of Turku"
 
@@ -10,6 +12,7 @@ def test_str(db: Fixture) -> None:
     assert str(school2) == "Aalto University"
 
 
-def test_subjects(db: Fixture) -> None:
+@pytest.mark.django_db
+def test_subjects() -> None:
     school = School.objects.get(pk=1)
     assert school.subjects.get(pk=1).name == "Computer Engineering"

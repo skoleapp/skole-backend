@@ -1,5 +1,6 @@
 import parler.managers
 import parler.models
+import pytest
 from django.db import models
 
 from skole.models import Country, Course, Resource
@@ -9,10 +10,10 @@ from skole.models.base import (
     TranslatableSkoleManager,
     TranslatableSkoleModel,
 )
-from skole.types import Fixture
 
 
-def test_repr(db: Fixture) -> None:
+@pytest.mark.django_db
+def test_repr() -> None:
     """Test `SkoleModel`'s `__repr__()`."""
     assert (
         repr(Course.objects.get(pk=1))

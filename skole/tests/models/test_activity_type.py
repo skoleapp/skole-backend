@@ -1,8 +1,10 @@
+import pytest
+
 from skole.models import ActivityType
-from skole.types import Fixture
 
 
-def test_str(db: Fixture) -> None:
+@pytest.mark.django_db
+def test_str() -> None:
     comment_reply = ActivityType.objects.get(pk=1)
     assert str(comment_reply) == "comment_reply"
 

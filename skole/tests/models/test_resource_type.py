@@ -1,8 +1,10 @@
+import pytest
+
 from skole.models import ResourceType
-from skole.types import Fixture
 
 
-def test_str(db: Fixture) -> None:
+@pytest.mark.django_db
+def test_str() -> None:
     resource_type1 = ResourceType.objects.get(pk=1)
     assert str(resource_type1) == "Exercise"
 

@@ -1,10 +1,10 @@
 import pytest
 
 from skole.models import Activity, Comment, Course, Resource, User
-from skole.types import Fixture
 
 
-def test_activity_for_comment_reply(db: Fixture) -> None:
+@pytest.mark.django_db
+def test_activity_for_comment_reply() -> None:
     testuser2 = User.objects.get(pk=2)
     testuser3 = User.objects.get(pk=3)
     comment = Comment.objects.get(pk=5)  # Created by testuser2
@@ -46,7 +46,8 @@ def test_activity_for_comment_reply(db: Fixture) -> None:
         Activity.objects.get(user=user, target_user=own_reply_comment.user)
 
 
-def test_activity_for_course_comment(db: Fixture) -> None:
+@pytest.mark.django_db
+def test_activity_for_course_comment() -> None:
     # Not created by testuser 3.
     course = Course.objects.get(pk=1)
     testuser3 = User.objects.get(pk=3)
@@ -81,7 +82,8 @@ def test_activity_for_course_comment(db: Fixture) -> None:
         Activity.objects.get(user=user, target_user=own_course_comment.user)
 
 
-def test_activity_for_resource_comment(db: Fixture) -> None:
+@pytest.mark.django_db
+def test_activity_for_resource_comment() -> None:
     resource = Resource.objects.get(pk=1)
     testuser3 = User.objects.get(pk=3)
     comment = Comment.objects.create(

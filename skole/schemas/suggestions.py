@@ -3,7 +3,7 @@ from typing import TypeVar, cast
 
 import graphene
 from django.conf import settings
-from django.db.models import QuerySet
+from django.db.models import Max, QuerySet
 
 from skole.models import Comment, Course, Resource
 from skole.schemas.base import SkoleObjectType
@@ -36,19 +36,17 @@ def get_suggestions(num_results: int) -> list[SuggestionModel]:
     )
 
     courses = sample(
-        Course.objects.exclude(
-            comments__in=comments,
-        )
+        Course.objects.exclude(comments__in=comments)
         .filter(comment_count__gt=0)  # type: ignore[misc]
-        .order_by("-comments__pk")
+        .annotate(latest_comment=Max("comments"))
+        .order_by("-latest_comment")
     )
 
     resources = sample(
-        Resource.objects.exclude(
-            comments__in=comments,
-        )
+        Resource.objects.exclude(comments__in=comments)
         .filter(comment_count__gt=0)  # type: ignore[misc]
-        .order_by("-comments__pk")
+        .annotate(latest_comment=Max("comments"))
+        .order_by("-latest_comment")
     )
 
     results = [*comments, *courses, *resources]

@@ -25,11 +25,17 @@ class _BaseCreateUpdateCommentForm(SkoleModelForm):
 
 
 class CreateCommentForm(_BaseCreateUpdateCommentForm, SkoleModelForm):
-    user = forms.CharField(required=False)
-
     class Meta:
         model = Comment
-        fields = ("text", "attachment", "course", "resource", "comment", "school")
+        fields = (
+            "user",
+            "text",
+            "attachment",
+            "course",
+            "resource",
+            "comment",
+            "school",
+        )
 
     def __init__(self, **kwargs: Any) -> None:
         super().__init__(**kwargs)
@@ -40,11 +46,9 @@ class CreateCommentForm(_BaseCreateUpdateCommentForm, SkoleModelForm):
     def save(self, commit: bool = True) -> Comment:
         assert self.request is not None
 
-        # Check that the user making the request has the same ID as the user passed in the form.
+        # Check that the user making the request is the same as the user passed in the form.
         # Only if they match, use the user from the request as the author of the comment.
-        if self.request.user.is_authenticated and str(
-            self.request.user.pk
-        ) == self.cleaned_data.get("user"):
+        if self.request.user == self.cleaned_data.get("user"):
             self.instance.user = self.request.user
         else:
             self.instance.user = None

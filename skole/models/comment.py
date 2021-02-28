@@ -34,8 +34,9 @@ class Comment(SkoleModel):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,
-        null=True,
         related_name="comments",
+        null=True,
+        blank=True,
     )
 
     text = models.TextField(max_length=10000, blank=True)

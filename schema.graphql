@@ -104,13 +104,13 @@ type CourseObjectType {
 }
 
 input CreateCommentMutationInput {
+  user: ID
   text: String
   attachment: String
   course: ID
   resource: ID
   comment: ID
   school: ID
-  user: String
   clientMutationId: String
 }
 

@@ -199,7 +199,7 @@ class SkoleDeleteMutationMixin(SkoleCreateUpdateMutationMixin, SuccessMessageMix
             form_class = FooForm
 
     Attributes:
-        success_message: This has to be set to the string that the mutation
+        success_message_value: This has to be set to the string that the mutation
             should return in a successful response.
     """
 

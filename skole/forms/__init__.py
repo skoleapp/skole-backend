@@ -20,6 +20,7 @@ from .user import (
     TokenForm,
     UpdateAccountSettingsForm,
     UpdateProfileForm,
+    UpdateSelectedBadgeForm,
 )
 from .vote import CreateVoteForm
 
@@ -47,5 +48,6 @@ __all__ = [
     "UpdateCommentForm",
     "UpdateEmailSubscriptionForm",
     "UpdateProfileForm",
+    "UpdateSelectedBadgeForm",
     "UpdateResourceForm",
 ]

@@ -10,4 +10,4 @@ class BadgeObjectType(SkoleDjangoObjectType):
 
     class Meta:
         model = Badge
-        fields = ("id", "name", "description")
+        fields = ("id", "name", "description", "tier")

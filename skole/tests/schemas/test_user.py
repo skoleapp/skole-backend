@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 from django.core import mail
 from django.utils import translation
 
+from skole.models import Badge, BadgeProgress
 from skole.tests.helpers import (
     TEST_AVATAR_JPG,
     UPLOADED_AVATAR_JPG,
@@ -10,6 +11,7 @@ from skole.tests.helpers import (
     SkoleSchemaTestCase,
     get_form_error,
     get_graphql_error,
+    get_last,
     get_token_from_email,
     is_slug_match,
     open_as_file,
@@ -45,6 +47,28 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
             badges {
                 id
                 name
+                description
+                tier
+            }
+            badgeProgresses {
+                badge {
+                    id
+                    name
+                    description
+                    tier
+                }
+                progress
+                steps
+            }
+            selectedBadgeProgress {
+                badge {
+                    id
+                    name
+                    description
+                    tier
+                }
+                progress
+                steps
             }
             school {
                 id
@@ -220,6 +244,14 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
             assert_error=assert_error,
         )
 
+    def mutate_update_selected_badge(self, badge: ID) -> JsonDict:
+        return self.execute_input_mutation(
+            name="updateSelectedBadge",
+            input_type="UpdateSelectedBadgeMutationInput!",
+            input={"id": badge},
+            result="badgeProgress { badge { id name } } successMessage",
+        )
+
     def test_field_fragment(self) -> None:
         self.authenticated_user = None
         self.assert_field_fragment_matches_schema(self.user_fields)
@@ -232,8 +264,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         res = self.mutate_register(email=email)
         assert not res["errors"]
         assert res["successMessage"] == Messages.USER_REGISTERED
-        user = get_user_model().objects.order_by("created").last()
-        # Ignore: Mypy doesn't understand that `first()` couldn't return None here.
+        get_user_model().objects.order_by("created")
 
         assert len(mail.outbox) == 1
         sent = mail.outbox[0]
@@ -243,13 +274,11 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         # Can set marketing permission to False.
         res = self.mutate_register(username="unique", email="unique@test.test")
         assert not res["errors"]
-        user = get_user_model().objects.order_by("created").last()
-        # Ignore: Mypy doesn't understand that `first()` couldn't return None here.
+        get_user_model().objects.order_by("created")
 
         # Username should keep its casing, mut email should be lowercased.
         self.mutate_register(username="MYUSERNAME", email="MAIL@example.COM")
-        user = get_user_model().objects.order_by("created").last()
-        assert user
+        user = get_last(get_user_model().objects.order_by("created"))
         assert user.username == "MYUSERNAME"
         assert user.email == "mail@example.com"
 
@@ -443,6 +472,11 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert user1["school"] == {"id": "1"}
         assert user1["subject"] == {"id": "1"}
         assert len(user1["badges"]) == 1
+        assert len(user1["badgeProgresses"]) == 5
+        assert user1["badgeProgresses"][0]["badge"]["id"] == "3"
+        assert user1["badgeProgresses"][0]["badge"]["name"] == "First Comment"
+        assert user1["badgeProgresses"][0]["progress"] == 0
+        assert user1["badgeProgresses"][0]["steps"] == 1
 
         # Some other user.
         slug = "testuser3"
@@ -450,9 +484,9 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert user2["id"] == "3"
         assert user2["username"] == "testuser3"
         assert user2["slug"] == slug
-        assert len(user2["badges"]) == 1
-        assert user2["badges"][0]["name"] == "Tester"
         assert user2["rank"] == "Tutor"
+        assert len(user2["badges"]) == 0
+        assert user2["badgeProgresses"] is None  # Private field.
         assert user2["unreadActivityCount"] is None  # Private field.
         assert user2["email"] is None  # Private field.
         assert user2["verified"] is None  # Private field.
@@ -473,7 +507,18 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert user["school"] == {"id": "1"}
         assert user["subject"] == {"id": "1"}
         assert len(user["badges"]) == 1
-        assert user["badges"][0]["name"] == "Tester"
+        assert user["badges"][0]["name"] == "Staff"
+        assert len(user["badgeProgresses"]) == 5
+
+        # `badgeProgresses` should be sorted by their completion percentage.
+        assert user["badgeProgresses"][0]["badge"]["name"] == "First Comment"
+        badge_progress = BadgeProgress.objects.get(badge__identifier="first_upvote")
+        badge_progress.badge.steps = 10
+        badge_progress.progress = 9
+        badge_progress.save()
+        user = self.query_user_me()
+        assert user["badgeProgresses"][0]["badge"]["name"] == "First Upvote"
+        assert user["badgeProgresses"][1]["badge"]["name"] == "First Comment"
 
         # Shouldn't work without auth.
         self.authenticated_user = None
@@ -754,3 +799,27 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         # Password cannot be too similar to email.
         res = self.mutate_reset_password(token=token, new_password="testuser2@test.com")
         assert "too similar to the email" in get_form_error(res)
+
+    def test_update_selected_badge(self) -> None:
+        user = self.get_authenticated_user()
+        user.selected_badge_progress = None
+        user.save()
+
+        badge = Badge.objects.get(identifier="first_comment")
+        res = self.mutate_update_selected_badge(badge=badge.pk)
+        assert not res["errors"]
+        assert res["successMessage"] == Messages.BADGE_TRACKING_CHANGED
+        assert res["badgeProgress"]["badge"]["id"] == str(badge.id)
+        assert res["badgeProgress"]["badge"]["name"] == badge.name
+        user.refresh_from_db()
+        # Ignore: We know that `badge` cannot be `None` here.
+        assert user.selected_badge_progress.badge == badge  # type: ignore[attr-defined]
+
+        # Test that cannot set the badge to null.
+        res = self.mutate_update_selected_badge(badge=None)
+        assert res["errors"] == MutationErrors.BADGE_CANNOT_BE_NULL
+        assert res["successMessage"] is None
+        assert res["badgeProgress"] is None
+        user.refresh_from_db()
+        # Ignore: We know that `badge` cannot be `None` here.
+        assert user.selected_badge_progress.badge == badge  # type: ignore[attr-defined]

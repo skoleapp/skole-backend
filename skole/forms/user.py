@@ -5,7 +5,7 @@ from django.conf import settings
 from django.contrib.auth import authenticate, get_user_model, password_validation
 from django.core.files import File
 
-from skole.models import User
+from skole.models import Badge, User
 from skole.types import JsonDict
 from skole.utils.constants import ValidationErrors
 from skole.utils.files import clean_file_field
@@ -147,6 +147,17 @@ class UpdateAccountSettingsForm(SkoleModelForm):
                 raise forms.ValidationError(ValidationErrors.EMAIL_TAKEN)
 
         return email
+
+
+class UpdateSelectedBadgeForm(SkoleModelForm):
+    class Meta:
+        model = Badge
+        fields = ("id",)
+
+    def save(self, commit: bool = True) -> Badge:
+        # Prevent saving instance here - the mutation will just use this instance,
+        # without actually ever mutating it.
+        return self.instance
 
 
 class ChangePasswordForm(SkoleModelForm):

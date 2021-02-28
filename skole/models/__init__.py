@@ -2,6 +2,7 @@ from .activity import Activity
 from .activity_type import ActivityType
 from .author import Author
 from .badge import Badge
+from .badge_progress import BadgeProgress
 from .base import SkoleModel, TranslatableSkoleModel
 from .city import City
 from .comment import Comment
@@ -24,6 +25,7 @@ __all__ = [
     "ActivityType",
     "Author",
     "Badge",
+    "BadgeProgress",
     "City",
     "Comment",
     "Country",

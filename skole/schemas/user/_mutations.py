@@ -23,6 +23,7 @@ from skole.forms import (
     TokenForm,
     UpdateAccountSettingsForm,
     UpdateProfileForm,
+    UpdateSelectedBadgeForm,
 )
 from skole.models import User
 from skole.overridden import login_required
@@ -33,6 +34,7 @@ from skole.utils.email import send_password_reset_email, send_verification_email
 from skole.utils.exceptions import TokenScopeError, UserAlreadyVerified
 from skole.utils.token import get_token_payload, revoke_user_refresh_tokens
 
+from ..badge_progress import BadgeProgressObjectType
 from ..base import SkoleCreateUpdateMutationMixin, SkoleObjectType
 from ._object_types import UserObjectType
 
@@ -355,6 +357,33 @@ class UpdateAccountSettingsMutation(
         return super().perform_mutate(form, info)
 
 
+class UpdateSelectedBadgeMutation(
+    SkoleCreateUpdateMutationMixin, SuccessMessageMixin, DjangoModelFormMutation
+):
+    """Change the badge which progress the user currently tracks."""
+
+    login_required = True
+    success_message_value = Messages.BADGE_TRACKING_CHANGED
+
+    badge_progress = graphene.Field(BadgeProgressObjectType)
+
+    class Meta:
+        form_class = UpdateSelectedBadgeForm
+        return_field_name = "badge_progress"
+
+    @classmethod
+    def perform_mutate(
+        cls, form: UpdateSelectedBadgeForm, info: ResolveInfo
+    ) -> DjangoModelFormMutation:
+        obj = super().perform_mutate(form, info)
+        user = cast(User, info.context.user)
+        if form.instance.pk:
+            obj.badge_progress = user.change_selected_badge_progress(form.instance)
+            return obj
+        else:
+            return cls(errors=MutationErrors.BADGE_CANNOT_BE_NULL)
+
+
 class DeleteUserMutation(
     SkoleCreateUpdateMutationMixin, SuccessMessageMixin, DjangoModelFormMutation
 ):
@@ -398,3 +427,4 @@ class Mutation(SkoleObjectType):
     update_profile = UpdateProfileMutation.Field()
     update_account_settings = UpdateAccountSettingsMutation.Field()
     delete_user = DeleteUserMutation.Field()
+    update_selected_badge = UpdateSelectedBadgeMutation.Field()

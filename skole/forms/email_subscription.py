@@ -1,5 +1,3 @@
-from typing import Optional
-
 from django import forms
 from django.contrib.auth import get_user_model
 
@@ -34,6 +32,6 @@ class UpdateEmailSubscriptionForm(SkoleModelForm):
             "blog_posts",
         )
 
-    # Prevent saving instance here - a custom handler is implemented in the schema.
-    def save(self, commit: bool = True) -> tuple[Optional[EmailSubscription], bool]:
+    def save(self, commit: bool = True) -> EmailSubscription:
+        # Prevent saving instance here - a custom handler is implemented in the schema.
         return self.instance

@@ -5,8 +5,9 @@ import graphene
 from django.contrib.auth import get_user_model
 from django.db.models import QuerySet
 
-from skole.models import Badge, School, Subject, User
+from skole.models import Badge, BadgeProgress, School, Subject, User
 from skole.schemas.badge import BadgeObjectType
+from skole.schemas.badge_progress import BadgeProgressObjectType
 from skole.schemas.base import SkoleDjangoObjectType
 from skole.schemas.school import SchoolObjectType
 from skole.schemas.subject import SubjectObjectType
@@ -32,8 +33,8 @@ def private_field(func: UserResolver[T]) -> UserResolver[Optional[T]]:
 class UserObjectType(SkoleDjangoObjectType):
     """
     The following fields are private, meaning they are returned only if the user is
-    querying one's own profile: `email`, `verified`, `product_update_email_permission`,
-    `blog_post_email_permission`, `school`, `subject`.
+    querying one's own profile: `email`, `verified`, `badge_progresses`,
+    `selected_badge_progress` `school`, `subject`, and all `permission` fields.
 
     For instances that are not the user's own user profile, these fields will return a
     `null` value.
@@ -49,6 +50,7 @@ class UserObjectType(SkoleDjangoObjectType):
     subject = graphene.Field(SubjectObjectType)
     rank = graphene.String()
     badges = graphene.List(BadgeObjectType)
+    badge_progresses = graphene.List(BadgeProgressObjectType)
     unread_activity_count = graphene.Int()
     product_update_email_permission = graphene.Boolean()
     blog_post_email_permission = graphene.Boolean()
@@ -70,6 +72,7 @@ class UserObjectType(SkoleDjangoObjectType):
             "avatar_thumbnail",
             "created",
             "verified",
+            "selected_badge_progress",
             "unread_activity_count",
             "product_update_email_permission",
             "blog_post_email_permission",
@@ -79,16 +82,34 @@ class UserObjectType(SkoleDjangoObjectType):
         )
 
     @staticmethod
-    def resolve_badges(root: User, info: ResolveInfo) -> QuerySet[Badge]:
-        return root.badges.order_by("pk")
-
-    @staticmethod
     def resolve_avatar(root: User, info: ResolveInfo) -> str:
         return root.avatar.url if root.avatar else ""
 
     @staticmethod
     def resolve_avatar_thumbnail(root: User, info: ResolveInfo) -> str:
         return root.avatar_thumbnail.url if root.avatar_thumbnail else ""
+
+    @staticmethod
+    def resolve_badges(root: User, info: ResolveInfo) -> QuerySet[Badge]:
+        return Badge.objects.filter(
+            badge_progresses__user=root, badge_progresses__acquired__isnull=False
+        )
+
+    @staticmethod
+    @private_field
+    def resolve_badge_progresses(
+        root: User, info: ResolveInfo
+    ) -> QuerySet[BadgeProgress]:
+        return root.get_or_create_badge_progresses()
+
+    @staticmethod
+    @private_field
+    def resolve_selected_badge_progress(
+        root: User, info: ResolveInfo
+    ) -> Optional[BadgeProgress]:
+        if root.selected_badge_progress and not root.selected_badge_progress.acquired:
+            return root.selected_badge_progress
+        return root.get_or_create_badge_progresses().first()
 
     @staticmethod
     @private_field

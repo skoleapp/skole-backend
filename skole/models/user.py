@@ -6,6 +6,8 @@ from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.core.validators import RegexValidator
 from django.db import models
+from django.db.models import ExpressionWrapper, F, FloatField, QuerySet
+from django.db.models.functions import Cast
 from django.utils import timezone
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
@@ -15,6 +17,8 @@ from skole.utils.exceptions import UserAlreadyVerified
 from skole.utils.token import get_token_payload
 from skole.utils.validators import ValidateFileSizeAndType
 
+from .badge import Badge
+from .badge_progress import BadgeProgress
 from .base import SkoleManager, SkoleModel
 
 
@@ -40,12 +44,6 @@ class UserManager(SkoleManager["User"], BaseUserManager["User"]):
     @staticmethod
     def set_password(user: User, password: str) -> User:
         user.set_password(password)
-        user.save()
-        return user
-
-    @staticmethod
-    def change_score(user: User, score: int) -> User:
-        user.score += score  # Can also be a subtraction when `score` is negative.
         user.save()
         return user
 
@@ -128,6 +126,14 @@ class User(SkoleModel, AbstractBaseUser, PermissionsMixin):
         blank=True,
     )
 
+    selected_badge_progress = models.ForeignKey(
+        "skole.BadgeProgress",
+        on_delete=models.SET_NULL,
+        related_name="users",
+        null=True,
+        blank=True,
+    )
+
     score = models.IntegerField(default=0)
     created = models.DateTimeField(auto_now_add=True)
     verified = models.BooleanField(default=False)
@@ -176,6 +182,48 @@ class User(SkoleModel, AbstractBaseUser, PermissionsMixin):
         else:
             return Ranks.PROFESSOR
 
+    def change_score(self, score: int) -> None:
+        if score:
+            self.score += score  # Can also be a subtraction when `score` is negative.
+            self.save(update_fields=("score",))
+
+    def change_selected_badge_progress(self, badge: Badge) -> BadgeProgress:
+        if not badge.pk:
+            raise TypeError("Badge must have pk before it can be tracked.")
+        badge_progress, __ = BadgeProgress.objects.get_or_create(badge=badge, user=self)
+        self.selected_badge_progress = badge_progress
+        self.save(update_fields=("selected_badge_progress",))
+        return badge_progress
+
     def update_last_my_data_query(self) -> None:
         self.last_my_data_query = timezone.now()
         self.save()
+
+    def get_or_create_badge_progresses(self) -> QuerySet[BadgeProgress]:
+        """
+        Create all the possibly missing BadgeProgress for the user and return them.
+
+        Returns:
+            QuerySet of BadgeProgress for all Badges that the User hasn't yet acquired.
+            The result is sorted by the Badge's completion percentages.
+        """
+        missing = (
+            Badge.objects.filter(steps__isnull=False)
+            .exclude(badge_progresses__user=self)
+            .values_list("pk", flat=True)
+        )
+        BadgeProgress.objects.bulk_create(
+            (BadgeProgress(badge_id=pk, user=self) for pk in missing)
+        )
+
+        progresses = BadgeProgress.objects.filter(
+            badge__steps__isnull=False, acquired__isnull=True
+        )
+
+        # `steps` is validated to be > 0 and non-null here, so the division is safe.
+        return progresses.annotate(
+            percentage=ExpressionWrapper(
+                Cast("progress", FloatField()) / F("badge__steps"),
+                output_field=FloatField(),
+            ),
+        ).order_by("-percentage")

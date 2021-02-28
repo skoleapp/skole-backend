@@ -1883,27 +1883,206 @@
   fields:
     master: 1
     language_code: en
-    name: Tester
-    description: For user's that like to test stuff.
+    name: Staff
+    description: Skole staff.
 - model: skole.BadgeTranslation
   pk: 2
   fields:
     master: 1
     language_code: fi
-    name: Testaaja
-    description: Käyttäjille jotka tykkäävät testaamisesta.
+    name: Henkilöstö
+    description: Skolen henkilöstö.
 - model: skole.BadgeTranslation
   pk: 3
   fields:
     master: 1
     language_code: sv
-    name: Testare
-    description: Denna användaranvändare gillar att testa saker.
+    name: Bricka
+    description: Skole-personalen.
+- model: skole.BadgeTranslation
+  pk: 4
+  fields:
+    master: 2
+    language_code: en
+    name: Moderator
+    description: Moderator.
+- model: skole.BadgeTranslation
+  pk: 5
+  fields:
+    master: 2
+    language_code: fi
+    name: Moderaattori
+    description: Moderaattori.
+- model: skole.BadgeTranslation
+  pk: 6
+  fields:
+    master: 2
+    language_code: sv
+    name: Moderatorn
+    description: Moderatorn.
+- model: skole.BadgeTranslation
+  pk: 7
+  fields:
+    master: 3
+    language_code: en
+    name: First Comment
+    description: Write your first comment.
+- model: skole.BadgeTranslation
+  pk: 8
+  fields:
+    master: 3
+    language_code: fi
+    name: Ensimmäinen kommentti
+    description: Kirjoita ensimmäinen kommenttisi.
+- model: skole.BadgeTranslation
+  pk: 9
+  fields:
+    master: 3
+    language_code: sv
+    name: Första komment
+    description: Skriva din första kommentar.
+- model: skole.BadgeTranslation
+  pk: 10
+  fields:
+    master: 4
+    language_code: en
+    name: First Course
+    description: Create your first course.
+- model: skole.BadgeTranslation
+  pk: 11
+  fields:
+    master: 4
+    language_code: fi
+    name: Ensimmäinen kurssi
+    description: Luo ensimmäinen kurssisi.
+- model: skole.BadgeTranslation
+  pk: 12
+  fields:
+    master: 4
+    language_code: sv
+    name: Första kursen
+    description: Skapa din första kurs.
+- model: skole.BadgeTranslation
+  pk: 13
+  fields:
+    master: 5
+    language_code: en
+    name: First Material
+    description: Add your first material.
+- model: skole.BadgeTranslation
+  pk: 14
+  fields:
+    master: 5
+    language_code: fi
+    name: Ensimmäinen materiaali
+    description: Lisää ensimmäinen materiaalisi.
+- model: skole.BadgeTranslation
+  pk: 15
+  fields:
+    master: 5
+    language_code: sv
+    name: Första materialet
+    description: Lägg till ditt första material.
+- model: skole.BadgeTranslation
+  pk: 16
+  fields:
+    master: 6
+    language_code: en
+    name: First Upvote
+    description: Upvote something.
+- model: skole.BadgeTranslation
+  pk: 17
+  fields:
+    master: 6
+    language_code: fi
+    name: Ensimmäinen ylös-ääni
+    description: Äänestä jotain ylös.
+- model: skole.BadgeTranslation
+  pk: 18
+  fields:
+    master: 6
+    language_code: sv
+    name: Första upprösta
+    description: Upprösta på något.
+- model: skole.BadgeTranslation
+  pk: 19
+  fields:
+    master: 7
+    language_code: en
+    name: First Downvote
+    description: Downvote something.
+- model: skole.BadgeTranslation
+  pk: 20
+  fields:
+    master: 7
+    language_code: fi
+    name: Ensimmäinen alas-ääni
+    description: Äänestä jotain alas.
+- model: skole.BadgeTranslation
+  pk: 21
+  fields:
+    master: 7
+    language_code: sv
+    name: Första nedrösta
+    description: Nedrösta på något.
 
 - model: skole.Badge
   pk: 1
   fields:
-    users: [2, 3]
+    identifier: staff
+    steps: null
+    completion_score: 0
+    tier: diamond
+- model: skole.Badge
+  pk: 2
+  fields:
+    identifier: moderator
+    steps: null
+    completion_score: 0
+    tier: diamond
+- model: skole.Badge
+  pk: 3
+  fields:
+    identifier: first_comment
+    steps: 1
+    completion_score: 0
+    tier: bronze
+- model: skole.Badge
+  pk: 4
+  fields:
+    identifier: first_course
+    steps: 1
+    completion_score: 0
+    tier: bronze
+- model: skole.Badge
+  pk: 5
+  fields:
+    identifier: first_resource
+    steps: 1
+    completion_score: 0
+    tier: bronze
+- model: skole.Badge
+  pk: 6
+  fields:
+    identifier: first_upvote
+    steps: 1
+    completion_score: 0
+    tier: bronze
+- model: skole.Badge
+  pk: 7
+  fields:
+    identifier: first_downvote
+    steps: 1
+    completion_score: 0
+    tier: bronze
+
+- model: skole.BadgeProgress
+  pk: 1
+  fields:
+    badge: 1
+    user: 2
+    acquired: 2021-01-01 12:00:00+00:00
+    progress: 0
 
 - model: skole.EmailSubscription
   pk: 1

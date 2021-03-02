@@ -8,6 +8,7 @@ type ActivityObjectType {
   targetUser: UserObjectType
   course: CourseObjectType
   resource: ResourceObjectType
+  school: SchoolObjectType
   comment: CommentObjectType
   read: Boolean
   description: String

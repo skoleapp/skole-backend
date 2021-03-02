@@ -34,6 +34,7 @@ class ActivityObjectType(SkoleDjangoObjectType):
             "target_user",
             "course",
             "resource",
+            "school",
             "comment",
         )
 

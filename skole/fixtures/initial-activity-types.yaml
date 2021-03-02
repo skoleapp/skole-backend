@@ -3,55 +3,55 @@
   fields:
     master: 1
     language_code: en
-    description: replied to your comment.
+    description: replied to your comment
 - model: skole.ActivityTypeTranslation
   pk: 2
   fields:
     master: 1
     language_code: fi
-    description: vastasi kommenttiisi.
+    description: vastasi kommenttiisi
 - model: skole.ActivityTypeTranslation
   pk: 3
   fields:
     master: 1
     language_code: sv
-    description: svarade på din kommentar.
+    description: svarade på din kommentar
 - model: skole.ActivityTypeTranslation
   pk: 4
   fields:
     master: 2
     language_code: en
-    description: commented on your course.
+    description: commented on your course
 - model: skole.ActivityTypeTranslation
   pk: 5
   fields:
     master: 2
     language_code: fi
-    description: kommentoi kurssiasi.
+    description: kommentoi kurssiasi
 - model: skole.ActivityTypeTranslation
   pk: 6
   fields:
     master: 2
     language_code: sv
-    description: kommenterade din kurs.
+    description: kommenterade din kurs
 - model: skole.ActivityTypeTranslation
   pk: 7
   fields:
     master: 3
     language_code: en
-    description: commented on your resource.
+    description: commented on your resource
 - model: skole.ActivityTypeTranslation
   pk: 8
   fields:
     master: 3
     language_code: fi
-    description: kommentoi resurssiasi.
+    description: kommentoi resurssiasi
 - model: skole.ActivityTypeTranslation
   pk: 9
   fields:
     master: 3
     language_code: sv
-    description: kommenterade din resurs.
+    description: kommenterade din resurs
 
 - model: skole.ActivityType
   pk: 1

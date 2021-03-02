@@ -48,6 +48,10 @@ class Activity(SkoleModel):
         "skole.Resource", on_delete=models.CASCADE, null=True, blank=True
     )
 
+    school = models.ForeignKey(
+        "skole.School", on_delete=models.CASCADE, null=True, blank=True
+    )
+
     comment = models.ForeignKey(
         "skole.Comment", on_delete=models.CASCADE, null=True, blank=True
     )

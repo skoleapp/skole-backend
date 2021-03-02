@@ -16,6 +16,7 @@ def test_activity_for_comment_reply() -> None:
             target_user=testuser3,
             course=comment.course,
             resource=comment.resource,
+            school=comment.school,
             comment=comment,
         )
 
@@ -31,6 +32,7 @@ def test_activity_for_comment_reply() -> None:
         target_user=reply_comment.user,
         course=comment.course,
         resource=comment.resource,
+        school=comment.school,
         comment=comment,
     )
 

@@ -13,7 +13,7 @@ from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.utils.translation import get_language
 
-from skole.models import EmailSubscription, MarketingEmail, User
+from skole.models import Activity, EmailSubscription, MarketingEmail, User
 from skole.types import JsonDict, ResolveInfo
 from skole.utils.constants import Email, MarketingEmailTypes, TokenAction
 from skole.utils.exceptions import UserAlreadyVerified
@@ -159,34 +159,55 @@ def send_marketing_email(request: HttpRequest, instance: MarketingEmail) -> None
 
 
 def _get_email_notification_context(
-    user: User, target_username: str, description: str
+    activity: Activity, target_username: str, description: str
 ) -> JsonDict:
     site = Site.objects.get_current()
     protocol = "http" if settings.DEBUG else "https"
-    path = settings.ACTIVITY_PATH_ON_EMAIL
+
+    # If activity contains multiple targets, use the most low-level one as the path.
+    if activity.resource and activity.comment:
+        path = settings.RESOURCE_COMMENT_PATH_ON_EMAIL.format(
+            activity.resource.slug, activity.comment.id
+        )
+
+    elif activity.course and activity.comment:
+        path = settings.COURSE_COMMENT_PATH_ON_EMAIL.format(
+            activity.course.slug, activity.comment.id
+        )
+
+    elif activity.school and activity.comment:
+        path = settings.SCHOOL_COMMENT_PATH_ON_EMAIL.format(
+            activity.school.slug, activity.comment.id
+        )
+
+    else:
+        raise ValueError("Invalid activity. Cannot send email.")
+
     url = f"{protocol}://{site.domain}/{path}"
 
     return {
-        "user": user,
+        "user": activity.user,
         "target_username": target_username,
         "description": description,
         "url": url,
     }
 
 
-def send_email_notification(
-    user: User, description: str, target_user: Optional[User] = None
-) -> None:
-    target_username = target_user.username if target_user else Email.COMMUNITY_USER
+def send_email_notification(activity: Activity) -> None:
+    target_username = (
+        activity.target_user.username if activity.target_user else Email.COMMUNITY_USER
+    )
+    description = activity.activity_type.description
     subject = Email.EMAIL_NOTIFICATION_SUBJECT.format(target_username, description)
+
     email_context = _get_email_notification_context(
-        user=user, target_username=target_username, description=description
+        activity=activity, target_username=target_username, description=description
     )
 
     return _send(
         subject=subject,
         from_email=settings.EMAIL_ADDRESS,
         template="email/email_notification.html",
-        user=user,
+        user=activity.user,
         context=email_context,
     )

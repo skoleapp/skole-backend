@@ -22,10 +22,13 @@ class ActivitySchemaTests(SkoleSchemaTestCase):
                 avatarThumbnail
             }
             course {
-                id
+                slug
             }
             resource {
-                id
+                slug
+            }
+            school {
+                slug
             }
             comment {
                 id

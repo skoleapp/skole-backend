@@ -24,6 +24,7 @@ def create_activity(
         instance.comment
         and instance.comment.user
         and instance.comment.user != target_user
+        and not instance.comment.comment
     ):
         # Reply comment.
         Activity.objects.create(
@@ -31,6 +32,7 @@ def create_activity(
             target_user=target_user,
             course=instance.comment.course,
             resource=instance.comment.resource,
+            school=instance.comment.school,
             comment=instance.comment,
             activity_type=ActivityType.objects.get(name=ActivityTypes.COMMENT_REPLY),
         )
@@ -46,6 +48,7 @@ def create_activity(
                 target_user=target_user,
                 course=instance.course,
                 resource=None,
+                school=None,
                 comment=instance,
                 activity_type=ActivityType.objects.get(
                     name=ActivityTypes.COURSE_COMMENT
@@ -63,6 +66,7 @@ def create_activity(
                 target_user=target_user,
                 course=None,
                 resource=instance.resource,
+                school=None,
                 comment=instance,
                 activity_type=ActivityType.objects.get(
                     name=ActivityTypes.RESOURCE_COMMENT
@@ -80,20 +84,14 @@ def send_activity_email(
         # Skip when installing fixtures or when updating an activity.
         return
 
-    kwargs = {
-        "user": instance.user,
-        "target_user": instance.target_user,
-        "description": instance.activity_type.description,
-    }
-
     # Reply comment.
     if instance.comment and instance.user.comment_reply_email_permission:
-        send_email_notification(**kwargs)
+        send_email_notification(activity=instance)
     else:
         # Course comment.
         if instance.course and instance.user.course_comment_email_permission:
-            send_email_notification(**kwargs)
+            send_email_notification(activity=instance)
 
         # Resource comment.
         if instance.resource and instance.user.resource_comment_email_permission:
-            send_email_notification(**kwargs)
+            send_email_notification(activity=instance)

@@ -212,7 +212,9 @@ VERIFICATION_PATH_ON_EMAIL = "verify-account"
 PASSWORD_RESET_PATH_ON_EMAIL = "reset-password"
 UPDATE_EMAIL_SUBSCRIPTION_PATH_ON_EMAIL = "email-subscription"
 ACCOUNT_SETTINGS_PATH_ON_EMAIL = "account-settings"
-ACTIVITY_PATH_ON_EMAIL = "activity"
+COURSE_COMMENT_PATH_ON_EMAIL = "courses/{}?comment={}"
+RESOURCE_COMMENT_PATH_ON_EMAIL = "resources/{}?comment={}"
+SCHOOL_COMMENT_PATH_ON_EMAIL = "schools/{}?comment={}"
 
 # Maximum amount of results for autocomplete queries.
 AUTOCOMPLETE_MAX_RESULTS = 50

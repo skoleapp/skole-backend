@@ -241,6 +241,9 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         assert Comment.objects.get(pk=2).reply_comments.first().pk == int(comment["id"])  # type: ignore[union-attr]
         assert comment["user"]["id"] == "2"
 
+        assert Activity.objects.count() == old_activity_count + 1
+        assert len(mail.outbox) == 1
+
         # Create a reply comment to own comment.
         res = self.mutate_create_comment(text=text, comment=1)
         comment = res["comment"]

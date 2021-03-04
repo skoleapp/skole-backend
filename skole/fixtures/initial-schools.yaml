@@ -512,7 +512,7 @@
   pk: 86
   fields:
     language_code: fi
-    name: Lappeenrannan yliopisto LUT
+    name: LUT-yliopisto
     master: 29
 - model: skole.SchoolTranslation
   pk: 87

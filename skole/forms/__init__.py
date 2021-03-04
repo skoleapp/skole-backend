@@ -22,3 +22,30 @@ from .user import (
     UpdateProfileForm,
 )
 from .vote import CreateVoteForm
+
+__all__ = [
+    "ChangePasswordForm",
+    "ContactForm",
+    "CreateCommentForm",
+    "CreateCourseForm",
+    "CreateEmailSubscriptionForm",
+    "CreateResourceForm",
+    "CreateStarForm",
+    "CreateVoteForm",
+    "DeleteCommentForm",
+    "DeleteCourseForm",
+    "DeleteResourceForm",
+    "DeleteUserForm",
+    "DownloadResourceForm",
+    "EmailForm",
+    "LoginForm",
+    "MarkActivityAsReadForm",
+    "RegisterForm",
+    "SetPasswordForm",
+    "TokenForm",
+    "UpdateAccountSettingsForm",
+    "UpdateCommentForm",
+    "UpdateEmailSubscriptionForm",
+    "UpdateProfileForm",
+    "UpdateResourceForm",
+]

@@ -43785,8 +43785,8 @@
   pk: 4086
   fields:
     name: Deep Learning
-    codes: ["TKO_8612"]
-    slug: deep-learning-tko_8612
+    codes: ["TKO_8612", "TKO28612"]
+    slug: deep-learning-tko_8612-tko28612
     subjects: [18]
     school: 1
     user: null

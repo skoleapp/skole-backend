@@ -15405,17 +15405,6 @@
     modified: 2020-03-15 12:00:00+00:00
     created: 2020-03-15 12:00:00+00:00
 - model: skole.Course
-  pk: 1509
-  fields:
-    name: Johdatus yritysjuridiikkaan
-    codes: ["LITO1002"]
-    slug: johdatus-yritysjuridiikkaan-lito1002
-    subjects: [123]
-    school: 1
-    user: null
-    modified: 2020-03-15 12:00:00+00:00
-    created: 2020-03-15 12:00:00+00:00
-- model: skole.Course
   pk: 1510
   fields:
     name: Liiketoimintaympäristön taloustiede

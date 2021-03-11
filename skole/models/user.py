@@ -68,7 +68,11 @@ class User(SkoleModel, AbstractBaseUser, PermissionsMixin):
     """Models one user on the platform."""
 
     slug = AutoSlugField(
-        null=True, default=None, populate_from="username", always_update=True
+        null=True,
+        default=None,
+        populate_from="username",
+        unique=True,
+        always_update=True,
     )
 
     username = models.CharField(

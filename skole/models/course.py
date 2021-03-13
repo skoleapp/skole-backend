@@ -49,7 +49,6 @@ class Course(SkoleModel):
         default=None,
         populate_from="__str__",
         unique=True,
-        always_update=True,
     )
 
     subjects = models.ManyToManyField(

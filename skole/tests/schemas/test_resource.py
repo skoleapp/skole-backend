@@ -503,7 +503,7 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
         assert resource["title"] == new_title
         assert resource["resourceType"]["name"] == "Exam"
         assert resource["date"] == "2012-12-12"
-        assert resource["slug"] == "new-title-2012-12-12"
+        assert resource["slug"] == "sample-exam-1-2012-12-12"  # Slugs are immutable.
 
         # Set the date to the current day.
         date = timezone.localdate()

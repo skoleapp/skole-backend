@@ -13,7 +13,6 @@ class Country(TranslatableSkoleModel):
         default=None,
         populate_from="__str__",
         unique=True,
-        always_update=True,
     )
 
     translations = TranslatedFields(name=models.CharField(max_length=100))

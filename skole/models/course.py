@@ -48,7 +48,7 @@ class Course(SkoleModel):
         null=True,
         default=None,
         populate_from="__str__",
-        unique_with=("name", "codes"),
+        unique=True,
         always_update=True,
     )
 

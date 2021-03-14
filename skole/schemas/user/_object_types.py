@@ -3,7 +3,9 @@ from typing import Callable, Optional, TypeVar
 
 import graphene
 from django.contrib.auth import get_user_model
+from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import QuerySet
+from fcm_django.models import FCMDevice
 
 from skole.models import Badge, BadgeProgress, School, Subject, User
 from skole.schemas.badge import BadgeObjectType
@@ -52,11 +54,15 @@ class UserObjectType(SkoleDjangoObjectType):
     badges = graphene.List(BadgeObjectType)
     badge_progresses = graphene.List(BadgeProgressObjectType)
     unread_activity_count = graphene.Int()
+    fcm_token = graphene.String()
     product_update_email_permission = graphene.Boolean()
     blog_post_email_permission = graphene.Boolean()
     comment_reply_email_permission = graphene.Boolean()
     course_comment_email_permission = graphene.Boolean()
     resource_comment_email_permission = graphene.Boolean()
+    comment_reply_push_permission = graphene.Boolean()
+    course_comment_push_permission = graphene.Boolean()
+    resource_comment_push_permission = graphene.Boolean()
 
     class Meta:
         model = get_user_model()
@@ -74,11 +80,15 @@ class UserObjectType(SkoleDjangoObjectType):
             "verified",
             "selected_badge_progress",
             "unread_activity_count",
+            "fcm_token",
             "product_update_email_permission",
             "blog_post_email_permission",
             "comment_reply_email_permission",
             "course_comment_email_permission",
             "resource_comment_email_permission",
+            "comment_reply_push_permission",
+            "course_comment_push_permission",
+            "resource_comment_push_permission",
         )
 
     @staticmethod
@@ -138,6 +148,15 @@ class UserObjectType(SkoleDjangoObjectType):
 
     @staticmethod
     @private_field
+    def resolve_fcm_token(root: User, info: ResolveInfo) -> Optional[str]:
+        try:
+            return FCMDevice.objects.get(user=info.context.user).registration_id
+
+        except ObjectDoesNotExist:
+            return None
+
+    @staticmethod
+    @private_field
     def resolve_product_update_email_permission(root: User, info: ResolveInfo) -> bool:
         return root.product_update_email_permission
 
@@ -162,3 +181,18 @@ class UserObjectType(SkoleDjangoObjectType):
         root: User, info: ResolveInfo
     ) -> bool:
         return root.resource_comment_email_permission
+
+    @staticmethod
+    @private_field
+    def resolve_comment_reply_push_permission(root: User, info: ResolveInfo) -> bool:
+        return root.comment_reply_push_permission
+
+    @staticmethod
+    @private_field
+    def resolve_course_comment_push_permission(root: User, info: ResolveInfo) -> bool:
+        return root.course_comment_push_permission
+
+    @staticmethod
+    @private_field
+    def resolve_resource_comment_push_permission(root: User, info: ResolveInfo) -> bool:
+        return root.resource_comment_push_permission

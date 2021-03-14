@@ -4,11 +4,13 @@ from autoslug import AutoSlugField
 from django.conf import settings
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.validators import RegexValidator
 from django.db import models
 from django.db.models import ExpressionWrapper, F, FloatField, QuerySet
 from django.db.models.functions import Cast
 from django.utils import timezone
+from fcm_django.models import FCMDevice
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
 
@@ -150,6 +152,11 @@ class User(SkoleModel, AbstractBaseUser, PermissionsMixin):
     course_comment_email_permission = models.BooleanField(default=True)
     resource_comment_email_permission = models.BooleanField(default=True)
 
+    # Push notification permissions.
+    comment_reply_push_permission = models.BooleanField(default=True)
+    course_comment_push_permission = models.BooleanField(default=True)
+    resource_comment_push_permission = models.BooleanField(default=True)
+
     last_my_data_query = models.DateTimeField(
         null=True,
         blank=True,
@@ -227,3 +234,12 @@ class User(SkoleModel, AbstractBaseUser, PermissionsMixin):
                 output_field=FloatField(),
             ),
         ).order_by("-percentage")
+
+    def register_fcm_token(self, token: str) -> None:
+        try:
+            fcm_device = FCMDevice.objects.get(user=self)
+            fcm_device.registration_id = token
+            fcm_device.save(update_fields=["registration_id"])
+
+        except ObjectDoesNotExist:
+            FCMDevice.objects.create(user=self, registration_id=token)

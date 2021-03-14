@@ -302,6 +302,7 @@ type Mutation {
   updateAccountSettings(input: UpdateAccountSettingsMutationInput!): UpdateAccountSettingsMutationPayload
   deleteUser(input: DeleteUserMutationInput!): DeleteUserMutationPayload
   updateSelectedBadge(input: UpdateSelectedBadgeMutationInput!): UpdateSelectedBadgeMutationPayload
+  registerFcmToken(input: RegisterFCMTokenMutationInput!): RegisterFCMTokenMutationPayload
   createResource(input: CreateResourceMutationInput!): CreateResourceMutationPayload
   updateResource(input: UpdateResourceMutationInput!): UpdateResourceMutationPayload
   deleteResource(input: DeleteResourceMutationInput!): DeleteResourceMutationPayload
@@ -402,6 +403,18 @@ type Query {
   city(slug: String): CityObjectType
   activities(page: Int, pageSize: Int): PaginatedActivityObjectType
   activityPreview: [ActivityObjectType]
+}
+
+input RegisterFCMTokenMutationInput {
+  token: String
+  clientMutationId: String
+}
+
+type RegisterFCMTokenMutationPayload {
+  token: String
+  errors: [ErrorType]
+  successMessage: String
+  clientMutationId: String
 }
 
 input RegisterMutationInput {
@@ -544,6 +557,9 @@ input UpdateAccountSettingsMutationInput {
   commentReplyEmailPermission: Boolean
   courseCommentEmailPermission: Boolean
   resourceCommentEmailPermission: Boolean
+  commentReplyPushPermission: Boolean
+  courseCommentPushPermission: Boolean
+  resourceCommentPushPermission: Boolean
   clientMutationId: String
 }
 
@@ -642,6 +658,9 @@ type UserObjectType {
   commentReplyEmailPermission: Boolean
   courseCommentEmailPermission: Boolean
   resourceCommentEmailPermission: Boolean
+  commentReplyPushPermission: Boolean
+  courseCommentPushPermission: Boolean
+  resourceCommentPushPermission: Boolean
   avatarThumbnail: String
   school: SchoolObjectType
   subject: SubjectObjectType
@@ -649,6 +668,7 @@ type UserObjectType {
   badges: [BadgeObjectType]
   badgeProgresses: [BadgeProgressObjectType]
   unreadActivityCount: Int
+  fcmToken: String
 }
 
 input VerifyAccountMutationInput {

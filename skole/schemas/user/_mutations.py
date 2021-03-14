@@ -415,6 +415,27 @@ class DeleteUserMutation(
         return cls(success_message=Messages.USER_DELETED)
 
 
+class RegisterFCMTokenMutation(
+    SkoleCreateUpdateMutationMixin, SuccessMessageMixin, DjangoFormMutation
+):
+    """Register FCM token for a user."""
+
+    login_required = True
+    success_message = Messages.FCM_TOKEN_UPDATED
+
+    class Meta:
+        form_class = TokenForm
+
+    @classmethod
+    def perform_mutate(
+        cls, form: TokenForm, info: ResolveInfo
+    ) -> RegisterFCMTokenMutation:
+        token = form.cleaned_data.get("token")
+        user = cast(User, info.context.user)
+        user.register_fcm_token(token=token)
+        return cls(success_message=Messages.FCM_TOKEN_UPDATED)
+
+
 class Mutation(SkoleObjectType):
     register = RegisterMutation.Field()
     verify_account = VerifyAccountMutation.Field()
@@ -428,3 +449,4 @@ class Mutation(SkoleObjectType):
     update_account_settings = UpdateAccountSettingsMutation.Field()
     delete_user = DeleteUserMutation.Field()
     update_selected_badge = UpdateSelectedBadgeMutation.Field()
+    register_fcm_token = RegisterFCMTokenMutation.Field()

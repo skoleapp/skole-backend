@@ -1,5 +1,3 @@
-from typing import Any, TypeVar, cast
-
 from django.utils.translation import gettext_lazy as _
 
 from skole.types import FormError
@@ -78,6 +76,7 @@ class Messages:
     SUBSCRIBED = _("Subscribed successfully!")
     SUBSCRIPTION_UPDATED = _("Subscription updated successfully!")
     SUBSCRIPTION_DELETED = _("Subscription deleted successfully!")
+    BADGE_TRACKING_CHANGED = _("Changed the tracked badge successfully!")
 
 
 class Email:
@@ -88,55 +87,49 @@ class Email:
     EMAIL_NOTIFICATION_SUBJECT = "{} {} in Skole"
 
 
-T = TypeVar("T", bound="_MutationErrorsMeta")
+def _m(value: str) -> FormError:
+    """
+    Use to add the GraphQL form error structure for an error message.
+
+    Notes:
+        This is cleaner than using a metaclass which inserts this structure to all
+        attributes, since this automatically makes all of the wrapped attributes be of
+        the `FormError` type. With a metaclass the type information cannot be inferred
+        and the attributes would still look to be `str`s without manual casting.
+    """
+    return [{"field": "__all__", "messages": [value]}]
 
 
-class _MutationErrorsMeta(type):
-    def __new__(
-        mcs: type[T], name: str, bases: tuple[type, ...], attrs: dict[str, Any]
-    ) -> T:
-        """Add the GraphQL form error structure for all class attributes."""
-        for key, value in attrs.items():
-            if not (key.startswith("__") and key.endswith("__")):
-                # Don't want to affect __magic__ attrs.
-                attrs[key] = [{"field": "__all__", "messages": [value]}]
-        return cast(T, super().__new__(mcs, name, bases, attrs))
-
-
-def _c(field: str) -> FormError:
-    """Used to cast all `MutationErrors` fields to the type that the metaclass makes."""
-    return cast(FormError, field)
-
-
-class MutationErrors(metaclass=_MutationErrorsMeta):
+class MutationErrors:
     # fmt: off
-    NOT_OWNER = _c(ValidationErrors.NOT_OWNER)
-    EMAIL_ERROR = _c(_("Error while sending email."))
-    REGISTER_EMAIL_ERROR = _c(_(
+    NOT_OWNER = _m(ValidationErrors.NOT_OWNER)
+    EMAIL_ERROR = _m(_("Error while sending email."))
+    REGISTER_EMAIL_ERROR = _m(_(
         "Your account has been registered but we encountered"
         " an error while sending email. You may still log in using your credentials."
         " Please try verifying your account later."
     ))
-    ALREADY_VERIFIED = _c(GraphQLErrors.ALREADY_VERIFIED)
-    TOKEN_EXPIRED_VERIFY = _c(_("Token expired. Please request new verification link."))
-    INVALID_TOKEN_VERIFY = _c(_("Invalid token. Please request new verification link."))
-    INVALID_TOKEN = _c(_("Invalid token."))
-    USER_NOT_FOUND_WITH_EMAIL = _c(_(
+    ALREADY_VERIFIED = _m(GraphQLErrors.ALREADY_VERIFIED)
+    TOKEN_EXPIRED_VERIFY = _m(_("Token expired. Please request new verification link."))
+    INVALID_TOKEN_VERIFY = _m(_("Invalid token. Please request new verification link."))
+    INVALID_TOKEN = _m(_("Invalid token."))
+    BADGE_CANNOT_BE_NULL = _m(_("Invalid badge."))  # Should never be shown in frontend.
+    USER_NOT_FOUND_WITH_EMAIL = _m(_(
         "User with the provided email was not found. Please check you email address."
     ))
-    ACCOUNT_REMOVED = _c(_("This account has been removed."))
-    TOKEN_EXPIRED_RESET_PASSWORD = _c(_(
+    ACCOUNT_REMOVED = _m(_("This account has been removed."))
+    TOKEN_EXPIRED_RESET_PASSWORD = _m(_(
         "Token expired. Please request new password reset link."
     ))
-    INVALID_TOKEN_RESET_PASSWORD = _c(_(
+    INVALID_TOKEN_RESET_PASSWORD = _m(_(
         "Invalid token. Please request new password reset link."
     ))
-    AUTH_REQUIRED = _c(_("This action is only allowed for authenticated users."))
-    VERIFICATION_REQUIRED = _c(_(
+    AUTH_REQUIRED = _m(_("This action is only allowed for authenticated users."))
+    VERIFICATION_REQUIRED = _m(_(
         "This action is only allowed for users who have verified their accounts."
         " Please verify your account."
     ))
-    RATE_LIMITED = _c(_("You can request this next time in {} min."))
+    RATE_LIMITED = _m(_("You can request this next time in {} min."))
     # fmt: on
 
 
@@ -187,4 +180,13 @@ class MarketingEmailTypes:
 MARKETING_EMAIL_TYPE_CHOICES = (
     (MarketingEmailTypes.PRODUCT_UPDATE, "Product Update"),
     (MarketingEmailTypes.BLOG_POST, "Blog Post"),
+)
+
+# Keep these untranslated, and return the non-display value to frontend
+# as a GraphQL Enum type. It makes conditional rendering easier there.
+BADGE_TIER_CHOICES = (
+    ("diamond", "Diamond"),
+    ("gold", "Gold"),
+    ("silver", "Silver"),
+    ("bronze", "Bronze"),
 )

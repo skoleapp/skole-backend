@@ -1,6 +1,10 @@
-from django.conf import settings
+from __future__ import annotations
+
+from django.core.validators import MinValueValidator
 from django.db import models
 from parler.models import TranslatedFields
+
+from skole.utils.constants import BADGE_TIER_CHOICES
 
 from .base import TranslatableSkoleModel
 
@@ -8,9 +12,15 @@ from .base import TranslatableSkoleModel
 class Badge(TranslatableSkoleModel):
     """Models a badge awarded for a user, e.g `Moderator`."""
 
-    _identifier_field = "name"
+    _identifier_field = "identifier"
 
-    users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="badges")
+    identifier = models.CharField(
+        max_length=100,
+        default="",  # To make this compatible with existing data.
+    )
+    steps = models.IntegerField(null=True, validators=[MinValueValidator(1)])
+    completion_score = models.IntegerField(default=0)
+    tier = models.CharField(choices=BADGE_TIER_CHOICES, max_length=20, default="bronze")
 
     translations = TranslatedFields(
         name=models.CharField(max_length=100),

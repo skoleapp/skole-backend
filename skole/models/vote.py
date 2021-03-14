@@ -3,7 +3,6 @@ from __future__ import annotations
 from typing import Literal, Optional
 
 from django.conf import settings
-from django.contrib.auth import get_user_model
 from django.db import models
 
 from skole.types import VotableModel
@@ -36,10 +35,10 @@ class VoteManager(SkoleManager["Vote"]):
             raise TypeError(f"Invalid target type for Vote: {type(target)}")
 
         if target.user:
-            get_user_model().objects.change_score(
-                target.user,
+            target.user.change_score(
                 # Invert the status to revert the affect to the user's score.
-                (status if vote else -status) * multiplier,
+                (status if vote else -status)
+                * multiplier
             )
 
         # Have to query the object again since `score` is an annotation.

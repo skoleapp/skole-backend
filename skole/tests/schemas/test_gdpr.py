@@ -69,7 +69,7 @@ class GdprSchemaTests(SkoleSchemaTestCase):
 
         assert content["username"] == "testuser2"
         assert content["verified"] is True
-        assert content["badges"] == ["Tester"]
+        assert content["badges"] == ["Staff"]
         assert content["votes"] == [{"id": 1, "target": "comment 1", "vote": "upvote"}]
         assert content["stars"] == ["course 1", "course 2", "resource 1", "resource 2"]
 

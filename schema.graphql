@@ -22,8 +22,22 @@ type AuthorObjectType {
 
 type BadgeObjectType {
   id: ID!
+  tier: BadgeTier!
   name: String!
   description: String!
+}
+
+type BadgeProgressObjectType {
+  badge: BadgeObjectType!
+  progress: Int!
+  steps: Int
+}
+
+enum BadgeTier {
+  DIAMOND
+  GOLD
+  SILVER
+  BRONZE
 }
 
 input ChangePasswordMutationInput {
@@ -287,6 +301,7 @@ type Mutation {
   updateProfile(input: UpdateProfileMutationInput!): UpdateProfileMutationPayload
   updateAccountSettings(input: UpdateAccountSettingsMutationInput!): UpdateAccountSettingsMutationPayload
   deleteUser(input: DeleteUserMutationInput!): DeleteUserMutationPayload
+  updateSelectedBadge(input: UpdateSelectedBadgeMutationInput!): UpdateSelectedBadgeMutationPayload
   createResource(input: CreateResourceMutationInput!): CreateResourceMutationPayload
   updateResource(input: UpdateResourceMutationInput!): UpdateResourceMutationPayload
   deleteResource(input: DeleteResourceMutationInput!): DeleteResourceMutationPayload
@@ -597,6 +612,18 @@ type UpdateResourceMutationPayload {
   clientMutationId: String
 }
 
+input UpdateSelectedBadgeMutationInput {
+  id: ID
+  clientMutationId: String
+}
+
+type UpdateSelectedBadgeMutationPayload {
+  badgeProgress: BadgeProgressObjectType
+  errors: [ErrorType]
+  successMessage: String
+  clientMutationId: String
+}
+
 type UserObjectType {
   id: ID!
   slug: String
@@ -605,6 +632,7 @@ type UserObjectType {
   title: String!
   bio: String!
   avatar: String
+  selectedBadgeProgress: BadgeProgressObjectType
   score: Int
   created: DateTime!
   verified: Boolean
@@ -618,6 +646,7 @@ type UserObjectType {
   subject: SubjectObjectType
   rank: String
   badges: [BadgeObjectType]
+  badgeProgresses: [BadgeProgressObjectType]
   unreadActivityCount: Int
 }
 

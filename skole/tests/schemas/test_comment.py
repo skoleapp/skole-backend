@@ -12,6 +12,7 @@ from skole.tests.helpers import (
     SkoleSchemaTestCase,
     get_form_error,
     get_graphql_error,
+    get_last,
     is_slug_match,
     open_as_file,
 )
@@ -235,10 +236,8 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         assert comment["text"] == text
         assert Comment.objects.count() == old_count + 1
         assert Comment.objects.get(pk=2).reply_comments.count() == 1
-        # Ignore: Mypy doesn't understand that `first()` cannot return `None` here
-        #   since we just queried that the count of the objects was 1.
-        assert Comment.objects.get(pk=2).reply_comments.first().text == text  # type: ignore[union-attr]
-        assert Comment.objects.get(pk=2).reply_comments.first().pk == int(comment["id"])  # type: ignore[union-attr]
+        assert Comment.objects.get(pk=2).reply_comments.get().text == text
+        assert Comment.objects.get(pk=2).reply_comments.get().pk == int(comment["id"])
         assert comment["user"]["id"] == "2"
 
         assert Activity.objects.count() == old_activity_count + 1
@@ -251,10 +250,8 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         assert comment["text"] == text
         assert Comment.objects.count() == old_count + 2
         assert Comment.objects.get(pk=1).reply_comments.count() == 1
-        # Ignore: Mypy doesn't understand that `first()` cannot return `None` here
-        #   since we just queried that the count of the objects was 1.
-        assert Comment.objects.get(pk=1).reply_comments.first().text == text  # type: ignore[union-attr]
-        assert Comment.objects.get(pk=1).reply_comments.first().pk == int(comment["id"])  # type: ignore[union-attr]
+        assert Comment.objects.get(pk=1).reply_comments.get().text == text
+        assert Comment.objects.get(pk=1).reply_comments.get().pk == int(comment["id"])
         assert comment["user"]["id"] == "2"
 
         assert Activity.objects.count() == old_activity_count + 1
@@ -267,8 +264,8 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         assert comment["text"] == text
         assert Comment.objects.count() == old_count + 3
         assert Resource.objects.get(pk=2).comments.count() == 2
-        assert Resource.objects.get(pk=2).comments.last().text == text  # type: ignore[union-attr]
-        assert Resource.objects.get(pk=2).comments.last().pk == int(comment["id"])  # type: ignore[union-attr]
+        assert get_last(Resource.objects.get(pk=2).comments).text == text
+        assert get_last(Resource.objects.get(pk=2).comments).pk == int(comment["id"])
 
         assert Activity.objects.count() == old_activity_count + 2
         activity = Activity.objects.get(resource=2)
@@ -287,8 +284,8 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         assert comment["text"] == text
         assert Comment.objects.count() == old_count + 4
         assert Resource.objects.get(pk=1).comments.count() == 5
-        assert Resource.objects.get(pk=1).comments.last().text == text  # type: ignore[union-attr]
-        assert Resource.objects.get(pk=1).comments.last().pk == int(comment["id"])  # type: ignore[union-attr]
+        assert get_last(Resource.objects.get(pk=1).comments).text == text
+        assert get_last(Resource.objects.get(pk=1).comments).pk == int(comment["id"])
         assert Activity.objects.count() == old_activity_count + 2
         assert len(mail.outbox) == 2
 
@@ -299,8 +296,8 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         assert comment["text"] == text
         assert Comment.objects.count() == old_count + 5
         assert Course.objects.get(pk=2).comments.count() == 2
-        assert Course.objects.get(pk=2).comments.last().text == text  # type: ignore[union-attr]
-        assert Course.objects.get(pk=2).comments.last().pk == int(comment["id"])  # type: ignore[union-attr]
+        assert get_last(Course.objects.get(pk=2).comments).text == text
+        assert get_last(Course.objects.get(pk=2).comments).pk == int(comment["id"])
 
         assert Activity.objects.count() == old_activity_count + 3
         activity = Activity.objects.get(course=2)
@@ -319,8 +316,8 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         assert comment["text"] == text
         assert Comment.objects.count() == old_count + 6
         assert Course.objects.get(pk=1).comments.count() == 9
-        assert Course.objects.get(pk=1).comments.last().text == text  # type: ignore[union-attr]
-        assert Course.objects.get(pk=1).comments.last().pk == int(comment["id"])  # type: ignore[union-attr]
+        assert get_last(Course.objects.get(pk=1).comments).text == text
+        assert get_last(Course.objects.get(pk=1).comments).pk == int(comment["id"])
         assert Activity.objects.count() == old_activity_count + 3
         assert len(mail.outbox) == 3
 
@@ -331,11 +328,11 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         assert comment["text"] == text
         assert Comment.objects.count() == old_count + 7
         assert Resource.objects.get(pk=15).comments.count() == 1
-        assert Resource.objects.get(pk=15).comments.last().text == text  # type: ignore[union-attr]
-        assert Resource.objects.get(pk=15).comments.last().pk == int(comment["id"])  # type: ignore[union-attr]
+        assert get_last(Resource.objects.get(pk=15).comments).text == text
+        assert get_last(Resource.objects.get(pk=15).comments).pk == int(comment["id"])
         assert Course.objects.get(pk=3).comments.count() == 2
-        assert Course.objects.get(pk=3).comments.last().text == text  # type: ignore[union-attr]
-        assert Course.objects.get(pk=3).comments.last().pk == int(comment["id"])  # type: ignore[union-attr]
+        assert get_last(Course.objects.get(pk=3).comments).text == text
+        assert get_last(Course.objects.get(pk=3).comments).pk == int(comment["id"])
 
         assert Activity.objects.count() == old_activity_count + 5
         assert len(mail.outbox) == 5
@@ -366,8 +363,8 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         assert comment["text"] == text
         assert Comment.objects.count() == old_count + 8
         assert School.objects.get(pk=1).comments.count() == 2
-        assert School.objects.get(pk=1).comments.last().text == text  # type: ignore[union-attr]
-        assert School.objects.get(pk=1).comments.last().pk == int(comment["id"])  # type: ignore[union-attr]
+        assert get_last(School.objects.get(pk=1).comments).text == text
+        assert get_last(School.objects.get(pk=1).comments).pk == int(comment["id"])
 
         # Create a comment with an attachment.
         with open_as_file(TEST_ATTACHMENT_PNG) as attachment:

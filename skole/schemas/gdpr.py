@@ -27,7 +27,7 @@ from graphene_django.types import ErrorType
 from skole.models import Activity, Badge, Comment, Course, Resource, Star, User, Vote
 from skole.overridden import login_required
 from skole.schemas.base import SkoleObjectType
-from skole.types import ResolveInfo
+from skole.types import JsonDict, ResolveInfo
 from skole.utils.constants import Email, Messages, MutationErrors, VoteConstants
 from skole.utils.files import override_s3_file_age
 from skole.utils.shortcuts import format_form_error
@@ -93,6 +93,8 @@ class MyDataMutation(SkoleObjectType, graphene.Mutation):
                 "created_courses": cls._created_courses(user),
                 "created_resources": cls._created_resources(user),
                 "badges": cls._badges(user),
+                "badgeProgresses": cls._badges(user),
+                "selectedBadgeProgress": cls._badges(user),
                 "votes": cls._votes(user),
                 "stars": cls._stars(user),
                 "activities": cls._activities(user),
@@ -198,7 +200,34 @@ class MyDataMutation(SkoleObjectType, graphene.Mutation):
 
     @staticmethod
     def _badges(user: User) -> QuerySet[Badge]:
-        return user.badges.translated().values_list("translations__name", flat=True)
+        return (
+            Badge.objects.translated()
+            .filter(
+                badge_progresses__user=user, badge_progresses__acquired__isnull=False
+            )
+            .values_list("translations__name", flat=True)
+        )
+
+    @staticmethod
+    def _badge_progresses(user: User) -> list[JsonDict]:
+        badge_progresses = (
+            user.get_or_create_badge_progresses()
+            .filter(badge__translations__language_code=settings.LANGUAGE_CODE)
+            .values_list("badge__translations__name", "progress", "badge__steps")
+        )
+
+        return [
+            {"badge": badge, "progress": f"{progress} / {steps}"}
+            for (badge, progress, steps) in badge_progresses
+        ]
+
+    @staticmethod
+    def _selected_badge_progress(user: User) -> str:
+        return (
+            user.selected_badge_progress.badge.name
+            if user.selected_badge_progress
+            else None
+        )
 
     @staticmethod
     def _uploaded_files(user: User) -> set[FieldFile]:

@@ -10,7 +10,7 @@ from skole.utils.email import send_email_notification
 
 @receiver(post_save, sender=Comment)
 def create_activity(
-    sender: Comment, instance: Comment, created: bool, raw: bool, **kwargs: Any
+    sender: type[Comment], instance: Comment, created: bool, raw: bool, **kwargs: Any
 ) -> None:
     """Create activity for course comment, resource comment, or comment reply."""
 
@@ -76,7 +76,7 @@ def create_activity(
 
 @receiver(post_save, sender=Activity)
 def send_activity_email(
-    sender: Activity, instance: Activity, created: bool, raw: bool, **kwargs: Any
+    sender: type[Activity], instance: Activity, created: bool, raw: bool, **kwargs: Any
 ) -> None:
     """Send email notification for new activities."""
 

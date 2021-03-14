@@ -15,6 +15,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.files import File
 from django.core.serializers.json import DjangoJSONEncoder
+from django.db.models import Model, QuerySet
 from django.http import HttpResponse
 from django.test import TestCase
 from django.utils.translation import get_language
@@ -447,3 +448,26 @@ def reload_module(module: M) -> Generator[Callable[[], M], None, None]:
         yield cast(Callable[[], M], functools.partial(importlib.reload, module))
     finally:
         importlib.reload(module)
+
+
+T = TypeVar("T", bound=Model)
+
+
+def get_last(qs: QuerySet[T]) -> T:
+    """
+    Return the last object from a queryset.
+
+    Also sorts the queryset by pk if it wasn't already sorted.
+
+    Raises:
+        ObjectDoesNotExist: If the queryset was empty.
+    """
+    if not isinstance(qs, QuerySet):
+        # Must've been a `RelatedManager`.
+        qs = qs.all()
+    if not qs.ordered:
+        qs = qs.order_by("pk")
+    obj = qs.last()
+    if obj:
+        return obj
+    raise qs.model.DoesNotExist

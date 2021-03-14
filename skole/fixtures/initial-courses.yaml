@@ -117922,18 +117922,6 @@
     - 292
     - 310
 - model: skole.Course
-  pk: 9927
-  fields:
-    name: Cloud Computing
-    codes: '["451502.0"]'
-    slug: cloud-computing-4515020
-    school: 3
-    user: null
-    modified: 2021-02-13 12:00:00+00:00
-    created: 2021-02-13 12:00:00+00:00
-    subjects:
-    - 14
-- model: skole.Course
   pk: 9928
   fields:
     name: Neural Networks

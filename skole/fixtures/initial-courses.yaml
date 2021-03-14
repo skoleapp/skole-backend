@@ -2512,7 +2512,7 @@
   fields:
     name: 'Advanced Workshop in Legal Theory I: A Comparative Approach to Human Rights'
     codes: '["TLS_1023"]'
-    slug: advanced-workshop-in-legal-theory-i-a-comparativea
+    slug: advanced-workshop-in-legal-theory-i-a-comparative
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -2536,7 +2536,7 @@
   fields:
     name: B2B -vaihdantasuhteet ja niiden hallintamekanismit
     codes: '["OTMV1107"]'
-    slug: b2b-vaihdantasuhteet-ja-niiden-hallintamekanismita
+    slug: b2b-vaihdantasuhteet-ja-niiden-hallintamekanismit
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -3064,7 +3064,7 @@
   fields:
     name: Willem C. Vis International Commercial Arbitration Moot Experience, I
     codes: '["TLS_1016"]'
-    slug: willem-c-vis-international-commercial-arbitrationa
+    slug: willem-c-vis-international-commercial-arbitration
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -3557,7 +3557,7 @@
   fields:
     name: Suomen kieli ja viestintä, humanistinen tiedekunta
     codes: '["KISU2163"]'
-    slug: suomen-kieli-ja-viestinta-humanistinen-tiedekuntaa
+    slug: suomen-kieli-ja-viestinta-humanistinen-tiedekunta
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -4114,7 +4114,7 @@
   fields:
     name: 'Vastuullinen yritystoiminta: yritysten sosiaalinen ja ympäristövastuu'
     codes: '["OTMV1057"]'
-    slug: vastuullinen-yritystoiminta-yritysten-sosiaalinena
+    slug: vastuullinen-yritystoiminta-yritysten-sosiaalinen
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -5608,7 +5608,7 @@
   fields:
     name: 'Englannin kieli: Tekstin ymmärtäminen, humanistinen tdk'
     codes: '["KIEN2111"]'
-    slug: englannin-kieli-tekstin-ymmartaminen-humanistinena
+    slug: englannin-kieli-tekstin-ymmartaminen-humanistinen
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -5644,7 +5644,7 @@
   fields:
     name: 'Ruotsin kieli: Humanistinen tiedekunta, kirjallinen taito'
     codes: '["KIRU2120"]'
-    slug: ruotsin-kieli-humanistinen-tiedekunta-kirjallinena
+    slug: ruotsin-kieli-humanistinen-tiedekunta-kirjallinen
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -6212,7 +6212,7 @@
   fields:
     name: YJ8/LOG12 Ulkomaankaupan kuljetus- ja sopimusoikeus
     codes: '["YJ052012"]'
-    slug: yj8log12-ulkomaankaupan-kuljetus-ja-sopimusoikeusa
+    slug: yj8log12-ulkomaankaupan-kuljetus-ja-sopimusoikeus
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -7439,7 +7439,7 @@
   fields:
     name: LuK-tutkielma ja seminaari, tietojenkäsittelytiede
     codes: '["TKO_8981"]'
-    slug: luk-tutkielma-ja-seminaari-tietojenkasittelytiedea
+    slug: luk-tutkielma-ja-seminaari-tietojenkasittelytiede
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -9492,7 +9492,7 @@
   fields:
     name: Syventävien opintojen seminaari, Asianajajan perhe- ja perintöoikeus
     codes: '["OTMU2270"]'
-    slug: syventavien-opintojen-seminaari-asianajajan-perhea
+    slug: syventavien-opintojen-seminaari-asianajajan-perhe
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -9504,7 +9504,7 @@
   fields:
     name: Syventävien opintojen tutkielma, Asianajajan perhe- ja perintöoikeus
     codes: '["OTMU2271"]'
-    slug: syventavien-opintojen-tutkielma-asianajajan-perhea
+    slug: syventavien-opintojen-tutkielma-asianajajan-perhe
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -9516,7 +9516,7 @@
   fields:
     name: Syventävien opintojen kirjallisuus, Oikeussuoja ja oikeudenkäynti hallintoasioissa
     codes: '["OTMU2272"]'
-    slug: syventavien-opintojen-kirjallisuus-oikeussuoja-jaa
+    slug: syventavien-opintojen-kirjallisuus-oikeussuoja-ja
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -9757,7 +9757,7 @@
   fields:
     name: Syventävien opintojen kirjallisuus, Kilpailuoikeus ja -taloustiede
     codes: '["OTMU2278"]'
-    slug: syventavien-opintojen-kirjallisuus-kilpailuoikeusa
+    slug: syventavien-opintojen-kirjallisuus-kilpailuoikeus
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -9769,7 +9769,7 @@
   fields:
     name: Syventävien opintojen seminaari, Kilpailuoikeus ja -taloustiede
     codes: '["OTMU2279"]'
-    slug: syventavien-opintojen-seminaari-kilpailuoikeus-jaa
+    slug: syventavien-opintojen-seminaari-kilpailuoikeus-ja
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -9781,7 +9781,7 @@
   fields:
     name: Syventävien opintojen tutkielma ja loppuseminaari, Kilpailuoikeus ja -taloustiede
     codes: '["OTMU2280"]'
-    slug: syventavien-opintojen-tutkielma-ja-loppuseminaaria
+    slug: syventavien-opintojen-tutkielma-ja-loppuseminaari
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -9841,7 +9841,7 @@
   fields:
     name: Aineiston analyysimenetelmät kvalitatiivinen osio
     codes: '["HOIT3106"]'
-    slug: aineiston-analyysimenetelmat-kvalitatiivinen-osioa
+    slug: aineiston-analyysimenetelmat-kvalitatiivinen-osio
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -9937,7 +9937,7 @@
   fields:
     name: Gerontologisen hoitotyön monialaiset interventiot
     codes: '["HOIT4010"]'
-    slug: gerontologisen-hoitotyon-monialaiset-interventiota
+    slug: gerontologisen-hoitotyon-monialaiset-interventiot
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -11312,7 +11312,7 @@
   fields:
     name: PTJK Tietojärjestelmätieteen kandidaatintutkielma
     codes: '["PYTJ2016"]'
-    slug: ptjk-tietojarjestelmatieteen-kandidaatintutkielmaa
+    slug: ptjk-tietojarjestelmatieteen-kandidaatintutkielma
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -11507,7 +11507,7 @@
   fields:
     name: Literature, Re-examining the Foundations of EU Law
     codes: '["OTMU2403"]'
-    slug: literature-re-examining-the-foundations-of-eu-lawa
+    slug: literature-re-examining-the-foundations-of-eu-law
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -11531,7 +11531,7 @@
   fields:
     name: Thesis for Master of Laws Degree, Re-examining the Foundations of EU Law
     codes: '["OTMU2405"]'
-    slug: thesis-for-master-of-laws-degree-re-examining-thea
+    slug: thesis-for-master-of-laws-degree-re-examining-the
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -12912,7 +12912,7 @@
   fields:
     name: Aktivera dina kommunikationsfärdigheter i svenska!
     codes: '["KIRU2451"]'
-    slug: aktivera-dina-kommunikationsfardigheter-i-svenskaa
+    slug: aktivera-dina-kommunikationsfardigheter-i-svenska
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -14156,7 +14156,7 @@
   fields:
     name: Methodology in East Asian Studies Literature Exam
     codes: '["MPAS2125"]'
-    slug: methodology-in-east-asian-studies-literature-exama
+    slug: methodology-in-east-asian-studies-literature-exam
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -15060,7 +15060,7 @@
   fields:
     name: AKV5 Globaalin maailman ja sen ongelmien hallinta
     codes: '["VALT1180"]'
-    slug: akv5-globaalin-maailman-ja-sen-ongelmien-hallintaa
+    slug: akv5-globaalin-maailman-ja-sen-ongelmien-hallinta
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -15339,7 +15339,7 @@
   fields:
     name: A3.2.1 Politiikka ja poliittinen kulttuuri toisessa tasavallassa
     codes: '["POLH6021"]'
-    slug: a321-politiikka-ja-poliittinen-kulttuuri-toisessaa
+    slug: a321-politiikka-ja-poliittinen-kulttuuri-toisessa
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -16078,7 +16078,7 @@
   fields:
     name: TKMPG Taloustieteiden kvantitatiiviset menetelmät, pro gradu -tutkielma
     codes: '["TK083800"]'
-    slug: tkmpg-taloustieteiden-kvantitatiiviset-menetelmata
+    slug: tkmpg-taloustieteiden-kvantitatiiviset-menetelmat
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -16960,7 +16960,7 @@
     name: Turun hovioikeuden historia ja sen popularisointi yhteistyössä hovioikeuden
       kanssa
     codes: '["OTMV1099"]'
-    slug: turun-hovioikeuden-historia-ja-sen-popularisointia
+    slug: turun-hovioikeuden-historia-ja-sen-popularisointi
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -17662,7 +17662,7 @@
   fields:
     name: 'Kirjatentti: Luterilainen kirkko nykyajan Suomessa ja uskonnonpedagogiikka'
     codes: '["USKO1251"]'
-    slug: kirjatentti-luterilainen-kirkko-nykyajan-suomessaa
+    slug: kirjatentti-luterilainen-kirkko-nykyajan-suomessa
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -18094,7 +18094,7 @@
   fields:
     name: Practical Software Quality Management, Testing and Estimation
     codes: '["DTEK8099"]'
-    slug: practical-software-quality-management-testing-anda
+    slug: practical-software-quality-management-testing-and
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -18154,7 +18154,7 @@
   fields:
     name: KV6 Multinational Corporations and Foreign Direct Investment
     codes: '["KV202075"]'
-    slug: kv6-multinational-corporations-and-foreign-directa
+    slug: kv6-multinational-corporations-and-foreign-direct
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -19045,7 +19045,7 @@
   fields:
     name: Introduction to Health and Wellbeing Technologies
     codes: '["DTEK1074"]'
-    slug: introduction-to-health-and-wellbeing-technologiesa
+    slug: introduction-to-health-and-wellbeing-technologies
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -19825,7 +19825,7 @@
   fields:
     name: TJJ6 Network Information Management as a Research Field
     codes: '["TJ095060"]'
-    slug: tjj6-network-information-management-as-a-researcha
+    slug: tjj6-network-information-management-as-a-research
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -19981,7 +19981,7 @@
   fields:
     name: Theoretical Perspectives on Operations and Supply Chain Management
     codes: '["LG215014"]'
-    slug: theoretical-perspectives-on-operations-and-supplya
+    slug: theoretical-perspectives-on-operations-and-supply
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -20296,7 +20296,7 @@
   fields:
     name: JOS3/KVS17 International Human Resource Management
     codes: '["JO023032"]'
-    slug: jos3kvs17-international-human-resource-managementa
+    slug: jos3kvs17-international-human-resource-management
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -20476,7 +20476,7 @@
   fields:
     name: YJJ3 Erikoistuminen jollekin yritysjuridiikan osa-alueelle
     codes: '["YJ055004"]'
-    slug: yjj3-erikoistuminen-jollekin-yritysjuridiikan-osaa
+    slug: yjj3-erikoistuminen-jollekin-yritysjuridiikan-osa
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -20488,7 +20488,7 @@
   fields:
     name: YJJ4 Erikoistuminen jollekin yritysjuridiikan osa-alueelle
     codes: '["YJ055005"]'
-    slug: yjj4-erikoistuminen-jollekin-yritysjuridiikan-osaa
+    slug: yjj4-erikoistuminen-jollekin-yritysjuridiikan-osa
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -20980,7 +20980,7 @@
   fields:
     name: FUTUJ10 International Futures Research Conference Presentation
     codes: '["FUTS9013"]'
-    slug: futuj10-international-futures-research-conferencea
+    slug: futuj10-international-futures-research-conference
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -21028,7 +21028,7 @@
   fields:
     name: TMS51/TJS10 Paikkatietomenetelmät liiketoiminnassa II
     codes: '["TM063142"]'
-    slug: tms51tjs10-paikkatietomenetelmat-liiketoiminnassaa
+    slug: tms51tjs10-paikkatietomenetelmat-liiketoiminnassa
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -21151,7 +21151,7 @@
     name: Kuullun ymmärtäminen, sanavaraston kehittäminen ja suulliset harjoitukset,
       V
     codes: '["VEKI0700"]'
-    slug: kuullun-ymmartaminen-sanavaraston-kehittaminen-jaa
+    slug: kuullun-ymmartaminen-sanavaraston-kehittaminen-ja
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -21877,7 +21877,7 @@
   fields:
     name: Tieteellisen esittämisen perusteet ja metodologia
     codes: '["KANS1165"]'
-    slug: tieteellisen-esittamisen-perusteet-ja-metodologiaa
+    slug: tieteellisen-esittamisen-perusteet-ja-metodologia
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -22069,7 +22069,7 @@
   fields:
     name: Historiakulttuuri ja ajallisuus/Historiapolitiikka
     codes: '["YLHI0602"]'
-    slug: historiakulttuuri-ja-ajallisuushistoriapolitiikkaa
+    slug: historiakulttuuri-ja-ajallisuushistoriapolitiikka
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -22397,7 +22397,7 @@
   fields:
     name: KEKO1 Kestävän kehityksen integrointi ja hallinta
     codes: '["KEKO9001"]'
-    slug: keko1-kestavan-kehityksen-integrointi-ja-hallintaa
+    slug: keko1-kestavan-kehityksen-integrointi-ja-hallinta
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -22577,7 +22577,7 @@
   fields:
     name: KV30.2/JO7.2 Culture and Interpersonal Communication
     codes: '["KV202262"]'
-    slug: kv302jo72-culture-and-interpersonal-communicationa
+    slug: kv302jo72-culture-and-interpersonal-communication
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -22649,7 +22649,7 @@
   fields:
     name: Näyttelytoiminnan ja museopedagogiikan perusteita
     codes: '["MUSE1116"]'
-    slug: nayttelytoiminnan-ja-museopedagogiikan-perusteitaa
+    slug: nayttelytoiminnan-ja-museopedagogiikan-perusteita
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -23225,7 +23225,7 @@
   fields:
     name: Authenticity and its Variations in Visual Culture
     codes: '["MUSE1154"]'
-    slug: authenticity-and-its-variations-in-visual-culturea
+    slug: authenticity-and-its-variations-in-visual-culture
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -23250,7 +23250,7 @@
     name: 'Managing Legal Operations in Creative and Digital Industries: Corporate
       Legal Reporting'
     codes: '["TLS_0079"]'
-    slug: managing-legal-operations-in-creative-and-digitala
+    slug: managing-legal-operations-in-creative-and-digital
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -23772,7 +23772,7 @@
   fields:
     name: Antiikin kielet tieteen ja kulttuurin välittäjinä
     codes: '["KREI0936"]'
-    slug: antiikin-kielet-tieteen-ja-kulttuurin-valittajinaa
+    slug: antiikin-kielet-tieteen-ja-kulttuurin-valittajina
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -24600,7 +24600,7 @@
   fields:
     name: ENa Yliopisto-opiskelu englanninkielisessä maassa, 1 lukukausi
     codes: '["KKEN2101"]'
-    slug: ena-yliopisto-opiskelu-englanninkielisessa-maassaa
+    slug: ena-yliopisto-opiskelu-englanninkielisessa-maassa
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -24612,7 +24612,7 @@
   fields:
     name: ENb Yliopisto-opiskelu englanninkielisessä maassa, 2 lukukautta
     codes: '["KKEN2102"]'
-    slug: enb-yliopisto-opiskelu-englanninkielisessa-maassaa
+    slug: enb-yliopisto-opiskelu-englanninkielisessa-maassa
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -24720,7 +24720,7 @@
   fields:
     name: PEN10 Advanced Grammar for Business Communication
     codes: '["KPEN2016"]'
-    slug: pen10-advanced-grammar-for-business-communicationa
+    slug: pen10-advanced-grammar-for-business-communication
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -24840,7 +24840,7 @@
   fields:
     name: Screening of Plants for Bioactivity and Bioactive Compounds
     codes: '["KEMI6416"]'
-    slug: screening-of-plants-for-bioactivity-and-bioactivea
+    slug: screening-of-plants-for-bioactivity-and-bioactive
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -25416,7 +25416,7 @@
   fields:
     name: Lääketieteellinen biokemia ja molekyylilääketiede, luentotentti A
     codes: '["LBIG6007"]'
-    slug: laaketieteellinen-biokemia-ja-molekyylilaaketiedea
+    slug: laaketieteellinen-biokemia-ja-molekyylilaaketiede
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -27085,7 +27085,7 @@
   fields:
     name: Tvåspråkighet / Kaksikielisyys, pohjoismaiset kielet
     codes: '["POHF0656"]'
-    slug: tvasprakighet-kaksikielisyys-pohjoismaiset-kieleta
+    slug: tvasprakighet-kaksikielisyys-pohjoismaiset-kielet
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -28063,7 +28063,7 @@
   fields:
     name: Suu- ja leukakirurgian perusteet ja hampaan poisto
     codes: '["DENT0261"]'
-    slug: suu-ja-leukakirurgian-perusteet-ja-hampaan-poistoa
+    slug: suu-ja-leukakirurgian-perusteet-ja-hampaan-poisto
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -28352,7 +28352,7 @@
   fields:
     name: Radiologisen tekniikan ja diagnostiikan syventävä osa
     codes: '["DENT0174"]'
-    slug: radiologisen-tekniikan-ja-diagnostiikan-syventavaa
+    slug: radiologisen-tekniikan-ja-diagnostiikan-syventava
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -28545,7 +28545,7 @@
   fields:
     name: 'Implantologia: protetiikka ja suu- ja leukakirurgia'
     codes: '["DENT0433"]'
-    slug: implantologia-protetiikka-ja-suu-ja-leukakirurgiaa
+    slug: implantologia-protetiikka-ja-suu-ja-leukakirurgia
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -29808,7 +29808,7 @@
   fields:
     name: 'Taidehistorian teoriat ja metodit: harjoituskurssi'
     codes: '["TAHI2572"]'
-    slug: taidehistorian-teoriat-ja-metodit-harjoituskurssia
+    slug: taidehistorian-teoriat-ja-metodit-harjoituskurssi
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -30529,7 +30529,7 @@
     name: 'Espanjankielisen maailman historia, yhteiskunta ja kulttuuri: Espanja ja
       Amerikka'
     codes: '["ESPA0016"]'
-    slug: espanjankielisen-maailman-historia-yhteiskunta-jaa
+    slug: espanjankielisen-maailman-historia-yhteiskunta-ja
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -30817,7 +30817,7 @@
   fields:
     name: Svenskan i samhället / Ruotsin kieli yhteiskunnassa
     codes: '["POHF0680"]'
-    slug: svenskan-i-samhallet-ruotsin-kieli-yhteiskunnassaa
+    slug: svenskan-i-samhallet-ruotsin-kieli-yhteiskunnassa
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -31081,7 +31081,7 @@
   fields:
     name: Suomen kielen diakroninen ja synkroninen vaihtelu, kirjatentti
     codes: '["SUOM1536"]'
-    slug: suomen-kielen-diakroninen-ja-synkroninen-vaihtelua
+    slug: suomen-kielen-diakroninen-ja-synkroninen-vaihtelu
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -31237,7 +31237,7 @@
   fields:
     name: Suomen kirjakielen historia, syventävä kirjatentti
     codes: '["SUOM1417"]'
-    slug: suomen-kirjakielen-historia-syventava-kirjatenttia
+    slug: suomen-kirjakielen-historia-syventava-kirjatentti
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -32198,7 +32198,7 @@
   fields:
     name: Kasvatuksellinen ja koulutuksellinen hallinta
     codes: '["KTL_3341"]'
-    slug: kasvatuksellinen-ja-koulutuksellinen-hallinta-ktla
+    slug: kasvatuksellinen-ja-koulutuksellinen-hallinta-ktl
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -33428,7 +33428,7 @@
   fields:
     name: Tutkimusseminaari I, sukupuolentutkimus (pakollinen)
     codes: '["SUPU2024"]'
-    slug: tutkimusseminaari-i-sukupuolentutkimus-pakollinena
+    slug: tutkimusseminaari-i-sukupuolentutkimus-pakollinen
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -34125,7 +34125,7 @@
   fields:
     name: Master's Thesis, Master's Degree Programme in Gender Studies
     codes: '["MGEN0014"]'
-    slug: masters-thesis-masters-degree-programme-in-gendera
+    slug: masters-thesis-masters-degree-programme-in-gender
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -34210,7 +34210,7 @@
     name: Svenskans regionala och sociala variation / Ruotsin alueellinen ja sosiaalinen
       vaihtelu
     codes: '["POHF0582"]'
-    slug: svenskans-regionala-och-sociala-variation-ruotsina
+    slug: svenskans-regionala-och-sociala-variation-ruotsin
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -34259,7 +34259,7 @@
     name: Proseminarium och kandidatuppsats / Proseminaari ja kandidaatintutkielma,
       pohjoismaiset kielet
     codes: '["POHF0729"]'
-    slug: proseminarium-och-kandidatuppsats-proseminaari-jaa
+    slug: proseminarium-och-kandidatuppsats-proseminaari-ja
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -35151,7 +35151,7 @@
   fields:
     name: Kieliopin jatkokurssi / Aufbaukurs Grammatik, saksan kieli
     codes: '["SAKS0207"]'
-    slug: kieliopin-jatkokurssi-aufbaukurs-grammatik-saksana
+    slug: kieliopin-jatkokurssi-aufbaukurs-grammatik-saksan
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -35703,7 +35703,7 @@
   fields:
     name: Johdanto ammattimaiseen käännösviestintään, saksan kieli
     codes: '["SAKS0220"]'
-    slug: johdanto-ammattimaiseen-kaannosviestintaan-saksana
+    slug: johdanto-ammattimaiseen-kaannosviestintaan-saksan
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -35728,7 +35728,7 @@
   fields:
     name: Johdatus kognitiiviseen kielentutkimukseen, suomen kielen kirjatentti
     codes: '["SUOM1493"]'
-    slug: johdatus-kognitiiviseen-kielentutkimukseen-suomena
+    slug: johdatus-kognitiiviseen-kielentutkimukseen-suomen
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -36089,7 +36089,7 @@
   fields:
     name: Tieteellinen essee ja tieteellinen kirjoittaminen suomen kielen sivuaineopiskelijoille
     codes: '["SUOM1492"]'
-    slug: tieteellinen-essee-ja-tieteellinen-kirjoittaminena
+    slug: tieteellinen-essee-ja-tieteellinen-kirjoittaminen
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -36437,7 +36437,7 @@
   fields:
     name: Kandidaattiseminaari ja tutkielma, Suomen historia
     codes: '["SUHI0116"]'
-    slug: kandidaattiseminaari-ja-tutkielma-suomen-historiaa
+    slug: kandidaattiseminaari-ja-tutkielma-suomen-historia
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -36666,7 +36666,7 @@
   fields:
     name: Unkarin kulttuurihistoria (UNKI1475 Unkarin maa- ja kulttuuritietous)
     codes: '["UNKI1442"]'
-    slug: unkarin-kulttuurihistoria-unki1475-unkarin-maa-jaa
+    slug: unkarin-kulttuurihistoria-unki1475-unkarin-maa-ja
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -37686,7 +37686,7 @@
   fields:
     name: Immateriaalioikeudet ja informaation muu sääntely tietoyhteiskunnassa
     codes: '["OTMU3009"]'
-    slug: immateriaalioikeudet-ja-informaation-muu-saantelya
+    slug: immateriaalioikeudet-ja-informaation-muu-saantely
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -38455,7 +38455,7 @@
     name: TSS30 Taloussosiologian syventävät erikoiskurssit (Kaupan ja palvelujen
       maisteriohjelma)
     codes: '["TS073300"]'
-    slug: tss30-taloussosiologian-syventavat-erikoiskurssita
+    slug: tss30-taloussosiologian-syventavat-erikoiskurssit
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -38756,7 +38756,7 @@
   fields:
     name: Tietotekniikka opiskelun tukena kasvatustieteissä
     codes: '["KTL_0067"]'
-    slug: tietotekniikka-opiskelun-tukena-kasvatustieteissaa
+    slug: tietotekniikka-opiskelun-tukena-kasvatustieteissa
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -38952,7 +38952,7 @@
   fields:
     name: Johdatus SPSS-ohjelman käyttöön kasvatustieteissä
     codes: '["KTL_0060"]'
-    slug: johdatus-spss-ohjelman-kayttoon-kasvatustieteissaa
+    slug: johdatus-spss-ohjelman-kayttoon-kasvatustieteissa
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -39749,7 +39749,7 @@
   fields:
     name: Tieteellisen kirjoittamisen perusteet geologiassa
     codes: '["GEOL1133"]'
-    slug: tieteellisen-kirjoittamisen-perusteet-geologiassaa
+    slug: tieteellisen-kirjoittamisen-perusteet-geologiassa
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -39797,7 +39797,7 @@
   fields:
     name: 'Loppukuulustelu: Hampaiston kehitys- ja oikomisoppi'
     codes: '["DENT4102"]'
-    slug: loppukuulustelu-hampaiston-kehitys-ja-oikomisoppia
+    slug: loppukuulustelu-hampaiston-kehitys-ja-oikomisoppi
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -42022,7 +42022,7 @@
   fields:
     name: Merenkulun kuljetuslogistiikka ja talousmaantiede
     codes: '["MAAN7504"]'
-    slug: merenkulun-kuljetuslogistiikka-ja-talousmaantiedea
+    slug: merenkulun-kuljetuslogistiikka-ja-talousmaantiede
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -42694,7 +42694,7 @@
   fields:
     name: Pro gradu -tutkielma, ekologia ja evoluutiobiologia
     codes: '["EKOL3023"]'
-    slug: pro-gradu-tutkielma-ekologia-ja-evoluutiobiologiaa
+    slug: pro-gradu-tutkielma-ekologia-ja-evoluutiobiologia
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -42718,7 +42718,7 @@
   fields:
     name: Tutkielmamenetelmät, ekologia ja evoluutiobiologia
     codes: '["EKOL3025"]'
-    slug: tutkielmamenetelmat-ekologia-ja-evoluutiobiologiaa
+    slug: tutkielmamenetelmat-ekologia-ja-evoluutiobiologia
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -43848,7 +43848,7 @@
   fields:
     name: Culturally and Linguistivally Responsive Teaching
     codes: '["EDUT5251"]'
-    slug: culturally-and-linguistivally-responsive-teachinga
+    slug: culturally-and-linguistivally-responsive-teaching
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -45147,7 +45147,7 @@
   fields:
     name: Opettajana ja kasvattajana II (ohjattu harjoittelu)
     codes: '["LUON3466"]'
-    slug: opettajana-ja-kasvattajana-ii-ohjattu-harjoittelua
+    slug: opettajana-ja-kasvattajana-ii-ohjattu-harjoittelu
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -45281,7 +45281,7 @@
   fields:
     name: Venäläisen kirjallisuuden tutkimuksen suuntauksia
     codes: '["VEKI0763"]'
-    slug: venalaisen-kirjallisuuden-tutkimuksen-suuntauksiaa
+    slug: venalaisen-kirjallisuuden-tutkimuksen-suuntauksia
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -45546,7 +45546,7 @@
   fields:
     name: Työskentely elintarvikekemian tutkimusprojektissa
     codes: '["FOOD8813"]'
-    slug: tyoskentely-elintarvikekemian-tutkimusprojektissaa
+    slug: tyoskentely-elintarvikekemian-tutkimusprojektissa
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -46007,7 +46007,7 @@
   fields:
     name: 'Moniammatillinen klinikkaopetus: Klinikkakurssi II'
     codes: '["PSYK3413"]'
-    slug: moniammatillinen-klinikkaopetus-klinikkakurssi-iia
+    slug: moniammatillinen-klinikkaopetus-klinikkakurssi-ii
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -46272,7 +46272,7 @@
   fields:
     name: Iho- ja sukupuolitautiopin valinnainen opintojakso
     codes: '["IHOS6274"]'
-    slug: iho-ja-sukupuolitautiopin-valinnainen-opintojaksoa
+    slug: iho-ja-sukupuolitautiopin-valinnainen-opintojakso
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -46393,7 +46393,7 @@
   fields:
     name: 'Mediatutkimuksen menetelmiä II: tuotanto, käyttö ja yleisöt'
     codes: '["METU1055"]'
-    slug: mediatutkimuksen-menetelmia-ii-tuotanto-kaytto-jaa
+    slug: mediatutkimuksen-menetelmia-ii-tuotanto-kaytto-ja
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -47049,7 +47049,7 @@
   fields:
     name: Advanced Laboratory Exercises in Food Development
     codes: '["DEKE0105"]'
-    slug: advanced-laboratory-exercises-in-food-developmenta
+    slug: advanced-laboratory-exercises-in-food-development
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -47157,7 +47157,7 @@
   fields:
     name: Opetusalan tapahtumaan osallistuminen biologeille
     codes: '["BIOL4071"]'
-    slug: opetusalan-tapahtumaan-osallistuminen-biologeillea
+    slug: opetusalan-tapahtumaan-osallistuminen-biologeille
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -47243,7 +47243,7 @@
   fields:
     name: Brittle Structures in Bedrock; Engineering Geology
     codes: '["GMIN4820"]'
-    slug: brittle-structures-in-bedrock-engineering-geologya
+    slug: brittle-structures-in-bedrock-engineering-geology
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -47472,7 +47472,7 @@
   fields:
     name: Maaperägeologiaa tukevat tilastolliset menetelmät
     codes: '["GMAA4810"]'
-    slug: maaperageologiaa-tukevat-tilastolliset-menetelmata
+    slug: maaperageologiaa-tukevat-tilastolliset-menetelmat
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -47545,7 +47545,7 @@
   fields:
     name: Book Exam in Quaternary Geology and Environmental Geochemistry
     codes: '["GMAA4844"]'
-    slug: book-exam-in-quaternary-geology-and-environmentala
+    slug: book-exam-in-quaternary-geology-and-environmental
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -47834,7 +47834,7 @@
   fields:
     name: 'Computational Materials Physics: Ab Initio Methods'
     codes: '["FFYS7073"]'
-    slug: computational-materials-physics-ab-initio-methodsa
+    slug: computational-materials-physics-ab-initio-methods
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -47906,7 +47906,7 @@
   fields:
     name: JOS20 Location-specific Studies in Management and Organisation
     codes: '["JO023068"]'
-    slug: jos20-location-specific-studies-in-management-anda
+    slug: jos20-location-specific-studies-in-management-and
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -48015,7 +48015,7 @@
     name: Kielentutkimuksen erityiskysymyksiä I / Aspekte zur Sprachwissenschaft I,
       saksan kieli
     codes: '["SAKS0330"]'
-    slug: kielentutkimuksen-erityiskysymyksia-i-aspekte-zura
+    slug: kielentutkimuksen-erityiskysymyksia-i-aspekte-zur
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -48819,7 +48819,7 @@
   fields:
     name: Empiiriset tutkimusmenetelmät, erityispedagogiikka
     codes: '["PEDA0031"]'
-    slug: empiiriset-tutkimusmenetelmat-erityispedagogiikkaa
+    slug: empiiriset-tutkimusmenetelmat-erityispedagogiikka
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -48855,7 +48855,7 @@
   fields:
     name: Empiiriset tutkimusmenetelmät, aikuiskasvatustiede
     codes: '["AIKK0031"]'
-    slug: empiiriset-tutkimusmenetelmat-aikuiskasvatustiedea
+    slug: empiiriset-tutkimusmenetelmat-aikuiskasvatustiede
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -48975,7 +48975,7 @@
   fields:
     name: 'English: Academic Writing, Medical Faculty, Research Track'
     codes: '["KIEN2422"]'
-    slug: english-academic-writing-medical-faculty-researcha
+    slug: english-academic-writing-medical-faculty-research
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -48999,7 +48999,7 @@
   fields:
     name: Erityispedagogiikka kansainvälisessä kontekstissa
     codes: '["PEDA3339"]'
-    slug: erityispedagogiikka-kansainvalisessa-kontekstissaa
+    slug: erityispedagogiikka-kansainvalisessa-kontekstissa
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -49055,7 +49055,7 @@
   fields:
     name: Monikulttuurisuus erityiskasvatuksen kontekstissa
     codes: '["PEDA3074"]'
-    slug: monikulttuurisuus-erityiskasvatuksen-kontekstissaa
+    slug: monikulttuurisuus-erityiskasvatuksen-kontekstissa
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -49109,7 +49109,7 @@
   fields:
     name: Inklusiivinen pedagogiikka ja koulutusjärjestelmä
     codes: '["ERIK1065"]'
-    slug: inklusiivinen-pedagogiikka-ja-koulutusjarjestelmaa
+    slug: inklusiivinen-pedagogiikka-ja-koulutusjarjestelma
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -49277,7 +49277,7 @@
   fields:
     name: Kehityksellisten häiriöiden logopedinen kuntoutus
     codes: '["LOGO2159"]'
-    slug: kehityksellisten-hairioiden-logopedinen-kuntoutusa
+    slug: kehityksellisten-hairioiden-logopedinen-kuntoutus
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -49673,7 +49673,7 @@
   fields:
     name: Orientointi käytännön opintoihin, erityisopettajan opinnot Turku
     codes: '["ERIK1069"]'
-    slug: orientointi-kaytannon-opintoihin-erityisopettajana
+    slug: orientointi-kaytannon-opintoihin-erityisopettajan
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -51021,7 +51021,7 @@
   fields:
     name: Search Engines and Document Retrieval Methods
     codes: '["TKO_8963"]'
-    slug: search-engines-and-document-retrieval-methods-tkoa
+    slug: search-engines-and-document-retrieval-methods-tko
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -51718,7 +51718,7 @@
   fields:
     name: Syventävien opintojen kirjallisuus, Poikkeusolojen sääntely
     codes: '["OTMU2266"]'
-    slug: syventavien-opintojen-kirjallisuus-poikkeusolojena
+    slug: syventavien-opintojen-kirjallisuus-poikkeusolojen
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -51754,7 +51754,7 @@
   fields:
     name: Tutkielmaa tukevat taidehistorian projektiopinnot
     codes: '["TAHI2153"]'
-    slug: tutkielmaa-tukevat-taidehistorian-projektiopinnota
+    slug: tutkielmaa-tukevat-taidehistorian-projektiopinnot
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -51778,7 +51778,7 @@
   fields:
     name: Terveys- ja sosiaalipalvelujärjestelmän resurssien johtaminen
     codes: '["HOIT4023"]'
-    slug: terveys-ja-sosiaalipalvelujarjestelman-resurssiena
+    slug: terveys-ja-sosiaalipalvelujarjestelman-resurssien
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -52320,7 +52320,7 @@
   fields:
     name: Introduction to Master's Thesis in Technology, Food Development
     codes: '["DEKE0120"]'
-    slug: introduction-to-masters-thesis-in-technology-fooda
+    slug: introduction-to-masters-thesis-in-technology-food
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -52838,7 +52838,7 @@
   fields:
     name: Aineistot ja menetelmät (digitaalinen kulttuuri ja kulttuuriperinnön tutkimus)
     codes: '["EIHS0083"]'
-    slug: aineistot-ja-menetelmat-digitaalinen-kulttuuri-jaa
+    slug: aineistot-ja-menetelmat-digitaalinen-kulttuuri-ja
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -53324,7 +53324,7 @@
   fields:
     name: Taloustieteen erikoistumissuunnan loppukuulustelu
     codes: '["KT043804"]'
-    slug: taloustieteen-erikoistumissuunnan-loppukuulustelua
+    slug: taloustieteen-erikoistumissuunnan-loppukuulustelu
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -53697,7 +53697,7 @@
   fields:
     name: T5 Teoreettisen filosofian kirjallisuusessee(t) tai -tentti
     codes: '["FILY1029"]'
-    slug: t5-teoreettisen-filosofian-kirjallisuusesseet-taia
+    slug: t5-teoreettisen-filosofian-kirjallisuusesseet-tai
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -53709,7 +53709,7 @@
   fields:
     name: T6 Teoreettisen filosofian kirjallisuusessee(t) tai -tentti
     codes: '["FILY1030"]'
-    slug: t6-teoreettisen-filosofian-kirjallisuusesseet-taia
+    slug: t6-teoreettisen-filosofian-kirjallisuusesseet-tai
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -54371,7 +54371,7 @@
   fields:
     name: Orientoivat opinnot II, tietojenkäsittelytiede
     codes: '["TKO_8970"]'
-    slug: orientoivat-opinnot-ii-tietojenkasittelytiede-tkoa
+    slug: orientoivat-opinnot-ii-tietojenkasittelytiede-tko
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -54803,7 +54803,7 @@
   fields:
     name: Lapsen fyysinen ja motorinen kehitys ja oppiminen
     codes: '["ROKL1234"]'
-    slug: lapsen-fyysinen-ja-motorinen-kehitys-ja-oppiminena
+    slug: lapsen-fyysinen-ja-motorinen-kehitys-ja-oppiminen
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -54827,7 +54827,7 @@
   fields:
     name: Liikuntaympäristöt alakoulun liikunnanopetuksessa I
     codes: '["ROKL1228"]'
-    slug: liikuntaymparistot-alakoulun-liikunnanopetuksessaa
+    slug: liikuntaymparistot-alakoulun-liikunnanopetuksessa
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -54995,7 +54995,7 @@
   fields:
     name: Liikuntaympäristöt yläkoulun liikunnanopetuksessa
     codes: '["LUOT3788"]'
-    slug: liikuntaymparistot-ylakoulun-liikunnanopetuksessaa
+    slug: liikuntaymparistot-ylakoulun-liikunnanopetuksessa
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -55082,7 +55082,7 @@
     name: Pianonsoitto, musiikin luku- ja kirjoitustaito sekä musiikin kuulonvarainen
       hahmottaminen
     codes: '["ROKL1357"]'
-    slug: pianonsoitto-musiikin-luku-ja-kirjoitustaito-sekaa
+    slug: pianonsoitto-musiikin-luku-ja-kirjoitustaito-seka
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -55528,7 +55528,7 @@
   fields:
     name: Digitaalisten materiaalien ja oppimisympäristöjen suunnittelu sekä arviointi
     codes: '["LUOT1971"]'
-    slug: digitaalisten-materiaalien-ja-oppimisymparistojena
+    slug: digitaalisten-materiaalien-ja-oppimisymparistojen
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -55961,7 +55961,7 @@
   fields:
     name: EN16/SV13/LR15 Investor Relations and Communication
     codes: '["KKEN2013"]'
-    slug: en16sv13lr15-investor-relations-and-communicationa
+    slug: en16sv13lr15-investor-relations-and-communication
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -56297,7 +56297,7 @@
   fields:
     name: Lisensiaatintutkimus Molekulaarinen kasvibiologia
     codes: '["KABI9998"]'
-    slug: lisensiaatintutkimus-molekulaarinen-kasvibiologiaa
+    slug: lisensiaatintutkimus-molekulaarinen-kasvibiologia
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -56657,7 +56657,7 @@
   fields:
     name: 'Finnish Society: Culture and Institutions, Lectures'
     codes: '["FNSC9018"]'
-    slug: finnish-society-culture-and-institutions-lecturesa
+    slug: finnish-society-culture-and-institutions-lectures
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -57137,7 +57137,7 @@
   fields:
     name: Robotiikka ja ohjelmointi monialaisena oppimisena
     codes: '["K\u00c4SK9969"]'
-    slug: robotiikka-ja-ohjelmointi-monialaisena-oppimisenaa
+    slug: robotiikka-ja-ohjelmointi-monialaisena-oppimisena
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -57416,7 +57416,7 @@
     name: Yrittäjyyskasvatus ja yrittäjämäinen pedagogiikka varhaiskasvatuksessa ja
       esiopetuksessa
     codes: '["ROKL1364"]'
-    slug: yrittajyyskasvatus-ja-yrittajamainen-pedagogiikkaa
+    slug: yrittajyyskasvatus-ja-yrittajamainen-pedagogiikka
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -58150,7 +58150,7 @@
   fields:
     name: V9 Moraalipsykologia ja tunteiden filosofia/Räikkä
     codes: '["FILY1050"]'
-    slug: v9-moraalipsykologia-ja-tunteiden-filosofiaraikkaa
+    slug: v9-moraalipsykologia-ja-tunteiden-filosofiaraikka
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -58210,7 +58210,7 @@
   fields:
     name: V15 Liiketalouden etiikka /Kivistö et al. (toim.) 3 op
     codes: '["FILY1055"]'
-    slug: v15-liiketalouden-etiikka-kivisto-et-al-toim-3-opa
+    slug: v15-liiketalouden-etiikka-kivisto-et-al-toim-3-op
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -58522,7 +58522,7 @@
   fields:
     name: Gerontologinen sosiaalityö (sivuaineopiskelijoille)
     codes: '["STY\u00d67111"]'
-    slug: gerontologinen-sosiaalityo-sivuaineopiskelijoillea
+    slug: gerontologinen-sosiaalityo-sivuaineopiskelijoille
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -58799,7 +58799,7 @@
   fields:
     name: Yleispatologian kirjatentti sivuaineopiskelijalle
     codes: '["PATO5895"]'
-    slug: yleispatologian-kirjatentti-sivuaineopiskelijallea
+    slug: yleispatologian-kirjatentti-sivuaineopiskelijalle
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -59575,7 +59575,7 @@
     name: Cellular Signal Processing - An Introduction to the Molecular Mechanisms
       of Signal Transduction
     codes: '["PGS_2219"]'
-    slug: cellular-signal-processing-an-introduction-to-thea
+    slug: cellular-signal-processing-an-introduction-to-the
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -59912,7 +59912,7 @@
   fields:
     name: JOS15 Contemporary Issues in Responsible Business
     codes: '["JO022481"]'
-    slug: jos15-contemporary-issues-in-responsible-businessa
+    slug: jos15-contemporary-issues-in-responsible-business
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -60609,7 +60609,7 @@
   fields:
     name: Sisäänpääsykuulustelu, Suupatologian syventävä osa ja suulääketiede
     codes: '["DENT0297"]'
-    slug: sisaanpaasykuulustelu-suupatologian-syventava-osaa
+    slug: sisaanpaasykuulustelu-suupatologian-syventava-osa
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -60741,7 +60741,7 @@
   fields:
     name: 'SELMAn kirjoituspiiri: humanistisen kirjoittamisen ulottuvuudet'
     codes: '["XHKT0066"]'
-    slug: selman-kirjoituspiiri-humanistisen-kirjoittamisena
+    slug: selman-kirjoituspiiri-humanistisen-kirjoittamisen
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -60801,7 +60801,7 @@
   fields:
     name: Tilastotieteen peruskurssi soveltajille, biokemian harjoitukset
     codes: '["BKEM5180"]'
-    slug: tilastotieteen-peruskurssi-soveltajille-biokemiana
+    slug: tilastotieteen-peruskurssi-soveltajille-biokemian
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -61077,7 +61077,7 @@
   fields:
     name: Muita valinnaisopintoja, yleinen kirjallisuustiede
     codes: '["YKIR6100"]'
-    slug: muita-valinnaisopintoja-yleinen-kirjallisuustiedea
+    slug: muita-valinnaisopintoja-yleinen-kirjallisuustiede
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -61330,7 +61330,7 @@
   fields:
     name: Sosiaalipolitiikka, valta ja tulojen uudelleenjako, lähiopetusjakso
     codes: '["RHUI0005"]'
-    slug: sosiaalipolitiikka-valta-ja-tulojen-uudelleenjakoa
+    slug: sosiaalipolitiikka-valta-ja-tulojen-uudelleenjako
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -62653,7 +62653,7 @@
   fields:
     name: 1.4 Perhesosiaalityö ja perheoikeuden soveltaminen
     codes: '["RSOS1016"]'
-    slug: 14-perhesosiaalityo-ja-perheoikeuden-soveltaminena
+    slug: 14-perhesosiaalityo-ja-perheoikeuden-soveltaminen
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -62918,7 +62918,7 @@
   fields:
     name: Perspective of Gerontological Research in Nursing Science
     codes: '["HOIT2112"]'
-    slug: perspective-of-gerontological-research-in-nursinga
+    slug: perspective-of-gerontological-research-in-nursing
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -63194,7 +63194,7 @@
   fields:
     name: Introduction to Computational and Systems Biology
     codes: '["MATE5423"]'
-    slug: introduction-to-computational-and-systems-biologya
+    slug: introduction-to-computational-and-systems-biology
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -63917,7 +63917,7 @@
   fields:
     name: Bioimage Informatics 1 – Basic Image Processing and Analysis
     codes: '["BIMA3218"]'
-    slug: bioimage-informatics-1-basic-image-processing-anda
+    slug: bioimage-informatics-1-basic-image-processing-and
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -64001,7 +64001,7 @@
   fields:
     name: Orientation to Doctoral Studies in Human Sciences
     codes: '["OTT12070"]'
-    slug: orientation-to-doctoral-studies-in-human-sciencesa
+    slug: orientation-to-doctoral-studies-in-human-sciences
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -64397,7 +64397,7 @@
   fields:
     name: Talven historia ja kulttuuriset jääkaudet / PERUTTU
     codes: '["EIHS1189"]'
-    slug: talven-historia-ja-kulttuuriset-jaakaudet-peruttua
+    slug: talven-historia-ja-kulttuuriset-jaakaudet-peruttu
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -64445,7 +64445,7 @@
   fields:
     name: Itäinen Eurooppa - autoritarismista autoritarismiin?
     codes: '["VALT1557"]'
-    slug: itainen-eurooppa-autoritarismista-autoritarismiina
+    slug: itainen-eurooppa-autoritarismista-autoritarismiin
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -65118,7 +65118,7 @@
   fields:
     name: Seminaari II, Immateriaalioikeudet ja informaation muu sääntely
     codes: '["OTMU2423"]'
-    slug: seminaari-ii-immateriaalioikeudet-ja-informaationa
+    slug: seminaari-ii-immateriaalioikeudet-ja-informaation
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -65202,7 +65202,7 @@
   fields:
     name: Seminar I, Human Rights in the Information Society
     codes: '["OTMU2430"]'
-    slug: seminar-i-human-rights-in-the-information-societya
+    slug: seminar-i-human-rights-in-the-information-society
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -65382,7 +65382,7 @@
   fields:
     name: Tutkimussuunnitelma, Oikeussuoja ja oikeudenkäynti hallintoasioissa
     codes: '["OTMU2445"]'
-    slug: tutkimussuunnitelma-oikeussuoja-ja-oikeudenkayntia
+    slug: tutkimussuunnitelma-oikeussuoja-ja-oikeudenkaynti
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -65454,7 +65454,7 @@
   fields:
     name: Seminaari II, Prosessioikeuden eurooppalaistuminen
     codes: '["OTMU2451"]'
-    slug: seminaari-ii-prosessioikeuden-eurooppalaistuminena
+    slug: seminaari-ii-prosessioikeuden-eurooppalaistuminen
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -65490,7 +65490,7 @@
   fields:
     name: Seminaari I, Velvoiteoikeuden teoriat ja käytännöt
     codes: '["OTMU2454"]'
-    slug: seminaari-i-velvoiteoikeuden-teoriat-ja-kaytannota
+    slug: seminaari-i-velvoiteoikeuden-teoriat-ja-kaytannot
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -65586,7 +65586,7 @@
   fields:
     name: Seminaari I, Kohti uudistuvaa kiinteistövaihdantaa
     codes: '["OTMU2462"]'
-    slug: seminaari-i-kohti-uudistuvaa-kiinteistovaihdantaaa
+    slug: seminaari-i-kohti-uudistuvaa-kiinteistovaihdantaa
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -65670,7 +65670,7 @@
   fields:
     name: Tutkimussuunnitelma, Oikeusteoria ja oikeudellinen argumentaatio
     codes: '["OTMU2469"]'
-    slug: tutkimussuunnitelma-oikeusteoria-ja-oikeudellinena
+    slug: tutkimussuunnitelma-oikeusteoria-ja-oikeudellinen
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -65838,7 +65838,7 @@
   fields:
     name: Seminar II, Re-Examining the Foundations of EU Law
     codes: '["OTMU2483"]'
-    slug: seminar-ii-re-examining-the-foundations-of-eu-lawa
+    slug: seminar-ii-re-examining-the-foundations-of-eu-law
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -66782,7 +66782,7 @@
   fields:
     name: Sosiaalisemotionaalisen oppimisen tukeminen taide- ja kerrontamenetelmin
     codes: '["ROKL1365"]'
-    slug: sosiaalisemotionaalisen-oppimisen-tukeminen-taidea
+    slug: sosiaalisemotionaalisen-oppimisen-tukeminen-taide
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -67094,7 +67094,7 @@
   fields:
     name: Kirjallisuus, Prosessioikeuden eurooppalaistuminen
     codes: '["OTMU5005"]'
-    slug: kirjallisuus-prosessioikeuden-eurooppalaistuminena
+    slug: kirjallisuus-prosessioikeuden-eurooppalaistuminen
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -67647,7 +67647,7 @@
   fields:
     name: Muualla suoritetut teoreettiset johtamisopinnot 2
     codes: '["MOJO9006"]'
-    slug: muualla-suoritetut-teoreettiset-johtamisopinnot-2a
+    slug: muualla-suoritetut-teoreettiset-johtamisopinnot-2
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -68119,7 +68119,7 @@
   fields:
     name: Vaihtuvateemainen ajankohtainen etnologian kurssi
     codes: '["ETNO0006"]'
-    slug: vaihtuvateemainen-ajankohtainen-etnologian-kurssia
+    slug: vaihtuvateemainen-ajankohtainen-etnologian-kurssi
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -68815,7 +68815,7 @@
   fields:
     name: PMAS19 Perspectives in Strategic Brand Management and Co-Creation
     codes: '["PYMA3034"]'
-    slug: pmas19-perspectives-in-strategic-brand-managementa
+    slug: pmas19-perspectives-in-strategic-brand-management
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -69265,7 +69265,7 @@
   fields:
     name: Äidinkieli ja kirjallisuus. Osa 1. Kielitaitoiseksi kasvaminen
     codes: '["LUOT0013"]'
-    slug: aidinkieli-ja-kirjallisuus-osa-1-kielitaitoiseksia
+    slug: aidinkieli-ja-kirjallisuus-osa-1-kielitaitoiseksi
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -70057,7 +70057,7 @@
   fields:
     name: TJS496/JOS496 IT Governance and Strategic Sourcing
     codes: '["TJ093493"]'
-    slug: tjs496jos496-it-governance-and-strategic-sourcinga
+    slug: tjs496jos496-it-governance-and-strategic-sourcing
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -71576,7 +71576,7 @@
   fields:
     name: Digital Learning and Teaching and Media Education
     codes: '["ROKL7104"]'
-    slug: digital-learning-and-teaching-and-media-educationa
+    slug: digital-learning-and-teaching-and-media-education
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -71588,7 +71588,7 @@
   fields:
     name: Multilingualism and Multiculturalism in Education
     codes: '["ROKL7105"]'
-    slug: multilingualism-and-multiculturalism-in-educationa
+    slug: multilingualism-and-multiculturalism-in-education
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -72284,7 +72284,7 @@
   fields:
     name: 'Ainedidaktiikka III: Aineenopettaja asiantuntijana ja yhteisöllisenä toimijana'
     codes: '["KASA3330"]'
-    slug: ainedidaktiikka-iii-aineenopettaja-asiantuntijanaa
+    slug: ainedidaktiikka-iii-aineenopettaja-asiantuntijana
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -73659,7 +73659,7 @@
   fields:
     name: Valinnaisia opintoja II, suomen ja sen sukukielten maisteriohjelma
     codes: '["SUMA0010"]'
-    slug: valinnaisia-opintoja-ii-suomen-ja-sen-sukukieltena
+    slug: valinnaisia-opintoja-ii-suomen-ja-sen-sukukielten
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -73683,7 +73683,7 @@
   fields:
     name: Valinnaisia opintoja IV, suomen ja sen sukukielten maisteriohjelma
     codes: '["SUMA0012"]'
-    slug: valinnaisia-opintoja-iv-suomen-ja-sen-sukukieltena
+    slug: valinnaisia-opintoja-iv-suomen-ja-sen-sukukielten
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -73707,7 +73707,7 @@
   fields:
     name: 'Theories of Learning: Cognitive and Socio-Cultural Perspectives'
     codes: '["EDUT6001"]'
-    slug: theories-of-learning-cognitive-and-socio-culturala
+    slug: theories-of-learning-cognitive-and-socio-cultural
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -75488,7 +75488,7 @@
   fields:
     name: Mikä on yhteiskunta ja miten sitä tutkitaan? Neljä klassista näkemystä
     codes: '["SOSI0091"]'
-    slug: mika-on-yhteiskunta-ja-miten-sita-tutkitaan-neljaa
+    slug: mika-on-yhteiskunta-ja-miten-sita-tutkitaan-nelja
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -76763,7 +76763,7 @@
   fields:
     name: 'Cinematic Representations of Law and Justice: Part I'
     codes: '["OTMV1117"]'
-    slug: cinematic-representations-of-law-and-justice-parta
+    slug: cinematic-representations-of-law-and-justice-part
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -78032,7 +78032,7 @@
   fields:
     name: FUTULAB1 Introduction to Futures Research Methods
     codes: '["FUTS3111"]'
-    slug: futulab1-introduction-to-futures-research-methodsa
+    slug: futulab1-introduction-to-futures-research-methods
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -79040,7 +79040,7 @@
   fields:
     name: Observational Techniques Using the Nordic Optical Telescope
     codes: '["T\u00c4HT7055"]'
-    slug: observational-techniques-using-the-nordic-opticala
+    slug: observational-techniques-using-the-nordic-optical
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -79052,7 +79052,7 @@
   fields:
     name: Data Processing Techniques for Astronomy with ESO Instrumentation
     codes: '["T\u00c4HT7056"]'
-    slug: data-processing-techniques-for-astronomy-with-esoa
+    slug: data-processing-techniques-for-astronomy-with-eso
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -79727,7 +79727,7 @@
   fields:
     name: Tutkimussuunnitelma, Esineoikeus ja kansainvälinen talous
     codes: '["OTMU5018"]'
-    slug: tutkimussuunnitelma-esineoikeus-ja-kansainvalinena
+    slug: tutkimussuunnitelma-esineoikeus-ja-kansainvalinen
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -79751,7 +79751,7 @@
   fields:
     name: Seminaari II, Esineoikeus ja kansainvälinen talous
     codes: '["OTMU5020"]'
-    slug: seminaari-ii-esineoikeus-ja-kansainvalinen-talousa
+    slug: seminaari-ii-esineoikeus-ja-kansainvalinen-talous
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -79775,7 +79775,7 @@
   fields:
     name: Kirjallisuus, Esineoikeus ja kansainvälinen talous
     codes: '["OTMU5022"]'
-    slug: kirjallisuus-esineoikeus-ja-kansainvalinen-talousa
+    slug: kirjallisuus-esineoikeus-ja-kansainvalinen-talous
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -79787,7 +79787,7 @@
   fields:
     name: Kirjallisuus, Immateriaalioikeudet ja informaation muu sääntely
     codes: '["OTMU5023"]'
-    slug: kirjallisuus-immateriaalioikeudet-ja-informaationa
+    slug: kirjallisuus-immateriaalioikeudet-ja-informaation
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -81543,7 +81543,7 @@
   fields:
     name: Osallistuminen OPPI-tohtoriohjelman seminaareihin
     codes: '["KATO0007"]'
-    slug: osallistuminen-oppi-tohtoriohjelman-seminaareihina
+    slug: osallistuminen-oppi-tohtoriohjelman-seminaareihin
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -82041,7 +82041,7 @@
   fields:
     name: 'Reading Seminar of KEVEKO: Postcolonial Theory and Education'
     codes: '["KATO0010"]'
-    slug: reading-seminar-of-keveko-postcolonial-theory-anda
+    slug: reading-seminar-of-keveko-postcolonial-theory-and
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -82056,7 +82056,7 @@
   fields:
     name: 'Reading Seminar of KEVEKO: Transitions from School to Work'
     codes: '["KATO0011"]'
-    slug: reading-seminar-of-keveko-transitions-from-schoola
+    slug: reading-seminar-of-keveko-transitions-from-school
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -82338,7 +82338,7 @@
   fields:
     name: Yhden päivän kansallinen konferenssi, oma esitys 2
     codes: '["KATO0030"]'
-    slug: yhden-paivan-kansallinen-konferenssi-oma-esitys-2a
+    slug: yhden-paivan-kansallinen-konferenssi-oma-esitys-2
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -82353,7 +82353,7 @@
   fields:
     name: Yhden päivän kansallinen konferenssi, oma esitys 3
     codes: '["KATO0031"]'
-    slug: yhden-paivan-kansallinen-konferenssi-oma-esitys-3a
+    slug: yhden-paivan-kansallinen-konferenssi-oma-esitys-3
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -82759,7 +82759,7 @@
   fields:
     name: Muualla suoritetut teoreettiset johtamisopinnot 4
     codes: '["MOJO9008"]'
-    slug: muualla-suoritetut-teoreettiset-johtamisopinnot-4a
+    slug: muualla-suoritetut-teoreettiset-johtamisopinnot-4
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -82855,7 +82855,7 @@
   fields:
     name: 'Perspectives on Nationality and Music: Englishness, Pop and Postwar Britain'
     codes: '["MUSI0800"]'
-    slug: perspectives-on-nationality-and-music-englishnessa
+    slug: perspectives-on-nationality-and-music-englishness
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -83588,7 +83588,7 @@
   fields:
     name: Globaali talous, yritysverotus ja Euroopan unionin instituutiot
     codes: '["OTMU1112"]'
-    slug: globaali-talous-yritysverotus-ja-euroopan-unionina
+    slug: globaali-talous-yritysverotus-ja-euroopan-unionin
     school: 1
     user: null
     modified: 2020-03-15 12:00:00+00:00
@@ -84210,7 +84210,7 @@
   fields:
     name: Asiakkaan tuki- ja liikuntaelimistön toimintakykyä tukeva fysioterapiaharjoittelu
     codes: '["TH00BE17"]'
-    slug: asiakkaan-tuki-ja-liikuntaelimiston-toimintakykyaa
+    slug: asiakkaan-tuki-ja-liikuntaelimiston-toimintakykya
     school: 2
     user: null
     modified: 2021-01-15 12:00:00+00:00
@@ -84643,7 +84643,7 @@
   fields:
     name: Comptence of Producing Health Care Services in R&D-environments
     codes: '["7003022"]'
-    slug: comptence-of-producing-health-care-services-in-rda
+    slug: comptence-of-producing-health-care-services-in-rd
     school: 2
     user: null
     modified: 2021-01-15 12:00:00+00:00
@@ -86300,7 +86300,7 @@
   fields:
     name: Perioperatiivisen potilaan hoitotyön  prekliininen harjoittelu
     codes: '["7031512"]'
-    slug: perioperatiivisen-potilaan-hoitotyon-prekliininena
+    slug: perioperatiivisen-potilaan-hoitotyon-prekliininen
     school: 2
     user: null
     modified: 2021-01-15 12:00:00+00:00
@@ -87922,7 +87922,7 @@
   fields:
     name: Ikääntyvän asiakkaan fysioterapian erityspiirteet
     codes: '["TH00BE13"]'
-    slug: ikaantyvan-asiakkaan-fysioterapian-erityspiirteeta
+    slug: ikaantyvan-asiakkaan-fysioterapian-erityspiirteet
     school: 2
     user: null
     modified: 2021-01-15 12:00:00+00:00
@@ -87958,7 +87958,7 @@
   fields:
     name: Ikäihmisten terveyden ja hyvinvoinnin edistäminen
     codes: '["TH00BQ07"]'
-    slug: ikaihmisten-terveyden-ja-hyvinvoinnin-edistaminena
+    slug: ikaihmisten-terveyden-ja-hyvinvoinnin-edistaminen
     school: 2
     user: null
     modified: 2021-01-15 12:00:00+00:00
@@ -88606,7 +88606,7 @@
     name: Rakennetun ympäristön esteettömyys ja apuvälineet asiakkaan aktiivisuuden
       tukena
     codes: '["TH00BE16"]'
-    slug: rakennetun-ympariston-esteettomyys-ja-apuvalineeta
+    slug: rakennetun-ympariston-esteettomyys-ja-apuvalineet
     school: 2
     user: null
     modified: 2021-01-15 12:00:00+00:00
@@ -92167,7 +92167,7 @@
   fields:
     name: 'Moduuli 3: Sosiaali- ja terveydenhuollon johtaminen ja muutos'
     codes: '["7031174"]'
-    slug: moduuli-3-sosiaali-ja-terveydenhuollon-johtaminena
+    slug: moduuli-3-sosiaali-ja-terveydenhuollon-johtaminen
     school: 2
     user: null
     modified: 2021-01-15 12:00:00+00:00
@@ -95253,7 +95253,7 @@
   fields:
     name: YRITTÄJYYDEN PERUSOPINNOT Yrityspolun alkuopinnot (I)
     codes: '["YH00BF83"]'
-    slug: yrittajyyden-perusopinnot-yrityspolun-alkuopinnota
+    slug: yrittajyyden-perusopinnot-yrityspolun-alkuopinnot
     school: 2
     user: null
     modified: 2021-01-15 12:00:00+00:00
@@ -97935,7 +97935,7 @@
   fields:
     name: Asiantuntijana terveysalan toimintaympäristössä 1
     codes: '["7073129"]'
-    slug: asiantuntijana-terveysalan-toimintaymparistossa-1a
+    slug: asiantuntijana-terveysalan-toimintaymparistossa-1
     school: 2
     user: null
     modified: 2021-01-15 12:00:00+00:00
@@ -98139,7 +98139,7 @@
   fields:
     name: Asiantuntijana terveysalan toimintaympäristössä 2
     codes: '["7073131"]'
-    slug: asiantuntijana-terveysalan-toimintaymparistossa-2a
+    slug: asiantuntijana-terveysalan-toimintaymparistossa-2
     school: 2
     user: null
     modified: 2021-01-15 12:00:00+00:00
@@ -98678,7 +98678,7 @@
   fields:
     name: Kulttuuri ja taide mielen hyvinvoinnin edistäjänä
     codes: '["TH00BQ56"]'
-    slug: kulttuuri-ja-taide-mielen-hyvinvoinnin-edistajanaa
+    slug: kulttuuri-ja-taide-mielen-hyvinvoinnin-edistajana
     school: 2
     user: null
     modified: 2021-01-15 12:00:00+00:00
@@ -98738,7 +98738,7 @@
   fields:
     name: Palliatiivisen hoidon asiantuntijana kehittyminen
     codes: '["TH00BN70"]'
-    slug: palliatiivisen-hoidon-asiantuntijana-kehittyminena
+    slug: palliatiivisen-hoidon-asiantuntijana-kehittyminen
     school: 2
     user: null
     modified: 2021-01-15 12:00:00+00:00
@@ -99798,7 +99798,7 @@
   fields:
     name: Intercultural Communication - Critical Perspectives
     codes: '["100724.2"]'
-    slug: intercultural-communication-critical-perspectivesa
+    slug: intercultural-communication-critical-perspectives
     school: 3
     user: null
     modified: 2021-02-13 12:00:00+00:00
@@ -100285,7 +100285,7 @@
   fields:
     name: 'Historical Survey III: Language, Literature, Society'
     codes: '["104212.0"]'
-    slug: historical-survey-iii-language-literature-societya
+    slug: historical-survey-iii-language-literature-society
     school: 3
     user: null
     modified: 2021-02-13 12:00:00+00:00
@@ -101299,7 +101299,7 @@
   fields:
     name: 'Histoire et analyse littéraires: XIXe-XXIe siècles'
     codes: '["107206.2"]'
-    slug: histoire-et-analyse-litteraires-xixe-xxie-sieclesa
+    slug: histoire-et-analyse-litteraires-xixe-xxie-siecles
     school: 3
     user: null
     modified: 2021-02-13 12:00:00+00:00
@@ -101403,7 +101403,7 @@
   fields:
     name: Research Methods in Speech and Language Pathology
     codes: '["108015.0"]'
-    slug: research-methods-in-speech-and-language-pathologya
+    slug: research-methods-in-speech-and-language-pathology
     school: 3
     user: null
     modified: 2021-02-13 12:00:00+00:00
@@ -101585,7 +101585,7 @@
   fields:
     name: Current Research in Speech and Language Pathology in Turku
     codes: '["108570.3"]'
-    slug: current-research-in-speech-and-language-pathologya
+    slug: current-research-in-speech-and-language-pathology
     school: 3
     user: null
     modified: 2021-02-13 12:00:00+00:00
@@ -101806,7 +101806,7 @@
   fields:
     name: Medicine 1 (Anatomy, Physiology and Introduction to Neurology )
     codes: '["108237.0"]'
-    slug: medicine-1-anatomy-physiology-and-introduction-toa
+    slug: medicine-1-anatomy-physiology-and-introduction-to
     school: 3
     user: null
     modified: 2021-02-13 12:00:00+00:00
@@ -103035,7 +103035,7 @@
   fields:
     name: The various roles of work in contemporary society
     codes: '["112251.1"]'
-    slug: the-various-roles-of-work-in-contemporary-societya
+    slug: the-various-roles-of-work-in-contemporary-society
     school: 3
     user: null
     modified: 2021-02-13 12:00:00+00:00
@@ -104830,7 +104830,7 @@
   fields:
     name: Ancient Religions of the Mediterranean and Middle East
     codes: '["117250.1"]'
-    slug: ancient-religions-of-the-mediterranean-and-middlea
+    slug: ancient-religions-of-the-mediterranean-and-middle
     school: 3
     user: null
     modified: 2021-02-13 12:00:00+00:00
@@ -105382,7 +105382,7 @@
   fields:
     name: Assessment of Cognitive Functions and Personality in Adults
     codes: '["118605.0"]'
-    slug: assessment-of-cognitive-functions-and-personalitya
+    slug: assessment-of-cognitive-functions-and-personality
     school: 3
     user: null
     modified: 2021-02-13 12:00:00+00:00
@@ -105418,7 +105418,7 @@
   fields:
     name: 'Psychological and Psychopharmacological Treatment: Theory 2'
     codes: '["118607.0"]'
-    slug: psychological-and-psychopharmacological-treatmenta
+    slug: psychological-and-psychopharmacological-treatment
     school: 3
     user: null
     modified: 2021-02-13 12:00:00+00:00
@@ -105634,7 +105634,7 @@
   fields:
     name: Ass. of Cog. and Socioemotional Dev. in Children and Adolescence
     codes: '["118604.0"]'
-    slug: ass-of-cog-and-socioemotional-dev-in-children-anda
+    slug: ass-of-cog-and-socioemotional-dev-in-children-and
     school: 3
     user: null
     modified: 2021-02-13 12:00:00+00:00
@@ -106496,7 +106496,7 @@
   fields:
     name: 'Oceanography: from biology to environmental issues, part 1'
     codes: '["222042.1"]'
-    slug: oceanography-from-biology-to-environmental-issuesa
+    slug: oceanography-from-biology-to-environmental-issues
     school: 3
     user: null
     modified: 2021-02-13 12:00:00+00:00
@@ -106794,7 +106794,7 @@
   fields:
     name: Literature examination (Final Exam in Cell Biology)
     codes: '["223994.0"]'
-    slug: literature-examination-final-exam-in-cell-biologya
+    slug: literature-examination-final-exam-in-cell-biology
     school: 3
     user: null
     modified: 2021-02-13 12:00:00+00:00
@@ -108008,7 +108008,7 @@
   fields:
     name: Practical training in the pharmaceutical industry
     codes: '["284012.0"]'
-    slug: practical-training-in-the-pharmaceutical-industrya
+    slug: practical-training-in-the-pharmaceutical-industry
     school: 3
     user: null
     modified: 2021-02-13 12:00:00+00:00
@@ -108965,7 +108965,7 @@
   fields:
     name: BA-Thesis Seminar, incl. Bachelor's Thesis, in Public Law
     codes: '["345003.0"]'
-    slug: ba-thesis-seminar-incl-bachelors-thesis-in-publica
+    slug: ba-thesis-seminar-incl-bachelors-thesis-in-public
     school: 3
     user: null
     modified: 2021-02-13 12:00:00+00:00
@@ -110924,7 +110924,7 @@
   fields:
     name: Chemistry of interfaces for fibre based materials
     codes: '["415802.0"]'
-    slug: chemistry-of-interfaces-for-fibre-based-materialsa
+    slug: chemistry-of-interfaces-for-fibre-based-materials
     school: 3
     user: null
     modified: 2021-02-13 12:00:00+00:00
@@ -111287,7 +111287,7 @@
   fields:
     name: Current research in renewable materials chemistry
     codes: '["423510.0"]'
-    slug: current-research-in-renewable-materials-chemistrya
+    slug: current-research-in-renewable-materials-chemistry
     school: 3
     user: null
     modified: 2021-02-13 12:00:00+00:00
@@ -112652,7 +112652,7 @@
   fields:
     name: Support for Learning in Reading and Mathematics I
     codes: '["620102.0"]'
-    slug: support-for-learning-in-reading-and-mathematics-ia
+    slug: support-for-learning-in-reading-and-mathematics-i
     school: 3
     user: null
     modified: 2021-02-13 12:00:00+00:00
@@ -114170,7 +114170,7 @@
   fields:
     name: Theoretical perspectives on social policy, masters course
     codes: '["702102.0"]'
-    slug: theoretical-perspectives-on-social-policy-mastersa
+    slug: theoretical-perspectives-on-social-policy-masters
     school: 3
     user: null
     modified: 2021-02-13 12:00:00+00:00
@@ -115290,7 +115290,7 @@
   fields:
     name: Concept and substance of the theory of caritative caring
     codes: '["707030.0"]'
-    slug: concept-and-substance-of-the-theory-of-caritativea
+    slug: concept-and-substance-of-the-theory-of-caritative
     school: 3
     user: null
     modified: 2021-02-13 12:00:00+00:00
@@ -116618,7 +116618,7 @@
   fields:
     name: African sexuality, gender, race, desire and pleasure
     codes: '["119216.0"]'
-    slug: african-sexuality-gender-race-desire-and-pleasurea
+    slug: african-sexuality-gender-race-desire-and-pleasure
     school: 3
     user: null
     modified: 2021-02-13 12:00:00+00:00
@@ -116642,7 +116642,7 @@
   fields:
     name: 'Group Knowledge: Group Dynamics and to Lead Groups'
     codes: '["118221.0"]'
-    slug: group-knowledge-group-dynamics-and-to-lead-groupsa
+    slug: group-knowledge-group-dynamics-and-to-lead-groups
     school: 3
     user: null
     modified: 2021-02-13 12:00:00+00:00
@@ -116762,7 +116762,7 @@
   fields:
     name: Introduction to the Gender Studies Master's Degree Programme
     codes: '["119515.0"]'
-    slug: introduction-to-the-gender-studies-masters-degreea
+    slug: introduction-to-the-gender-studies-masters-degree
     school: 3
     user: null
     modified: 2021-02-13 12:00:00+00:00
@@ -117646,7 +117646,7 @@
   fields:
     name: Laboratory Practice in Process Design and Systems Engineering I
     codes: '["411535.0"]'
-    slug: laboratory-practice-in-process-design-and-systemsa
+    slug: laboratory-practice-in-process-design-and-systems
     school: 3
     user: null
     modified: 2021-02-13 12:00:00+00:00
@@ -119067,7 +119067,7 @@
   fields:
     name: Theories and concepts of developmental psychology
     codes: '["703137.0"]'
-    slug: theories-and-concepts-of-developmental-psychologya
+    slug: theories-and-concepts-of-developmental-psychology
     school: 3
     user: null
     modified: 2021-02-13 12:00:00+00:00
@@ -119561,7 +119561,7 @@
   fields:
     name: Contemporary questions in politics and government
     codes: '["STATSVETOBL2"]'
-    slug: contemporary-questions-in-politics-and-governmenta
+    slug: contemporary-questions-in-politics-and-government
     school: 3
     user: null
     modified: 2021-02-13 12:00:00+00:00
@@ -120164,7 +120164,7 @@
   fields:
     name: Deeper Studies in Mission and Global Christianity 2
     codes: '["KH00BB69"]'
-    slug: deeper-studies-in-mission-and-global-christianitya
+    slug: deeper-studies-in-mission-and-global-christianity
     school: 3
     user: null
     modified: 2021-02-13 12:00:00+00:00
@@ -120812,7 +120812,7 @@
   fields:
     name: Ethics Between the Theory and Praxis – Case Studies on Social Exclusion/Inclusion
     codes: '["TE00BL36"]'
-    slug: ethics-between-the-theory-and-praxis-case-studiesa
+    slug: ethics-between-the-theory-and-praxis-case-studies
     school: 3
     user: null
     modified: 2021-02-13 12:00:00+00:00
@@ -120872,7 +120872,7 @@
   fields:
     name: Deepening the Perspectives – Texts on Chosen Theory of Main Thinker
     codes: '["TE00BL38"]'
-    slug: deepening-the-perspectives-texts-on-chosen-theorya
+    slug: deepening-the-perspectives-texts-on-chosen-theory
     school: 3
     user: null
     modified: 2021-02-13 12:00:00+00:00
@@ -121653,7 +121653,7 @@
   fields:
     name: Advanced Specialization in the Study of Religions
     codes: '["RV00BN49"]'
-    slug: advanced-specialization-in-the-study-of-religionsa
+    slug: advanced-specialization-in-the-study-of-religions
     school: 3
     user: null
     modified: 2021-02-13 12:00:00+00:00
@@ -122787,7 +122787,7 @@
   fields:
     name: Jerusalem - the Holy City of the Three Monotheistic Faiths
     codes: '["GT00BD11"]'
-    slug: jerusalem-the-holy-city-of-the-three-monotheistica
+    slug: jerusalem-the-holy-city-of-the-three-monotheistic
     school: 3
     user: null
     modified: 2021-02-13 12:00:00+00:00
@@ -127392,7 +127392,7 @@
   fields:
     name: The Political History of the Modern United States
     codes: '["HI00BL32"]'
-    slug: the-political-history-of-the-modern-united-statesa
+    slug: the-political-history-of-the-modern-united-states
     school: 3
     user: null
     modified: 2021-02-13 12:00:00+00:00
@@ -129718,7 +129718,7 @@
   fields:
     name: Educational action research and practice theories
     codes: '["AV00BP23"]'
-    slug: educational-action-research-and-practice-theoriesa
+    slug: educational-action-research-and-practice-theories
     school: 3
     user: null
     modified: 2021-02-13 12:00:00+00:00
@@ -130071,7 +130071,7 @@
     name: 'Health Literacy and Vulnerable Groups: Theoretical Perspectives and Evidence-Based
       Practice'
     codes: '["HK00BP71"]'
-    slug: health-literacy-and-vulnerable-groups-theoreticala
+    slug: health-literacy-and-vulnerable-groups-theoretical
     school: 3
     user: null
     modified: 2021-02-13 12:00:00+00:00
@@ -130122,7 +130122,7 @@
   fields:
     name: Complex Health Problems and Complex Interventions
     codes: '["HK00BP72"]'
-    slug: complex-health-problems-and-complex-interventionsa
+    slug: complex-health-problems-and-complex-interventions
     school: 3
     user: null
     modified: 2021-02-13 12:00:00+00:00
@@ -131075,7 +131075,7 @@
   fields:
     name: Optional course from the selection offered by the University of Turku (UTU)
     codes: '["KS00BQ75"]'
-    slug: optional-course-from-the-selection-offered-by-thea
+    slug: optional-course-from-the-selection-offered-by-the
     school: 3
     user: null
     modified: 2021-02-13 12:00:00+00:00
@@ -131363,7 +131363,7 @@
   fields:
     name: The philosophy and theory of educational sciences
     codes: '["PV00BR35"]'
-    slug: the-philosophy-and-theory-of-educational-sciencesa
+    slug: the-philosophy-and-theory-of-educational-sciences
     school: 3
     user: null
     modified: 2021-02-13 12:00:00+00:00
@@ -131718,7 +131718,7 @@
   fields:
     name: Practical work experience in Chemical- and Process Engineering
     codes: '["KT00BS19"]'
-    slug: practical-work-experience-in-chemical-and-processa
+    slug: practical-work-experience-in-chemical-and-process
     school: 3
     user: null
     modified: 2021-02-13 12:00:00+00:00
@@ -133836,7 +133836,7 @@
   fields:
     name: The Language of Advertising from an International Perspective (KU)
     codes: '["KU00BX54"]'
-    slug: the-language-of-advertising-from-an-internationala
+    slug: the-language-of-advertising-from-an-international
     school: 3
     user: null
     modified: 2021-02-13 12:00:00+00:00
@@ -133932,7 +133932,7 @@
   fields:
     name: Multicultural Education from a Specialeducational Perspective
     codes: '["6200BX84"]'
-    slug: multicultural-education-from-a-specialeducationala
+    slug: multicultural-education-from-a-specialeducational
     school: 3
     user: null
     modified: 2021-02-13 12:00:00+00:00
@@ -134887,7 +134887,7 @@
   fields:
     name: Licentiate Seminar (for doctoral students admitter 1.3.2019 or later)
     codes: '["BV00BZ71"]'
-    slug: licentiate-seminar-for-doctoral-students-admittera
+    slug: licentiate-seminar-for-doctoral-students-admitter
     school: 3
     user: null
     modified: 2021-02-13 12:00:00+00:00
@@ -135358,7 +135358,7 @@
   fields:
     name: Doctoral Studies in Major Subject, Social Policy (5 credits)
     codes: '["SO00CA92"]'
-    slug: doctoral-studies-in-major-subject-social-policy-5a
+    slug: doctoral-studies-in-major-subject-social-policy-5
     school: 3
     user: null
     modified: 2021-02-13 12:00:00+00:00
@@ -135529,7 +135529,7 @@
   fields:
     name: Fremdsprachenlernen und Lernstörungen – Ansätze für Unterricht und Förderung
     codes: '["DE00CB46"]'
-    slug: fremdsprachenlernen-und-lernstorungen-ansatze-fura
+    slug: fremdsprachenlernen-und-lernstorungen-ansatze-fur
     school: 3
     user: null
     modified: 2021-02-13 12:00:00+00:00
@@ -135815,7 +135815,7 @@
   fields:
     name: Introduction to Financial Markets and Instruments
     codes: '["NE00CB91"]'
-    slug: introduction-to-financial-markets-and-instrumentsa
+    slug: introduction-to-financial-markets-and-instruments
     school: 3
     user: null
     modified: 2021-02-13 12:00:00+00:00
@@ -136792,7 +136792,7 @@
   fields:
     name: Speech Language Pathology Clinic, Advanced Level I
     codes: '["LO00CC83"]'
-    slug: speech-language-pathology-clinic-advanced-level-ia
+    slug: speech-language-pathology-clinic-advanced-level-i
     school: 3
     user: null
     modified: 2021-02-13 12:00:00+00:00
@@ -137348,7 +137348,7 @@
   fields:
     name: Freedom of religion and belief in the educational space
     codes: '["MS00CD55"]'
-    slug: freedom-of-religion-and-belief-in-the-educationala
+    slug: freedom-of-religion-and-belief-in-the-educational
     school: 3
     user: null
     modified: 2021-02-13 12:00:00+00:00
@@ -138202,7 +138202,7 @@
   fields:
     name: Methods for Quality Development and Evaluation of Nursing and Caring,
     codes: '["HA00CE52"]'
-    slug: methods-for-quality-development-and-evaluation-ofa
+    slug: methods-for-quality-development-and-evaluation-of
     school: 3
     user: null
     modified: 2021-02-13 12:00:00+00:00
@@ -138469,7 +138469,7 @@
   fields:
     name: The human beings needs and care process in theory and practice
     codes: '["VV00CE80"]'
-    slug: the-human-beings-needs-and-care-process-in-theorya
+    slug: the-human-beings-needs-and-care-process-in-theory
     school: 3
     user: null
     modified: 2021-02-13 12:00:00+00:00
@@ -138770,7 +138770,7 @@
   fields:
     name: Multiprofessional collaboration and consutation 1
     codes: '["SP00CF04"]'
-    slug: multiprofessional-collaboration-and-consutation-1a
+    slug: multiprofessional-collaboration-and-consutation-1
     school: 3
     user: null
     modified: 2021-02-13 12:00:00+00:00
@@ -139087,7 +139087,7 @@
   fields:
     name: Intermediate studies in physical education, part 2
     codes: '["GY00CF49"]'
-    slug: intermediate-studies-in-physical-education-part-2a
+    slug: intermediate-studies-in-physical-education-part-2
     school: 3
     user: null
     modified: 2021-02-13 12:00:00+00:00
@@ -139099,7 +139099,7 @@
   fields:
     name: Intermediate studies in physical education, part 1
     codes: '["GY00CF48"]'
-    slug: intermediate-studies-in-physical-education-part-1a
+    slug: intermediate-studies-in-physical-education-part-1
     school: 3
     user: null
     modified: 2021-02-13 12:00:00+00:00
@@ -140319,7 +140319,7 @@
   fields:
     name: Using GAS-Method in Speech and Language Pathology
     codes: '["LO00CH03"]'
-    slug: using-gas-method-in-speech-and-language-pathologya
+    slug: using-gas-method-in-speech-and-language-pathology
     school: 3
     user: null
     modified: 2021-02-13 12:00:00+00:00

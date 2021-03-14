@@ -133,6 +133,9 @@ LOCALE_PATHS = [BASE_DIR / "skole/locale"]
 # Parler settings
 PARLER_LANGUAGES = {SITE_ID: ({"code": "en"}, {"code": "fi"}, {"code": "sv"})}
 
+# Autoslug
+AUTOSLUG_SLUGIFY_FUNCTION = "skole.utils.misc.slugify"
+
 # Graphene settings
 GRAPHENE = {
     "SCHEMA": "skole.schema.schema",

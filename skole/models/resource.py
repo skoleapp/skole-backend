@@ -44,7 +44,6 @@ class Resource(SkoleModel):
         default=None,
         populate_from="__str__",
         unique=True,
-        always_update=True,
     )
 
     resource_type = models.ForeignKey("skole.ResourceType", on_delete=models.PROTECT)

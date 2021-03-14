@@ -13,7 +13,6 @@ class City(TranslatableSkoleModel):
         default=None,
         populate_from="__str__",
         unique=True,
-        always_update=True,
     )
 
     country = models.ForeignKey(

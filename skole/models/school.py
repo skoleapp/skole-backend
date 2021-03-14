@@ -25,7 +25,6 @@ class School(TranslatableSkoleModel):
         default=None,
         populate_from="__str__",
         unique=True,
-        always_update=True,
     )
 
     school_type = models.ForeignKey(

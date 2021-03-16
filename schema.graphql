@@ -370,6 +370,7 @@ type PaginatedSubjectObjectType {
 }
 
 type Query {
+  badges: [BadgeObjectType]
   comments(user: String, page: Int, pageSize: Int): PaginatedCommentObjectType
   discussion(course: ID, resource: ID, school: ID): [CommentObjectType]
   discussionSuggestions: [DiscussionsUnion]

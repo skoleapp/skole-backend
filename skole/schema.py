@@ -1,6 +1,7 @@
 import graphene
 
 import skole.schemas.activity
+import skole.schemas.badge
 import skole.schemas.city
 import skole.schemas.comment
 import skole.schemas.contact
@@ -35,6 +36,7 @@ class Query(
     skole.schemas.user.Query,
     skole.schemas.suggestions.Query,
     skole.schemas.comment.Query,
+    skole.schemas.badge.Query,
 ):
     pass
 

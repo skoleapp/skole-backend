@@ -15,93 +15,108 @@ def create_activity(
 ) -> None:
     """Create activity for course comment, resource comment, or comment reply."""
 
+    # Skip when installing fixtures or when updating a comment.
     if not created or raw:
-        # Skip when installing fixtures or when updating a comment.
         return
 
     target_user = instance.user
+    top_level_comment = instance.comment
+    resource = instance.resource
+    course = instance.course
 
-    if (
-        instance.comment
-        and instance.comment.user
-        and instance.comment.user != target_user
-        and not instance.comment.comment
-    ):
-        # Reply comment.
+    # Skip when replying to anonymous comment.
+    if top_level_comment and not top_level_comment.user:
+        return
+
+    # Skip when replying to own comment.
+    if top_level_comment and target_user == top_level_comment.user:
+        return
+
+    # Skip when commenting on own resource.
+    if resource and target_user == resource.user:
+        return
+
+    # Skip when commenting on own course.
+    if course and target_user == course.user:
+        return
+
+    # The user receiving the activity is one of the following:
+    # - Owner of the resource.
+    # - Owner of the course.
+    # - Owner of the top-level comment.
+    user = (
+        getattr(resource, "user", None)
+        or getattr(course, "user", None)
+        or getattr(top_level_comment, "user", None)
+    )
+
+    if resource:
+        activity_type = ActivityType.objects.get(name=ActivityTypes.RESOURCE_COMMENT)
+
         Activity.objects.create(
-            user=instance.comment.user,
+            user=user,
             target_user=target_user,
-            course=instance.comment.course,
-            resource=instance.comment.resource,
-            school=instance.comment.school,
-            comment=instance.comment,
-            activity_type=ActivityType.objects.get(name=ActivityTypes.COMMENT_REPLY),
+            comment=instance,
+            activity_type=activity_type,
         )
-    else:
-        if (
-            instance.resource
-            and instance.resource.user
-            and instance.resource.user != target_user
-        ):
-            # Resource comment.
+
+    if course:
+        # If the comment is sent to both a resource and a course that share the same owner, only create an activity for the resource comment.
+        if not resource or resource and resource.user != course.user:
+            activity_type = ActivityType.objects.get(name=ActivityTypes.COURSE_COMMENT)
+
             Activity.objects.create(
-                user=instance.resource.user,
+                user=user,
                 target_user=target_user,
-                course=None,
-                resource=instance.resource,
-                school=None,
                 comment=instance,
-                activity_type=ActivityType.objects.get(
-                    name=ActivityTypes.RESOURCE_COMMENT
-                ),
+                activity_type=activity_type,
             )
 
-        elif (
-            instance.course
-            and instance.course.user
-            and instance.course.user != target_user
-        ):
-            # Course comment.
-            Activity.objects.create(
-                user=instance.course.user,
-                target_user=target_user,
-                course=instance.course,
-                resource=None,
-                school=None,
-                comment=instance,
-                activity_type=ActivityType.objects.get(
-                    name=ActivityTypes.COURSE_COMMENT
-                ),
-            )
+    elif top_level_comment:
+        activity_type = ActivityType.objects.get(name=ActivityTypes.COMMENT_REPLY)
+
+        Activity.objects.create(
+            user=user,
+            target_user=target_user,
+            comment=instance,
+            activity_type=activity_type,
+        )
 
 
 @receiver(post_save, sender=Activity)
-def send_activity_email(
+def send_activity_notifications(
     sender: type[Activity], instance: Activity, created: bool, raw: bool, **kwargs: Any
 ) -> None:
-    """Send email notification for new activities."""
+    """Send email and push notifications for new activities."""
 
+    # Skip when installing fixtures or when updating an activity.
     if not created or raw:
-        # Skip when installing fixtures or when updating an activity.
         return
 
-    # Reply comment.
-    if instance.comment:
-        if instance.user.comment_reply_email_permission:
+    comment = instance.comment
+
+    # Skip if activity is invalid.
+    if not comment:
+        return
+
+    user = instance.user
+    resource = comment.resource
+    course = comment.course
+
+    if resource:
+        if user.resource_comment_email_permission:
             send_email_notification(activity=instance)
-        if instance.user.comment_reply_push_permission:
+        if user.resource_comment_push_permission:
             send_push_notification(activity=instance)
 
-    # Resource comment.
-    elif instance.resource:
-        if instance.user.resource_comment_email_permission:
+    if course:
+        if user.course_comment_email_permission:
             send_email_notification(activity=instance)
-        if instance.user.resource_comment_push_permission:
+        if user.course_comment_push_permission:
             send_push_notification(activity=instance)
 
-    # Course comment.
-    elif instance.course:
-        if instance.user.course_comment_email_permission:
+    elif comment.comment:
+        if user.comment_reply_email_permission:
             send_email_notification(activity=instance)
-        if instance.user.course_comment_push_permission:
+        if user.comment_reply_push_permission:
             send_push_notification(activity=instance)

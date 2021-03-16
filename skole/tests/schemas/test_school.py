@@ -105,5 +105,5 @@ class SchoolSchemaTests(SkoleSchemaTestCase):
         assert school["country"]["slug"] == "finland"
         assert school["country"]["name"] == "Finland"
         assert len(school["subjects"]) == 2
-        assert len(school["courses"]) == 22
-        assert self.query_school(slug="no-found") is None
+        assert len(school["courses"]) == 23
+        assert self.query_school(slug="not-found") is None

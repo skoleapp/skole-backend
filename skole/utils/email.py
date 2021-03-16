@@ -158,56 +158,49 @@ def send_marketing_email(request: HttpRequest, instance: MarketingEmail) -> None
             )
 
 
-def _get_email_notification_context(
-    activity: Activity, target_username: str, description: str
-) -> JsonDict:
-    site = Site.objects.get_current()
-    protocol = "http" if settings.DEBUG else "https"
+def send_email_notification(activity: Activity) -> None:
+    target_username = (
+        activity.target_user.username if activity.target_user else Email.COMMUNITY_USER
+    )
 
-    # If activity contains multiple targets, use the most low-level one as the path.
-    if activity.resource and activity.comment:
-        path = settings.RESOURCE_COMMENT_PATH_ON_EMAIL.format(
-            activity.resource.slug, activity.comment.id
-        )
+    description = activity.activity_type.description
+    subject = Email.EMAIL_NOTIFICATION_SUBJECT.format(target_username, description)
 
-    elif activity.course and activity.comment:
-        path = settings.COURSE_COMMENT_PATH_ON_EMAIL.format(
-            activity.course.slug, activity.comment.id
-        )
+    user = activity.user
+    comment = activity.comment
+    assert comment
+    top_level_comment = comment.comment
+    resource = comment.resource or getattr(top_level_comment, "resource", None)
+    course = comment.course or getattr(top_level_comment, "course", None)
+    school = comment.school or getattr(top_level_comment, "school", None)
 
-    elif activity.school and activity.comment:
-        path = settings.SCHOOL_COMMENT_PATH_ON_EMAIL.format(
-            activity.school.slug, activity.comment.id
-        )
+    if resource or top_level_comment and top_level_comment.resource:
+        path = settings.RESOURCE_COMMENT_PATH_ON_EMAIL.format(resource.slug, comment.pk)
+
+    elif course or top_level_comment and top_level_comment.course:
+        path = settings.COURSE_COMMENT_PATH_ON_EMAIL.format(course.slug, comment.pk)
+
+    elif school or top_level_comment and top_level_comment.school:
+        path = settings.SCHOOL_COMMENT_PATH_ON_EMAIL.format(school.slug, comment.pk)
 
     else:
         raise ValueError("Invalid activity. Cannot send email.")
 
+    site = Site.objects.get_current()
+    protocol = "http" if settings.DEBUG else "https"
     url = f"{protocol}://{site.domain}/{path}"
 
-    return {
-        "user": activity.user,
+    context = {
+        "user": user,
         "target_username": target_username,
         "description": description,
         "url": url,
     }
 
-
-def send_email_notification(activity: Activity) -> None:
-    target_username = (
-        activity.target_user.username if activity.target_user else Email.COMMUNITY_USER
-    )
-    description = activity.activity_type.description
-    subject = Email.EMAIL_NOTIFICATION_SUBJECT.format(target_username, description)
-
-    email_context = _get_email_notification_context(
-        activity=activity, target_username=target_username, description=description
-    )
-
     return _send(
         subject=subject,
         from_email=settings.EMAIL_ADDRESS,
         template="email/email_notification.html",
-        user=activity.user,
-        context=email_context,
+        user=user,
+        context=context,
     )

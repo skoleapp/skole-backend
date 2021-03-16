@@ -653,6 +653,9 @@
     verified: True
     product_update_email_permission: False
     blog_post_email_permission: False
+    comment_reply_email_permission: False
+    course_comment_email_permission: False
+    resource_comment_email_permission: False
     is_active: True
     is_staff: False
     is_superuser: False
@@ -946,10 +949,21 @@
   fields:
     name: Test Engineering Course 25
     codes: [TEST00025]
-    slug: test-engineering-course-25-test00026
+    slug: test-engineering-course-25-test00025
     subjects: [1]
     school: 1
     user: 4
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Course
+  pk: 26
+  fields:
+    name: Test Engineering Course 26
+    codes: [TEST00026]
+    slug: test-engineering-course-26-test00026
+    subjects: [1]
+    school: 1
+    user: 11
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
 
@@ -1221,6 +1235,18 @@
     slug: sample-exercise-13-2012-12-12
     course: 1
     user: 3
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Resource
+  pk: 16
+  fields:
+    resource_type: 2
+    title: Sample Exercise 14
+    file: uploads/resources/test_resource.pdf
+    date: 2012-12-12
+    slug: sample-exercise-14-2012-12-12
+    course: 1
+    user: 11
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
 
@@ -1828,8 +1854,6 @@
     user: 2
     target_user: 3
     activity_type: 1
-    course: 1
-    resource: null
     comment: 4
     read: False
 - model: skole.Activity
@@ -1838,8 +1862,6 @@
     user: 2
     target_user: 3
     activity_type: 2
-    course: 1
-    resource: null
     comment: 1
     read: False
 - model: skole.Activity
@@ -1848,9 +1870,7 @@
     user: 2
     target_user: 5
     activity_type: 3
-    course: null
-    resource: 1
-    comment: null
+    comment: 5
     read: False
 
 - model: skole.Star

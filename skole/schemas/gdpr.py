@@ -164,7 +164,9 @@ class MyDataMutation(SkoleObjectType, graphene.Mutation):
 
     @classmethod
     def _activities(cls, user: User) -> QuerySet[Activity]:
-        return user.activities.annotate(target=cls.__target_case()).values(
+        return user.activities.annotate(
+            target=Case(*cls.__target_case().cases[:1])
+        ).values(
             "id",
             "read",
             "target",
@@ -173,9 +175,9 @@ class MyDataMutation(SkoleObjectType, graphene.Mutation):
 
     @classmethod
     def _caused_activities(cls, user: User) -> QuerySet[Activity]:
-        return user.target_activities.annotate(target=cls.__target_case()).values(
-            "id", "read", "target", type=cls.__activity_type_name()
-        )
+        return user.target_activities.annotate(
+            target=Case(*cls.__target_case().cases[:1])
+        ).values("id", "read", "target", type=cls.__activity_type_name())
 
     @classmethod
     def _votes(cls, user: User) -> QuerySet[Vote]:

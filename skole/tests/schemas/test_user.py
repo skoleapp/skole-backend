@@ -866,11 +866,20 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert FCMDevice.objects.count() == 1
         FCMDevice.objects.get(user=user, registration_id=token)
 
+        # Register a second device.
+
+        token = "token2"
+        res = self.mutate_register_fcm_token(token=token)
+        assert not res["errors"]
+        assert res["successMessage"] == Messages.FCM_TOKEN_UPDATED
+        assert FCMDevice.objects.count() == 2
+        FCMDevice.objects.get(user=user, registration_id=token)
+
         # Update existing token.
 
         token = "token2"
         res = self.mutate_register_fcm_token(token=token)
         assert not res["errors"]
         assert res["successMessage"] == Messages.FCM_TOKEN_UPDATED
-        assert FCMDevice.objects.count() == 1
+        assert FCMDevice.objects.count() == 2
         FCMDevice.objects.get(user=user, registration_id=token)

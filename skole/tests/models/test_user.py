@@ -159,9 +159,16 @@ def test_register_fcm_token() -> None:
     assert FCMDevice.objects.count() == 1
     FCMDevice.objects.get(user=user, registration_id=token)
 
+    # Register a second device.
+
+    token = "token2"
+    user.register_fcm_token(token=token)
+    assert FCMDevice.objects.count() == 2
+    FCMDevice.objects.get(user=user, registration_id=token)
+
     # Update existing token.
 
     token = "token2"
     user.register_fcm_token(token=token)
-    assert FCMDevice.objects.count() == 1
+    assert FCMDevice.objects.count() == 2
     FCMDevice.objects.get(user=user, registration_id=token)

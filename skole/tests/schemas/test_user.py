@@ -2,6 +2,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core import mail
 from django.utils import translation
+from fcm_django.models import FCMDevice
 
 from skole.models import Badge, BadgeProgress
 from skole.tests.helpers import (
@@ -39,11 +40,15 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
             verified
             rank
             unreadActivityCount
+            fcmToken
             productUpdateEmailPermission
             blogPostEmailPermission
             commentReplyEmailPermission
             courseCommentEmailPermission
             resourceCommentEmailPermission
+            commentReplyPushPermission
+            courseCommentPushPermission
+            resourceCommentPushPermission
             badges {
                 id
                 name
@@ -175,6 +180,9 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         comment_reply_email_permission: bool = True,
         course_comment_email_permission: bool = True,
         resource_comment_email_permission: bool = True,
+        comment_reply_push_permission: bool = True,
+        course_comment_push_permission: bool = True,
+        resource_comment_push_permission: bool = True,
     ) -> JsonDict:
         return self.execute_input_mutation(
             name="updateAccountSettings",
@@ -188,6 +196,9 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
                 "commentReplyEmailPermission": comment_reply_email_permission,
                 "courseCommentEmailPermission": course_comment_email_permission,
                 "resourceCommentEmailPermission": resource_comment_email_permission,
+                "commentReplyPushPermission": comment_reply_push_permission,
+                "courseCommentPushPermission": course_comment_push_permission,
+                "resourceCommentPushPermission": resource_comment_push_permission,
             },
             result="user { ...userFields } successMessage",
             fragment=self.user_fields,
@@ -250,6 +261,14 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
             input_type="UpdateSelectedBadgeMutationInput!",
             input={"id": badge},
             result="badgeProgress { badge { id name } } successMessage",
+        )
+
+    def mutate_register_fcm_token(self, *, token: str) -> JsonDict:
+        return self.execute_input_mutation(
+            name="registerFcmToken",
+            input_type="RegisterFCMTokenMutationInput!",
+            input={"token": token},
+            result="successMessage",
         )
 
     def test_field_fragment(self) -> None:
@@ -469,6 +488,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert user1["verified"]
         assert user1["rank"] == "Freshman"
         assert user1["unreadActivityCount"] == 3
+        assert user1["fcmToken"] is None
         assert user1["school"] == {"id": "1"}
         assert user1["subject"] == {"id": "1"}
         assert len(user1["badges"]) == 1
@@ -488,6 +508,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert len(user2["badges"]) == 0
         assert user2["badgeProgresses"] is None  # Private field.
         assert user2["unreadActivityCount"] is None  # Private field.
+        assert user2["fcmToken"] is None  # Private field.
         assert user2["email"] is None  # Private field.
         assert user2["verified"] is None  # Private field.
         assert user2["school"] is None  # Private field.
@@ -504,6 +525,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert user["verified"]
         assert user["rank"] == "Freshman"
         assert user["unreadActivityCount"] == 3
+        assert user["fcmToken"] is None
         assert user["school"] == {"id": "1"}
         assert user["subject"] == {"id": "1"}
         assert len(user["badges"]) == 1
@@ -636,6 +658,9 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         comment_reply_email_permission = False
         course_comment_email_permission = False
         resource_comment_email_permission = False
+        comment_reply_push_permission = False
+        course_comment_push_permission = False
+        resource_comment_push_permission = False
 
         res = self.mutate_update_account_settings(
             school=new_school,
@@ -645,6 +670,9 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
             comment_reply_email_permission=comment_reply_email_permission,
             course_comment_email_permission=course_comment_email_permission,
             resource_comment_email_permission=resource_comment_email_permission,
+            comment_reply_push_permission=comment_reply_push_permission,
+            course_comment_push_permission=course_comment_push_permission,
+            resource_comment_push_permission=resource_comment_push_permission,
         )
 
         assert not res["errors"]
@@ -655,6 +683,9 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert not res["user"]["commentReplyEmailPermission"]
         assert not res["user"]["courseCommentEmailPermission"]
         assert not res["user"]["resourceCommentEmailPermission"]
+        assert not res["user"]["commentReplyPushPermission"]
+        assert not res["user"]["courseCommentPushPermission"]
+        assert not res["user"]["resourceCommentPushPermission"]
         assert res["successMessage"] == Messages.ACCOUNT_SETTINGS_UPDATED
 
         user_old = self.query_user_me()
@@ -823,3 +854,23 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         user.refresh_from_db()
         # Ignore: We know that `badge` cannot be `None` here.
         assert user.selected_badge_progress.badge == badge  # type: ignore[attr-defined]
+
+    def test_register_fcm_token(self) -> None:
+        # Register new token.
+
+        user = self.get_authenticated_user()
+        token = "token"
+        res = self.mutate_register_fcm_token(token=token)
+        assert not res["errors"]
+        assert res["successMessage"] == Messages.FCM_TOKEN_UPDATED
+        assert FCMDevice.objects.count() == 1
+        FCMDevice.objects.get(user=user, registration_id=token)
+
+        # Update existing token.
+
+        token = "token2"
+        res = self.mutate_register_fcm_token(token=token)
+        assert not res["errors"]
+        assert res["successMessage"] == Messages.FCM_TOKEN_UPDATED
+        assert FCMDevice.objects.count() == 1
+        FCMDevice.objects.get(user=user, registration_id=token)

@@ -138,6 +138,9 @@ class UpdateAccountSettingsForm(SkoleModelForm):
             "comment_reply_email_permission",
             "course_comment_email_permission",
             "resource_comment_email_permission",
+            "comment_reply_push_permission",
+            "course_comment_push_permission",
+            "resource_comment_push_permission",
         )
 
     def clean_email(self) -> str:

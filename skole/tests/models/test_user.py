@@ -1,5 +1,7 @@
 import pytest
 from django.contrib.auth import get_user_model
+from django.core.exceptions import ObjectDoesNotExist
+from fcm_django.models import FCMDevice
 
 from skole.models import Badge, BadgeProgress, User
 
@@ -135,3 +137,31 @@ def test_change_selected_badge_progress() -> None:
     # Ignore: We know that `badge` cannot be `None` here.
     assert user.selected_badge_progress.badge.pk == 2  # type: ignore[attr-defined]
     assert badge_progress.badge.pk == 2
+
+
+# @pytest.mark.django_db
+# def test_register_verify_user() -> None:
+#     TODO: Implement.
+#     pass
+
+
+@pytest.mark.django_db
+def test_register_fcm_token() -> None:
+    user = get_user_model().objects.get(pk=2)
+
+    with pytest.raises(ObjectDoesNotExist):
+        FCMDevice.objects.get(user=user)
+
+    # Register new token.
+
+    token = "token"
+    user.register_fcm_token(token=token)
+    assert FCMDevice.objects.count() == 1
+    FCMDevice.objects.get(user=user, registration_id=token)
+
+    # Update existing token.
+
+    token = "token2"
+    user.register_fcm_token(token=token)
+    assert FCMDevice.objects.count() == 1
+    FCMDevice.objects.get(user=user, registration_id=token)

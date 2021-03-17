@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     "imagekit",
     "django_s3_storage",
     "parler",
+    "fcm_django",
     "skole",
 ]
 
@@ -203,6 +204,12 @@ if not DEBUG:  # pragma: no cover
     EMAIL_BACKEND = "django_amazon_ses.EmailBackend"
 else:
     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+# FCM settings
+FCM_DJANGO_SETTINGS = {
+    "FCM_SERVER_KEY": os.environ.get("FCM_SERVER_KEY"),
+    "DELETE_INACTIVE_USERS": True,
+}
 
 # Custom email settings
 EMAIL_ADDRESS = os.environ.get("EMAIL_ADDRESS", default="contact@test.com")

@@ -334,20 +334,12 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         assert get_last(Course.objects.get(pk=3).comments).text == text
         assert get_last(Course.objects.get(pk=3).comments).pk == int(comment["id"])
 
-        assert Activity.objects.count() == old_activity_count + 5
-        assert len(mail.outbox) == 5
-
-        course_comment_activity = Activity.objects.get(course=3)
-        sent = mail.outbox[3]
-        assert sent.from_email == settings.EMAIL_ADDRESS
-        assert sent.to == [course_comment_activity.user.email]
-        assert sent.subject == Email.EMAIL_NOTIFICATION_SUBJECT.format(
-            course_comment_activity.target_user,
-            course_comment_activity.activity_type.description,
-        )
+        # Activity created only for resource comment.
+        assert Activity.objects.count() == old_activity_count + 4
+        assert len(mail.outbox) == 4
 
         resource_comment_activity = Activity.objects.get(resource=15)
-        sent = mail.outbox[4]
+        sent = mail.outbox[3]
         assert sent.from_email == settings.EMAIL_ADDRESS
         assert sent.to == [resource_comment_activity.user.email]
         assert sent.subject == Email.EMAIL_NOTIFICATION_SUBJECT.format(

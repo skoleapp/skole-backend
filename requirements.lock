@@ -15,6 +15,7 @@ django-graphql-jwt==0.3.1
 django-imagekit==4.0.2
 django-parler==2.2
 django-s3-storage==0.13.4
+fcm-django==0.3.7
 graphene==2.1.8
 graphene-django==2.15.0
 graphql-core==2.3.2
@@ -30,6 +31,7 @@ pip==20.3.3
 promise==2.3
 psycopg2==2.8.6
 pycairo==1.20.0
+pyfcm==1.4.9
 PyGObject==3.38.0
 PyJWT==1.7.1
 python-dateutil==2.8.1

@@ -77,6 +77,7 @@ class Messages:
     SUBSCRIPTION_UPDATED = _("Subscription updated successfully!")
     SUBSCRIPTION_DELETED = _("Subscription deleted successfully!")
     BADGE_TRACKING_CHANGED = _("Changed the tracked badge successfully!")
+    FCM_TOKEN_UPDATED = _("FCM token updated!")
 
 
 class Email:
@@ -85,6 +86,7 @@ class Email:
     RESET_PASSWORD_SUBJECT = _("Reset your password on Skole")
     COMMUNITY_USER = _("Community User")
     EMAIL_NOTIFICATION_SUBJECT = "{} {} in Skole"
+    PUSH_NOTIFICATION_TITLE = "New Activity!"
 
 
 def _m(value: str) -> FormError:

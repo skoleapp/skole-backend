@@ -4,7 +4,6 @@ from autoslug import AutoSlugField
 from django.conf import settings
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
-from django.core.exceptions import ObjectDoesNotExist
 from django.core.validators import RegexValidator
 from django.db import models
 from django.db.models import ExpressionWrapper, F, FloatField, QuerySet
@@ -236,10 +235,4 @@ class User(SkoleModel, AbstractBaseUser, PermissionsMixin):
         ).order_by("-percentage")
 
     def register_fcm_token(self, token: str) -> None:
-        try:
-            fcm_device = FCMDevice.objects.get(user=self)
-            fcm_device.registration_id = token
-            fcm_device.save(update_fields=["registration_id"])
-
-        except ObjectDoesNotExist:
-            FCMDevice.objects.create(user=self, registration_id=token)
+        FCMDevice.objects.get_or_create(user=self, registration_id=token)

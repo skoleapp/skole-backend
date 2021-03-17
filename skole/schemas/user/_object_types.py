@@ -151,7 +151,6 @@ class UserObjectType(SkoleDjangoObjectType):
     def resolve_fcm_token(root: User, info: ResolveInfo) -> Optional[str]:
         try:
             return FCMDevice.objects.get(user=info.context.user).registration_id
-
         except ObjectDoesNotExist:
             return None
 

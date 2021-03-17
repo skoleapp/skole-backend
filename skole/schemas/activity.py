@@ -32,9 +32,6 @@ class ActivityObjectType(SkoleDjangoObjectType):
             "description",
             "read",
             "target_user",
-            "course",
-            "resource",
-            "school",
             "comment",
         )
 

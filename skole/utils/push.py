@@ -10,16 +10,18 @@ def send_push_notification(activity: Activity) -> None:
         activity.target_user.username if activity.target_user else Email.COMMUNITY_USER
     )
 
+    comment = activity.comment
+    assert comment
     description = activity.activity_type.description
     title = Email.PUSH_NOTIFICATION_TITLE
     body = f"{target_username} {description}."
 
     data = {
         "activity": activity.pk,
-        "course": getattr(activity.course, "slug", None),
-        "resource": getattr(activity.resource, "slug", None),
-        "school": getattr(activity.school, "slug", None),
-        "comment": getattr(activity.comment, "pk", None),
+        "resource": getattr(comment.resource, "slug", None),
+        "course": getattr(comment.course, "slug", None),
+        "school": getattr(comment.school, "slug", None),
+        "comment": comment.pk,
     }
 
     try:

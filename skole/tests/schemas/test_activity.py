@@ -21,17 +21,17 @@ class ActivitySchemaTests(SkoleSchemaTestCase):
                 username
                 avatarThumbnail
             }
-            course {
-                slug
-            }
-            resource {
-                slug
-            }
-            school {
-                slug
-            }
             comment {
                 id
+                course {
+                    slug
+                }
+                resource {
+                    slug
+                }
+                school {
+                    slug
+                }
             }
         }
     """

@@ -273,7 +273,7 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         res = self.mutate_create_course()
         assert not res["errors"]
         course = res["course"]
-        assert course["id"] == "26"
+        assert course["id"] == "27"
         assert course["name"] == "test course"
         assert course["codes"] == "code0001"
         assert course["user"]["slug"] == "testuser2"
@@ -283,7 +283,7 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         res = self.mutate_create_course(codes="foo,bar")
         assert not res["errors"]
         course = res["course"]
-        assert course["id"] == "27"
+        assert course["id"] == "28"
         assert course["codes"] == "foo, bar"
 
         # These should be 0 by default.
@@ -296,11 +296,11 @@ class CourseSchemaTests(SkoleSchemaTestCase):
 
         # Subjects are not required.
         res = self.mutate_create_course(subjects=[])
-        assert res["course"]["id"] == "28"
+        assert res["course"]["id"] == "29"
 
         # Can omit name but not codes.
         res = self.mutate_create_course(codes="")
-        assert res["course"]["id"] == "29"
+        assert res["course"]["id"] == "30"
         res = self.mutate_create_course(name="")
         assert get_form_error(res) == "This field is required."
         assert res["course"] is None
@@ -340,7 +340,7 @@ class CourseSchemaTests(SkoleSchemaTestCase):
             slug="test-engineering-course-1-test0001"
         )
         assert res["objects"][1]["id"] == "2"
-        assert res["count"] == 25
+        assert res["count"] == 26
         assert res["page"] == page
         assert res["pages"] == 7
         assert res["hasNext"] is True
@@ -351,7 +351,7 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         assert res["objects"][0]["id"] == "5"
         assert res["objects"][1]["id"] == "6"
         assert len(res["objects"]) == page_size
-        assert res["count"] == 25
+        assert res["count"] == 26
         assert res["page"] == page
         assert res["pages"] == 7
         assert res["hasNext"] is True
@@ -362,7 +362,7 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         assert res["objects"][0]["id"] == "11"
         assert res["objects"][1]["id"] == "12"
         assert len(res["objects"]) == page_size
-        assert res["count"] == 25
+        assert res["count"] == 26
         assert res["page"] == page
         assert res["pages"] == 7
         assert res["hasNext"] is True
@@ -370,9 +370,9 @@ class CourseSchemaTests(SkoleSchemaTestCase):
 
         page = 7
         res = self.query_courses(page=page, page_size=page_size)
-        assert res["objects"][0]["id"] == "9"
-        assert len(res["objects"]) == 1  # Last page only has one result.
-        assert res["count"] == 25
+        assert res["objects"][0]["id"] == "8"
+        assert len(res["objects"]) == 2
+        assert res["count"] == 26
         assert res["page"] == page
         assert res["pages"] == 7
         assert res["hasNext"] is False
@@ -402,7 +402,7 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         course = Course.objects.get(pk=3)
         user = User.objects.get(pk=2)
         Vote.objects.perform_vote(user=user, status=-1, target=course)
-        res = self.query_courses(ordering="score", page_size=25)
+        res = self.query_courses(ordering="score", page_size=26)
         assert res["objects"][-1]["id"] == str(course.pk)
 
         res = self.query_courses(search_term="Course 7")
@@ -417,10 +417,10 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         assert res["count"] == 11
 
         res = self.query_courses(country="finland")
-        assert res["count"] == 25
+        assert res["count"] == 26
 
         res = self.query_courses(subject="computer-engineering")
-        assert res["count"] == 22
+        assert res["count"] == 23
 
         res = self.query_courses(subject="computer-science")
         assert res["count"] == 3
@@ -442,10 +442,10 @@ class CourseSchemaTests(SkoleSchemaTestCase):
             ordering="-name",
         )
 
-        assert res["count"] == 8
+        assert res["count"] == 9
         assert len(res["objects"]) == 2
-        assert res["objects"][0]["codes"] == "TEST00025"
-        assert res["objects"][1]["codes"] == "TEST00024"
+        assert res["objects"][0]["codes"] == "TEST00026"
+        assert res["objects"][1]["codes"] == "TEST00025"
 
         # Test that only courses of the correct user are returned.
 
@@ -466,7 +466,7 @@ class CourseSchemaTests(SkoleSchemaTestCase):
 
     def test_autocomplete_courses(self) -> None:
         courses = self.query_autocomplete_courses()
-        assert len(courses) == 25
+        assert len(courses) == 26
         # By default, best courses are returned.
         assert courses[0] == self.query_course(
             slug="test-engineering-course-1-test0001"
@@ -546,7 +546,7 @@ class CourseSchemaTests(SkoleSchemaTestCase):
         assert course["school"] == {"slug": "university-of-turku"}
         assert course["user"] == {"slug": "testuser2"}
         assert course["starCount"] == 1
-        assert course["resourceCount"] == 15
+        assert course["resourceCount"] == 16
         assert course["commentCount"] == 18
         assert is_iso_datetime(course["modified"])
         assert is_iso_datetime(course["created"])

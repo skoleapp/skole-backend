@@ -1,10 +1,9 @@
 from typing import Optional
 
 from django.conf import settings
-from django.core import mail
 from django.test import override_settings
 
-from skole.models import Activity, Comment, Course, Resource, School
+from skole.models import Comment, Course, Resource, School
 from skole.tests.helpers import (
     TEST_ATTACHMENT_PNG,
     UPLOADED_ATTACHMENT_PNG,
@@ -17,7 +16,7 @@ from skole.tests.helpers import (
     open_as_file,
 )
 from skole.types import ID, JsonDict
-from skole.utils.constants import Email, Messages, ValidationErrors
+from skole.utils.constants import Messages, ValidationErrors
 
 
 class CommentSchemaTests(SkoleSchemaTestCase):
@@ -226,9 +225,8 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         self.assert_field_fragment_matches_schema(self.comment_fields)
 
     def test_create_comment(self) -> None:  # pylint: disable=too-many-statements
-        # Create a reply comment to a comment of another user.
+        # Create a reply comment.
         old_count = Comment.objects.count()
-        old_activity_count = 3
         text = "Some text for the comment."
         res = self.mutate_create_comment(text=text, comment=2)
         comment = res["comment"]
@@ -240,93 +238,32 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         assert Comment.objects.get(pk=2).reply_comments.get().pk == int(comment["id"])
         assert comment["user"]["id"] == "2"
 
-        assert Activity.objects.count() == old_activity_count + 1
-        assert len(mail.outbox) == 1
-
-        # Create a reply comment to own comment.
-        res = self.mutate_create_comment(text=text, comment=1)
-        comment = res["comment"]
-        assert not res["errors"]
-        assert comment["text"] == text
-        assert Comment.objects.count() == old_count + 2
-        assert Comment.objects.get(pk=1).reply_comments.count() == 1
-        assert Comment.objects.get(pk=1).reply_comments.get().text == text
-        assert Comment.objects.get(pk=1).reply_comments.get().pk == int(comment["id"])
-        assert comment["user"]["id"] == "2"
-
-        assert Activity.objects.count() == old_activity_count + 1
-        assert len(mail.outbox) == 1
-
-        # Create a comment to a resource of another user.
+        # Create a comment to a resource.
         res = self.mutate_create_comment(text=text, resource=2)
         comment = res["comment"]
         assert not res["errors"]
         assert comment["text"] == text
-        assert Comment.objects.count() == old_count + 3
+        assert Comment.objects.count() == old_count + 2
         assert Resource.objects.get(pk=2).comments.count() == 2
         assert get_last(Resource.objects.get(pk=2).comments).text == text
         assert get_last(Resource.objects.get(pk=2).comments).pk == int(comment["id"])
 
-        assert Activity.objects.count() == old_activity_count + 2
-        activity = Activity.objects.get(resource=2)
-        assert len(mail.outbox) == 2
-        sent = mail.outbox[1]
-        assert sent.from_email == settings.EMAIL_ADDRESS
-        assert sent.to == [activity.user.email]
-        assert sent.subject == Email.EMAIL_NOTIFICATION_SUBJECT.format(
-            activity.target_user, activity.activity_type.description
-        )
-
-        # Create a comment to own resource.
-        res = self.mutate_create_comment(text=text, resource=1)
-        comment = res["comment"]
-        assert not res["errors"]
-        assert comment["text"] == text
-        assert Comment.objects.count() == old_count + 4
-        assert Resource.objects.get(pk=1).comments.count() == 5
-        assert get_last(Resource.objects.get(pk=1).comments).text == text
-        assert get_last(Resource.objects.get(pk=1).comments).pk == int(comment["id"])
-        assert Activity.objects.count() == old_activity_count + 2
-        assert len(mail.outbox) == 2
-
-        # Create a comment to a course of another user.
+        # Create a comment to a course.
         res = self.mutate_create_comment(text=text, course=2)
         comment = res["comment"]
         assert not res["errors"]
         assert comment["text"] == text
-        assert Comment.objects.count() == old_count + 5
+        assert Comment.objects.count() == old_count + 3
         assert Course.objects.get(pk=2).comments.count() == 2
         assert get_last(Course.objects.get(pk=2).comments).text == text
         assert get_last(Course.objects.get(pk=2).comments).pk == int(comment["id"])
 
-        assert Activity.objects.count() == old_activity_count + 3
-        activity = Activity.objects.get(course=2)
-        assert len(mail.outbox) == 3
-        sent = mail.outbox[2]
-        assert sent.from_email == settings.EMAIL_ADDRESS
-        assert sent.to == [activity.user.email]
-        assert sent.subject == Email.EMAIL_NOTIFICATION_SUBJECT.format(
-            activity.target_user, activity.activity_type.description
-        )
-
-        # Create a comment to own course.
-        res = self.mutate_create_comment(text=text, course=1)
-        comment = res["comment"]
-        assert not res["errors"]
-        assert comment["text"] == text
-        assert Comment.objects.count() == old_count + 6
-        assert Course.objects.get(pk=1).comments.count() == 9
-        assert get_last(Course.objects.get(pk=1).comments).text == text
-        assert get_last(Course.objects.get(pk=1).comments).pk == int(comment["id"])
-        assert Activity.objects.count() == old_activity_count + 3
-        assert len(mail.outbox) == 3
-
-        # Create a comment to resource and course of another user.
+        # Create a comment to resource and course.
         res = self.mutate_create_comment(text=text, course=3, resource=15)
         comment = res["comment"]
         assert not res["errors"]
         assert comment["text"] == text
-        assert Comment.objects.count() == old_count + 7
+        assert Comment.objects.count() == old_count + 4
         assert Resource.objects.get(pk=15).comments.count() == 1
         assert get_last(Resource.objects.get(pk=15).comments).text == text
         assert get_last(Resource.objects.get(pk=15).comments).pk == int(comment["id"])
@@ -334,27 +271,28 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         assert get_last(Course.objects.get(pk=3).comments).text == text
         assert get_last(Course.objects.get(pk=3).comments).pk == int(comment["id"])
 
-        # Activity created only for resource comment.
-        assert Activity.objects.count() == old_activity_count + 4
-        assert len(mail.outbox) == 4
-
-        resource_comment_activity = Activity.objects.get(resource=15)
-        sent = mail.outbox[3]
-        assert sent.from_email == settings.EMAIL_ADDRESS
-        assert sent.to == [resource_comment_activity.user.email]
-        assert sent.subject == Email.EMAIL_NOTIFICATION_SUBJECT.format(
-            resource_comment_activity.target_user,
-            resource_comment_activity.activity_type.description,
-        )
-
         # Create a comment to a school.
 
         res = self.mutate_create_comment(text=text, school=1)
         comment = res["comment"]
         assert not res["errors"]
         assert comment["text"] == text
-        assert Comment.objects.count() == old_count + 8
+        assert Comment.objects.count() == old_count + 5
         assert School.objects.get(pk=1).comments.count() == 2
+        assert get_last(School.objects.get(pk=1).comments).text == text
+        assert get_last(School.objects.get(pk=1).comments).pk == int(comment["id"])
+
+        # Create a comment to course and school.
+
+        res = self.mutate_create_comment(text=text, course=3, school=1)
+        comment = res["comment"]
+        assert not res["errors"]
+        assert comment["text"] == text
+        assert Comment.objects.count() == old_count + 6
+        assert Course.objects.get(pk=3).comments.count() == 3
+        assert get_last(Course.objects.get(pk=3).comments).text == text
+        assert get_last(Course.objects.get(pk=3).comments).pk == int(comment["id"])
+        assert School.objects.get(pk=1).comments.count() == 3
         assert get_last(School.objects.get(pk=1).comments).text == text
         assert get_last(School.objects.get(pk=1).comments).pk == int(comment["id"])
 
@@ -369,7 +307,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         assert comment["text"] == text
         assert is_slug_match(UPLOADED_ATTACHMENT_PNG, comment["attachment"])
         assert comment["attachmentThumbnail"]
-        assert Comment.objects.count() == old_count + 9
+        assert Comment.objects.count() == old_count + 7
 
         self.authenticated_user = None
 
@@ -380,7 +318,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         assert comment["text"] == text
         assert comment["course"]["id"] == "3"
         assert comment["user"] is None
-        assert Comment.objects.count() == old_count + 10
+        assert Comment.objects.count() == old_count + 8
 
         # Can't add an attachment to the comment without logging in.
         with open_as_file(TEST_ATTACHMENT_PNG) as attachment:
@@ -394,7 +332,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         assert not res["errors"]
         assert res["comment"]["attachment"] == ""  # Note that no attachment here.
         assert res["comment"]["text"] == text
-        assert Comment.objects.count() == old_count + 11
+        assert Comment.objects.count() == old_count + 9
 
         # Can't add an attachment to the comment without having a verified account.
 
@@ -412,7 +350,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         assert not res["errors"]
         assert res["comment"]["attachment"] == ""  # Note that no attachment here.
         assert res["comment"]["text"] == text
-        assert Comment.objects.count() == old_count + 12
+        assert Comment.objects.count() == old_count + 10
 
         self.authenticated_user = 2
 
@@ -421,7 +359,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         assert get_form_error(res) == ValidationErrors.COMMENT_EMPTY
 
         # Check that the comment count hasn't changed.
-        assert Comment.objects.count() == old_count + 12
+        assert Comment.objects.count() == old_count + 10
 
         # Test creating anonymous comment as authenticated user.
         res = self.mutate_create_comment(user=None, text=text, course=2)
@@ -433,6 +371,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         res = self.mutate_create_comment(
             user=self.authenticated_user + 1, text=text, course=2
         )
+
         comment = res["comment"]
         assert not res["errors"]
         assert comment["user"] is None

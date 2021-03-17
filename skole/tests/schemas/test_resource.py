@@ -286,7 +286,7 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
 
         # Test that only resources of the correct course are returned.
 
-        page = 15
+        page = 16
         course = "test-engineering-course-1-test0001"
 
         res = self.query_resources(course=course, page=page, page_size=page_size)
@@ -296,9 +296,9 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
         for resource in res["objects"]:
             assert resource["course"]["slug"] == course
 
-        assert res["count"] == 15
+        assert res["count"] == 16
         assert res["page"] == page
-        assert res["pages"] == 15
+        assert res["pages"] == 16
         assert res["hasNext"] is False
         assert res["hasPrev"] is True
 
@@ -395,7 +395,7 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
 
         resource = res["resource"]
         assert not res["errors"]
-        assert resource["id"] == "16"
+        assert resource["id"] == "17"
         assert resource["title"] == "test title"
         current_date = str(datetime.date.today())
         assert resource["date"] == current_date

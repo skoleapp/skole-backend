@@ -44,12 +44,12 @@ USER user
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
 
 
-FROM dev AS circleci
+FROM dev AS ci
 
 COPY --chown=user:user . .
 
 CMD python manage.py graphql_schema --out=/tmp/compare.graphql && diff schema.graphql /tmp/compare.graphql \
-    && ./.circleci/check_makemessages.sh \
+    && ./.github/check_makemessages.sh \
     && python manage.py makemigrations --check \
     && isort --check-only --diff . \
     && docformatter --check --recursive --wrap-summaries=88 --wrap-descriptions=88 --pre-summary-newline . \
@@ -65,7 +65,7 @@ CMD python manage.py graphql_schema --out=/tmp/compare.graphql && diff schema.gr
     && gunicorn --check-config --config=config/gunicorn_conf.py config.wsgi
 
 
-FROM circleci as prod
+FROM ci as prod
 
 # Has to be set to an empty string for it to have no effect.
 ENV PYTHONASYNCIODEBUG=

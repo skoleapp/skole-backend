@@ -1,6 +1,6 @@
 # Skole Backend 🎓
 
-[![circleci status](https://circleci.com/gh/skoleapp/skole-backend.svg?style=shield&circle-token=7a11678cc5b06b270fa5460f456fd0da8368dae2)](https://circleci.com/gh/skoleapp/skole-backend)
+[![ci](https://github.com/skoleapp/skole-backend/actions/workflows/ci.yml/badge.svg)](https://github.com/skoleapp/skole-backend/actions)
 [![codecov](https://codecov.io/gh/skoleapp/skole-backend/branch/develop/graph/badge.svg?token=EHHHpM9EJO)](https://codecov.io/gh/skoleapp/skole-backend)
 [![mypy checked](http://www.mypy-lang.org/static/mypy_badge.svg)](http://mypy-lang.org/)
 [![code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
@@ -15,32 +15,31 @@ See detailed description for all top-level dependencies in [`dependencies.md`](d
 
 A quick look at the top-level files and directories excluding Git ignored locations.
 
-1.  [**`.circleci/`**](.circleci/): Configuration for [CircleCI](https://circleci.com/).
-2.  [**`.github/`**](.github/): Configuration for [Github Actions](https://github.com/features/actions).
-3.  [**`.idea/`**](.idea/): [Jetbrains](https://www.jetbrains.com/) editor configuration.
-4.  [**`config/`**](config/): Configuration for [Django](https://www.djangoproject.com/) project.
-5.  [**`media/`**](media/): Few media files for testing.
-6.  [**`skole/`**](skole/): Source code.
-7.  [**`.dockerignore`**](.dockerignore): List of files ignored by [Docker](https://www.docker.com/).
-8.  [**`.flake8`**](.flake8): Configuration for [Flake8](https://flake8.pycqa.org/en/latest/).
-9.  [**`.gitignore`**](.gitignore): List of files ignored by [Git](https://git-scm.com/).
-10. [**`.graphqlconfig`**](.graphqlconfig): GraphQL configuration file, used by [JS GraphQL](https://plugins.jetbrains.com/plugin/8097-js-graphql)  JetBrains IDE plugin.
-11. [**`Dockerfile`**](Dockerfile): Formal instructions for Docker how to build the image for the app.
-12. [**`README.md`**](README.md): The file you're reading.
-13. [**`dependencies.md`**](dependencies.md): Documentation about the project's top-level dependencies.
-14. [**`manage.py`**](manage.py): Auto-generated for a Django project, see [docs](https://docs.djangoproject.com/en/stable/ref/django-admin/).
-15. [**`mypy.ini`**](mypy.ini): Configuration for [Mypy](http://mypy-lang.org/).
-16. [**`pyproject.toml`**](pyproject.toml): Configuration for various Python tools.
-17. [**`requirements-dev.txt`**](requirements-dev.txt): List of top-level development requirements.
-18. [**`requirements.lock`**](requirements.lock): Exact pinned versions of production requirements and all peer dependencies.
-19. [**`requirements.txt`**](requirements.txt): List of top-level production requirements.
-20. [**`schema.graphql`**](schema.graphql): GraphQL schema for noticing schema changes quickly from PRs.
+1.  [**`.github/`**](.github/): Configuration for [Github Actions](https://github.com/features/actions).
+2.  [**`.idea/`**](.idea/): [Jetbrains](https://www.jetbrains.com/) editor configuration.
+3.  [**`config/`**](config/): Configuration for [Django](https://www.djangoproject.com/) project.
+4.  [**`media/`**](media/): Few media files for testing.
+5.  [**`skole/`**](skole/): Source code.
+6.  [**`.dockerignore`**](.dockerignore): List of files ignored by [Docker](https://www.docker.com/).
+7.  [**`.flake8`**](.flake8): Configuration for [Flake8](https://flake8.pycqa.org/en/latest/).
+8.  [**`.gitignore`**](.gitignore): List of files ignored by [Git](https://git-scm.com/).
+9.  [**`.graphqlconfig`**](.graphqlconfig): GraphQL configuration file, used by [JS GraphQL](https://plugins.jetbrains.com/plugin/8097-js-graphql)  JetBrains IDE plugin.
+10. [**`Dockerfile`**](Dockerfile): Formal instructions for Docker how to build the image for the app.
+11. [**`README.md`**](README.md): The file you're reading.
+12. [**`dependencies.md`**](dependencies.md): Documentation about the project's top-level dependencies.
+13. [**`manage.py`**](manage.py): Auto-generated for a Django project, see [docs](https://docs.djangoproject.com/en/stable/ref/django-admin/).
+14. [**`mypy.ini`**](mypy.ini): Configuration for [Mypy](http://mypy-lang.org/).
+15. [**`pyproject.toml`**](pyproject.toml): Configuration for various Python tools.
+16. [**`requirements-dev.txt`**](requirements-dev.txt): List of top-level development requirements.
+17. [**`requirements.lock`**](requirements.lock): Exact pinned versions of production requirements and all peer dependencies.
+18. [**`requirements.txt`**](requirements.txt): List of top-level production requirements.
+19. [**`schema.graphql`**](schema.graphql): GraphQL schema for noticing schema changes quickly from PRs.
 
 ## Development Tips 🚀
 
-- No pull requests can be merged without CircleCI first building and running [`Dockerfile`](Dockerfile) against it.
-  See the `CMD` of the `circleci` stage for the full list of stuff it runs and validates.
-  CircleCI also verifies the code style, so there is no need to argue about formatting.
+- No pull requests can be merged without CI pipeline first building and running [`Dockerfile`](Dockerfile) against it.
+  See the `CMD` of the `ci` stage for the full list of stuff it runs and validates.
+  The CI pipeline also verifies the code style, so there is no need to argue about formatting.
 
 - Use [Google style](https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html) docstrings.
 

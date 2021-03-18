@@ -2,7 +2,7 @@
 
 # shellcheck disable=SC2016  # Backticks are fine in single quotes.
 
-# CircleCI runs this script in the container to verify that makemessages
+# CI pipeline runs this script in the container to verify that makemessages
 # was run and thus the translation files are all up-to-date.
 
 for path in skole/locale/*; do
@@ -11,7 +11,7 @@ for path in skole/locale/*; do
     cp "skole/locale/$lang/LC_MESSAGES/django.po" "/tmp/$lang.po"
 done
 
-python manage.py makemessages --all 
+python manage.py makemessages --all
 
 for path in skole/locale/*; do
     lang=$(basename "$path")

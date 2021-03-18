@@ -1,8 +1,8 @@
 version: "3.7"
 
 services:
-  db-circleci:
-    container_name: db-circleci
+  db-ci:
+    container_name: db-ci
     image: postgres:12.4-alpine@sha256:4c493832e4865189e3cab86281a1706a074ea6796b525a7f191b3f48546c25a8
     ports:
       - "5432:5432"
@@ -13,17 +13,17 @@ services:
     logging:
       driver: none
 
-  backend-circleci:
-    container_name: backend-circleci
+  backend-ci:
+    container_name: backend-ci
     build:
       context: ..
       dockerfile: Dockerfile
-      target: circleci
+      target: ci
       args:
         dev_requirements: "requirements-dev.txt"
     environment:
       - DEBUG=1
       - SECRET_KEY=skole
-      - DATABASE_URL=postgres://username:password@db-circleci:5432/skole
+      - DATABASE_URL=postgres://username:password@db-ci:5432/skole
     depends_on:
-      - db-circleci
+      - db-ci

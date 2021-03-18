@@ -8,9 +8,8 @@ docker-compose*
 .idea/
 .vscode/
 
-.circleci/
-!.circleci/check_makemessages.sh
 .github/
+!.github/check_makemessages.sh
 
 .graphqlconfig
 

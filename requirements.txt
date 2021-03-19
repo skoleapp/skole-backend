@@ -1,9 +1,13 @@
+pip==21.0.1
+setuptools==54.1.2
+wheel==0.36.2
+
 dj-database-url==0.5.0
-Django==3.1.5
+Django==3.1.7
 django-amazon-ses==4.0.0
 django-admin-confirm==0.2.2
 django-autoslug==1.9.8
-django-cors-headers==3.6.0
+django-cors-headers==3.7.0
 django-graphql-jwt==0.3.1
 django-imagekit==4.0.2
 django-parler==2.2.0
@@ -12,9 +16,9 @@ fcm-django==0.3.7
 graphene-django==2.15.0
 gunicorn==20.0.4
 mat2==0.11.0
-Pillow==8.1.0
+Pillow==8.1.2
 psycopg2==2.8.6
 PyJWT==1.7.1  # Pinned peer dependency, otherwise `django-graphql-jwt` would pull an incompatible version.
-python-magic==0.4.18
+python-magic==0.4.22
 PyYAML==5.4.1
 requests==2.25.1

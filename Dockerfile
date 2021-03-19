@@ -35,7 +35,7 @@ RUN apt-get update \
         postgresql-client \
         python3-gi-cairo \
         python3-mutagen \
-    && su user --command="pip install --user --no-cache-dir --disable-pip-version-check $(grep '^pip==' requirements.lock)" \
+    && su user --command="pip install --user --no-cache-dir --disable-pip-version-check $(grep  --extended-regexp '^(pip|setuptools|wheel)==' requirements.lock)" \
     && if [ -f requirements-dev.txt ]; then su user --command='pip install --user --no-cache-dir -r requirements-dev.txt'; fi \
     && su user --command='pip install --user --no-cache-dir -r requirements.lock'
 

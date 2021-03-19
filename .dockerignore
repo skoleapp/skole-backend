@@ -13,4 +13,6 @@ docker-compose*
 
 .graphqlconfig
 
+update_lockfile.sh
+
 *.md

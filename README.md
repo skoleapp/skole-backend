@@ -34,6 +34,7 @@ A quick look at the top-level files and directories excluding Git ignored locati
 17. [**`requirements.lock`**](requirements.lock): Exact pinned versions of production requirements and all peer dependencies.
 18. [**`requirements.txt`**](requirements.txt): List of top-level production requirements.
 19. [**`schema.graphql`**](schema.graphql): GraphQL schema for noticing schema changes quickly from PRs.
+20. [**`update_lockfile.sh`**](update_lockfile.sh): See ["How to add a new PyPI package or update existing ones?"](#how-to-add-a-new-pypi-package-or-update-existing-ones).
 
 ## Development Tips 🚀
 
@@ -85,3 +86,10 @@ A quick look at the top-level files and directories excluding Git ignored locati
 
 - It's fine to use [PostgreSQL specific Django utilities](https://docs.djangoproject.com/en/stable/ref/contrib/postgres),
   such as `ArrayAgg`. They can make life a lot easier, and we can assume that the application is always run on Postgres.
+
+## How to add a new PyPI package or update existing ones?
+
+1. Add the package to (or update the version in) `requirements.txt` or `requirements-dev.txt`.
+2. Rebuild the image, and update the production lock file with: `./update_lockfile.sh`
+3. If you added a new package, document it in [**`dependencies.md`**](dependencies.md).
+4. 🍻

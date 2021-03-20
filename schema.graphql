@@ -5,8 +5,9 @@ schema {
 
 type ActivityObjectType {
   id: ID!
-  targetUser: UserObjectType
+  causingUser: UserObjectType
   comment: CommentObjectType
+  badgeProgress: BadgeProgressObjectType
   read: Boolean
   description: String
 }
@@ -26,6 +27,7 @@ type BadgeObjectType {
 
 type BadgeProgressObjectType {
   badge: BadgeObjectType!
+  user: UserObjectType!
   progress: Int!
   steps: Int
 }

@@ -80,13 +80,18 @@ class Messages:
     FCM_TOKEN_UPDATED = _("FCM token updated!")
 
 
-class Email:
+class Notifications:
     MY_DATA_SUBJECT = _("Your data request on Skole")
     VERIFY_ACCOUNT_SUBJECT = _("Verify your account on Skole")
     RESET_PASSWORD_SUBJECT = _("Reset your password on Skole")
     COMMUNITY_USER = _("Community User")
-    EMAIL_NOTIFICATION_SUBJECT = "{} {} in Skole"
-    PUSH_NOTIFICATION_TITLE = "New Activity!"
+    # These are not translated since we don't know the language of the receiving user
+    # when we send these.
+    COMMENT_EMAIL_NOTIFICATION_SUBJECT = "{} {} in Skole"
+    COMMENT_PUSH_NOTIFICATION_TITLE = "New Activity!"
+    BADGE_EMAIL_NOTIFICATION_TITLE = "You Earned a New Badge in Skole"
+    BADGE_PUSH_NOTIFICATION_TITLE = "New Badge!"
+    BADGE_PUSH_NOTIFICATION_BODY = "Congratulations! You earned the '{}' badge."
 
 
 def _m(value: str) -> FormError:
@@ -162,6 +167,7 @@ class ActivityTypes:
     COMMENT_REPLY = "comment_reply"
     COURSE_COMMENT = "course_comment"
     RESOURCE_COMMENT = "resource_comment"
+    NEW_BADGE = "new_badge"
 
 
 class VerboseNames:

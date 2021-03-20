@@ -24,11 +24,21 @@ from django.utils import timezone, translation
 from django.utils.html import strip_tags
 from graphene_django.types import ErrorType
 
-from skole.models import Activity, Badge, Comment, Course, Resource, Star, User, Vote
+from skole.models import (
+    Activity,
+    Badge,
+    Comment,
+    Course,
+    Resource,
+    SkoleModel,
+    Star,
+    User,
+    Vote,
+)
 from skole.overridden import login_required
 from skole.schemas.base import SkoleObjectType
 from skole.types import JsonDict, ResolveInfo
-from skole.utils.constants import Email, Messages, MutationErrors, VoteConstants
+from skole.utils.constants import Messages, MutationErrors, Notifications, VoteConstants
 from skole.utils.files import override_s3_file_age
 from skole.utils.shortcuts import format_form_error
 
@@ -93,8 +103,8 @@ class MyDataMutation(SkoleObjectType, graphene.Mutation):
                 "created_courses": cls._created_courses(user),
                 "created_resources": cls._created_resources(user),
                 "badges": cls._badges(user),
-                "badgeProgresses": cls._badges(user),
-                "selectedBadgeProgress": cls._badges(user),
+                "badgeProgresses": cls._badge_progresses(user),
+                "selectedBadgeProgress": cls._selected_badge_progress(user),
                 "votes": cls._votes(user),
                 "stars": cls._stars(user),
                 "activities": cls._activities(user),
@@ -113,7 +123,7 @@ class MyDataMutation(SkoleObjectType, graphene.Mutation):
     @classmethod
     def _created_comments(cls, user: User) -> QuerySet[Comment]:
         return (
-            user.comments.annotate(target=cls.__target_case())
+            user.comments.annotate(target=cls.__target_case(Comment))
             .annotate(uploaded_attachment=cls.__file_case("attachment"))
             .values(
                 "id",
@@ -164,9 +174,7 @@ class MyDataMutation(SkoleObjectType, graphene.Mutation):
 
     @classmethod
     def _activities(cls, user: User) -> QuerySet[Activity]:
-        return user.activities.annotate(
-            target=Case(*cls.__target_case().cases[:1])
-        ).values(
+        return user.activities.annotate(target=cls.__target_case(Activity),).values(
             "id",
             "read",
             "target",
@@ -175,14 +183,14 @@ class MyDataMutation(SkoleObjectType, graphene.Mutation):
 
     @classmethod
     def _caused_activities(cls, user: User) -> QuerySet[Activity]:
-        return user.target_activities.annotate(
-            target=Case(*cls.__target_case().cases[:1])
+        return user.caused_activities.annotate(
+            target=cls.__target_case(Activity),
         ).values("id", "read", "target", type=cls.__activity_type_name())
 
     @classmethod
     def _votes(cls, user: User) -> QuerySet[Vote]:
         return user.votes.annotate(
-            target=cls.__target_case(),
+            target=cls.__target_case(Vote),
             vote=Case(
                 *(
                     When(status=value, then=Value(display))
@@ -195,9 +203,7 @@ class MyDataMutation(SkoleObjectType, graphene.Mutation):
     @classmethod
     def _stars(cls, user: User) -> QuerySet[Star]:
         return user.stars.annotate(
-            target=Case(
-                *cls.__target_case().cases[1:]
-            )  # Star doesn't have a `comment` field.
+            target=cls.__target_case(Star),
         ).values_list("target", flat=True)
 
     @staticmethod
@@ -284,7 +290,7 @@ class MyDataMutation(SkoleObjectType, graphene.Mutation):
             },
         )
         mail = EmailMultiAlternatives(
-            subject=Email.MY_DATA_SUBJECT,
+            subject=Notifications.MY_DATA_SUBJECT,
             body=strip_tags(html_message),
             from_email=settings.EMAIL_ADDRESS,
             to=[user.email],
@@ -309,21 +315,24 @@ class MyDataMutation(SkoleObjectType, graphene.Mutation):
 
     @staticmethod
     @lru_cache
-    def __target_case() -> Case:
-        # Critical that `comment` is the first case here:
-        # 1. Activity queries use this fact to take the comment as the target of the
-        #    activity if one exists.
-        # 2. Star query slices the first case away, since comments cannot be starred.
-        return Case(
-            When(comment__isnull=False, then=Concat(Value("comment "), "comment")),
-            When(course__isnull=False, then=Concat(Value("course "), "course")),
-            When(resource__isnull=False, then=Concat(Value("resource "), "resource")),
-        )
+    def __target_case(model: type[SkoleModel]) -> Case:
+        cases = {
+            "comment": When(
+                comment__isnull=False, then=Concat(Value("comment "), "comment")
+            ),
+            "course": When(
+                course__isnull=False, then=Concat(Value("course "), "course")
+            ),
+            "resource": When(
+                resource__isnull=False, then=Concat(Value("resource "), "resource")
+            ),
+        }
+        return Case(*(value for key, value in cases.items() if hasattr(model, key)))
 
     @staticmethod
     @lru_cache
     def __activity_type_name() -> Replace:
-        return Replace(F("activity_type__name"), Value("_"), Value(" "))
+        return Replace(F("activity_type__identifier"), Value("_"), Value(" "))
 
     @staticmethod
     @lru_cache

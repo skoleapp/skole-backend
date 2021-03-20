@@ -3,7 +3,6 @@ from typing import Callable, Optional, TypeVar
 
 import graphene
 from django.contrib.auth import get_user_model
-from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import QuerySet
 from fcm_django.models import FCMDevice
 
@@ -151,7 +150,7 @@ class UserObjectType(SkoleDjangoObjectType):
     def resolve_fcm_token(root: User, info: ResolveInfo) -> Optional[str]:
         try:
             return FCMDevice.objects.get(user=info.context.user).registration_id
-        except ObjectDoesNotExist:
+        except FCMDevice.DoesNotExist:
             return None
 
     @staticmethod

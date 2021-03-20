@@ -28,19 +28,23 @@ class Activity(SkoleModel):
 
     # A user who causes the activity, e.g. a user replying to a comment.
     # Can also be null when a non-logged in user is the commenter.
-    target_user = models.ForeignKey(
+    causing_user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         null=True,
-        related_name="target_activities",
+        related_name="caused_activities",
     )
 
     activity_type = models.ForeignKey(
         "skole.ActivityType", on_delete=models.PROTECT, related_name="activities"
     )
 
+    # The different objects that can have activity appear in them.
     comment = models.ForeignKey(
         "skole.Comment", on_delete=models.CASCADE, null=True, blank=True
+    )
+    badge_progress = models.ForeignKey(
+        "skole.BadgeProgress", on_delete=models.CASCADE, null=True, blank=True
     )
 
     read = models.BooleanField(default=False)
@@ -48,4 +52,4 @@ class Activity(SkoleModel):
     objects = ActivityManager()
 
     def __str__(self) -> str:
-        return f"{self.activity_type.name}"
+        return f"{self.activity_type.identifier}"

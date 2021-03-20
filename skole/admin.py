@@ -9,6 +9,7 @@ from django.db.models import QuerySet
 from django.template.loader import render_to_string
 from parler.admin import TranslatableAdmin
 
+import skole.utils.email
 from skole.models import (
     Activity,
     ActivityType,
@@ -29,7 +30,6 @@ from skole.models import (
     Vote,
 )
 from skole.utils.constants import Admin
-from skole.utils.email import send_marketing_email as _send_marketing_email
 
 admin.site.site_header = Admin.SITE_HEADER
 
@@ -63,7 +63,9 @@ class MarketingEmailAdmin(AdminConfirmMixin, ModelAdmin):  # type: ignore[type-a
                     message=f"The following email has already been sent: {marketing_email.subject}.",
                 )
             else:
-                _send_marketing_email(request=request, instance=marketing_email)
+                skole.utils.email.send_marketing_email(
+                    request=request, instance=marketing_email
+                )
                 marketing_email.sent = True
                 marketing_email.save(update_fields=["sent"])
                 messages.success(

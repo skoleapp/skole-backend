@@ -52,16 +52,38 @@
     master: 3
     language_code: sv
     description: kommenterade din resurs
+- model: skole.ActivityTypeTranslation
+  pk: 10
+  fields:
+    master: 4
+    language_code: en
+    description: You received the '{}' badge.
+- model: skole.ActivityTypeTranslation
+  pk: 11
+  fields:
+    master: 4
+    language_code: fi
+    description: Ansaitsit '{}' merkin.
+- model: skole.ActivityTypeTranslation
+  pk: 12
+  fields:
+    master: 4
+    language_code: sv
+    description: Du fick '{}' märket.
 
 - model: skole.ActivityType
   pk: 1
   fields:
-    name: comment_reply
+    identifier: comment_reply
 - model: skole.ActivityType
   pk: 2
   fields:
-    name: course_comment
+    identifier: course_comment
 - model: skole.ActivityType
   pk: 3
   fields:
-    name: resource_comment
+    identifier: resource_comment
+- model: skole.ActivityType
+  pk: 4
+  fields:
+    identifier: new_badge

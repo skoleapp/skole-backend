@@ -28,7 +28,7 @@ def get_token(user: User, action: str, **kwargs: Any) -> str:
 
 def revoke_user_refresh_tokens(user: User) -> None:
     # Ignore: Mypy doesn't pick up the `refresh_tokens` relation from `graphql_jwt`.
-    refresh_tokens = user.refresh_tokens.all()  # type: ignore
+    refresh_tokens = user.refresh_tokens.all()  # type: ignore[attr-defined]
 
     for refresh_token in refresh_tokens:
         try:

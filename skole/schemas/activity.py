@@ -31,16 +31,19 @@ class ActivityObjectType(SkoleDjangoObjectType):
             "id",
             "description",
             "read",
-            "target_user",
+            "causing_user",
             "comment",
+            "badge_progress",
         )
 
     @staticmethod
-    def resolve_name(root: Activity, info: ResolveInfo) -> str:
-        return root.activity_type.name
+    def resolve_identifier(root: Activity, info: ResolveInfo) -> str:
+        return root.activity_type.identifier
 
     @staticmethod
     def resolve_description(root: Activity, info: ResolveInfo) -> str:
+        if root.badge_progress:
+            return root.activity_type.description.format(root.badge_progress.badge)
         return root.activity_type.description
 
 

@@ -97,9 +97,9 @@ class SuggestionSchemaTests(SkoleSchemaTestCase):
 
         return self.execute(graphql, assert_error=assert_error)
 
-    # TODO: Update the `assert_field_fragment_matches_schema` test to support unions.
-    def test_field_fragment(self) -> None:
-        pass
+    # def test_field_fragment(self) -> None:
+    #     TODO: Update the `assert_field_fragment_matches_schema` test to support unions.
+    #     pass
 
     def test_suggestions(self) -> None:
         self.authenticated_user = None

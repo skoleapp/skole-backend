@@ -72,4 +72,5 @@ ENV PYTHONOPTIMIZE=1
 CMD python manage.py compilemessages \
     && python manage.py collectstatic --noinput \
     && python manage.py migrate \
+    && python manage.py award_badges \
     && gunicorn --config=config/gunicorn_conf.py config.wsgi

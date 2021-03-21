@@ -1,11 +1,11 @@
 from __future__ import annotations
 
+import functools
 import io
 import itertools
 import json
 import math
 import zipfile
-from functools import lru_cache
 from pathlib import Path
 from typing import Any, cast
 
@@ -314,7 +314,7 @@ class MyDataMutation(SkoleObjectType, graphene.Mutation):
         return 0
 
     @staticmethod
-    @lru_cache
+    @functools.cache
     def __target_case(model: type[SkoleModel]) -> Case:
         cases = {
             "comment": When(
@@ -330,12 +330,12 @@ class MyDataMutation(SkoleObjectType, graphene.Mutation):
         return Case(*(value for key, value in cases.items() if hasattr(model, key)))
 
     @staticmethod
-    @lru_cache
+    @functools.cache
     def __activity_type_name() -> Replace:
         return Replace(F("activity_type__identifier"), Value("_"), Value(" "))
 
     @staticmethod
-    @lru_cache
+    @functools.cache
     def __file_case(field: str) -> Case:
         return Case(When(**{field: ""}, then=None), default=field)
 

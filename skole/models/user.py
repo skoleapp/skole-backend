@@ -238,3 +238,9 @@ class User(SkoleModel, AbstractBaseUser, PermissionsMixin):
 
     def register_fcm_token(self, token: str) -> None:
         FCMDevice.objects.get_or_create(user=self, registration_id=token)
+
+    def get_acquired_badges(self) -> QuerySet[Badge]:
+        """Return all the badges that the user has acquired."""
+        return Badge.objects.filter(
+            badge_progresses__user=self, badge_progresses__acquired__isnull=False
+        )

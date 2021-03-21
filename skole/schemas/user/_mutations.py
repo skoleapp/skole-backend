@@ -6,7 +6,7 @@ from typing import Any, cast
 import graphene
 from django.conf import settings
 from django.contrib.auth import get_user_model, password_validation, user_logged_in
-from django.core.exceptions import ObjectDoesNotExist, ValidationError
+from django.core.exceptions import ValidationError
 from django.core.signing import BadSignature, SignatureExpired
 from graphene_django.forms.mutation import DjangoFormMutation, DjangoModelFormMutation
 from graphene_django.types import ErrorType
@@ -157,7 +157,7 @@ class SendPasswordResetEmailMutation(
             send_password_reset_email(user, info, recipient=email)
             return cls(success_message=Messages.PASSWORD_RESET_EMAIL_SENT)
 
-        except ObjectDoesNotExist:
+        except get_user_model().DoesNotExist:
             return cls(errors=MutationErrors.USER_NOT_FOUND_WITH_EMAIL)
 
         except SMTPException:
@@ -205,7 +205,7 @@ class ResetPasswordMutation(
 
             return cls(success_message=Messages.PASSWORD_UPDATED)
 
-        except ObjectDoesNotExist:
+        except get_user_model().DoesNotExist:
             return cls(errors=MutationErrors.ACCOUNT_REMOVED)
 
         except SignatureExpired:

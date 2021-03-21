@@ -62,7 +62,7 @@ as a production dependency.
 AnyJson = Union[JsonDict, list[JsonDict]]
 
 
-class _FormErrorDict(TypedDict):  # pylint: disable=inherit-non-class
+class _FormErrorDict(TypedDict):
     field: str
     messages: list[str]
 

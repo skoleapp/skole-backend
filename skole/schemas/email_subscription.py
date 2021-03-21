@@ -3,7 +3,6 @@ from __future__ import annotations
 from typing import Optional
 
 import graphene
-from django.core.exceptions import ObjectDoesNotExist
 from django.core.signing import BadSignature
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoFormMutation, DjangoModelFormMutation
@@ -62,7 +61,7 @@ class UpdateEmailSubscriptionMutation(
                 email_subscription,
                 deleted,
             ) = EmailSubscription.objects.update_email_subscription(**form.cleaned_data)
-        except (ObjectDoesNotExist, BadSignature):
+        except (EmailSubscription.DoesNotExist, BadSignature):
             return cls(errors=MutationErrors.INVALID_TOKEN)
         else:
             if deleted:

@@ -212,7 +212,7 @@ FCM_DJANGO_SETTINGS = {
 }
 
 # Custom email settings
-EMAIL_ADDRESS = os.environ.get("EMAIL_ADDRESS", default="contact@test.com")
+EMAIL_ADDRESS = os.environ.get("EMAIL_ADDRESS", default="hello@test.com")
 EMAIL_CONTACT_FORM_SENDER = os.environ.get(
     "EMAIL_CONTACT_FORM_SENDER", default="Contact Form <contact-form@test.com>"
 )
@@ -225,6 +225,7 @@ ACCOUNT_SETTINGS_PATH_ON_EMAIL = "account-settings"
 COURSE_COMMENT_PATH_ON_EMAIL = "courses/{}?comment={}"
 RESOURCE_COMMENT_PATH_ON_EMAIL = "resources/{}?comment={}"
 SCHOOL_COMMENT_PATH_ON_EMAIL = "schools/{}?comment={}"
+USER_PROFILE_PATH_ON_EMAIL = "users/{}"
 
 # Maximum amount of results for autocomplete queries.
 AUTOCOMPLETE_MAX_RESULTS = 50

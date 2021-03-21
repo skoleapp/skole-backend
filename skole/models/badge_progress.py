@@ -11,7 +11,7 @@ from .base import SkoleModel
 
 class BadgeProgress(SkoleModel):
     """
-    Models the progress of a single badge.
+    Models the progress of a user's single badge.
 
     E.g. User testuser2 can have a progress of 5/15 comments to get a 'Commenter' badge.
     """
@@ -25,8 +25,8 @@ class BadgeProgress(SkoleModel):
         related_name="badge_progresses",
     )
 
-    acquired = models.DateTimeField(default=None, null=True)
     progress = models.IntegerField(default=0)
+    acquired = models.DateTimeField(default=None, null=True)
 
     class Meta:
         unique_together = ("badge", "user")

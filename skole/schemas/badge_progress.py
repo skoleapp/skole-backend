@@ -18,7 +18,7 @@ class BadgeProgressObjectType(SkoleDjangoObjectType):
 
     class Meta:
         model = BadgeProgress
-        fields = ("badge", "progress", "steps")
+        fields = ("user", "badge", "progress", "steps")
 
     @staticmethod
     def resolve_steps(root: BadgeProgress, info: ResolveInfo) -> Optional[int]:

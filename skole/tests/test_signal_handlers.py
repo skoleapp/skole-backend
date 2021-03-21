@@ -3,8 +3,8 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core import mail
 
-from skole.models import Activity, Comment, Course, Resource, User
-from skole.utils.constants import Email
+from skole.models import Activity, BadgeProgress, Comment, Course, Resource, User
+from skole.utils.constants import Notifications
 
 
 @pytest.mark.django_db
@@ -17,7 +17,7 @@ def test_activity_for_comment_reply() -> None:
     with pytest.raises(Activity.DoesNotExist):
         Activity.objects.get(
             user=comment.user,
-            target_user=testuser3,
+            causing_user=testuser3,
             comment=comment,
         )
 
@@ -29,7 +29,7 @@ def test_activity_for_comment_reply() -> None:
 
     Activity.objects.get(
         user=comment.user,
-        target_user=reply_comment.user,
+        causing_user=reply_comment.user,
         comment=reply_comment,
     )
 
@@ -43,7 +43,7 @@ def test_activity_for_comment_reply() -> None:
     user = own_reply_comment.comment.user
 
     with pytest.raises(Activity.DoesNotExist):
-        Activity.objects.get(user=user, target_user=own_reply_comment.user)
+        Activity.objects.get(user=user, causing_user=own_reply_comment.user)
 
     # Test that activity is not created for replies on anonyous comments.
 
@@ -73,7 +73,7 @@ def test_activity_for_course_comment() -> None:
 
     Activity.objects.get(
         user=course.user,
-        target_user=comment.user,
+        causing_user=comment.user,
         comment=comment,
     )
 
@@ -88,7 +88,7 @@ def test_activity_for_course_comment() -> None:
 
     with pytest.raises(Activity.DoesNotExist):
         Activity.objects.get(  # type: ignore[misc]
-            user=own_course_comment.course.user, target_user=own_course_comment.user  # type: ignore[union-attr]
+            user=own_course_comment.course.user, causing_user=own_course_comment.user  # type: ignore[union-attr]
         )
 
 
@@ -107,7 +107,7 @@ def test_activity_for_resource_comment() -> None:
 
     Activity.objects.get(
         user=resource.user,
-        target_user=comment.user,
+        causing_user=comment.user,
         comment=comment,
     )
 
@@ -122,7 +122,7 @@ def test_activity_for_resource_comment() -> None:
     assert resource.user == own_resource_comment.user
 
     with pytest.raises(Activity.DoesNotExist):
-        Activity.objects.get(user=resource.user, target_user=own_resource_comment.user)
+        Activity.objects.get(user=resource.user, causing_user=own_resource_comment.user)
 
 
 @pytest.mark.django_db
@@ -146,7 +146,7 @@ def test_activity_for_comment_on_multiple_discussions() -> None:
 
 
 @pytest.mark.django_db
-def test_email_notifications() -> None:
+def test_comment_email_notifications() -> None:
     # Test that email notifications are sent for resource comments.
 
     resource = Resource.objects.get(pk=1)
@@ -157,8 +157,8 @@ def test_email_notifications() -> None:
     assert sent.from_email == settings.EMAIL_ADDRESS
     assert sent.to == [activity.user.email]
 
-    assert sent.subject == Email.EMAIL_NOTIFICATION_SUBJECT.format(
-        Email.COMMUNITY_USER, activity.activity_type.description
+    assert sent.subject == Notifications.COMMENT_EMAIL_NOTIFICATION_SUBJECT.format(
+        Notifications.COMMUNITY_USER, activity.activity_type.description
     )
 
     # Test that email notifications are sent for course comments.
@@ -171,8 +171,8 @@ def test_email_notifications() -> None:
     assert sent.from_email == settings.EMAIL_ADDRESS
     assert sent.to == [activity.user.email]
 
-    assert sent.subject == Email.EMAIL_NOTIFICATION_SUBJECT.format(
-        Email.COMMUNITY_USER, activity.activity_type.description
+    assert sent.subject == Notifications.COMMENT_EMAIL_NOTIFICATION_SUBJECT.format(
+        Notifications.COMMUNITY_USER, activity.activity_type.description
     )
 
     # Test that email notifications are sent for comment replies.
@@ -182,15 +182,16 @@ def test_email_notifications() -> None:
     top_level_comment = Comment.objects.create(
         user=testuser2, text="test", course=course
     )
+    assert len(mail.outbox) == 3  # 'First Comment' badge
     reply_comment = Comment.objects.create(text="test", comment=top_level_comment)
     activity = Activity.objects.get(comment=reply_comment)
-    assert len(mail.outbox) == 3
-    sent = mail.outbox[2]
+    assert len(mail.outbox) == 4  # Comment activity
+    sent = mail.outbox[3]
     assert sent.from_email == settings.EMAIL_ADDRESS
     assert sent.to == [activity.user.email]
 
-    assert sent.subject == Email.EMAIL_NOTIFICATION_SUBJECT.format(
-        Email.COMMUNITY_USER, activity.activity_type.description
+    assert sent.subject == Notifications.COMMENT_EMAIL_NOTIFICATION_SUBJECT.format(
+        Notifications.COMMUNITY_USER, activity.activity_type.description
     )
 
     # Test that email notifications are not sent without permission.
@@ -203,6 +204,7 @@ def test_email_notifications() -> None:
     assert not user.resource_comment_email_permission
     assert not user.course_comment_email_permission
     assert not user.comment_reply_email_permission
+    assert not user.new_badge_email_permission
 
     course_comment = Comment.objects.create(course=course, text="test")
     Activity.objects.get(comment=course_comment)
@@ -216,7 +218,43 @@ def test_email_notifications() -> None:
     reply_comment = Comment.objects.create(comment=top_level_comment, text="test")
     Activity.objects.get(comment=reply_comment)
 
-    assert len(mail.outbox) == 3
+    assert len(mail.outbox) == 4
+
+
+@pytest.mark.django_db
+def test_badge_email_notifications() -> None:
+    assert len(mail.outbox) == 0
+
+    progress = BadgeProgress.objects.get(pk=1)
+    progress.save(update_fields=["acquired"])  # Resend the acquiring notification.
+    assert len(mail.outbox) == 1
+    progress.save()  # This does not send it again.
+    assert len(mail.outbox) == 1
+    sent = mail.outbox[0]
+    assert "Badge" in sent.subject
+    assert "Staff" in sent.body
+
+    # No 'First Comment' badge for anonymous comments.
+    Comment.objects.create(text="A comment.", course_id=2)
+    assert len(mail.outbox) == 2
+    sent = mail.outbox[1]
+    assert "commented on your course" in sent.subject
+
+    # No 'First Comment' badge for anonymous comments.
+    Comment.objects.create(text="A comment.", course_id=2, user_id=2)
+    assert len(mail.outbox) == 4
+    sent = mail.outbox[2]
+    assert "commented on your course" in sent.subject
+    sent = mail.outbox[3]
+    assert "Badge" in sent.subject
+    assert "First Comment" in sent.body
+
+    Course.objects.create(name="New Course", school_id=1, user_id=2)
+    assert len(mail.outbox) == 5
+    sent = mail.outbox[4]
+    assert "Badge" in sent.subject
+    assert "First Course" in sent.body
+    assert "http://localhost:3001/users/testuser2" in sent.body
 
 
 # @pytest.mark.django_db

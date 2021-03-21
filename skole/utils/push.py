@@ -23,15 +23,26 @@ def send_comment_push_notification(activity: Activity) -> None:
 
     comment = activity.comment
     assert comment
+
+    if top_level_comment := comment.comment:
+        resource_slug = getattr(top_level_comment.resource, "slug", None)
+        course_slug = getattr(top_level_comment.course, "slug", None)
+        school_slug = getattr(top_level_comment.school, "slug", None)
+
+    else:
+        resource_slug = getattr(comment.resource, "slug", None)
+        course_slug = getattr(comment.course, "slug", None)
+        school_slug = getattr(comment.school, "slug", None)
+
     description = activity.activity_type.description
     title = Notifications.COMMENT_PUSH_NOTIFICATION_TITLE
     body = f"{causing_username} {description}."
 
     data = {
         "activity": activity.pk,
-        "resource": getattr(comment.resource, "slug", None),
-        "course": getattr(comment.course, "slug", None),
-        "school": getattr(comment.school, "slug", None),
+        "resource": resource_slug,
+        "course": course_slug,
+        "school": school_slug,
         "comment": comment.pk,
     }
     _send_push_notification(user=activity.user, title=title, body=body, data=data)

@@ -27,5 +27,11 @@ class Badge(TranslatableSkoleModel):
         description=models.TextField(max_length=2000, blank=True),
     )
 
+    # Whether `award_badges` management command has made sure that this badge has been
+    # retroactively awarded to all users that should get it. Setting this makes it so
+    # that we don't end up doing unnecessary work in the management command every time
+    # during app startup.
+    made_available = models.BooleanField(default=False)
+
     def __str__(self) -> str:
         return f"{self.name}"

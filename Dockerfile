@@ -10,10 +10,6 @@ ENV PYTHONUNBUFFERED=1
 ENV POETRY_VIRTUALENVS_CREATE=0
 ENV POETRY_VERSION=1.1.5
 
-# This helps debug misbehaving async code.
-# It's unset in the prod layer.
-ENV PYTHONASYNCIODEBUG=1
-
 ARG install_dev_dependencies=0
 ARG _poetry_url=https://raw.githubusercontent.com/python-poetry/poetry/7360b09e4ba3c01e1d5dc6eaaf34cb3ff57bc16e/get-poetry.py 
 
@@ -70,9 +66,6 @@ CMD python manage.py graphql_schema --out=/tmp/compare.graphql && diff schema.gr
 
 
 FROM ci as prod
-
-# Has to be set to an empty string for it to have no effect.
-ENV PYTHONASYNCIODEBUG=
 
 ENV PYTHONOPTIMIZE=1
 

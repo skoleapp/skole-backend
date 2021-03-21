@@ -225,7 +225,7 @@ class User(SkoleModel, AbstractBaseUser, PermissionsMixin):
         )
 
         progresses = BadgeProgress.objects.filter(
-            badge__steps__isnull=False, acquired__isnull=True
+            user=self, badge__steps__isnull=False, acquired__isnull=True
         )
 
         # `steps` is validated to be > 0 and non-null here, so the division is safe.

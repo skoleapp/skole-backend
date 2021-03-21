@@ -20,7 +20,7 @@ services:
       dockerfile: Dockerfile
       target: ci
       args:
-        dev_requirements: "requirements-dev.txt"
+        install_dev_dependencies: 1
     environment:
       - DEBUG=1
       - SECRET_KEY=skole

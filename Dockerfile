@@ -1,27 +1,29 @@
-FROM python:3.9.1-slim-buster@sha256:b2013807b8af03d66f60a979f20d4e93e4e4a111df1287d9632c8cfd41ecfa33 AS dev
+FROM python:3.9.2-slim-buster@sha256:539ecc873369f39fca6edaf57c75a053d3533a01f837bfaee37de1b99545ecce AS dev
 
 RUN groupadd --gid=10001 user \
     && useradd --gid=user --uid=10000 --create-home user
 WORKDIR /home/user/app
 RUN chown user:user /home/user/app
 
-ENV PATH="/home/user/.local/bin:${PATH}"
+ENV PATH="/home/user/.poetry/bin:/home/user/.local/bin:${PATH}"
 ENV PYTHONUNBUFFERED=1
+ENV POETRY_VIRTUALENVS_CREATE=0
+ENV POETRY_VERSION=1.1.5
 
 # This helps debug misbehaving async code.
 # It's unset in the prod layer.
 ENV PYTHONASYNCIODEBUG=1
 
-# When building the non-production image this will specified to be `requirements-dev.txt`,
-# so that that file gets copied also. When the value is not specified for the prod image
-# the default value of it just copies the normal requirements file again.
-ARG dev_requirements=requirements.lock
+ARG install_dev_dependencies=0
+ARG _poetry_url=https://raw.githubusercontent.com/python-poetry/poetry/7360b09e4ba3c01e1d5dc6eaaf34cb3ff57bc16e/get-poetry.py 
 
-COPY --chown=user:user requirements.lock .
-COPY --chown=user:user ${dev_requirements} .
+# Use the character class for conditional copying https://stackoverflow.com/a/46801962/9835872
+COPY --chown=user:user poetry.loc[k] .
+COPY --chown=user:user pyproject.toml .
 
 RUN apt-get update \
     && apt-get install --no-install-recommends --assume-yes \
+        curl \
         gcc \
         gettext \
         gir1.2-gdkpixbuf-2.0 \
@@ -35,9 +37,11 @@ RUN apt-get update \
         postgresql-client \
         python3-gi-cairo \
         python3-mutagen \
-    && su user --command="pip install --user --no-cache-dir --disable-pip-version-check $(grep '^pip==' requirements.lock)" \
-    && if [ -f requirements-dev.txt ]; then su user --command='pip install --user --no-cache-dir -r requirements-dev.txt'; fi \
-    && su user --command='pip install --user --no-cache-dir -r requirements.lock'
+    && su user --command="curl --silent --show-error \"${_poetry_url}\" | python - --no-modify-path" \
+    && su user --command="poetry install --no-root "$([ "${install_dev_dependencies}" -eq 0 ] && printf -- '--no-dev')"" \
+    && apt-get purge --auto-remove --assume-yes curl \
+    && find /home/user/.poetry/lib/poetry/_vendor/ -mindepth 1 -maxdepth 1 -not -name py3.9 -type d | xargs rm -rf \
+    && rm -rf /home/user/.cache/ /var/lib/apt/lists/ /var/cache/apt/
 
 USER user
 

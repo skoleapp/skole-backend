@@ -14,6 +14,7 @@ from skole.models import (
     Activity,
     ActivityType,
     Badge,
+    BadgeProgress,
     City,
     Comment,
     Country,
@@ -76,6 +77,7 @@ class MarketingEmailAdmin(AdminConfirmMixin, ModelAdmin):  # type: ignore[type-a
 
 # Untranslated models.
 admin.site.register(get_user_model())
+admin.site.register(BadgeProgress)
 admin.site.register(Comment)
 admin.site.register(Course)
 admin.site.register(EmailSubscription)

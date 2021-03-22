@@ -100,9 +100,7 @@ class UserObjectType(SkoleDjangoObjectType):
 
     @staticmethod
     def resolve_badges(root: User, info: ResolveInfo) -> QuerySet[Badge]:
-        return Badge.objects.filter(
-            badge_progresses__user=root, badge_progresses__acquired__isnull=False
-        )
+        return root.get_acquired_badges()
 
     @staticmethod
     @private_field

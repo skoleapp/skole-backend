@@ -225,7 +225,7 @@ class User(SkoleModel, AbstractBaseUser, PermissionsMixin):
         )
 
         progresses = BadgeProgress.objects.filter(
-            badge__steps__isnull=False, acquired__isnull=True
+            user=self, badge__steps__isnull=False, acquired__isnull=True
         )
 
         # `steps` is validated to be > 0 and non-null here, so the division is safe.
@@ -238,3 +238,9 @@ class User(SkoleModel, AbstractBaseUser, PermissionsMixin):
 
     def register_fcm_token(self, token: str) -> None:
         FCMDevice.objects.get_or_create(user=self, registration_id=token)
+
+    def get_acquired_badges(self) -> QuerySet[Badge]:
+        """Return all the badges that the user has acquired."""
+        return Badge.objects.filter(
+            badge_progresses__user=self, badge_progresses__acquired__isnull=False
+        )

@@ -21,11 +21,11 @@ for path in skole/locale/*; do
     diff --unified=0 "$po_file" "$temp_file" | \
             grep --quiet --extended-regexp --invert-match -- '---|\+\+\+|^@@.*@@$|POT-Creation-Date' \
         && error=1 && printf 'Error! Makemessages not up-to-date for %s.\n' "$lang" \
-        || printf 'Makemessages up-to-date for %s.\n' "$lang" \
+        || printf 'Ok. Makemessages up-to-date for %s.\n' "$lang" \
 
     tail -n +2 "$po_file" | grep --quiet '^#, fuzzy$' \
         && error=1 && printf 'Error! `fuzzy` entries found in %s.\n' "$lang" \
-        || printf 'No `fuzzy` message entries in %s.\n' "$lang"
+        || printf 'Ok. No `fuzzy` message entries in %s.\n' "$lang"
 
     cp "$temp_file" "$po_file"
 done

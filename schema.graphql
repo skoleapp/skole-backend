@@ -150,18 +150,6 @@ type CreateCourseMutationPayload {
   clientMutationId: String
 }
 
-input CreateEmailSubscriptionMutationInput {
-  email: String!
-  clientMutationId: String
-}
-
-type CreateEmailSubscriptionMutationPayload {
-  email: String!
-  errors: [ErrorType]
-  successMessage: String
-  clientMutationId: String
-}
-
 input CreateResourceMutationInput {
   title: String!
   file: String!
@@ -241,12 +229,6 @@ type DownloadResourceMutationPayload {
   clientMutationId: String
 }
 
-type EmailSubscriptionObjectType {
-  email: String!
-  productUpdates: Boolean!
-  blogPosts: Boolean!
-}
-
 type ErrorType {
   field: String!
   messages: [String!]!
@@ -307,8 +289,6 @@ type Mutation {
   deleteResource(input: DeleteResourceMutationInput!): DeleteResourceMutationPayload
   downloadResource(input: DownloadResourceMutationInput!): DownloadResourceMutationPayload
   myData: MyDataMutation
-  createEmailSubscription(input: CreateEmailSubscriptionMutationInput!): CreateEmailSubscriptionMutationPayload
-  updateEmailSubscription(input: UpdateEmailSubscriptionMutationInput!): UpdateEmailSubscriptionMutationPayload
   createCourse(input: CreateCourseMutationInput!): CreateCourseMutationPayload
   deleteCourse(input: DeleteCourseMutationInput!): DeleteCourseMutationPayload
   createContactMessage(input: ContactMutationInput!): ContactMutationPayload
@@ -391,7 +371,6 @@ type Query {
   resources(user: String, course: String, page: Int, pageSize: Int, ordering: String): PaginatedResourceObjectType
   starredResources(page: Int, pageSize: Int): PaginatedResourceObjectType
   resource(slug: String): ResourceObjectType
-  emailSubscription(token: String): EmailSubscriptionObjectType
   courses(searchTerm: String, subject: String, school: String, schoolType: String, country: String, city: String, user: String, page: Int, pageSize: Int, ordering: String): PaginatedCourseObjectType
   autocompleteCourses(school: String, name: String): [CourseObjectType]
   starredCourses(page: Int, pageSize: Int): PaginatedCourseObjectType
@@ -551,8 +530,6 @@ input UpdateAccountSettingsMutationInput {
   email: String!
   school: ID
   subject: ID
-  productUpdateEmailPermission: Boolean
-  blogPostEmailPermission: Boolean
   commentReplyEmailPermission: Boolean
   courseCommentEmailPermission: Boolean
   resourceCommentEmailPermission: Boolean
@@ -580,20 +557,6 @@ input UpdateCommentMutationInput {
 
 type UpdateCommentMutationPayload {
   comment: CommentObjectType
-  errors: [ErrorType]
-  successMessage: String
-  clientMutationId: String
-}
-
-input UpdateEmailSubscriptionMutationInput {
-  productUpdates: Boolean
-  blogPosts: Boolean
-  token: String
-  clientMutationId: String
-}
-
-type UpdateEmailSubscriptionMutationPayload {
-  emailSubscription: EmailSubscriptionObjectType
   errors: [ErrorType]
   successMessage: String
   clientMutationId: String
@@ -654,8 +617,6 @@ type UserObjectType {
   score: Int
   verified: Boolean
   created: DateTime!
-  productUpdateEmailPermission: Boolean
-  blogPostEmailPermission: Boolean
   commentReplyEmailPermission: Boolean
   courseCommentEmailPermission: Boolean
   resourceCommentEmailPermission: Boolean

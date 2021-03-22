@@ -16,13 +16,11 @@ class Languages:
 class TokenAction:
     VERIFICATION = "verification"
     PASSWORD_RESET = "password_reset"
-    UPDATE_EMAIL_SUBSCRIPTION = "update-email-subscription"
 
 
 class ValidationErrors:
     USERNAME_TAKEN = _("This username is taken.")
     EMAIL_TAKEN = _("This email is taken.")
-    EMAIL_ALREADY_SUBSCRIBED = _("A subscription with this email already exists.")
     ACCOUNT_EMAIL = _(
         "This email belongs to an account. You can edit your email preferences in your account settings."
     )
@@ -74,8 +72,6 @@ class Messages:
     COMMENT_DELETED = _("Comment deleted successfully!")
     DATA_REQUEST_RECEIVED = _("Data request received successfully!")
     SUBSCRIBED = _("Subscribed successfully!")
-    SUBSCRIPTION_UPDATED = _("Subscription updated successfully!")
-    SUBSCRIPTION_DELETED = _("Subscription deleted successfully!")
     BADGE_TRACKING_CHANGED = _("Changed the tracked badge successfully!")
     FCM_TOKEN_UPDATED = _("FCM token updated!")
 
@@ -163,17 +159,6 @@ class VerboseNames:
 DJANGO_STANDARD_MESSAGES_TO_OVERRIDE = [
     _("The password is too similar to the %(verbose_name)s.")
 ]
-
-
-class MarketingEmailTypes:
-    PRODUCT_UPDATE = "product-update"
-    BLOG_POST = "blog-post"
-
-
-MARKETING_EMAIL_TYPE_CHOICES = (
-    (MarketingEmailTypes.PRODUCT_UPDATE, "Product Update"),
-    (MarketingEmailTypes.BLOG_POST, "Blog Post"),
-)
 
 # Keep these untranslated, and return the non-display value to frontend
 # as a GraphQL Enum type. It makes conditional rendering easier there.

@@ -50,7 +50,6 @@ DATABASES = {"default": dj_database_url.config()}
 
 # Installed app settings
 INSTALLED_APPS = [
-    "admin_confirm",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -220,7 +219,6 @@ EMAIL_CONTACT_FORM_SENDER = os.environ.get(
 # Have to match with frontend.
 VERIFICATION_PATH_ON_EMAIL = "verify-account"
 PASSWORD_RESET_PATH_ON_EMAIL = "reset-password"
-UPDATE_EMAIL_SUBSCRIPTION_PATH_ON_EMAIL = "email-subscription"
 ACCOUNT_SETTINGS_PATH_ON_EMAIL = "account-settings"
 COURSE_COMMENT_PATH_ON_EMAIL = "courses/{}?comment={}"
 RESOURCE_COMMENT_PATH_ON_EMAIL = "resources/{}?comment={}"

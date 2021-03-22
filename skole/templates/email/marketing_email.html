@@ -1,5 +1,9 @@
 {{ contents|safe }}
 
-Edit or cancel your email subscription <a href="{{ update_email_subscription_url }}">here</a>.
+<p>Edit or cancel your email subscription on the following link:</p>
+
+<a href="{{ update_email_subscription_url }}"
+  >{{ update_email_subscription_url }}</a
+>
 
 {% include "email/_signature.html" %}

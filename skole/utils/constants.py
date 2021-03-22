@@ -81,12 +81,10 @@ class Messages:
 
 
 class Notifications:
-    MY_DATA_SUBJECT = _("Your data request on Skole")
-    VERIFY_ACCOUNT_SUBJECT = _("Verify your account on Skole")
-    RESET_PASSWORD_SUBJECT = _("Reset your password on Skole")
-    COMMUNITY_USER = _("Community User")
-    # These are not translated since we don't know the language of the receiving user
-    # when we send these.
+    MY_DATA_SUBJECT = "Your data request on Skole"
+    VERIFY_ACCOUNT_SUBJECT = "Verify your account on Skole"
+    RESET_PASSWORD_SUBJECT = "Reset your password on Skole"
+    COMMUNITY_USER = "Community User"
     COMMENT_EMAIL_NOTIFICATION_SUBJECT = "{} {} in Skole"
     COMMENT_PUSH_NOTIFICATION_TITLE = "New Activity!"
     BADGE_EMAIL_NOTIFICATION_TITLE = "You Earned a New Badge in Skole"

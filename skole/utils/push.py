@@ -1,3 +1,4 @@
+from django.conf import settings
 from fcm_django.models import FCMDevice
 
 from skole.models import Activity, User
@@ -34,9 +35,10 @@ def send_comment_push_notification(activity: Activity) -> None:
         course_slug = getattr(comment.course, "slug", None)
         school_slug = getattr(comment.school, "slug", None)
 
-    description = activity.activity_type.description
+    activity_type = activity.activity_type
+    activity_type.set_current_language(settings.LANGUAGE_CODE)
     title = Notifications.COMMENT_PUSH_NOTIFICATION_TITLE
-    body = f"{causing_username} {description}."
+    body = f"{causing_username} {activity_type.description}."
 
     data = {
         "activity": activity.pk,
@@ -45,17 +47,21 @@ def send_comment_push_notification(activity: Activity) -> None:
         "school": school_slug,
         "comment": comment.pk,
     }
+
     _send_push_notification(user=activity.user, title=title, body=body, data=data)
 
 
 def send_badge_push_notification(activity: Activity) -> None:
     badge_progress = activity.badge_progress
     assert badge_progress
+    badge = badge_progress.badge
+    badge.set_current_language(settings.LANGUAGE_CODE)
     title = Notifications.BADGE_PUSH_NOTIFICATION_TITLE
-    body = Notifications.BADGE_PUSH_NOTIFICATION_BODY.format(badge_progress.badge)
+    body = Notifications.BADGE_PUSH_NOTIFICATION_BODY.format(badge)
 
     data = {
         "activity": activity.pk,
         "user": badge_progress.user.slug,
     }
+
     _send_push_notification(user=activity.user, title=title, body=body, data=data)

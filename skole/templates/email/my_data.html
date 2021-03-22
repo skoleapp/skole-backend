@@ -1,8 +1,11 @@
-{% load i18n %}
-<p>{% translate "Hello" %} {{ user.username }}!</p>
+<p>Hello {{ user.username }}!</p>
 
-{# Try to keep the whitespace to a minimum so that it won't look bad in the plain text versions of the emails. #}
-<p>{% blocktranslate %}Your data request has completed. The data will be accessible for {{ days }} days with the following link:{% endblocktranslate %}</p>
+{# Try to keep the whitespace to a minimum so that it won't look bad in the
+plain text versions of the emails. #}
+<p>
+  Your data request has completed. The data will be accessible for {{ days }}
+  days with the following link:
+</p>
 
 <a href="{{ url }}">{{ url }}</a>
 

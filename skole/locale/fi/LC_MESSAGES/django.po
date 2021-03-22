@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-21 00:28+0000\n"
+"POT-Creation-Date: 2021-03-22 11:25+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Skole\n"
@@ -12,33 +12,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: skole/templates/email/_signature.html:2
-msgid "P.S. You can always reply to our emails."
-msgstr "P.S. Voit aina vastata sähköposteihimme."
-
-#: skole/templates/email/my_data.html:2
-#: skole/templates/email/reset_password.html:2
-#: skole/templates/email/verify_account.html:2
-msgid "Hello"
-msgstr "Hei"
-
-#: skole/templates/email/my_data.html:5
-#, python-format
-msgid ""
-"Your data request has completed. The data will be accessible for %(days)s "
-"days with the following link:"
-msgstr ""
-"Datapyyntösi on valmistunut. Voit ladata tietosi oheisesta linkistä %(days)s "
-"päivän ajan:"
-
-#: skole/templates/email/reset_password.html:4
-msgid "Reset your password on the link:"
-msgstr "Nollaa salasanasi tästä linkistä:"
-
-#: skole/templates/email/verify_account.html:4
-msgid "Please verify your account on the link:"
-msgstr "Vahvista käyttäjäsi tästä linkistä"
 
 #: skole/utils/constants.py:7
 msgid "Skole Administration"
@@ -253,27 +226,11 @@ msgstr "Seurattava merkki vaihdettu onnistuneesti!"
 msgid "FCM token updated!"
 msgstr "FCM tunnus päivitetty!"
 
-#: skole/utils/constants.py:84
-msgid "Your data request on Skole"
-msgstr "Datapyyntösi Skolessa"
-
-#: skole/utils/constants.py:85
-msgid "Verify your account on Skole"
-msgstr "Vahvista käyttäjäsi Skolessa"
-
-#: skole/utils/constants.py:86
-msgid "Reset your password on Skole"
-msgstr "Nollaa salasanasi Skolessa"
-
-#: skole/utils/constants.py:87
-msgid "Community User"
-msgstr "Yhteisökäyttäjä"
-
-#: skole/utils/constants.py:113
+#: skole/utils/constants.py:111
 msgid "Error while sending email."
 msgstr "Virhe lähettäessä sähköpostia."
 
-#: skole/utils/constants.py:115
+#: skole/utils/constants.py:113
 msgid ""
 "Your account has been registered but we encountered an error while sending "
 "email. You may still log in using your credentials. Please try verifying "
@@ -282,47 +239,47 @@ msgstr ""
 "Tilisi on rekisteröity, mutta sähköpostia lähtetettäessä sattui virhe. Voit "
 "silti kirjautua tiedoillasi. Ole hyvä ja yritä vahvistaa tilisi myöhemmin."
 
-#: skole/utils/constants.py:120
+#: skole/utils/constants.py:118
 msgid "Token expired. Please request new verification link."
 msgstr "Tunnus on vanhentunut. Ole hyvä ja pyydä uutta vahvistuslinkkiä."
 
-#: skole/utils/constants.py:121
+#: skole/utils/constants.py:119
 msgid "Invalid token. Please request new verification link."
 msgstr "Virheellinen tunnus. Ole hyvä ja pyydä uuutta vahvistuslinkkiä."
 
-#: skole/utils/constants.py:122
+#: skole/utils/constants.py:120
 msgid "Invalid token."
 msgstr "Virheellinen tunnus."
 
-#: skole/utils/constants.py:123
+#: skole/utils/constants.py:121
 msgid "Invalid badge."
 msgstr "Virheellinen merkki."
 
-#: skole/utils/constants.py:125
+#: skole/utils/constants.py:123
 msgid ""
 "User with the provided email was not found. Please check you email address."
 msgstr ""
 "Käyttäjää ei löytynyt antamallasi sähköpostiosoitteella. Ole hyvä ja "
 "tarkista sähköpostiosoitteesi."
 
-#: skole/utils/constants.py:127
+#: skole/utils/constants.py:125
 msgid "This account has been removed."
 msgstr "Tämä tili on poistettu."
 
-#: skole/utils/constants.py:129
+#: skole/utils/constants.py:127
 msgid "Token expired. Please request new password reset link."
 msgstr ""
 "Tunnus on vanhentunut. Ole hyvä ja pyydä uutta salasanan nollauslinkkiä."
 
-#: skole/utils/constants.py:132
+#: skole/utils/constants.py:130
 msgid "Invalid token. Please request new password reset link."
 msgstr "Virheellinen tunnus. Ole hyvä ja pyydä uutta salasanan nollauslinkkiä."
 
-#: skole/utils/constants.py:134
+#: skole/utils/constants.py:132
 msgid "This action is only allowed for authenticated users."
 msgstr "Tämä toiminto on sallittu ainoastaan kirjautuneille käyttäjille."
 
-#: skole/utils/constants.py:136
+#: skole/utils/constants.py:134
 msgid ""
 "This action is only allowed for users who have verified their accounts. "
 "Please verify your account."
@@ -330,47 +287,47 @@ msgstr ""
 "Tämä toiminto on sallittu ainoastaan käyttäjille jotka ovat vahvistaneet "
 "tilinsä. Ole hyvä ja vahista tilisi."
 
-#: skole/utils/constants.py:139
+#: skole/utils/constants.py:137
 msgid "You can request this next time in {} min."
 msgstr "Voit pyytää tätä uudestaan {} minuutin kuluttua."
 
-#: skole/utils/constants.py:155
+#: skole/utils/constants.py:153
 msgid "Freshman"
 msgstr "Fuksi"
 
-#: skole/utils/constants.py:156
+#: skole/utils/constants.py:154
 msgid "Tutor"
 msgstr "Tuutori"
 
-#: skole/utils/constants.py:157
+#: skole/utils/constants.py:155
 msgid "Mentor"
 msgstr "Mentori"
 
-#: skole/utils/constants.py:158
+#: skole/utils/constants.py:156
 msgid "Bachelor"
 msgstr "Kandidaatti"
 
-#: skole/utils/constants.py:159
+#: skole/utils/constants.py:157
 msgid "Master"
 msgstr "Maisteri"
 
-#: skole/utils/constants.py:160
+#: skole/utils/constants.py:158
 msgid "Doctor"
 msgstr "Tohtori"
 
-#: skole/utils/constants.py:161
+#: skole/utils/constants.py:159
 msgid "Professor"
 msgstr "Professori"
 
-#: skole/utils/constants.py:174
+#: skole/utils/constants.py:172
 msgid "username"
 msgstr "käyttäjänimi"
 
-#: skole/utils/constants.py:175
+#: skole/utils/constants.py:173
 msgid "email"
 msgstr "sähköposti"
 
-#: skole/utils/constants.py:179
+#: skole/utils/constants.py:177
 #, python-format
 msgid "The password is too similar to the %(verbose_name)s."
 msgstr "Salasana on liian samankaltainen kuin %(verbose_name)s."

@@ -168,14 +168,19 @@ def send_comment_email_notification(activity: Activity) -> None:
         else Notifications.COMMUNITY_USER
     )
 
-    description = activity.activity_type.description
+    activity_type = activity.activity_type
+    activity_type.set_current_language(settings.LANGUAGE_CODE)
+    description = activity_type.description
+
     subject = Notifications.COMMENT_EMAIL_NOTIFICATION_SUBJECT.format(
         causing_username, description
     )
 
     user = activity.user
     comment = activity.comment
+
     assert comment
+
     top_level_comment = comment.comment
     resource = comment.resource or getattr(top_level_comment, "resource", None)
     course = comment.course or getattr(top_level_comment, "course", None)
@@ -200,6 +205,7 @@ def send_comment_email_notification(activity: Activity) -> None:
         "causing_username": causing_username,
         "description": description,
         "url": url,
+        "unsubscribe_url": f"{_get_frontend_url()}/{settings.ACCOUNT_SETTINGS_PATH_ON_EMAIL}",
     }
 
     _send_templated_mail(
@@ -213,12 +219,16 @@ def send_comment_email_notification(activity: Activity) -> None:
 def send_badge_email_notification(activity: Activity) -> None:
     assert activity.badge_progress
 
+    badge = activity.badge_progress.badge
+    badge.set_current_language(settings.LANGUAGE_CODE)
+
     path = f"{settings.USER_PROFILE_PATH_ON_EMAIL.format(activity.user.slug)}"
 
     context = {
         "user": activity.user,
-        "badge": activity.badge_progress.badge,
+        "badge": badge,
         "url": f"{_get_frontend_url()}/{path}",
+        "unsubscribe_url": f"{_get_frontend_url()}/{settings.ACCOUNT_SETTINGS_PATH_ON_EMAIL}",
     }
 
     _send_templated_mail(

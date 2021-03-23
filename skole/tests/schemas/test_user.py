@@ -175,14 +175,14 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         email: str = "testuser2@test.com",
         school: ID = 1,
         subject: ID = 1,
-        product_update_email_permission: bool = True,
-        blog_post_email_permission: bool = True,
-        comment_reply_email_permission: bool = True,
-        course_comment_email_permission: bool = True,
-        resource_comment_email_permission: bool = True,
+        comment_reply_email_permission: bool = False,
+        course_comment_email_permission: bool = False,
+        resource_comment_email_permission: bool = False,
+        new_badge_email_permission: bool = False,
         comment_reply_push_permission: bool = True,
         course_comment_push_permission: bool = True,
         resource_comment_push_permission: bool = True,
+        new_badge_push_permission: bool = True,
     ) -> JsonDict:
         return self.execute_input_mutation(
             name="updateAccountSettings",
@@ -196,9 +196,11 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
                 "commentReplyEmailPermission": comment_reply_email_permission,
                 "courseCommentEmailPermission": course_comment_email_permission,
                 "resourceCommentEmailPermission": resource_comment_email_permission,
+                "newBadgeEmailPermission": new_badge_email_permission,
                 "commentReplyPushPermission": comment_reply_push_permission,
                 "courseCommentPushPermission": course_comment_push_permission,
                 "resourceCommentPushPermission": resource_comment_push_permission,
+                "newBadgePushPermission": new_badge_push_permission,
             },
             result="user { ...userFields } successMessage",
             fragment=self.user_fields,
@@ -653,14 +655,12 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         # Update some fields.
         new_school = "2"
         new_subject = "2"
-        product_update_email_permission = False
-        blog_post_email_permission = False
-        comment_reply_email_permission = False
-        course_comment_email_permission = False
-        resource_comment_email_permission = False
-        comment_reply_push_permission = False
-        course_comment_push_permission = False
-        resource_comment_push_permission = False
+        comment_reply_email_permission = True
+        course_comment_email_permission = True
+        resource_comment_email_permission = True
+        comment_reply_push_permission = True
+        course_comment_push_permission = True
+        resource_comment_push_permission = True
 
         res = self.mutate_update_account_settings(
             school=new_school,
@@ -678,14 +678,12 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert not res["errors"]
         assert res["user"]["school"] == {"id": new_school}
         assert res["user"]["school"] == {"id": new_subject}
-        assert not res["user"]["productUpdateEmailPermission"]
-        assert not res["user"]["blogPostEmailPermission"]
-        assert not res["user"]["commentReplyEmailPermission"]
-        assert not res["user"]["courseCommentEmailPermission"]
-        assert not res["user"]["resourceCommentEmailPermission"]
-        assert not res["user"]["commentReplyPushPermission"]
-        assert not res["user"]["courseCommentPushPermission"]
-        assert not res["user"]["resourceCommentPushPermission"]
+        assert res["user"]["commentReplyEmailPermission"]
+        assert res["user"]["courseCommentEmailPermission"]
+        assert res["user"]["resourceCommentEmailPermission"]
+        assert res["user"]["commentReplyPushPermission"]
+        assert res["user"]["courseCommentPushPermission"]
+        assert res["user"]["resourceCommentPushPermission"]
         assert res["successMessage"] == Messages.ACCOUNT_SETTINGS_UPDATED
 
         user_old = self.query_user_me()

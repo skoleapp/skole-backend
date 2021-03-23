@@ -556,9 +556,11 @@ input UpdateAccountSettingsMutationInput {
   commentReplyEmailPermission: Boolean
   courseCommentEmailPermission: Boolean
   resourceCommentEmailPermission: Boolean
+  newBadgeEmailPermission: Boolean
   commentReplyPushPermission: Boolean
   courseCommentPushPermission: Boolean
   resourceCommentPushPermission: Boolean
+  newBadgePushPermission: Boolean
   clientMutationId: String
 }
 

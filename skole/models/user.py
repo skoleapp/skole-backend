@@ -147,10 +147,10 @@ class User(SkoleModel, AbstractBaseUser, PermissionsMixin):
     blog_post_email_permission = models.BooleanField(default=True)
 
     # Email notification permissions.
-    comment_reply_email_permission = models.BooleanField(default=True)
-    course_comment_email_permission = models.BooleanField(default=True)
-    resource_comment_email_permission = models.BooleanField(default=True)
-    new_badge_email_permission = models.BooleanField(default=True)
+    comment_reply_email_permission = models.BooleanField(default=False)
+    course_comment_email_permission = models.BooleanField(default=False)
+    resource_comment_email_permission = models.BooleanField(default=False)
+    new_badge_email_permission = models.BooleanField(default=False)
 
     # Push notification permissions.
     comment_reply_push_permission = models.BooleanField(default=True)

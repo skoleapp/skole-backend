@@ -32,11 +32,17 @@ def test_create_user() -> None:
     assert user.username == username
     assert user.email == email
     assert user.check_password(password)
-    assert user.product_update_email_permission
-    assert user.blog_post_email_permission
-    assert user.comment_reply_email_permission
-    assert user.course_comment_email_permission
-    assert user.resource_comment_email_permission
+    # Email notification permission are by default off.
+    assert not user.comment_reply_email_permission
+    assert not user.course_comment_email_permission
+    assert not user.resource_comment_email_permission
+    assert not user.new_badge_email_permission
+
+    # Push notification permission are by default on.
+    assert user.comment_reply_push_permission
+    assert user.course_comment_push_permission
+    assert user.resource_comment_push_permission
+    assert user.new_badge_push_permission
 
     user = User.objects.create_user(
         username="unique",

@@ -150,6 +150,13 @@ def test_comment_email_notifications() -> None:
     # Test that email notifications are sent for resource comments.
 
     resource = Resource.objects.get(pk=1)
+    user = resource.user
+    assert user
+    user.comment_reply_email_permission = True
+    user.course_comment_email_permission = True
+    user.resource_comment_email_permission = True
+    user.save()
+
     resource_comment = Comment.objects.create(text="test", resource=resource)
     activity = Activity.objects.get(comment=resource_comment)
     assert len(mail.outbox) == 1
@@ -182,11 +189,10 @@ def test_comment_email_notifications() -> None:
     top_level_comment = Comment.objects.create(
         user=testuser2, text="test", course=course
     )
-    assert len(mail.outbox) == 3  # 'First Comment' badge
     reply_comment = Comment.objects.create(text="test", comment=top_level_comment)
     activity = Activity.objects.get(comment=reply_comment)
-    assert len(mail.outbox) == 4  # Comment activity
-    sent = mail.outbox[3]
+    assert len(mail.outbox) == 3
+    sent = mail.outbox[2]
     assert sent.from_email == settings.EMAIL_ADDRESS
     assert sent.to == [activity.user.email]
 
@@ -218,7 +224,7 @@ def test_comment_email_notifications() -> None:
     reply_comment = Comment.objects.create(comment=top_level_comment, text="test")
     Activity.objects.get(comment=reply_comment)
 
-    assert len(mail.outbox) == 4
+    assert len(mail.outbox) == 3
 
 
 @pytest.mark.django_db
@@ -226,6 +232,10 @@ def test_badge_email_notifications() -> None:
     assert len(mail.outbox) == 0
 
     progress = BadgeProgress.objects.get(pk=1)
+    user = progress.user
+    user.new_badge_email_permission = True
+    user.save()
+
     progress.save(update_fields=["acquired"])  # Resend the acquiring notification.
     assert len(mail.outbox) == 1
     progress.save()  # This does not send it again.
@@ -236,22 +246,20 @@ def test_badge_email_notifications() -> None:
 
     # No 'First Comment' badge for anonymous comments.
     Comment.objects.create(text="A comment.", course_id=2)
+    assert len(mail.outbox) == 1
+
+    # Gets 'First Comment' badge for creating a comment.
+    Comment.objects.create(text="A comment.", course_id=2, user_id=2)
     assert len(mail.outbox) == 2
     sent = mail.outbox[1]
-    assert "commented on your course" in sent.subject
-
-    # No 'First Comment' badge for anonymous comments.
-    Comment.objects.create(text="A comment.", course_id=2, user_id=2)
-    assert len(mail.outbox) == 4
-    sent = mail.outbox[2]
-    assert "commented on your course" in sent.subject
-    sent = mail.outbox[3]
     assert "Badge" in sent.subject
     assert "First Comment" in sent.body
+    assert "http://localhost:3001/users/testuser2" in sent.body
 
+    # Gets 'First Course' badge for creating a course.
     Course.objects.create(name="New Course", school_id=1, user_id=2)
-    assert len(mail.outbox) == 5
-    sent = mail.outbox[4]
+    assert len(mail.outbox) == 3
+    sent = mail.outbox[2]
     assert "Badge" in sent.subject
     assert "First Course" in sent.body
     assert "http://localhost:3001/users/testuser2" in sent.body

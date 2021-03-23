@@ -7,7 +7,6 @@ import skole.schemas.comment
 import skole.schemas.contact
 import skole.schemas.country
 import skole.schemas.course
-import skole.schemas.email_subscription
 import skole.schemas.gdpr
 import skole.schemas.resource
 import skole.schemas.resource_type
@@ -16,7 +15,6 @@ import skole.schemas.school_type
 import skole.schemas.sitemap
 import skole.schemas.star
 import skole.schemas.subject
-import skole.schemas.suggestions
 import skole.schemas.user
 import skole.schemas.vote
 
@@ -26,7 +24,6 @@ class Query(
     skole.schemas.city.Query,
     skole.schemas.country.Query,
     skole.schemas.course.Query,
-    skole.schemas.email_subscription.Query,
     skole.schemas.resource.Query,
     skole.schemas.resource_type.Query,
     skole.schemas.school.Query,
@@ -34,7 +31,6 @@ class Query(
     skole.schemas.sitemap.Query,
     skole.schemas.subject.Query,
     skole.schemas.user.Query,
-    skole.schemas.suggestions.Query,
     skole.schemas.comment.Query,
     skole.schemas.badge.Query,
 ):
@@ -46,7 +42,6 @@ class Mutation(
     skole.schemas.comment.Mutation,
     skole.schemas.contact.Mutation,
     skole.schemas.course.Mutation,
-    skole.schemas.email_subscription.Mutation,
     skole.schemas.gdpr.Mutation,
     skole.schemas.resource.Mutation,
     skole.schemas.user.Mutation,

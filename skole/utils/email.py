@@ -3,18 +3,15 @@ from __future__ import annotations
 from typing import Optional
 
 from django.conf import settings
-from django.contrib.auth import get_user_model
 from django.contrib.sites.models import Site
-from django.core import signing
-from django.core.mail import get_connection, send_mail
-from django.http import HttpRequest
+from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.utils.translation import get_language
 
-from skole.models import Activity, EmailSubscription, MarketingEmail, User
+from skole.models import Activity, User
 from skole.types import JsonDict, ResolveInfo
-from skole.utils.constants import MarketingEmailTypes, Notifications, TokenAction
+from skole.utils.constants import Notifications, TokenAction
 from skole.utils.exceptions import UserAlreadyVerified
 from skole.utils.token import get_token
 
@@ -96,67 +93,6 @@ def send_password_reset_email(user: User, info: ResolveInfo, recipient: str) -> 
         context=email_context,
         recipient_list=[recipient],
     )
-
-
-# Create dynamic unsubscription link - link registered users to their account settings and create a token for others.
-def _get_marketing_email_context(
-    request: HttpRequest, email: str, contents: str
-) -> JsonDict:
-    url = _get_frontend_url()
-
-    if get_user_model().objects.filter(email=email).exists():
-        path = settings.ACCOUNT_SETTINGS_PATH_ON_EMAIL
-        update_email_subscription_url = f"{url}/{path}"
-    else:
-        path = settings.UPDATE_EMAIL_SUBSCRIPTION_PATH_ON_EMAIL
-        payload = {"email": email, "action": TokenAction.UPDATE_EMAIL_SUBSCRIPTION}
-        token = signing.dumps(payload)
-
-        update_email_subscription_url = f"{url}/{path}?token={token}"
-
-    return {
-        "contents": contents,
-        "update_email_subscription_url": update_email_subscription_url,
-    }
-
-
-def send_marketing_email(request: HttpRequest, instance: MarketingEmail) -> None:
-    if instance.email_type == MarketingEmailTypes.PRODUCT_UPDATE:
-        user_emails = (
-            get_user_model()
-            .objects.filter(product_update_email_permission=True)
-            .values_list("email", flat=True)
-        )
-
-        subscriber_emails = EmailSubscription.objects.filter(
-            product_updates=True
-        ).values_list("email", flat=True)
-
-    if instance.email_type == MarketingEmailTypes.BLOG_POST:
-        user_emails = (
-            get_user_model()
-            .objects.filter(blog_post_email_permission=True)
-            .values_list("email", flat=True)
-        )
-
-        subscriber_emails = EmailSubscription.objects.filter(
-            blog_posts=True
-        ).values_list("email", flat=True)
-
-    recipient_list = user_emails.union(subscriber_emails)
-    contents = instance.contents.read().decode("utf-8")
-
-    with get_connection():
-        for recipient in recipient_list.iterator():
-            _send_templated_mail(
-                subject=instance.subject,
-                from_email=str(instance.from_email),
-                template="email/marketing_email.html",
-                context=_get_marketing_email_context(
-                    request=request, email=recipient, contents=contents
-                ),
-                recipient_list=[recipient],
-            )
 
 
 def send_comment_email_notification(activity: Activity) -> None:

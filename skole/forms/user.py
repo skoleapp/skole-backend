@@ -133,8 +133,6 @@ class UpdateAccountSettingsForm(SkoleModelForm):
             "email",
             "school",
             "subject",
-            "product_update_email_permission",
-            "blog_post_email_permission",
             "comment_reply_email_permission",
             "course_comment_email_permission",
             "resource_comment_email_permission",

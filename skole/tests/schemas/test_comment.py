@@ -1,7 +1,6 @@
 from typing import Optional
 
 from django.conf import settings
-from django.test import override_settings
 
 from skole.models import Comment, Course, Resource, School
 from skole.tests.helpers import (
@@ -137,31 +136,21 @@ class CommentSchemaTests(SkoleSchemaTestCase):
 
         return self.execute(graphql, variables=variables, assert_error=assert_error)
 
-    def query_discussion_suggestions(
+    def query_trending_comments(
         self,
-        *,
         assert_error: bool = False,
-    ) -> list[JsonDict]:
+    ) -> JsonDict:
         # language=GraphQL
-        graphql = """
-            query DiscussionSuggestions {
-                discussionSuggestions {
-                    ... on CourseObjectType {
-                        id
-                        courseName: name
-                        codes
-                    }
-                    ... on ResourceObjectType {
-                        id
-                        title
-                    }
-                    ... on SchoolObjectType {
-                        id
-                        name
+        graphql = (
+            self.comment_fields
+            + """
+                query TrendingComments {
+                    trendingComments {
+                        ...commentFields
                     }
                 }
-            }
-        """
+            """
+        )
 
         return self.execute(graphql, assert_error=assert_error)
 
@@ -523,34 +512,14 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         res = self.query_discussion(school=school)
         assert len(res) == 0
 
-    def test_discussion_suggestions(self) -> None:
-        res = self.query_discussion_suggestions()
-        assert len(res) <= settings.DISCUSSION_SUGGESTIONS_COUNT
-        # User's own school should be the first suggestion.
-        # Ignore: Mypy doesn't cannot know that `user.school` is not None here.
-        assert res[0]["id"] == str(self.get_authenticated_user().school.pk)  # type: ignore[union-attr]
-        assert res[0]["name"] == "University of Turku"
-        assert res[1]["name"] == "Turku University of Applied Sciences"
-        assert res[2]["courseName"] == "Test Engineering Course 1"
-        # A few courses and resources are tied for the second place, since we don't
-        # order the tied scores base d on the primary keys (to reduce query overhead),
-        # the order of the results is not exactly stable and we can't test for exact match
-        # here. It's just important that the second result is distinct from the first.
-        assert res[3]["courseName"] != "Test Engineering Course 1"
-        assert res[4]["title"] == "Sample Exam 1"
-        assert res[5]["title"] != "Sample Exam 1"
-
-        # Check that no duplicates are ever returned.
-        with override_settings(DISCUSSION_SUGGESTIONS_COUNT=1000):
-            res = self.query_discussion_suggestions()
-            assert len(res) == len(
-                {
-                    (tuple(x) if isinstance(x, list) else x for x in elem.items())
-                    for elem in res
-                }
-            )
-
-        # Test that anonymous users cannot query discussion suggestions.
+    def test_trending_comments(self) -> None:
         self.authenticated_user = None
-        res = self.query_discussion_suggestions(assert_error=True)
-        assert "permission" in get_graphql_error(res)
+
+        # Test full suggestions.
+        res = self.query_trending_comments()
+        assert len(res) <= settings.TRENDING_COMMENTS_COUNT
+
+        # TODO: Test the following cases on the suggestions algorithm:
+        # - Test that the newest comments are returned.
+        # - Test that no reply comments are included.
+        # - Test that no comments with negative score are included.

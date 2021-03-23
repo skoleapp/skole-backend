@@ -50,7 +50,6 @@ DATABASES = {"default": dj_database_url.config()}
 
 # Installed app settings
 INSTALLED_APPS = [
-    "admin_confirm",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -220,7 +219,6 @@ EMAIL_CONTACT_FORM_SENDER = os.environ.get(
 # Have to match with frontend.
 VERIFICATION_PATH_ON_EMAIL = "verify-account"
 PASSWORD_RESET_PATH_ON_EMAIL = "reset-password"
-UPDATE_EMAIL_SUBSCRIPTION_PATH_ON_EMAIL = "email-subscription"
 ACCOUNT_SETTINGS_PATH_ON_EMAIL = "account-settings"
 COURSE_COMMENT_PATH_ON_EMAIL = "courses/{}?comment={}"
 RESOURCE_COMMENT_PATH_ON_EMAIL = "resources/{}?comment={}"
@@ -257,11 +255,8 @@ MY_DATA_FILE_AVAILABLE_FOR = timedelta(days=7)
 
 # Both values below are divisible by three so we can include the same amount of courses, resources and comments in the suggestions.
 
-# Amount of results returned by the suggestions query.
-SUGGESTIONS_COUNT = 21
-
-# Amount of results returned by the suggestions preview query.
-SUGGESTIONS_PREVIEW_COUNT = 6
+# Amount of results returned by the trending comments query.
+TRENDING_COMMENTS_COUNT = 6
 
 # Amount of results returned by discussion suggestions.
 DISCUSSION_SUGGESTIONS_COUNT = 6

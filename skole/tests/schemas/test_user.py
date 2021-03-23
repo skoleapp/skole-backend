@@ -41,8 +41,6 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
             rank
             unreadActivityCount
             fcmToken
-            productUpdateEmailPermission
-            blogPostEmailPermission
             commentReplyEmailPermission
             courseCommentEmailPermission
             resourceCommentEmailPermission
@@ -175,8 +173,6 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         email: str = "testuser2@test.com",
         school: ID = 1,
         subject: ID = 1,
-        product_update_email_permission: bool = True,
-        blog_post_email_permission: bool = True,
         comment_reply_email_permission: bool = True,
         course_comment_email_permission: bool = True,
         resource_comment_email_permission: bool = True,
@@ -191,8 +187,6 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
                 "email": email,
                 "school": school,
                 "subject": subject,
-                "productUpdateEmailPermission": product_update_email_permission,
-                "blogPostEmailPermission": blog_post_email_permission,
                 "commentReplyEmailPermission": comment_reply_email_permission,
                 "courseCommentEmailPermission": course_comment_email_permission,
                 "resourceCommentEmailPermission": resource_comment_email_permission,
@@ -290,18 +284,13 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert sent.from_email == settings.EMAIL_ADDRESS
         assert sent.to == [email]
 
-        # Can set marketing permission to False.
-        res = self.mutate_register(username="unique", email="unique@test.test")
-        assert not res["errors"]
-        get_user_model().objects.order_by("created")
-
         # Username should keep its casing, mut email should be lowercased.
         self.mutate_register(username="MYUSERNAME", email="MAIL@example.COM")
         user = get_last(get_user_model().objects.order_by("created"))
         assert user.username == "MYUSERNAME"
         assert user.email == "mail@example.com"
 
-        assert len(mail.outbox) == 3
+        assert len(mail.outbox) == 2
 
         sent = mail.outbox[-1]
         assert sent.from_email == settings.EMAIL_ADDRESS
@@ -653,8 +642,6 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         # Update some fields.
         new_school = "2"
         new_subject = "2"
-        product_update_email_permission = False
-        blog_post_email_permission = False
         comment_reply_email_permission = False
         course_comment_email_permission = False
         resource_comment_email_permission = False
@@ -665,8 +652,6 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         res = self.mutate_update_account_settings(
             school=new_school,
             subject=new_subject,
-            product_update_email_permission=product_update_email_permission,
-            blog_post_email_permission=blog_post_email_permission,
             comment_reply_email_permission=comment_reply_email_permission,
             course_comment_email_permission=course_comment_email_permission,
             resource_comment_email_permission=resource_comment_email_permission,
@@ -678,8 +663,6 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert not res["errors"]
         assert res["user"]["school"] == {"id": new_school}
         assert res["user"]["school"] == {"id": new_subject}
-        assert not res["user"]["productUpdateEmailPermission"]
-        assert not res["user"]["blogPostEmailPermission"]
         assert not res["user"]["commentReplyEmailPermission"]
         assert not res["user"]["courseCommentEmailPermission"]
         assert not res["user"]["resourceCommentEmailPermission"]

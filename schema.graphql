@@ -215,8 +215,6 @@ type DeleteUserMutationPayload {
   clientMutationId: String
 }
 
-union DiscussionsUnion = CourseObjectType | ResourceObjectType | SchoolObjectType
-
 input DownloadResourceMutationInput {
   id: ID
   clientMutationId: String
@@ -353,9 +351,7 @@ type Query {
   badges: [BadgeObjectType]
   comments(user: String, page: Int, pageSize: Int): PaginatedCommentObjectType
   discussion(course: ID, resource: ID, school: ID): [CommentObjectType]
-  discussionSuggestions: [DiscussionsUnion]
-  suggestions: [SuggestionsUnion]
-  suggestionsPreview: [SuggestionsUnion]
+  trendingComments: [CommentObjectType]
   userMe: UserObjectType
   user(slug: String): UserObjectType
   subjects(school: String, page: Int, pageSize: Int): PaginatedSubjectObjectType
@@ -523,8 +519,6 @@ type SubjectObjectType {
   courseCount: Int
   resourceCount: Int
 }
-
-union SuggestionsUnion = CourseObjectType | ResourceObjectType | CommentObjectType
 
 input UpdateAccountSettingsMutationInput {
   email: String!

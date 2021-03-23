@@ -290,7 +290,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert user.username == "MYUSERNAME"
         assert user.email == "mail@example.com"
 
-        assert len(mail.outbox) == 3
+        assert len(mail.outbox) == 2
 
         sent = mail.outbox[-1]
         assert sent.from_email == settings.EMAIL_ADDRESS

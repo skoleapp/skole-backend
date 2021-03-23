@@ -1,14 +1,11 @@
-from typing import Union, cast
-
 import graphene
 from django.conf import settings
-from django.db.models import Q, QuerySet
+from django.db.models import QuerySet
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 
 from skole.forms import CreateCommentForm, DeleteCommentForm, UpdateCommentForm
-from skole.models import Comment, Course, Resource, School, User
-from skole.overridden import login_required
+from skole.models import Comment
 from skole.schemas.base import (
     SkoleCreateUpdateMutationMixin,
     SkoleDeleteMutationMixin,
@@ -21,7 +18,6 @@ from skole.schemas.school import SchoolObjectType
 from skole.types import ID, ResolveInfo
 from skole.utils.constants import Messages
 from skole.utils.pagination import get_paginator
-from skole.utils.shortcuts import join_queries
 
 
 class CommentObjectType(VoteMixin, DjangoObjectType):
@@ -132,7 +128,7 @@ class Query(SkoleObjectType):
         school=graphene.ID(),
     )
 
-    discussion_suggestions = graphene.List(DiscussionsUnion)
+    trending_comments = graphene.List(CommentObjectType)
 
     @staticmethod
     def resolve_comments(
@@ -177,76 +173,10 @@ class Query(SkoleObjectType):
         return qs
 
     @staticmethod
-    @login_required
-    def resolve_discussion_suggestions(
-        root: None, info: ResolveInfo
-    ) -> list[Union[School, Course, Resource]]:
-        """Return a selection of courses, resources and schools that are most relevant
-        to discuss for the given user."""
+    def resolve_trending_comments(root: None, info: ResolveInfo) -> QuerySet[Comment]:
+        """Return trending comments based on secret Skole AI-powered algorithms."""
 
-        user = cast(User, info.context.user)
-        city = getattr(user.school, "city", None)
-        country = getattr(city, "country", None)
-        cut = settings.DISCUSSION_SUGGESTIONS_COUNT // 3
-
-        # Note: the different Q object arguments passed to `join_queries` contain
-        # different priority filterings. E.g. `Q(users=user)` on the schools query is
-        # the most important one and its results should always appear first.
-
-        # Include:
-        # - Include the the user's school.
-        # - Schools that have been commented by the user or have reply comments from the user.
-        # - The best schools from the user's city.
-        # - The best schools from the user's country.
-        schools = join_queries(
-            School,
-            Q(users=user),
-            Q(comments__user=user) | Q(comments__reply_comments__user=user),
-            *([Q(city=city)] if city else []),
-            *([Q(city__country=country)] if country else []),
-            order_by=["-comment_count"],
-        )
-
-        # Include courses that:
-        # - Are created by the user.
-        # - Have been starred by the user.
-        # - Have been voted by the user.
-        # - Have been commented by the user.
-        # - Have reply comments from the user.
-        # - Have resources added by the user.
-        courses = join_queries(
-            Course,
-            Q(user=user)
-            | Q(stars__user=user)
-            | Q(votes__user=user)
-            | Q(comments__user=user)
-            | Q(comments__reply_comments__user=user)
-            | Q(resources__user=user),
-            *([Q(subjects=user.subject)] if user.subject else []),
-            order_by=["-score", "-resource_count", "-comment_count"],
-        )
-
-        # Include resources that:
-        # - Are created by the user.
-        # - Have their course created by the user.
-        # - Have been starred by the user.
-        # - Have been voted by the user.
-        # - Have been commented by the user.
-        # - Have reply comments from the user.
-        # - The best resources from the user's subject.
-        resources = join_queries(
-            Resource,
-            Q(user=user)
-            | Q(course__user=user)
-            | Q(stars__user=user)
-            | Q(votes__user=user)
-            | Q(comments__user=user)
-            | Q(comments__reply_comments__user=user),
-            *([Q(course__subjects=user.subject)] if user.subject else []),
-            order_by=["-score", "-comment_count"],
-        )
-
-        return [*schools[:cut], *courses[:cut], *resources[:cut]]
+        return Comment.objects.filter(comment=None, score__gte=0).order_by("-pk")[: settings.TRENDING_COMMENTS_COUNT]  # type: ignore[misc]
 
 
 class Mutation(SkoleObjectType):

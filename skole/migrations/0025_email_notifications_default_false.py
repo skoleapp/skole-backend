@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('skole', '0025_remove_marketing_models'),
+        ('skole', '0024_badge_made_available'),
     ]
 
     operations = [

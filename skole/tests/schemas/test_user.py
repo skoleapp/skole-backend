@@ -175,6 +175,8 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         email: str = "testuser2@test.com",
         school: ID = 1,
         subject: ID = 1,
+        product_update_email_permission: bool = True,
+        blog_post_email_permission: bool = True,
         comment_reply_email_permission: bool = False,
         course_comment_email_permission: bool = False,
         resource_comment_email_permission: bool = False,
@@ -655,6 +657,8 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         # Update some fields.
         new_school = "2"
         new_subject = "2"
+        product_update_email_permission = False
+        blog_post_email_permission = False
         comment_reply_email_permission = True
         course_comment_email_permission = True
         resource_comment_email_permission = True

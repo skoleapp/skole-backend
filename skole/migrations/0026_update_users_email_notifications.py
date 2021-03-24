@@ -19,7 +19,7 @@ def forwards_func(apps: Apps, schema_editor: BaseDatabaseSchemaEditor) -> None:
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("skole", "0026_email_notifications_default_false"),
+        ("skole", "0025_email_notifications_default_false"),
     ]
 
     operations = [

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from django.db import models
 
-from .base import SkoleModel
+from skole.models.base import SkoleModel
 
 
 class MarketingEmailSender(SkoleModel):

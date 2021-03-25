@@ -1,6 +1,5 @@
+from skole.forms.base import SkoleUpdateModelForm
 from skole.models import Activity
-
-from .base import SkoleUpdateModelForm
 
 
 class MarkActivityAsReadForm(SkoleUpdateModelForm):

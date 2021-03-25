@@ -2,9 +2,8 @@ from __future__ import annotations
 
 from django.db import models
 
+from skole.models.base import SkoleModel
 from skole.utils.constants import MARKETING_EMAIL_TYPE_CHOICES
-
-from .base import SkoleModel
 
 
 class MarketingEmail(SkoleModel):

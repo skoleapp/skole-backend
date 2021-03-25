@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.db import models
 
-from .base import SkoleModel
+from skole.models.base import SkoleModel
 
 
 class Author(SkoleModel):

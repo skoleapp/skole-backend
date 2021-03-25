@@ -9,10 +9,9 @@ from django.db.models import Count, Sum, Value
 from django.db.models.functions import Coalesce
 from django.db.models.query import QuerySet
 
+from skole.models.base import SkoleManager, SkoleModel
 from skole.utils.shortcuts import safe_annotation
 from skole.utils.validators import ValidateFileSizeAndType
-
-from .base import SkoleManager, SkoleModel
 
 
 class ResourceManager(SkoleManager["Resource"]):

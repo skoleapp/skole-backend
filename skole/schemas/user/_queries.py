@@ -6,9 +6,8 @@ from django.contrib.auth import get_user_model
 from skole.models import User
 from skole.overridden import login_required
 from skole.schemas.base import SkoleObjectType
+from skole.schemas.user import UserObjectType
 from skole.types import ResolveInfo
-
-from ._object_types import UserObjectType
 
 
 class Query(SkoleObjectType):

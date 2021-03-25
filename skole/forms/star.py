@@ -1,10 +1,9 @@
 from typing import cast
 
+from skole.forms.base import SkoleModelForm
 from skole.models import Star
 from skole.types import JsonDict, StarrableModel
 from skole.utils.validators import validate_single_target
-
-from .base import SkoleModelForm
 
 
 class CreateStarForm(SkoleModelForm):

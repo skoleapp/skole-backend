@@ -4,8 +4,8 @@ from django.conf import settings
 from django.db import models
 from django.db.models import QuerySet
 
-from .base import SkoleManager, SkoleModel
-from .user import User
+from skole.models.base import SkoleManager, SkoleModel
+from skole.models.user import User
 
 
 class ActivityManager(SkoleManager["Activity"]):

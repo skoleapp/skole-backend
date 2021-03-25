@@ -6,7 +6,7 @@ from django.db.models import Count
 from django.db.models.query import QuerySet
 from parler.models import TranslatedFields
 
-from .base import TranslatableSkoleManager, TranslatableSkoleModel
+from skole.models.base import TranslatableSkoleManager, TranslatableSkoleModel
 
 
 class SubjectManager(TranslatableSkoleManager["Subject"]):

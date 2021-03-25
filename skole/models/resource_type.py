@@ -2,7 +2,7 @@ from autoslug import AutoSlugField
 from django.db import models
 from parler.models import TranslatedFields
 
-from .base import TranslatableSkoleModel
+from skole.models.base import TranslatableSkoleModel
 
 
 class ResourceType(TranslatableSkoleModel):

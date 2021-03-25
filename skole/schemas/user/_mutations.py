@@ -27,16 +27,15 @@ from skole.forms import (
 )
 from skole.models import User
 from skole.overridden import login_required
+from skole.schemas.badge_progress import BadgeProgressObjectType
+from skole.schemas.base import SkoleCreateUpdateMutationMixin, SkoleObjectType
 from skole.schemas.mixins import SuccessMessageMixin
+from skole.schemas.user._object_types import UserObjectType
 from skole.types import JsonDict, ResolveInfo
 from skole.utils.constants import Messages, MutationErrors, TokenAction
 from skole.utils.email import send_password_reset_email, send_verification_email
 from skole.utils.exceptions import TokenScopeError, UserAlreadyVerified
 from skole.utils.token import get_token_payload, revoke_user_refresh_tokens
-
-from ..badge_progress import BadgeProgressObjectType
-from ..base import SkoleCreateUpdateMutationMixin, SkoleObjectType
-from ._object_types import UserObjectType
 
 
 class RegisterMutation(

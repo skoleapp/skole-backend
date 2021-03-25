@@ -4,9 +4,8 @@ from django.core.validators import MinValueValidator
 from django.db import models
 from parler.models import TranslatedFields
 
+from skole.models.base import TranslatableSkoleModel
 from skole.utils.constants import BADGE_TIER_CHOICES
-
-from .base import TranslatableSkoleModel
 
 
 class Badge(TranslatableSkoleModel):

@@ -5,15 +5,14 @@ from typing import Literal, Optional
 from django.conf import settings
 from django.db import models
 
+from skole.models.base import SkoleManager, SkoleModel
+from skole.models.comment import Comment
+from skole.models.course import Course
+from skole.models.resource import Resource
+from skole.models.user import User
 from skole.types import VotableModel
 from skole.utils.constants import VoteConstants
 from skole.utils.shortcuts import full_refresh_from_db
-
-from .base import SkoleManager, SkoleModel
-from .comment import Comment
-from .course import Course
-from .resource import Resource
-from .user import User
 
 
 class VoteManager(SkoleManager["Vote"]):

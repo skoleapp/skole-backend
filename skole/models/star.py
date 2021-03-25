@@ -68,6 +68,9 @@ class Star(SkoleModel):
         related_name="stars",
     )
 
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+
     objects = StarManager()
 
     class Meta:

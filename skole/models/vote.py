@@ -106,6 +106,9 @@ class Vote(SkoleModel):
         related_name="votes",
     )
 
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+
     objects = VoteManager()
 
     class Meta:

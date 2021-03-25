@@ -8,6 +8,7 @@ from .city import City
 from .comment import Comment
 from .country import Country
 from .course import Course
+from .referral_code import ReferralCode
 from .resource import Resource
 from .resource_type import ResourceType
 from .school import School
@@ -27,6 +28,7 @@ __all__ = [
     "Comment",
     "Country",
     "Course",
+    "ReferralCode",
     "Resource",
     "ResourceType",
     "School",

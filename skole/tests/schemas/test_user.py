@@ -246,6 +246,14 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
             result="successMessage",
         )
 
+    def mutate_use_referral_code(self, *, code: str, email: str) -> JsonDict:
+        return self.execute_input_mutation(
+            name="useReferralCode",
+            input_type="UseReferralCodeMutationInput!",
+            input={"code": code, "email": email},
+            result="successMessage",
+        )
+
     def mutate_resend_verification_email(self, assert_error: bool = False) -> JsonDict:
         return self.execute_non_input_mutation(
             name="resendVerificationEmail",
@@ -273,20 +281,18 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         self.authenticated_user = None
         self.assert_field_fragment_matches_schema(self.user_fields)
 
-    def test_register_and_verify_ok(self) -> None:
+    def test_register_ok(self) -> None:
         self.authenticated_user = None
 
-        assert len(mail.outbox) == 0
         email = "newemail@test.com"
         res = self.mutate_register(email=email)
         assert not res["errors"]
         assert res["successMessage"] == Messages.USER_REGISTERED
         get_user_model().objects.order_by("created")
 
-        assert len(mail.outbox) == 1
-        sent = mail.outbox[0]
-        assert sent.from_email == settings.EMAIL_ADDRESS
-        assert sent.to == [email]
+        res = self.mutate_register(username="unique", email="unique@test.test")
+        assert not res["errors"]
+        get_user_model().objects.order_by("created")
 
         # Username should keep its casing, mut email should be lowercased.
         self.mutate_register(username="MYUSERNAME", email="MAIL@example.COM")
@@ -294,16 +300,8 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert user.username == "MYUSERNAME"
         assert user.email == "mail@example.com"
 
-        assert len(mail.outbox) == 2
-
-        sent = mail.outbox[-1]
-        assert sent.from_email == settings.EMAIL_ADDRESS
-        assert sent.to == ["mail@example.com"]
-        assert "Verify" in sent.subject
-
-        res = self.mutate_verify_account(token=get_token_from_email(sent.body))
-        assert not res["errors"]
-        assert res["successMessage"] == Messages.ACCOUNT_VERIFIED
+        # No verification email are sent before referral codes are used.
+        assert len(mail.outbox) == 0
 
     def test_register_error(self) -> None:
         self.authenticated_user = None
@@ -355,6 +353,45 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         # Password cannot be too similar to email.
         res = self.mutate_register(password="email")
         assert "too similar to the email" in get_form_error(res)
+
+    def test_use_referral_code_ok(self) -> None:
+        email = "newemail@test.com"
+        self.mutate_register(email=email)
+        assert len(mail.outbox) == 0
+
+        res = self.mutate_use_referral_code(code="TEST1", email=email)
+        assert not res["errors"]
+        assert res["successMessage"] == Messages.REFERRAL_CODE_SUCCESS
+        assert len(mail.outbox) == 1
+        sent = mail.outbox[0]
+        assert "Verify" in sent.subject
+        assert sent.from_email == settings.EMAIL_ADDRESS
+        assert sent.to == [email]
+
+    def test_use_referral_code_error(self) -> None:
+        email = "newemail@test.com"
+        self.mutate_register(email=email)
+
+        # Invalid referral code.
+        res = self.mutate_use_referral_code(code="INVALID", email=email)
+        assert get_form_error(res) == ValidationErrors.REFERRAL_CODE_INVALID
+
+        # No account for the email.
+        res = self.mutate_use_referral_code(code="TEST1", email="invalid@test.test")
+        assert get_form_error(res) == ValidationErrors.EMAIL_DOES_NOT_EXIST
+
+        assert len(mail.outbox) == 0  # No verification emails sent.
+
+    def test_verify_ok(self) -> None:
+        email = "newemail@test.com"
+        self.mutate_register(email=email)
+        self.mutate_use_referral_code(code="TEST1", email=email)
+
+        assert len(mail.outbox) == 1
+        sent = mail.outbox[0]
+        res = self.mutate_verify_account(token=get_token_from_email(sent.body))
+        assert not res["errors"]
+        assert res["successMessage"] == Messages.ACCOUNT_VERIFIED
 
     def test_verify_error(self) -> None:
         res = self.mutate_verify_account(token="badtoken")
@@ -455,6 +492,8 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         res = self.mutate_register(username=username, email=email, password=password)
         assert not res["errors"]
         assert res["successMessage"] == Messages.USER_REGISTERED
+
+        self.mutate_use_referral_code(code="TEST1", email=email)
 
         # Login with email.
         res = self.mutate_login(username_or_email=email, password=password)

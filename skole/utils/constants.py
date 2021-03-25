@@ -21,6 +21,7 @@ class TokenAction:
 class ValidationErrors:
     USERNAME_TAKEN = _("This username is taken.")
     EMAIL_TAKEN = _("This email is taken.")
+    EMAIL_DOES_NOT_EXIST = _("The email does not belong to an account.")
     ACCOUNT_EMAIL = _(
         "This email belongs to an account. You can edit your email preferences in your account settings."
     )
@@ -41,6 +42,11 @@ class ValidationErrors:
     COULD_NOT_CONVERT_FILE = _("File could not be converted to {} format.")
     VOTE_OWN_CONTENT = _("You cannot vote your own content.")
     COURSE_CODE_INVALID = _("One of the course codes is invalid.")
+    REFERRAL_CODE_INVALID = _("The referral code does not seem to be valid.")
+    REFERRAL_CODE_NO_USES_LEFT = _("The referral code does not have any uses left.")
+    REFERRAL_CODE_NEEDED_BEFORE_LOGIN = _(
+        "You need to use a referral code before you can log in."
+    )
 
 
 class GraphQLErrors:
@@ -49,6 +55,12 @@ class GraphQLErrors:
     NOT_VERIFIED = _("This account is not verified.")
     TOKEN_SCOPE_ERROR = _("This token is not intended for this use.")
     UNSPECIFIED_ERROR = _("An error occurred. Trying again might help.")
+    REFERRAL_CODE_NEEDED_BEFORE_VERIFY = _(
+        "You need to use a referral code before validating your email."
+    )
+    REFERRAL_CODE_ALREADY_SET = _(
+        "You have already activated your account with a referral code."
+    )
 
 
 class Messages:
@@ -74,6 +86,7 @@ class Messages:
     SUBSCRIBED = _("Subscribed successfully!")
     BADGE_TRACKING_CHANGED = _("Changed the tracked badge successfully!")
     FCM_TOKEN_UPDATED = _("FCM token updated!")
+    REFERRAL_CODE_SUCCESS = _("Successfully used the referral code!")
 
 
 class Notifications:
@@ -98,6 +111,7 @@ class MutationErrors:
         " Please try verifying your account later."
     ))
     ALREADY_VERIFIED = _m(GraphQLErrors.ALREADY_VERIFIED)
+    REFERRAL_CODE_NEEDED = _m(GraphQLErrors.REFERRAL_CODE_NEEDED_BEFORE_VERIFY)
     TOKEN_EXPIRED_VERIFY = _m(_("Token expired. Please request new verification link."))
     INVALID_TOKEN_VERIFY = _m(_("Invalid token. Please request new verification link."))
     INVALID_TOKEN = _m(_("Invalid token."))
@@ -167,4 +181,20 @@ BADGE_TIER_CHOICES = (
     ("gold", "Gold"),
     ("silver", "Silver"),
     ("bronze", "Bronze"),
+)
+
+ALLOWED_EMAILS = (
+    "aalto.fi",
+    "abo.fi",
+    "hanken.fi",
+    "helsinki.fi",
+    "student.jyu.fi",
+    "student.lut.fi",
+    "student.oulu.fi",
+    "student.uef.fi",
+    "student.uwasa.fi",
+    "ulapland.fi",
+    "tuni.fi",
+    "uniarts.fi",
+    "utu.fi",
 )

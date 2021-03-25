@@ -2,7 +2,6 @@
 from typing import TYPE_CHECKING, Any, Literal, TypedDict, Union
 
 if TYPE_CHECKING:  # pragma: no cover
-    # To avoid circular import.
     from skole.models import (  # noqa: F401
         Activity,
         Comment,

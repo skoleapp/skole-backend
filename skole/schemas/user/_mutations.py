@@ -18,6 +18,7 @@ from skole.forms import (
     DeleteUserForm,
     EmailForm,
     LoginForm,
+    ReferralCodeForm,
     RegisterForm,
     SetPasswordForm,
     TokenForm,
@@ -34,7 +35,12 @@ from skole.schemas.user._object_types import UserObjectType
 from skole.types import JsonDict, ResolveInfo
 from skole.utils.constants import Messages, MutationErrors, TokenAction
 from skole.utils.email import send_password_reset_email, send_verification_email
-from skole.utils.exceptions import TokenScopeError, UserAlreadyVerified
+from skole.utils.exceptions import (
+    ReferralCodeNeeded,
+    TokenScopeError,
+    UserAlreadyVerified,
+)
+from skole.utils.shortcuts import to_form_error
 from skole.utils.token import get_token_payload, revoke_user_refresh_tokens
 
 
@@ -60,12 +66,34 @@ class RegisterMutation(
     def perform_mutate(cls, form: RegisterForm, info: ResolveInfo) -> RegisterMutation:
         obj = super().perform_mutate(form, info)
 
+        return obj
+
+
+class UseReferralCodeMutation(SkoleObjectType, SuccessMessageMixin, DjangoFormMutation):
+
+    success_message_value = Messages.REFERRAL_CODE_SUCCESS
+
+    class Meta:
+        form_class = ReferralCodeForm
+
+    @classmethod
+    def perform_mutate(
+        cls, form: ReferralCodeForm, info: ResolveInfo
+    ) -> UseReferralCodeMutation:
+        user = form.cleaned_data["user"]
+        referral_code = form.cleaned_data["code"]
+
         try:
-            send_verification_email(form.instance)
+            referral_code.use_code(user)
+        except ValidationError as e:
+            return cls(errors=to_form_error(e.message))
+
+        try:
+            send_verification_email(user)
         except SMTPException:
             return cls(errors=MutationErrors.REGISTER_EMAIL_ERROR)
 
-        return obj
+        return cls(success_message=cls.success_message_value)
 
 
 class VerifyAccountMutation(
@@ -89,6 +117,9 @@ class VerifyAccountMutation(
         try:
             get_user_model().objects.verify_user(token)
             return cls(success_message=Messages.ACCOUNT_VERIFIED)
+
+        except ReferralCodeNeeded:
+            return cls(errors=MutationErrors.REFERRAL_CODE_NEEDED)
 
         except UserAlreadyVerified:
             return cls(errors=MutationErrors.ALREADY_VERIFIED)
@@ -437,6 +468,7 @@ class RegisterFCMTokenMutation(
 class Mutation(SkoleObjectType):
     register = RegisterMutation.Field()
     verify_account = VerifyAccountMutation.Field()
+    use_referral_code = UseReferralCodeMutation.Field()
     resend_verification_email = ResendVerificationEmailMutation.Field()
     send_password_reset_email = SendPasswordResetEmailMutation.Field()
     reset_password = ResetPasswordMutation.Field()

@@ -8,10 +8,6 @@ from graphene_django.forms.mutation import DjangoModelFormMutation
 from skole.models import SkoleModel, Vote
 from skole.types import ResolveInfo
 
-if TYPE_CHECKING:  # pragma: no cover
-    # To avoid circular import.
-    pass
-
 
 class SuccessMessageMixin:
     """

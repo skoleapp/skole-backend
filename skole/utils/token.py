@@ -10,7 +10,6 @@ from skole.types import JsonDict
 from skole.utils.exceptions import TokenScopeError
 
 if TYPE_CHECKING:  # pragma: no cover
-    # To avoid circular import.
     from skole.models import User
 
 

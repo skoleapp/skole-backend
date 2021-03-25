@@ -10,6 +10,10 @@ class _BaseGraphQLAuthError(Exception):
         super().__init__(self.message)
 
 
+class ReferralCodeNeeded(_BaseGraphQLAuthError):
+    message = GraphQLErrors.REFERRAL_CODE_NEEDED_BEFORE_VERIFY
+
+
 class UserAlreadyVerified(_BaseGraphQLAuthError):
     message = GraphQLErrors.ALREADY_VERIFIED
 

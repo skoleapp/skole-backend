@@ -263,3 +263,6 @@ DISCUSSION_SUGGESTIONS_COUNT = 6
 
 # Detect if running tests.
 TESTING = sys.argv[1:2] == ["test"]
+
+REFERRAL_CODE_LENGTH = 7
+REFERRAL_CODE_INITIAL_USAGES = 2

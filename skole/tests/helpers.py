@@ -153,7 +153,7 @@ class SkoleSchemaTestCase(TestCase):
 
             Note: The return value is type hinted for simplicity to be a `Any`,
             so that the callers never need to do any casting.
-            In reality this can return either a `JsonDict` or a `list[JsonDict]`.
+            In reality this can return either a `JsonDict` or a `JsonList`.
         """
 
         if self.authenticated_user:
@@ -318,7 +318,7 @@ class SkoleSchemaTestCase(TestCase):
 def get_form_error(res: AnyJson, /) -> str:
     """Return the first error message from a result containing a form mutation error."""
     try:
-        # Ignore: It's fine if `res` is a `list[JsonDict]` and this raises an error.
+        # Ignore: It's fine if `res` is a `JsonList` and this raises an error.
         return res["errors"][0]["messages"][0]  # type: ignore[call-overload]
     except (IndexError, KeyError, TypeError):
         raise AssertionError(
@@ -329,7 +329,7 @@ def get_form_error(res: AnyJson, /) -> str:
 def get_graphql_error(res: AnyJson, /) -> str:
     """Return the first error message from a result containing a GraphQL error."""
     try:
-        # Ignore: It's fine if `res` is a `list[JsonDict]` and this raises an error.
+        # Ignore: It's fine if `res` is a `JsonList` and this raises an error.
         return res["errors"][0]["message"]  # type: ignore[call-overload]
     except (IndexError, KeyError, TypeError):
         raise AssertionError(f"`res` didn't contain a GraphQL error: \n{res}") from None

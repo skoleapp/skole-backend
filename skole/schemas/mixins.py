@@ -29,11 +29,11 @@ class SuccessMessageMixin:
     @classmethod
     def perform_mutate(
         cls,
-        form: Any,
-        info: ResolveInfo
         # Keep the type as Any to silence warnings about breaking Liskov
         # substitution principle.
         # https://mypy.readthedocs.io/en/stable/common_issues.html#incompatible-overrides
+        form: Any,
+        info: ResolveInfo,
     ) -> DjangoModelFormMutation:
         # Ignore: Will be defined in subclasses.
         obj = super().perform_mutate(form, info)  # type: ignore[misc]

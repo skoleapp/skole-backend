@@ -1,5 +1,5 @@
 from skole.tests.helpers import SkoleSchemaTestCase
-from skole.types import JsonDict
+from skole.types import JsonList
 
 
 class ResourceTypeSchemaTests(SkoleSchemaTestCase):
@@ -13,7 +13,7 @@ class ResourceTypeSchemaTests(SkoleSchemaTestCase):
         }
     """
 
-    def query_autocomplete_resource_types(self) -> list[JsonDict]:
+    def query_autocomplete_resource_types(self) -> JsonList:
         # language=GraphQL
         graphql = (
             self.resource_type_fields

@@ -10,7 +10,7 @@ from skole.tests.helpers import (
     get_graphql_error,
     is_iso_datetime,
 )
-from skole.types import ID, CourseOrderingOption, JsonDict
+from skole.types import ID, CourseOrderingOption, JsonDict, JsonList
 from skole.utils.constants import GraphQLErrors, Messages, MutationErrors
 
 
@@ -54,7 +54,7 @@ class CourseSchemaTests(SkoleSchemaTestCase):
 
     def query_autocomplete_courses(
         self, *, school: ID = None, name: str = ""
-    ) -> list[JsonDict]:
+    ) -> JsonList:
         variables = {"school": school, "name": name}
 
         # language=GraphQL

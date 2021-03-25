@@ -1,6 +1,6 @@
 from django.utils.translation import gettext_lazy as _
 
-from skole.types import FormError
+from skole.utils.shortcuts import to_form_error as _m
 
 
 class Admin:
@@ -90,19 +90,6 @@ class Notifications:
     BADGE_EMAIL_NOTIFICATION_TITLE = "You Earned a New Badge in Skole"
     BADGE_PUSH_NOTIFICATION_TITLE = "New Badge!"
     BADGE_PUSH_NOTIFICATION_BODY = "Congratulations! You earned the '{}' badge."
-
-
-def _m(value: str) -> FormError:
-    """
-    Use to add the GraphQL form error structure for an error message.
-
-    Notes:
-        This is cleaner than using a metaclass which inserts this structure to all
-        attributes, since this automatically makes all of the wrapped attributes be of
-        the `FormError` type. With a metaclass the type information cannot be inferred
-        and the attributes would still look to be `str`s without manual casting.
-    """
-    return [{"field": "__all__", "messages": [value]}]
 
 
 class MutationErrors:

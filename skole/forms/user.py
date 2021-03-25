@@ -150,7 +150,6 @@ class UpdateAccountSettingsForm(SkoleModelForm):
         if "email" in self.changed_data:
             if get_user_model().objects.filter(email__iexact=email):
                 raise forms.ValidationError(ValidationErrors.EMAIL_TAKEN)
-
         return email
 
 

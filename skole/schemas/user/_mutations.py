@@ -62,7 +62,7 @@ class RegisterMutation(
         obj = super().perform_mutate(form, info)
 
         try:
-            send_verification_email(form.instance, info)
+            send_verification_email(form.instance)
         except SMTPException:
             return cls(errors=MutationErrors.REGISTER_EMAIL_ERROR)
 
@@ -124,7 +124,7 @@ class ResendVerificationEmailMutation(SkoleObjectType, graphene.Mutation):
         user = cast(User, info.context.user)
 
         try:
-            send_verification_email(user, info)
+            send_verification_email(user)
             return cls(success_message=Messages.VERIFICATION_EMAIL_SENT)
         except SMTPException:
             return cls(errors=MutationErrors.EMAIL_ERROR)
@@ -154,7 +154,7 @@ class SendPasswordResetEmailMutation(
 
         try:
             user = get_user_model().objects.get(email__iexact=email)
-            send_password_reset_email(user, info, recipient=email)
+            send_password_reset_email(user, recipient=email)
             return cls(success_message=Messages.PASSWORD_RESET_EMAIL_SENT)
 
         except get_user_model().DoesNotExist:
@@ -421,7 +421,6 @@ class RegisterFCMTokenMutation(
     """Register FCM token for a user."""
 
     login_required = True
-    success_message = Messages.FCM_TOKEN_UPDATED
 
     class Meta:
         form_class = TokenForm

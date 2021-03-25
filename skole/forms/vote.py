@@ -5,7 +5,7 @@ from django import forms
 from skole.models import Vote
 from skole.types import JsonDict, VotableModel
 from skole.utils.constants import ValidationErrors
-from skole.utils.shortcuts import validate_single_target
+from skole.utils.validators import validate_single_target
 
 from .base import SkoleModelForm
 

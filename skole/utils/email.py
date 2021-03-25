@@ -13,7 +13,7 @@ from django.utils.html import strip_tags
 from django.utils.translation import get_language
 
 from skole.models import Activity, EmailSubscription, MarketingEmail, User
-from skole.types import JsonDict, ResolveInfo
+from skole.types import JsonDict
 from skole.utils.constants import MarketingEmailTypes, Notifications, TokenAction
 from skole.utils.exceptions import UserAlreadyVerified
 from skole.utils.token import get_token
@@ -59,7 +59,7 @@ def _send_templated_mail(
 
 
 def _get_auth_email_context(
-    user: User, info: ResolveInfo, path: str, action: str, **kwargs: JsonDict
+    user: User, path: str, action: str, **kwargs: JsonDict
 ) -> JsonDict:
     token = get_token(user, action, **kwargs)
 
@@ -68,12 +68,12 @@ def _get_auth_email_context(
     return {"user": user, "url": url}
 
 
-def send_verification_email(user: User, info: ResolveInfo) -> None:
+def send_verification_email(user: User) -> None:
     if user.verified:
         raise UserAlreadyVerified
 
     email_context = _get_auth_email_context(
-        user, info, settings.VERIFICATION_PATH_ON_EMAIL, TokenAction.VERIFICATION
+        user, settings.VERIFICATION_PATH_ON_EMAIL, TokenAction.VERIFICATION
     )
 
     _send_templated_mail(
@@ -84,9 +84,9 @@ def send_verification_email(user: User, info: ResolveInfo) -> None:
     )
 
 
-def send_password_reset_email(user: User, info: ResolveInfo, recipient: str) -> None:
+def send_password_reset_email(user: User, recipient: str) -> None:
     email_context = _get_auth_email_context(
-        user, info, settings.PASSWORD_RESET_PATH_ON_EMAIL, TokenAction.PASSWORD_RESET
+        user, settings.PASSWORD_RESET_PATH_ON_EMAIL, TokenAction.PASSWORD_RESET
     )
 
     _send_templated_mail(

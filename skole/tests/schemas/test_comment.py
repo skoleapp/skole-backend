@@ -15,7 +15,7 @@ from skole.tests.helpers import (
     is_slug_match,
     open_as_file,
 )
-from skole.types import ID, JsonDict
+from skole.types import ID, JsonDict, JsonList
 from skole.utils.constants import Messages, ValidationErrors
 
 
@@ -141,7 +141,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         self,
         *,
         assert_error: bool = False,
-    ) -> list[JsonDict]:
+    ) -> JsonList:
         # language=GraphQL
         graphql = """
             query DiscussionSuggestions {

@@ -37,7 +37,7 @@ from skole.models import (
 )
 from skole.overridden import login_required
 from skole.schemas.base import SkoleObjectType
-from skole.types import JsonDict, ResolveInfo
+from skole.types import JsonList, ResolveInfo
 from skole.utils.constants import Messages, MutationErrors, Notifications, VoteConstants
 from skole.utils.files import override_s3_file_age
 from skole.utils.shortcuts import format_form_error
@@ -217,7 +217,7 @@ class MyDataMutation(SkoleObjectType, graphene.Mutation):
         )
 
     @staticmethod
-    def _badge_progresses(user: User) -> list[JsonDict]:
+    def _badge_progresses(user: User) -> JsonList:
         badge_progresses = (
             user.get_or_create_badge_progresses()
             .filter(badge__translations__language_code=settings.LANGUAGE_CODE)

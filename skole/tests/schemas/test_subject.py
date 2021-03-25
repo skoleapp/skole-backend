@@ -2,7 +2,7 @@ from typing import Optional
 
 from skole.models import School
 from skole.tests.helpers import SkoleSchemaTestCase
-from skole.types import JsonDict
+from skole.types import JsonDict, JsonList
 
 
 class SubjectSchemaTests(SkoleSchemaTestCase):
@@ -61,7 +61,7 @@ class SubjectSchemaTests(SkoleSchemaTestCase):
 
         return self.execute(graphql, variables=variables, assert_error=assert_error)
 
-    def query_autocomplete_subjects(self, *, name: str = "") -> list[JsonDict]:
+    def query_autocomplete_subjects(self, *, name: str = "") -> JsonList:
         variables = {"name": name}
 
         # language=GraphQL

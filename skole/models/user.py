@@ -29,7 +29,6 @@ class UserManager(SkoleManager["User"], BaseUserManager["User"]):
             username=username,
             email=self.normalize_email(email),
         )
-
         user.set_password(password)
         user.save()
         return user
@@ -136,10 +135,10 @@ class User(SkoleModel, AbstractBaseUser, PermissionsMixin):
     )
 
     score = models.IntegerField(default=0)
-    created = models.DateTimeField(auto_now_add=True)
     verified = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
+    created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
     # Marketing permissions.

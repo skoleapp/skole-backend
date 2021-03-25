@@ -59,7 +59,10 @@ Exactly the same as `mypy.types.JsonDict`, just defined here, to avoid having my
 as a production dependency.
 """
 
-AnyJson = Union[JsonDict, list[JsonDict]]
+JsonList = list[JsonDict]
+"""A type representing a list of JSON object like dictionaries."""
+
+AnyJson = Union[JsonDict, JsonList]
 
 
 class _FormErrorDict(TypedDict):

@@ -18,6 +18,7 @@ from skole.types import ResolveInfo
 class StarObjectType(SkoleDjangoObjectType):
     class Meta:
         model = Star
+        fields = ("id", "user", "course", "resource")
 
 
 class StarMutation(SkoleCreateUpdateMutationMixin, DjangoModelFormMutation):

@@ -1764,6 +1764,8 @@
     resource: null
     status: 1
     user: 2
+    created: 2020-01-01 12:00:00.000000+00:00
+    modified: 2020-01-01 12:00:00.000000+00:00
 - model: skole.Vote
   pk: 2
   fields:
@@ -1772,6 +1774,8 @@
     resource: null
     status: 1
     user: 3
+    created: 2020-01-01 12:00:00.000000+00:00
+    modified: 2020-01-01 12:00:00.000000+00:00
 - model: skole.Vote
   pk: 3
   fields:
@@ -1780,6 +1784,8 @@
     resource: null
     status: -1
     user: 4
+    created: 2020-01-01 12:00:00.000000+00:00
+    modified: 2020-01-01 12:00:00.000000+00:00
 
 - model: skole.ActivityTypeTranslation
   pk: 1
@@ -1914,24 +1920,32 @@
     user: 2
     course: 1
     resource: null
+    created: 2020-01-01 12:00:00.000000+00:00
+    modified: 2020-01-01 12:00:00.000000+00:00
 - model: skole.Star
   pk: 2
   fields:
     user: 2
     course: 2
     resource: null
+    created: 2020-01-01 12:00:00.000000+00:00
+    modified: 2020-01-01 12:00:00.000000+00:00
 - model: skole.Star
   pk: 3
   fields:
     user: 2
     course: null
     resource: 1
+    created: 2020-01-01 12:00:00.000000+00:00
+    modified: 2020-01-01 12:00:00.000000+00:00
 - model: skole.Star
   pk: 4
   fields:
     user: 2
     course: null
     resource: 2
+    created: 2020-01-01 12:00:00.000000+00:00
+    modified: 2020-01-01 12:00:00.000000+00:00
 
 - model: skole.BadgeTranslation
   pk: 1

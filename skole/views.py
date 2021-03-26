@@ -6,7 +6,7 @@ from django.http import HttpRequest, HttpResponse, QueryDict
 from django.utils.datastructures import MultiValueDict
 from graphene_django.views import GraphQLView
 
-from skole.types import AnyJson, JsonDict
+from skole.types import AnyJson, JsonDict, JsonList
 
 
 def health_check(request: HttpRequest) -> HttpResponse:
@@ -30,9 +30,7 @@ class SkoleGraphQLView(GraphQLView):
         """
         return super().dispatch.__wrapped__(self, request, *args, **kwargs)
 
-    def parse_body(
-        self, request: HttpRequest
-    ) -> Union[JsonDict, QueryDict, list[JsonDict]]:
+    def parse_body(self, request: HttpRequest) -> Union[JsonDict, QueryDict, JsonList]:
         """
         Overridden to enable uploading files.
 

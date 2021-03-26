@@ -6,7 +6,7 @@ from django.conf import settings
 from django.db import models
 from django.utils import timezone
 
-from .base import SkoleModel
+from skole.models.base import SkoleModel
 
 
 class BadgeProgress(SkoleModel):

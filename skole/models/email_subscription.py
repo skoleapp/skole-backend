@@ -4,10 +4,9 @@ from typing import Optional
 
 from django.db import models
 
+from skole.models.base import SkoleManager, SkoleModel
 from skole.utils.constants import TokenAction, ValidationErrors, VerboseNames
 from skole.utils.token import get_token_payload
-
-from .base import SkoleManager, SkoleModel
 
 
 class EmailSubscriptionManager(SkoleManager["EmailSubscription"]):

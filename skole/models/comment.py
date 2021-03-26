@@ -8,10 +8,9 @@ from django.db.models.query import QuerySet
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
 
+from skole.models.base import SkoleManager, SkoleModel
 from skole.utils.shortcuts import safe_annotation
 from skole.utils.validators import ValidateFileSizeAndType
-
-from .base import SkoleManager, SkoleModel
 
 
 class CommentManager(SkoleManager["Comment"]):

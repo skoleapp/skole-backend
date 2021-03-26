@@ -1,6 +1,6 @@
 from skole.models import Badge
 from skole.tests.helpers import SkoleSchemaTestCase
-from skole.types import JsonDict
+from skole.types import JsonList
 
 
 class BadgeSchemaTests(SkoleSchemaTestCase):
@@ -15,7 +15,7 @@ class BadgeSchemaTests(SkoleSchemaTestCase):
         }
     """
 
-    def query_badges(self) -> list[JsonDict]:
+    def query_badges(self) -> JsonList:
         # language=GraphQL
         graphql = (
             self.badge_fields

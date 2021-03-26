@@ -13,14 +13,13 @@ from fcm_django.models import FCMDevice
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
 
+from skole.models.badge import Badge
+from skole.models.badge_progress import BadgeProgress
+from skole.models.base import SkoleManager, SkoleModel
 from skole.utils.constants import Ranks, TokenAction, ValidationErrors, VerboseNames
 from skole.utils.exceptions import UserAlreadyVerified
 from skole.utils.token import get_token_payload
 from skole.utils.validators import ValidateFileSizeAndType
-
-from .badge import Badge
-from .badge_progress import BadgeProgress
-from .base import SkoleManager, SkoleModel
 
 
 class UserManager(SkoleManager["User"], BaseUserManager["User"]):
@@ -29,7 +28,6 @@ class UserManager(SkoleManager["User"], BaseUserManager["User"]):
             username=username,
             email=self.normalize_email(email),
         )
-
         user.set_password(password)
         user.save()
         return user
@@ -136,10 +134,10 @@ class User(SkoleModel, AbstractBaseUser, PermissionsMixin):
     )
 
     score = models.IntegerField(default=0)
-    created = models.DateTimeField(auto_now_add=True)
     verified = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
+    created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
     # Marketing permissions.

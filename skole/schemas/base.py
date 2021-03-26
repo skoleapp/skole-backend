@@ -15,7 +15,7 @@ from skole.schemas.mixins import PaginationMixin, SuccessMessageMixin
 from skole.types import JsonDict, ResolveInfo
 from skole.utils import api_descriptions
 from skole.utils.constants import MutationErrors
-from skole.utils.shortcuts import validate_is_first_inherited
+from skole.utils.validators import validate_is_first_inherited
 
 T = TypeVar("T", bound="SkoleObjectTypeMeta")
 M = TypeVar("M", bound="SkoleCreateUpdateMutationMixin")

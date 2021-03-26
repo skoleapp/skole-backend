@@ -3,11 +3,10 @@ from typing import Any, Union, cast
 from django import forms
 from django.core.files import File
 
+from skole.forms.base import SkoleModelForm, SkoleUpdateModelForm
 from skole.models import Comment
 from skole.utils.constants import ValidationErrors
 from skole.utils.files import clean_file_field
-
-from .base import SkoleModelForm, SkoleUpdateModelForm
 
 
 class _BaseCreateUpdateCommentForm(SkoleModelForm):

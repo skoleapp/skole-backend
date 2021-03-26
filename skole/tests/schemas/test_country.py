@@ -1,5 +1,5 @@
 from skole.tests.helpers import SkoleSchemaTestCase
-from skole.types import JsonDict
+from skole.types import JsonDict, JsonList
 
 
 class CountrySchemaTests(SkoleSchemaTestCase):
@@ -12,7 +12,7 @@ class CountrySchemaTests(SkoleSchemaTestCase):
         }
     """
 
-    def query_autocomplete_countries(self) -> list[JsonDict]:
+    def query_autocomplete_countries(self) -> JsonList:
         # language=GraphQL
         graphql = (
             self.country_fields

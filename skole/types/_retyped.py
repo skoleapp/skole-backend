@@ -8,7 +8,7 @@ from graphql.language.ast import Field, OperationDefinition
 from graphql.type.definition import GraphQLList, GraphQLObjectType, GraphQLScalarType
 from graphql.type.schema import GraphQLSchema
 
-from ._aliases import JsonDict
+from skole.types._aliases import JsonDict
 
 
 class ResolveInfo:  # pylint: disable=too-many-instance-attributes

@@ -2,12 +2,11 @@ from typing import cast
 
 from django import forms
 
+from skole.forms.base import SkoleModelForm
 from skole.models import Vote
 from skole.types import JsonDict, VotableModel
 from skole.utils.constants import ValidationErrors
-from skole.utils.shortcuts import validate_single_target
-
-from .base import SkoleModelForm
+from skole.utils.validators import validate_single_target
 
 
 class CreateVoteForm(SkoleModelForm):

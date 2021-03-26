@@ -652,8 +652,8 @@ type UserObjectType {
   avatar: String
   selectedBadgeProgress: BadgeProgressObjectType
   score: Int
-  created: DateTime!
   verified: Boolean
+  created: DateTime!
   productUpdateEmailPermission: Boolean
   blogPostEmailPermission: Boolean
   commentReplyEmailPermission: Boolean

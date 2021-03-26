@@ -1,6 +1,5 @@
+from skole.forms.base import SkoleModelForm, SkoleUpdateModelForm
 from skole.models import Course
-
-from .base import SkoleModelForm, SkoleUpdateModelForm
 
 
 class CreateCourseForm(SkoleModelForm):

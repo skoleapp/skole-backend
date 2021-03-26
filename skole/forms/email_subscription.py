@@ -1,10 +1,9 @@
 from django import forms
 from django.contrib.auth import get_user_model
 
+from skole.forms.base import SkoleModelForm
 from skole.models import EmailSubscription
 from skole.utils.constants import ValidationErrors
-
-from .base import SkoleModelForm
 
 
 class CreateEmailSubscriptionForm(SkoleModelForm):

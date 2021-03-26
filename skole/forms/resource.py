@@ -6,10 +6,9 @@ from django.contrib.auth import get_user_model
 from django.core.files import File
 from django.utils import timezone
 
+from skole.forms.base import SkoleModelForm, SkoleUpdateModelForm
 from skole.models import Author, Resource
 from skole.utils.files import clean_file_field, convert_to_pdf
-
-from .base import SkoleModelForm, SkoleUpdateModelForm
 
 
 class _BaseCreateUpdateResourceForm(SkoleModelForm):

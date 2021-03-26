@@ -3,8 +3,8 @@ from django.db import models
 from django.db.models import Count, QuerySet
 from parler.models import TranslatedFields
 
-from .base import TranslatableSkoleManager, TranslatableSkoleModel
-from .subject import Subject
+from skole.models.base import TranslatableSkoleManager, TranslatableSkoleModel
+from skole.models.subject import Subject
 
 
 class SchoolManager(TranslatableSkoleManager["School"]):

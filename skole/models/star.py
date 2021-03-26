@@ -5,12 +5,11 @@ from typing import Optional, Union
 from django.conf import settings
 from django.db import models
 
+from skole.models.base import SkoleManager, SkoleModel
+from skole.models.course import Course
+from skole.models.resource import Resource
+from skole.models.user import User
 from skole.types import StarrableModel
-
-from .base import SkoleManager, SkoleModel
-from .course import Course
-from .resource import Resource
-from .user import User
 
 
 class StarManager(SkoleManager["Star"]):
@@ -67,6 +66,9 @@ class Star(SkoleModel):
         blank=True,
         related_name="stars",
     )
+
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
 
     objects = StarManager()
 

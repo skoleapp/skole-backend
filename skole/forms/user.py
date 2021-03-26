@@ -5,12 +5,11 @@ from django.conf import settings
 from django.contrib.auth import authenticate, get_user_model, password_validation
 from django.core.files import File
 
+from skole.forms.base import SkoleForm, SkoleModelForm
 from skole.models import Badge, User
 from skole.types import JsonDict
 from skole.utils.constants import ValidationErrors
 from skole.utils.files import clean_file_field
-
-from .base import SkoleForm, SkoleModelForm
 
 
 class RegisterForm(SkoleModelForm):
@@ -150,7 +149,6 @@ class UpdateAccountSettingsForm(SkoleModelForm):
         if "email" in self.changed_data:
             if get_user_model().objects.filter(email__iexact=email):
                 raise forms.ValidationError(ValidationErrors.EMAIL_TAKEN)
-
         return email
 
 

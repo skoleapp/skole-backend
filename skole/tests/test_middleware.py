@@ -19,10 +19,10 @@ class MiddlewareTests(SkoleSchemaTestCase):
     """
     # language=GraphQL
     normal_query = """
-        query Country($slug: String) {
-            country(slug: $slug) {
+        query User($slug: String) {
+            user(slug: $slug) {
                 slug
-                name
+                username
             }
         }
     """
@@ -47,7 +47,7 @@ class MiddlewareTests(SkoleSchemaTestCase):
                 res = self.execute(self.schema_query)
                 assert isinstance(res["types"][0]["name"], str)
 
-                slug = "finland"
+                slug = "testuser2"
                 res = self.execute(self.normal_query, variables={"slug": slug})
                 assert res["slug"] == slug
 
@@ -61,6 +61,6 @@ class MiddlewareTests(SkoleSchemaTestCase):
                 self.execute(self.schema_query, assert_error=True)
 
                 # Fine to make a query which doesn't introspect the schema.
-                slug = "finland"
+                slug = "testuser2"
                 res = self.execute(self.normal_query, variables={"slug": slug})
                 assert res["slug"] == slug

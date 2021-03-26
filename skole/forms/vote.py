@@ -17,14 +17,14 @@ class CreateVoteForm(SkoleModelForm):
 
     class Meta:
         model = Vote
-        fields = ("status", "comment", "thread", "resource")
+        fields = ("status", "comment", "thread")
 
     def clean(self) -> JsonDict:
         data = super().clean()
         assert self.request is not None
 
         target = data["target"] = cast(
-            VotableModel, validate_single_target(data, "comment", "thread", "resource")
+            VotableModel, validate_single_target(data, "comment", "thread")
         )
 
         if target.user and target.user == self.request.user:

@@ -3,7 +3,7 @@ import parler.models
 import pytest
 from django.db import models
 
-from skole.models import Country, Resource, Thread
+from skole.models import Badge, Comment, Thread
 from skole.models.base import (
     SkoleManager,
     SkoleModel,
@@ -16,13 +16,13 @@ from skole.models.base import (
 def test_repr() -> None:
     """Test `SkoleModel`'s `__repr__()`."""
     assert repr(Thread.objects.get(pk=1)) == "<Thread:1-test-thread-1>"
-    assert repr(Resource.objects.get(pk=1)) == "<Resource:1-sample-exam-1-2012-12-12>"
+    assert repr(Comment.objects.get(pk=1)) == "<Comment:1-testuser2>"
 
 
 def test_model_mro() -> None:
     """Test that the method resolution order of the base models make sense."""
     assert SkoleModel.__mro__ == (SkoleModel, models.Model, object)
-    assert Resource.__mro__ == (Resource, SkoleModel, models.Model, object)
+    assert Comment.__mro__ == (Comment, SkoleModel, models.Model, object)
 
     assert TranslatableSkoleModel.__mro__ == (
         TranslatableSkoleModel,
@@ -32,8 +32,8 @@ def test_model_mro() -> None:
         models.Model,
         object,
     )
-    assert Country.__mro__ == (
-        Country,
+    assert Badge.__mro__ == (
+        Badge,
         TranslatableSkoleModel,
         SkoleModel,
         parler.models.TranslatableModel,

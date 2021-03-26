@@ -7,7 +7,6 @@ from django.db import models
 
 from skole.models.base import SkoleManager, SkoleModel
 from skole.models.comment import Comment
-from skole.models.resource import Resource
 from skole.models.thread import Thread
 from skole.models.user import User
 from skole.types import VotableModel
@@ -27,9 +26,6 @@ class VoteManager(SkoleManager["Vote"]):
         elif isinstance(target, Thread):
             multiplier = VoteConstants.SCORE_THREAD_MULTIPLIER
             vote = self.check_existing_vote(user, status, thread=target)
-        elif isinstance(target, Resource):
-            multiplier = VoteConstants.SCORE_RESOURCE_MULTIPLIER
-            vote = self.check_existing_vote(user, status, resource=target)
         else:
             raise TypeError(f"Invalid target type for Vote: {type(target)}")
 
@@ -68,7 +64,7 @@ class VoteManager(SkoleManager["Vote"]):
 
 
 class Vote(SkoleModel):
-    """Models one vote on either comment, thread or resource."""
+    """Models one vote on either a comment or a thread."""
 
     _identifier_field = "user"
 
@@ -97,21 +93,13 @@ class Vote(SkoleModel):
         related_name="votes",
     )
 
-    resource = models.ForeignKey(
-        "skole.Resource",
-        on_delete=models.CASCADE,
-        null=True,
-        blank=True,
-        related_name="votes",
-    )
-
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
     objects = VoteManager()
 
     class Meta:
-        unique_together = ("user", "comment", "thread", "resource")
+        unique_together = ("user", "comment", "thread")
 
     def __str__(self) -> str:
         if self.user is not None:

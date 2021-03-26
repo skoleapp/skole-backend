@@ -22,9 +22,6 @@ class ValidationErrors:
     USERNAME_TAKEN = _("This username is taken.")
     EMAIL_TAKEN = _("This email is taken.")
     EMAIL_DOES_NOT_EXIST = _("The email does not belong to an account.")
-    ACCOUNT_EMAIL = _(
-        "This email belongs to an account. You can edit your email preferences in your account settings."
-    )
     ACCOUNT_DEACTIVATED = _("This account has been deactivated!")
     AUTH_ERROR = _("Invalid username/email or password.")
     SUPERUSER_LOGIN = _("Cannot log in at this time.")
@@ -35,7 +32,8 @@ class ValidationErrors:
     FILE_TOO_LARGE = _("File is too large, maximum allowed is {} MB")
     INVALID_FILE_TYPE = _("Invalid file type, allowed types are: {}")
     INVALID_FILE_EXTENSION = _("File extension doesn't match the file type.")
-    COMMENT_EMPTY = _("Comment must include either text or attachment.")
+    COMMENT_EMPTY = _("Comment must include either text, an image or a file.")
+    COMMENT_ONE_FILE = _("Comment can contain either an image or a file, but not both.")
     INVALID_USERNAME = _(
         "Usernames can only contain letters, numbers, and underscores."
     )
@@ -75,17 +73,14 @@ class Messages:
     ACCOUNT_SETTINGS_UPDATED = _("Account settings updated successfully!")
     THREAD_CREATED = _("Thread created successfully!")
     THREAD_DELETED = _("Thread deleted successfully!")
-    RESOURCE_DELETED = _("Resource deleted successfully!")
-    RESOURCE_CREATED = _("Resource created successfully!")
-    RESOURCE_UPDATED = _("Resource updated successfully!")
-    RESOURCE_DOWNLOADS_UPDATED = _("Resource downloads updated!")
     COMMENT_UPDATED = _("Comment updated successfully!")
     COMMENT_DELETED = _("Comment deleted successfully!")
     DATA_REQUEST_RECEIVED = _("Data request received successfully!")
-    SUBSCRIBED = _("Subscribed successfully!")
     BADGE_TRACKING_CHANGED = _("Changed the tracked badge successfully!")
-    FCM_TOKEN_UPDATED = _("FCM token updated!")
     REFERRAL_CODE_SUCCESS = _("Successfully used the referral code!")
+
+    # Untranslated, these are strictly for development.
+    FCM_TOKEN_UPDATED = "FCM token updated!"
 
 
 class Notifications:
@@ -113,7 +108,6 @@ class MutationErrors:
     REFERRAL_CODE_NEEDED = _m(GraphQLErrors.REFERRAL_CODE_NEEDED_BEFORE_VERIFY)
     TOKEN_EXPIRED_VERIFY = _m(_("Token expired. Please request new verification link."))
     INVALID_TOKEN_VERIFY = _m(_("Invalid token. Please request new verification link."))
-    INVALID_TOKEN = _m(_("Invalid token."))
     BADGE_CANNOT_BE_NULL = _m(_("Invalid badge."))  # Should never be shown in frontend.
     USER_NOT_FOUND_WITH_EMAIL = _m(_(
         "User with the provided email was not found. Please check you email address."
@@ -135,7 +129,6 @@ class MutationErrors:
 
 
 class VoteConstants:
-    SCORE_RESOURCE_MULTIPLIER = 10
     SCORE_THREAD_MULTIPLIER = 5
     SCORE_COMMENT_MULTIPLIER = 1
 
@@ -160,7 +153,6 @@ class ActivityTypes:
 
     COMMENT_REPLY = "comment_reply"
     THREAD_COMMENT = "thread_comment"
-    RESOURCE_COMMENT = "resource_comment"
     NEW_BADGE = "new_badge"
 
 

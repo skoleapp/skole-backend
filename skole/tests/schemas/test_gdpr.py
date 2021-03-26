@@ -51,9 +51,10 @@ class GdprSchemaTests(SkoleSchemaTestCase):
         directory = match.group(1)
 
         data = f"{directory}/data.json"
-        png = f"{directory}/uploads/attachments/test_attachment.png"
+        # We don't want to rename these paths yet, see the Comment model.
+        png = f"{directory}/uploads/attachments/test_image.png"
         jpg = f"{directory}/uploads/avatars/test_avatar.jpg"
-        pdf = f"{directory}/uploads/resources/test_resource.pdf"
+        pdf = f"{directory}/uploads/resources/test_file.pdf"
 
         with zipfile.ZipFile(Path(settings.MEDIA_ROOT) / filepath) as f:
             namelist = f.namelist()
@@ -71,7 +72,7 @@ class GdprSchemaTests(SkoleSchemaTestCase):
         assert content["verified"] is True
         assert content["badges"] == ["Staff"]
         assert content["votes"] == [{"id": 1, "target": "comment 1", "vote": "upvote"}]
-        assert content["stars"] == ["thread 1", "thread 2", "resource 1", "resource 2"]
+        assert content["stars"] == ["thread 1", "thread 2"]
 
     def test_my_data_login_required(self) -> None:
         self.authenticated_user = None

@@ -7,8 +7,6 @@ from ._aliases import (
     JsonDict,
     JsonList,
     PaginableModel,
-    StarrableModel,
-    SuggestionModel,
     VotableModel,
 )
 from ._retyped import ResolveInfo
@@ -23,7 +21,5 @@ __all__ = [
     "JsonList",
     "PaginableModel",
     "ResolveInfo",
-    "StarrableModel",
-    "SuggestionModel",
     "VotableModel",
 ]

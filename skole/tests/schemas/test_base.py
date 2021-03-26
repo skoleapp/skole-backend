@@ -1,25 +1,24 @@
 import inspect
 
-from skole.models import School
+from skole.models import Badge
 from skole.schemas import thread
-from skole.schemas.resource import DeleteResourceMutation
-from skole.schemas.school import SchoolObjectType
+from skole.schemas.badge import BadgeObjectType
+from skole.schemas.comment import CreateCommentMutation
 
 
 def test_skole_object_type_meta_dynamic_api_docs() -> None:
     # pylint: disable=protected-access
 
     # Test that mutation docs get generated correctly.
-    description = DeleteResourceMutation._meta.description
+    description = CreateCommentMutation._meta.description
     expected = inspect.cleandoc(
         """
-        Delete a resource.
+        Create a new comment.
 
-        Results are sorted by creation time.
-
-        Only allowed for users that are the creators of the object.
-
-        Only allowed for authenticated users that have verified their accounts.
+        Attachments are popped of for unauthenticated users. The `user` field must match
+        with the ID of the user making the query to save the user making the query as the
+        author of the comment. This way even authenticated users can create anonymous
+        comments by setting the `user` field as `null`.
         """
     )
     assert description == expected
@@ -41,5 +40,5 @@ def test_skole_object_type_meta_dynamic_api_docs() -> None:
     assert description == expected
 
     # Test that object type docs get generated correctly.
-    description = SchoolObjectType._meta.description
-    assert description == inspect.cleandoc(School.__doc__ or "")
+    description = BadgeObjectType._meta.description
+    assert description == inspect.cleandoc(Badge.__doc__ or "")

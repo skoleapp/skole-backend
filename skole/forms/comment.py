@@ -1,26 +1,45 @@
-from typing import Any, Union, cast
+from typing import Any, cast
 
 from django import forms
-from django.core.files import File
 
 from skole.forms.base import SkoleModelForm, SkoleUpdateModelForm
 from skole.models import Comment
 from skole.utils.constants import ValidationErrors
-from skole.utils.files import clean_file_field
+from skole.utils.files import clean_file_field, convert_to_pdf
 
 
 class _BaseCreateUpdateCommentForm(SkoleModelForm):
-    def clean_attachment(self) -> Union[File, str]:
-        attachment = clean_file_field(
-            form=cast(SkoleModelForm, self),
-            field_name="attachment",
-            created_file_name="attachment",
-        )
+    def __init__(self, **kwargs: Any) -> None:
+        super().__init__(**kwargs)
+        if self.request:
+            if not self.request.user.is_authenticated or not self.request.user.verified:
+                self.fields.pop("file")
+                self.fields.pop("image")
 
-        if self.cleaned_data["text"] == "" and attachment == "":
+    def clean(self) -> dict[str, Any]:
+        cleaned_data = super().clean()
+
+        if len(self.files) > 1:
+            raise forms.ValidationError(ValidationErrors.COMMENT_ONE_FILE)
+
+        if "file" in self.fields:
+            cleaned_data["file"] = clean_file_field(
+                form=cast(SkoleModelForm, self),
+                field_name="file",
+                created_file_name="comment_file",
+                conversion_func=convert_to_pdf,
+            )
+        if "image" in self.fields:
+            cleaned_data["image"] = clean_file_field(
+                form=cast(SkoleModelForm, self),
+                field_name="image",
+                created_file_name="comment_image",
+            )
+
+        if not any(cleaned_data.get(key) for key in ("text", "file", "image")):
             raise forms.ValidationError(ValidationErrors.COMMENT_EMPTY)
 
-        return attachment
+        return cleaned_data
 
 
 class CreateCommentForm(_BaseCreateUpdateCommentForm, SkoleModelForm):
@@ -29,18 +48,11 @@ class CreateCommentForm(_BaseCreateUpdateCommentForm, SkoleModelForm):
         fields = (
             "user",
             "text",
-            "attachment",
+            "file",
+            "image",
             "thread",
-            "resource",
             "comment",
-            "school",
         )
-
-    def __init__(self, **kwargs: Any) -> None:
-        super().__init__(**kwargs)
-        if self.request:
-            if not self.request.user.is_authenticated or not self.request.user.verified:
-                self.fields.pop("attachment")
 
     def save(self, commit: bool = True) -> Comment:
         assert self.request is not None
@@ -58,13 +70,7 @@ class CreateCommentForm(_BaseCreateUpdateCommentForm, SkoleModelForm):
 class UpdateCommentForm(_BaseCreateUpdateCommentForm, SkoleUpdateModelForm):
     class Meta:
         model = Comment
-        fields = ("id", "text", "attachment")
-
-    def __init__(self, **kwargs: Any) -> None:
-        super().__init__(**kwargs)
-        if self.request:
-            if not self.request.user.is_authenticated or not self.request.user.verified:
-                self.fields.pop("attachment")
+        fields = ("id", "text", "file", "image")
 
 
 class DeleteCommentForm(SkoleUpdateModelForm):

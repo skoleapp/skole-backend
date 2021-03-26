@@ -42,12 +42,14 @@ class Thread(SkoleModel):
     )
 
     image = models.ImageField(
+        # Keep this path consistent with `Comment.image`.
+        # It cannot be changed yet, see the comment on it for more details.
         upload_to="uploads/attachments",
         blank=True,
         validators=[
             ValidateFileSizeAndType(
-                settings.COMMENT_ATTACHMENT_MAX_SIZE,
-                settings.COMMENT_ATTACHMENT_ALLOWED_FILETYPES,
+                settings.IMAGE_MAX_SIZE,
+                settings.IMAGE_ALLOWED_FILETYPES,
             )
         ],
     )
@@ -75,7 +77,6 @@ class Thread(SkoleModel):
     # These values will get annotated in the manager's get_queryset.
     score: int
     star_count: int
-    resource_count: int
     comment_count: int
 
     def __str__(self) -> str:

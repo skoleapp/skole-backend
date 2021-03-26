@@ -1,4 +1,5 @@
 import datetime
+import json
 import logging
 import os
 import tempfile
@@ -48,12 +49,17 @@ def clean_file_field(
     assert form.files is not None
     file: Union[File, str]
 
-    if uploaded := form.files.get("1"):
+    assert form.request
+    files_map = json.loads(form.request.POST.get("map", "{}"))
+
+    if files_map.get("1") == [f"variables.input.{field_name}"] and (
+        uploaded := form.files.get("1")
+    ):
         # New value for the field.
         file = conversion_func(uploaded) if conversion_func is not None else uploaded
         file = _clean_metadata(file)
         file.name = created_file_name + Path(file.name).suffix
-    elif not form.data[field_name]:
+    elif not form.data.get(field_name):
         # Field value deleted (frontend submitted "" or null value).
         # We can't access this from `cleaned_data`, since the file is actually put
         # there automatically by Django, because normally the file is only meant to be

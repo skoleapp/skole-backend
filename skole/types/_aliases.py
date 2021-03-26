@@ -1,22 +1,14 @@
 """This module contains all the custom type aliases that are used in the app."""
-from typing import TYPE_CHECKING, Any, TypedDict, Union
+from typing import TYPE_CHECKING, Any, Literal, TypedDict, Union
 
 if TYPE_CHECKING:  # pragma: no cover
-    from skole.models import (  # noqa: F401
-        Activity,
-        Comment,
-        Resource,
-        School,
-        Thread,
-        User,
-    )
+    from skole.models import Activity, Comment, Thread, User  # noqa: F401
 
-CommentableModel = Union["Comment", "Thread", "Resource", "School"]
-PaginableModel = Union["Thread", "Resource", "User", "Activity", "Comment"]
-VotableModel = Union["Comment", "Thread", "Resource"]
-StarrableModel = Union["Thread", "Resource"]
+CommentableModel = Union["Comment", "Thread"]
+PaginableModel = Union["Thread", "User", "Activity", "Comment"]
+VotableModel = Union["Comment", "Thread"]
 
-SuggestionModel = Union["Comment", "Thread", "Resource"]
+ThreadOrderingOption = Literal["best", "score", "name", "-name"]
 
 ID = Union[str, int, None]
 """
@@ -36,7 +28,6 @@ Examples:
     >>> var: ID = ""  # mypy: ok, but should not be used!
     >>> var: ID = -123  # mypy: ok, but should not be used!
     >>> var: ID = graphene.ID()  # mypy: error!
-    >>> var: ID = School()  # mypy: error!
 
 """
 

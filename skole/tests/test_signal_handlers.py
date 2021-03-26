@@ -3,29 +3,27 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core import mail
 
-from skole.models import Activity, BadgeProgress, Comment, Resource, Thread, User
+from skole.models import Activity, BadgeProgress, Comment, Thread, User
 from skole.utils.constants import Notifications
 
 
 @pytest.mark.django_db
 def test_activity_for_comment_reply() -> None:
-    testuser2 = User.objects.get(pk=2)
-    testuser3 = User.objects.get(pk=3)
+    user2 = User.objects.get(pk=2)
+    user3 = User.objects.get(pk=3)
     comment = Comment.objects.get(pk=5)  # Created by testuser2
 
     # Make sure activity does not exist.
     with pytest.raises(Activity.DoesNotExist):
         Activity.objects.get(
             user=comment.user,
-            causing_user=testuser3,
+            causing_user=user3,
             comment=comment,
         )
 
     # Test that activity is created if another user replies to a comment.
 
-    reply_comment = Comment.objects.create(
-        user=testuser3, text="test", attachment=None, comment=comment
-    )
+    reply_comment = Comment.objects.create(user=user3, text="test", comment=comment)
 
     Activity.objects.get(
         user=comment.user,
@@ -35,9 +33,7 @@ def test_activity_for_comment_reply() -> None:
 
     # Test that activity is not created if user replies to his own comment.
 
-    own_reply_comment = Comment.objects.create(
-        user=testuser2, text="test", comment=comment, attachment=None
-    )
+    own_reply_comment = Comment.objects.create(user=user2, text="test", comment=comment)
 
     assert own_reply_comment.comment
     user = own_reply_comment.comment.user
@@ -64,12 +60,10 @@ def test_activity_for_thread_comment() -> None:
     # Test that activity is created if a user comments on a thread created by some other user.
 
     thread = Thread.objects.get(pk=1)
-    testuser3 = User.objects.get(pk=3)
-    assert thread.user != testuser3
+    user3 = User.objects.get(pk=3)
+    assert thread.user != user3
 
-    comment = Comment.objects.create(
-        user=testuser3, text="test", thread=thread, attachment=None
-    )
+    comment = Comment.objects.create(user=user3, text="test", thread=thread)
 
     Activity.objects.get(
         user=thread.user,
@@ -79,12 +73,10 @@ def test_activity_for_thread_comment() -> None:
 
     # Test that activity is not created if user comments his own thread.
 
-    testuser2 = User.objects.get(pk=2)
-    assert thread.user == testuser2
+    user2 = User.objects.get(pk=2)
+    assert thread.user == user2
 
-    own_thread_comment = Comment.objects.create(
-        user=testuser2, text="test", thread=thread, attachment=None
-    )
+    own_thread_comment = Comment.objects.create(user=user2, text="test", thread=thread)
 
     with pytest.raises(Activity.DoesNotExist):
         Activity.objects.get(  # type: ignore[misc]
@@ -93,88 +85,20 @@ def test_activity_for_thread_comment() -> None:
 
 
 @pytest.mark.django_db
-def test_activity_for_resource_comment() -> None:
-    resource = Resource.objects.get(pk=1)
-    testuser3 = User.objects.get(pk=3)
-
-    comment = Comment.objects.create(
-        user=testuser3, text="test", resource=resource, attachment=None
-    )
-
-    # Test that activity is created if a user comments on a resource created by some other user.
-
-    assert comment.user != resource.user
-
-    Activity.objects.get(
-        user=resource.user,
-        causing_user=comment.user,
-        comment=comment,
-    )
-
-    # Test that activity is not created if user comments his own resource.
-
-    testuser2 = User.objects.get(pk=2)
-
-    own_resource_comment = Comment.objects.create(
-        user=testuser2, text="test", resource=resource, attachment=None
-    )
-
-    assert resource.user == own_resource_comment.user
-
-    with pytest.raises(Activity.DoesNotExist):
-        Activity.objects.get(user=resource.user, causing_user=own_resource_comment.user)
-
-
-@pytest.mark.django_db
-def test_activity_for_comment_on_multiple_discussions() -> None:
-    # Test that if a comment is created on a resource and thread with the same owner, an activity is created only for the resource comment.
-
-    thread = Thread.objects.get(pk=1)
-    resource = Resource.objects.get(pk=1)
-    comment = Comment.objects.create(
-        user=None, text="test", thread=thread, resource=resource
-    )
-    Activity.objects.get(comment=comment)
-
-    # Test that if a comment is created on a resource and thread with different owners, an activity is created for both of them.
-
-    resource = Resource.objects.get(pk=2)
-    comment = Comment.objects.create(
-        user=None, text="test", thread=thread, resource=resource
-    )
-    assert Activity.objects.filter(comment=comment).count() == 2
-
-
-@pytest.mark.django_db
 def test_comment_email_notifications() -> None:
-    # Test that email notifications are sent for resource comments.
-
-    resource = Resource.objects.get(pk=1)
-    user = resource.user
-    assert user
-    user.comment_reply_email_permission = True
-    user.thread_comment_email_permission = True
-    user.resource_comment_email_permission = True
-    user.save()
-
-    resource_comment = Comment.objects.create(text="test", resource=resource)
-    activity = Activity.objects.get(comment=resource_comment)
-    assert len(mail.outbox) == 1
-    sent = mail.outbox[0]
-    assert sent.from_email == settings.EMAIL_ADDRESS
-    assert sent.to == [activity.user.email]
-
-    assert sent.subject == Notifications.COMMENT_EMAIL_NOTIFICATION_SUBJECT.format(
-        Notifications.COMMUNITY_USER, activity.activity_type.description
-    )
-
     # Test that email notifications are sent for thread comments.
 
     thread = Thread.objects.get(pk=1)
+    user2 = thread.user
+    assert user2
+    user2.comment_reply_email_permission = True
+    user2.thread_comment_email_permission = True
+    user2.save()
+
     thread_comment = Comment.objects.create(text="test", thread=thread)
     activity = Activity.objects.get(comment=thread_comment)
-    assert len(mail.outbox) == 2
-    sent = mail.outbox[1]
+    assert len(mail.outbox) == 1
+    sent = mail.outbox[0]
     assert sent.from_email == settings.EMAIL_ADDRESS
     assert sent.to == [activity.user.email]
 
@@ -185,14 +109,12 @@ def test_comment_email_notifications() -> None:
     # Test that email notifications are sent for comment replies.
 
     thread = Thread.objects.get(pk=1)
-    testuser2 = get_user_model().objects.get(pk=2)
-    top_level_comment = Comment.objects.create(
-        user=testuser2, text="test", thread=thread
-    )
+    user2 = get_user_model().objects.get(pk=2)
+    top_level_comment = Comment.objects.create(user=user2, text="test", thread=thread)
     reply_comment = Comment.objects.create(text="test", comment=top_level_comment)
     activity = Activity.objects.get(comment=reply_comment)
-    assert len(mail.outbox) == 3
-    sent = mail.outbox[2]
+    assert len(mail.outbox) == 2
+    sent = mail.outbox[1]
     assert sent.from_email == settings.EMAIL_ADDRESS
     assert sent.to == [activity.user.email]
 
@@ -202,29 +124,25 @@ def test_comment_email_notifications() -> None:
 
     # Test that email notifications are not sent without permission.
 
-    user = get_user_model().objects.get(pk=11)
+    user11 = get_user_model().objects.get(pk=11)
     thread = Thread.objects.get(pk=26)
-    resource = Resource.objects.get(pk=16)
-    assert thread.user == user
-    assert resource.user == user
-    assert not user.resource_comment_email_permission
-    assert not user.thread_comment_email_permission
-    assert not user.comment_reply_email_permission
-    assert not user.new_badge_email_permission
+    assert thread.user == user11
 
-    thread_comment = Comment.objects.create(thread=thread, text="test")
+    assert not user11.thread_comment_email_permission
+    assert not user11.comment_reply_email_permission
+    assert not user11.new_badge_email_permission
+    user2.thread_comment_email_permission = False
+    user2.comment_reply_email_permission = False
+    user2.new_badge_email_permission = False
+    user2.save()
+
+    thread_comment = Comment.objects.create(user=user2, thread=thread, text="test")
     Activity.objects.get(comment=thread_comment)
 
-    resource_comment = Comment.objects.create(resource=resource, text="test")
-    Activity.objects.get(comment=resource_comment)
-
-    top_level_comment = Comment.objects.create(
-        user=user, resource=resource, text="test"
-    )
-    reply_comment = Comment.objects.create(comment=top_level_comment, text="test")
+    reply_comment = Comment.objects.create(comment=thread_comment, text="test")
     Activity.objects.get(comment=reply_comment)
 
-    assert len(mail.outbox) == 3
+    assert len(mail.outbox) == 2
 
 
 @pytest.mark.django_db

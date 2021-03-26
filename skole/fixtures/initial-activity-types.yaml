@@ -34,24 +34,7 @@
     master: 2
     language_code: sv
     description: kommenterade din tråd
-- model: skole.ActivityTypeTranslation
-  pk: 7
-  fields:
-    master: 3
-    language_code: en
-    description: commented on your resource
-- model: skole.ActivityTypeTranslation
-  pk: 8
-  fields:
-    master: 3
-    language_code: fi
-    description: kommentoi resurssiasi
-- model: skole.ActivityTypeTranslation
-  pk: 9
-  fields:
-    master: 3
-    language_code: sv
-    description: kommenterade din resurs
+# We've deleted resource comment activity type between here.
 - model: skole.ActivityTypeTranslation
   pk: 10
   fields:
@@ -79,10 +62,7 @@
   pk: 2
   fields:
     identifier: thread_comment
-- model: skole.ActivityType
-  pk: 3
-  fields:
-    identifier: resource_comment
+# We've deleted resource comment activity type between here.
 - model: skole.ActivityType
   pk: 4
   fields:

@@ -6,12 +6,10 @@ from django.contrib.auth import get_user_model
 from django.db.models import QuerySet
 from fcm_django.models import FCMDevice
 
-from skole.models import Badge, BadgeProgress, School, Subject, User
+from skole.models import Badge, BadgeProgress, User
 from skole.schemas.badge import BadgeObjectType
 from skole.schemas.badge_progress import BadgeProgressObjectType
 from skole.schemas.base import SkoleDjangoObjectType
-from skole.schemas.school import SchoolObjectType
-from skole.schemas.subject import SubjectObjectType
 from skole.types import ResolveInfo
 
 T = TypeVar("T")
@@ -47,8 +45,6 @@ class UserObjectType(SkoleDjangoObjectType):
     avatar = graphene.String()
     avatar_thumbnail = graphene.String()
     verified = graphene.Boolean()
-    school = graphene.Field(SchoolObjectType)
-    subject = graphene.Field(SubjectObjectType)
     rank = graphene.String()
     badges = graphene.List(BadgeObjectType)
     badge_progresses = graphene.List(BadgeProgressObjectType)
@@ -56,10 +52,8 @@ class UserObjectType(SkoleDjangoObjectType):
     fcm_token = graphene.String()
     comment_reply_email_permission = graphene.Boolean()
     thread_comment_email_permission = graphene.Boolean()
-    resource_comment_email_permission = graphene.Boolean()
     comment_reply_push_permission = graphene.Boolean()
     thread_comment_push_permission = graphene.Boolean()
-    resource_comment_push_permission = graphene.Boolean()
 
     class Meta:
         model = get_user_model()
@@ -80,10 +74,8 @@ class UserObjectType(SkoleDjangoObjectType):
             "fcm_token",
             "comment_reply_email_permission",
             "thread_comment_email_permission",
-            "resource_comment_email_permission",
             "comment_reply_push_permission",
             "thread_comment_push_permission",
-            "resource_comment_push_permission",
         )
 
     @staticmethod
@@ -126,16 +118,6 @@ class UserObjectType(SkoleDjangoObjectType):
 
     @staticmethod
     @private_field
-    def resolve_school(root: User, info: ResolveInfo) -> Optional[School]:
-        return root.school
-
-    @staticmethod
-    @private_field
-    def resolve_subject(root: User, info: ResolveInfo) -> Optional[Subject]:
-        return root.subject
-
-    @staticmethod
-    @private_field
     def resolve_unread_activity_count(root: User, info: ResolveInfo) -> int:
         return root.activities.filter(read=False).order_by().count()
 
@@ -159,13 +141,6 @@ class UserObjectType(SkoleDjangoObjectType):
 
     @staticmethod
     @private_field
-    def resolve_resource_comment_email_permission(
-        root: User, info: ResolveInfo
-    ) -> bool:
-        return root.resource_comment_email_permission
-
-    @staticmethod
-    @private_field
     def resolve_comment_reply_push_permission(root: User, info: ResolveInfo) -> bool:
         return root.comment_reply_push_permission
 
@@ -173,8 +148,3 @@ class UserObjectType(SkoleDjangoObjectType):
     @private_field
     def resolve_thread_comment_push_permission(root: User, info: ResolveInfo) -> bool:
         return root.thread_comment_push_permission
-
-    @staticmethod
-    @private_field
-    def resolve_resource_comment_push_permission(root: User, info: ResolveInfo) -> bool:
-        return root.resource_comment_push_permission

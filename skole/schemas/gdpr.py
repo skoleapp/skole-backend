@@ -23,17 +23,7 @@ from django.utils import timezone, translation
 from django.utils.html import strip_tags
 from graphene_django.types import ErrorType
 
-from skole.models import (
-    Activity,
-    Badge,
-    Comment,
-    Resource,
-    SkoleModel,
-    Star,
-    Thread,
-    User,
-    Vote,
-)
+from skole.models import Activity, Badge, Comment, SkoleModel, Star, Thread, User, Vote
 from skole.overridden import login_required
 from skole.schemas.base import SkoleObjectType
 from skole.types import JsonList, ResolveInfo
@@ -88,8 +78,6 @@ class MyDataMutation(SkoleObjectType, graphene.Mutation):
                 "title": user.title,
                 "bio": user.bio,
                 "avatar": user.avatar.name if user.avatar else None,
-                "school": user.school.name if user.school else None,
-                "subject": user.subject.name if user.subject else None,
                 "score": user.score,
                 "verified": user.verified,
                 "is_active": user.is_active,
@@ -100,7 +88,6 @@ class MyDataMutation(SkoleObjectType, graphene.Mutation):
                 # Related models
                 "created_comments": cls._created_comments(user),
                 "created_threads": cls._created_threads(user),
-                "created_resources": cls._created_resources(user),
                 "badges": cls._badges(user),
                 "badgeProgresses": cls._badge_progresses(user),
                 "selectedBadgeProgress": cls._selected_badge_progress(user),
@@ -123,12 +110,14 @@ class MyDataMutation(SkoleObjectType, graphene.Mutation):
     def _created_comments(cls, user: User) -> QuerySet[Comment]:
         return (
             user.comments.annotate(target=cls.__target_case(Comment))
-            .annotate(uploaded_attachment=cls.__file_case("attachment"))
+            .annotate(uploaded_file=cls.__file_case("file"))
+            .annotate(uploaded_image=cls.__file_case("image"))
             .values(
                 "id",
                 "text",
                 "target",
-                "uploaded_attachment",
+                "uploaded_file",
+                "uploaded_image",
                 "modified",
                 "created",
             )
@@ -148,26 +137,8 @@ class MyDataMutation(SkoleObjectType, graphene.Mutation):
         )
 
     @classmethod
-    def _created_resources(cls, user: User) -> QuerySet[Resource]:
-        return (
-            user.created_resources.filter(
-                resource_type__translations__language_code=settings.LANGUAGE_CODE
-            )
-            .annotate(uploaded_file=cls.__file_case("file"))
-            .values(
-                "id",
-                "thread",
-                "title",
-                "uploaded_file",
-                "modified",
-                "created",
-                type=F("resource_type__translations__name"),
-            )
-        )
-
-    @classmethod
     def _activities(cls, user: User) -> QuerySet[Activity]:
-        return user.activities.annotate(target=cls.__target_case(Activity),).values(
+        return user.activities.annotate(target=cls.__target_case(Activity)).values(
             "id",
             "read",
             "target",
@@ -237,8 +208,8 @@ class MyDataMutation(SkoleObjectType, graphene.Mutation):
         return {
             file
             for file in itertools.chain(
-                (resource.file for resource in user.created_resources.all()),
-                (comment.attachment for comment in user.comments.all()),
+                (comment.file for comment in user.comments.all()),
+                (comment.image for comment in user.comments.all()),
                 (user.avatar,),
             )
             if file
@@ -315,9 +286,6 @@ class MyDataMutation(SkoleObjectType, graphene.Mutation):
             ),
             "thread": When(
                 thread__isnull=False, then=Concat(Value("thread "), "thread")
-            ),
-            "resource": When(
-                resource__isnull=False, then=Concat(Value("resource "), "resource")
             ),
         }
         return Case(*(value for key, value in cases.items() if hasattr(model, key)))

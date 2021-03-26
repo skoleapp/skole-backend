@@ -1,7 +1,7 @@
 import pytest
 from django.contrib.auth import get_user_model
 
-from skole.models import Comment, Resource, Thread, Vote
+from skole.models import Comment, Thread, Vote
 from skole.utils.constants import VoteConstants
 
 
@@ -21,8 +21,7 @@ def test_manager_perform_vote_ok() -> None:
 
     targets = (
         Thread.objects.get(pk=1),  # from testuser2
-        Resource.objects.get(pk=2),  # from testuser10
-        Comment.objects.get(pk=3),  # from testuser9
+        Comment.objects.get(pk=18),  # from testuser9
     )
 
     for target in targets:
@@ -40,14 +39,6 @@ def test_manager_perform_vote_ok() -> None:
                 and thread.user.score
                 == target_score * VoteConstants.SCORE_THREAD_MULTIPLIER
             )
-        elif vote.resource is not None:
-            resource = Resource.objects.get(pk=target.pk)
-            assert target_score == resource.score == 1
-            assert (
-                resource.user
-                and resource.user.score
-                == target_score * VoteConstants.SCORE_RESOURCE_MULTIPLIER
-            )
         elif vote.comment is not None:
             comment = Comment.objects.get(pk=target.pk)
             assert target_score == comment.score == 1
@@ -58,7 +49,7 @@ def test_manager_perform_vote_ok() -> None:
             )
 
         # Check that only one foreign key reference is active.
-        for attr in ("thread", "resource", "comment"):
+        for attr in ("thread", "comment"):
             if target.__class__.__name__.lower() == attr:
                 assert getattr(vote, attr) == target
             else:
@@ -72,7 +63,6 @@ def test_manager_perform_vote_existing() -> None:
 
     targets = (
         Thread.objects.get(pk=1),
-        Resource.objects.get(pk=2),
         Comment.objects.get(pk=3),
     )
 

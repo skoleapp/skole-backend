@@ -58,8 +58,8 @@ class Comment(SkoleModel):
         options={"quality": 60},
     )
 
-    course = models.ForeignKey(
-        "skole.Course",
+    thread = models.ForeignKey(
+        "skole.Thread",
         on_delete=models.CASCADE,
         null=True,
         blank=True,

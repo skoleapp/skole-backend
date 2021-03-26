@@ -34,13 +34,13 @@ def test_create_user() -> None:
     assert user.check_password(password)
     # Email notification permission are by default off.
     assert not user.comment_reply_email_permission
-    assert not user.course_comment_email_permission
+    assert not user.thread_comment_email_permission
     assert not user.resource_comment_email_permission
     assert not user.new_badge_email_permission
 
     # Push notification permission are by default on.
     assert user.comment_reply_push_permission
-    assert user.course_comment_push_permission
+    assert user.thread_comment_push_permission
     assert user.resource_comment_push_permission
     assert user.new_badge_push_permission
 

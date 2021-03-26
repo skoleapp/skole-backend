@@ -56,14 +56,11 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
                     id
                 }
             }
-            course {
+            thread {
                 id
                 slug
             }
             comments {
-                id
-            }
-            school {
                 id
             }
             vote {
@@ -77,14 +74,14 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
         self,
         *,
         user: str = "",
-        course: str = "",
+        thread: str = "",
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         assert_error: bool = False,
     ) -> JsonDict:
         variables = {
             "user": user,
-            "course": course,
+            "thread": thread,
             "page": page,
             "pageSize": page_size,
         }
@@ -95,13 +92,13 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
             + """
                 query Resources (
                     $user: String,
-                    $course: String,
+                    $thread: String,
                     $page: Int,
                     $pageSize: Int
                 ) {
                     resources (
                         user: $user,
-                        course: $course,
+                        thread: $thread,
                         page: $page,
                         pageSize: $pageSize
                     ) {
@@ -181,7 +178,7 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
         title: str = "test title",
         file: str = "",
         resource_type: ID = 1,
-        course: ID = 1,
+        thread: ID = 1,
         date: Optional[datetime.date] = None,
         author: Optional[str] = None,
         file_data: FileData = None,
@@ -193,7 +190,7 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
                 "title": title,
                 "file": file,
                 "resourceType": resource_type,
-                "course": course,
+                "thread": thread,
                 "date": date,
                 "author": author,
             },
@@ -284,17 +281,17 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
         assert res["hasNext"] is False
         assert res["hasPrev"] is False
 
-        # Test that only resources of the correct course are returned.
+        # Test that only resources of the correct thread are returned.
 
         page = 16
-        course = "test-engineering-course-1-test0001"
+        thread = "test-thread-1"
 
-        res = self.query_resources(course=course, page=page, page_size=page_size)
+        res = self.query_resources(thread=thread, page=page, page_size=page_size)
 
         assert len(res["objects"]) == page_size
 
         for resource in res["objects"]:
-            assert resource["course"]["slug"] == course
+            assert resource["thread"]["slug"] == thread
 
         assert res["count"] == 16
         assert res["page"] == page
@@ -302,12 +299,12 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
         assert res["hasNext"] is False
         assert res["hasPrev"] is True
 
-        # Test for some course that has no resources.
+        # Test for some thread that has no resources.
 
         page = 1
 
         res = self.query_resources(
-            course="test-engineering-course-9-test0009",
+            thread="test-thread-9",
             page=page,
             page_size=page_size,
         )
@@ -374,7 +371,7 @@ class ResourceSchemaTests(SkoleSchemaTestCase):
             assert resource["date"] == "2012-12-12"
             assert resource["slug"] == slug
             assert resource["file"] == "/media/uploads/resources/test_resource.pdf"
-            assert resource["course"]["id"] == "1"
+            assert resource["thread"]["id"] == "1"
             assert resource["starCount"] == 1
             assert resource["commentCount"] == 4
             assert resource["downloads"] == 0

@@ -11,10 +11,10 @@ from skole.schemas.base import (
     SkoleDeleteMutationMixin,
     SkoleObjectType,
 )
-from skole.schemas.course import CourseObjectType
 from skole.schemas.mixins import PaginationMixin, SuccessMessageMixin, VoteMixin
 from skole.schemas.resource import ResourceObjectType
 from skole.schemas.school import SchoolObjectType
+from skole.schemas.thread import ThreadObjectType
 from skole.types import ID, ResolveInfo
 from skole.utils.constants import Messages
 from skole.utils.pagination import get_paginator
@@ -32,7 +32,7 @@ class CommentObjectType(VoteMixin, DjangoObjectType):
             "text",
             "attachment",
             "attachment_thumbnail",
-            "course",
+            "thread",
             "resource",
             "school",
             "comment",
@@ -110,7 +110,7 @@ class DeleteCommentMutation(SkoleDeleteMutationMixin, DjangoModelFormMutation):
 
 class DiscussionsUnion(graphene.Union):
     class Meta:
-        types = (CourseObjectType, ResourceObjectType, SchoolObjectType)
+        types = (ThreadObjectType, ResourceObjectType, SchoolObjectType)
 
 
 class Query(SkoleObjectType):
@@ -123,7 +123,7 @@ class Query(SkoleObjectType):
 
     discussion = graphene.List(
         CommentObjectType,
-        course=graphene.ID(),
+        thread=graphene.ID(),
         resource=graphene.ID(),
         school=graphene.ID(),
     )
@@ -155,7 +155,7 @@ class Query(SkoleObjectType):
     def resolve_discussion(
         root: None,
         info: ResolveInfo,
-        course: ID = None,
+        thread: ID = None,
         resource: ID = None,
         school: ID = None,
     ) -> QuerySet[Comment]:
@@ -163,8 +163,8 @@ class Query(SkoleObjectType):
 
         qs = Comment.objects.none()
 
-        if course is not None:
-            qs = Comment.objects.filter(course__pk=course)
+        if thread is not None:
+            qs = Comment.objects.filter(thread__pk=thread)
         if resource is not None:
             qs = Comment.objects.filter(resource__pk=resource)
         if school is not None:

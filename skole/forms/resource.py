@@ -58,7 +58,7 @@ class CreateResourceForm(_BaseCreateUpdateResourceForm, SkoleModelForm):
 
     class Meta:
         model = Resource
-        fields = ("title", "file", "resource_type", "course", "date", "author")
+        fields = ("title", "file", "resource_type", "thread", "date", "author")
 
     def clean_file(self) -> Union[File, str]:
         return clean_file_field(

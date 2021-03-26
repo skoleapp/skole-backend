@@ -12,7 +12,7 @@ from skole.forms import (
     DownloadResourceForm,
     UpdateResourceForm,
 )
-from skole.models import Resource, School
+from skole.models import Resource
 from skole.overridden import login_required
 from skole.schemas.author import AuthorObjectType
 from skole.schemas.base import (
@@ -27,7 +27,6 @@ from skole.schemas.mixins import (
     VoteMixin,
 )
 from skole.schemas.resource_type import ResourceTypeObjectType
-from skole.schemas.school import SchoolObjectType
 from skole.types import ResolveInfo
 from skole.utils.constants import Messages
 from skole.utils.pagination import get_paginator
@@ -49,7 +48,6 @@ def order_resources_with_secret_algorithm(qs: QuerySet[Resource]) -> QuerySet[Re
 class ResourceObjectType(VoteMixin, StarMixin, DjangoObjectType):
     slug = graphene.String()
     resource_type = graphene.Field(ResourceTypeObjectType)
-    school = graphene.Field(SchoolObjectType)
     author = graphene.Field(AuthorObjectType)
     star_count = graphene.Int()
     comment_count = graphene.Int()
@@ -62,7 +60,7 @@ class ResourceObjectType(VoteMixin, StarMixin, DjangoObjectType):
             "file",
             "title",
             "date",
-            "course",
+            "thread",
             "downloads",
             "user",
             "author",
@@ -79,10 +77,6 @@ class ResourceObjectType(VoteMixin, StarMixin, DjangoObjectType):
     @staticmethod
     def resolve_file(root: Resource, info: ResolveInfo) -> str:
         return root.file.url if root.file else ""
-
-    @staticmethod
-    def resolve_school(root: Resource, info: ResolveInfo) -> School:
-        return root.course.school
 
     # Have to specify these with resolvers since graphene cannot infer the annotated fields otherwise.
 
@@ -164,7 +158,7 @@ class Query(SkoleObjectType):
     resources = graphene.Field(
         PaginatedResourceObjectType,
         user=graphene.String(),
-        course=graphene.String(),
+        thread=graphene.String(),
         page=graphene.Int(),
         page_size=graphene.Int(),
         ordering=graphene.String(),
@@ -183,7 +177,7 @@ class Query(SkoleObjectType):
         root: None,
         info: ResolveInfo,
         user: str = "",
-        course: str = "",
+        thread: str = "",
         page: int = 1,
         page_size: int = settings.DEFAULT_PAGE_SIZE,
     ) -> PaginatedResourceObjectType:
@@ -200,8 +194,8 @@ class Query(SkoleObjectType):
         else:
             qs = order_resources_with_secret_algorithm(qs)
 
-        if course != "":
-            qs = qs.filter(course__slug=course)
+        if thread != "":
+            qs = qs.filter(thread__slug=thread)
 
         return get_paginator(qs, page_size, page, PaginatedResourceObjectType)
 

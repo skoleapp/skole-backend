@@ -14,22 +14,10 @@ from skole.utils.pagination import get_paginator
 class SubjectObjectType(SkoleDjangoObjectType):
     slug = graphene.String()
     name = graphene.String()
-    course_count = graphene.Int()
-    resource_count = graphene.Int()
 
     class Meta:
         model = Subject
-        fields = ("id", "slug", "name", "course_count", "resource_count")
-
-    # Have to specify these three with resolvers since graphene cannot infer the annotated fields otherwise.
-
-    @staticmethod
-    def resolve_course_count(root: Subject, info: ResolveInfo) -> int:
-        return root.course_count
-
-    @staticmethod
-    def resolve_resource_count(root: Subject, info: ResolveInfo) -> int:
-        return root.resource_count
+        fields = ("id", "slug", "name")
 
 
 class PaginatedSubjectObjectType(PaginationMixin, SkoleObjectType):
@@ -42,7 +30,6 @@ class PaginatedSubjectObjectType(PaginationMixin, SkoleObjectType):
 class Query(SkoleObjectType):
     subjects = graphene.Field(
         PaginatedSubjectObjectType,
-        school=graphene.String(),
         page=graphene.Int(),
         page_size=graphene.Int(),
     )
@@ -58,7 +45,6 @@ class Query(SkoleObjectType):
     def resolve_subjects(
         root: None,
         info: ResolveInfo,
-        school: str = "",
         page: int = 1,
         page_size: int = settings.DEFAULT_PAGE_SIZE,
     ) -> PaginatedSubjectObjectType:
@@ -67,12 +53,7 @@ class Query(SkoleObjectType):
 
         Results are sorted alphabetically.
         """
-        qs = Subject.objects.translated()
-
-        if school != "":
-            qs = qs.filter(courses__school__slug=school)
-
-        qs = qs.order_by("translations__name")
+        qs = Subject.objects.translated().order_by("translations__name")
         return get_paginator(qs, page_size, page, PaginatedSubjectObjectType)
 
     @staticmethod

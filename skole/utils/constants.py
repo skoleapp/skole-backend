@@ -41,7 +41,6 @@ class ValidationErrors:
     )
     COULD_NOT_CONVERT_FILE = _("File could not be converted to {} format.")
     VOTE_OWN_CONTENT = _("You cannot vote your own content.")
-    COURSE_CODE_INVALID = _("One of the course codes is invalid.")
     REFERRAL_CODE_INVALID = _("The referral code does not seem to be valid.")
     REFERRAL_CODE_NO_USES_LEFT = _("The referral code does not have any uses left.")
     REFERRAL_CODE_NEEDED_BEFORE_LOGIN = _(
@@ -74,8 +73,8 @@ class Messages:
     USER_DELETED = _("Account deleted successfully!")
     PROFILE_UPDATED = _("Profile updated successfully!")
     ACCOUNT_SETTINGS_UPDATED = _("Account settings updated successfully!")
-    COURSE_CREATED = _("Course created successfully!")
-    COURSE_DELETED = _("Course deleted successfully!")
+    THREAD_CREATED = _("Thread created successfully!")
+    THREAD_DELETED = _("Thread deleted successfully!")
     RESOURCE_DELETED = _("Resource deleted successfully!")
     RESOURCE_CREATED = _("Resource created successfully!")
     RESOURCE_UPDATED = _("Resource updated successfully!")
@@ -137,7 +136,7 @@ class MutationErrors:
 
 class VoteConstants:
     SCORE_RESOURCE_MULTIPLIER = 10
-    SCORE_COURSE_MULTIPLIER = 5
+    SCORE_THREAD_MULTIPLIER = 5
     SCORE_COMMENT_MULTIPLIER = 1
 
     STATUS = (
@@ -160,7 +159,7 @@ class ActivityTypes:
     """Used in activity signal to get the correct activity type from the fixtures."""
 
     COMMENT_REPLY = "comment_reply"
-    COURSE_COMMENT = "course_comment"
+    THREAD_COMMENT = "thread_comment"
     RESOURCE_COMMENT = "resource_comment"
     NEW_BADGE = "new_badge"
 

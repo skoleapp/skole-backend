@@ -20,7 +20,7 @@ def test_award_badges() -> None:
     assert list(badges.order_by("pk").values_list("identifier", flat=True)) == [
         "staff",
         "first_comment",
-        "first_course",
+        "first_thread",
         "first_resource",
         "first_upvote",
     ]

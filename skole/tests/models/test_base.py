@@ -3,7 +3,7 @@ import parler.models
 import pytest
 from django.db import models
 
-from skole.models import Country, Course, Resource
+from skole.models import Country, Resource, Thread
 from skole.models.base import (
     SkoleManager,
     SkoleModel,
@@ -15,10 +15,7 @@ from skole.models.base import (
 @pytest.mark.django_db
 def test_repr() -> None:
     """Test `SkoleModel`'s `__repr__()`."""
-    assert (
-        repr(Course.objects.get(pk=1))
-        == "<Course:1-test-engineering-course-1-test0001>"
-    )
+    assert repr(Thread.objects.get(pk=1)) == "<Thread:1-test-thread-1>"
     assert repr(Resource.objects.get(pk=1)) == "<Resource:1-sample-exam-1-2012-12-12>"
 
 

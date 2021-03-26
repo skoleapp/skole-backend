@@ -1,7 +1,7 @@
 import pytest
 from django.contrib.auth import get_user_model
 
-from skole.models import Comment, Course, Resource, Vote
+from skole.models import Comment, Resource, Thread, Vote
 from skole.utils.constants import VoteConstants
 
 
@@ -20,7 +20,7 @@ def test_manager_perform_vote_ok() -> None:
     status = 1
 
     targets = (
-        Course.objects.get(pk=1),  # from testuser2
+        Thread.objects.get(pk=1),  # from testuser2
         Resource.objects.get(pk=2),  # from testuser10
         Comment.objects.get(pk=3),  # from testuser9
     )
@@ -32,13 +32,13 @@ def test_manager_perform_vote_ok() -> None:
         assert vote.user == user
         assert vote.status == status
 
-        if vote.course is not None:
-            course = Course.objects.get(pk=target.pk)
-            assert target_score == course.score == 1
+        if vote.thread is not None:
+            thread = Thread.objects.get(pk=target.pk)
+            assert target_score == thread.score == 1
             assert (
-                course.user
-                and course.user.score
-                == target_score * VoteConstants.SCORE_COURSE_MULTIPLIER
+                thread.user
+                and thread.user.score
+                == target_score * VoteConstants.SCORE_THREAD_MULTIPLIER
             )
         elif vote.resource is not None:
             resource = Resource.objects.get(pk=target.pk)
@@ -58,7 +58,7 @@ def test_manager_perform_vote_ok() -> None:
             )
 
         # Check that only one foreign key reference is active.
-        for attr in ("course", "resource", "comment"):
+        for attr in ("thread", "resource", "comment"):
             if target.__class__.__name__.lower() == attr:
                 assert getattr(vote, attr) == target
             else:
@@ -71,7 +71,7 @@ def test_manager_perform_vote_existing() -> None:
     status = 1
 
     targets = (
-        Course.objects.get(pk=1),
+        Thread.objects.get(pk=1),
         Resource.objects.get(pk=2),
         Comment.objects.get(pk=3),
     )

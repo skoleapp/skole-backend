@@ -71,7 +71,7 @@ class GdprSchemaTests(SkoleSchemaTestCase):
         assert content["verified"] is True
         assert content["badges"] == ["Staff"]
         assert content["votes"] == [{"id": 1, "target": "comment 1", "vote": "upvote"}]
-        assert content["stars"] == ["course 1", "course 2", "resource 1", "resource 2"]
+        assert content["stars"] == ["thread 1", "thread 2", "resource 1", "resource 2"]
 
     def test_my_data_login_required(self) -> None:
         self.authenticated_user = None

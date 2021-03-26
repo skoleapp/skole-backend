@@ -1,6 +1,5 @@
 from typing import Optional
 
-from skole.models import School
 from skole.tests.helpers import SkoleSchemaTestCase
 from skole.types import JsonDict, JsonList
 
@@ -13,21 +12,17 @@ class SubjectSchemaTests(SkoleSchemaTestCase):
             id
             slug
             name
-            courseCount
-            resourceCount
         }
     """
 
     def query_subjects(
         self,
         *,
-        school: str = "",
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         assert_error: bool = False,
     ) -> JsonDict:
         variables = {
-            "school": school,
             "pageSize": page_size,
             "page": page,
         }
@@ -37,12 +32,10 @@ class SubjectSchemaTests(SkoleSchemaTestCase):
             self.subject_fields
             + """
             query Subjects (
-                $school: String,
                 $page: Int,
                 $pageSize: Int,
             ) {
                 subjects (
-                    school: $school,
                     page: $page,
                     pageSize: $pageSize,
                 ) {
@@ -108,15 +101,6 @@ class SubjectSchemaTests(SkoleSchemaTestCase):
         assert res["hasNext"] is False
         assert res["hasPrev"] is False
 
-        # Test that only subjects from a given school are returned.
-        school = "university-of-turku"
-        res = self.query_subjects(school=school)
-        school = School.objects.get(slug=school)
-        school_subjects = school.subjects.values_list("id", flat=True)
-
-        for subject in res["objects"]:
-            assert int(subject["id"]) in school_subjects
-
     def test_autocomplete_subjects(self) -> None:
         subjects = self.query_autocomplete_subjects()
 
@@ -139,6 +123,4 @@ class SubjectSchemaTests(SkoleSchemaTestCase):
         assert subject["id"] == "1"
         assert subject["slug"] == slug
         assert subject["name"] == "Computer Engineering"
-        assert subject["courseCount"] == 23
-        assert subject["resourceCount"] == 16
         assert self.query_subject(slug="not-found") is None

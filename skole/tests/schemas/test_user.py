@@ -42,10 +42,10 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
             unreadActivityCount
             fcmToken
             commentReplyEmailPermission
-            courseCommentEmailPermission
+            threadCommentEmailPermission
             resourceCommentEmailPermission
             commentReplyPushPermission
-            courseCommentPushPermission
+            threadCommentPushPermission
             resourceCommentPushPermission
             badges {
                 id
@@ -174,11 +174,11 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         school: ID = 1,
         subject: ID = 1,
         comment_reply_email_permission: bool = False,
-        course_comment_email_permission: bool = False,
+        thread_comment_email_permission: bool = False,
         resource_comment_email_permission: bool = False,
         new_badge_email_permission: bool = False,
         comment_reply_push_permission: bool = True,
-        course_comment_push_permission: bool = True,
+        thread_comment_push_permission: bool = True,
         resource_comment_push_permission: bool = True,
         new_badge_push_permission: bool = True,
     ) -> JsonDict:
@@ -190,11 +190,11 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
                 "school": school,
                 "subject": subject,
                 "commentReplyEmailPermission": comment_reply_email_permission,
-                "courseCommentEmailPermission": course_comment_email_permission,
+                "threadCommentEmailPermission": thread_comment_email_permission,
                 "resourceCommentEmailPermission": resource_comment_email_permission,
                 "newBadgeEmailPermission": new_badge_email_permission,
                 "commentReplyPushPermission": comment_reply_push_permission,
-                "courseCommentPushPermission": course_comment_push_permission,
+                "threadCommentPushPermission": thread_comment_push_permission,
                 "resourceCommentPushPermission": resource_comment_push_permission,
                 "newBadgePushPermission": new_badge_push_permission,
             },
@@ -686,20 +686,20 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         new_school = "2"
         new_subject = "2"
         comment_reply_email_permission = True
-        course_comment_email_permission = True
+        thread_comment_email_permission = True
         resource_comment_email_permission = True
         comment_reply_push_permission = True
-        course_comment_push_permission = True
+        thread_comment_push_permission = True
         resource_comment_push_permission = True
 
         res = self.mutate_update_account_settings(
             school=new_school,
             subject=new_subject,
             comment_reply_email_permission=comment_reply_email_permission,
-            course_comment_email_permission=course_comment_email_permission,
+            thread_comment_email_permission=thread_comment_email_permission,
             resource_comment_email_permission=resource_comment_email_permission,
             comment_reply_push_permission=comment_reply_push_permission,
-            course_comment_push_permission=course_comment_push_permission,
+            thread_comment_push_permission=thread_comment_push_permission,
             resource_comment_push_permission=resource_comment_push_permission,
         )
 
@@ -707,10 +707,10 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert res["user"]["school"] == {"id": new_school}
         assert res["user"]["school"] == {"id": new_subject}
         assert res["user"]["commentReplyEmailPermission"]
-        assert res["user"]["courseCommentEmailPermission"]
+        assert res["user"]["threadCommentEmailPermission"]
         assert res["user"]["resourceCommentEmailPermission"]
         assert res["user"]["commentReplyPushPermission"]
-        assert res["user"]["courseCommentPushPermission"]
+        assert res["user"]["threadCommentPushPermission"]
         assert res["user"]["resourceCommentPushPermission"]
         assert res["successMessage"] == Messages.ACCOUNT_SETTINGS_UPDATED
 

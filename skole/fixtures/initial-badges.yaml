@@ -66,22 +66,22 @@
   fields:
     master: 4
     language_code: en
-    name: First Course
-    description: Create your first course.
+    name: First Thread
+    description: Create your first thread.
 - model: skole.BadgeTranslation
   pk: 11
   fields:
     master: 4
     language_code: fi
-    name: Ensimmäinen kurssi
-    description: Luo ensimmäinen kurssisi.
+    name: Ensimmäinen lanka
+    description: Luo ensimmäinen lanka.
 - model: skole.BadgeTranslation
   pk: 12
   fields:
     master: 4
     language_code: sv
-    name: Första kursen
-    description: Skapa din första kurs.
+    name: Första tråden
+    description: Skapa din första tråd.
 - model: skole.BadgeTranslation
   pk: 13
   fields:
@@ -170,7 +170,7 @@
 - model: skole.Badge
   pk: 4
   fields:
-    identifier: first_course
+    identifier: first_thread
     steps: 1
     completion_score: 0
     tier: bronze

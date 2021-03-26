@@ -1,7 +1,7 @@
 import inspect
 
 from skole.models import School
-from skole.schemas import course
+from skole.schemas import thread
 from skole.schemas.resource import DeleteResourceMutation
 from skole.schemas.school import SchoolObjectType
 
@@ -25,10 +25,10 @@ def test_skole_object_type_meta_dynamic_api_docs() -> None:
     assert description == expected
 
     # Test that query resolver docs get generated correctly.
-    description = course.Query.starred_courses.description
+    description = thread.Query.starred_threads.description
     expected = inspect.cleandoc(
         """
-        Return starred courses of the user making the query.
+        Return starred threads of the user making the query.
 
         Results are sorted by creation time. Return an empty list for unauthenticated
         users.

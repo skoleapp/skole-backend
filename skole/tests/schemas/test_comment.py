@@ -2,7 +2,7 @@ from typing import Optional
 
 from django.conf import settings
 
-from skole.models import Comment, Course, Resource, School
+from skole.models import Comment, Resource, School, Thread
 from skole.tests.helpers import (
     TEST_ATTACHMENT_PNG,
     UPLOADED_ATTACHMENT_PNG,
@@ -35,7 +35,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
             user {
                 id
             }
-            course {
+            thread {
                 id
             }
             resource {
@@ -103,13 +103,13 @@ class CommentSchemaTests(SkoleSchemaTestCase):
     def query_discussion(
         self,
         *,
-        course: ID = None,
+        thread: ID = None,
         resource: ID = None,
         school: ID = None,
         assert_error: bool = False,
     ) -> JsonDict:
         variables = {
-            "course": course,
+            "thread": thread,
             "resource": resource,
             "school": school,
         }
@@ -119,12 +119,12 @@ class CommentSchemaTests(SkoleSchemaTestCase):
             self.comment_fields
             + """
                 query Discussion(
-                    $course: ID,
+                    $thread: ID,
                     $resource: ID,
                     $school: ID
                 ) {
                     discussion(
-                        course: $course,
+                        thread: $thread,
                         resource: $resource,
                         school: $school
                     ) {
@@ -160,7 +160,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         user: ID = 2,
         text: str = "",
         attachment: str = "",
-        course: ID = None,
+        thread: ID = None,
         resource: ID = None,
         school: ID = None,
         comment: ID = None,
@@ -173,7 +173,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
                 "user": user,
                 "text": text,
                 "attachment": attachment,
-                "course": course,
+                "thread": thread,
                 "school": school,
                 "resource": resource,
                 "comment": comment,
@@ -237,18 +237,18 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         assert get_last(Resource.objects.get(pk=2).comments).text == text
         assert get_last(Resource.objects.get(pk=2).comments).pk == int(comment["id"])
 
-        # Create a comment to a course.
-        res = self.mutate_create_comment(text=text, course=2)
+        # Create a comment to a thread.
+        res = self.mutate_create_comment(text=text, thread=2)
         comment = res["comment"]
         assert not res["errors"]
         assert comment["text"] == text
         assert Comment.objects.count() == old_count + 3
-        assert Course.objects.get(pk=2).comments.count() == 2
-        assert get_last(Course.objects.get(pk=2).comments).text == text
-        assert get_last(Course.objects.get(pk=2).comments).pk == int(comment["id"])
+        assert Thread.objects.get(pk=2).comments.count() == 2
+        assert get_last(Thread.objects.get(pk=2).comments).text == text
+        assert get_last(Thread.objects.get(pk=2).comments).pk == int(comment["id"])
 
-        # Create a comment to resource and course.
-        res = self.mutate_create_comment(text=text, course=3, resource=15)
+        # Create a comment to resource and thread.
+        res = self.mutate_create_comment(text=text, thread=3, resource=15)
         comment = res["comment"]
         assert not res["errors"]
         assert comment["text"] == text
@@ -256,9 +256,9 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         assert Resource.objects.get(pk=15).comments.count() == 1
         assert get_last(Resource.objects.get(pk=15).comments).text == text
         assert get_last(Resource.objects.get(pk=15).comments).pk == int(comment["id"])
-        assert Course.objects.get(pk=3).comments.count() == 2
-        assert get_last(Course.objects.get(pk=3).comments).text == text
-        assert get_last(Course.objects.get(pk=3).comments).pk == int(comment["id"])
+        assert Thread.objects.get(pk=3).comments.count() == 2
+        assert get_last(Thread.objects.get(pk=3).comments).text == text
+        assert get_last(Thread.objects.get(pk=3).comments).pk == int(comment["id"])
 
         # Create a comment to a school.
 
@@ -271,16 +271,16 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         assert get_last(School.objects.get(pk=1).comments).text == text
         assert get_last(School.objects.get(pk=1).comments).pk == int(comment["id"])
 
-        # Create a comment to course and school.
+        # Create a comment to thread and school.
 
-        res = self.mutate_create_comment(text=text, course=3, school=1)
+        res = self.mutate_create_comment(text=text, thread=3, school=1)
         comment = res["comment"]
         assert not res["errors"]
         assert comment["text"] == text
         assert Comment.objects.count() == old_count + 6
-        assert Course.objects.get(pk=3).comments.count() == 3
-        assert get_last(Course.objects.get(pk=3).comments).text == text
-        assert get_last(Course.objects.get(pk=3).comments).pk == int(comment["id"])
+        assert Thread.objects.get(pk=3).comments.count() == 3
+        assert get_last(Thread.objects.get(pk=3).comments).text == text
+        assert get_last(Thread.objects.get(pk=3).comments).pk == int(comment["id"])
         assert School.objects.get(pk=1).comments.count() == 3
         assert get_last(School.objects.get(pk=1).comments).text == text
         assert get_last(School.objects.get(pk=1).comments).pk == int(comment["id"])
@@ -288,7 +288,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         # Create a comment with an attachment.
         with open_as_file(TEST_ATTACHMENT_PNG) as attachment:
             res = self.mutate_create_comment(
-                text=text, course=2, file_data=[("attachment", attachment)]
+                text=text, thread=2, file_data=[("attachment", attachment)]
             )
 
         comment = res["comment"]
@@ -301,18 +301,18 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         self.authenticated_user = None
 
         # Create a comment without logging in
-        res = self.mutate_create_comment(text=text, course=3)
+        res = self.mutate_create_comment(text=text, thread=3)
         comment = res["comment"]
         assert not res["errors"]
         assert comment["text"] == text
-        assert comment["course"]["id"] == "3"
+        assert comment["thread"]["id"] == "3"
         assert comment["user"] is None
         assert Comment.objects.count() == old_count + 8
 
         # Can't add an attachment to the comment without logging in.
         with open_as_file(TEST_ATTACHMENT_PNG) as attachment:
             res = self.mutate_create_comment(
-                text=text, course=2, file_data=[("attachment", attachment)]
+                text=text, thread=2, file_data=[("attachment", attachment)]
             )
 
         comment = res["comment"]
@@ -330,7 +330,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
 
         with open_as_file(TEST_ATTACHMENT_PNG) as attachment:
             res = self.mutate_create_comment(
-                text=text, course=2, file_data=[("attachment", attachment)]
+                text=text, thread=2, file_data=[("attachment", attachment)]
             )
 
         comment = res["comment"]
@@ -344,21 +344,21 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         self.authenticated_user = 2
 
         # Can't create a comment with no text and no attachment.
-        res = self.mutate_create_comment(text="", attachment="", course=1)
+        res = self.mutate_create_comment(text="", attachment="", thread=1)
         assert get_form_error(res) == ValidationErrors.COMMENT_EMPTY
 
         # Check that the comment count hasn't changed.
         assert Comment.objects.count() == old_count + 10
 
         # Test creating anonymous comment as authenticated user.
-        res = self.mutate_create_comment(user=None, text=text, course=2)
+        res = self.mutate_create_comment(user=None, text=text, thread=2)
         comment = res["comment"]
         assert not res["errors"]
         assert comment["user"] is None
 
         # Test that the author cannot be spoofed.
         res = self.mutate_create_comment(
-            user=self.authenticated_user + 1, text=text, course=2
+            user=self.authenticated_user + 1, text=text, thread=2
         )
 
         comment = res["comment"]
@@ -378,7 +378,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
 
         assert is_slug_match(UPLOADED_ATTACHMENT_PNG, res["comment"]["attachment"])
         assert res["comment"]["text"] == new_text
-        assert res["comment"]["course"]["id"] == "1"
+        assert res["comment"]["thread"]["id"] == "1"
         assert res["comment"]["resource"] is None
         assert res["comment"]["comment"] is None
 
@@ -467,19 +467,19 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         assert res["hasPrev"] is False
 
     def test_discussion(self) -> None:
-        # Test that only comments of the correct course are returned.
+        # Test that only comments of the correct thread are returned.
 
-        course = 1
-        res = self.query_discussion(course=course)
+        thread = 1
+        res = self.query_discussion(thread=thread)
 
-        # Ignore: Mypy expects a type `Union[int, slice]` for the course ID field.
+        # Ignore: Mypy expects a type `Union[int, slice]` for the thread ID field.
         for comment in res:
-            assert int(comment["course"]["id"]) == course  # type: ignore[index]
+            assert int(comment["thread"]["id"]) == thread  # type: ignore[index]
 
-        # Test for some course that has created no comments.
+        # Test for some thread that has created no comments.
 
-        course = 22
-        res = self.query_discussion(course=course)
+        thread = 22
+        res = self.query_discussion(thread=thread)
         assert len(res) == 0
 
         # Test that only comments of the correct resource are returned.

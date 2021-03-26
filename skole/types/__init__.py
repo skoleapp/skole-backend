@@ -2,7 +2,6 @@ from ._aliases import (
     ID,
     AnyJson,
     CommentableModel,
-    CourseOrderingOption,
     Fixture,
     FormError,
     JsonDict,
@@ -17,7 +16,6 @@ from ._retyped import ResolveInfo
 __all__ = [
     "AnyJson",
     "CommentableModel",
-    "CourseOrderingOption",
     "Fixture",
     "FormError",
     "ID",

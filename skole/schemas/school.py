@@ -32,7 +32,6 @@ class SchoolObjectType(SkoleDjangoObjectType):
             "city",
             "country",
             "subjects",
-            "courses",
             "comment_count",
         )
 

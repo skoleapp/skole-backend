@@ -643,7 +643,7 @@
     verified: True
     used_referral_code: 1
     comment_reply_email_permission: False
-    course_comment_email_permission: False
+    thread_comment_email_permission: False
     resource_comment_email_permission: False
     new_badge_email_permission: False
     is_active: True
@@ -669,289 +669,236 @@
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
 
-- model: skole.Course
+- model: skole.Thread
   pk: 1
   fields:
-    name: Test Engineering Course 1
-    codes: [TEST0001]
-    slug: test-engineering-course-1-test0001
-    subjects: [1, 2]
-    school: 1
+    title: Test Thread 1
+    text: Test thread 1 text.
+    slug: test-thread-1
     user: 2
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Course
+- model: skole.Thread
   pk: 2
   fields:
-    name: Test Engineering Course 2
-    codes: [TEST0002]
-    slug: test-engineering-course-2-test0002
-    subjects: [1]
-    school: 1
+    title: Test Thread 2
+    text: Test thread 2 text.
+    slug: test-thread-2
     user: 3
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Course
+- model: skole.Thread
   pk: 3
   fields:
-    name: Test Engineering Course 3
-    codes: [TEST0003, TEST0033, TEST0333]
-    slug: test-engineering-course-3-test0003
-    subjects: [1]
-    school: 1
+    title: Test Thread 3
+    text: Test thread 3 text.
+    slug: test-thread-3
     user: 4
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Course
+- model: skole.Thread
   pk: 4
   fields:
-    name: Test Engineering Course 4
-    codes: [TEST0004]
-    slug: test-engineering-course-4-test0004
-    subjects: [1]
-    school: 1
+    title: Test Thread 4
+    text: Test thread 4 text.
+    slug: test-thread-4
     user: 2
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Course
+- model: skole.Thread
   pk: 5
   fields:
-    name: Test Engineering Course 5
-    codes: [TEST0005]
-    slug: test-engineering-course-5-test0005
-    subjects: [1]
-    school: 1
+    title: Test Thread 5
+    text: Test thread 5 text.
+    slug: test-thread-5
     user: 3
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Course
+- model: skole.Thread
   pk: 6
   fields:
-    name: Test Engineering Course 6
-    codes: [TEST0006]
-    slug: test-engineering-course-6-test0006
-    subjects: [1]
-    school: 1
+    title: Test Thread 6
+    text: Test thread 6 text.
+    slug: test-thread-6
     user: 4
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Course
+- model: skole.Thread
   pk: 7
   fields:
-    name: Test Engineering Course 7
-    codes: [TEST0007]
-    slug: test-engineering-course-7-test0007
-    subjects: [1]
-    school: 1
-    user: 2
+    title: Test Thread 7
+    text: Test thread 7 text.
+    slug: test-thread-7
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Course
+- model: skole.Thread
   pk: 8
   fields:
-    name: Test Engineering Course 8
-    codes: [TEST0008]
-    slug: test-engineering-course-8-test0008
-    subjects: [1]
-    school: 1
+    title: Test Thread 8
+    text: Test thread 8 text.
+    slug: test-thread-8
     user: 2
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Course
+- model: skole.Thread
   pk: 9
   fields:
-    name: Test Engineering Course 9
-    codes: [TEST0009]
-    slug: test-engineering-course-9-test0009
-    subjects: [1]
-    school: 1
+    title: Test Thread 9
+    text: Test thread 9 text.
+    slug: test-thread-9
     user: 3
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Course
+- model: skole.Thread
   pk: 10
   fields:
-    name: Test Engineering Course 10
-    codes: [TEST00010]
-    slug: test-engineering-course-10-test00010
-    subjects: [1]
-    school: 1
+    title: Test Thread 10
+    text: Test thread 10 text.
+    slug: test-thread-10
     user: 4
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Course
+- model: skole.Thread
   pk: 11
   fields:
-    name: Test Engineering Course 11
-    codes: [TEST00011]
-    slug: test-engineering-course-11-test00011
-    subjects: [1]
-    school: 1
+    title: Test Thread 11
+    text: Test thread 11 text.
+    slug: test-thread-11
     user: 3
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Course
+- model: skole.Thread
   pk: 12
   fields:
-    name: Test Engineering Course 12
-    codes: [TEST00012]
-    slug: test-engineering-course-12-test00012
-    subjects: [1]
-    school: 1
+    title: Test Thread 12
+    text: Test thread 12 text.
+    slug: test-thread-12
     user: 4
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Course
+- model: skole.Thread
   pk: 13
   fields:
-    name: Test Engineering Course 13
-    codes: [TEST00013]
-    slug: test-engineering-course-13-test00013
-    subjects: [2]
-    school: 2
+    title: Test Thread 13
+    text: Test thread 13 text.
+    slug: test-thread-13
     user: 4
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Course
+- model: skole.Thread
   pk: 14
   fields:
-    name: Test Engineering Course 14
-    codes: [TEST00014]
-    slug: test-engineering-course-14-test00014
-    subjects: [2]
-    school: 2
+    title: Test Thread 14
+    text: Test thread 14 text.
+    slug: test-thread-14
     user: 4
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Course
+- model: skole.Thread
   pk: 15
   fields:
-    name: Test Engineering Course 15
-    codes: [TEST00015]
-    slug: test-engineering-course-15-test00015
-    subjects: [3]
-    school: 3
+    title: Test Thread 15
+    text: Test thread 15 text.
+    slug: test-thread-15
     user: 4
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Course
+- model: skole.Thread
   pk: 16
   fields:
-    name: Test Engineering Course 16
-    codes: [TEST00016]
-    slug: test-engineering-course-16-test00016
-    subjects: [1]
-    school: 1
+    title: Test Thread 16
+    text: Test thread 16 text.
+    slug: test-thread-16
     user: 4
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Course
+- model: skole.Thread
   pk: 17
   fields:
-    name: Test Engineering Course 17
-    codes: [TEST00017]
-    slug: test-engineering-course-17-test00017
-    subjects: [1]
-    school: 1
+    title: Test Thread 17
+    text: Test thread 17 text.
+    slug: test-thread-17
     user: 4
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Course
+- model: skole.Thread
   pk: 18
   fields:
-    name: Test Engineering Course 18
-    codes: [TEST00018]
-    slug: test-engineering-course-18-test00018
-    subjects: [1]
-    school: 1
+    title: Test Thread 18
+    text: Test thread 18 text.
+    slug: test-thread-18
     user: 4
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Course
+- model: skole.Thread
   pk: 19
   fields:
-    name: Test Engineering Course 19
-    codes: [TEST00019]
-    slug: test-engineering-course-19-test00019
-    subjects: [1]
-    school: 1
+    title: Test Thread 19
+    text: Test thread 19 text.
+    slug: test-thread-19
     user: 4
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Course
+- model: skole.Thread
   pk: 20
   fields:
-    name: Test Engineering Course 20
-    codes: [TEST00020]
-    slug: test-engineering-course-20-test00020
-    subjects: [1]
-    school: 1
+    title: Test Thread 20
+    text: Test thread 20 text.
+    slug: test-thread-20
     user: 4
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Course
+- model: skole.Thread
   pk: 21
   fields:
-    name: Test Engineering Course 21
-    codes: [TEST00021]
-    slug: test-engineering-course-21-test00021
-    subjects: [1]
-    school: 1
+    title: Test Thread 21
+    text: Test thread 21 text.
+    slug: test-thread-21
     user: 4
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Course
+- model: skole.Thread
   pk: 22
   fields:
-    name: Test Engineering Course 22
-    codes: [TEST00022]
-    slug: test-engineering-course-22-test00022
-    subjects: [1]
-    school: 1
+    title: Test Thread 22
+    text: Test thread 22 text.
+    slug: test-thread-22
     user: 4
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Course
+- model: skole.Thread
   pk: 23
   fields:
-    name: Test Engineering Course 23
-    codes: [TEST00023]
-    slug: test-engineering-course-23-test00023
-    subjects: [1]
-    school: 1
+    title: Test Thread 23
+    text: Test thread 23 text.
+    slug: test-thread-23
     user: 4
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Course
+- model: skole.Thread
   pk: 24
   fields:
-    name: Test Engineering Course 24
-    codes: [TEST00024]
-    slug: test-engineering-course-24-test00024
-    subjects: [1]
-    school: 1
+    title: Test Thread 24
+    text: Test thread 24 text.
+    slug: test-thread-24
     user: 4
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Course
+- model: skole.Thread
   pk: 25
   fields:
-    name: Test Engineering Course 25
-    codes: [TEST00025]
-    slug: test-engineering-course-25-test00025
-    subjects: [1]
-    school: 1
+    title: Test Thread 25
+    text: Test thread 25 text.
+    slug: test-thread-25
     user: 4
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Course
+- model: skole.Thread
   pk: 26
   fields:
-    name: Test Engineering Course 26
-    codes: [TEST00026]
-    slug: test-engineering-course-26-test00026
-    subjects: [1]
-    school: 1
+    title: Test Thread 26
+    text: Test thread 26 text.
+    slug: test-thread-26
     user: 11
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
@@ -1054,7 +1001,7 @@
     file: uploads/resources/test_resource.pdf
     date: 2012-12-12
     slug: sample-exam-1-2012-12-12
-    course: 1
+    thread: 1
     user: 2
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
@@ -1066,7 +1013,7 @@
     file: uploads/resources/test_resource.pdf
     date: 2012-12-12
     slug: sample-exam-2-2012-12-12
-    course: 1
+    thread: 1
     user: 10
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
@@ -1078,7 +1025,7 @@
     file: uploads/resources/test_resource.pdf
     date: 2012-12-12
     slug: sample-exercise-2012-12-12
-    course: 1
+    thread: 1
     user: null
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
@@ -1090,7 +1037,7 @@
     file: uploads/resources/test_resource.pdf
     date: 2012-12-12
     slug: sample-exercise-2-2012-12-12
-    course: 1
+    thread: 1
     user: 2
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
@@ -1102,7 +1049,7 @@
     file: uploads/resources/test_resource.pdf
     date: 2012-12-12
     slug: sample-exercise-3-2012-12-12
-    course: 1
+    thread: 1
     user: 2
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
@@ -1114,7 +1061,7 @@
     file: uploads/resources/test_resource.pdf
     date: 2012-12-12
     slug: sample-exercise-4-2012-12-12
-    course: 1
+    thread: 1
     user: 2
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
@@ -1126,7 +1073,7 @@
     file: uploads/resources/test_resource.pdf
     date: 2012-12-12
     slug: sample-exercise-5-2012-12-12
-    course: 1
+    thread: 1
     user: 2
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
@@ -1138,7 +1085,7 @@
     file: uploads/resources/test_resource.pdf
     date: 2012-12-12
     slug: sample-exercise-6-2012-12-12
-    course: 1
+    thread: 1
     user: 2
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
@@ -1150,7 +1097,7 @@
     file: uploads/resources/test_resource.pdf
     date: 2012-12-12
     slug: sample-exercise-7-2012-12-12
-    course: 1
+    thread: 1
     user: 2
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
@@ -1162,7 +1109,7 @@
     file: uploads/resources/test_resource.pdf
     date: 2012-12-12
     slug: sample-exercise-8-2012-12-12
-    course: 1
+    thread: 1
     user: 2
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
@@ -1174,7 +1121,7 @@
     file: uploads/resources/test_resource.pdf
     date: 2012-12-12
     slug: sample-exercise-9-2012-12-12
-    course: 1
+    thread: 1
     user: 2
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
@@ -1186,7 +1133,7 @@
     file: uploads/resources/test_resource.pdf
     date: 2012-12-12
     slug: sample-exercise-10-2012-12-12
-    course: 1
+    thread: 1
     user: 2
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
@@ -1198,7 +1145,7 @@
     file: uploads/resources/test_resource.pdf
     date: 2012-12-12
     slug: sample-exercise-11-2012-12-12
-    course: 1
+    thread: 1
     user: 2
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
@@ -1210,7 +1157,7 @@
     file: uploads/resources/test_resource.pdf
     date: 2012-12-12
     slug: sample-exercise-12-2012-12-12
-    course: 1
+    thread: 1
     user: 2
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
@@ -1222,7 +1169,7 @@
     file: uploads/resources/test_resource.pdf
     date: 2012-12-12
     slug: sample-exercise-13-2012-12-12
-    course: 1
+    thread: 1
     user: 3
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
@@ -1234,7 +1181,7 @@
     file: uploads/resources/test_resource.pdf
     date: 2012-12-12
     slug: sample-exercise-14-2012-12-12
-    course: 1
+    thread: 1
     user: 11
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
@@ -1245,7 +1192,7 @@
     text: Comment 1 to a resource.
     attachment: uploads/attachments/test_attachment.png
     resource: 1
-    course: null
+    thread: null
     school: null
     comment: null
     user: 2
@@ -1257,7 +1204,7 @@
     text: Comment 2 to a resource.
     attachment: ""
     resource: 1
-    course: null
+    thread: null
     school: null
     comment: null
     user: 3
@@ -1269,7 +1216,7 @@
     text: "Comment 3 to a resource."
     attachment: uploads/attachments/test_attachment.png
     resource: 1
-    course: null
+    thread: null
     school: null
     comment: null
     user: 9
@@ -1278,10 +1225,10 @@
 - model: skole.Comment
   pk: 4
   fields:
-    text: Comment 1 to a course.
+    text: Comment 1 to a thread.
     attachment: ""
     resource: null
-    course: 1
+    thread: 1
     school: null
     comment: null
     user: 2
@@ -1290,10 +1237,10 @@
 - model: skole.Comment
   pk: 5
   fields:
-    text: Comment 2 to a course.
+    text: Comment 2 to a thread.
     attachment: ""
     resource: null
-    course: 1
+    thread: 1
     school: null
     comment: null
     user: 2
@@ -1302,10 +1249,10 @@
 - model: skole.Comment
   pk: 6
   fields:
-    text: Comment 3 to a course.
+    text: Comment 3 to a thread.
     attachment: ""
     resource: null
-    course: 1
+    thread: 1
     school: null
     comment: null
     user: 2
@@ -1314,10 +1261,10 @@
 - model: skole.Comment
   pk: 7
   fields:
-    text: Comment 4 to a course.
+    text: Comment 4 to a thread.
     attachment: ""
     resource: null
-    course: 1
+    thread: 1
     school: null
     comment: null
     user: 2
@@ -1326,10 +1273,10 @@
 - model: skole.Comment
   pk: 8
   fields:
-    text: Comment 5 to a course.
+    text: Comment 5 to a thread.
     attachment: ""
     resource: null
-    course: 1
+    thread: 1
     school: null
     comment: null
     user: 2
@@ -1338,10 +1285,10 @@
 - model: skole.Comment
   pk: 9
   fields:
-    text: Comment 6 to a course.
+    text: Comment 6 to a thread.
     attachment: ""
     resource: null
-    course: 1
+    thread: 1
     school: null
     comment: null
     user: 3
@@ -1350,10 +1297,10 @@
 - model: skole.Comment
   pk: 10
   fields:
-    text: Comment 7 to a course.
+    text: Comment 7 to a thread.
     attachment: ""
     resource: null
-    course: 1
+    thread: 1
     school: null
     comment: null
     user: 2
@@ -1362,10 +1309,10 @@
 - model: skole.Comment
   pk: 11
   fields:
-    text: Comment 8 to a course.
+    text: Comment 8 to a thread.
     attachment: ""
     resource: null
-    course: 1
+    thread: 1
     school: null
     comment: null
     user: 2
@@ -1377,7 +1324,7 @@
     text: Reply 1 to a comment.
     attachment: ""
     resource: null
-    course: null
+    thread: null
     school: null
     comment: 4
     user: 3
@@ -1389,7 +1336,7 @@
     text: Reply 2 to a comment.
     attachment: ""
     resource: null
-    course: null
+    thread: null
     school: null
     comment: 4
     user: 2
@@ -1401,7 +1348,7 @@
     text: Reply 3 to a comment.
     attachment: ""
     resource: null
-    course: null
+    thread: null
     school: null
     comment: 4
     user: 2
@@ -1413,7 +1360,7 @@
     text: Reply 4 to a comment.
     attachment: ""
     resource: null
-    course: null
+    thread: null
     school: null
     comment: 4
     user: 2
@@ -1425,7 +1372,7 @@
     text: Reply 5 to a comment.
     attachment: ""
     resource: null
-    course: null
+    thread: null
     school: null
     comment: 4
     user: 2
@@ -1437,7 +1384,7 @@
     text: Reply 6 to a comment.
     attachment: ""
     resource: null
-    course: null
+    thread: null
     school: null
     comment: 4
     user: 2
@@ -1449,7 +1396,7 @@
     text: Reply 7 to a comment.
     attachment: ""
     resource: null
-    course: null
+    thread: null
     school: null
     comment: 4
     user: 2
@@ -1461,7 +1408,7 @@
     text: Reply 8 to a comment.
     attachment: ""
     resource: null
-    course: null
+    thread: null
     school: null
     comment: 4
     user: 2
@@ -1473,7 +1420,7 @@
     text: Reply 9 to a comment.
     attachment: ""
     resource: null
-    course: null
+    thread: null
     school: null
     comment: 4
     user: 2
@@ -1485,7 +1432,7 @@
     text:  Reply 10 to a comment.
     attachment: ""
     resource: null
-    course: null
+    thread: null
     school: null
     comment: 4
     user: 2
@@ -1497,7 +1444,7 @@
     text: An anonymous comment to a resource.
     attachment: ""
     resource: 1
-    course: null
+    thread: null
     school: null
     comment: null
     user: null
@@ -1509,7 +1456,7 @@
     text: An anonymous comment to a resource.
     attachment: ""
     resource: 2
-    course: null
+    thread: null
     school: null
     comment: null
     user: null
@@ -1521,7 +1468,7 @@
     text: An anonymous comment to a resource.
     attachment: ""
     resource: 3
-    course: null
+    thread: null
     school: null
     comment: null
     user: null
@@ -1533,7 +1480,7 @@
     text: An anonymous comment to a resource.
     attachment: ""
     resource: 4
-    course: null
+    thread: null
     school: null
     comment: null
     user: null
@@ -1545,7 +1492,7 @@
     text: An anonymous comment to a resource.
     attachment: ""
     resource: 5
-    course: null
+    thread: null
     school: null
     comment: null
     user: null
@@ -1557,7 +1504,7 @@
     text: An anonymous comment to a resource.
     attachment: ""
     resource: 6
-    course: null
+    thread: null
     school: null
     comment: null
     user: null
@@ -1569,7 +1516,7 @@
     text: An anonymous comment to a resource.
     attachment: ""
     resource: 7
-    course: null
+    thread: null
     school: null
     comment: null
     user: null
@@ -1578,10 +1525,10 @@
 - model: skole.Comment
   pk: 29
   fields:
-    text: An anonymous comment to a course.
+    text: An anonymous comment to a thread.
     attachment: ""
     resource: null
-    course: 2
+    thread: 2
     school: null
     comment: null
     user: null
@@ -1590,10 +1537,10 @@
 - model: skole.Comment
   pk: 30
   fields:
-    text: An anonymous comment to a course.
+    text: An anonymous comment to a thread.
     attachment: ""
     resource: null
-    course: 3
+    thread: 3
     school: null
     comment: null
     user: null
@@ -1602,10 +1549,10 @@
 - model: skole.Comment
   pk: 31
   fields:
-    text: An anonymous comment to a course.
+    text: An anonymous comment to a thread.
     attachment: ""
     resource: null
-    course: 4
+    thread: 4
     school: null
     comment: null
     user: null
@@ -1614,10 +1561,10 @@
 - model: skole.Comment
   pk: 32
   fields:
-    text: An anonymous comment to a course.
+    text: An anonymous comment to a thread.
     attachment: ""
     resource: null
-    course: 5
+    thread: 5
     school: null
     comment: null
     user: null
@@ -1626,10 +1573,10 @@
 - model: skole.Comment
   pk: 33
   fields:
-    text: An anonymous comment to a course.
+    text: An anonymous comment to a thread.
     attachment: ""
     resource: null
-    course: 6
+    thread: 6
     school: null
     comment: null
     user: null
@@ -1638,10 +1585,10 @@
 - model: skole.Comment
   pk: 34
   fields:
-    text: An anonymous comment to a course.
+    text: An anonymous comment to a thread.
     attachment: ""
     resource: null
-    course: 7
+    thread: 7
     school: null
     comment: null
     user: null
@@ -1653,7 +1600,7 @@
     text: An anonymous comment to a resource.
     attachment: ""
     resource: 8
-    course: null
+    thread: null
     school: null
     comment: null
     user: null
@@ -1665,7 +1612,7 @@
     text: An anonymous comment to a resource.
     attachment: ""
     resource: 9
-    course: null
+    thread: null
     school: null
     comment: null
     user: null
@@ -1677,7 +1624,7 @@
     text: An anonymous comment to a resource.
     attachment: ""
     resource: 10
-    course: null
+    thread: null
     school: null
     comment: null
     user: null
@@ -1689,7 +1636,7 @@
     text: An anonymous comment to a resource.
     attachment: ""
     resource: 11
-    course: null
+    thread: null
     comment: null
     school: null
     user: null
@@ -1701,7 +1648,7 @@
     text: An anonymous comment to a resource.
     attachment: ""
     resource: 12
-    course: null
+    thread: null
     comment: null
     school: null
     user: null
@@ -1713,7 +1660,7 @@
     text: An anonymous comment to a resource.
     attachment: ""
     resource: 13
-    course: null
+    thread: null
     comment: null
     school: null
     user: null
@@ -1725,7 +1672,7 @@
     text: An anonymous comment to a resource.
     attachment: ""
     resource: 14
-    course: null
+    thread: null
     school: null
     comment: null
     user: null
@@ -1737,7 +1684,7 @@
     text: An anonymous comment to a school.
     attachment: ""
     resource: null
-    course: null
+    thread: null
     school: 1
     comment: null
     user: null
@@ -1748,7 +1695,7 @@
   pk: 1
   fields:
     comment: 1
-    course: null
+    thread: null
     resource: null
     status: 1
     user: 2
@@ -1758,7 +1705,7 @@
   pk: 2
   fields:
     comment: 1
-    course: null
+    thread: null
     resource: null
     status: 1
     user: 3
@@ -1768,7 +1715,7 @@
   pk: 3
   fields:
     comment: 1
-    course: null
+    thread: null
     resource: null
     status: -1
     user: 4
@@ -1798,19 +1745,19 @@
   fields:
     master: 2
     language_code: en
-    description: commented on your course
+    description: commented on your thread
 - model: skole.ActivityTypeTranslation
   pk: 5
   fields:
     master: 2
     language_code: fi
-    description: kommentoi kurssiasi
+    description: kommentoi lankaasi
 - model: skole.ActivityTypeTranslation
   pk: 6
   fields:
     master: 2
     language_code: sv
-    description: kommenterade din kurs
+    description: kommenterade din tråd
 - model: skole.ActivityTypeTranslation
   pk: 7
   fields:
@@ -1855,7 +1802,7 @@
 - model: skole.ActivityType
   pk: 2
   fields:
-    identifier: course_comment
+    identifier: thread_comment
 - model: skole.ActivityType
   pk: 3
   fields:
@@ -1906,7 +1853,7 @@
   pk: 1
   fields:
     user: 2
-    course: 1
+    thread: 1
     resource: null
     created: 2020-01-01 12:00:00.000000+00:00
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -1914,7 +1861,7 @@
   pk: 2
   fields:
     user: 2
-    course: 2
+    thread: 2
     resource: null
     created: 2020-01-01 12:00:00.000000+00:00
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -1922,7 +1869,7 @@
   pk: 3
   fields:
     user: 2
-    course: null
+    thread: null
     resource: 1
     created: 2020-01-01 12:00:00.000000+00:00
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -1930,7 +1877,7 @@
   pk: 4
   fields:
     user: 2
-    course: null
+    thread: null
     resource: 2
     created: 2020-01-01 12:00:00.000000+00:00
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -2003,22 +1950,22 @@
   fields:
     master: 4
     language_code: en
-    name: First Course
-    description: Create your first course.
+    name: First Thread
+    description: Create your first thread.
 - model: skole.BadgeTranslation
   pk: 11
   fields:
     master: 4
     language_code: fi
-    name: Ensimmäinen kurssi
-    description: Luo ensimmäinen kurssisi.
+    name: Ensimmäinen lanka
+    description: Luo ensimmäinen lankasi.
 - model: skole.BadgeTranslation
   pk: 12
   fields:
     master: 4
     language_code: sv
-    name: Första kursen
-    description: Skapa din första kurs.
+    name: Första tråden
+    description: Skapa din första tråd.
 - model: skole.BadgeTranslation
   pk: 13
   fields:
@@ -2107,7 +2054,7 @@
 - model: skole.Badge
   pk: 4
   fields:
-    identifier: first_course
+    identifier: first_thread
     steps: 1
     completion_score: 0
     tier: bronze

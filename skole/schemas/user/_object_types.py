@@ -55,10 +55,10 @@ class UserObjectType(SkoleDjangoObjectType):
     unread_activity_count = graphene.Int()
     fcm_token = graphene.String()
     comment_reply_email_permission = graphene.Boolean()
-    course_comment_email_permission = graphene.Boolean()
+    thread_comment_email_permission = graphene.Boolean()
     resource_comment_email_permission = graphene.Boolean()
     comment_reply_push_permission = graphene.Boolean()
-    course_comment_push_permission = graphene.Boolean()
+    thread_comment_push_permission = graphene.Boolean()
     resource_comment_push_permission = graphene.Boolean()
 
     class Meta:
@@ -79,10 +79,10 @@ class UserObjectType(SkoleDjangoObjectType):
             "unread_activity_count",
             "fcm_token",
             "comment_reply_email_permission",
-            "course_comment_email_permission",
+            "thread_comment_email_permission",
             "resource_comment_email_permission",
             "comment_reply_push_permission",
-            "course_comment_push_permission",
+            "thread_comment_push_permission",
             "resource_comment_push_permission",
         )
 
@@ -154,8 +154,8 @@ class UserObjectType(SkoleDjangoObjectType):
 
     @staticmethod
     @private_field
-    def resolve_course_comment_email_permission(root: User, info: ResolveInfo) -> bool:
-        return root.course_comment_email_permission
+    def resolve_thread_comment_email_permission(root: User, info: ResolveInfo) -> bool:
+        return root.thread_comment_email_permission
 
     @staticmethod
     @private_field
@@ -171,8 +171,8 @@ class UserObjectType(SkoleDjangoObjectType):
 
     @staticmethod
     @private_field
-    def resolve_course_comment_push_permission(root: User, info: ResolveInfo) -> bool:
-        return root.course_comment_push_permission
+    def resolve_thread_comment_push_permission(root: User, info: ResolveInfo) -> bool:
+        return root.thread_comment_push_permission
 
     @staticmethod
     @private_field

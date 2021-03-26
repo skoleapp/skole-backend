@@ -6,8 +6,8 @@ from django.conf import settings
 from django.db import models
 
 from skole.models.base import SkoleManager, SkoleModel
-from skole.models.course import Course
 from skole.models.resource import Resource
+from skole.models.thread import Thread
 from skole.models.user import User
 from skole.types import StarrableModel
 
@@ -18,8 +18,8 @@ class StarManager(SkoleManager["Star"]):
     ) -> Optional[Star]:
         """Create a new star to the target or delete it if it already exists."""
 
-        if isinstance(target, Course):
-            star = self.check_existing_star(user, course=target)
+        if isinstance(target, Thread):
+            star = self.check_existing_star(user, thread=target)
         elif isinstance(target, Resource):
             star = self.check_existing_star(user, resource=target)
         else:
@@ -28,7 +28,7 @@ class StarManager(SkoleManager["Star"]):
         return star
 
     def check_existing_star(
-        self, user: User, **target: Union[Course, Resource]
+        self, user: User, **target: Union[Thread, Resource]
     ) -> Optional[Star]:
         try:
             star = user.stars.get(**target)
@@ -43,7 +43,7 @@ class StarManager(SkoleManager["Star"]):
 
 
 class Star(SkoleModel):
-    """Models a star that a user has placed on a course or a resource."""
+    """Models a star that a user has placed on a thread or a resource."""
 
     _identifier_field = "user"
 
@@ -51,8 +51,8 @@ class Star(SkoleModel):
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="stars"
     )
 
-    course = models.ForeignKey(
-        "skole.Course",
+    thread = models.ForeignKey(
+        "skole.Thread",
         on_delete=models.CASCADE,
         null=True,
         blank=True,
@@ -73,11 +73,11 @@ class Star(SkoleModel):
     objects = StarManager()
 
     class Meta:
-        unique_together = ("user", "course", "resource")
+        unique_together = ("user", "thread", "resource")
 
     def __str__(self) -> str:
-        if self.course is not None:
-            return f"{self.user} - {self.course}"
+        if self.thread is not None:
+            return f"{self.user} - {self.thread}"
         elif self.resource is not None:
             return f"{self.user} - {self.resource}"
         else:

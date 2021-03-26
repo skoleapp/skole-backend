@@ -3,7 +3,7 @@ from typing import Any, ClassVar, Generic, TypeVar, cast, get_args
 from django.db.models.signals import post_save
 from django.dispatch import Signal
 
-from skole.models import Badge, Comment, Course, Resource, SkoleModel, User, Vote
+from skole.models import Badge, Comment, Resource, SkoleModel, Thread, User, Vote
 from skole.models.badge_progress import BadgeProgress
 
 T = TypeVar("T", bound="BadgeSignalHandlerMeta")
@@ -106,12 +106,12 @@ class FirstCommentBadgeSignalHandler(BadgeSignalHandler[Comment]):
         return user.comments.count()
 
 
-class FirstCourseBadgeSignalHandler(BadgeSignalHandler[Course]):
-    identifier = "first_course"
+class FirstThreadBadgeSignalHandler(BadgeSignalHandler[Thread]):
+    identifier = "first_thread"
 
     @staticmethod
     def get_current_progress(user: User) -> int:
-        return user.created_courses.count()
+        return user.created_threads.count()
 
 
 class FirstResourceBadgeSignalHandler(BadgeSignalHandler[Resource]):

@@ -10,13 +10,13 @@ from skole.models import (
     City,
     Comment,
     Country,
-    Course,
     Resource,
     ResourceType,
     School,
     SchoolType,
     Star,
     Subject,
+    Thread,
     Vote,
 )
 from skole.utils.constants import Admin
@@ -28,7 +28,7 @@ admin.site.site_header = Admin.SITE_HEADER
 admin.site.register(get_user_model())
 admin.site.register(BadgeProgress)
 admin.site.register(Comment)
-admin.site.register(Course)
+admin.site.register(Thread)
 admin.site.register(Resource)
 admin.site.register(Star)
 admin.site.register(Vote)

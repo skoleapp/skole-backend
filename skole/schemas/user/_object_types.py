@@ -54,8 +54,6 @@ class UserObjectType(SkoleDjangoObjectType):
     badge_progresses = graphene.List(BadgeProgressObjectType)
     unread_activity_count = graphene.Int()
     fcm_token = graphene.String()
-    product_update_email_permission = graphene.Boolean()
-    blog_post_email_permission = graphene.Boolean()
     comment_reply_email_permission = graphene.Boolean()
     course_comment_email_permission = graphene.Boolean()
     resource_comment_email_permission = graphene.Boolean()
@@ -80,8 +78,6 @@ class UserObjectType(SkoleDjangoObjectType):
             "selected_badge_progress",
             "unread_activity_count",
             "fcm_token",
-            "product_update_email_permission",
-            "blog_post_email_permission",
             "comment_reply_email_permission",
             "course_comment_email_permission",
             "resource_comment_email_permission",
@@ -150,16 +146,6 @@ class UserObjectType(SkoleDjangoObjectType):
             return FCMDevice.objects.get(user=info.context.user).registration_id
         except FCMDevice.DoesNotExist:
             return None
-
-    @staticmethod
-    @private_field
-    def resolve_product_update_email_permission(root: User, info: ResolveInfo) -> bool:
-        return root.product_update_email_permission
-
-    @staticmethod
-    @private_field
-    def resolve_blog_post_email_permission(root: User, info: ResolveInfo) -> bool:
-        return root.blog_post_email_permission
 
     @staticmethod
     @private_field

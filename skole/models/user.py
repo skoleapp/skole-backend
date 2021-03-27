@@ -140,10 +140,6 @@ class User(SkoleModel, AbstractBaseUser, PermissionsMixin):
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
-    # Marketing permissions.
-    product_update_email_permission = models.BooleanField(default=True)
-    blog_post_email_permission = models.BooleanField(default=True)
-
     # Email notification permissions.
     comment_reply_email_permission = models.BooleanField(default=False)
     course_comment_email_permission = models.BooleanField(default=False)

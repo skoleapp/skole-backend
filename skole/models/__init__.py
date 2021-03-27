@@ -8,9 +8,6 @@ from .city import City
 from .comment import Comment
 from .country import Country
 from .course import Course
-from .email_subscription import EmailSubscription
-from .marketing_email import MarketingEmail
-from .marketing_email_sender import MarketingEmailSender
 from .resource import Resource
 from .resource_type import ResourceType
 from .school import School
@@ -30,9 +27,6 @@ __all__ = [
     "Comment",
     "Country",
     "Course",
-    "EmailSubscription",
-    "MarketingEmail",
-    "MarketingEmailSender",
     "Resource",
     "ResourceType",
     "School",

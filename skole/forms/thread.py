@@ -1,13 +1,13 @@
 from skole.forms.base import SkoleModelForm, SkoleUpdateModelForm
-from skole.models import Course
+from skole.models import Thread
 
 
-class CreateCourseForm(SkoleModelForm):
+class CreateThreadForm(SkoleModelForm):
     class Meta:
-        model = Course
-        fields = ("name", "codes", "subjects", "school")
+        model = Thread
+        fields = ("title", "text", "image", "user")
 
-    def save(self, commit: bool = True) -> Course:
+    def save(self, commit: bool = True) -> Thread:
         assert self.request is not None
         # Should always be authenticated here, so fine to raise ValueError here
         # if we accidentally assign anonymous user to the user.
@@ -15,7 +15,7 @@ class CreateCourseForm(SkoleModelForm):
         return super().save()
 
 
-class DeleteCourseForm(SkoleUpdateModelForm):
+class DeleteThreadForm(SkoleUpdateModelForm):
     class Meta:
-        model = Course
+        model = Thread
         fields = ("id",)

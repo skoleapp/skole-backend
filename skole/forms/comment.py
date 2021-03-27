@@ -30,7 +30,7 @@ class CreateCommentForm(_BaseCreateUpdateCommentForm, SkoleModelForm):
             "user",
             "text",
             "attachment",
-            "course",
+            "thread",
             "resource",
             "comment",
             "school",

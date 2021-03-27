@@ -47,4 +47,4 @@ class School(TranslatableSkoleModel):
 
     @property
     def subjects(self) -> QuerySet[Subject]:
-        return Subject.objects.filter(courses__in=self.courses.all()).distinct()
+        return Subject.objects.all()

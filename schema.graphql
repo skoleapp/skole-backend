@@ -61,7 +61,7 @@ type CommentObjectType {
   user: UserObjectType
   text: String!
   attachment: String!
-  course: CourseObjectType
+  thread: ThreadObjectType
   resource: ResourceObjectType
   comment: CommentObjectType
   school: SchoolObjectType
@@ -97,31 +97,11 @@ type CountryObjectType {
   name: String
 }
 
-type CourseObjectType {
-  id: ID!
-  name: String!
-  codes: String!
-  slug: String
-  subjects: [SubjectObjectType!]!
-  school: SchoolObjectType!
-  user: UserObjectType
-  modified: DateTime!
-  created: DateTime!
-  comments: [CommentObjectType!]!
-  resources: [ResourceObjectType!]!
-  starred: Boolean
-  score: Int
-  vote: VoteObjectType
-  starCount: Int
-  resourceCount: Int
-  commentCount: Int
-}
-
 input CreateCommentMutationInput {
   user: ID
   text: String
   attachment: String
-  course: ID
+  thread: ID
   resource: ID
   comment: ID
   school: ID
@@ -135,26 +115,11 @@ type CreateCommentMutationPayload {
   clientMutationId: String
 }
 
-input CreateCourseMutationInput {
-  name: String!
-  codes: String
-  subjects: [ID]
-  school: ID!
-  clientMutationId: String
-}
-
-type CreateCourseMutationPayload {
-  course: CourseObjectType
-  errors: [ErrorType]
-  successMessage: String
-  clientMutationId: String
-}
-
 input CreateResourceMutationInput {
   title: String!
   file: String!
   resourceType: ID!
-  course: ID!
+  thread: ID!
   date: Date
   author: String
   clientMutationId: String
@@ -162,6 +127,21 @@ input CreateResourceMutationInput {
 
 type CreateResourceMutationPayload {
   resource: ResourceObjectType
+  errors: [ErrorType]
+  successMessage: String
+  clientMutationId: String
+}
+
+input CreateThreadMutationInput {
+  title: String!
+  text: String
+  image: String
+  user: ID
+  clientMutationId: String
+}
+
+type CreateThreadMutationPayload {
+  thread: ThreadObjectType
   errors: [ErrorType]
   successMessage: String
   clientMutationId: String
@@ -182,23 +162,23 @@ type DeleteCommentMutationPayload {
   clientMutationId: String
 }
 
-input DeleteCourseMutationInput {
-  id: ID
-  clientMutationId: String
-}
-
-type DeleteCourseMutationPayload {
-  successMessage: String
-  errors: [ErrorType]
-  clientMutationId: String
-}
-
 input DeleteResourceMutationInput {
   id: ID
   clientMutationId: String
 }
 
 type DeleteResourceMutationPayload {
+  successMessage: String
+  errors: [ErrorType]
+  clientMutationId: String
+}
+
+input DeleteThreadMutationInput {
+  id: ID
+  clientMutationId: String
+}
+
+type DeleteThreadMutationPayload {
   successMessage: String
   errors: [ErrorType]
   clientMutationId: String
@@ -288,8 +268,8 @@ type Mutation {
   deleteResource(input: DeleteResourceMutationInput!): DeleteResourceMutationPayload
   downloadResource(input: DownloadResourceMutationInput!): DownloadResourceMutationPayload
   myData: MyDataMutation
-  createCourse(input: CreateCourseMutationInput!): CreateCourseMutationPayload
-  deleteCourse(input: DeleteCourseMutationInput!): DeleteCourseMutationPayload
+  createThread(input: CreateThreadMutationInput!): CreateThreadMutationPayload
+  deleteThread(input: DeleteThreadMutationInput!): DeleteThreadMutationPayload
   createContactMessage(input: ContactMutationInput!): ContactMutationPayload
   createComment(input: CreateCommentMutationInput!): CreateCommentMutationPayload
   updateComment(input: UpdateCommentMutationInput!): UpdateCommentMutationPayload
@@ -321,15 +301,6 @@ type PaginatedCommentObjectType {
   objects: [CommentObjectType]
 }
 
-type PaginatedCourseObjectType {
-  page: Int
-  pages: Int
-  hasNext: Boolean
-  hasPrev: Boolean
-  count: Int
-  objects: [CourseObjectType]
-}
-
 type PaginatedResourceObjectType {
   page: Int
   pages: Int
@@ -348,14 +319,23 @@ type PaginatedSubjectObjectType {
   objects: [SubjectObjectType]
 }
 
+type PaginatedThreadObjectType {
+  page: Int
+  pages: Int
+  hasNext: Boolean
+  hasPrev: Boolean
+  count: Int
+  objects: [ThreadObjectType]
+}
+
 type Query {
   badges: [BadgeObjectType]
   comments(user: String, page: Int, pageSize: Int): PaginatedCommentObjectType
-  discussion(course: ID, resource: ID, school: ID): [CommentObjectType]
+  discussion(thread: ID, resource: ID, school: ID): [CommentObjectType]
   trendingComments: [CommentObjectType]
   userMe: UserObjectType
   user(slug: String): UserObjectType
-  subjects(school: String, page: Int, pageSize: Int): PaginatedSubjectObjectType
+  subjects(page: Int, pageSize: Int): PaginatedSubjectObjectType
   autocompleteSubjects(name: String): [SubjectObjectType]
   subject(slug: String): SubjectObjectType
   sitemap: SitemapObjectType
@@ -365,13 +345,12 @@ type Query {
   school(slug: String): SchoolObjectType
   resourceTypes: [ResourceTypeObjectType]
   autocompleteResourceTypes: [ResourceTypeObjectType]
-  resources(user: String, course: String, page: Int, pageSize: Int, ordering: String): PaginatedResourceObjectType
+  resources(user: String, thread: String, page: Int, pageSize: Int, ordering: String): PaginatedResourceObjectType
   starredResources(page: Int, pageSize: Int): PaginatedResourceObjectType
   resource(slug: String): ResourceObjectType
-  courses(searchTerm: String, subject: String, school: String, schoolType: String, country: String, city: String, user: String, page: Int, pageSize: Int, ordering: String): PaginatedCourseObjectType
-  autocompleteCourses(school: String, name: String): [CourseObjectType]
-  starredCourses(page: Int, pageSize: Int): PaginatedCourseObjectType
-  course(slug: String): CourseObjectType
+  threads(searchTerm: String, user: String, page: Int, pageSize: Int): PaginatedThreadObjectType
+  starredThreads(page: Int, pageSize: Int): PaginatedThreadObjectType
+  thread(slug: String): ThreadObjectType
   autocompleteCountries: [CountryObjectType]
   country(slug: String): CountryObjectType
   autocompleteCities: [CityObjectType]
@@ -431,7 +410,7 @@ type ResourceObjectType {
   title: String!
   date: Date!
   file: String!
-  course: CourseObjectType!
+  thread: ThreadObjectType!
   downloads: Int!
   user: UserObjectType
   author: AuthorObjectType
@@ -441,7 +420,6 @@ type ResourceObjectType {
   starred: Boolean
   score: Int
   vote: VoteObjectType
-  school: SchoolObjectType
   starCount: Int
   commentCount: Int
 }
@@ -457,7 +435,6 @@ type SchoolObjectType {
   slug: String
   schoolType: SchoolTypeObjectType
   city: CityObjectType
-  courses: [CourseObjectType!]!
   name: String
   country: CountryObjectType
   subjects: [SubjectObjectType]
@@ -487,14 +464,14 @@ type SitemapEntryObjectType {
 }
 
 type SitemapObjectType {
-  courses: [SitemapEntryObjectType!]!
+  threads: [SitemapEntryObjectType!]!
   resources: [SitemapEntryObjectType!]!
   schools: [SitemapEntryObjectType!]!
   users: [SitemapEntryObjectType!]!
 }
 
 input StarMutationInput {
-  course: ID
+  thread: ID
   resource: ID
   clientMutationId: String
 }
@@ -509,7 +486,7 @@ type StarMutationPayload {
 type StarObjectType {
   id: ID!
   user: UserObjectType!
-  course: CourseObjectType
+  thread: ThreadObjectType
   resource: ResourceObjectType
 }
 
@@ -517,8 +494,21 @@ type SubjectObjectType {
   id: ID!
   slug: String
   name: String
-  courseCount: Int
-  resourceCount: Int
+}
+
+type ThreadObjectType {
+  id: ID!
+  title: String!
+  slug: String
+  user: UserObjectType
+  modified: DateTime!
+  created: DateTime!
+  comments: [CommentObjectType!]!
+  starred: Boolean
+  score: Int
+  vote: VoteObjectType
+  starCount: Int
+  commentCount: Int
 }
 
 input UpdateAccountSettingsMutationInput {
@@ -526,11 +516,11 @@ input UpdateAccountSettingsMutationInput {
   school: ID
   subject: ID
   commentReplyEmailPermission: Boolean
-  courseCommentEmailPermission: Boolean
+  threadCommentEmailPermission: Boolean
   resourceCommentEmailPermission: Boolean
   newBadgeEmailPermission: Boolean
   commentReplyPushPermission: Boolean
-  courseCommentPushPermission: Boolean
+  threadCommentPushPermission: Boolean
   resourceCommentPushPermission: Boolean
   newBadgePushPermission: Boolean
   clientMutationId: String
@@ -627,10 +617,10 @@ type UserObjectType {
   verified: Boolean
   created: DateTime!
   commentReplyEmailPermission: Boolean
-  courseCommentEmailPermission: Boolean
+  threadCommentEmailPermission: Boolean
   resourceCommentEmailPermission: Boolean
   commentReplyPushPermission: Boolean
-  courseCommentPushPermission: Boolean
+  threadCommentPushPermission: Boolean
   resourceCommentPushPermission: Boolean
   avatarThumbnail: String
   school: SchoolObjectType
@@ -657,7 +647,7 @@ type VerifyAccountMutationPayload {
 input VoteMutationInput {
   status: Int!
   comment: ID
-  course: ID
+  thread: ID
   resource: ID
   clientMutationId: String
 }
@@ -674,6 +664,6 @@ type VoteObjectType {
   user: UserObjectType
   status: Int
   comment: CommentObjectType
-  course: CourseObjectType
+  thread: ThreadObjectType
   resource: ResourceObjectType
 }

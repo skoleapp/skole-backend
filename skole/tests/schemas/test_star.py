@@ -8,25 +8,25 @@ class StarSchemaTests(SkoleSchemaTestCase):
     def mutate_star(
         self,
         *,
-        course: ID = None,
+        thread: ID = None,
         resource: ID = None,
     ) -> JsonDict:
         return self.execute_input_mutation(
             name="star",
             input_type="StarMutationInput!",
             input={
-                "course": course,
+                "thread": thread,
                 "resource": resource,
             },
             result="starred",
         )
 
     def test_star(self) -> None:
-        res = self.mutate_star(course=1)
+        res = self.mutate_star(thread=1)
         assert not res["errors"]
         assert res["starred"] is False  # It was already starred so should be flipped.
 
-        res = self.mutate_star(course=1)
+        res = self.mutate_star(thread=1)
         assert not res["errors"]
         assert res["starred"] is True
 

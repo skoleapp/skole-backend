@@ -61,8 +61,8 @@ class Resource(SkoleModel):
         ],
     )
 
-    course = models.ForeignKey(
-        "skole.Course", on_delete=models.CASCADE, related_name="resources"
+    thread = models.ForeignKey(
+        "skole.Thread", on_delete=models.CASCADE, related_name="resources"
     )
 
     downloads = models.PositiveIntegerField(default=0)

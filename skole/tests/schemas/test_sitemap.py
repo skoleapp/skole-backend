@@ -10,7 +10,7 @@ class SitemapTests(SkoleSchemaTestCase):
     # language=GraphQL
     sitemap_fields = """
         fragment sitemapFields on SitemapObjectType {
-            courses {
+            threads {
               slug
               modified
             }
@@ -50,12 +50,12 @@ class SitemapTests(SkoleSchemaTestCase):
         # Works when not logged in
         sitemap = self.query_sitemap()
         assert len(sitemap) == 4
-        assert "courses" in sitemap
+        assert "threads" in sitemap
         assert "resources" in sitemap
         assert "schools" in sitemap
         assert "users" in sitemap
-        assert sitemap["courses"][0]["slug"] == "test-engineering-course-1-test0001"
-        assert sitemap["courses"][0]["modified"] == "2020-01-01"
+        assert sitemap["threads"][0]["slug"] == "test-thread-1"
+        assert sitemap["threads"][0]["modified"] == "2020-01-01"
         assert sitemap["resources"][0]["slug"] == "sample-exam-1-2012-12-12"
         assert sitemap["resources"][0]["modified"] == "2020-01-01"
         assert sitemap["users"][0]["slug"] == "testuser2"

@@ -1,7 +1,6 @@
 from .activity import MarkActivityAsReadForm
 from .comment import CreateCommentForm, DeleteCommentForm, UpdateCommentForm
 from .contact import ContactForm
-from .course import CreateCourseForm, DeleteCourseForm
 from .resource import (
     CreateResourceForm,
     DeleteResourceForm,
@@ -9,6 +8,7 @@ from .resource import (
     UpdateResourceForm,
 )
 from .star import CreateStarForm
+from .thread import CreateThreadForm, DeleteThreadForm
 from .user import (
     ChangePasswordForm,
     DeleteUserForm,
@@ -28,12 +28,12 @@ __all__ = [
     "ChangePasswordForm",
     "ContactForm",
     "CreateCommentForm",
-    "CreateCourseForm",
+    "CreateThreadForm",
     "CreateResourceForm",
     "CreateStarForm",
     "CreateVoteForm",
     "DeleteCommentForm",
-    "DeleteCourseForm",
+    "DeleteThreadForm",
     "DeleteResourceForm",
     "DeleteUserForm",
     "DownloadResourceForm",

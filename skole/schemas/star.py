@@ -18,11 +18,11 @@ from skole.types import ResolveInfo
 class StarObjectType(SkoleDjangoObjectType):
     class Meta:
         model = Star
-        fields = ("id", "user", "course", "resource")
+        fields = ("id", "user", "thread", "resource")
 
 
 class StarMutation(SkoleCreateUpdateMutationMixin, DjangoModelFormMutation):
-    """Start a course or a resource remove the star if it already exists."""
+    """Start a thread or a resource remove the star if it already exists."""
 
     verification_required = True
     starred = graphene.Boolean()

@@ -23,7 +23,7 @@ class ActivitySchemaTests(SkoleSchemaTestCase):
             }
             comment {
                 id
-                course {
+                thread {
                     slug
                 }
                 resource {

@@ -27,12 +27,12 @@ def send_comment_push_notification(activity: Activity) -> None:
 
     if top_level_comment := comment.comment:
         resource_slug = getattr(top_level_comment.resource, "slug", None)
-        course_slug = getattr(top_level_comment.course, "slug", None)
+        thread_slug = getattr(top_level_comment.thread, "slug", None)
         school_slug = getattr(top_level_comment.school, "slug", None)
 
     else:
         resource_slug = getattr(comment.resource, "slug", None)
-        course_slug = getattr(comment.course, "slug", None)
+        thread_slug = getattr(comment.thread, "slug", None)
         school_slug = getattr(comment.school, "slug", None)
 
     activity_type = activity.activity_type
@@ -43,7 +43,7 @@ def send_comment_push_notification(activity: Activity) -> None:
     data = {
         "activity": activity.pk,
         "resource": resource_slug,
-        "course": course_slug,
+        "thread": thread_slug,
         "school": school_slug,
         "comment": comment.pk,
     }

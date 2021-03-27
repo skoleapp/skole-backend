@@ -21,19 +21,19 @@
   fields:
     master: 2
     language_code: en
-    description: commented on your course
+    description: commented on your thread
 - model: skole.ActivityTypeTranslation
   pk: 5
   fields:
     master: 2
     language_code: fi
-    description: kommentoi kurssiasi
+    description: kommentoi lankaasi
 - model: skole.ActivityTypeTranslation
   pk: 6
   fields:
     master: 2
     language_code: sv
-    description: kommenterade din kurs
+    description: kommenterade din tråd
 - model: skole.ActivityTypeTranslation
   pk: 7
   fields:
@@ -78,7 +78,7 @@
 - model: skole.ActivityType
   pk: 2
   fields:
-    identifier: course_comment
+    identifier: thread_comment
 - model: skole.ActivityType
   pk: 3
   fields:

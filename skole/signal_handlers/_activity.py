@@ -22,7 +22,7 @@ logger = logging.getLogger(__name__)
 def create_activity_from_comment(
     sender: type[Comment], instance: Comment, created: bool, raw: bool, **kwargs: Any
 ) -> None:
-    """Create activity for course comment, resource comment, or comment reply."""
+    """Create activity for thread comment, resource comment, or comment reply."""
 
     # Skip when installing fixtures or when updating a comment.
     if not created or raw:
@@ -31,7 +31,7 @@ def create_activity_from_comment(
     causing_user = instance.user
     top_level_comment = instance.comment
     resource = instance.resource
-    course = instance.course
+    thread = instance.thread
 
     # Skip when replying to anonymous comment.
     if top_level_comment and not top_level_comment.user:
@@ -45,17 +45,17 @@ def create_activity_from_comment(
     if resource and causing_user == resource.user:
         return
 
-    # Skip when commenting on own course.
-    if course and causing_user == course.user:
+    # Skip when commenting on own thread.
+    if thread and causing_user == thread.user:
         return
 
     # The user receiving the activity is one of the following:
     # - Owner of the resource.
-    # - Owner of the course.
+    # - Owner of the thread.
     # - Owner of the top-level comment.
     user = (
         getattr(resource, "user", None)
-        or getattr(course, "user", None)
+        or getattr(thread, "user", None)
         or getattr(top_level_comment, "user", None)
     )
 
@@ -71,11 +71,11 @@ def create_activity_from_comment(
             activity_type=activity_type,
         )
 
-    if course:
-        # If the comment is sent to both a resource and a course that share the same owner, only create an activity for the resource comment.
-        if not resource or resource and resource.user != course.user:
+    if thread:
+        # If the comment is sent to both a resource and a thread that share the same owner, only create an activity for the resource comment.
+        if not resource or resource and resource.user != thread.user:
             activity_type = ActivityType.objects.get(
-                identifier=ActivityTypes.COURSE_COMMENT
+                identifier=ActivityTypes.THREAD_COMMENT
             )
 
             Activity.objects.create(
@@ -145,10 +145,10 @@ def send_activity_notifications(  # pylint: disable=too-many-branches; (not so b
             if user.resource_comment_push_permission:
                 send_comment_push_notification(activity=instance)
 
-        if comment.course:
-            if user.course_comment_email_permission:
+        if comment.thread:
+            if user.thread_comment_email_permission:
                 send_comment_email_notification(activity=instance)
-            if user.course_comment_push_permission:
+            if user.thread_comment_push_permission:
                 send_comment_push_notification(activity=instance)
 
         elif comment.comment:

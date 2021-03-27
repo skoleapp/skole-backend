@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.sites",
+    "django.contrib.postgres",
     "corsheaders",
     "graphene_django",
     "graphql_jwt.refresh_token",
@@ -219,7 +220,7 @@ EMAIL_CONTACT_FORM_SENDER = os.environ.get(
 VERIFICATION_PATH_ON_EMAIL = "verify-account"
 PASSWORD_RESET_PATH_ON_EMAIL = "reset-password"
 ACCOUNT_SETTINGS_PATH_ON_EMAIL = "account-settings"
-COURSE_COMMENT_PATH_ON_EMAIL = "courses/{}?comment={}"
+THREAD_COMMENT_PATH_ON_EMAIL = "threads/{}?comment={}"
 RESOURCE_COMMENT_PATH_ON_EMAIL = "resources/{}?comment={}"
 SCHOOL_COMMENT_PATH_ON_EMAIL = "schools/{}?comment={}"
 USER_PROFILE_PATH_ON_EMAIL = "users/{}"

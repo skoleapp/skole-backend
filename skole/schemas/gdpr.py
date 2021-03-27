@@ -11,7 +11,6 @@ from typing import Any, cast
 
 import graphene
 from django.conf import settings
-from django.contrib.postgres.aggregates.general import ArrayAgg
 from django.core.files.storage import default_storage
 from django.core.mail import EmailMultiAlternatives, get_connection
 from django.core.serializers.json import DjangoJSONEncoder
@@ -28,10 +27,10 @@ from skole.models import (
     Activity,
     Badge,
     Comment,
-    Course,
     Resource,
     SkoleModel,
     Star,
+    Thread,
     User,
     Vote,
 )
@@ -100,7 +99,7 @@ class MyDataMutation(SkoleObjectType, graphene.Mutation):
                 "last_my_data_query": user.last_my_data_query,
                 # Related models
                 "created_comments": cls._created_comments(user),
-                "created_courses": cls._created_courses(user),
+                "created_threads": cls._created_threads(user),
                 "created_resources": cls._created_resources(user),
                 "badges": cls._badges(user),
                 "badgeProgresses": cls._badge_progresses(user),
@@ -136,22 +135,16 @@ class MyDataMutation(SkoleObjectType, graphene.Mutation):
         )
 
     @classmethod
-    def _created_courses(cls, user: User) -> QuerySet[Course]:
-        return (
-            user.created_courses.filter(
-                subjects__translations__language_code=settings.LANGUAGE_CODE
-            )
-            .annotate(
-                subject_names=ArrayAgg("subjects__translations__name", distinct=True)
-            )
-            .values(
-                "id",
-                "name",
-                "codes",
-                "subject_names",
-                "modified",
-                "created",
-            )
+    def _created_threads(cls, user: User) -> QuerySet[Thread]:
+        return user.created_threads.annotate(
+            uploaded_image=cls.__file_case("image"),
+        ).values(
+            "id",
+            "title",
+            "text",
+            "uploaded_image",
+            "modified",
+            "created",
         )
 
     @classmethod
@@ -163,7 +156,7 @@ class MyDataMutation(SkoleObjectType, graphene.Mutation):
             .annotate(uploaded_file=cls.__file_case("file"))
             .values(
                 "id",
-                "course",
+                "thread",
                 "title",
                 "uploaded_file",
                 "modified",
@@ -320,8 +313,8 @@ class MyDataMutation(SkoleObjectType, graphene.Mutation):
             "comment": When(
                 comment__isnull=False, then=Concat(Value("comment "), "comment")
             ),
-            "course": When(
-                course__isnull=False, then=Concat(Value("course "), "course")
+            "thread": When(
+                thread__isnull=False, then=Concat(Value("thread "), "thread")
             ),
             "resource": When(
                 resource__isnull=False, then=Concat(Value("resource "), "resource")

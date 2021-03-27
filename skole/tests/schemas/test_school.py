@@ -15,10 +15,6 @@ class SchoolSchemaTests(SkoleSchemaTestCase):
                 slug
                 name
             }
-            courses {
-                slug
-                name
-            }
             schoolType {
                 slug
                 name
@@ -104,6 +100,5 @@ class SchoolSchemaTests(SkoleSchemaTestCase):
         assert school["city"]["name"] == "Turku"
         assert school["country"]["slug"] == "finland"
         assert school["country"]["name"] == "Finland"
-        assert len(school["subjects"]) == 2
-        assert len(school["courses"]) == 23
+        assert len(school["subjects"]) == 4
         assert self.query_school(slug="not-found") is None

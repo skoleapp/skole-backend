@@ -1,24 +1,22 @@
 """This module contains all the custom type aliases that are used in the app."""
-from typing import TYPE_CHECKING, Any, Literal, TypedDict, Union
+from typing import TYPE_CHECKING, Any, TypedDict, Union
 
 if TYPE_CHECKING:  # pragma: no cover
     from skole.models import (  # noqa: F401
         Activity,
         Comment,
-        Course,
         Resource,
         School,
+        Thread,
         User,
     )
 
-CommentableModel = Union["Comment", "Course", "Resource", "School"]
-PaginableModel = Union["Course", "Resource", "User", "Activity", "Comment"]
-VotableModel = Union["Comment", "Course", "Resource"]
-StarrableModel = Union["Course", "Resource"]
+CommentableModel = Union["Comment", "Thread", "Resource", "School"]
+PaginableModel = Union["Thread", "Resource", "User", "Activity", "Comment"]
+VotableModel = Union["Comment", "Thread", "Resource"]
+StarrableModel = Union["Thread", "Resource"]
 
-SuggestionModel = Union["Comment", "Course", "Resource"]
-
-CourseOrderingOption = Literal["best", "score", "name", "-name"]
+SuggestionModel = Union["Comment", "Thread", "Resource"]
 
 ID = Union[str, int, None]
 """

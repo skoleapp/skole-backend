@@ -7,8 +7,8 @@ from django.db import models
 
 from skole.models.base import SkoleManager, SkoleModel
 from skole.models.comment import Comment
-from skole.models.course import Course
 from skole.models.resource import Resource
+from skole.models.thread import Thread
 from skole.models.user import User
 from skole.types import VotableModel
 from skole.utils.constants import VoteConstants
@@ -24,9 +24,9 @@ class VoteManager(SkoleManager["Vote"]):
         if isinstance(target, Comment):
             multiplier = VoteConstants.SCORE_COMMENT_MULTIPLIER
             vote = self.check_existing_vote(user, status, comment=target)
-        elif isinstance(target, Course):
-            multiplier = VoteConstants.SCORE_COURSE_MULTIPLIER
-            vote = self.check_existing_vote(user, status, course=target)
+        elif isinstance(target, Thread):
+            multiplier = VoteConstants.SCORE_THREAD_MULTIPLIER
+            vote = self.check_existing_vote(user, status, thread=target)
         elif isinstance(target, Resource):
             multiplier = VoteConstants.SCORE_RESOURCE_MULTIPLIER
             vote = self.check_existing_vote(user, status, resource=target)
@@ -68,7 +68,7 @@ class VoteManager(SkoleManager["Vote"]):
 
 
 class Vote(SkoleModel):
-    """Models one vote on either comment, course or resource."""
+    """Models one vote on either comment, thread or resource."""
 
     _identifier_field = "user"
 
@@ -89,8 +89,8 @@ class Vote(SkoleModel):
         related_name="votes",
     )
 
-    course = models.ForeignKey(
-        "skole.Course",
+    thread = models.ForeignKey(
+        "skole.Thread",
         on_delete=models.CASCADE,
         null=True,
         blank=True,
@@ -111,7 +111,7 @@ class Vote(SkoleModel):
     objects = VoteManager()
 
     class Meta:
-        unique_together = ("user", "comment", "course", "resource")
+        unique_together = ("user", "comment", "thread", "resource")
 
     def __str__(self) -> str:
         if self.user is not None:

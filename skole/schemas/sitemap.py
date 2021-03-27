@@ -3,7 +3,7 @@ from typing import Any, cast
 import graphene
 from graphene import NonNull
 
-from skole.models import Course, Resource, School, User
+from skole.models import Resource, School, Thread, User
 from skole.schemas.base import SkoleObjectType
 from skole.types import JsonDict, ResolveInfo
 
@@ -14,7 +14,7 @@ class SitemapEntryObjectType(SkoleObjectType):
 
 
 class SitemapObjectType(SkoleObjectType):
-    courses = NonNull(graphene.List(NonNull(SitemapEntryObjectType)))
+    threads = NonNull(graphene.List(NonNull(SitemapEntryObjectType)))
     resources = NonNull(graphene.List(NonNull(SitemapEntryObjectType)))
     schools = NonNull(graphene.List(NonNull(SitemapEntryObjectType)))
     users = NonNull(graphene.List(NonNull(SitemapEntryObjectType)))
@@ -30,7 +30,7 @@ class Query(SkoleObjectType):
         # pylint: disable=protected-access
         sitemap = {}
 
-        for model in (Course, Resource, School, User):
+        for model in (Thread, Resource, School, User):
             # Without this `Any` typing here, Mypy would crash with the error:
             # `AttributeError: 'NoneType' object has no attribute 'name'`, on line 38.
             qs: Any = model.objects.order_by("pk")

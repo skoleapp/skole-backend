@@ -138,11 +138,11 @@ class UpdateAccountSettingsForm(SkoleModelForm):
             "school",
             "subject",
             "comment_reply_email_permission",
-            "course_comment_email_permission",
+            "thread_comment_email_permission",
             "resource_comment_email_permission",
             "new_badge_email_permission",
             "comment_reply_push_permission",
-            "course_comment_push_permission",
+            "thread_comment_push_permission",
             "resource_comment_push_permission",
             "new_badge_push_permission",
         )

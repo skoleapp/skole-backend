@@ -9,7 +9,7 @@
   fields:
     username: admin
     slug: admin
-    email: admin@admin.com
+    email: admin@test.test
     password: pbkdf2_sha256$180000$K3yx1x6poqpd$JoIcbZDtnbTkbyycsraIzioPGBy8THiQcYymvT7Ztz0=  # admin
     title: ""
     bio: ""
@@ -26,7 +26,7 @@
   fields:
     username: testuser2
     slug: testuser2
-    email: testuser2@test.com
+    email: testuser2@test.test
     password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4=  # password
     title: ""
     bio: ""
@@ -44,7 +44,7 @@
   fields:
     username: testuser3
     slug: testuser3
-    email: testuser3@test.com
+    email: testuser3@test.test
     password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4=  # password
     title: ""
     bio: ""
@@ -62,7 +62,7 @@
   fields:
     username: testuser4
     slug: testuser4
-    email: testuser4@test.com
+    email: testuser4@test.test
     password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4=  # password
     title: ""
     bio: ""
@@ -80,7 +80,7 @@
   fields:
     username: testuser5
     slug: testuser5
-    email: testuser5@test.com
+    email: testuser5@test.test
     password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4=  # password
     title: ""
     bio: ""
@@ -98,7 +98,7 @@
   fields:
     username: testuser6
     slug: testuser6
-    email: testuser6@test.com
+    email: testuser6@test.test
     password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4=  # password
     title: ""
     bio: ""
@@ -116,7 +116,7 @@
   fields:
     username: testuser7
     slug: testuser7
-    email: testuser7@test.com
+    email: testuser7@test.test
     password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4=  # password
     title: ""
     bio: ""
@@ -134,7 +134,7 @@
   fields:
     username: testuser8
     slug: testuser8
-    email: testuser8@test.com
+    email: testuser8@test.test
     password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4=  # password
     title: ""
     bio: ""
@@ -152,7 +152,7 @@
   fields:
     username: testuser9
     slug: testuser9
-    email: testuser9@test.com
+    email: testuser9@test.test
     password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4=  # password
     title: ""
     bio: ""
@@ -169,7 +169,7 @@
   fields:
     username: testuser10
     slug: testuser10
-    email: testuser10@test.com
+    email: testuser10@test.test
     password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4=  # password
     title: ""
     bio: ""
@@ -186,7 +186,7 @@
   fields:
     username: testuser11
     slug: testuser11
-    email: testuser11@test.com
+    email: testuser11@test.test
     password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4=  # password
     title: ""
     bio: ""
@@ -206,7 +206,7 @@
   fields:
     username: testuser12
     slug: testuser12
-    email: testuser12@test.com
+    email: testuser12@test.test
     password: pbkdf2_sha256$150000$JNcldjizvZ3l$WwZoIoJbOkFSx5TBi8YtocBdkrVLz32yYuyTkJ8WMr4=  # password
     title: ""
     bio: ""

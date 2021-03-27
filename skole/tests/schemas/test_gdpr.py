@@ -41,7 +41,7 @@ class GdprSchemaTests(SkoleSchemaTestCase):
 
         assert "Your data request" in sent.subject
         assert sent.from_email == settings.EMAIL_ADDRESS
-        assert sent.to == ["testuser2@test.com"]
+        assert sent.to == ["testuser2@test.test"]
 
         match = re.search(
             r"generated/my_data/(testuser2_data_\d{8})\w*\.zip", sent.body

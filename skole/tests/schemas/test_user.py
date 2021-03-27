@@ -113,7 +113,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         self,
         *,
         username: str = "newuser",
-        email: str = "newemail@test.com",
+        email: str = "newemail@test.test",
         password: str = "somenewpassword",
     ) -> JsonDict:
         return self.execute_input_mutation(
@@ -142,7 +142,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         self,
         *,
         username: str = "testuser2",
-        email: str = "testuser2@test.com",
+        email: str = "testuser2@test.test",
         title: str = "",
         bio: str = "",
         avatar: str = "uploads/avatars/test_avatar.jpg",
@@ -165,7 +165,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
     def mutate_update_account_settings(
         self,
         *,
-        email: str = "testuser2@test.com",
+        email: str = "testuser2@test.test",
         comment_reply_email_permission: bool = False,
         thread_comment_email_permission: bool = False,
         new_badge_email_permission: bool = False,
@@ -208,7 +208,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         )
 
     def mutate_send_password_reset_email(
-        self, *, email: str = "testuser2@test.com"
+        self, *, email: str = "testuser2@test.test"
     ) -> JsonDict:
         return self.execute_input_mutation(
             name="sendPasswordResetEmail",
@@ -271,7 +271,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
     def test_register_ok(self) -> None:
         self.authenticated_user = None
 
-        email = "newemail@test.com"
+        email = "newemail@test.test"
         res = self.mutate_register(email=email)
         assert not res["errors"]
         assert res["successMessage"] == Messages.USER_REGISTERED
@@ -282,10 +282,10 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         get_user_model().objects.order_by("created")
 
         # Username should keep its casing, mut email should be lowercased.
-        self.mutate_register(username="MYUSERNAME", email="MAIL@example.COM")
+        self.mutate_register(username="MYUSERNAME", email="MAIL@test.TEST")
         user = get_last(get_user_model().objects.order_by("created"))
         assert user.username == "MYUSERNAME"
-        assert user.email == "mail@example.com"
+        assert user.email == "mail@test.test"
 
         # No verification email are sent before referral codes are used.
         assert len(mail.outbox) == 0
@@ -306,11 +306,11 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert ValidationErrors.INVALID_USERNAME == get_form_error(res)
 
         # Email taken.
-        res = self.mutate_register(email="testuser2@test.com")
+        res = self.mutate_register(email="testuser2@test.test")
         assert ValidationErrors.EMAIL_TAKEN == get_form_error(res)
 
         # Email taken with different casing.
-        res = self.mutate_register(email="TESTUSER2@test.com")
+        res = self.mutate_register(email="TESTUSER2@test.test")
         assert ValidationErrors.EMAIL_TAKEN == get_form_error(res)
 
         # Too short username.
@@ -341,8 +341,12 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         res = self.mutate_register(password="email")
         assert "too similar to the email" in get_form_error(res)
 
+        # Non allowed email domain.
+        res = self.mutate_register(email="email@nonallowed.test")
+        assert get_form_error(res) == ValidationErrors.EMAIL_DOMAIN_NOT_ALLOWED
+
     def test_use_referral_code_ok(self) -> None:
-        email = "newemail@test.com"
+        email = "newemail@test.test"
         self.mutate_register(email=email)
         assert len(mail.outbox) == 0
 
@@ -356,7 +360,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert sent.to == [email]
 
     def test_use_referral_code_error(self) -> None:
-        email = "newemail@test.com"
+        email = "newemail@test.test"
         self.mutate_register(email=email)
 
         # Invalid referral code.
@@ -370,7 +374,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert len(mail.outbox) == 0  # No verification emails sent.
 
     def test_verify_ok(self) -> None:
-        email = "newemail@test.com"
+        email = "newemail@test.test"
         self.mutate_register(email=email)
         self.mutate_use_referral_code(code="TEST1", email=email)
 
@@ -401,7 +405,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert len(mail.outbox) == 1
         sent = mail.outbox[0]
         assert sent.from_email == settings.EMAIL_ADDRESS
-        assert sent.to == ["testuser3@test.com"]
+        assert sent.to == ["testuser3@test.test"]
         assert "Verify" in sent.subject
         assert "http://localhost:3001/verify-account" in sent.body
 
@@ -431,27 +435,27 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         self.authenticated_user = None
 
         res = self.mutate_login()
-        assert res["user"]["email"] == "testuser2@test.com"
+        assert res["user"]["email"] == "testuser2@test.test"
         assert res["user"]["username"] == "testuser2"
         assert res["successMessage"] == Messages.LOGGED_IN
 
         # Username is not case sensitive on login.
         res = self.mutate_login(username_or_email="TestUSER2")
-        assert res["user"]["email"] == "testuser2@test.com"
+        assert res["user"]["email"] == "testuser2@test.test"
         assert res["user"]["username"] == "testuser2"
         assert res["successMessage"] == Messages.LOGGED_IN
 
     def test_login_ok_with_email(self) -> None:
         self.authenticated_user = None
 
-        res = self.mutate_login(username_or_email="testuser2@test.com")
-        assert res["user"]["email"] == "testuser2@test.com"
+        res = self.mutate_login(username_or_email="testuser2@test.test")
+        assert res["user"]["email"] == "testuser2@test.test"
         assert res["user"]["username"] == "testuser2"
         assert res["successMessage"] == Messages.LOGGED_IN
 
         # Email is not case sensitive on login.
-        res = self.mutate_login(username_or_email="TESTUSER2@test.COM")
-        assert res["user"]["email"] == "testuser2@test.com"
+        res = self.mutate_login(username_or_email="TESTUSER2@test.TEST")
+        assert res["user"]["email"] == "testuser2@test.test"
         assert res["user"]["username"] == "testuser2"
         assert res["successMessage"] == Messages.LOGGED_IN
 
@@ -463,7 +467,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert get_form_error(res) == ValidationErrors.AUTH_ERROR
 
         # Invalid email.
-        res = self.mutate_login(username_or_email="bademail@test.com")
+        res = self.mutate_login(username_or_email="bademail@test.test")
         assert get_form_error(res) == ValidationErrors.AUTH_ERROR
 
         # Invalid password.
@@ -474,7 +478,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         self.authenticated_user = None
 
         username = "newuser2"
-        email = "newemail2@test.com"
+        email = "newemail2@test.test"
         password = "asupersecurepassword"
         res = self.mutate_register(username=username, email=email, password=password)
         assert not res["errors"]
@@ -503,7 +507,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert user1["id"] == "2"
         assert user1["username"] == "testuser2"
         assert user1["slug"] == slug
-        assert user1["email"] == "testuser2@test.com"
+        assert user1["email"] == "testuser2@test.test"
         assert user1["verified"]
         assert user1["rank"] == "Freshman"
         assert user1["unreadActivityCount"] == 3
@@ -537,7 +541,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert user["id"] == "2"
         assert user["username"] == "testuser2"
         assert user["slug"] == "testuser2"
-        assert user["email"] == "testuser2@test.com"
+        assert user["email"] == "testuser2@test.test"
         assert user["verified"]
         assert user["rank"] == "Freshman"
         assert user["unreadActivityCount"] == 3
@@ -570,9 +574,11 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert res["user"] == user
         assert res["successMessage"] == Messages.PROFILE_UPDATED
 
-        # User is currently verified.
+        # Fine to change the casing of the username.
         current_user = self.get_authenticated_user()
-        assert current_user.verified
+        res = self.mutate_update_profile(username=current_user.username.upper())
+        assert not res["errors"]
+        assert res["user"]["username"] == "TESTUSER2"
 
         # Update some fields.
         new_username = "newusername"
@@ -658,9 +664,15 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         current_user = self.get_authenticated_user()
         assert current_user.verified
 
+        # Changing the email to the current one with different casing shouldn't do anything.
+        res = self.mutate_update_account_settings(email=current_user.email.upper())
+        assert not res["errors"]
+        assert current_user.verified
+        assert current_user.email == "testuser2@test.test"
+
         # Changing the email should unverify the user, and lowercase the email.
-        res = self.mutate_update_account_settings(email="NEWMAIL@email.com")
-        assert res["user"]["email"] == "newmail@email.com"
+        res = self.mutate_update_account_settings(email="NEWMAIL@test.test")
+        assert res["user"]["email"] == "newmail@test.test"
         current_user.refresh_from_db()
         assert not current_user.verified
 
@@ -687,16 +699,20 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         user_old = self.query_user_me()
 
         # Email is already taken.
-        res = self.mutate_update_account_settings(email="admin@admin.com")
+        res = self.mutate_update_account_settings(email="admin@test.test")
         assert len(res["errors"]) == 1
         assert get_form_error(res) == ValidationErrors.EMAIL_TAKEN
         assert res["user"] is None
 
         # Same email with different casing is already taken.
-        res = self.mutate_update_account_settings(email="ADMIN@admin.com")
+        res = self.mutate_update_account_settings(email="ADMIN@test.test")
         assert len(res["errors"]) == 1
         assert get_form_error(res) == ValidationErrors.EMAIL_TAKEN
         assert res["user"] is None
+
+        # Non allowed email domain.
+        res = self.mutate_update_account_settings(email="email@nonallowed.test")
+        assert get_form_error(res) == ValidationErrors.EMAIL_DOMAIN_NOT_ALLOWED
 
         # Check that nothing has changed.
         assert self.query_user_me() == user_old
@@ -751,7 +767,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert "too similar to the username" in get_form_error(res)
 
         # Password cannot be too similar to email.
-        res = self.mutate_change_password(new_password="testuser2@test.com")
+        res = self.mutate_change_password(new_password="testuser2@test.test")
         assert "too similar to the email" in get_form_error(res)
 
         # Test that it works!
@@ -764,7 +780,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert user.check_password("newpassword1234")
 
     def test_reset_password(self) -> None:
-        email = "testuser2@test.com"
+        email = "testuser2@test.test"
         res = self.mutate_send_password_reset_email(email=email)
         assert not res["errors"]
         assert res["successMessage"] == Messages.PASSWORD_RESET_EMAIL_SENT
@@ -785,7 +801,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert user.check_password(new_password)
 
         # Email is not case sensitive
-        email = "TESTUSER2@TEST.com"
+        email = "TESTUSER2@TEST.test"
         res = self.mutate_send_password_reset_email(email=email)
         assert not res["errors"]
         assert res["successMessage"] == Messages.PASSWORD_RESET_EMAIL_SENT
@@ -798,7 +814,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         user = self.get_authenticated_user()
         user.verified = False
         user.save()
-        res = self.mutate_send_password_reset_email(email="foobar@test.com")
+        res = self.mutate_send_password_reset_email(email="foobar@test.test")
         assert res["errors"] == MutationErrors.USER_NOT_FOUND_WITH_EMAIL
 
         # Can't reset password to an invalid one:
@@ -824,7 +840,9 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert "too similar to the username" in get_form_error(res)
 
         # Password cannot be too similar to email.
-        res = self.mutate_reset_password(token=token, new_password="testuser2@test.com")
+        res = self.mutate_reset_password(
+            token=token, new_password="testuser2@test.test"
+        )
         assert "too similar to the email" in get_form_error(res)
 
     def test_update_selected_badge(self) -> None:

@@ -29,7 +29,7 @@ class ContactSchemaTests(SkoleSchemaTestCase):
     def test_create_contact_message(self) -> None:
         subject = "some subject"
         name = "John Smith"
-        email = "somemail@example.com"
+        email = "somemail@test.test"
         message = "This is a message."
         res = self.mutate_create_contact_message(
             subject=subject, name=name, email=email, message=message

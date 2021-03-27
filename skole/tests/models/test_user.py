@@ -18,7 +18,7 @@ def test_str() -> None:
 @pytest.mark.django_db
 def test_create_user() -> None:
     username = "testusername"
-    email = "username@example.com"
+    email = "username@test.test"
     password = "password"
 
     user = User.objects.create_user(
@@ -44,7 +44,7 @@ def test_create_user() -> None:
 
     user = User.objects.create_user(
         username="unique",
-        email="unique@unique.test",
+        email="unique@test.test",
         password=password,
     )
 
@@ -52,7 +52,7 @@ def test_create_user() -> None:
 @pytest.mark.django_db
 def test_create_superuser() -> None:
     username = "testadmin"
-    email = "admin@example.com"
+    email = "newadmin@test.test"
     password = "adminpassword"
     user = User.objects.create_superuser(
         username=username, email=email, password=password

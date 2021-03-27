@@ -15,7 +15,7 @@ from skole.tests.helpers import (
     open_as_file,
 )
 from skole.types import ID, JsonDict, JsonList
-from skole.utils.constants import Messages, ValidationErrors
+from skole.utils.constants import GraphQLErrors, Messages, ValidationErrors
 
 
 class CommentSchemaTests(SkoleSchemaTestCase):
@@ -170,7 +170,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         self.authenticated_user = None
         self.assert_field_fragment_matches_schema(self.comment_fields)
 
-    def test_create_comment(self) -> None:  # pylint: disable=too-many-statements
+    def test_create_comment(self) -> None:
         # Create a reply comment.
         old_count = Comment.objects.count()
         text = "Some text for the comment."
@@ -207,76 +207,36 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         assert comment["imageThumbnail"]
         assert Comment.objects.count() == old_count + 3
 
-        self.authenticated_user = None
-
-        # Create a comment without logging in
-        res = self.mutate_create_comment(text=text, thread=3)
-        comment = res["comment"]
-        assert not res["errors"]
-        assert comment["text"] == text
-        assert comment["thread"]["id"] == "3"
-        assert comment["user"] is None
-        assert Comment.objects.count() == old_count + 4
-
-        # Can't add an image to the comment without logging in.
-        with open_as_file(TEST_IMAGE_PNG) as image:
-            res = self.mutate_create_comment(
-                text=text, thread=2, file_data=[("image", image)]
-            )
-
-        comment = res["comment"]
-        # No need to return an error, frontend will anyways hide this option for
-        # non-logged in users, backend just does the extra confirmation.
-        assert not res["errors"]
-        assert res["comment"]["image"] == ""  # Note that no image here.
-        assert res["comment"]["text"] == text
-        assert Comment.objects.count() == old_count + 5
-
-        # Can't add an image to the comment without having a verified account.
-
-        self.authenticated_user = 3
-        assert not self.get_authenticated_user().verified
-
-        with open_as_file(TEST_IMAGE_PNG) as image:
-            res = self.mutate_create_comment(
-                text=text, thread=2, file_data=[("image", image)]
-            )
-
-        comment = res["comment"]
-        # No need to return an error, frontend will anyways hide this option for
-        # non-verified users, backend just does the extra confirmation.
-        assert not res["errors"]
-        assert res["comment"]["image"] == ""  # Note that no image here.
-        assert res["comment"]["text"] == text
-        assert Comment.objects.count() == old_count + 6
-
-        self.authenticated_user = 2
-
-        # Can't create a comment with no text and no image.
-        res = self.mutate_create_comment(text="", image="", thread=1)
-        assert get_form_error(res) == ValidationErrors.COMMENT_EMPTY
-
-        # Check that the comment count hasn't changed.
-        assert Comment.objects.count() == old_count + 6
-
         # Test creating anonymous comment as authenticated user.
         res = self.mutate_create_comment(user=None, text=text, thread=2)
         comment = res["comment"]
         assert not res["errors"]
         assert comment["user"] is None
+        assert Comment.objects.count() == old_count + 4
 
-        # Test that the author cannot be spoofed.
-        res = self.mutate_create_comment(
-            user=self.authenticated_user + 1, text=text, thread=2
-        )
+        # Can't spoof the comment author.
+        res = self.mutate_create_comment(user=3, text=text, thread=2)
+        assert get_form_error(res) == ValidationErrors.INVALID_COMMENT_AUTHOR
+        assert not res["comment"]
 
-        comment = res["comment"]
-        assert not res["errors"]
-        assert comment["user"] is None
+        # Can't create a comment with no text and no image.
+        res = self.mutate_create_comment(text="", image="", thread=1)
+        assert get_form_error(res) == ValidationErrors.COMMENT_EMPTY
+        assert not res["comment"]
+
+        # Can't a comment without logging in
+        self.authenticated_user = None
+        res = self.mutate_create_comment(text=text, thread=3)
+        assert get_form_error(res) == GraphQLErrors.AUTH_REQUIRED
+        assert not res["comment"]
+
+        # Check that the comment count hasn't changed.
+        assert Comment.objects.count() == old_count + 4
 
     def test_update_comment(self) -> None:
         new_text = "some new text"
 
+        # Update comment with new text and image.
         with open_as_file(TEST_IMAGE_PNG) as image:
             res = self.mutate_update_comment(
                 id=4,
@@ -302,30 +262,24 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         res = self.mutate_update_comment(id=2, text=new_text)
         assert get_form_error(res) == ValidationErrors.NOT_OWNER
 
-        # Can't update image when account is not verified.
-
-        self.authenticated_user = 3
-        assert not self.get_authenticated_user().verified
-
-        with open_as_file(TEST_IMAGE_PNG) as image:
-            res = self.mutate_update_comment(
-                id=2,
-                text=new_text,
-                image="",
-                file_data=[("image", image)],
-            )
-
-        comment = res["comment"]
-        # No need to return an error, frontend will anyways hide this option for
-        # non-verified users, backend just does the extra confirmation.
-        assert not res["errors"]
-        assert res["comment"]["image"] == ""  # Note that no image here.
-        assert res["comment"]["text"] == new_text
-
         # Can't update a comment to have no text and no image.
         res = self.mutate_update_comment(id=1, text="", image="")
         assert res["errors"] is not None
         assert res["comment"] is None
+
+        # Can't update a comment when not verified.
+        user = self.get_authenticated_user()
+        user.verified = False
+        user.save()
+        res = self.mutate_update_comment(id=1, text=new_text)
+        assert get_form_error(res) == GraphQLErrors.VERIFICATION_REQUIRED
+        assert not res["comment"]
+
+        # Can't update a comment when not logged in.
+        self.authenticated_user = None
+        res = self.mutate_update_comment(id=1, text=new_text)
+        assert get_form_error(res) == GraphQLErrors.AUTH_REQUIRED
+        assert not res["comment"]
 
     def test_delete_comment(self) -> None:
         old_count = Comment.objects.count()

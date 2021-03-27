@@ -5,6 +5,8 @@ import graphql_jwt.decorators
 import graphql_jwt.exceptions
 from django.http import HttpRequest
 
+from skole.utils.constants import GraphQLErrors
+
 C = TypeVar("C", bound=Callable[..., Any])
 
 
@@ -22,7 +24,25 @@ def login_required(func: C) -> C:
     def wrapper(context: HttpRequest, *args: Any, **kwargs: Any) -> Any:
         if context.user.is_authenticated:
             return func(*args, **kwargs)
-        raise graphql_jwt.exceptions.PermissionDenied
+        raise graphql_jwt.exceptions.PermissionDenied(GraphQLErrors.AUTH_REQUIRED)
 
     setattr(wrapper, "login_required", True)
+    return cast(C, wrapper)
+
+
+def verification_required(func: C) -> C:
+    """Use as a decorator on query resolver to make it require email verification."""
+
+    @wraps(func)
+    @graphql_jwt.decorators.context(func)
+    @login_required
+    def wrapper(context: HttpRequest, *args: Any, **kwargs: Any) -> Any:
+        # Ignore: `@login_required` makes sure that `user` cannot be anonymous.
+        if context.user.verified:  # type: ignore[union-attr]
+            return func(*args, **kwargs)
+        raise graphql_jwt.exceptions.PermissionDenied(
+            GraphQLErrors.VERIFICATION_REQUIRED
+        )
+
+    setattr(wrapper, "verification_required", True)
     return cast(C, wrapper)

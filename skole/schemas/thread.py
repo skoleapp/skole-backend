@@ -8,7 +8,7 @@ from graphene_django.forms.mutation import DjangoModelFormMutation
 
 from skole.forms import CreateThreadForm, DeleteThreadForm
 from skole.models import Thread, User
-from skole.overridden import login_required
+from skole.overridden import verification_required
 from skole.schemas.base import (
     SkoleCreateUpdateMutationMixin,
     SkoleDeleteMutationMixin,
@@ -98,6 +98,7 @@ class CreateThreadMutation(
 class DeleteThreadMutation(SkoleDeleteMutationMixin, DjangoModelFormMutation):
     """Delete a thread."""
 
+    verification_required = True
     success_message_value = Messages.THREAD_DELETED
 
     class Meta(SkoleDeleteMutationMixin.Meta):
@@ -122,6 +123,7 @@ class Query(SkoleObjectType):
     thread = graphene.Field(ThreadObjectType, slug=graphene.String())
 
     @staticmethod
+    @verification_required
     def resolve_threads(
         root: None,
         info: ResolveInfo,
@@ -154,7 +156,7 @@ class Query(SkoleObjectType):
         return get_paginator(qs, page_size, page, PaginatedThreadObjectType)
 
     @staticmethod
-    @login_required
+    @verification_required
     def resolve_starred_threads(
         root: None,
         info: ResolveInfo,

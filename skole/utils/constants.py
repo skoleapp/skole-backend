@@ -44,6 +44,9 @@ class ValidationErrors:
     REFERRAL_CODE_NEEDED_BEFORE_LOGIN = _(
         "You need to use a referral code before you can log in."
     )
+    INVALID_COMMENT_AUTHOR = _(
+        "You cannot set someone else to be the author of your comment."
+    )
 
 
 class GraphQLErrors:
@@ -57,6 +60,11 @@ class GraphQLErrors:
     )
     REFERRAL_CODE_ALREADY_SET = _(
         "You have already activated your account with a referral code."
+    )
+    AUTH_REQUIRED = _("This action is only allowed for authenticated users.")
+    VERIFICATION_REQUIRED = _(
+        "This action is only allowed for users who have verified their accounts."
+        " Please verify your account."
     )
 
 
@@ -119,11 +127,8 @@ class MutationErrors:
     INVALID_TOKEN_RESET_PASSWORD = _m(_(
         "Invalid token. Please request new password reset link."
     ))
-    AUTH_REQUIRED = _m(_("This action is only allowed for authenticated users."))
-    VERIFICATION_REQUIRED = _m(_(
-        "This action is only allowed for users who have verified their accounts."
-        " Please verify your account."
-    ))
+    AUTH_REQUIRED = _m(GraphQLErrors.AUTH_REQUIRED)
+    VERIFICATION_REQUIRED = _m(GraphQLErrors.VERIFICATION_REQUIRED)
     RATE_LIMITED = _m(_("You can request this next time in {} min."))
     # fmt: on
 

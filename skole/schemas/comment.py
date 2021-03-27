@@ -1,3 +1,5 @@
+from typing import Optional
+
 import graphene
 from django.conf import settings
 from django.db.models import QuerySet
@@ -5,7 +7,7 @@ from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 
 from skole.forms import CreateCommentForm, DeleteCommentForm, UpdateCommentForm
-from skole.models import Comment
+from skole.models import Comment, User
 from skole.overridden import verification_required
 from skole.schemas.base import (
     SkoleCreateUpdateMutationMixin,
@@ -21,6 +23,7 @@ from skole.utils.pagination import get_paginator
 class CommentObjectType(VoteMixin, DjangoObjectType):
     reply_count = graphene.Int()
     image_thumbnail = graphene.String()
+    is_own = graphene.NonNull(graphene.Boolean)
 
     class Meta:
         model = Comment
@@ -39,6 +42,20 @@ class CommentObjectType(VoteMixin, DjangoObjectType):
             "modified",
             "created",
         )
+
+    @staticmethod
+    def resolve_user(root: Comment, info: ResolveInfo) -> Optional[User]:
+        return root.user if not root.is_anonymous else None
+
+    @staticmethod
+    def resolve_is_own(root: Comment, info: ResolveInfo) -> bool:
+        """
+        Indicate which comments are owned by the current user.
+
+        If comment is an own comment, the current user is also given options to for
+        example delete it in the frontend.
+        """
+        return root.user == info.context.user
 
     @staticmethod
     def resolve_file(root: Comment, info: ResolveInfo) -> str:

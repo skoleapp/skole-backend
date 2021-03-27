@@ -33,6 +33,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
             modified
             created
             replyCount
+            isOwn
             user {
                 id
             }
@@ -212,6 +213,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         comment = res["comment"]
         assert not res["errors"]
         assert comment["user"] is None
+        assert comment["isOwn"] is True
         assert Comment.objects.count() == old_count + 4
 
         # Can't spoof the comment author.
@@ -222,6 +224,12 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         # Can't create a comment with no text and no image.
         res = self.mutate_create_comment(text="", image="", thread=1)
         assert get_form_error(res) == ValidationErrors.COMMENT_EMPTY
+        assert not res["comment"]
+
+        # Can't create a comment without being verified.
+        self.authenticated_user = 3
+        res = self.mutate_create_comment(text=text, thread=3)
+        assert get_form_error(res) == GraphQLErrors.VERIFICATION_REQUIRED
         assert not res["comment"]
 
         # Can't a comment without logging in
@@ -312,6 +320,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
 
         for comment in res["objects"]:
             assert int(comment["user"]["id"]) == self.authenticated_user
+            assert comment["isOwn"] is True
 
         assert res["count"] == 14
         assert res["page"] == page
@@ -319,8 +328,13 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         assert res["hasNext"] is True
         assert res["hasPrev"] is False
 
-        # Test for some user that has created no comments.
+        # Test querying another user's comments.
+        res = self.query_comments(user="testuser9", page=page, page_size=page_size)
+        for comment in res["objects"]:
+            assert comment["user"]["id"] == "9"
+            assert comment["isOwn"] is False
 
+        # Test for some user that has created no comments.
         page = 1
         res = self.query_comments(user="testuser10", page=page, page_size=page_size)
         assert res["count"] == 0

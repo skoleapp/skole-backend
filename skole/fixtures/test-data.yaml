@@ -460,6 +460,7 @@
     bio: ""
     avatar: ""
     verified: True
+    used_referral_code: null
     is_active: True
     is_staff: True
     is_superuser: True
@@ -476,6 +477,7 @@
     bio: ""
     avatar: uploads/avatars/test_avatar.jpg
     verified: True
+    used_referral_code: 2
     is_active: True
     is_staff: False
     is_superuser: False
@@ -495,6 +497,7 @@
     bio: ""
     avatar: ""
     verified: False
+    used_referral_code: 1
     is_active: True
     is_staff: False
     is_superuser: False
@@ -514,6 +517,7 @@
     bio: ""
     avatar: ""
     verified: True
+    used_referral_code: 1
     is_active: True
     is_staff: False
     is_superuser: False
@@ -531,6 +535,7 @@
     bio: ""
     avatar: ""
     verified: True
+    used_referral_code: 1
     is_active: True
     is_staff: False
     is_superuser: False
@@ -548,6 +553,7 @@
     bio: ""
     avatar: ""
     verified: True
+    used_referral_code: 1
     is_active: True
     is_staff: False
     is_superuser: False
@@ -565,6 +571,7 @@
     bio: ""
     avatar: ""
     verified: True
+    used_referral_code: 1
     is_active: True
     is_staff: False
     is_superuser: False
@@ -582,6 +589,7 @@
     bio: ""
     avatar: ""
     verified: True
+    used_referral_code: 1
     is_active: True
     is_staff: False
     is_superuser: False
@@ -599,6 +607,7 @@
     bio: ""
     avatar: ""
     verified: True
+    used_referral_code: 1
     is_active: True
     is_staff: False
     is_superuser: False
@@ -615,6 +624,7 @@
     bio: ""
     avatar: ""
     verified: True
+    used_referral_code: 1
     is_active: True
     is_staff: False
     is_superuser: False
@@ -631,6 +641,7 @@
     bio: ""
     avatar: ""
     verified: True
+    used_referral_code: 1
     comment_reply_email_permission: False
     course_comment_email_permission: False
     resource_comment_email_permission: False
@@ -651,6 +662,7 @@
     bio: ""
     avatar: ""
     verified: True
+    used_referral_code: 1
     is_active: True
     is_staff: False
     is_superuser: False
@@ -2128,3 +2140,18 @@
     user: 2
     acquired: 2021-01-01 12:00:00+00:00
     progress: 0
+
+- model: skole.ReferralCode
+  pk: 1
+  fields:
+    code: TEST1
+    user: 2
+    created: 2020-01-01 12:00:00.000000+00:00
+    modified: 2020-01-01 12:00:00.000000+00:00
+- model: skole.ReferralCode
+  pk: 2
+  fields:
+    code: TEST2
+    user: 4
+    created: 2020-01-01 12:00:00.000000+00:00
+    modified: 2020-01-01 12:00:00.000000+00:00

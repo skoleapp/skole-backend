@@ -16,8 +16,9 @@ from imagekit.processors import ResizeToFill
 from skole.models.badge import Badge
 from skole.models.badge_progress import BadgeProgress
 from skole.models.base import SkoleManager, SkoleModel
+from skole.models.referral_code import ReferralCode
 from skole.utils.constants import Ranks, TokenAction, ValidationErrors, VerboseNames
-from skole.utils.exceptions import UserAlreadyVerified
+from skole.utils.exceptions import ReferralCodeNeeded, UserAlreadyVerified
 from skole.utils.token import get_token_payload
 from skole.utils.validators import ValidateFileSizeAndType
 
@@ -53,9 +54,14 @@ class UserManager(SkoleManager["User"], BaseUserManager["User"]):
 
         user = self.get(**payload)
 
+        if not user.used_referral_code:
+            raise ReferralCodeNeeded
+
         if user.verified is False:
             user.verified = True
             user.save()
+            # We now have a fully activated user, let's give them their own referral code.
+            ReferralCode.objects.create_referral_code(user)
             return user
         else:
             raise UserAlreadyVerified
@@ -131,6 +137,13 @@ class User(SkoleModel, AbstractBaseUser, PermissionsMixin):
         related_name="users",
         null=True,
         blank=True,
+    )
+
+    used_referral_code = models.ForeignKey(
+        "skole.ReferralCode",
+        on_delete=models.PROTECT,
+        related_name="referred_users",
+        null=True,
     )
 
     score = models.IntegerField(default=0)

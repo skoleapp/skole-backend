@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, get_user_model, password_validatio
 from django.core.files import File
 
 from skole.forms.base import SkoleForm, SkoleModelForm
-from skole.models import Badge, User
+from skole.models import Badge, ReferralCode, User
 from skole.types import JsonDict
 from skole.utils.constants import ValidationErrors
 from skole.utils.files import clean_file_field
@@ -79,10 +79,15 @@ class LoginForm(SkoleModelForm):
 
         try:
             user = get_user_model().objects.get(**query)
-            if not user.is_active:
-                raise forms.ValidationError(ValidationErrors.ACCOUNT_DEACTIVATED)
         except get_user_model().DoesNotExist:
             raise forms.ValidationError(ValidationErrors.AUTH_ERROR) from None
+        else:
+            if not user.is_active:
+                raise forms.ValidationError(ValidationErrors.ACCOUNT_DEACTIVATED)
+            if not user.used_referral_code:
+                raise forms.ValidationError(
+                    ValidationErrors.REFERRAL_CODE_NEEDED_BEFORE_LOGIN
+                )
 
         user = cast(
             Optional[User], authenticate(username=user.username, password=password)
@@ -204,3 +209,25 @@ class DeleteUserForm(SkoleModelForm):
             raise forms.ValidationError(ValidationErrors.INVALID_PASSWORD)
 
         return password
+
+
+class ReferralCodeForm(SkoleForm):
+    def __init__(self, **kwargs: Any) -> None:
+        super().__init__(**kwargs)
+        self.fields["code"] = ReferralCode.formfield("code")
+        self.fields["email"] = get_user_model().formfield("email")
+
+    def clean_code(self) -> ReferralCode:
+        code = self.cleaned_data["code"]
+        referral_code = ReferralCode.objects.get_or_none(code=code)
+        if not referral_code:
+            raise forms.ValidationError(ValidationErrors.REFERRAL_CODE_INVALID)
+        return referral_code
+
+    def clean_email(self) -> str:
+        email = self.cleaned_data["email"]
+        user = get_user_model().objects.get_or_none(email__iexact=email)
+        if not user:
+            raise forms.ValidationError(ValidationErrors.EMAIL_DOES_NOT_EXIST)
+        self.cleaned_data["user"] = user
+        return email

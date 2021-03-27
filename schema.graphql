@@ -271,6 +271,7 @@ type Mutation {
   vote(input: VoteMutationInput!): VoteMutationPayload
   register(input: RegisterMutationInput!): RegisterMutationPayload
   verifyAccount(input: VerifyAccountMutationInput!): VerifyAccountMutationPayload
+  useReferralCode(input: UseReferralCodeMutationInput!): UseReferralCodeMutationPayload
   resendVerificationEmail: ResendVerificationEmailMutation
   sendPasswordResetEmail(input: SendPasswordResetEmailMutationInput!): SendPasswordResetEmailMutationPayload
   resetPassword(input: ResetPasswordMutationInput!): ResetPasswordMutationPayload
@@ -594,6 +595,20 @@ input UpdateSelectedBadgeMutationInput {
 
 type UpdateSelectedBadgeMutationPayload {
   badgeProgress: BadgeProgressObjectType
+  errors: [ErrorType]
+  successMessage: String
+  clientMutationId: String
+}
+
+input UseReferralCodeMutationInput {
+  code: String!
+  email: String!
+  clientMutationId: String
+}
+
+type UseReferralCodeMutationPayload {
+  code: String!
+  email: String!
   errors: [ErrorType]
   successMessage: String
   clientMutationId: String

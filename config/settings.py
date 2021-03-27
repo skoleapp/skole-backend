@@ -1,6 +1,5 @@
 import os
 import re
-import sys
 from datetime import timedelta
 from pathlib import Path
 
@@ -253,13 +252,8 @@ MY_DATA_RATE_LIMIT = timedelta(seconds=5) if DEBUG else timedelta(minutes=10)
 #   and deletes all generated `myData` files older than 7 days.
 MY_DATA_FILE_AVAILABLE_FOR = timedelta(days=7)
 
-# Both values below are divisible by three so we can include the same amount of courses, resources and comments in the suggestions.
-
 # Amount of results returned by the trending comments query.
 TRENDING_COMMENTS_COUNT = 6
 
-# Amount of results returned by discussion suggestions.
-DISCUSSION_SUGGESTIONS_COUNT = 6
-
-# Detect if running tests.
-TESTING = sys.argv[1:2] == ["test"]
+REFERRAL_CODE_LENGTH = 7
+REFERRAL_CODE_INITIAL_USAGES = 2

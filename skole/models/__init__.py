@@ -5,6 +5,7 @@ from .badge import Badge
 from .badge_progress import BadgeProgress
 from .base import SkoleModel, TranslatableSkoleModel
 from .comment import Comment
+from .daily_visit import DailyVisit
 from .referral_code import ReferralCode
 from .star import Star
 from .thread import Thread
@@ -18,6 +19,7 @@ __all__ = [
     "Badge",
     "BadgeProgress",
     "Comment",
+    "DailyVisit",
     "ReferralCode",
     "SkoleModel",
     "Star",

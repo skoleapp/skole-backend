@@ -221,8 +221,6 @@ VERIFICATION_PATH_ON_EMAIL = "verify-account"
 PASSWORD_RESET_PATH_ON_EMAIL = "reset-password"
 ACCOUNT_SETTINGS_PATH_ON_EMAIL = "account-settings"
 THREAD_COMMENT_PATH_ON_EMAIL = "threads/{}?comment={}"
-RESOURCE_COMMENT_PATH_ON_EMAIL = "resources/{}?comment={}"
-SCHOOL_COMMENT_PATH_ON_EMAIL = "schools/{}?comment={}"
 USER_PROFILE_PATH_ON_EMAIL = "users/{}"
 
 # Maximum amount of results for autocomplete queries.
@@ -235,14 +233,13 @@ DEFAULT_PAGE_SIZE = 10
 ACTIVITY_PREVIEW_COUNT = 10
 
 # Maximum file sizes for uploaded files in megabytes (MB).
-RESOURCE_FILE_MAX_SIZE = 10
-COMMENT_ATTACHMENT_MAX_SIZE = 3.5
+FILE_MAX_SIZE = 10
+IMAGE_MAX_SIZE = 3.5
 USER_AVATAR_MAX_SIZE = 3.5
 
 # Allowed filetypes for all media fields as (mimetype, human_friendly_name) pairs.
-RESOURCE_FILE_ALLOWED_FILETYPES = [("application/pdf", "PDF")]
-COMMENT_ATTACHMENT_ALLOWED_FILETYPES = [("image/jpeg", "JPEG"), ("image/png", "PNG")]
-USER_AVATAR_ALLOWED_FILETYPES = [("image/jpeg", "JPEG"), ("image/png", "PNG")]
+FILE_ALLOWED_FILETYPES = [("application/pdf", "PDF")]
+IMAGE_ALLOWED_FILETYPES = [("image/jpeg", "JPEG"), ("image/png", "PNG")]
 
 # How often the GDPR `myData` query is allowed for each user.
 # Shorter rate limiting in dev env for increased convenience.

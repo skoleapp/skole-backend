@@ -82,27 +82,7 @@
     language_code: sv
     name: Första tråden
     description: Skapa din första tråd.
-- model: skole.BadgeTranslation
-  pk: 13
-  fields:
-    master: 5
-    language_code: en
-    name: First Material
-    description: Add your first material.
-- model: skole.BadgeTranslation
-  pk: 14
-  fields:
-    master: 5
-    language_code: fi
-    name: Ensimmäinen materiaali
-    description: Lisää ensimmäinen materiaalisi.
-- model: skole.BadgeTranslation
-  pk: 15
-  fields:
-    master: 5
-    language_code: sv
-    name: Första materialet
-    description: Lägg till ditt första material.
+# We've deleted first resource badge between here.
 - model: skole.BadgeTranslation
   pk: 16
   fields:
@@ -174,13 +154,7 @@
     steps: 1
     completion_score: 0
     tier: bronze
-- model: skole.Badge
-  pk: 5
-  fields:
-    identifier: first_resource
-    steps: 1
-    completion_score: 0
-    tier: bronze
+# We've deleted first resource badge between here.
 - model: skole.Badge
   pk: 6
   fields:

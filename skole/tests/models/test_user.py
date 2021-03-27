@@ -35,13 +35,11 @@ def test_create_user() -> None:
     # Email notification permission are by default off.
     assert not user.comment_reply_email_permission
     assert not user.thread_comment_email_permission
-    assert not user.resource_comment_email_permission
     assert not user.new_badge_email_permission
 
     # Push notification permission are by default on.
     assert user.comment_reply_push_permission
     assert user.thread_comment_push_permission
-    assert user.resource_comment_push_permission
     assert user.new_badge_push_permission
 
     user = User.objects.create_user(
@@ -118,13 +116,13 @@ def test_rank() -> None:
 @pytest.mark.django_db
 def test_get_or_create_badge_progresses() -> None:
     user = get_user_model().objects.get(pk=10)
-    assert Badge.objects.filter(steps__isnull=False).count() == 5
+    assert Badge.objects.filter(steps__isnull=False).count() == 4
     assert BadgeProgress.objects.filter(user=user).count() == 0
 
     badge_progresses = user.get_or_create_badge_progresses()
 
-    assert badge_progresses.count() == 5
-    assert BadgeProgress.objects.filter(user=user).count() == 5
+    assert badge_progresses.count() == 4
+    assert BadgeProgress.objects.filter(user=user).count() == 4
 
     badge_progress = badge_progresses.order_by("pk")[0]
     assert badge_progress.badge.identifier == "first_comment"

@@ -2,18 +2,11 @@ import graphene
 
 import skole.schemas.activity
 import skole.schemas.badge
-import skole.schemas.city
 import skole.schemas.comment
 import skole.schemas.contact
-import skole.schemas.country
 import skole.schemas.gdpr
-import skole.schemas.resource
-import skole.schemas.resource_type
-import skole.schemas.school
-import skole.schemas.school_type
 import skole.schemas.sitemap
 import skole.schemas.star
-import skole.schemas.subject
 import skole.schemas.thread
 import skole.schemas.user
 import skole.schemas.vote
@@ -21,15 +14,8 @@ import skole.schemas.vote
 
 class Query(
     skole.schemas.activity.Query,
-    skole.schemas.city.Query,
-    skole.schemas.country.Query,
     skole.schemas.thread.Query,
-    skole.schemas.resource.Query,
-    skole.schemas.resource_type.Query,
-    skole.schemas.school.Query,
-    skole.schemas.school_type.Query,
     skole.schemas.sitemap.Query,
-    skole.schemas.subject.Query,
     skole.schemas.user.Query,
     skole.schemas.comment.Query,
     skole.schemas.badge.Query,
@@ -43,7 +29,6 @@ class Mutation(
     skole.schemas.contact.Mutation,
     skole.schemas.thread.Mutation,
     skole.schemas.gdpr.Mutation,
-    skole.schemas.resource.Mutation,
     skole.schemas.user.Mutation,
     skole.schemas.vote.Mutation,
     skole.schemas.star.Mutation,

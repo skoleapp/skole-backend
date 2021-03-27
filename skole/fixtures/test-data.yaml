@@ -4,451 +4,6 @@
     domain: localhost:3001
     name: Skole
 
-- model: skole.CountryTranslation
-  pk: 1
-  fields:
-    master: 1
-    language_code: en
-    name: Finland
-- model: skole.CountryTranslation
-  pk: 2
-  fields:
-    master: 1
-    language_code: fi
-    name: Suomi
-- model: skole.CountryTranslation
-  pk: 3
-  fields:
-    master: 1
-    language_code: sv
-    name: Finland
-
-- model: skole.Country
-  pk: 1
-  fields:
-    slug: finland
-
-- model: skole.CityTranslation
-  pk: 1
-  fields:
-    master: 1
-    language_code: en
-    name: Turku
-- model: skole.CityTranslation
-  pk: 2
-  fields:
-    master: 1
-    language_code: fi
-    name: Turku
-- model: skole.CityTranslation
-  pk: 3
-  fields:
-    master: 1
-    language_code: sv
-    name: Åbo
-- model: skole.CityTranslation
-  pk: 4
-  fields:
-    master: 2
-    language_code: en
-    name: Helsinki
-- model: skole.CityTranslation
-  pk: 5
-  fields:
-    master: 2
-    language_code: fi
-    name: Helsinki
-- model: skole.CityTranslation
-  pk: 6
-  fields:
-    master: 2
-    language_code: sv
-    name: Helsingfors
-- model: skole.CityTranslation
-  pk: 7
-  fields:
-    master: 3
-    language_code: en
-    name: Espoo
-- model: skole.CityTranslation
-  pk: 8
-  fields:
-    master: 3
-    language_code: fi
-    name: Espoo
-- model: skole.CityTranslation
-  pk: 9
-  fields:
-    master: 3
-    language_code: sv
-    name: Esbo
-- model: skole.CityTranslation
-  pk: 10
-  fields:
-    master: 4
-    language_code: en
-    name: Tampere
-- model: skole.CityTranslation
-  pk: 11
-  fields:
-    master: 4
-    language_code: fi
-    name: Tampere
-- model: skole.CityTranslation
-  pk: 12
-  fields:
-    master: 4
-    language_code: sv
-    name: Tammerfors
-- model: skole.CityTranslation
-  pk: 13
-  fields:
-    master: 5
-    language_code: en
-    name: Raisio
-- model: skole.CityTranslation
-  pk: 14
-  fields:
-    master: 5
-    language_code: fi
-    name: Raisio
-- model: skole.CityTranslation
-  pk: 15
-  fields:
-    master: 5
-    language_code: sv
-    name: Reso
-
-- model: skole.City
-  pk: 1
-  fields:
-    country: 1
-    slug: turku
-- model: skole.City
-  pk: 2
-  fields:
-    country: 1
-    slug: helsinki
-- model: skole.City
-  pk: 3
-  fields:
-    country: 1
-    slug: espoo
-- model: skole.City
-  pk: 4
-  fields:
-    country: 1
-    slug: tampere
-- model: skole.City
-  pk: 5
-  fields:
-    country: 1
-    slug: raisio
-
-- model: skole.SchoolTypeTranslation
-  pk: 1
-  fields:
-    master: 1
-    language_code: en
-    name: University
-- model: skole.SchoolTypeTranslation
-  pk: 2
-  fields:
-    master: 1
-    language_code: fi
-    name: Yliopisto
-- model: skole.SchoolTypeTranslation
-  pk: 3
-  fields:
-    master: 1
-    language_code: sv
-    name: Universitet
-- model: skole.SchoolTypeTranslation
-  pk: 4
-  fields:
-    master: 2
-    language_code: en
-    name: University of Applied Sciences
-- model: skole.SchoolTypeTranslation
-  pk: 5
-  fields:
-    master: 2
-    language_code: fi
-    name: Ammattikorkekoulu
-- model: skole.SchoolTypeTranslation
-  pk: 6
-  fields:
-    master: 2
-    language_code: sv
-    name: Yrkeshögskolan
-- model: skole.SchoolTypeTranslation
-  pk: 7
-  fields:
-    master: 3
-    language_code: en
-    name: High School
-- model: skole.SchoolTypeTranslation
-  pk: 8
-  fields:
-    master: 3
-    language_code: fi
-    name: Lukio
-- model: skole.SchoolTypeTranslation
-  pk: 9
-  fields:
-    master: 3
-    language_code: sv
-    name: Gymnasium
-
-- model: skole.SchoolType
-  pk: 1
-  fields:
-    slug: university
-- model: skole.SchoolType
-  pk: 2
-  fields:
-    slug: university-of-applied-sciences
-- model: skole.SchoolType
-  pk: 3
-  fields:
-    slug: high-school
-
-- model: skole.SchoolTranslation
-  pk: 1
-  fields:
-    master: 1
-    language_code: en
-    name: University of Turku
-- model: skole.SchoolTranslation
-  pk: 2
-  fields:
-    master: 1
-    language_code: fi
-    name: Turun yliopisto
-- model: skole.SchoolTranslation
-  pk: 3
-  fields:
-    master: 1
-    language_code: sv
-    name: Åbo universitet
-- model: skole.SchoolTranslation
-  pk: 4
-  fields:
-    master: 2
-    language_code: en
-    name: Aalto University
-- model: skole.SchoolTranslation
-  pk: 5
-  fields:
-    master: 2
-    language_code: fi
-    name: Aalto-yliopisto
-- model: skole.SchoolTranslation
-  pk: 6
-  fields:
-    master: 2
-    language_code: sv
-    name: Aalto-universitetet
-- model: skole.SchoolTranslation
-  pk: 7
-  fields:
-    master: 3
-    language_code: en
-    name: University of Tampere
-- model: skole.SchoolTranslation
-  pk: 8
-  fields:
-    master: 3
-    language_code: fi
-    name: Tampereen yliopisto
-- model: skole.SchoolTranslation
-  pk: 9
-  fields:
-    master: 3
-    language_code: sv
-    name: Tammerfors universitet
-- model: skole.SchoolTranslation
-  pk: 10
-  fields:
-    master: 4
-    language_code: en
-    name: Turku University of Applied Sciences
-- model: skole.SchoolTranslation
-  pk: 11
-  fields:
-    master: 4
-    language_code: fi
-    name: Turun ammattikorkeakoulu
-- model: skole.SchoolTranslation
-  pk: 12
-  fields:
-    master: 4
-    language_code: sv
-    name: Åbo yrkeshögskola
-- model: skole.SchoolTranslation
-  pk: 13
-  fields:
-    master: 5
-    language_code: en
-    name: Metropolia University of Applied Sciences
-- model: skole.SchoolTranslation
-  pk: 14
-  fields:
-    master: 5
-    language_code: fi
-    name: Metropolia ammattikorkeakoulu
-- model: skole.SchoolTranslation
-  pk: 15
-  fields:
-    master: 5
-    language_code: sv
-    name: Metropolia yrkeshögskola
-- model: skole.SchoolTranslation
-  pk: 16
-  fields:
-    master: 6
-    language_code: en
-    name: Raision lukio
-- model: skole.SchoolTranslation
-  pk: 17
-  fields:
-    master: 6
-    language_code: fi
-    name: Raision lukio
-- model: skole.SchoolTranslation
-  pk: 18
-  fields:
-    master: 6
-    language_code: sv
-    name: Raision lukio
-
-- model: skole.School
-  pk: 1
-  fields:
-    school_type: 1
-    city: 1
-    slug: university-of-turku
-- model: skole.School
-  pk: 2
-  fields:
-    school_type: 1
-    city: 3
-    slug: aalto-university
-- model: skole.School
-  pk: 3
-  fields:
-    school_type: 1
-    city: 4
-    slug: university-of-tampere
-- model: skole.School
-  pk: 4
-  fields:
-    school_type: 2
-    city: 1
-    slug: turku-university-of-applied-sciences
-- model: skole.School
-  pk: 5
-  fields:
-    school_type: 2
-    city: 2
-    slug: metropolia-university-of-applied-sciences
-- model: skole.School
-  pk: 6
-  fields:
-    school_type: 3
-    city: 5
-    slug: raision-lukio
-
-- model: skole.SubjectTranslation
-  pk: 1
-  fields:
-    master: 1
-    language_code: en
-    name: Computer Engineering
-- model: skole.SubjectTranslation
-  pk: 2
-  fields:
-    master: 1
-    language_code: fi
-    name: Tietotekniikka
-- model: skole.SubjectTranslation
-  pk: 3
-  fields:
-    master: 1
-    language_code: sv
-    name: Datateknologi
-- model: skole.SubjectTranslation
-  pk: 4
-  fields:
-    master: 2
-    language_code: en
-    name: Computer Science
-- model: skole.SubjectTranslation
-  pk: 5
-  fields:
-    master: 2
-    language_code: fi
-    name: Tietojenkäsittelytiede
-- model: skole.SubjectTranslation
-  pk: 6
-  fields:
-    master: 2
-    language_code: sv
-    name: Informasjonsteknologi
-- model: skole.SubjectTranslation
-  pk: 7
-  fields:
-    master: 3
-    language_code: en
-    name: Chemistry
-- model: skole.SubjectTranslation
-  pk: 8
-  fields:
-    master: 3
-    language_code: fi
-    name: Kemia
-- model: skole.SubjectTranslation
-  pk: 9
-  fields:
-    master: 3
-    language_code: sv
-    name: Kemi
-- model: skole.SubjectTranslation
-  pk: 10
-  fields:
-    master: 4
-    language_code: en
-    name: Economy
-- model: skole.SubjectTranslation
-  pk: 11
-  fields:
-    master: 4
-    language_code: fi
-    name: Taloustiede
-- model: skole.SubjectTranslation
-  pk: 12
-  fields:
-    master: 4
-    language_code: sv
-    name: Ekonomi
-
-- model: skole.Subject
-  pk: 1
-  fields:
-    slug: computer-engineering
-- model: skole.Subject
-  pk: 2
-  fields:
-    slug: computer-science
-- model: skole.Subject
-  pk: 3
-  fields:
-    slug: chemistry
-- model: skole.Subject
-  pk: 4
-  fields:
-    slug: economy
-
 - model: skole.User
   pk: 1
   fields:
@@ -482,8 +37,6 @@
     is_staff: False
     is_superuser: False
     score: 0  # Freshman
-    school: 1
-    subject: 1
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
 - model: skole.User
@@ -502,8 +55,6 @@
     is_staff: False
     is_superuser: False
     score: 100  # Tutor
-    school: 1
-    subject: 1
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
 - model: skole.User
@@ -644,7 +195,6 @@
     used_referral_code: 1
     comment_reply_email_permission: False
     thread_comment_email_permission: False
-    resource_comment_email_permission: False
     new_badge_email_permission: False
     is_active: True
     is_staff: False
@@ -903,333 +453,46 @@
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
 
-- model: skole.ResourceTypeTranslation
-  pk: 1
-  fields:
-    master: 1
-    language_code: en
-    name: Exercise
-- model: skole.ResourceTypeTranslation
-  pk: 2
-  fields:
-    master: 1
-    language_code: fi
-    name: Harjoitustehtävä
-- model: skole.ResourceTypeTranslation
-  pk: 3
-  fields:
-    master: 1
-    language_code: sv
-    name: Uppgift
-- model: skole.ResourceTypeTranslation
-  pk: 4
-  fields:
-    master: 2
-    language_code: en
-    name: Note
-- model: skole.ResourceTypeTranslation
-  pk: 5
-  fields:
-    master: 2
-    language_code: fi
-    name: Muistiinpano
-- model: skole.ResourceTypeTranslation
-  pk: 6
-  fields:
-    master: 2
-    language_code: sv
-    name: Minnesanteckning
-- model: skole.ResourceTypeTranslation
-  pk: 7
-  fields:
-    master: 3
-    language_code: en
-    name: Exam
-- model: skole.ResourceTypeTranslation
-  pk: 8
-  fields:
-    master: 3
-    language_code: fi
-    name: Tentti
-- model: skole.ResourceTypeTranslation
-  pk: 9
-  fields:
-    master: 3
-    language_code: sv
-    name: Tentamen
-- model: skole.ResourceTypeTranslation
-  pk: 10
-  fields:
-    master: 4
-    language_code: en
-    name: Other
-- model: skole.ResourceTypeTranslation
-  pk: 11
-  fields:
-    master: 4
-    language_code: fi
-    name: Muu
-- model: skole.ResourceTypeTranslation
-  pk: 12
-  fields:
-    master: 4
-    language_code: sv
-    name: Annat
-
-- model: skole.ResourceType
-  pk: 1
-  fields:
-    slug: exercise
-- model: skole.ResourceType
-  pk: 2
-  fields:
-    slug: note
-- model: skole.ResourceType
-  pk: 3
-  fields:
-    slug: exam
-- model: skole.ResourceType
-  pk: 4
-  fields:
-    slug: other
-
-- model: skole.Resource
-  pk: 1
-  fields:
-    resource_type: 1
-    title: Sample Exam 1
-    file: uploads/resources/test_resource.pdf
-    date: 2012-12-12
-    slug: sample-exam-1-2012-12-12
-    thread: 1
-    user: 2
-    modified: 2020-01-01 12:00:00.000000+00:00
-    created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Resource
-  pk: 2
-  fields:
-    resource_type: 1
-    title: Sample Exam 2
-    file: uploads/resources/test_resource.pdf
-    date: 2012-12-12
-    slug: sample-exam-2-2012-12-12
-    thread: 1
-    user: 10
-    modified: 2020-01-01 12:00:00.000000+00:00
-    created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Resource
-  pk: 3
-  fields:
-    resource_type: 2
-    title: Sample Exercise
-    file: uploads/resources/test_resource.pdf
-    date: 2012-12-12
-    slug: sample-exercise-2012-12-12
-    thread: 1
-    user: null
-    modified: 2020-01-01 12:00:00.000000+00:00
-    created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Resource
-  pk: 4
-  fields:
-    resource_type: 2
-    title: Sample Exercise 2
-    file: uploads/resources/test_resource.pdf
-    date: 2012-12-12
-    slug: sample-exercise-2-2012-12-12
-    thread: 1
-    user: 2
-    modified: 2020-01-01 12:00:00.000000+00:00
-    created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Resource
-  pk: 5
-  fields:
-    resource_type: 2
-    title: Sample Exercise 3
-    file: uploads/resources/test_resource.pdf
-    date: 2012-12-12
-    slug: sample-exercise-3-2012-12-12
-    thread: 1
-    user: 2
-    modified: 2020-01-01 12:00:00.000000+00:00
-    created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Resource
-  pk: 6
-  fields:
-    resource_type: 2
-    title: Sample Exercise 4
-    file: uploads/resources/test_resource.pdf
-    date: 2012-12-12
-    slug: sample-exercise-4-2012-12-12
-    thread: 1
-    user: 2
-    modified: 2020-01-01 12:00:00.000000+00:00
-    created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Resource
-  pk: 7
-  fields:
-    resource_type: 2
-    title: Sample Exercise 5
-    file: uploads/resources/test_resource.pdf
-    date: 2012-12-12
-    slug: sample-exercise-5-2012-12-12
-    thread: 1
-    user: 2
-    modified: 2020-01-01 12:00:00.000000+00:00
-    created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Resource
-  pk: 8
-  fields:
-    resource_type: 2
-    title: Sample Exercise 6
-    file: uploads/resources/test_resource.pdf
-    date: 2012-12-12
-    slug: sample-exercise-6-2012-12-12
-    thread: 1
-    user: 2
-    modified: 2020-01-01 12:00:00.000000+00:00
-    created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Resource
-  pk: 9
-  fields:
-    resource_type: 2
-    title: Sample Exercise 7
-    file: uploads/resources/test_resource.pdf
-    date: 2012-12-12
-    slug: sample-exercise-7-2012-12-12
-    thread: 1
-    user: 2
-    modified: 2020-01-01 12:00:00.000000+00:00
-    created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Resource
-  pk: 10
-  fields:
-    resource_type: 2
-    title: Sample Exercise 8
-    file: uploads/resources/test_resource.pdf
-    date: 2012-12-12
-    slug: sample-exercise-8-2012-12-12
-    thread: 1
-    user: 2
-    modified: 2020-01-01 12:00:00.000000+00:00
-    created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Resource
-  pk: 11
-  fields:
-    resource_type: 2
-    title: Sample Exercise 9
-    file: uploads/resources/test_resource.pdf
-    date: 2012-12-12
-    slug: sample-exercise-9-2012-12-12
-    thread: 1
-    user: 2
-    modified: 2020-01-01 12:00:00.000000+00:00
-    created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Resource
-  pk: 12
-  fields:
-    resource_type: 2
-    title: Sample Exercise 10
-    file: uploads/resources/test_resource.pdf
-    date: 2012-12-12
-    slug: sample-exercise-10-2012-12-12
-    thread: 1
-    user: 2
-    modified: 2020-01-01 12:00:00.000000+00:00
-    created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Resource
-  pk: 13
-  fields:
-    resource_type: 2
-    title: Sample Exercise 11
-    file: uploads/resources/test_resource.pdf
-    date: 2012-12-12
-    slug: sample-exercise-11-2012-12-12
-    thread: 1
-    user: 2
-    modified: 2020-01-01 12:00:00.000000+00:00
-    created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Resource
-  pk: 14
-  fields:
-    resource_type: 2
-    title: Sample Exercise 12
-    file: uploads/resources/test_resource.pdf
-    date: 2012-12-12
-    slug: sample-exercise-12-2012-12-12
-    thread: 1
-    user: 2
-    modified: 2020-01-01 12:00:00.000000+00:00
-    created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Resource
-  pk: 15
-  fields:
-    resource_type: 2
-    title: Sample Exercise 13
-    file: uploads/resources/test_resource.pdf
-    date: 2012-12-12
-    slug: sample-exercise-13-2012-12-12
-    thread: 1
-    user: 3
-    modified: 2020-01-01 12:00:00.000000+00:00
-    created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Resource
-  pk: 16
-  fields:
-    resource_type: 2
-    title: Sample Exercise 14
-    file: uploads/resources/test_resource.pdf
-    date: 2012-12-12
-    slug: sample-exercise-14-2012-12-12
-    thread: 1
-    user: 11
-    modified: 2020-01-01 12:00:00.000000+00:00
-    created: 2020-01-01 12:00:00.000000+00:00
-
 - model: skole.Comment
   pk: 1
-  fields:
-    text: Comment 1 to a resource.
-    attachment: uploads/attachments/test_attachment.png
-    resource: 1
-    thread: null
-    school: null
-    comment: null
-    user: 2
-    modified: 2020-01-01 12:00:00.000000+00:00
-    created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Comment
-  pk: 2
-  fields:
-    text: Comment 2 to a resource.
-    attachment: ""
-    resource: 1
-    thread: null
-    school: null
-    comment: null
-    user: 3
-    modified: 2020-01-01 12:00:00.000000+00:00
-    created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Comment
-  pk: 3
-  fields:
-    text: "Comment 3 to a resource."
-    attachment: uploads/attachments/test_attachment.png
-    resource: 1
-    thread: null
-    school: null
-    comment: null
-    user: 9
-    modified: 2020-01-01 12:00:00.000000+00:00
-    created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Comment
-  pk: 4
   fields:
     text: Comment 1 to a thread.
-    attachment: ""
-    resource: null
+    file: ""
+    image: uploads/attachments/test_image.png
     thread: 1
-    school: null
+    comment: null
+    user: 2
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Comment
+  pk: 2
+  fields:
+    text: Comment 2 to a thread.
+    file: ""
+    image: ""
+    thread: 1
+    comment: null
+    user: 3
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Comment
+  pk: 3
+  fields:
+    text: Comment 3 to a thread.
+    file: uploads/resources/test_file.pdf
+    image: ""
+    thread: 1
+    comment: null
+    user: 2
+    modified: 2020-01-01 12:00:00.000000+00:00
+    created: 2020-01-01 12:00:00.000000+00:00
+- model: skole.Comment
+  pk: 4
+  fields:
+    text: Comment 4 to a thread.
+    file: ""
+    image: ""
+    thread: 1
     comment: null
     user: 2
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -1237,11 +500,10 @@
 - model: skole.Comment
   pk: 5
   fields:
-    text: Comment 2 to a thread.
-    attachment: ""
-    resource: null
+    text: Comment 5 to a thread.
+    file: ""
+    image: ""
     thread: 1
-    school: null
     comment: null
     user: 2
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -1249,23 +511,21 @@
 - model: skole.Comment
   pk: 6
   fields:
-    text: Comment 3 to a thread.
-    attachment: ""
-    resource: null
+    text: Comment 6 to a thread.
+    file: ""
+    image: ""
     thread: 1
-    school: null
     comment: null
-    user: 2
+    user: 3
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
 - model: skole.Comment
   pk: 7
   fields:
-    text: Comment 4 to a thread.
-    attachment: ""
-    resource: null
+    text: Comment 7 to a thread.
+    file: ""
+    image: ""
     thread: 1
-    school: null
     comment: null
     user: 2
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -1273,11 +533,10 @@
 - model: skole.Comment
   pk: 8
   fields:
-    text: Comment 5 to a thread.
-    attachment: ""
-    resource: null
+    text: Comment 8 to a thread.
+    file: ""
+    image: ""
     thread: 1
-    school: null
     comment: null
     user: 2
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -1285,59 +544,54 @@
 - model: skole.Comment
   pk: 9
   fields:
-    text: Comment 6 to a thread.
-    attachment: ""
-    resource: null
-    thread: 1
-    school: null
-    comment: null
+    text: Reply 1 to a comment.
+    file: ""
+    image: ""
+    thread: null
+    comment: 4
     user: 3
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
 - model: skole.Comment
   pk: 10
   fields:
-    text: Comment 7 to a thread.
-    attachment: ""
-    resource: null
-    thread: 1
-    school: null
-    comment: null
+    text: Reply 2 to a comment.
+    file: ""
+    image: ""
+    thread: null
+    comment: 4
     user: 2
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
 - model: skole.Comment
   pk: 11
   fields:
-    text: Comment 8 to a thread.
-    attachment: ""
-    resource: null
-    thread: 1
-    school: null
-    comment: null
+    text: Reply 3 to a comment.
+    file: ""
+    image: ""
+    thread: null
+    comment: 4
     user: 2
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
 - model: skole.Comment
   pk: 12
   fields:
-    text: Reply 1 to a comment.
-    attachment: ""
-    resource: null
+    text: Reply 4 to a comment.
+    file: ""
+    image: ""
     thread: null
-    school: null
     comment: 4
-    user: 3
+    user: 2
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
 - model: skole.Comment
   pk: 13
   fields:
-    text: Reply 2 to a comment.
-    attachment: ""
-    resource: null
+    text: Reply 5 to a comment.
+    file: ""
+    image: ""
     thread: null
-    school: null
     comment: 4
     user: 2
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -1345,11 +599,10 @@
 - model: skole.Comment
   pk: 14
   fields:
-    text: Reply 3 to a comment.
-    attachment: ""
-    resource: null
+    text: Reply 6 to a comment.
+    file: ""
+    image: ""
     thread: null
-    school: null
     comment: 4
     user: 2
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -1357,11 +610,10 @@
 - model: skole.Comment
   pk: 15
   fields:
-    text: Reply 4 to a comment.
-    attachment: ""
-    resource: null
+    text: Reply 7 to a comment.
+    file: ""
+    image: ""
     thread: null
-    school: null
     comment: 4
     user: 2
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -1369,11 +621,10 @@
 - model: skole.Comment
   pk: 16
   fields:
-    text: Reply 5 to a comment.
-    attachment: ""
-    resource: null
+    text: Reply 8 to a comment.
+    file: ""
+    image: ""
     thread: null
-    school: null
     comment: 4
     user: 2
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -1381,11 +632,10 @@
 - model: skole.Comment
   pk: 17
   fields:
-    text: Reply 6 to a comment.
-    attachment: ""
-    resource: null
+    text: Reply 9 to a comment.
+    file: ""
+    image: ""
     thread: null
-    school: null
     comment: 4
     user: 2
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -1393,59 +643,54 @@
 - model: skole.Comment
   pk: 18
   fields:
-    text: Reply 7 to a comment.
-    attachment: ""
-    resource: null
+    text:  Reply 10 to a comment.
+    file: ""
+    image: ""
     thread: null
-    school: null
     comment: 4
-    user: 2
+    user: 9
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
 - model: skole.Comment
   pk: 19
   fields:
-    text: Reply 8 to a comment.
-    attachment: ""
-    resource: null
-    thread: null
-    school: null
-    comment: 4
-    user: 2
+    text: An anonymous comment to a thread.
+    file: ""
+    image: ""
+    thread: 2
+    comment: null
+    user: null
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
 - model: skole.Comment
   pk: 20
   fields:
-    text: Reply 9 to a comment.
-    attachment: ""
-    resource: null
-    thread: null
-    school: null
-    comment: 4
-    user: 2
+    text: An anonymous comment to a thread.
+    file: ""
+    image: ""
+    thread: 3
+    comment: null
+    user: null
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
 - model: skole.Comment
   pk: 21
   fields:
-    text:  Reply 10 to a comment.
-    attachment: ""
-    resource: null
-    thread: null
-    school: null
-    comment: 4
-    user: 2
+    text: An anonymous comment to a thread.
+    file: ""
+    image: ""
+    thread: 4
+    comment: null
+    user: null
     modified: 2020-01-01 12:00:00.000000+00:00
     created: 2020-01-01 12:00:00.000000+00:00
 - model: skole.Comment
   pk: 22
   fields:
-    text: An anonymous comment to a resource.
-    attachment: ""
-    resource: 1
-    thread: null
-    school: null
+    text: An anonymous comment to a thread.
+    file: ""
+    image: ""
+    thread: 5
     comment: null
     user: null
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -1453,11 +698,10 @@
 - model: skole.Comment
   pk: 23
   fields:
-    text: An anonymous comment to a resource.
-    attachment: ""
-    resource: 2
-    thread: null
-    school: null
+    text: An anonymous comment to a thread.
+    file: ""
+    image: ""
+    thread: 6
     comment: null
     user: null
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -1465,227 +709,10 @@
 - model: skole.Comment
   pk: 24
   fields:
-    text: An anonymous comment to a resource.
-    attachment: ""
-    resource: 3
-    thread: null
-    school: null
-    comment: null
-    user: null
-    modified: 2020-01-01 12:00:00.000000+00:00
-    created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Comment
-  pk: 25
-  fields:
-    text: An anonymous comment to a resource.
-    attachment: ""
-    resource: 4
-    thread: null
-    school: null
-    comment: null
-    user: null
-    modified: 2020-01-01 12:00:00.000000+00:00
-    created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Comment
-  pk: 26
-  fields:
-    text: An anonymous comment to a resource.
-    attachment: ""
-    resource: 5
-    thread: null
-    school: null
-    comment: null
-    user: null
-    modified: 2020-01-01 12:00:00.000000+00:00
-    created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Comment
-  pk: 27
-  fields:
-    text: An anonymous comment to a resource.
-    attachment: ""
-    resource: 6
-    thread: null
-    school: null
-    comment: null
-    user: null
-    modified: 2020-01-01 12:00:00.000000+00:00
-    created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Comment
-  pk: 28
-  fields:
-    text: An anonymous comment to a resource.
-    attachment: ""
-    resource: 7
-    thread: null
-    school: null
-    comment: null
-    user: null
-    modified: 2020-01-01 12:00:00.000000+00:00
-    created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Comment
-  pk: 29
-  fields:
     text: An anonymous comment to a thread.
-    attachment: ""
-    resource: null
-    thread: 2
-    school: null
-    comment: null
-    user: null
-    modified: 2020-01-01 12:00:00.000000+00:00
-    created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Comment
-  pk: 30
-  fields:
-    text: An anonymous comment to a thread.
-    attachment: ""
-    resource: null
-    thread: 3
-    school: null
-    comment: null
-    user: null
-    modified: 2020-01-01 12:00:00.000000+00:00
-    created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Comment
-  pk: 31
-  fields:
-    text: An anonymous comment to a thread.
-    attachment: ""
-    resource: null
-    thread: 4
-    school: null
-    comment: null
-    user: null
-    modified: 2020-01-01 12:00:00.000000+00:00
-    created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Comment
-  pk: 32
-  fields:
-    text: An anonymous comment to a thread.
-    attachment: ""
-    resource: null
-    thread: 5
-    school: null
-    comment: null
-    user: null
-    modified: 2020-01-01 12:00:00.000000+00:00
-    created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Comment
-  pk: 33
-  fields:
-    text: An anonymous comment to a thread.
-    attachment: ""
-    resource: null
-    thread: 6
-    school: null
-    comment: null
-    user: null
-    modified: 2020-01-01 12:00:00.000000+00:00
-    created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Comment
-  pk: 34
-  fields:
-    text: An anonymous comment to a thread.
-    attachment: ""
-    resource: null
+    file: ""
+    image: ""
     thread: 7
-    school: null
-    comment: null
-    user: null
-    modified: 2020-01-01 12:00:00.000000+00:00
-    created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Comment
-  pk: 35
-  fields:
-    text: An anonymous comment to a resource.
-    attachment: ""
-    resource: 8
-    thread: null
-    school: null
-    comment: null
-    user: null
-    modified: 2020-01-01 12:00:00.000000+00:00
-    created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Comment
-  pk: 36
-  fields:
-    text: An anonymous comment to a resource.
-    attachment: ""
-    resource: 9
-    thread: null
-    school: null
-    comment: null
-    user: null
-    modified: 2020-01-01 12:00:00.000000+00:00
-    created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Comment
-  pk: 37
-  fields:
-    text: An anonymous comment to a resource.
-    attachment: ""
-    resource: 10
-    thread: null
-    school: null
-    comment: null
-    user: null
-    modified: 2020-01-01 12:00:00.000000+00:00
-    created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Comment
-  pk: 38
-  fields:
-    text: An anonymous comment to a resource.
-    attachment: ""
-    resource: 11
-    thread: null
-    comment: null
-    school: null
-    user: null
-    modified: 2020-01-01 12:00:00.000000+00:00
-    created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Comment
-  pk: 39
-  fields:
-    text: An anonymous comment to a resource.
-    attachment: ""
-    resource: 12
-    thread: null
-    comment: null
-    school: null
-    user: null
-    modified: 2020-01-01 12:00:00.000000+00:00
-    created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Comment
-  pk: 40
-  fields:
-    text: An anonymous comment to a resource.
-    attachment: ""
-    resource: 13
-    thread: null
-    comment: null
-    school: null
-    user: null
-    modified: 2020-01-01 12:00:00.000000+00:00
-    created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Comment
-  pk: 41
-  fields:
-    text: An anonymous comment to a resource.
-    attachment: ""
-    resource: 14
-    thread: null
-    school: null
-    comment: null
-    user: null
-    modified: 2020-01-01 12:00:00.000000+00:00
-    created: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Comment
-  pk: 42
-  fields:
-    text: An anonymous comment to a school.
-    attachment: ""
-    resource: null
-    thread: null
-    school: 1
     comment: null
     user: null
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -1696,7 +723,6 @@
   fields:
     comment: 1
     thread: null
-    resource: null
     status: 1
     user: 2
     created: 2020-01-01 12:00:00.000000+00:00
@@ -1706,7 +732,6 @@
   fields:
     comment: 1
     thread: null
-    resource: null
     status: 1
     user: 3
     created: 2020-01-01 12:00:00.000000+00:00
@@ -1716,7 +741,6 @@
   fields:
     comment: 1
     thread: null
-    resource: null
     status: -1
     user: 4
     created: 2020-01-01 12:00:00.000000+00:00
@@ -1751,47 +775,29 @@
   fields:
     master: 2
     language_code: fi
-    description: kommentoi lankaasi
+    description: kommentoi kurssiasi
 - model: skole.ActivityTypeTranslation
   pk: 6
   fields:
     master: 2
     language_code: sv
-    description: kommenterade din tråd
+    description: kommenterade din kurs
 - model: skole.ActivityTypeTranslation
   pk: 7
   fields:
     master: 3
     language_code: en
-    description: commented on your resource
+    description: You received the '{}' badge.
 - model: skole.ActivityTypeTranslation
   pk: 8
   fields:
     master: 3
     language_code: fi
-    description: kommentoi resurssiasi
+    description: Ansaitsit '{}' merkin.
 - model: skole.ActivityTypeTranslation
   pk: 9
   fields:
     master: 3
-    language_code: sv
-    description: kommenterade din resurs
-- model: skole.ActivityTypeTranslation
-  pk: 10
-  fields:
-    master: 4
-    language_code: en
-    description: You received the '{}' badge.
-- model: skole.ActivityTypeTranslation
-  pk: 11
-  fields:
-    master: 4
-    language_code: fi
-    description: Ansaitsit '{}' merkin.
-- model: skole.ActivityTypeTranslation
-  pk: 12
-  fields:
-    master: 4
     language_code: sv
     description: Du fick '{}' märket.
 
@@ -1805,10 +811,6 @@
     identifier: thread_comment
 - model: skole.ActivityType
   pk: 3
-  fields:
-    identifier: resource_comment
-- model: skole.ActivityType
-  pk: 4
   fields:
     identifier: new_badge
 
@@ -1834,17 +836,8 @@
   pk: 3
   fields:
     user: 2
-    causing_user: 5
-    activity_type: 3
-    comment: 5
-    badge_progress: null
-    read: False
-- model: skole.Activity
-  pk: 4
-  fields:
-    user: 2
     causing_user: null
-    activity_type: 4
+    activity_type: 3
     comment: null
     badge_progress: 1
     read: False
@@ -1854,7 +847,6 @@
   fields:
     user: 2
     thread: 1
-    resource: null
     created: 2020-01-01 12:00:00.000000+00:00
     modified: 2020-01-01 12:00:00.000000+00:00
 - model: skole.Star
@@ -1862,23 +854,6 @@
   fields:
     user: 2
     thread: 2
-    resource: null
-    created: 2020-01-01 12:00:00.000000+00:00
-    modified: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Star
-  pk: 3
-  fields:
-    user: 2
-    thread: null
-    resource: 1
-    created: 2020-01-01 12:00:00.000000+00:00
-    modified: 2020-01-01 12:00:00.000000+00:00
-- model: skole.Star
-  pk: 4
-  fields:
-    user: 2
-    thread: null
-    resource: 2
     created: 2020-01-01 12:00:00.000000+00:00
     modified: 2020-01-01 12:00:00.000000+00:00
 
@@ -1957,75 +932,54 @@
   fields:
     master: 4
     language_code: fi
-    name: Ensimmäinen lanka
-    description: Luo ensimmäinen lankasi.
+    name: Ensimmäinen kurssi
+    description: Luo ensimmäinen kurssisi.
 - model: skole.BadgeTranslation
   pk: 12
   fields:
     master: 4
     language_code: sv
-    name: Första tråden
-    description: Skapa din första tråd.
-- model: skole.BadgeTranslation
-  pk: 13
-  fields:
-    master: 5
-    language_code: en
-    name: First Material
-    description: Add your first material.
+    name: Första kursen
+    description: Skapa din första kurs.
 - model: skole.BadgeTranslation
   pk: 14
   fields:
     master: 5
-    language_code: fi
-    name: Ensimmäinen materiaali
-    description: Lisää ensimmäinen materiaalisi.
-- model: skole.BadgeTranslation
-  pk: 15
-  fields:
-    master: 5
-    language_code: sv
-    name: Första materialet
-    description: Lägg till ditt första material.
-- model: skole.BadgeTranslation
-  pk: 16
-  fields:
-    master: 6
     language_code: en
     name: First Upvote
     description: Upvote something.
 - model: skole.BadgeTranslation
-  pk: 17
+  pk: 15
   fields:
-    master: 6
+    master: 5
     language_code: fi
     name: Ensimmäinen ylös-ääni
     description: Äänestä jotain ylös.
 - model: skole.BadgeTranslation
-  pk: 18
+  pk: 16
   fields:
-    master: 6
+    master: 5
     language_code: sv
     name: Första upprösta
     description: Upprösta på något.
 - model: skole.BadgeTranslation
-  pk: 19
+  pk: 17
   fields:
-    master: 7
+    master: 6
     language_code: en
     name: First Downvote
     description: Downvote something.
 - model: skole.BadgeTranslation
-  pk: 20
+  pk: 18
   fields:
-    master: 7
+    master: 6
     language_code: fi
     name: Ensimmäinen alas-ääni
     description: Äänestä jotain alas.
 - model: skole.BadgeTranslation
-  pk: 21
+  pk: 19
   fields:
-    master: 7
+    master: 6
     language_code: sv
     name: Första nedrösta
     description: Nedrösta på något.
@@ -2061,19 +1015,12 @@
 - model: skole.Badge
   pk: 5
   fields:
-    identifier: first_resource
-    steps: 1
-    completion_score: 0
-    tier: bronze
-- model: skole.Badge
-  pk: 6
-  fields:
     identifier: first_upvote
     steps: 1
     completion_score: 0
     tier: bronze
 - model: skole.Badge
-  pk: 7
+  pk: 6
   fields:
     identifier: first_downvote
     steps: 1

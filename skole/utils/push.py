@@ -26,14 +26,9 @@ def send_comment_push_notification(activity: Activity) -> None:
     assert comment
 
     if top_level_comment := comment.comment:
-        resource_slug = getattr(top_level_comment.resource, "slug", None)
         thread_slug = getattr(top_level_comment.thread, "slug", None)
-        school_slug = getattr(top_level_comment.school, "slug", None)
-
     else:
-        resource_slug = getattr(comment.resource, "slug", None)
         thread_slug = getattr(comment.thread, "slug", None)
-        school_slug = getattr(comment.school, "slug", None)
 
     activity_type = activity.activity_type
     activity_type.set_current_language(settings.LANGUAGE_CODE)
@@ -42,9 +37,7 @@ def send_comment_push_notification(activity: Activity) -> None:
 
     data = {
         "activity": activity.pk,
-        "resource": resource_slug,
         "thread": thread_slug,
-        "school": school_slug,
         "comment": comment.pk,
     }
 

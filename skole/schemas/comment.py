@@ -12,17 +12,14 @@ from skole.schemas.base import (
     SkoleObjectType,
 )
 from skole.schemas.mixins import PaginationMixin, SuccessMessageMixin, VoteMixin
-from skole.schemas.resource import ResourceObjectType
-from skole.schemas.school import SchoolObjectType
-from skole.schemas.thread import ThreadObjectType
-from skole.types import ID, ResolveInfo
+from skole.types import ResolveInfo
 from skole.utils.constants import Messages
 from skole.utils.pagination import get_paginator
 
 
 class CommentObjectType(VoteMixin, DjangoObjectType):
     reply_count = graphene.Int()
-    attachment_thumbnail = graphene.String()
+    image_thumbnail = graphene.String()
 
     class Meta:
         model = Comment
@@ -30,11 +27,10 @@ class CommentObjectType(VoteMixin, DjangoObjectType):
             "id",
             "user",
             "text",
-            "attachment",
-            "attachment_thumbnail",
+            "file",
+            "image",
+            "image_thumbnail",
             "thread",
-            "resource",
-            "school",
             "comment",
             "reply_comments",
             "reply_count",
@@ -44,12 +40,16 @@ class CommentObjectType(VoteMixin, DjangoObjectType):
         )
 
     @staticmethod
-    def resolve_attachment(root: Comment, info: ResolveInfo) -> str:
-        return root.attachment.url if root.attachment else ""
+    def resolve_file(root: Comment, info: ResolveInfo) -> str:
+        return root.file.url if root.file else ""
 
     @staticmethod
-    def resolve_attachment_thumbnail(root: Comment, info: ResolveInfo) -> str:
-        return root.attachment_thumbnail.url if root.attachment_thumbnail else ""
+    def resolve_image(root: Comment, info: ResolveInfo) -> str:
+        return root.image.url if root.image else ""
+
+    @staticmethod
+    def resolve_image_thumbnail(root: Comment, info: ResolveInfo) -> str:
+        return root.image_thumbnail.url if root.image_thumbnail else ""
 
     @staticmethod
     def resolve_reply_count(root: Comment, info: ResolveInfo) -> int:
@@ -108,24 +108,12 @@ class DeleteCommentMutation(SkoleDeleteMutationMixin, DjangoModelFormMutation):
         form_class = DeleteCommentForm
 
 
-class DiscussionsUnion(graphene.Union):
-    class Meta:
-        types = (ThreadObjectType, ResourceObjectType, SchoolObjectType)
-
-
 class Query(SkoleObjectType):
     comments = graphene.Field(
         PaginatedCommentObjectType,
         user=graphene.String(),
         page=graphene.Int(),
         page_size=graphene.Int(),
-    )
-
-    discussion = graphene.List(
-        CommentObjectType,
-        thread=graphene.ID(),
-        resource=graphene.ID(),
-        school=graphene.ID(),
     )
 
     trending_comments = graphene.List(CommentObjectType)
@@ -150,27 +138,6 @@ class Query(SkoleObjectType):
             qs = qs.filter(user__slug=user)
 
         return get_paginator(qs, page_size, page, PaginatedCommentObjectType)
-
-    @staticmethod
-    def resolve_discussion(
-        root: None,
-        info: ResolveInfo,
-        thread: ID = None,
-        resource: ID = None,
-        school: ID = None,
-    ) -> QuerySet[Comment]:
-        """Return comments filtered by query params."""
-
-        qs = Comment.objects.none()
-
-        if thread is not None:
-            qs = Comment.objects.filter(thread__pk=thread)
-        if resource is not None:
-            qs = Comment.objects.filter(resource__pk=resource)
-        if school is not None:
-            qs = Comment.objects.filter(school__pk=school)
-
-        return qs
 
     @staticmethod
     def resolve_trending_comments(root: None, info: ResolveInfo) -> QuerySet[Comment]:

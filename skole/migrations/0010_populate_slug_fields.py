@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from contextlib import contextmanager
-from typing import TYPE_CHECKING, Generator, Union
+from typing import Any, TYPE_CHECKING, Generator
 
 import django.utils.translation
 from django.apps.registry import Apps
@@ -11,27 +11,18 @@ from django.conf import settings
 from django.db import migrations
 from django.db.backends.base.schema import BaseDatabaseSchemaEditor
 
-if TYPE_CHECKING:  # pragma: no cover
-    # Ignore: Some of the models do not exist anymore.
-    from skole.models import (  # type: ignore[attr-defined]
-        City,
-        Country,
-        Course,
-        Resource,
-        ResourceType,
-        School,
-        SchoolType,
+if TYPE_CHECKING:
+    from skole.models import (
         SkoleModel,
-        Subject,
         User,
     )
 
 
-def slug_course(self: Course) -> str:
+def slug_course(self: Any) -> str:
     return f"{self.name} ({', '.join(self.codes)})" if self.codes else self.name
 
 
-def slug_resource(self: Resource) -> str:
+def slug_resource(self: Any) -> str:
     return f"{self.title} {self.date}"
 
 
@@ -39,7 +30,7 @@ def slug_user(self: User) -> str:
     return self.username
 
 
-def slug(self: Union[City, Country, ResourceType, School, SchoolType, Subject]) -> str:
+def slug(self: Any) -> str:
     return self.name
 
 

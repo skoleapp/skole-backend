@@ -34,7 +34,7 @@ class Migration(migrations.Migration):
                 ('email', models.EmailField(error_messages={'unique': 'This email is taken.'}, max_length=254, unique=True)),
                 ('title', models.CharField(blank=True, max_length=100)),
                 ('bio', models.TextField(blank=True, max_length=2000)),
-                ('avatar', models.ImageField(blank=True, default=None, upload_to='uploads/avatars', validators=[skole.utils.validators.ValidateFileSizeAndType(settings.USER_AVATAR_MAX_SIZE, settings.USER_AVATAR_ALLOWED_FILETYPES)])),
+                ('avatar', models.ImageField(blank=True, default=None, upload_to='uploads/avatars', validators=[skole.utils.validators.ValidateFileSizeAndType(settings.USER_AVATAR_MAX_SIZE, settings.IMAGE_ALLOWED_FILETYPES)])),
                 ('score', models.IntegerField(default=0)),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('verified', models.BooleanField(default=False)),
@@ -150,7 +150,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('title', models.CharField(max_length=100)),
-                ('file', models.FileField(blank=True, max_length=500, upload_to='uploads/resources', validators=[skole.utils.validators.ValidateFileSizeAndType(settings.RESOURCE_FILE_MAX_SIZE, settings.RESOURCE_FILE_ALLOWED_FILETYPES)])),
+                ('file', models.FileField(blank=True, max_length=500, upload_to='uploads/resources', validators=[skole.utils.validators.ValidateFileSizeAndType(settings.FILE_MAX_SIZE, settings.FILE_ALLOWED_FILETYPES)])),
                 ('date', models.DateField(blank=True, default=datetime.date.today)),
                 ('downloads', models.PositiveIntegerField(default=0)),
                 ('modified', models.DateTimeField(auto_now=True)),
@@ -183,7 +183,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('text', models.TextField(blank=True, max_length=10000)),
-                ('attachment', models.ImageField(blank=True, upload_to='uploads/attachments', validators=[skole.utils.validators.ValidateFileSizeAndType(settings.COMMENT_ATTACHMENT_MAX_SIZE, settings.COMMENT_ATTACHMENT_ALLOWED_FILETYPES)])),
+                ('attachment', models.ImageField(blank=True, upload_to='uploads/attachments', validators=[skole.utils.validators.ValidateFileSizeAndType(settings.IMAGE_MAX_SIZE, settings.IMAGE_ALLOWED_FILETYPES)])),
                 ('modified', models.DateTimeField(auto_now=True)),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('comment', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='reply_comments', to='skole.comment')),

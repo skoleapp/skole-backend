@@ -12,7 +12,6 @@ class VoteSchemaTests(SkoleSchemaTestCase):
         status: int,
         comment: ID = None,
         thread: ID = None,
-        resource: ID = None,
     ) -> JsonDict:
         return self.execute_input_mutation(
             name="vote",
@@ -21,7 +20,6 @@ class VoteSchemaTests(SkoleSchemaTestCase):
                 "status": status,
                 "comment": comment,
                 "thread": thread,
-                "resource": resource,
             },
             result="""
                 vote {
@@ -61,10 +59,6 @@ class VoteSchemaTests(SkoleSchemaTestCase):
 
         self.authenticated_user = 2
 
-        res = self.mutate_vote(status=1, resource=3)
-        assert not res["errors"]
-        assert res["targetScore"] == 1
-
         res = self.mutate_vote(status=1, thread=2)
         assert not res["errors"]
         assert res["vote"]["status"] == 1
@@ -80,7 +74,7 @@ class VoteSchemaTests(SkoleSchemaTestCase):
         assert get_form_error(res) == ValidationErrors.VOTE_OWN_CONTENT
 
         # Can't have more than one target.
-        res = self.mutate_vote(status=1, comment=1, resource=3)
+        res = self.mutate_vote(status=1, comment=1, thread=1)
         assert get_form_error(res) == ValidationErrors.MUTATION_INVALID_TARGET
 
     def test_vote_thread_ok(self) -> None:
@@ -107,32 +101,5 @@ class VoteSchemaTests(SkoleSchemaTestCase):
 
         self.authenticated_user = 5
         res = self.mutate_vote(status=1, thread=2)
-        assert not res["errors"]
-        assert res["targetScore"] == 3
-
-    def test_vote_resource_ok(self) -> None:
-        res = self.mutate_vote(status=1, resource=2)
-        assert not res["errors"]
-        assert res["targetScore"] == 1
-
-        res = self.mutate_vote(status=1, resource=2)
-        assert not res["errors"]
-        assert res["targetScore"] == 0
-
-        res = self.mutate_vote(status=-1, resource=2)
-        assert not res["errors"]
-        assert res["targetScore"] == -1
-
-        res = self.mutate_vote(status=1, resource=2)
-        assert not res["errors"]
-        assert res["targetScore"] == 1
-
-        self.authenticated_user = 4
-        res = self.mutate_vote(status=1, resource=2)
-        assert not res["errors"]
-        assert res["targetScore"] == 2
-
-        self.authenticated_user = 5
-        res = self.mutate_vote(status=1, resource=2)
         assert not res["errors"]
         assert res["targetScore"] == 3

@@ -9,7 +9,7 @@ class ActivityType(TranslatableSkoleModel):
 
     _identifier_field = "identifier"
 
-    # E.g comment_reply, thread_comment, resource_comment
+    # E.g comment_reply or thread_comment.
     identifier = models.CharField(max_length=100, unique=True)
     translations = TranslatedFields(description=models.CharField(max_length=2000))
 

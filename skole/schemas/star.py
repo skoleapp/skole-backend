@@ -18,11 +18,11 @@ from skole.types import ResolveInfo
 class StarObjectType(SkoleDjangoObjectType):
     class Meta:
         model = Star
-        fields = ("id", "user", "thread", "resource")
+        fields = ("id", "user", "thread")
 
 
 class StarMutation(SkoleCreateUpdateMutationMixin, DjangoModelFormMutation):
-    """Start a thread or a resource remove the star if it already exists."""
+    """Start a thread or remove the star if it already exists."""
 
     verification_required = True
     starred = graphene.Boolean()
@@ -35,7 +35,7 @@ class StarMutation(SkoleCreateUpdateMutationMixin, DjangoModelFormMutation):
     def perform_mutate(cls, form: CreateStarForm, info: ResolveInfo) -> StarMutation:
         # Not calling super (which saves the form) so that we don't create two Star instances here.
         star = Star.objects.create_or_delete_star(
-            user=cast(User, info.context.user), target=form.cleaned_data["target"]
+            user=cast(User, info.context.user), thread=form.cleaned_data["thread"]
         )
 
         return cls(starred=bool(star))

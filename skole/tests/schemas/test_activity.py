@@ -26,12 +26,6 @@ class ActivitySchemaTests(SkoleSchemaTestCase):
                 thread {
                     slug
                 }
-                resource {
-                    slug
-                }
-                school {
-                    slug
-                }
             }
             badgeProgress {
                 badge {
@@ -127,15 +121,14 @@ class ActivitySchemaTests(SkoleSchemaTestCase):
         self.assert_field_fragment_matches_schema(self.activity_fields)
 
     def test_activities(self) -> None:
-        page_size = 3
+        page_size = 2
         page = 1
         res = self.query_activities(page=page, page_size=page_size)
         assert len(res["objects"]) == page_size
-        assert res["objects"][0]["id"] == "4"
-        assert res["objects"][1]["id"] == "3"
-        assert res["objects"][2]["id"] == "2"
+        assert res["objects"][0]["id"] == "3"
+        assert res["objects"][1]["id"] == "2"
         assert res["objects"][-1]["id"] == "2"
-        assert res["count"] == 4
+        assert res["count"] == 3
         assert res["page"] == page
         assert res["pages"] == 2
         assert res["hasNext"] is True
@@ -145,7 +138,7 @@ class ActivitySchemaTests(SkoleSchemaTestCase):
         res = self.query_activities(page=page, page_size=page_size)
         assert res["objects"][0]["id"] == "1"
         assert len(res["objects"]) == 1  # Last page only has one result.
-        assert res["count"] == 4
+        assert res["count"] == 3
         assert res["page"] == page
         assert res["pages"] == 2
         assert res["hasNext"] is False
@@ -159,7 +152,7 @@ class ActivitySchemaTests(SkoleSchemaTestCase):
 
     def test_activity_preview(self) -> None:
         res = self.query_activity_preview()
-        assert len(res) == 4 <= settings.ACTIVITY_PREVIEW_COUNT
+        assert len(res) == 3 <= settings.ACTIVITY_PREVIEW_COUNT
 
         # Shouldn't work without auth.
         self.authenticated_user = None

@@ -20,11 +20,11 @@ class VoteObjectType(SkoleDjangoObjectType):
 
     class Meta:
         model = Vote
-        fields = ("id", "user", "status", "comment", "thread", "resource")
+        fields = ("id", "user", "status", "comment", "thread")
 
 
 class VoteMutation(SkoleCreateUpdateMutationMixin, DjangoModelFormMutation):
-    """Upvote, downvote or remove a vote from a thread, resource or a comment."""
+    """Upvote, downvote or remove a vote from a thread or a comment."""
 
     verification_required = True
     target_score = graphene.Int()

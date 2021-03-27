@@ -7,15 +7,8 @@ from skole.models import (
     ActivityType,
     Badge,
     BadgeProgress,
-    City,
     Comment,
-    Country,
-    Resource,
-    ResourceType,
-    School,
-    SchoolType,
     Star,
-    Subject,
     Thread,
     Vote,
 )
@@ -28,18 +21,11 @@ admin.site.site_header = Admin.SITE_HEADER
 admin.site.register(get_user_model())
 admin.site.register(BadgeProgress)
 admin.site.register(Comment)
-admin.site.register(Thread)
-admin.site.register(Resource)
 admin.site.register(Star)
+admin.site.register(Thread)
 admin.site.register(Vote)
 admin.site.register(Activity)
 
 # Translated models.
 admin.site.register(Badge, TranslatableAdmin)
-admin.site.register(City, TranslatableAdmin)
-admin.site.register(Country, TranslatableAdmin)
-admin.site.register(ResourceType, TranslatableAdmin)
-admin.site.register(SchoolType, TranslatableAdmin)
-admin.site.register(School, TranslatableAdmin)
-admin.site.register(Subject, TranslatableAdmin)
 admin.site.register(ActivityType, TranslatableAdmin)

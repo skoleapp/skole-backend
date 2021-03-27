@@ -101,7 +101,7 @@ class User(SkoleModel, AbstractBaseUser, PermissionsMixin):
         upload_to="uploads/avatars",
         validators=[
             ValidateFileSizeAndType(
-                settings.USER_AVATAR_MAX_SIZE, settings.USER_AVATAR_ALLOWED_FILETYPES
+                settings.USER_AVATAR_MAX_SIZE, settings.IMAGE_ALLOWED_FILETYPES
             )
         ],
         blank=True,
@@ -113,22 +113,6 @@ class User(SkoleModel, AbstractBaseUser, PermissionsMixin):
         processors=[ResizeToFill(100, 100)],
         format="JPEG",
         options={"quality": 60},
-    )
-
-    school = models.ForeignKey(
-        "skole.School",
-        on_delete=models.SET_NULL,
-        related_name="users",
-        null=True,
-        blank=True,
-    )
-
-    subject = models.ForeignKey(
-        "skole.Subject",
-        on_delete=models.SET_NULL,
-        related_name="users",
-        null=True,
-        blank=True,
     )
 
     selected_badge_progress = models.ForeignKey(
@@ -156,13 +140,11 @@ class User(SkoleModel, AbstractBaseUser, PermissionsMixin):
     # Email notification permissions.
     comment_reply_email_permission = models.BooleanField(default=False)
     thread_comment_email_permission = models.BooleanField(default=False)
-    resource_comment_email_permission = models.BooleanField(default=False)
     new_badge_email_permission = models.BooleanField(default=False)
 
     # Push notification permissions.
     comment_reply_push_permission = models.BooleanField(default=True)
     thread_comment_push_permission = models.BooleanField(default=True)
-    resource_comment_push_permission = models.BooleanField(default=True)
     new_badge_push_permission = models.BooleanField(default=True)
 
     last_my_data_query = models.DateTimeField(
@@ -241,7 +223,7 @@ class User(SkoleModel, AbstractBaseUser, PermissionsMixin):
                 Cast("progress", FloatField()) / F("badge__steps"),
                 output_field=FloatField(),
             ),
-        ).order_by("-percentage")
+        ).order_by("-percentage", "pk")
 
     def register_fcm_token(self, token: str) -> None:
         FCMDevice.objects.get_or_create(user=self, registration_id=token)

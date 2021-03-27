@@ -1,49 +1,31 @@
 from __future__ import annotations
 
-from typing import Optional, Union
+from typing import Optional
 
 from django.conf import settings
 from django.db import models
 
 from skole.models.base import SkoleManager, SkoleModel
-from skole.models.resource import Resource
 from skole.models.thread import Thread
 from skole.models.user import User
-from skole.types import StarrableModel
 
 
 class StarManager(SkoleManager["Star"]):
-    def create_or_delete_star(
-        self, user: User, target: StarrableModel
-    ) -> Optional[Star]:
+    def create_or_delete_star(self, user: User, thread: Thread) -> Optional[Star]:
         """Create a new star to the target or delete it if it already exists."""
-
-        if isinstance(target, Thread):
-            star = self.check_existing_star(user, thread=target)
-        elif isinstance(target, Resource):
-            star = self.check_existing_star(user, resource=target)
-        else:
-            raise TypeError(f"Invalid target type for Star: {type(target)}")
-
-        return star
-
-    def check_existing_star(
-        self, user: User, **target: Union[Thread, Resource]
-    ) -> Optional[Star]:
         try:
-            star = user.stars.get(**target)
+            star = user.stars.get(thread=thread)
             star.delete()
             return None
-
         except Star.DoesNotExist:
-            star = self.model(**target)
+            star = self.model(thread=thread)
             star.user = user
             star.save()
             return star
 
 
 class Star(SkoleModel):
-    """Models a star that a user has placed on a thread or a resource."""
+    """Models a star that a user has placed on a thread."""
 
     _identifier_field = "user"
 
@@ -54,16 +36,6 @@ class Star(SkoleModel):
     thread = models.ForeignKey(
         "skole.Thread",
         on_delete=models.CASCADE,
-        null=True,
-        blank=True,
-        related_name="stars",
-    )
-
-    resource = models.ForeignKey(
-        "skole.Resource",
-        on_delete=models.CASCADE,
-        null=True,
-        blank=True,
         related_name="stars",
     )
 
@@ -73,12 +45,7 @@ class Star(SkoleModel):
     objects = StarManager()
 
     class Meta:
-        unique_together = ("user", "thread", "resource")
+        unique_together = ("user", "thread")
 
     def __str__(self) -> str:
-        if self.thread is not None:
-            return f"{self.user} - {self.thread}"
-        elif self.resource is not None:
-            return f"{self.user} - {self.resource}"
-        else:
-            raise ValueError("Invalid Star object.")
+        return f"{self.user} - {self.thread}"

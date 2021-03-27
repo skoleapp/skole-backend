@@ -2,7 +2,7 @@ from typing import Optional
 
 from skole.models import Thread
 from skole.tests.helpers import (
-    TEST_ATTACHMENT_PNG,
+    TEST_IMAGE_PNG,
     FileData,
     SkoleSchemaTestCase,
     get_form_error,
@@ -216,7 +216,7 @@ class ThreadSchemaTests(SkoleSchemaTestCase):
         self.assert_field_fragment_matches_schema(self.thread_fields)
 
     def test_create_thread(self) -> None:
-        with open_as_file(TEST_ATTACHMENT_PNG) as image:
+        with open_as_file(TEST_IMAGE_PNG) as image:
             res = self.mutate_create_thread(file_data=[("image", image)])
             assert not res["errors"]
             thread = res["thread"]
@@ -255,7 +255,7 @@ class ThreadSchemaTests(SkoleSchemaTestCase):
 
         assert Thread.objects.count() == old_count - 1
 
-    def test_threads(self) -> None:  # pylint: disable=too-many-statements
+    def test_threads(self) -> None:
         # First page.
         page_size = 4
         page = 1

@@ -118,19 +118,10 @@ def send_comment_email_notification(activity: Activity) -> None:
     assert comment
 
     top_level_comment = comment.comment
-    resource = comment.resource or getattr(top_level_comment, "resource", None)
     thread = comment.thread or getattr(top_level_comment, "thread", None)
-    school = comment.school or getattr(top_level_comment, "school", None)
 
-    if resource or top_level_comment and top_level_comment.resource:
-        path = settings.RESOURCE_COMMENT_PATH_ON_EMAIL.format(resource.slug, comment.pk)
-
-    elif thread or top_level_comment and top_level_comment.thread:
+    if thread or top_level_comment and top_level_comment.thread:
         path = settings.THREAD_COMMENT_PATH_ON_EMAIL.format(thread.slug, comment.pk)
-
-    elif school or top_level_comment and top_level_comment.school:
-        path = settings.SCHOOL_COMMENT_PATH_ON_EMAIL.format(school.slug, comment.pk)
-
     else:
         raise ValueError("Invalid activity. Cannot send email.")
 

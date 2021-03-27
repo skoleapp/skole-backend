@@ -66,6 +66,16 @@ class CreateCommentForm(_BaseCreateUpdateCommentForm, SkoleModelForm):
 
         return user
 
+    def save(self, commit: bool = True) -> Comment:
+        """Frontend passes null as the user when making an anonymous comment."""
+        assert self.request
+
+        if not self.instance.user:
+            self.instance.user = self.request.user
+            self.instance.is_anonymous = True
+
+        return super().save(commit)
+
 
 class UpdateCommentForm(_BaseCreateUpdateCommentForm, SkoleUpdateModelForm):
     class Meta:

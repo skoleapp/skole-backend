@@ -35,9 +35,10 @@ class Comment(SkoleModel):
         settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,
         related_name="comments",
-        null=True,
+        null=True,  # Null only for compatibility with old anonymous comments.
         blank=True,
     )
+    is_anonymous = models.BooleanField(default=False)
 
     text = models.TextField(max_length=10000, blank=True)
 

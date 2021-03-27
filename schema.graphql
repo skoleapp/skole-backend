@@ -60,6 +60,7 @@ type CommentObjectType {
   vote: VoteObjectType
   replyCount: Int
   imageThumbnail: String
+  isOwn: Boolean!
 }
 
 input ContactMutationInput {

@@ -2,7 +2,6 @@ from typing import Optional, cast
 
 import graphene
 from django.conf import settings
-from django.contrib.postgres.search import TrigramSimilarity
 from django.db.models import F, Q, QuerySet
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
@@ -36,7 +35,7 @@ def order_threads_with_secret_algorithm(qs: QuerySet[Thread]) -> QuerySet[Thread
     The ordering formula/value should not be exposed to the frontend.
     """
 
-    return qs.order_by(-(3 * F("score") + F("comment_count")), "title")
+    return qs.order_by(-(3 * F("score") + 2 * F("comment_count")), "title")
 
 
 class ThreadObjectType(VoteMixin, StarMixin, DjangoObjectType):
@@ -143,8 +142,8 @@ class Query(SkoleObjectType):
 
         qs: QuerySet[Thread] = Thread.objects.all()
 
-        if search_term:
-            qs = qs.filter(Q(title__icontains=search_term) | Q(title__icontains=search_term))
+        if search_term is not None:
+            qs = qs.filter(Q(title__search=search_term) | Q(text__search=search_term))
 
         if user != "":
             # Just show these chronologically when querying in a user profile.

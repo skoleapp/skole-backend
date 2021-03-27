@@ -10,7 +10,7 @@ from graphene_django.types import ErrorType
 
 from skole.forms import MarkActivityAsReadForm
 from skole.models import Activity, User
-from skole.overridden import login_required
+from skole.overridden import verification_required
 from skole.schemas.base import (
     SkoleCreateUpdateMutationMixin,
     SkoleDjangoObjectType,
@@ -59,7 +59,7 @@ class MarkActivityAsReadMutation(
 ):
     """Mark a single activity read/unread."""
 
-    login_required = True
+    verification_required = True
     activity = graphene.Field(ActivityObjectType)
 
     class Meta:
@@ -71,7 +71,7 @@ class MarkAllActivitiesAsReadMutation(
 ):
     """Mark all activities of the given user as read."""
 
-    login_required = True
+    verification_required = True
     activities = graphene.Field(PaginatedActivityObjectType)
     errors = graphene.List(ErrorType)
 
@@ -105,7 +105,7 @@ class Query(SkoleObjectType):
     activity_preview = graphene.List(ActivityObjectType)
 
     @staticmethod
-    @login_required
+    @verification_required
     def resolve_activities(
         root: None,
         info: ResolveInfo,
@@ -122,7 +122,7 @@ class Query(SkoleObjectType):
         return get_paginator(qs, page_size, page, PaginatedActivityObjectType)
 
     @staticmethod
-    @login_required
+    @verification_required
     def resolve_activity_preview(root: None, info: ResolveInfo) -> QuerySet[Activity]:
         """Return limited amount of activity of user making the query for a preview."""
         user = cast(User, info.context.user)

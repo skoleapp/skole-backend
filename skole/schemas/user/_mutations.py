@@ -339,7 +339,7 @@ class UpdateProfileMutation(
 ):
     """Update public profile fields for a user."""
 
-    login_required = True
+    verification_required = True
     success_message_value = Messages.PROFILE_UPDATED
     user = graphene.Field(UserObjectType)
 

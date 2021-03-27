@@ -1,9 +1,9 @@
-from typing import Any, cast
+from typing import Any, Optional, cast
 
 from django import forms
 
 from skole.forms.base import SkoleModelForm, SkoleUpdateModelForm
-from skole.models import Comment
+from skole.models import Comment, User
 from skole.utils.constants import ValidationErrors
 from skole.utils.files import clean_file_field, convert_to_pdf
 
@@ -54,17 +54,17 @@ class CreateCommentForm(_BaseCreateUpdateCommentForm, SkoleModelForm):
             "comment",
         )
 
-    def save(self, commit: bool = True) -> Comment:
+    def clean_user(self) -> Optional[User]:
+        user = self.cleaned_data["user"]
+
         assert self.request is not None
 
         # Check that the user making the request is the same as the user passed in the form.
         # Only if they match, use the user from the request as the author of the comment.
-        if self.request.user == self.cleaned_data.get("user"):
-            self.instance.user = self.request.user
-        else:
-            self.instance.user = None
+        if user and self.request.user != user:
+            raise forms.ValidationError(ValidationErrors.INVALID_COMMENT_AUTHOR)
 
-        return super().save(commit)
+        return user
 
 
 class UpdateCommentForm(_BaseCreateUpdateCommentForm, SkoleUpdateModelForm):

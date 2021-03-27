@@ -6,6 +6,7 @@ from graphene_django.forms.mutation import DjangoModelFormMutation
 
 from skole.forms import CreateCommentForm, DeleteCommentForm, UpdateCommentForm
 from skole.models import Comment
+from skole.overridden import verification_required
 from skole.schemas.base import (
     SkoleCreateUpdateMutationMixin,
     SkoleDeleteMutationMixin,
@@ -79,6 +80,7 @@ class CreateCommentMutation(
     comments by setting the `user` field as `null`.
     """
 
+    verification_required = True
     success_message_value = Messages.MESSAGE_SENT
 
     class Meta:
@@ -91,8 +93,9 @@ class UpdateCommentMutation(
 ):
     """Update an existing comment."""
 
-    login_required = True
+    verification_required = True
     success_message_value = Messages.COMMENT_UPDATED
+
     comment = graphene.Field(CommentObjectType)
 
     class Meta:
@@ -102,6 +105,7 @@ class UpdateCommentMutation(
 class DeleteCommentMutation(SkoleDeleteMutationMixin, DjangoModelFormMutation):
     """Delete a comment."""
 
+    verification_required = True
     success_message_value = Messages.COMMENT_DELETED
 
     class Meta(SkoleDeleteMutationMixin.Meta):
@@ -119,6 +123,7 @@ class Query(SkoleObjectType):
     trending_comments = graphene.List(CommentObjectType)
 
     @staticmethod
+    @verification_required
     def resolve_comments(
         root: None,
         info: ResolveInfo,

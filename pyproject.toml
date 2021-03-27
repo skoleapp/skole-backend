@@ -87,6 +87,7 @@ disable = [
     "too-few-public-methods",          # Single method mixins can be really useful, also our `constants.py` has tons of these classes.
     "too-many-ancestors",              # Doesn't play well with our style of heavy use of mixins and multiple inheritance.
     "too-many-arguments",              # Can be judged manually, most often completely valid.
+    "ungrouped-imports",               # Can be valid when using `if TYPE_CHECKING` and anyways `isort` handles this.
     "unsubscriptable-object",          # There's currently a bug where every `Optional[Foo]` errors: https://github.com/PyCQA/pylint/issues/3882
     "unused-argument",                 # Often an argument (e.g. `root`) just has to be there even if it's not used.
 ]

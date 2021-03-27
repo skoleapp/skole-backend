@@ -1,9 +1,11 @@
 from skole.models import Badge
 from skole.tests.helpers import SkoleSchemaTestCase
-from skole.types import JsonList
+from skole.types import ID, JsonList
 
 
 class BadgeSchemaTests(SkoleSchemaTestCase):
+
+    authenticated_user: ID = 2
 
     # language=GraphQL
     badge_fields = """

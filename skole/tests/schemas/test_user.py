@@ -18,7 +18,12 @@ from skole.tests.helpers import (
     open_as_file,
 )
 from skole.types import ID, JsonDict
-from skole.utils.constants import Messages, MutationErrors, ValidationErrors
+from skole.utils.constants import (
+    GraphQLErrors,
+    Messages,
+    MutationErrors,
+    ValidationErrors,
+)
 
 
 class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-methods
@@ -386,7 +391,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
 
         self.authenticated_user = None
         res = self.mutate_resend_verification_email(assert_error=True)
-        assert "permission" in get_graphql_error(res)
+        assert get_graphql_error(res) == GraphQLErrors.AUTH_REQUIRED
 
     def test_resend_verification_email(self) -> None:
         self.authenticated_user = 3  # Not yet verified.
@@ -554,7 +559,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         # Shouldn't work without auth.
         self.authenticated_user = None
         res = self.query_user_me(assert_error=True)
-        assert "permission" in get_graphql_error(res)
+        assert get_graphql_error(res) == GraphQLErrors.AUTH_REQUIRED
         assert res["data"] == {"userMe": None}
 
     def test_update_profile(self) -> None:

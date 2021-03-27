@@ -9,7 +9,7 @@ from django.core import mail
 
 from skole.tests.helpers import SkoleSchemaTestCase, get_form_error, get_graphql_error
 from skole.types import ID, JsonDict
-from skole.utils.constants import Messages
+from skole.utils.constants import GraphQLErrors, Messages
 
 
 class GdprSchemaTests(SkoleSchemaTestCase):
@@ -77,6 +77,6 @@ class GdprSchemaTests(SkoleSchemaTestCase):
     def test_my_data_login_required(self) -> None:
         self.authenticated_user = None
         res = self.mutate_my_data(assert_error=True)
-        assert "permission" in get_graphql_error(res)
+        assert get_graphql_error(res) == GraphQLErrors.AUTH_REQUIRED
         assert res["data"] == {"myData": None}
         assert len(mail.outbox) == 0

@@ -111,7 +111,9 @@ class SkoleObjectTypeMeta(SubclassWithMeta_Meta):
         if resolver.__doc__:
             description.append(inspect.cleandoc(resolver.__doc__))
 
-        if getattr(resolver, "login_required", False):
+        if getattr(resolver, "verification_required", False):
+            description.append(api_descriptions.VERIFICATION_REQUIRED)
+        elif getattr(resolver, "login_required", False):
             description.append(api_descriptions.AUTH_REQUIRED)
 
         try:

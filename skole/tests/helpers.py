@@ -387,7 +387,7 @@ def checksum(obj: Any) -> str:
     *original* object's source code, since `inspect.getsource` always "unwraps" the
     object before finding the source.
 
-    Does not work with builtin objects, or others where `getsource` doens't work.
+    Does not work with builtin objects, or others where `getsource()` doesn't work.
 
     Examples:
         >>> def foo(): pass

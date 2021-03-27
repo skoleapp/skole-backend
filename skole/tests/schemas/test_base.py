@@ -19,6 +19,8 @@ def test_skole_object_type_meta_dynamic_api_docs() -> None:
         with the ID of the user making the query to save the user making the query as the
         author of the comment. This way even authenticated users can create anonymous
         comments by setting the `user` field as `null`.
+
+        Only allowed for authenticated users that have verified their accounts.
         """
     )
     assert description == expected
@@ -32,7 +34,7 @@ def test_skole_object_type_meta_dynamic_api_docs() -> None:
         Results are sorted by creation time. Return an empty list for unauthenticated
         users.
 
-        Only allowed for authenticated users.
+        Only allowed for authenticated users that have verified their accounts.
 
         Results are paginated.
         """

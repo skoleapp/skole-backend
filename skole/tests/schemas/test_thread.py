@@ -11,7 +11,7 @@ from skole.tests.helpers import (
     open_as_file,
 )
 from skole.types import ID, JsonDict
-from skole.utils.constants import Messages, MutationErrors
+from skole.utils.constants import GraphQLErrors, Messages, MutationErrors
 
 
 class ThreadSchemaTests(SkoleSchemaTestCase):
@@ -337,7 +337,7 @@ class ThreadSchemaTests(SkoleSchemaTestCase):
         # Shouldn't work without auth.
         self.authenticated_user = None
         res = self.query_starred_threads(assert_error=True)
-        assert "permission" in get_graphql_error(res)
+        assert get_graphql_error(res) == GraphQLErrors.AUTH_REQUIRED
         assert res["data"] == {"starredThreads": None}
 
     def test_thread(self) -> None:

@@ -22,6 +22,7 @@ class ValidationErrors:
     USERNAME_TAKEN = _("This username is taken.")
     EMAIL_TAKEN = _("This email is taken.")
     EMAIL_DOES_NOT_EXIST = _("The email does not belong to an account.")
+    EMAIL_DOMAIN_NOT_ALLOWED = _("The email address domain is not allowed.")
     ACCOUNT_DEACTIVATED = _("This account has been deactivated!")
     AUTH_ERROR = _("Invalid username/email or password.")
     SUPERUSER_LOGIN = _("Cannot log in at this time.")
@@ -177,20 +178,4 @@ BADGE_TIER_CHOICES = (
     ("gold", "Gold"),
     ("silver", "Silver"),
     ("bronze", "Bronze"),
-)
-
-ALLOWED_EMAILS = (
-    "aalto.fi",
-    "abo.fi",
-    "hanken.fi",
-    "helsinki.fi",
-    "student.jyu.fi",
-    "student.lut.fi",
-    "student.oulu.fi",
-    "student.uef.fi",
-    "student.uwasa.fi",
-    "ulapland.fi",
-    "tuni.fi",
-    "uniarts.fi",
-    "utu.fi",
 )

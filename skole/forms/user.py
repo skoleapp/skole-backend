@@ -4,33 +4,65 @@ from django import forms
 from django.conf import settings
 from django.contrib.auth import authenticate, get_user_model, password_validation
 from django.core.files import File
+from django.db.models import F, QuerySet
 
 from skole.forms.base import SkoleForm, SkoleModelForm
 from skole.models import Badge, ReferralCode, User
+from skole.models.attempted_email import AttemptedEmail
 from skole.types import JsonDict
 from skole.utils.constants import ValidationErrors
 from skole.utils.files import clean_file_field
 
 
-class RegisterForm(SkoleModelForm):
+def get_all_users_except(user: User) -> QuerySet[User]:
+    users = get_user_model().objects.all()
+    if user.pk:
+        return users.exclude(pk=user.pk)
+    return users
+
+
+class CleanUniqueEmailMixin:
+    def clean_email(self) -> str:
+        # Call `lower()` since we want all saved email to be lowercase.
+        # Ignore: These attributes will exist in subclasses.
+        email = self.cleaned_data["email"].lower()  # type: ignore[attr-defined]
+
+        if "email" in self.changed_data:  # type: ignore[attr-defined]
+            if email.split("@")[1] not in settings.ALLOWED_EMAIL_DOMAINS:
+                attempt, __ = AttemptedEmail.objects.get_or_create(email=email)
+
+                if not attempt.is_whitelisted:
+                    raise forms.ValidationError(
+                        ValidationErrors.EMAIL_DOMAIN_NOT_ALLOWED
+                    )
+
+                attempt.attempts = F("attempts") + 1
+                attempt.save(update_fields=("attempts",))
+
+            if get_all_users_except(self.instance).filter(email__iexact=email).exists():  # type: ignore[attr-defined]
+                raise forms.ValidationError(ValidationErrors.EMAIL_TAKEN)
+
+        return email
+
+
+class CleanUniqueUsernameMixin:
+    def clean_username(self) -> str:
+        # Ignore: These attributes will exist in subclasses.
+        username = self.cleaned_data["username"]  # type: ignore[attr-defined]
+
+        if "username" in self.changed_data:  # type: ignore[attr-defined]
+            if get_all_users_except(self.instance).filter(username__iexact=username).exists():  # type: ignore[attr-defined]
+                raise forms.ValidationError(ValidationErrors.USERNAME_TAKEN)
+
+        return username
+
+
+class RegisterForm(CleanUniqueUsernameMixin, CleanUniqueEmailMixin, SkoleModelForm):
     username = forms.CharField(min_length=settings.USERNAME_MIN_LENGTH)
 
     class Meta:
         model = get_user_model()
         fields = ("username", "email", "password")
-
-    def clean_username(self) -> str:
-        username = self.cleaned_data["username"]
-        if get_user_model().objects.filter(username__iexact=username).exists():
-            raise forms.ValidationError(ValidationErrors.USERNAME_TAKEN)
-        return username
-
-    def clean_email(self) -> str:
-        # Call `lower()` since we want all saved email to be lowercase.
-        email = self.cleaned_data["email"].lower()
-        if get_user_model().objects.filter(email__iexact=email).exists():
-            raise forms.ValidationError(ValidationErrors.EMAIL_TAKEN)
-        return email
 
     def _post_clean(self) -> None:
         """Mimics the way Django's `UserCreationForm` does the password validation."""
@@ -103,7 +135,7 @@ class LoginForm(SkoleModelForm):
         return self.cleaned_data
 
 
-class UpdateProfileForm(SkoleModelForm):
+class UpdateProfileForm(CleanUniqueUsernameMixin, SkoleModelForm):
 
     username = forms.CharField(min_length=settings.USERNAME_MIN_LENGTH)
     avatar = forms.CharField(required=False)
@@ -122,15 +154,8 @@ class UpdateProfileForm(SkoleModelForm):
             form=self, field_name="avatar", created_file_name="avatar"
         )
 
-    def clean_username(self) -> str:
-        username = self.cleaned_data["username"]
-        if "username" in self.changed_data:
-            if get_user_model().objects.filter(username__iexact=username):
-                raise forms.ValidationError(ValidationErrors.USERNAME_TAKEN)
-        return username
 
-
-class UpdateAccountSettingsForm(SkoleModelForm):
+class UpdateAccountSettingsForm(CleanUniqueEmailMixin, SkoleModelForm):
     class Meta:
         model = get_user_model()
         fields = (
@@ -142,13 +167,6 @@ class UpdateAccountSettingsForm(SkoleModelForm):
             "thread_comment_push_permission",
             "new_badge_push_permission",
         )
-
-    def clean_email(self) -> str:
-        email = self.cleaned_data["email"].lower()
-        if "email" in self.changed_data:
-            if get_user_model().objects.filter(email__iexact=email):
-                raise forms.ValidationError(ValidationErrors.EMAIL_TAKEN)
-        return email
 
 
 class UpdateSelectedBadgeForm(SkoleModelForm):

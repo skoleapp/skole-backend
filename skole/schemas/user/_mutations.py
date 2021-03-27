@@ -52,7 +52,7 @@ class RegisterMutation(
 
     Check if there is an existing user with that email or username. Check that account
     is not deactivated. By default, set the user's account as unverified. After
-    successful registration, send account verification email.
+    successful registration, the user is allowed to use a referral code.
     """
 
     success_message_value = Messages.USER_REGISTERED
@@ -70,6 +70,11 @@ class RegisterMutation(
 
 
 class UseReferralCodeMutation(SkoleObjectType, SuccessMessageMixin, DjangoFormMutation):
+    """
+    Use a referral code and make the user fully registered.
+
+    After successfully entering the referral code, send account verification email.
+    """
 
     success_message_value = Messages.REFERRAL_CODE_SUCCESS
 

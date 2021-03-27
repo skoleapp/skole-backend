@@ -87,3 +87,6 @@ A quick look at the top-level files and directories excluding Git ignored locati
   such as `ArrayAgg`. They can make life a lot easier, and we can assume that the application is always run on Postgres.
 
 - Don't use relative imports `from .foo import bar` outside of `__init__.py` files.
+
+- Use `@test.test` for all email addresses when testing/developing it makes the intent clear.
+  `.test` is not a valid TLD and `test.test` has been whitelisted in `settings.ALLOWED_EMAIL_DOMAINS`.

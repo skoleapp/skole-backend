@@ -2,7 +2,7 @@
 name = "skole"
 version = "1.0.0"
 description = ""
-authors = ["Skole <admin@skoleapp.com>"]
+authors = ["Skole <admin@test.test>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"

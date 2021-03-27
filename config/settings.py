@@ -211,9 +211,9 @@ FCM_DJANGO_SETTINGS = {
 }
 
 # Custom email settings
-EMAIL_ADDRESS = os.environ.get("EMAIL_ADDRESS", default="hello@test.com")
+EMAIL_ADDRESS = os.environ.get("EMAIL_ADDRESS", default="hello@test.test")
 EMAIL_CONTACT_FORM_SENDER = os.environ.get(
-    "EMAIL_CONTACT_FORM_SENDER", default="Contact Form <contact-form@test.com>"
+    "EMAIL_CONTACT_FORM_SENDER", default="Contact Form <contact-form@test.test>"
 )
 
 # Have to match with frontend.
@@ -253,5 +253,24 @@ MY_DATA_FILE_AVAILABLE_FOR = timedelta(days=7)
 # Amount of results returned by the trending comments query.
 TRENDING_COMMENTS_COUNT = 6
 
+# Specs of ReferralCodes that are created for new users to share.
 REFERRAL_CODE_LENGTH = 7
 REFERRAL_CODE_INITIAL_USAGES = 2
+
+# Email address domains that can be used to register with.
+ALLOWED_EMAIL_DOMAINS = {
+    "aalto.fi",
+    "abo.fi",
+    "hanken.fi",
+    "helsinki.fi",
+    "student.jyu.fi",
+    "student.lut.fi",
+    "student.oulu.fi",
+    "student.uef.fi",
+    "student.uwasa.fi",
+    "ulapland.fi",
+    "tuni.fi",
+    "uniarts.fi",
+    "utu.fi",
+    *(("test.test",) if DEBUG else ()),
+}

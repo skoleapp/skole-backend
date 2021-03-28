@@ -227,7 +227,7 @@ USER_PROFILE_PATH_ON_EMAIL = "users/{}"
 AUTOCOMPLETE_MAX_RESULTS = 50
 
 # Amount of results that are returned for paginated queries by default.
-DEFAULT_PAGE_SIZE = 10
+DEFAULT_PAGE_SIZE = 25
 
 # Amount of results shown in the activity preview menu.
 ACTIVITY_PREVIEW_COUNT = 10

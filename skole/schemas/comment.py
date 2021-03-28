@@ -55,6 +55,7 @@ class CommentObjectType(VoteMixin, DjangoObjectType):
         If comment is an own comment, the current user is also given options to for
         example delete it in the frontend.
         """
+
         return root.user == info.context.user
 
     @staticmethod
@@ -133,11 +134,10 @@ class Query(SkoleObjectType):
     comments = graphene.Field(
         PaginatedCommentObjectType,
         user=graphene.String(),
+        thread=graphene.String(),
         page=graphene.Int(),
         page_size=graphene.Int(),
     )
-
-    trending_comments = graphene.List(CommentObjectType)
 
     @staticmethod
     @verification_required
@@ -145,6 +145,7 @@ class Query(SkoleObjectType):
         root: None,
         info: ResolveInfo,
         user: str = "",
+        thread: str = "",
         page: int = 1,
         page_size: int = settings.DEFAULT_PAGE_SIZE,
     ) -> PaginatedCommentObjectType:
@@ -159,13 +160,10 @@ class Query(SkoleObjectType):
         if user != "":
             qs = qs.filter(user__slug=user)
 
+        if thread != "":
+            qs = qs.filter(thread__slug=thread)
+
         return get_paginator(qs, page_size, page, PaginatedCommentObjectType)
-
-    @staticmethod
-    def resolve_trending_comments(root: None, info: ResolveInfo) -> QuerySet[Comment]:
-        """Return trending comments based on secret Skole AI-powered algorithms."""
-
-        return Comment.objects.filter(comment=None, score__gte=0).order_by("-pk")[: settings.TRENDING_COMMENTS_COUNT]  # type: ignore[misc]
 
 
 class Mutation(SkoleObjectType):

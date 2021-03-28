@@ -96,24 +96,6 @@ class CommentSchemaTests(SkoleSchemaTestCase):
 
         return self.execute(graphql, variables=variables, assert_error=assert_error)
 
-    def query_trending_comments(
-        self,
-        assert_error: bool = False,
-    ) -> JsonList:
-        # language=GraphQL
-        graphql = (
-            self.comment_fields
-            + """
-                query TrendingComments {
-                    trendingComments {
-                        ...commentFields
-                    }
-                }
-            """
-        )
-
-        return self.execute(graphql, assert_error=assert_error)
-
     def mutate_create_comment(
         self,
         *,
@@ -146,13 +128,14 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         *,
         id: ID,
         text: str = "",
-        image: str = "",
+        file: str = "",
+        image: str = "",°
         file_data: FileData = None,
     ) -> JsonDict:
         return self.execute_input_mutation(
             name="updateComment",
             input_type="UpdateCommentMutationInput!",
-            input={"id": id, "text": text, "image": image},
+            input={"id": id, "text": text, "file", file, "image": image},
             result="comment { ...commentFields }",
             fragment=self.comment_fields,
             file_data=file_data,
@@ -342,15 +325,3 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         assert res["pages"] == 1
         assert res["hasNext"] is False
         assert res["hasPrev"] is False
-
-    def test_trending_comments(self) -> None:
-        self.authenticated_user = None
-
-        # Test full suggestions.
-        res = self.query_trending_comments()
-        assert len(res) <= settings.TRENDING_COMMENTS_COUNT
-
-        # TODO: Test the following cases on the suggestions algorithm:
-        # - Test that the newest comments are returned.
-        # - Test that no reply comments are included.
-        # - Test that no comments with negative score are included.

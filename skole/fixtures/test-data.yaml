@@ -224,6 +224,7 @@
   fields:
     title: Test Thread 1
     text: Test thread 1 text.
+    image: uploads/attachments/test_image.png
     slug: test-thread-1
     user: 2
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -233,6 +234,7 @@
   fields:
     title: Test Thread 2
     text: Test thread 2 text.
+    image: uploads/attachments/test_image.png
     slug: test-thread-2
     user: 3
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -242,6 +244,7 @@
   fields:
     title: Test Thread 3
     text: Test thread 3 text.
+    image: uploads/attachments/test_image.png
     slug: test-thread-3
     user: 4
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -251,6 +254,7 @@
   fields:
     title: Test Thread 4
     text: Test thread 4 text.
+    image: uploads/attachments/test_image.png
     slug: test-thread-4
     user: 2
     modified: 2020-01-01 12:00:00.000000+00:00
@@ -260,6 +264,7 @@
   fields:
     title: Test Thread 5
     text: Test thread 5 text.
+    image: uploads/attachments/test_image.png
     slug: test-thread-5
     user: 3
     modified: 2020-01-01 12:00:00.000000+00:00

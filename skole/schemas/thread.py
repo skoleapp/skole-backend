@@ -39,9 +39,9 @@ def order_threads_with_secret_algorithm(qs: QuerySet[Thread]) -> QuerySet[Thread
 
 
 class ThreadObjectType(VoteMixin, StarMixin, DjangoObjectType):
-    slug = graphene.String()
     star_count = graphene.Int()
     comment_count = graphene.Int()
+    image_thumbnail = graphene.String()
 
     class Meta:
         model = Thread
@@ -49,6 +49,9 @@ class ThreadObjectType(VoteMixin, StarMixin, DjangoObjectType):
             "id",
             "slug",
             "title",
+            "text",
+            "image",
+            "image_thumbnail",
             "user",
             "comments",
             "score",
@@ -121,13 +124,14 @@ class Query(SkoleObjectType):
     )
 
     thread = graphene.Field(ThreadObjectType, slug=graphene.String())
+    trending_threads = graphene.List(ThreadObjectType)
 
     @staticmethod
     @verification_required
     def resolve_threads(
         root: None,
         info: ResolveInfo,
-        search_term: Optional[str] = None,
+        search_term: str = "",
         user: str = "",
         page: int = 1,
         page_size: int = settings.DEFAULT_PAGE_SIZE,
@@ -135,7 +139,7 @@ class Query(SkoleObjectType):
         """
         Return threads filtered by query params.
 
-        The `search_term` can be either the thread name or the thread code.
+        The `search_term` is used to search from thread title and text.
 
         Results are sorted either manually based on query params or by secret Skole AI-
         powered algorithms. If the `user` argument is passed the results will always
@@ -144,7 +148,7 @@ class Query(SkoleObjectType):
 
         qs: QuerySet[Thread] = Thread.objects.all()
 
-        if search_term is not None:
+        if search_term != "":
             qs = qs.filter(Q(title__search=search_term) | Q(text__search=search_term))
 
         if user != "":
@@ -180,6 +184,12 @@ class Query(SkoleObjectType):
         root: None, info: ResolveInfo, slug: str = ""
     ) -> Optional[Thread]:
         return Thread.objects.get_or_none(slug=slug)
+
+    @staticmethod
+    def resolve_trending_threads(root: None, info: ResolveInfo) -> QuerySet[Thread]:
+        """Return trending threads based on secret Skole AI-powered algorithms."""
+
+        return Thread.objects.filter(score__gte=0).order_by("-pk")[: settings.TRENDING_THREADS_COUNT]  # type: ignore[misc]
 
 
 class Mutation(SkoleObjectType):

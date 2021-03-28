@@ -250,8 +250,8 @@ MY_DATA_RATE_LIMIT = timedelta(seconds=5) if DEBUG else timedelta(minutes=10)
 #   and deletes all generated `myData` files older than 7 days.
 MY_DATA_FILE_AVAILABLE_FOR = timedelta(days=7)
 
-# Amount of results returned by the trending comments query.
-TRENDING_COMMENTS_COUNT = 6
+# Amount of results returned by the trending threads query.
+TRENDING_THREADS_COUNT = 20
 
 # Specs of ReferralCodes that are created for new users to share.
 REFERRAL_CODE_LENGTH = 7

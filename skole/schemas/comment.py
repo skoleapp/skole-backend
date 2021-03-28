@@ -1,5 +1,3 @@
-from typing import Optional
-
 import graphene
 from django.conf import settings
 from django.db.models import QuerySet
@@ -7,8 +5,7 @@ from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 
 from skole.forms import CreateCommentForm, DeleteCommentForm, UpdateCommentForm
-from skole.models import Comment, User
-from skole.overridden import verification_required
+from skole.models import Comment
 from skole.schemas.base import (
     SkoleCreateUpdateMutationMixin,
     SkoleDeleteMutationMixin,
@@ -22,8 +19,7 @@ from skole.utils.pagination import get_paginator
 
 class CommentObjectType(VoteMixin, DjangoObjectType):
     reply_count = graphene.Int()
-    image_thumbnail = graphene.String()
-    is_own = graphene.NonNull(graphene.Boolean)
+    attachment_thumbnail = graphene.String()
 
     class Meta:
         model = Comment
@@ -31,10 +27,11 @@ class CommentObjectType(VoteMixin, DjangoObjectType):
             "id",
             "user",
             "text",
-            "file",
-            "image",
-            "image_thumbnail",
+            "attachment",
+            "attachment_thumbnail",
             "thread",
+            "resource",
+            "school",
             "comment",
             "reply_comments",
             "reply_count",
@@ -44,30 +41,12 @@ class CommentObjectType(VoteMixin, DjangoObjectType):
         )
 
     @staticmethod
-    def resolve_user(root: Comment, info: ResolveInfo) -> Optional[User]:
-        return root.user if not root.is_anonymous else None
+    def resolve_attachment(root: Comment, info: ResolveInfo) -> str:
+        return root.attachment.url if root.attachment else ""
 
     @staticmethod
-    def resolve_is_own(root: Comment, info: ResolveInfo) -> bool:
-        """
-        Indicate which comments are owned by the current user.
-
-        If comment is an own comment, the current user is also given options to for
-        example delete it in the frontend.
-        """
-        return root.user == info.context.user
-
-    @staticmethod
-    def resolve_file(root: Comment, info: ResolveInfo) -> str:
-        return root.file.url if root.file else ""
-
-    @staticmethod
-    def resolve_image(root: Comment, info: ResolveInfo) -> str:
-        return root.image.url if root.image else ""
-
-    @staticmethod
-    def resolve_image_thumbnail(root: Comment, info: ResolveInfo) -> str:
-        return root.image_thumbnail.url if root.image_thumbnail else ""
+    def resolve_attachment_thumbnail(root: Comment, info: ResolveInfo) -> str:
+        return root.attachment_thumbnail.url if root.attachment_thumbnail else ""
 
     @staticmethod
     def resolve_reply_count(root: Comment, info: ResolveInfo) -> int:
@@ -97,7 +76,6 @@ class CreateCommentMutation(
     comments by setting the `user` field as `null`.
     """
 
-    verification_required = True
     success_message_value = Messages.MESSAGE_SENT
 
     class Meta:
@@ -110,9 +88,8 @@ class UpdateCommentMutation(
 ):
     """Update an existing comment."""
 
-    verification_required = True
+    login_required = True
     success_message_value = Messages.COMMENT_UPDATED
-
     comment = graphene.Field(CommentObjectType)
 
     class Meta:
@@ -122,7 +99,6 @@ class UpdateCommentMutation(
 class DeleteCommentMutation(SkoleDeleteMutationMixin, DjangoModelFormMutation):
     """Delete a comment."""
 
-    verification_required = True
     success_message_value = Messages.COMMENT_DELETED
 
     class Meta(SkoleDeleteMutationMixin.Meta):
@@ -137,10 +113,7 @@ class Query(SkoleObjectType):
         page_size=graphene.Int(),
     )
 
-    trending_comments = graphene.List(CommentObjectType)
-
     @staticmethod
-    @verification_required
     def resolve_comments(
         root: None,
         info: ResolveInfo,
@@ -160,12 +133,6 @@ class Query(SkoleObjectType):
             qs = qs.filter(user__slug=user)
 
         return get_paginator(qs, page_size, page, PaginatedCommentObjectType)
-
-    @staticmethod
-    def resolve_trending_comments(root: None, info: ResolveInfo) -> QuerySet[Comment]:
-        """Return trending comments based on secret Skole AI-powered algorithms."""
-
-        return Comment.objects.filter(comment=None, score__gte=0).order_by("-pk")[: settings.TRENDING_COMMENTS_COUNT]  # type: ignore[misc]
 
 
 class Mutation(SkoleObjectType):

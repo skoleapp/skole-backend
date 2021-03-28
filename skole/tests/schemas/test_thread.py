@@ -126,42 +126,6 @@ class ThreadSchemaTests(SkoleSchemaTestCase):
 
         return self.execute(graphql, variables=variables, assert_error=assert_error)
 
-    def query_suggested_threads(
-        self,
-        assert_error: bool = False,
-    ) -> JsonDict:
-        # language=GraphQL
-        graphql = (
-            self.thread_fields
-            + """
-                query SuggestedThreads {
-                    suggestedThreads {
-                        ...threadFields
-                    }
-                }
-            """
-        )
-
-        return self.execute(graphql, assert_error=assert_error)
-
-    def query_suggested_threads_preview(
-        self,
-        assert_error: bool = False,
-    ) -> JsonDict:
-        # language=GraphQL
-        graphql = (
-            self.thread_fields
-            + """
-                query SuggestedThreadsPreview {
-                    suggestedThreadsPreview {
-                        ...threadFields
-                    }
-                }
-            """
-        )
-
-        return self.execute(graphql, assert_error=assert_error)
-
     def query_thread(self, *, slug: str) -> JsonDict:
         variables = {"slug": slug}
 
@@ -178,6 +142,24 @@ class ThreadSchemaTests(SkoleSchemaTestCase):
         )
 
         return self.execute(graphql, variables=variables)
+
+    def query_trending_threads(
+        self,
+        assert_error: bool = False,
+    ) -> JsonList:
+        # language=GraphQL
+        graphql = (
+            self.comment_fields
+            + """
+                query TrendingThreads {
+                    trendingThreads {
+                        ...threadFields
+                    }
+                }
+            """
+        )
+
+        return self.execute(graphql, assert_error=assert_error)
 
     def mutate_create_thread(
         self,
@@ -352,3 +334,14 @@ class ThreadSchemaTests(SkoleSchemaTestCase):
         assert is_iso_datetime(thread["modified"])
         assert is_iso_datetime(thread["created"])
         assert self.query_thread(slug="not-found") is None
+
+    def test_trending_threads(self) -> None:
+        self.authenticated_user = None
+
+        # Test full suggestions.
+        res = self.query_trending_threads()
+        assert len(res) <= settings.TRENDING_THREADS_COUNT
+
+        # TODO: Test the following cases:
+        # - Test that the newest threads are returned.
+        # - Test that no threads with negative score are included.

@@ -263,6 +263,11 @@ type Query {
   activityPreview: [ActivityObjectType]
 }
 
+type ReferralCodeObjectType {
+  code: String!
+  usages: Int!
+}
+
 input RegisterFCMTokenMutationInput {
   token: String
   clientMutationId: String
@@ -456,6 +461,7 @@ type UserObjectType {
   rank: String
   badges: [BadgeObjectType]
   badgeProgresses: [BadgeProgressObjectType]
+  referralCodes: [ReferralCodeObjectType]
   unreadActivityCount: Int
   fcmToken: String
 }

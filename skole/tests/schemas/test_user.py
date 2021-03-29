@@ -76,6 +76,10 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
                 progress
                 steps
             }
+            referralCodes {
+                code
+                usages
+            }
         }
     """
 
@@ -549,6 +553,9 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert len(user["badges"]) == 1
         assert user["badges"][0]["name"] == "Staff"
         assert len(user["badgeProgresses"]) == 4
+        assert len(user["referralCodes"]) == 1
+        assert user["referralCodes"][0]["code"] == "TEST1"
+        assert user["referralCodes"][0]["usages"] == 2
 
         # `badgeProgresses` should be sorted by their completion percentage.
         assert user["badgeProgresses"][0]["badge"]["name"] == "First Comment"

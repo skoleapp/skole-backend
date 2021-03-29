@@ -6,10 +6,11 @@ from django.contrib.auth import get_user_model
 from django.db.models import QuerySet
 from fcm_django.models import FCMDevice
 
-from skole.models import Badge, BadgeProgress, User
+from skole.models import Badge, BadgeProgress, ReferralCode, User
 from skole.schemas.badge import BadgeObjectType
 from skole.schemas.badge_progress import BadgeProgressObjectType
 from skole.schemas.base import SkoleDjangoObjectType
+from skole.schemas.referral_code import ReferralCodeObjectType
 from skole.types import ResolveInfo
 
 T = TypeVar("T")
@@ -33,7 +34,8 @@ class UserObjectType(SkoleDjangoObjectType):
     """
     The following fields are private, meaning they are returned only if the user is
     querying one's own profile: `email`, `verified`, `badge_progresses`,
-    `selected_badge_progress` `school`, `subject`, and all `permission` fields.
+    `selected_badge_progress`, `referral_codes`, `school`, `subject`, and all
+    `permission` fields.
 
     For instances that are not the user's own user profile, these fields will return a
     `null` value.
@@ -48,6 +50,7 @@ class UserObjectType(SkoleDjangoObjectType):
     rank = graphene.String()
     badges = graphene.List(BadgeObjectType)
     badge_progresses = graphene.List(BadgeProgressObjectType)
+    referral_codes = graphene.List(ReferralCodeObjectType)
     unread_activity_count = graphene.Int()
     fcm_token = graphene.String()
     comment_reply_email_permission = graphene.Boolean()
@@ -96,6 +99,11 @@ class UserObjectType(SkoleDjangoObjectType):
         root: User, info: ResolveInfo
     ) -> QuerySet[BadgeProgress]:
         return root.get_or_create_badge_progresses()
+
+    @staticmethod
+    @private_field
+    def resolve_referral_codes(root: User, info: ResolveInfo) -> QuerySet[ReferralCode]:
+        return root.referral_codes.all()
 
     @staticmethod
     @private_field

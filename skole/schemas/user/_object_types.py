@@ -55,8 +55,10 @@ class UserObjectType(SkoleDjangoObjectType):
     fcm_token = graphene.String()
     comment_reply_email_permission = graphene.Boolean()
     thread_comment_email_permission = graphene.Boolean()
+    new_badge_email_permission = graphene.Boolean()
     comment_reply_push_permission = graphene.Boolean()
     thread_comment_push_permission = graphene.Boolean()
+    new_badge_push_permission = graphene.Boolean()
 
     class Meta:
         model = get_user_model()
@@ -78,8 +80,10 @@ class UserObjectType(SkoleDjangoObjectType):
             "fcm_token",
             "comment_reply_email_permission",
             "thread_comment_email_permission",
+            "new_badge_email_permission",
             "comment_reply_push_permission",
             "thread_comment_push_permission",
+            "new_badge_push_permission",
         )
 
     @staticmethod
@@ -150,6 +154,11 @@ class UserObjectType(SkoleDjangoObjectType):
 
     @staticmethod
     @private_field
+    def resolve_new_badge_email_permission(root: User, info: ResolveInfo) -> bool:
+        return root.new_badge_email_permission
+
+    @staticmethod
+    @private_field
     def resolve_comment_reply_push_permission(root: User, info: ResolveInfo) -> bool:
         return root.comment_reply_push_permission
 
@@ -157,3 +166,8 @@ class UserObjectType(SkoleDjangoObjectType):
     @private_field
     def resolve_thread_comment_push_permission(root: User, info: ResolveInfo) -> bool:
         return root.thread_comment_push_permission
+
+    @staticmethod
+    @private_field
+    def resolve_new_badge_push_permission(root: User, info: ResolveInfo) -> bool:
+        return root.new_badge_push_permission

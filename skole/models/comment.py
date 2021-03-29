@@ -38,8 +38,8 @@ class Comment(SkoleModel):
         null=True,  # Null only for compatibility with old anonymous comments.
         blank=True,
     )
-    is_anonymous = models.BooleanField(default=False)
 
+    is_anonymous = models.BooleanField(default=False)
     text = models.TextField(max_length=10000, blank=True)
 
     file = models.FileField(

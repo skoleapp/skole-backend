@@ -23,6 +23,9 @@ class ValidationErrors:
     EMAIL_TAKEN = _("This email is taken.")
     EMAIL_DOES_NOT_EXIST = _("The email does not belong to an account.")
     EMAIL_DOMAIN_NOT_ALLOWED = _("The email address domain is not allowed.")
+    BACKUP_EMAIL_NOT_SAME_AS_EMAIL = _(
+        "Your backup email cannot be the same as your primary email."
+    )
     ACCOUNT_DEACTIVATED = _("This account has been deactivated!")
     AUTH_ERROR = _("Invalid username/email or password.")
     SUPERUSER_LOGIN = _("Cannot log in at this time.")

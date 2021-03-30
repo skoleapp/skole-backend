@@ -369,6 +369,7 @@ type ThreadObjectType {
 
 input UpdateAccountSettingsMutationInput {
   email: String!
+  backupEmail: String
   commentReplyEmailPermission: Boolean
   threadCommentEmailPermission: Boolean
   newBadgeEmailPermission: Boolean
@@ -446,6 +447,7 @@ type UserObjectType {
   slug: String
   username: String!
   email: String
+  backupEmail: String!
   title: String!
   bio: String!
   avatar: String

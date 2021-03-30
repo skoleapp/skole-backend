@@ -386,7 +386,7 @@ class UpdateAccountSettingsMutation(
     def perform_mutate(
         cls, form: UpdateAccountSettingsForm, info: ResolveInfo
     ) -> UpdateAccountSettingsMutation:
-        if "email" in form.changed_data:
+        if form.cleaned_data["email"] != form.initial["email"]:
             form.instance.verified = False
 
         return super().perform_mutate(form, info)

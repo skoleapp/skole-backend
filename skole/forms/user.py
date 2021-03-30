@@ -4,7 +4,7 @@ from django import forms
 from django.conf import settings
 from django.contrib.auth import authenticate, get_user_model, password_validation
 from django.core.files import File
-from django.db.models import F, QuerySet
+from django.db.models import F, Q, QuerySet
 
 from skole.forms.base import SkoleForm, SkoleModelForm
 from skole.models import Badge, ReferralCode, User
@@ -39,7 +39,11 @@ class CleanUniqueEmailMixin:
                 attempt.attempts = F("attempts") + 1
                 attempt.save(update_fields=("attempts",))
 
-            if get_all_users_except(self.instance).filter(email__iexact=email).exists():  # type: ignore[attr-defined]
+            if (
+                get_all_users_except(self.instance)  # type: ignore[attr-defined]
+                .filter(Q(email__iexact=email) | Q(backup_email__iexact=email))
+                .exists()
+            ):
                 raise forms.ValidationError(ValidationErrors.EMAIL_TAKEN)
 
         return email
@@ -160,6 +164,7 @@ class UpdateAccountSettingsForm(CleanUniqueEmailMixin, SkoleModelForm):
         model = get_user_model()
         fields = (
             "email",
+            "backup_email",
             "comment_reply_email_permission",
             "thread_comment_email_permission",
             "new_badge_email_permission",
@@ -167,6 +172,28 @@ class UpdateAccountSettingsForm(CleanUniqueEmailMixin, SkoleModelForm):
             "thread_comment_push_permission",
             "new_badge_push_permission",
         )
+
+    def clean_backup_email(self) -> str:
+        backup_email = self.cleaned_data["backup_email"].lower()
+
+        if backup_email:
+            primary_email = self.cleaned_data.get("email") or self.instance.email
+
+            if backup_email == primary_email:
+                raise forms.ValidationError(
+                    ValidationErrors.BACKUP_EMAIL_NOT_SAME_AS_EMAIL
+                )
+
+            if (
+                get_all_users_except(self.instance)
+                .filter(
+                    Q(email__iexact=backup_email) | Q(backup_email__iexact=backup_email)
+                )
+                .exists()
+            ):
+                raise forms.ValidationError(ValidationErrors.EMAIL_TAKEN)
+
+        return backup_email
 
 
 class UpdateSelectedBadgeForm(SkoleModelForm):

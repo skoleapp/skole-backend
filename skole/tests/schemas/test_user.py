@@ -36,6 +36,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
             username
             slug
             email
+            backupEmail
             score
             title
             bio
@@ -146,7 +147,6 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         self,
         *,
         username: str = "testuser2",
-        email: str = "testuser2@test.test",
         title: str = "",
         bio: str = "",
         avatar: str = "uploads/avatars/test_avatar.jpg",
@@ -170,6 +170,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         self,
         *,
         email: str = "testuser2@test.test",
+        backup_email: str = "",
         comment_reply_email_permission: bool = False,
         thread_comment_email_permission: bool = False,
         new_badge_email_permission: bool = False,
@@ -182,6 +183,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
             input_type="UpdateAccountSettingsMutationInput!",
             input={
                 "email": email,
+                "backupEmail": backup_email,
                 "commentReplyEmailPermission": comment_reply_email_permission,
                 "threadCommentEmailPermission": thread_comment_email_permission,
                 "newBadgeEmailPermission": new_badge_email_permission,
@@ -659,7 +661,9 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert not res["errors"]
         assert is_slug_match(UPLOADED_AVATAR_JPG, res["user"]["avatar"])
 
-    def test_update_account_settings(self) -> None:
+    def test_update_account_settings(  # pylint: disable=too-many-statements
+        self,
+    ) -> None:
         # Fine to not change anything.
         user = self.query_user_me()
         res = self.mutate_update_account_settings()
@@ -674,14 +678,9 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         # Changing the email to the current one with different casing shouldn't do anything.
         res = self.mutate_update_account_settings(email=current_user.email.upper())
         assert not res["errors"]
+        current_user.refresh_from_db()
         assert current_user.verified
         assert current_user.email == "testuser2@test.test"
-
-        # Changing the email should unverify the user, and lowercase the email.
-        res = self.mutate_update_account_settings(email="NEWMAIL@test.test")
-        assert res["user"]["email"] == "newmail@test.test"
-        current_user.refresh_from_db()
-        assert not current_user.verified
 
         # Update some fields.
         comment_reply_email_permission = True
@@ -695,13 +694,30 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
             comment_reply_push_permission=comment_reply_push_permission,
             thread_comment_push_permission=thread_comment_push_permission,
         )
-
         assert not res["errors"]
         assert res["user"]["commentReplyEmailPermission"]
         assert res["user"]["threadCommentEmailPermission"]
         assert res["user"]["commentReplyPushPermission"]
         assert res["user"]["threadCommentPushPermission"]
         assert res["successMessage"] == Messages.ACCOUNT_SETTINGS_UPDATED
+
+        # Changing the backup email shouldn't unverify the user.
+        new_backup_email = "newbackup@test.test"
+        res = self.mutate_update_account_settings(backup_email=new_backup_email)
+        assert not res["errors"]
+        assert res["user"]["backupEmail"] == new_backup_email
+        current_user.refresh_from_db()
+        assert current_user.verified
+        assert current_user.backup_email == new_backup_email
+
+        # Changing the email should unverify the user, and lowercase the email.
+        new_mail = "newmail@test.test"
+        res = self.mutate_update_account_settings(email="NEWMAIL@test.test")
+        assert not res["errors"]
+        assert res["user"]["email"] == new_mail
+        current_user.refresh_from_db()
+        assert not current_user.verified
+        assert current_user.email == new_mail
 
         user_old = self.query_user_me()
 
@@ -720,6 +736,16 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         # Non allowed email domain.
         res = self.mutate_update_account_settings(email="email@nonallowed.test")
         assert get_form_error(res) == ValidationErrors.EMAIL_DOMAIN_NOT_ALLOWED
+
+        # Backup email cannot be the email of another user.
+        res = self.mutate_update_account_settings(backup_email="testuser3@test.test")
+        assert get_form_error(res) == ValidationErrors.EMAIL_TAKEN
+
+        # Backup email cannot be the same as primary email.
+        res = self.mutate_update_account_settings(
+            email=current_user.email, backup_email=current_user.email
+        )
+        assert get_form_error(res) == ValidationErrors.BACKUP_EMAIL_NOT_SAME_AS_EMAIL
 
         # Check that nothing has changed.
         assert self.query_user_me() == user_old

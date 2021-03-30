@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from contextlib import contextmanager
-from typing import Generator, TYPE_CHECKING
+from typing import TYPE_CHECKING, Generator
 
 import django.utils.translation
 from django.apps.registry import Apps
@@ -17,7 +17,7 @@ if TYPE_CHECKING:
 
 @contextmanager
 def dont_always_update_slug(model: type[SkoleModel]) -> Generator[None, None, None]:
-    slug_field = model._meta.get_field("slug")
+    slug_field = model._meta.get_field("slug")  # pylint: disable=protected-access
     initial = slug_field.always_update
     slug_field.always_update = False
     try:

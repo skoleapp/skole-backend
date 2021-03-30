@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from contextlib import contextmanager
-from typing import Any, TYPE_CHECKING, Generator
+from typing import TYPE_CHECKING, Any, Generator
 
 import django.utils.translation
 from django.apps.registry import Apps
@@ -12,10 +12,7 @@ from django.db import migrations
 from django.db.backends.base.schema import BaseDatabaseSchemaEditor
 
 if TYPE_CHECKING:
-    from skole.models import (
-        SkoleModel,
-        User,
-    )
+    from skole.models import SkoleModel, User
 
 
 def slug_course(self: Any) -> str:
@@ -36,7 +33,7 @@ def slug(self: Any) -> str:
 
 @contextmanager
 def dont_always_update_slug(model: type[SkoleModel]) -> Generator[None, None, None]:
-    slug_field = model._meta.get_field("slug")
+    slug_field = model._meta.get_field("slug")  # pylint: disable=protected-access
     initial = slug_field.always_update
     slug_field.always_update = False
     try:

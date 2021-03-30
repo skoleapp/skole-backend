@@ -9,55 +9,69 @@ from skole.utils.validators import ValidateFileSizeAndType
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('skole', '0030_delete_empty_courses'),
+        ("skole", "0030_delete_empty_courses"),
     ]
 
     operations = [
-        migrations.RenameModel('Course', 'Thread'),
+        migrations.RenameModel("Course", "Thread"),
         migrations.RenameField(
-            model_name='thread',
-            old_name='name',
-            new_name='title',
+            model_name="thread",
+            old_name="name",
+            new_name="title",
         ),
         migrations.RemoveField(
-            model_name='thread',
-            name='codes',
+            model_name="thread",
+            name="codes",
         ),
         migrations.AddField(
-            model_name='thread',
-            name='image',
-            field=models.ImageField(blank=True, upload_to='uploads/attachments', validators=[ValidateFileSizeAndType(settings.IMAGE_MAX_SIZE, settings.IMAGE_ALLOWED_FILETYPES)]),
+            model_name="thread",
+            name="image",
+            field=models.ImageField(
+                blank=True,
+                upload_to="uploads/attachments",
+                validators=[
+                    ValidateFileSizeAndType(
+                        settings.IMAGE_MAX_SIZE, settings.IMAGE_ALLOWED_FILETYPES
+                    )
+                ],
+            ),
         ),
         migrations.AddField(
-            model_name='thread',
-            name='text',
+            model_name="thread",
+            name="text",
             field=models.TextField(blank=True, max_length=10000),
         ),
         migrations.AlterField(
-            model_name='thread',
-            name='user',
-            field=models.ForeignKey(blank=True, null=True, on_delete=models.SET_NULL, related_name='created_threads', to=settings.AUTH_USER_MODEL),
+            model_name="thread",
+            name="user",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=models.SET_NULL,
+                related_name="created_threads",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.RemoveField(
-            model_name='thread',
-            name='school',
+            model_name="thread",
+            name="school",
         ),
         migrations.RemoveField(
-            model_name='thread',
-            name='subjects',
+            model_name="thread",
+            name="subjects",
         ),
-        migrations.RenameField('Resource', 'course', 'thread'),
-        migrations.RenameField('Comment', 'course', 'thread'),
-        migrations.RenameField('Star', 'course', 'thread'),
-        migrations.RenameField('Vote', 'course', 'thread'),
+        migrations.RenameField("Resource", "course", "thread"),
+        migrations.RenameField("Comment", "course", "thread"),
+        migrations.RenameField("Star", "course", "thread"),
+        migrations.RenameField("Vote", "course", "thread"),
         migrations.RenameField(
-            model_name='user',
-            old_name='course_comment_email_permission',
-            new_name='thread_comment_email_permission',
+            model_name="user",
+            old_name="course_comment_email_permission",
+            new_name="thread_comment_email_permission",
         ),
         migrations.RenameField(
-            model_name='user',
-            old_name='course_comment_push_permission',
-            new_name='thread_comment_push_permission',
-        )
+            model_name="user",
+            old_name="course_comment_push_permission",
+            new_name="thread_comment_push_permission",
+        ),
     ]

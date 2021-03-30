@@ -6,25 +6,25 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('skole', '0027_vote_star_modified_created'),
+        ("skole", "0027_vote_star_modified_created"),
     ]
 
     operations = [
         migrations.DeleteModel(
-            name='EmailSubscription',
+            name="EmailSubscription",
         ),
         migrations.RemoveField(
-            model_name='user',
-            name='blog_post_email_permission',
+            model_name="user",
+            name="blog_post_email_permission",
         ),
         migrations.RemoveField(
-            model_name='user',
-            name='product_update_email_permission',
+            model_name="user",
+            name="product_update_email_permission",
         ),
         migrations.DeleteModel(
-            name='MarketingEmail',
+            name="MarketingEmail",
         ),
         migrations.DeleteModel(
-            name='MarketingEmailSender',
+            name="MarketingEmailSender",
         ),
     ]

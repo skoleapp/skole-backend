@@ -6,18 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('skole', '0008_remove_course_code'),
+        ("skole", "0008_remove_course_code"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='user',
-            name='blog_post_email_permission',
+            model_name="user",
+            name="blog_post_email_permission",
             field=models.BooleanField(default=True),
         ),
         migrations.AddField(
-            model_name='user',
-            name='product_update_email_permission',
+            model_name="user",
+            name="product_update_email_permission",
             field=models.BooleanField(default=True),
         ),
     ]

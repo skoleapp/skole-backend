@@ -6,28 +6,28 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('skole', '0024_badge_made_available'),
+        ("skole", "0024_badge_made_available"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='user',
-            name='comment_reply_email_permission',
+            model_name="user",
+            name="comment_reply_email_permission",
             field=models.BooleanField(default=False),
         ),
         migrations.AlterField(
-            model_name='user',
-            name='course_comment_email_permission',
+            model_name="user",
+            name="course_comment_email_permission",
             field=models.BooleanField(default=False),
         ),
         migrations.AlterField(
-            model_name='user',
-            name='new_badge_email_permission',
+            model_name="user",
+            name="new_badge_email_permission",
             field=models.BooleanField(default=False),
         ),
         migrations.AlterField(
-            model_name='user',
-            name='resource_comment_email_permission',
+            model_name="user",
+            name="resource_comment_email_permission",
             field=models.BooleanField(default=False),
         ),
     ]

@@ -24,7 +24,9 @@ def forwards_func(apps: Apps, schema_editor: BaseDatabaseSchemaEditor) -> None:
             user=resource.user,
         )
 
-        Comment.objects.filter(pk__in=resource.comments.values("reply_comments")).update(comment=created_comment)
+        Comment.objects.filter(
+            pk__in=resource.comments.values("reply_comments")
+        ).update(comment=created_comment)
         resource.comments.update(resource=None, comment=created_comment)
         # No need to delete the resources now, we'll drop the whole model in the next
         # migration.

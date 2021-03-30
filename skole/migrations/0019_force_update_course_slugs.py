@@ -2,7 +2,7 @@
 # Manually edited to add the `forwards_func`.
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import Any
 
 import django.utils.translation
 from django.apps.registry import Apps
@@ -10,12 +10,8 @@ from django.conf import settings
 from django.db import migrations
 from django.db.backends.base.schema import BaseDatabaseSchemaEditor
 
-if TYPE_CHECKING:  # pragma: no cover
-    # Ignore: The model does not exist anymore.
-    from skole.models import Course  # type: ignore[attr-defined]
 
-
-def slugify_course(self: Course) -> str:
+def slugify_course(self: Any) -> str:
     """Replicates `Course.__str__` which cannot be used during migrations."""
     return f"{self.name} ({', '.join(self.codes)})" if self.codes else self.name
 

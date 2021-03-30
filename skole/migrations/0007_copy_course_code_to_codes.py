@@ -22,9 +22,7 @@ def backwards_func(apps: Apps, schema_editor: BaseDatabaseSchemaEditor) -> None:
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('skole', '0006_add_course_codes'),
+        ("skole", "0006_add_course_codes"),
     ]
 
-    operations = [
-        migrations.RunPython(code=forwards_func, reverse_code=backwards_func)
-    ]
+    operations = [migrations.RunPython(code=forwards_func, reverse_code=backwards_func)]

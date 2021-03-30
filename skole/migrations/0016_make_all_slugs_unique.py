@@ -7,18 +7,32 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('skole', '0015_add_school_to_activity'),
+        ("skole", "0015_add_school_to_activity"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='resource',
-            name='slug',
-            field=autoslug.fields.AutoSlugField(always_update=True, default=None, editable=False, null=True, populate_from='__str__', unique=True),
+            model_name="resource",
+            name="slug",
+            field=autoslug.fields.AutoSlugField(
+                always_update=True,
+                default=None,
+                editable=False,
+                null=True,
+                populate_from="__str__",
+                unique=True,
+            ),
         ),
         migrations.AlterField(
-            model_name='user',
-            name='slug',
-            field=autoslug.fields.AutoSlugField(always_update=True, default=None, editable=False, null=True, populate_from='username', unique=True),
+            model_name="user",
+            name="slug",
+            field=autoslug.fields.AutoSlugField(
+                always_update=True,
+                default=None,
+                editable=False,
+                null=True,
+                populate_from="username",
+                unique=True,
+            ),
         ),
     ]

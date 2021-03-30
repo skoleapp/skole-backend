@@ -135,8 +135,8 @@ class MutationErrors:
 
 
 class VoteConstants:
-    SCORE_THREAD_MULTIPLIER = 5
-    SCORE_COMMENT_MULTIPLIER = 1
+    SCORE_THREAD_MULTIPLIER = 20
+    SCORE_COMMENT_MULTIPLIER = 10
 
     STATUS = (
         (1, "upvote"),

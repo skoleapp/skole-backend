@@ -7,48 +7,96 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('skole', '0017_force_null_course_slugs'),
+        ("skole", "0017_force_null_course_slugs"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='city',
-            name='slug',
-            field=autoslug.fields.AutoSlugField(default=None, editable=False, null=True, populate_from='__str__', unique=True),
+            model_name="city",
+            name="slug",
+            field=autoslug.fields.AutoSlugField(
+                default=None,
+                editable=False,
+                null=True,
+                populate_from="__str__",
+                unique=True,
+            ),
         ),
         migrations.AlterField(
-            model_name='country',
-            name='slug',
-            field=autoslug.fields.AutoSlugField(default=None, editable=False, null=True, populate_from='__str__', unique=True),
+            model_name="country",
+            name="slug",
+            field=autoslug.fields.AutoSlugField(
+                default=None,
+                editable=False,
+                null=True,
+                populate_from="__str__",
+                unique=True,
+            ),
         ),
         migrations.AlterField(
-            model_name='course',
-            name='slug',
-            field=autoslug.fields.AutoSlugField(default=None, editable=False, null=True, populate_from='__str__', unique=True),
+            model_name="course",
+            name="slug",
+            field=autoslug.fields.AutoSlugField(
+                default=None,
+                editable=False,
+                null=True,
+                populate_from="__str__",
+                unique=True,
+            ),
         ),
         migrations.AlterField(
-            model_name='resource',
-            name='slug',
-            field=autoslug.fields.AutoSlugField(default=None, editable=False, null=True, populate_from='__str__', unique=True),
+            model_name="resource",
+            name="slug",
+            field=autoslug.fields.AutoSlugField(
+                default=None,
+                editable=False,
+                null=True,
+                populate_from="__str__",
+                unique=True,
+            ),
         ),
         migrations.AlterField(
-            model_name='resourcetype',
-            name='slug',
-            field=autoslug.fields.AutoSlugField(default=None, editable=False, null=True, populate_from='__str__', unique=True),
+            model_name="resourcetype",
+            name="slug",
+            field=autoslug.fields.AutoSlugField(
+                default=None,
+                editable=False,
+                null=True,
+                populate_from="__str__",
+                unique=True,
+            ),
         ),
         migrations.AlterField(
-            model_name='school',
-            name='slug',
-            field=autoslug.fields.AutoSlugField(default=None, editable=False, null=True, populate_from='__str__', unique=True),
+            model_name="school",
+            name="slug",
+            field=autoslug.fields.AutoSlugField(
+                default=None,
+                editable=False,
+                null=True,
+                populate_from="__str__",
+                unique=True,
+            ),
         ),
         migrations.AlterField(
-            model_name='schooltype',
-            name='slug',
-            field=autoslug.fields.AutoSlugField(default=None, editable=False, null=True, populate_from='__str__', unique=True),
+            model_name="schooltype",
+            name="slug",
+            field=autoslug.fields.AutoSlugField(
+                default=None,
+                editable=False,
+                null=True,
+                populate_from="__str__",
+                unique=True,
+            ),
         ),
         migrations.AlterField(
-            model_name='subject',
-            name='slug',
-            field=autoslug.fields.AutoSlugField(default=None, editable=False, null=True, populate_from='__str__', unique=True),
+            model_name="subject",
+            name="slug",
+            field=autoslug.fields.AutoSlugField(
+                default=None,
+                editable=False,
+                null=True,
+                populate_from="__str__",
+                unique=True,
+            ),
         ),
     ]

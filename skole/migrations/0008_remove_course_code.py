@@ -7,17 +7,24 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('skole', '0007_copy_course_code_to_codes'),
+        ("skole", "0007_copy_course_code_to_codes"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='course',
-            name='code',
+            model_name="course",
+            name="code",
         ),
         migrations.AlterField(
-            model_name='course',
-            name='slug',
-            field=autoslug.fields.AutoSlugField(always_update=True, default=None, editable=False, null=True, populate_from='__str__', unique_with=('name', 'codes')),
+            model_name="course",
+            name="slug",
+            field=autoslug.fields.AutoSlugField(
+                always_update=True,
+                default=None,
+                editable=False,
+                null=True,
+                populate_from="__str__",
+                unique_with=("name", "codes"),
+            ),
         ),
     ]

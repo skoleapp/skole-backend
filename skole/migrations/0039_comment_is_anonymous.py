@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('skole', '0038_massive_model_delete'),
+        ("skole", "0038_massive_model_delete"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='comment',
-            name='is_anonymous',
+            model_name="comment",
+            name="is_anonymous",
             field=models.BooleanField(default=False),
         ),
     ]

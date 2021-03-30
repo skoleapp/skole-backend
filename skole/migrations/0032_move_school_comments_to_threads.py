@@ -19,7 +19,7 @@ def forwards_func(apps: Apps, schema_editor: BaseDatabaseSchemaEditor) -> None:
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('skole', '0031_rename_course_to_thread'),
+        ("skole", "0031_rename_course_to_thread"),
     ]
 
     operations = [

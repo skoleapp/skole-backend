@@ -6,20 +6,20 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('skole', '0021_add_push_notifications'),
+        ("skole", "0021_add_push_notifications"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='activity',
-            name='course',
+            model_name="activity",
+            name="course",
         ),
         migrations.RemoveField(
-            model_name='activity',
-            name='resource',
+            model_name="activity",
+            name="resource",
         ),
         migrations.RemoveField(
-            model_name='activity',
-            name='school',
+            model_name="activity",
+            name="school",
         ),
     ]

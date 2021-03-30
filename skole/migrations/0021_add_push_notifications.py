@@ -6,23 +6,23 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('skole', '0020_add_badge_progress'),
+        ("skole", "0020_add_badge_progress"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='user',
-            name='comment_reply_push_permission',
+            model_name="user",
+            name="comment_reply_push_permission",
             field=models.BooleanField(default=True),
         ),
         migrations.AddField(
-            model_name='user',
-            name='course_comment_push_permission',
+            model_name="user",
+            name="course_comment_push_permission",
             field=models.BooleanField(default=True),
         ),
         migrations.AddField(
-            model_name='user',
-            name='resource_comment_push_permission',
+            model_name="user",
+            name="resource_comment_push_permission",
             field=models.BooleanField(default=True),
         ),
     ]

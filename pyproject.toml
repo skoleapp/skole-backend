@@ -55,19 +55,11 @@ omit = [
 ]
 
 
-[tool.black]
-exclude = "migrations/.*"
-
-
 [tool.isort]
-include_trailing_comma = true
-line_length = 88
-multi_line_output = 3  # Use a vertical hanging indent.
-skip_glob = "*/migrations/*"
+profile = "black"
 
 
 [tool.pylint.master]
-ignore = "migrations"
 jobs = 0  # Use 1 process per CPU core.
 
 [tool.pylint.messages_control]

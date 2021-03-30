@@ -4,6 +4,7 @@ from typing import Any, Callable, Optional, TypeVar
 from django.contrib.sessions.middleware import SessionMiddleware
 from django.http import HttpRequest, HttpResponse
 
+from skole.models import DailyVisit
 from skole.types import ResolveInfo
 
 
@@ -35,6 +36,19 @@ class SkoleSessionMiddleware(SessionMiddleware):
         if request.path == "/graphql/":
             return response
         return super().process_response(request, response)
+
+
+class TrackVisitsMiddleware:
+    """Middleware that tracks the amount of visits a user has done in a day."""
+
+    def __init__(self, get_response: Callable[[HttpRequest], HttpResponse]) -> None:
+        self.get_response = get_response
+
+    def __call__(self, request: HttpRequest) -> HttpResponse:
+        response = self.get_response(request)
+        if request.path == "/graphql/" and request.user.is_authenticated:
+            DailyVisit.objects.update_daily_visits(user=request.user)
+        return response
 
 
 T = TypeVar("T")

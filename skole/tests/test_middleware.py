@@ -2,6 +2,7 @@ import graphene_django.views
 from django.conf import settings
 from django.test import override_settings
 
+from skole.models import DailyVisit
 from skole.tests.helpers import SkoleSchemaTestCase, reload_module
 
 
@@ -18,7 +19,7 @@ class MiddlewareTests(SkoleSchemaTestCase):
         }
     """
     # language=GraphQL
-    normal_query = """
+    user_query = """
         query User($slug: String) {
             user(slug: $slug) {
                 slug
@@ -48,7 +49,7 @@ class MiddlewareTests(SkoleSchemaTestCase):
                 assert isinstance(res["types"][0]["name"], str)
 
                 slug = "testuser2"
-                res = self.execute(self.normal_query, variables={"slug": slug})
+                res = self.execute(self.user_query, variables={"slug": slug})
                 assert res["slug"] == slug
 
     def test_introspection_disabled(self) -> None:
@@ -62,5 +63,17 @@ class MiddlewareTests(SkoleSchemaTestCase):
 
                 # Fine to make a query which doesn't introspect the schema.
                 slug = "testuser2"
-                res = self.execute(self.normal_query, variables={"slug": slug})
+                res = self.execute(self.user_query, variables={"slug": slug})
                 assert res["slug"] == slug
+
+    def test_track_visits_middleware(self) -> None:
+        self.authenticated_user = 2
+        user = self.get_authenticated_user()
+        assert DailyVisit.objects.filter(user__pk=user.pk).count() == 0
+
+        self.execute(self.user_query, variables={"slug": user.slug})
+        self.execute(self.user_query, variables={"slug": user.slug})
+        self.execute(self.user_query, variables={"slug": user.slug})
+        assert DailyVisit.objects.filter(user__pk=user.pk).count() == 1
+        visit = DailyVisit.objects.get(user__pk=user.pk)
+        assert visit.visits == 3

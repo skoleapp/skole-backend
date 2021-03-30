@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import datetime
 import functools
 import io
 import itertools
@@ -7,7 +8,7 @@ import json
 import math
 import zipfile
 from pathlib import Path
-from typing import Any, cast
+from typing import TYPE_CHECKING, Any, Optional, cast
 
 import graphene
 from django.conf import settings
@@ -23,13 +24,29 @@ from django.utils import timezone, translation
 from django.utils.html import strip_tags
 from graphene_django.types import ErrorType
 
-from skole.models import Activity, Badge, Comment, SkoleModel, Star, Thread, User, Vote
+from skole.models import (
+    Activity,
+    Badge,
+    Comment,
+    DailyVisit,
+    SkoleModel,
+    Star,
+    Thread,
+    User,
+    Vote,
+)
 from skole.overridden import login_required
 from skole.schemas.base import SkoleObjectType
 from skole.types import JsonList, ResolveInfo
 from skole.utils.constants import Messages, MutationErrors, Notifications, VoteConstants
 from skole.utils.files import override_s3_file_age
 from skole.utils.shortcuts import format_form_error
+
+if TYPE_CHECKING:
+    # https://stackoverflow.com/a/63520010/9835872
+    from django.db.models.query import (  # pylint: disable=no-name-in-module
+        ValuesQuerySet,
+    )
 
 
 class DjangoQuerySetJSONEncoder(DjangoJSONEncoder):
@@ -86,6 +103,8 @@ class MyDataMutation(SkoleObjectType, graphene.Mutation):
                 "created": user.created,
                 "last_my_data_query": user.last_my_data_query,
                 # Related models
+                "last_visit": cls._last_visit(user),
+                "daily_visits": cls._daily_visits(user),
                 "created_comments": cls._created_comments(user),
                 "created_threads": cls._created_threads(user),
                 "badges": cls._badges(user),
@@ -107,53 +126,50 @@ class MyDataMutation(SkoleObjectType, graphene.Mutation):
         return cls(success_message=Messages.DATA_REQUEST_RECEIVED)
 
     @classmethod
-    def _created_comments(cls, user: User) -> QuerySet[Comment]:
-        return (
-            user.comments.annotate(target=cls.__target_case(Comment))
-            .annotate(uploaded_file=cls.__file_case("file"))
-            .annotate(uploaded_image=cls.__file_case("image"))
-            .values(
-                "id",
-                "text",
-                "target",
-                "uploaded_file",
-                "uploaded_image",
-                "modified",
-                "created",
-            )
+    def _created_comments(cls, user: User) -> ValuesQuerySet[Comment, Any]:
+        return user.comments.values(
+            "id",
+            "text",
+            "modified",
+            "created",
+            target=cls.__target_case(Comment),
+            uploaded_file=cls.__file_case("file"),
+            uploaded_image=cls.__file_case("image"),
         )
 
     @classmethod
-    def _created_threads(cls, user: User) -> QuerySet[Thread]:
-        return user.created_threads.annotate(
-            uploaded_image=cls.__file_case("image"),
-        ).values(
+    def _created_threads(cls, user: User) -> ValuesQuerySet[Thread, Any]:
+        return user.created_threads.values(
             "id",
             "title",
             "text",
-            "uploaded_image",
             "modified",
             "created",
+            uploaded_image=cls.__file_case("image"),
         )
 
     @classmethod
-    def _activities(cls, user: User) -> QuerySet[Activity]:
-        return user.activities.annotate(target=cls.__target_case(Activity)).values(
+    def _activities(cls, user: User) -> ValuesQuerySet[Activity, Any]:
+        return user.activities.values(
             "id",
             "read",
-            "target",
+            target=cls.__target_case(Activity),
             type=cls.__activity_type_name(),
         )
 
     @classmethod
-    def _caused_activities(cls, user: User) -> QuerySet[Activity]:
-        return user.caused_activities.annotate(
+    def _caused_activities(cls, user: User) -> ValuesQuerySet[Activity, Any]:
+        return user.caused_activities.values(
+            "id",
+            "read",
+            type=cls.__activity_type_name(),
             target=cls.__target_case(Activity),
-        ).values("id", "read", "target", type=cls.__activity_type_name())
+        )
 
     @classmethod
-    def _votes(cls, user: User) -> QuerySet[Vote]:
-        return user.votes.annotate(
+    def _votes(cls, user: User) -> ValuesQuerySet[Vote, Any]:
+        return user.votes.values(
+            "id",
             target=cls.__target_case(Vote),
             vote=Case(
                 *(
@@ -162,7 +178,7 @@ class MyDataMutation(SkoleObjectType, graphene.Mutation):
                 ),
                 output_field=CharField(),
             ),
-        ).values("id", "vote", "target")
+        )
 
     @classmethod
     def _stars(cls, user: User) -> QuerySet[Star]:
@@ -214,6 +230,21 @@ class MyDataMutation(SkoleObjectType, graphene.Mutation):
             )
             if file
         }
+
+    @staticmethod
+    def _last_visit(user: User) -> Optional[datetime.datetime]:
+        return (
+            DailyVisit.objects.filter(user=user)
+            .order_by("pk")
+            .values_list("last_visit", flat=True)
+            .last()
+        )
+
+    @staticmethod
+    def _daily_visits(user: User) -> ValuesQuerySet[DailyVisit, Any]:
+        return (
+            DailyVisit.objects.filter(user=user).order_by("pk").values("date", "visits")
+        )
 
     @classmethod
     def __create_zip(cls, user: User, json_data: str, request: HttpRequest) -> str:

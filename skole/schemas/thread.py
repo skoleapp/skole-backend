@@ -1,4 +1,4 @@
-from typing import Optional, cast
+from typing import Literal, Optional, cast
 
 import graphene
 from django.conf import settings
@@ -120,6 +120,7 @@ class Query(SkoleObjectType):
         PaginatedThreadObjectType,
         search_term=graphene.String(),
         user=graphene.String(),
+        ordering=graphene.String(),
         page=graphene.Int(),
         page_size=graphene.Int(),
     )
@@ -131,7 +132,6 @@ class Query(SkoleObjectType):
     )
 
     thread = graphene.Field(ThreadObjectType, slug=graphene.String())
-    trending_threads = graphene.List(ThreadObjectType)
 
     @staticmethod
     @verification_required
@@ -140,6 +140,7 @@ class Query(SkoleObjectType):
         info: ResolveInfo,
         search_term: str = "",
         user: str = "",
+        ordering: Literal["best", "newest"] = "best",
         page: int = 1,
         page_size: int = settings.DEFAULT_PAGE_SIZE,
     ) -> PaginatedThreadObjectType:
@@ -161,6 +162,10 @@ class Query(SkoleObjectType):
         if user != "":
             # Just show these chronologically when querying in a user profile.
             qs = qs.filter(user__slug=user).order_by("-pk")
+
+        if ordering == "newest":
+            qs = qs.order_by("-pk")
+
         else:
             qs = order_threads_with_secret_algorithm(qs)
 
@@ -191,12 +196,6 @@ class Query(SkoleObjectType):
         root: None, info: ResolveInfo, slug: str = ""
     ) -> Optional[Thread]:
         return Thread.objects.get_or_none(slug=slug)
-
-    @staticmethod
-    def resolve_trending_threads(root: None, info: ResolveInfo) -> QuerySet[Thread]:
-        """Return trending threads based on secret Skole AI-powered algorithms."""
-
-        return Thread.objects.filter(score__gte=0).order_by("-pk")[: settings.TRENDING_THREADS_COUNT]  # type: ignore[misc]
 
 
 class Mutation(SkoleObjectType):

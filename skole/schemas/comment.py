@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Literal, Optional
 
 import graphene
 from django.conf import settings
@@ -135,6 +135,7 @@ class Query(SkoleObjectType):
         PaginatedCommentObjectType,
         user=graphene.String(),
         thread=graphene.String(),
+        ordering=graphene.String(),
         page=graphene.Int(),
         page_size=graphene.Int(),
     )
@@ -146,22 +147,30 @@ class Query(SkoleObjectType):
         info: ResolveInfo,
         user: str = "",
         thread: str = "",
+        ordering: Literal["best", "newest"] = "best",
         page: int = 1,
         page_size: int = settings.DEFAULT_PAGE_SIZE,
     ) -> PaginatedCommentObjectType:
         """
         Return comments filtered by query params.
 
+        The `search_term` is used to search from comment creator usernames and comment text.
+
         Results are sorted by creation time.
         """
 
-        qs: QuerySet[Comment] = Comment.objects.order_by("-pk")
+        qs: QuerySet[Comment] = Comment.objects.all()
 
         if user != "":
             qs = qs.filter(user__slug=user)
 
         if thread != "":
             qs = qs.filter(thread__slug=thread)
+
+        if ordering == "best":
+            qs = qs.order_by("-score")
+        elif ordering == "newest":
+            qs = qs.order_by("-pk")
 
         return get_paginator(qs, page_size, page, PaginatedCommentObjectType)
 

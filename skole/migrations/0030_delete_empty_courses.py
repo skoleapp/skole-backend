@@ -21,4 +21,3 @@ class Migration(migrations.Migration):
             code=forwards_func, reverse_code=migrations.RunPython.noop
         ),
     ]
-

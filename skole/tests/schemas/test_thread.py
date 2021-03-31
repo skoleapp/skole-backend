@@ -46,6 +46,7 @@ class ThreadSchemaTests(SkoleSchemaTestCase):
         *,
         search_term: Optional[str] = None,
         user: str = "",
+        ordering: str = "best",
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         assert_error: bool = False,
@@ -53,6 +54,7 @@ class ThreadSchemaTests(SkoleSchemaTestCase):
         variables = {
             "searchTerm": search_term,
             "user": user,
+            "ordering": ordering,
             "page": page,
             "pageSize": page_size,
         }
@@ -64,12 +66,14 @@ class ThreadSchemaTests(SkoleSchemaTestCase):
             query Threads (
                 $searchTerm: String,
                 $user: String,
+                $ordering: String,
                 $page: Int,
                 $pageSize: Int,
             ) {
                 threads(
                     searchTerm: $searchTerm,
                     user: $user,
+                    ordering: $ordering,
                     page: $page,
                     pageSize: $pageSize,
                 ) {
@@ -142,24 +146,6 @@ class ThreadSchemaTests(SkoleSchemaTestCase):
         )
 
         return self.execute(graphql, variables=variables)
-
-    def query_trending_threads(
-        self,
-        assert_error: bool = False,
-    ) -> JsonList:
-        # language=GraphQL
-        graphql = (
-            self.comment_fields
-            + """
-                query TrendingThreads {
-                    trendingThreads {
-                        ...threadFields
-                    }
-                }
-            """
-        )
-
-        return self.execute(graphql, assert_error=assert_error)
 
     def mutate_create_thread(
         self,
@@ -297,6 +283,8 @@ class ThreadSchemaTests(SkoleSchemaTestCase):
         assert len(res["objects"]) == 0
         assert res["count"] == 0
 
+        # TODO: Test ordering.
+
     def test_starred_threads(self) -> None:
         res = self.query_starred_threads()
         assert len(res["objects"])
@@ -334,14 +322,3 @@ class ThreadSchemaTests(SkoleSchemaTestCase):
         assert is_iso_datetime(thread["modified"])
         assert is_iso_datetime(thread["created"])
         assert self.query_thread(slug="not-found") is None
-
-    def test_trending_threads(self) -> None:
-        self.authenticated_user = None
-
-        # Test full suggestions.
-        res = self.query_trending_threads()
-        assert len(res) <= settings.TRENDING_THREADS_COUNT
-
-        # TODO: Test the following cases:
-        # - Test that the newest threads are returned.
-        # - Test that no threads with negative score are included.

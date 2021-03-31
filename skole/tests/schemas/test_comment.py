@@ -57,12 +57,16 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         self,
         *,
         user: str = "",
+        thread: str = "",
+        ordering: str = "best",
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         assert_error: bool = False,
     ) -> JsonDict:
         variables = {
             "user": user,
+            "thread": thread,
+            "ordering": ordering,
             "page": page,
             "pageSize": page_size,
         }
@@ -73,11 +77,15 @@ class CommentSchemaTests(SkoleSchemaTestCase):
             + """
                 query Comments (
                     $user: String,
+                    $thread: String,
+                    $ordering: String,
                     $page: Int,
                     $pageSize: Int
                 ) {
                     comments (
                         user: $user,
+                        thread: $thread,
+                        ordering: $ordering,
                         page: $page,
                         pageSize: $pageSize
                     ) {
@@ -135,7 +143,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         return self.execute_input_mutation(
             name="updateComment",
             input_type="UpdateCommentMutationInput!",
-            input={"id": id, "text": text, "file", file, "image": image},
+            input={"id": id, "text": text, "file": file, "image": image},
             result="comment { ...commentFields }",
             fragment=self.comment_fields,
             file_data=file_data,
@@ -325,3 +333,6 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         assert res["pages"] == 1
         assert res["hasNext"] is False
         assert res["hasPrev"] is False
+
+        # TODO: Test thread comments.
+        # TODO: Test ordering.

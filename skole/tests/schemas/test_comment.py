@@ -137,7 +137,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         id: ID,
         text: str = "",
         file: str = "",
-        image: str = "",°
+        image: str = "",
         file_data: FileData = None,
     ) -> JsonDict:
         return self.execute_input_mutation(

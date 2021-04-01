@@ -45,12 +45,16 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
             created
             verified
             rank
+            threadCount
+            commentCount
             unreadActivityCount
             fcmToken
             commentReplyEmailPermission
             threadCommentEmailPermission
+            newBadgeEmailPermission
             commentReplyPushPermission
             threadCommentPushPermission
+            newBadgePushPermission
             badges {
                 id
                 name
@@ -516,6 +520,8 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert user1["email"] == "testuser2@test.test"
         assert user1["verified"]
         assert user1["rank"] == "Freshman"
+        assert user1["threadCount"] == 3
+        assert user1["commentCount"] == 14
         assert user1["unreadActivityCount"] == 3
         assert user1["fcmToken"] is None
         assert len(user1["badges"]) == 1
@@ -532,6 +538,8 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert user2["username"] == "testuser3"
         assert user2["slug"] == slug
         assert user2["rank"] == "Tutor"
+        assert user1["threadCount"] == 3
+        assert user1["commentCount"] == 14
         assert len(user2["badges"]) == 0
         assert user2["badgeProgresses"] is None  # Private field.
         assert user2["unreadActivityCount"] is None  # Private field.
@@ -550,6 +558,8 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert user["email"] == "testuser2@test.test"
         assert user["verified"]
         assert user["rank"] == "Freshman"
+        assert user["threadCount"] == 3
+        assert user["commentCount"] == 14
         assert user["unreadActivityCount"] == 3
         assert user["fcmToken"] is None
         assert len(user["badges"]) == 1
@@ -685,20 +695,26 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         # Update some fields.
         comment_reply_email_permission = True
         thread_comment_email_permission = True
+        new_badge_email_permission = True
         comment_reply_push_permission = True
         thread_comment_push_permission = True
+        new_badge_push_permission = True
 
         res = self.mutate_update_account_settings(
             comment_reply_email_permission=comment_reply_email_permission,
             thread_comment_email_permission=thread_comment_email_permission,
+            new_badge_email_permission=new_badge_email_permission,
             comment_reply_push_permission=comment_reply_push_permission,
             thread_comment_push_permission=thread_comment_push_permission,
+            new_badge_push_permission=new_badge_push_permission,
         )
         assert not res["errors"]
         assert res["user"]["commentReplyEmailPermission"]
         assert res["user"]["threadCommentEmailPermission"]
+        assert res["user"]["newBadgeEmailPermission"]
         assert res["user"]["commentReplyPushPermission"]
         assert res["user"]["threadCommentPushPermission"]
+        assert res["user"]["newBadgePushPermission"]
         assert res["successMessage"] == Messages.ACCOUNT_SETTINGS_UPDATED
 
         # Changing the backup email shouldn't unverify the user.

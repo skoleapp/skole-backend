@@ -44,6 +44,8 @@ class UserObjectType(SkoleDjangoObjectType):
     slug = graphene.String()
     email = graphene.String()
     score = graphene.Int()
+    thread_count = graphene.Int()
+    comment_count = graphene.Int()
     avatar = graphene.String()
     avatar_thumbnail = graphene.String()
     verified = graphene.Boolean()
@@ -69,12 +71,16 @@ class UserObjectType(SkoleDjangoObjectType):
             "email",
             "backup_email",
             "score",
+            "thread_count",
+            "comment_count",
             "title",
             "bio",
             "avatar",
             "avatar_thumbnail",
             "created",
             "verified",
+            "thread_count",
+            "comment_count",
             "selected_badge_progress",
             "unread_activity_count",
             "fcm_token",
@@ -85,6 +91,14 @@ class UserObjectType(SkoleDjangoObjectType):
             "thread_comment_push_permission",
             "new_badge_push_permission",
         )
+
+    @staticmethod
+    def resolve_thread_count(root: User, info: ResolveInfo) -> int:
+        return getattr(root, "thread_count", 0)
+
+    @staticmethod
+    def resolve_comment_count(root: User, info: ResolveInfo) -> int:
+        return getattr(root, "comment_count", 0)
 
     @staticmethod
     def resolve_avatar(root: User, info: ResolveInfo) -> str:

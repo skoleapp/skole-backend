@@ -33,7 +33,7 @@ def send_comment_push_notification(activity: Activity) -> None:
     activity_type = activity.activity_type
     activity_type.set_current_language(settings.LANGUAGE_CODE)
     title = Notifications.COMMENT_PUSH_NOTIFICATION_TITLE
-    body = f"{causing_username} {activity_type.description}."
+    body = f"{causing_username} {activity_type.description}"
 
     data = {
         "activity": activity.pk,

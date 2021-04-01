@@ -751,37 +751,37 @@
   fields:
     master: 1
     language_code: en
-    description: replied to your comment
+    description: replied to your comment.
 - model: skole.ActivityTypeTranslation
   pk: 2
   fields:
     master: 1
     language_code: fi
-    description: vastasi kommenttiisi
+    description: vastasi kommenttiisi.
 - model: skole.ActivityTypeTranslation
   pk: 3
   fields:
     master: 1
     language_code: sv
-    description: svarade på din kommentar
+    description: svarade på din kommentar.
 - model: skole.ActivityTypeTranslation
   pk: 4
   fields:
     master: 2
     language_code: en
-    description: commented on your thread
+    description: commented on your thread.
 - model: skole.ActivityTypeTranslation
   pk: 5
   fields:
     master: 2
     language_code: fi
-    description: kommentoi kurssiasi
+    description: kommentoi kurssiasi.
 - model: skole.ActivityTypeTranslation
   pk: 6
   fields:
     master: 2
     language_code: sv
-    description: kommenterade din kurs
+    description: kommenterade din kurs.
 - model: skole.ActivityTypeTranslation
   pk: 7
   fields:

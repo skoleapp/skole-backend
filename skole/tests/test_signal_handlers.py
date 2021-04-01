@@ -4,7 +4,6 @@ from django.contrib.auth import get_user_model
 from django.core import mail
 
 from skole.models import Activity, BadgeProgress, Comment, Thread, User
-from skole.utils.constants import Notifications
 
 
 @pytest.mark.django_db
@@ -102,9 +101,7 @@ def test_comment_email_notifications() -> None:
     assert sent.from_email == settings.EMAIL_ADDRESS
     assert sent.to == [activity.user.email]
 
-    assert sent.subject == Notifications.COMMENT_EMAIL_NOTIFICATION_SUBJECT.format(
-        Notifications.COMMUNITY_USER, activity.activity_type.description
-    )
+    assert sent.subject == "Community User commented on your thread in Skole"
 
     # Test that email notifications are sent for comment replies.
 
@@ -118,9 +115,7 @@ def test_comment_email_notifications() -> None:
     assert sent.from_email == settings.EMAIL_ADDRESS
     assert sent.to == [activity.user.email]
 
-    assert sent.subject == Notifications.COMMENT_EMAIL_NOTIFICATION_SUBJECT.format(
-        Notifications.COMMUNITY_USER, activity.activity_type.description
-    )
+    assert sent.subject == "Community User replied to your comment in Skole"
 
     # Test that email notifications are not sent without permission.
 

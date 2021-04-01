@@ -7,7 +7,7 @@ from skole.models import ActivityType
 def test_clear_cache_setup() -> None:
     a = ActivityType.objects.get(pk=1)
     assert a.identifier == "comment_reply"
-    assert a.description == "replied to your comment"
+    assert a.description == "replied to your comment."
     a.identifier = "new identifier"
     a.description = "new description"
     a.save()
@@ -23,4 +23,4 @@ def test_clear_cache_test() -> None:
     assert a.identifier == "comment_reply"
 
     # Would fetch "new description" from cache and fail on this line.
-    assert a.description == "replied to your comment"
+    assert a.description == "replied to your comment."

@@ -13,8 +13,7 @@ ENV POETRY_VERSION=1.1.5
 ARG install_dev_dependencies=0
 ARG _poetry_url=https://raw.githubusercontent.com/python-poetry/poetry/7360b09e4ba3c01e1d5dc6eaaf34cb3ff57bc16e/get-poetry.py 
 
-# Use the character class for conditional copying https://stackoverflow.com/a/46801962/9835872
-COPY --chown=user:user poetry.loc[k] .
+COPY --chown=user:user poetry.lock .
 COPY --chown=user:user pyproject.toml .
 
 RUN apt-get update \
@@ -33,9 +32,9 @@ RUN apt-get update \
         postgresql-client \
         python3-gi-cairo \
         python3-mutagen \
-    && su user --command="curl --silent --show-error \"${_poetry_url}\" | python - --no-modify-path" \
-    && su user --command="poetry install --no-root "$([ "${install_dev_dependencies}" -eq 0 ] && printf -- '--no-dev')"" \
-    && apt-get purge --auto-remove --assume-yes curl \
+    && su user --command="curl --silent --show-error '$_poetry_url' | python - --no-modify-path" \
+    && su user --command="poetry install --no-root "$([ "$install_dev_dependencies" -eq 0 ] && printf -- '--no-dev')"" \
+    && apt-get purge --auto-remove --assume-yes curl gcc \
     && find /home/user/.poetry/lib/poetry/_vendor/ -mindepth 1 -maxdepth 1 -not -name py3.9 -type d | xargs rm -rf \
     && rm -rf /home/user/.cache/ /var/lib/apt/lists/ /var/cache/apt/
 

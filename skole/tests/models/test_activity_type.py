@@ -11,5 +11,5 @@ def test_str() -> None:
     thread_comment = ActivityType.objects.get(pk=2)
     assert str(thread_comment) == "thread_comment"
 
-    new_badge = ActivityType.objects.get(pk=3)
+    new_badge = ActivityType.objects.get(pk=4)
     assert str(new_badge) == "new_badge"

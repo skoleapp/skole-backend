@@ -11,7 +11,7 @@ Also check out the [README from `skole` repo](https://github.com/skoleapp/skole/
 
 See detailed description for all top-level dependencies in [`dependencies.md`](dependencies.md) file.
 
-## What's inside? 🧐
+## What's Inside? 🧐
 
 A quick look at the top-level files and directories excluding Git ignored locations.
 
@@ -20,20 +20,18 @@ A quick look at the top-level files and directories excluding Git ignored locati
 3.  [**`config/`**](config/): Configuration for [Django](https://www.djangoproject.com/) project.
 4.  [**`media/`**](media/): Few media files for testing.
 5.  [**`skole/`**](skole/): Source code.
-6.  [**`.dockerignore`**](.dockerignore): List of files ignored by [Docker](https://www.docker.com/).
+6.  [**`.dockerignore`**](.dockerignore): List of files not sent to [Docker](https://www.docker.com/) build context.
 7.  [**`.flake8`**](.flake8): Configuration for [Flake8](https://flake8.pycqa.org/en/latest/).
-8.  [**`.gitignore`**](.gitignore): List of files ignored by [Git](https://git-scm.com/).
-9.  [**`.graphqlconfig`**](.graphqlconfig): GraphQL configuration file, used by [JS GraphQL](https://plugins.jetbrains.com/plugin/8097-js-graphql)  JetBrains IDE plugin.
-10. [**`Dockerfile`**](Dockerfile): Formal instructions for Docker how to build the image for the app.
-11. [**`README.md`**](README.md): The file you're reading.
-12. [**`dependencies.md`**](dependencies.md): Documentation about the project's top-level dependencies.
-13. [**`manage.py`**](manage.py): Auto-generated for a Django project, see [docs](https://docs.djangoproject.com/en/stable/ref/django-admin/).
-14. [**`mypy.ini`**](mypy.ini): Configuration for [Mypy](http://mypy-lang.org/).
-15. [**`pyproject.toml`**](pyproject.toml): Configuration for various Python tools.
-16. [**`requirements-dev.txt`**](requirements-dev.txt): List of top-level development requirements.
-17. [**`requirements.lock`**](requirements.lock): Exact pinned versions of production requirements and all peer dependencies.
-18. [**`requirements.txt`**](requirements.txt): List of top-level production requirements.
-19. [**`schema.graphql`**](schema.graphql): GraphQL schema for noticing schema changes quickly from PRs.
+8.  [**`.gitattributes`**](.gitattributes): Additional Git [repo metadata](https://git-scm.com/docs/gitattributes).
+9.  [**`.gitignore`**](.gitignore): List of files ignored by [Git](https://git-scm.com/).
+10. [**`.graphqlconfig`**](.graphqlconfig): GraphQL configuration file, used by [JS GraphQL](https://plugins.jetbrains.com/plugin/8097-js-graphql)  JetBrains IDE plugin.
+11. [**`Dockerfile`**](Dockerfile): Formal instructions for Docker how to build the image for the app.
+12. [**`README.md`**](README.md): The file you're reading.
+13. [**`dependencies.md`**](dependencies.md): Documentation about the project's top-level dependencies.
+14. [**`manage.py`**](manage.py): Auto-generated for a Django project, see [docs](https://docs.djangoproject.com/en/stable/ref/django-admin/).
+15. [**`mypy.ini`**](mypy.ini): Configuration for [Mypy](http://mypy-lang.org/).
+16. [**`pyproject.toml`**](pyproject.toml): Lists project's PyPI dependencies and contains configuration for various Python tools.
+17. [**`schema.graphql`**](schema.graphql): GraphQL schema for noticing schema changes quickly from PRs.
 
 ## Development Tips 🚀
 
@@ -86,7 +84,7 @@ A quick look at the top-level files and directories excluding Git ignored locati
 - It's fine to use [PostgreSQL specific Django utilities](https://docs.djangoproject.com/en/stable/ref/contrib/postgres),
   such as `ArrayAgg`. They can make life a lot easier, and we can assume that the application is always run on Postgres.
 
-- Don't use relative imports `from .foo import bar` outside of `__init__.py` files.
+- Don't use relative imports (`from .foo import bar`) outside of `__init__.py` files.
 
-- Use `@test.test` for all email addresses when testing/developing it makes the intent clear.
-  `.test` is not a valid TLD and `test.test` has been whitelisted in `settings.ALLOWED_EMAIL_DOMAINS`.
+- Use `@test.test` for all email addresses when testing/developing. This makes their intent very clear
+  since `.test` is not a valid TLD. Also, `test.test` has been whitelisted in `settings.ALLOWED_EMAIL_DOMAINS`.

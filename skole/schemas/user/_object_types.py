@@ -65,6 +65,7 @@ class UserObjectType(SkoleDjangoObjectType):
             "slug",
             "username",
             "email",
+            "backup_email",
             "score",
             "title",
             "bio",

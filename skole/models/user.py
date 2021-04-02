@@ -88,11 +88,17 @@ class User(SkoleModel, AbstractBaseUser, PermissionsMixin):
         ],
     )
 
+    # The primary email of the user.
+    # This has to be a valid whitelisted email domain from `ALLOWED_EMAIL_DOMAINS`,
+    # and this has be be verified to set `user.verified` to `True`.
     email = models.EmailField(
         VerboseNames.EMAIL,
         unique=True,
         error_messages={"unique": ValidationErrors.EMAIL_TAKEN},
     )
+    # The secondary email address of the user.
+    # This can be any valid email, and doesn't have to be verified.
+    backup_email = models.EmailField(blank=True)
 
     title = models.CharField(max_length=100, blank=True)
     bio = models.TextField(max_length=2000, blank=True)

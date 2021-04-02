@@ -35,7 +35,7 @@ RUN apt-get update \
         python3-mutagen \
     && su user --command="curl --silent --show-error \"${_poetry_url}\" | python - --no-modify-path" \
     && su user --command="poetry install --no-root "$([ "${install_dev_dependencies}" -eq 0 ] && printf -- '--no-dev')"" \
-    && apt-get purge --auto-remove --assume-yes curl \
+    && apt-get purge --auto-remove --assume-yes curl gcc \
     && find /home/user/.poetry/lib/poetry/_vendor/ -mindepth 1 -maxdepth 1 -not -name py3.9 -type d | xargs rm -rf \
     && rm -rf /home/user/.cache/ /var/lib/apt/lists/ /var/cache/apt/
 

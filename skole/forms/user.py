@@ -107,14 +107,16 @@ class LoginForm(SkoleModelForm):
         password = self.cleaned_data.get("password")
 
         if "@" in username_or_email:
-            query = {"email__iexact": username_or_email}
+            query = Q(email__iexact=username_or_email) | Q(
+                backup_email__iexact=username_or_email
+            )
         else:
-            query = {"username__iexact": username_or_email}
+            query = Q(username__iexact=username_or_email)
 
         user: Optional[User]
 
         try:
-            user = get_user_model().objects.get(**query)
+            user = get_user_model().objects.get(query)
         except get_user_model().DoesNotExist:
             raise forms.ValidationError(ValidationErrors.AUTH_ERROR) from None
         else:

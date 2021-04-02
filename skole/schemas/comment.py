@@ -29,18 +29,20 @@ class CommentObjectType(VoteMixin, DjangoObjectType):
         model = Comment
         fields = (
             "id",
-            "user",
             "text",
-            "file",
             "image",
             "image_thumbnail",
-            "thread",
-            "comment",
-            "reply_comments",
-            "reply_count",
+            "file",
             "score",
-            "modified",
+            "reply_count",
+            "is_own",
             "created",
+            "modified",
+            "user",
+            "thread",
+            "vote",
+            "reply_comments",
+            "comment",
         )
 
     @staticmethod

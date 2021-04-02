@@ -23,20 +23,23 @@ class ThreadSchemaTests(SkoleSchemaTestCase):
             id
             slug
             title
+            text
+            image
+            imageThumbnail
             score
+            starred
             starCount
             commentCount
-            starred
             created
             modified
-            user {
-                slug
-            }
-            comments {
-                id
-            }
             vote {
+                id
                 status
+            }
+            user {
+                id
+                slug
+                username
             }
         }
     """
@@ -316,7 +319,7 @@ class ThreadSchemaTests(SkoleSchemaTestCase):
         assert thread["id"] == "1"
         assert thread["title"] == "Test Thread 1"
         assert thread["slug"] == slug
-        assert thread["user"] == {"slug": "testuser2"}
+        assert thread["user"]["slug"] == "testuser2"
         assert thread["starCount"] == 1
         assert thread["commentCount"] == 18
         assert is_iso_datetime(thread["modified"])

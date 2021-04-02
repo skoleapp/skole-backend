@@ -1,7 +1,5 @@
 from typing import Optional
 
-from django.conf import settings
-
 from skole.models import Comment, Thread
 from skole.tests.helpers import (
     TEST_IMAGE_PNG,
@@ -14,44 +12,57 @@ from skole.tests.helpers import (
     is_slug_match,
     open_as_file,
 )
-from skole.types import ID, JsonDict, JsonList
+from skole.types import ID, JsonDict
 from skole.utils.constants import GraphQLErrors, Messages, ValidationErrors
+
+_comment_fields = """
+    fragment _commentFields on CommentObjectType {
+        id
+        text
+        image
+        imageThumbnail
+        file
+        score
+        replyCount
+        isOwn
+        created
+        modified
+        user {
+            id
+            slug
+            username
+            avatarThumbnail
+        }
+        thread {
+            slug
+            title
+        }
+        vote {
+            id
+            status
+        }
+    }
+"""
 
 
 class CommentSchemaTests(SkoleSchemaTestCase):
     authenticated_user: ID = 2
 
     # language=GraphQL
-    comment_fields = """
+    comment_fields = (
+        _comment_fields
+        + """
         fragment commentFields on CommentObjectType {
-            id
-            text
-            file
-            image
-            imageThumbnail
-            score
-            modified
-            created
-            replyCount
-            isOwn
-            user {
-                id
-            }
-            thread {
-                id
+            ..._commentFields
+            replyComments {
+                ..._commentFields
             }
             comment {
-                id
-            }
-            replyComments {
-                id
-            }
-            vote {
-                id
-                status
+                ..._commentFields
             }
         }
-    """
+        """
+    )
 
     def query_comments(
         self,
@@ -247,7 +258,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         assert not res["errors"]
         assert is_slug_match(UPLOADED_IMAGE_PNG, res["comment"]["image"])
         assert res["comment"]["text"] == new_text
-        assert res["comment"]["thread"]["id"] == "1"
+        assert res["comment"]["thread"]["slug"] == "test-thread-1"
         assert res["comment"]["comment"] is None
 
         # Clear image from comment.

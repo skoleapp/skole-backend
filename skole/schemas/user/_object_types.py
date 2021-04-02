@@ -34,19 +34,15 @@ class UserObjectType(SkoleDjangoObjectType):
     """
     The following fields are private, meaning they are returned only if the user is
     querying one's own profile: `email`, `verified`, `badge_progresses`,
-    `selected_badge_progress`, `referral_codes`, `school`, `subject`, and all
-    `permission` fields.
+    `selected_badge_progress`, `referral_codes`, and all `permission` fields.
 
     For instances that are not the user's own user profile, these fields will return a
     `null` value.
     """
 
-    slug = graphene.String()
     email = graphene.String()
-    score = graphene.Int()
     thread_count = graphene.Int()
     comment_count = graphene.Int()
-    avatar = graphene.String()
     avatar_thumbnail = graphene.String()
     verified = graphene.Boolean()
     rank = graphene.String()
@@ -70,19 +66,18 @@ class UserObjectType(SkoleDjangoObjectType):
             "username",
             "email",
             "backup_email",
-            "score",
-            "thread_count",
-            "comment_count",
             "title",
             "bio",
             "avatar",
             "avatar_thumbnail",
-            "created",
-            "verified",
+            "score",
+            "rank",
             "thread_count",
             "comment_count",
-            "selected_badge_progress",
+            "verified",
             "unread_activity_count",
+            "created",
+            "modified",
             "fcm_token",
             "comment_reply_email_permission",
             "thread_comment_email_permission",
@@ -90,6 +85,10 @@ class UserObjectType(SkoleDjangoObjectType):
             "comment_reply_push_permission",
             "thread_comment_push_permission",
             "new_badge_push_permission",
+            "badges",
+            "badge_progresses",
+            "selected_badge_progress",
+            "referral_codes",
         )
 
     @staticmethod

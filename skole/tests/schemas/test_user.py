@@ -17,6 +17,7 @@ from skole.tests.helpers import (
     is_slug_match,
     open_as_file,
 )
+from skole.tests.schemas.test_badge import BadgeSchemaTests
 from skole.types import ID, JsonDict
 from skole.utils.constants import (
     GraphQLErrors,
@@ -25,29 +26,46 @@ from skole.utils.constants import (
     ValidationErrors,
 )
 
+# language=GraphQL
+badge_progress_fields = (
+    BadgeSchemaTests.badge_fields
+    + """
+    fragment badgeProgressFields on BadgeProgressObjectType {
+        badge {
+            ...badgeFields
+        }
+        progress
+        steps
+    }
+    """
+)
+
 
 class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-methods
     authenticated_user: ID = 2
 
     # language=GraphQL
-    user_fields = """
+    user_fields = (
+        badge_progress_fields
+        + """
         fragment userFields on UserObjectType {
             id
-            username
             slug
+            username
             email
             backupEmail
-            score
             title
             bio
             avatar
             avatarThumbnail
-            created
-            verified
+            score
             rank
+            verified
+            unreadActivityCount
             threadCount
             commentCount
-            unreadActivityCount
+            created
+            modified
             fcmToken
             commentReplyEmailPermission
             threadCommentEmailPermission
@@ -56,37 +74,21 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
             threadCommentPushPermission
             newBadgePushPermission
             badges {
-                id
-                name
-                description
-                tier
+                ...badgeFields
             }
             badgeProgresses {
-                badge {
-                    id
-                    name
-                    description
-                    tier
-                }
-                progress
-                steps
+                ...badgeProgressFields
             }
             selectedBadgeProgress {
-                badge {
-                    id
-                    name
-                    description
-                    tier
-                }
-                progress
-                steps
+                ...badgeProgressFields
             }
             referralCodes {
                 code
                 usages
             }
         }
-    """
+        """
+    )
 
     def query_user(self, *, slug: str) -> JsonDict:
         variables = {"slug": slug}
@@ -530,6 +532,13 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert user1["badgeProgresses"][0]["badge"]["name"] == "First Comment"
         assert user1["badgeProgresses"][0]["progress"] == 0
         assert user1["badgeProgresses"][0]["steps"] == 1
+        assert user1["selectedBadgeProgress"]["badge"]["id"] == "3"
+        assert user1["selectedBadgeProgress"]["badge"]["name"] == "First Comment"
+        assert user1["selectedBadgeProgress"]["progress"] == 0
+        assert user1["selectedBadgeProgress"]["steps"] == 1
+        assert len(user1["referralCodes"]) == 1
+        assert user1["referralCodes"][0]["code"] == "TEST1"
+        assert user1["referralCodes"][0]["usages"] == 2
 
         # Some other user.
         slug = "testuser3"
@@ -538,14 +547,18 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert user2["username"] == "testuser3"
         assert user2["slug"] == slug
         assert user2["rank"] == "Tutor"
-        assert user1["threadCount"] == 3
-        assert user1["commentCount"] == 14
+        assert user2["threadCount"] == 4
+        assert user2["commentCount"] == 3
         assert len(user2["badges"]) == 0
-        assert user2["badgeProgresses"] is None  # Private field.
-        assert user2["unreadActivityCount"] is None  # Private field.
-        assert user2["fcmToken"] is None  # Private field.
-        assert user2["email"] is None  # Private field.
-        assert user2["verified"] is None  # Private field.
+
+        # Private fields.
+        assert user2["badgeProgresses"] is None
+        assert user2["selectedBadgeProgress"] is None
+        assert user2["referralCodes"] is None
+        assert user2["unreadActivityCount"] is None
+        assert user2["fcmToken"] is None
+        assert user2["email"] is None
+        assert user2["verified"] is None
 
         # Slug not found.
         assert self.query_user(slug="not-found") is None
@@ -565,9 +578,6 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert len(user["badges"]) == 1
         assert user["badges"][0]["name"] == "Staff"
         assert len(user["badgeProgresses"]) == 4
-        assert len(user["referralCodes"]) == 1
-        assert user["referralCodes"][0]["code"] == "TEST1"
-        assert user["referralCodes"][0]["usages"] == 2
 
         # `badgeProgresses` should be sorted by their completion percentage.
         assert user["badgeProgresses"][0]["badge"]["name"] == "First Comment"
@@ -578,6 +588,10 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         user = self.query_user_me()
         assert user["badgeProgresses"][0]["badge"]["name"] == "First Upvote"
         assert user["badgeProgresses"][1]["badge"]["name"] == "First Comment"
+
+        assert len(user["referralCodes"]) == 1
+        assert user["referralCodes"][0]["code"] == "TEST1"
+        assert user["referralCodes"][0]["usages"] == 2
 
         # Shouldn't work without auth.
         self.authenticated_user = None
@@ -590,7 +604,11 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         user = self.query_user_me()
         res = self.mutate_update_profile()
         assert not res["errors"]
-        assert res["user"] == user
+
+        for key, value in res["user"].items():
+            if key != "modified":
+                assert value == user[key]
+
         assert res["successMessage"] == Messages.PROFILE_UPDATED
 
         # Fine to change the casing of the username.
@@ -678,7 +696,11 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         user = self.query_user_me()
         res = self.mutate_update_account_settings()
         assert not res["errors"]
-        assert res["user"] == user
+
+        for key, value in res["user"].items():
+            if key != "modified":
+                assert value == user[key]
+
         assert res["successMessage"] == Messages.ACCOUNT_SETTINGS_UPDATED
 
         # User is currently verified.

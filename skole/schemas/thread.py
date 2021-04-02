@@ -52,12 +52,14 @@ class ThreadObjectType(VoteMixin, StarMixin, DjangoObjectType):
             "text",
             "image",
             "image_thumbnail",
-            "user",
             "score",
+            "starred",
             "star_count",
             "comment_count",
-            "modified",
             "created",
+            "modified",
+            "vote",
+            "user",
         )
 
     @staticmethod

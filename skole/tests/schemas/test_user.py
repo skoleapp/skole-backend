@@ -471,6 +471,19 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert res["user"]["username"] == "testuser2"
         assert res["successMessage"] == Messages.LOGGED_IN
 
+    def test_login_ok_with_backup_email(self) -> None:
+        backup_email = "backup@test.test"
+        user = self.get_authenticated_user()
+        user.backup_email = backup_email
+        user.save()
+
+        self.authenticated_user = None
+        res = self.mutate_login(username_or_email=backup_email)
+        assert not res["errors"]
+        assert res["user"]["username"] == "testuser2"
+        assert res["user"]["backupEmail"] == backup_email
+        assert res["successMessage"] == Messages.LOGGED_IN
+
     def test_login_error(self) -> None:
         self.authenticated_user = None
 

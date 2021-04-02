@@ -40,9 +40,16 @@ def _send_templated_mail(
     message = strip_tags(html_message)
 
     from_email = from_email if from_email is not None else settings.EMAIL_ADDRESS
-    recipient_list = [user.email] if user else recipient_list or []
 
-    if len(recipient_list) == 0:
+    if recipient_list is not None and user is not None:
+        raise ValueError("You cannot provide both the `recipient_list` and the `user`.")
+
+    if recipient_list is None and user is not None:
+        recipient_list = [user.email]
+        if user.backup_email:
+            recipient_list.append(user.backup_email)
+
+    if not recipient_list:
         raise ValueError("Email has no recipients!")
 
     send_mail(
@@ -77,7 +84,9 @@ def send_verification_email(user: User) -> None:
         subject=Notifications.VERIFY_ACCOUNT_SUBJECT,
         template="email/verify_account.html",
         context=email_context,
-        user=user,
+        # Don't pass the `user` here since the verification email shouldn't go to the
+        # backup email.
+        recipient_list=[user.email],
     )
 
 
@@ -88,7 +97,6 @@ def send_password_reset_email(user: User, recipient: str) -> None:
 
     _send_templated_mail(
         subject=Notifications.RESET_PASSWORD_SUBJECT,
-        user=user,
         template="email/reset_password.html",
         context=email_context,
         recipient_list=[recipient],

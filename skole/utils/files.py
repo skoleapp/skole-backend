@@ -52,7 +52,7 @@ def clean_file_field(
     assert form.request
     files_map = json.loads(form.request.POST.get("map", "{}"))
 
-    if files_map.get("1") == [f"variables.input.{field_name}"] and (
+    if files_map.get("1", [""])[0].endswith(f".{field_name}") and (
         uploaded := form.files.get("1")
     ):
         # New value for the field.

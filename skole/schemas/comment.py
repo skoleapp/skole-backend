@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Literal, Optional
 
 import graphene
 from django.conf import settings
@@ -29,18 +29,20 @@ class CommentObjectType(VoteMixin, DjangoObjectType):
         model = Comment
         fields = (
             "id",
-            "user",
             "text",
-            "file",
             "image",
             "image_thumbnail",
-            "thread",
-            "comment",
-            "reply_comments",
-            "reply_count",
+            "file",
             "score",
-            "modified",
+            "reply_count",
+            "is_own",
             "created",
+            "modified",
+            "user",
+            "thread",
+            "vote",
+            "reply_comments",
+            "comment",
         )
 
     @staticmethod
@@ -55,6 +57,7 @@ class CommentObjectType(VoteMixin, DjangoObjectType):
         If comment is an own comment, the current user is also given options to for
         example delete it in the frontend.
         """
+
         return root.user == info.context.user
 
     @staticmethod
@@ -133,11 +136,11 @@ class Query(SkoleObjectType):
     comments = graphene.Field(
         PaginatedCommentObjectType,
         user=graphene.String(),
+        thread=graphene.String(),
+        ordering=graphene.String(),
         page=graphene.Int(),
         page_size=graphene.Int(),
     )
-
-    trending_comments = graphene.List(CommentObjectType)
 
     @staticmethod
     @verification_required
@@ -145,27 +148,33 @@ class Query(SkoleObjectType):
         root: None,
         info: ResolveInfo,
         user: str = "",
+        thread: str = "",
+        ordering: Literal["best", "newest"] = "best",
         page: int = 1,
         page_size: int = settings.DEFAULT_PAGE_SIZE,
     ) -> PaginatedCommentObjectType:
         """
         Return comments filtered by query params.
 
+        The `search_term` is used to search from comment creator usernames and comment text.
+
         Results are sorted by creation time.
         """
 
-        qs: QuerySet[Comment] = Comment.objects.order_by("-pk")
+        qs: QuerySet[Comment] = Comment.objects.all()
 
         if user != "":
             qs = qs.filter(user__slug=user)
 
+        if thread != "":
+            qs = qs.filter(thread__slug=thread)
+
+        if ordering == "best":
+            qs = qs.order_by("-score")
+        elif ordering == "newest":
+            qs = qs.order_by("-pk")
+
         return get_paginator(qs, page_size, page, PaginatedCommentObjectType)
-
-    @staticmethod
-    def resolve_trending_comments(root: None, info: ResolveInfo) -> QuerySet[Comment]:
-        """Return trending comments based on secret Skole AI-powered algorithms."""
-
-        return Comment.objects.filter(comment=None, score__gte=0).order_by("-pk")[: settings.TRENDING_COMMENTS_COUNT]  # type: ignore[misc]
 
 
 class Mutation(SkoleObjectType):

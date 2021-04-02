@@ -1,7 +1,5 @@
 from typing import Optional
 
-from django.conf import settings
-
 from skole.models import Comment, Thread
 from skole.tests.helpers import (
     TEST_IMAGE_PNG,
@@ -14,55 +12,72 @@ from skole.tests.helpers import (
     is_slug_match,
     open_as_file,
 )
-from skole.types import ID, JsonDict, JsonList
+from skole.types import ID, JsonDict
 from skole.utils.constants import GraphQLErrors, Messages, ValidationErrors
+
+_comment_fields = """
+    fragment _commentFields on CommentObjectType {
+        id
+        text
+        image
+        imageThumbnail
+        file
+        score
+        replyCount
+        isOwn
+        created
+        modified
+        user {
+            id
+            slug
+            username
+            avatarThumbnail
+        }
+        thread {
+            slug
+            title
+        }
+        vote {
+            id
+            status
+        }
+    }
+"""
 
 
 class CommentSchemaTests(SkoleSchemaTestCase):
     authenticated_user: ID = 2
 
     # language=GraphQL
-    comment_fields = """
+    comment_fields = (
+        _comment_fields
+        + """
         fragment commentFields on CommentObjectType {
-            id
-            text
-            file
-            image
-            imageThumbnail
-            score
-            modified
-            created
-            replyCount
-            isOwn
-            user {
-                id
-            }
-            thread {
-                id
+            ..._commentFields
+            replyComments {
+                ..._commentFields
             }
             comment {
-                id
-            }
-            replyComments {
-                id
-            }
-            vote {
-                id
-                status
+                ..._commentFields
             }
         }
-    """
+        """
+    )
 
     def query_comments(
         self,
         *,
         user: str = "",
+        thread: str = "",
+        ordering: str = "best",
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         assert_error: bool = False,
     ) -> JsonDict:
         variables = {
             "user": user,
+            "thread": thread,
+            "ordering": ordering,
             "page": page,
             "pageSize": page_size,
         }
@@ -73,11 +88,15 @@ class CommentSchemaTests(SkoleSchemaTestCase):
             + """
                 query Comments (
                     $user: String,
+                    $thread: String,
+                    $ordering: String,
                     $page: Int,
                     $pageSize: Int
                 ) {
                     comments (
                         user: $user,
+                        thread: $thread,
+                        ordering: $ordering,
                         page: $page,
                         pageSize: $pageSize
                     ) {
@@ -95,24 +114,6 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         )
 
         return self.execute(graphql, variables=variables, assert_error=assert_error)
-
-    def query_trending_comments(
-        self,
-        assert_error: bool = False,
-    ) -> JsonList:
-        # language=GraphQL
-        graphql = (
-            self.comment_fields
-            + """
-                query TrendingComments {
-                    trendingComments {
-                        ...commentFields
-                    }
-                }
-            """
-        )
-
-        return self.execute(graphql, assert_error=assert_error)
 
     def mutate_create_comment(
         self,
@@ -146,13 +147,14 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         *,
         id: ID,
         text: str = "",
+        file: str = "",
         image: str = "",
         file_data: FileData = None,
     ) -> JsonDict:
         return self.execute_input_mutation(
             name="updateComment",
             input_type="UpdateCommentMutationInput!",
-            input={"id": id, "text": text, "image": image},
+            input={"id": id, "text": text, "file": file, "image": image},
             result="comment { ...commentFields }",
             fragment=self.comment_fields,
             file_data=file_data,
@@ -256,7 +258,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         assert not res["errors"]
         assert is_slug_match(UPLOADED_IMAGE_PNG, res["comment"]["image"])
         assert res["comment"]["text"] == new_text
-        assert res["comment"]["thread"]["id"] == "1"
+        assert res["comment"]["thread"]["slug"] == "test-thread-1"
         assert res["comment"]["comment"] is None
 
         # Clear image from comment.
@@ -343,14 +345,5 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         assert res["hasNext"] is False
         assert res["hasPrev"] is False
 
-    def test_trending_comments(self) -> None:
-        self.authenticated_user = None
-
-        # Test full suggestions.
-        res = self.query_trending_comments()
-        assert len(res) <= settings.TRENDING_COMMENTS_COUNT
-
-        # TODO: Test the following cases on the suggestions algorithm:
-        # - Test that the newest comments are returned.
-        # - Test that no reply comments are included.
-        # - Test that no comments with negative score are included.
+        # TODO: Test thread comments.
+        # TODO: Test ordering.

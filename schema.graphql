@@ -251,12 +251,11 @@ type PaginatedThreadObjectType {
 
 type Query {
   badges: [BadgeObjectType]
-  comments(user: String, page: Int, pageSize: Int): PaginatedCommentObjectType
-  trendingComments: [CommentObjectType]
+  comments(user: String, thread: String, ordering: String, page: Int, pageSize: Int): PaginatedCommentObjectType
   userMe: UserObjectType
   user(slug: String): UserObjectType
   sitemap: SitemapObjectType
-  threads(searchTerm: String, user: String, page: Int, pageSize: Int): PaginatedThreadObjectType
+  threads(searchTerm: String, user: String, ordering: String, page: Int, pageSize: Int): PaginatedThreadObjectType
   starredThreads(page: Int, pageSize: Int): PaginatedThreadObjectType
   thread(slug: String): ThreadObjectType
   activities(page: Int, pageSize: Int): PaginatedActivityObjectType
@@ -355,16 +354,18 @@ type StarObjectType {
 type ThreadObjectType {
   id: ID!
   title: String!
+  text: String!
   slug: String
+  image: String!
   user: UserObjectType
   modified: DateTime!
   created: DateTime!
-  comments: [CommentObjectType!]!
   starred: Boolean
   score: Int
   vote: VoteObjectType
   starCount: Int
   commentCount: Int
+  imageThumbnail: String
 }
 
 input UpdateAccountSettingsMutationInput {
@@ -450,20 +451,25 @@ type UserObjectType {
   backupEmail: String!
   title: String!
   bio: String!
-  avatar: String
+  avatar: String!
   selectedBadgeProgress: BadgeProgressObjectType
-  score: Int
+  score: Int!
   verified: Boolean
   created: DateTime!
+  modified: DateTime!
   commentReplyEmailPermission: Boolean
   threadCommentEmailPermission: Boolean
+  newBadgeEmailPermission: Boolean
   commentReplyPushPermission: Boolean
   threadCommentPushPermission: Boolean
+  newBadgePushPermission: Boolean
+  badgeProgresses: [BadgeProgressObjectType]
+  referralCodes: [ReferralCodeObjectType]
+  threadCount: Int
+  commentCount: Int
   avatarThumbnail: String
   rank: String
   badges: [BadgeObjectType]
-  badgeProgresses: [BadgeProgressObjectType]
-  referralCodes: [ReferralCodeObjectType]
   unreadActivityCount: Int
   fcmToken: String
 }

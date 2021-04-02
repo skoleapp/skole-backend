@@ -1,4 +1,4 @@
-from typing import Optional, cast
+from typing import Literal, Optional, cast
 
 import graphene
 from django.conf import settings
@@ -39,9 +39,9 @@ def order_threads_with_secret_algorithm(qs: QuerySet[Thread]) -> QuerySet[Thread
 
 
 class ThreadObjectType(VoteMixin, StarMixin, DjangoObjectType):
-    slug = graphene.String()
     star_count = graphene.Int()
     comment_count = graphene.Int()
+    image_thumbnail = graphene.String()
 
     class Meta:
         model = Thread
@@ -49,14 +49,26 @@ class ThreadObjectType(VoteMixin, StarMixin, DjangoObjectType):
             "id",
             "slug",
             "title",
-            "user",
-            "comments",
+            "text",
+            "image",
+            "image_thumbnail",
             "score",
+            "starred",
             "star_count",
             "comment_count",
-            "modified",
             "created",
+            "modified",
+            "vote",
+            "user",
         )
+
+    @staticmethod
+    def resolve_image(root: Thread, info: ResolveInfo) -> str:
+        return root.image.url if root.image else ""
+
+    @staticmethod
+    def resolve_image_thumbnail(root: Thread, info: ResolveInfo) -> str:
+        return root.image_thumbnail.url if root.image_thumbnail else ""
 
     # Have to specify these with resolvers since graphene
     # cannot infer the annotated fields otherwise.
@@ -110,6 +122,7 @@ class Query(SkoleObjectType):
         PaginatedThreadObjectType,
         search_term=graphene.String(),
         user=graphene.String(),
+        ordering=graphene.String(),
         page=graphene.Int(),
         page_size=graphene.Int(),
     )
@@ -127,15 +140,16 @@ class Query(SkoleObjectType):
     def resolve_threads(
         root: None,
         info: ResolveInfo,
-        search_term: Optional[str] = None,
+        search_term: str = "",
         user: str = "",
+        ordering: Literal["best", "newest"] = "best",
         page: int = 1,
         page_size: int = settings.DEFAULT_PAGE_SIZE,
     ) -> PaginatedThreadObjectType:
         """
         Return threads filtered by query params.
 
-        The `search_term` can be either the thread name or the thread code.
+        The `search_term` is used to search from thread title and text.
 
         Results are sorted either manually based on query params or by secret Skole AI-
         powered algorithms. If the `user` argument is passed the results will always
@@ -144,12 +158,16 @@ class Query(SkoleObjectType):
 
         qs: QuerySet[Thread] = Thread.objects.all()
 
-        if search_term is not None:
+        if search_term != "":
             qs = qs.filter(Q(title__search=search_term) | Q(text__search=search_term))
 
         if user != "":
             # Just show these chronologically when querying in a user profile.
             qs = qs.filter(user__slug=user).order_by("-pk")
+
+        if ordering == "newest":
+            qs = qs.order_by("-pk")
+
         else:
             qs = order_threads_with_secret_algorithm(qs)
 

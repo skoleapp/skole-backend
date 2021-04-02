@@ -34,17 +34,15 @@ class UserObjectType(SkoleDjangoObjectType):
     """
     The following fields are private, meaning they are returned only if the user is
     querying one's own profile: `email`, `verified`, `badge_progresses`,
-    `selected_badge_progress`, `referral_codes`, `school`, `subject`, and all
-    `permission` fields.
+    `selected_badge_progress`, `referral_codes`, and all `permission` fields.
 
     For instances that are not the user's own user profile, these fields will return a
     `null` value.
     """
 
-    slug = graphene.String()
     email = graphene.String()
-    score = graphene.Int()
-    avatar = graphene.String()
+    thread_count = graphene.Int()
+    comment_count = graphene.Int()
     avatar_thumbnail = graphene.String()
     verified = graphene.Boolean()
     rank = graphene.String()
@@ -55,8 +53,10 @@ class UserObjectType(SkoleDjangoObjectType):
     fcm_token = graphene.String()
     comment_reply_email_permission = graphene.Boolean()
     thread_comment_email_permission = graphene.Boolean()
+    new_badge_email_permission = graphene.Boolean()
     comment_reply_push_permission = graphene.Boolean()
     thread_comment_push_permission = graphene.Boolean()
+    new_badge_push_permission = graphene.Boolean()
 
     class Meta:
         model = get_user_model()
@@ -66,21 +66,38 @@ class UserObjectType(SkoleDjangoObjectType):
             "username",
             "email",
             "backup_email",
-            "score",
             "title",
             "bio",
             "avatar",
             "avatar_thumbnail",
-            "created",
+            "score",
+            "rank",
+            "thread_count",
+            "comment_count",
             "verified",
-            "selected_badge_progress",
             "unread_activity_count",
+            "created",
+            "modified",
             "fcm_token",
             "comment_reply_email_permission",
             "thread_comment_email_permission",
+            "new_badge_email_permission",
             "comment_reply_push_permission",
             "thread_comment_push_permission",
+            "new_badge_push_permission",
+            "badges",
+            "badge_progresses",
+            "selected_badge_progress",
+            "referral_codes",
         )
+
+    @staticmethod
+    def resolve_thread_count(root: User, info: ResolveInfo) -> int:
+        return getattr(root, "thread_count", 0)
+
+    @staticmethod
+    def resolve_comment_count(root: User, info: ResolveInfo) -> int:
+        return getattr(root, "comment_count", 0)
 
     @staticmethod
     def resolve_avatar(root: User, info: ResolveInfo) -> str:
@@ -150,6 +167,11 @@ class UserObjectType(SkoleDjangoObjectType):
 
     @staticmethod
     @private_field
+    def resolve_new_badge_email_permission(root: User, info: ResolveInfo) -> bool:
+        return root.new_badge_email_permission
+
+    @staticmethod
+    @private_field
     def resolve_comment_reply_push_permission(root: User, info: ResolveInfo) -> bool:
         return root.comment_reply_push_permission
 
@@ -157,3 +179,8 @@ class UserObjectType(SkoleDjangoObjectType):
     @private_field
     def resolve_thread_comment_push_permission(root: User, info: ResolveInfo) -> bool:
         return root.thread_comment_push_permission
+
+    @staticmethod
+    @private_field
+    def resolve_new_badge_push_permission(root: User, info: ResolveInfo) -> bool:
+        return root.new_badge_push_permission

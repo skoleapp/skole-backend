@@ -228,7 +228,7 @@ USER_PROFILE_PATH_ON_EMAIL = "users/{}"
 AUTOCOMPLETE_MAX_RESULTS = 50
 
 # Amount of results that are returned for paginated queries by default.
-DEFAULT_PAGE_SIZE = 10
+DEFAULT_PAGE_SIZE = 25
 
 # Amount of results shown in the activity preview menu.
 ACTIVITY_PREVIEW_COUNT = 10
@@ -250,9 +250,6 @@ MY_DATA_RATE_LIMIT = timedelta(seconds=5) if DEBUG else timedelta(minutes=10)
 # TODO: add a management command that runs in the background
 #   and deletes all generated `myData` files older than 7 days.
 MY_DATA_FILE_AVAILABLE_FOR = timedelta(days=7)
-
-# Amount of results returned by the trending comments query.
-TRENDING_COMMENTS_COUNT = 6
 
 # Specs of ReferralCodes that are created for new users to share.
 REFERRAL_CODE_LENGTH = 7

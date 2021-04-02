@@ -106,7 +106,9 @@ def send_comment_email_notification(activity: Activity) -> None:
 
     activity_type = activity.activity_type
     activity_type.set_current_language(settings.LANGUAGE_CODE)
-    description = activity_type.description
+
+    # Will be in the middle of a sentence.
+    description = activity_type.description.rstrip(".")
 
     subject = Notifications.COMMENT_EMAIL_NOTIFICATION_SUBJECT.format(
         causing_username, description

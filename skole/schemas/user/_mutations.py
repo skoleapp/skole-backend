@@ -8,6 +8,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model, password_validation, user_logged_in
 from django.core.exceptions import ValidationError
 from django.core.signing import BadSignature, SignatureExpired
+from django.db.models import Q
 from graphene_django.forms.mutation import DjangoFormMutation, DjangoModelFormMutation
 from graphene_django.types import ErrorType
 from graphql_jwt import DeleteJSONWebTokenCookie
@@ -188,7 +189,9 @@ class SendPasswordResetEmailMutation(
         email = form.cleaned_data.get("email")
 
         try:
-            user = get_user_model().objects.get(email__iexact=email)
+            user = get_user_model().objects.get(
+                Q(email__iexact=email) | Q(backup_email__iexact=email)
+            )
             send_password_reset_email(user, recipient=email)
             return cls(success_message=Messages.PASSWORD_RESET_EMAIL_SENT)
 

@@ -33,7 +33,7 @@ def private_field(func: UserResolver[T]) -> UserResolver[Optional[T]]:
 class UserObjectType(SkoleDjangoObjectType):
     """
     The following fields are private, meaning they are returned only if the user is
-    querying one's own profile: `email`, `verified`, `badge_progresses`,
+    querying one's own profile: `email`, `backup_email`, `verified`, `badge_progresses`,
     `selected_badge_progress`, `referral_codes`, and all `permission` fields.
 
     For instances that are not the user's own user profile, these fields will return a
@@ -41,6 +41,7 @@ class UserObjectType(SkoleDjangoObjectType):
     """
 
     email = graphene.String()
+    backup_email = graphene.String()
     thread_count = graphene.Int()
     comment_count = graphene.Int()
     avatar_thumbnail = graphene.String()
@@ -136,6 +137,11 @@ class UserObjectType(SkoleDjangoObjectType):
     @private_field
     def resolve_email(root: User, info: ResolveInfo) -> str:
         return root.email
+
+    @staticmethod
+    @private_field
+    def resolve_backup_email(root: User, info: ResolveInfo) -> str:
+        return root.backup_email
 
     @staticmethod
     @private_field

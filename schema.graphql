@@ -448,7 +448,7 @@ type UserObjectType {
   slug: String
   username: String!
   email: String
-  backupEmail: String!
+  backupEmail: String
   title: String!
   bio: String!
   avatar: String!

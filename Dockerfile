@@ -13,8 +13,7 @@ ENV POETRY_VERSION=1.1.5
 ARG install_dev_dependencies=0
 ARG _poetry_url=https://raw.githubusercontent.com/python-poetry/poetry/7360b09e4ba3c01e1d5dc6eaaf34cb3ff57bc16e/get-poetry.py 
 
-# Use the character class for conditional copying https://stackoverflow.com/a/46801962/9835872
-COPY --chown=user:user poetry.loc[k] .
+COPY --chown=user:user poetry.lock .
 COPY --chown=user:user pyproject.toml .
 
 RUN apt-get update \

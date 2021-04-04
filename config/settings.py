@@ -219,6 +219,7 @@ EMAIL_CONTACT_FORM_SENDER = os.environ.get(
 
 # Have to match with frontend.
 VERIFICATION_PATH_ON_EMAIL = "verify-account"
+BACKUP_EMAIL_VERIFICATION_PATH_ON_EMAIL = "verify-backup-email"
 PASSWORD_RESET_PATH_ON_EMAIL = "reset-password"
 ACCOUNT_SETTINGS_PATH_ON_EMAIL = "account-settings"
 THREAD_COMMENT_PATH_ON_EMAIL = "threads/{}?comment={}"

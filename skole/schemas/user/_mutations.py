@@ -35,8 +35,13 @@ from skole.schemas.mixins import SuccessMessageMixin
 from skole.schemas.user._object_types import UserObjectType
 from skole.types import JsonDict, ResolveInfo
 from skole.utils.constants import Messages, MutationErrors, TokenAction
-from skole.utils.email import send_password_reset_email, send_verification_email
+from skole.utils.email import (
+    send_backup_email_verification_email,
+    send_password_reset_email,
+    send_verification_email,
+)
 from skole.utils.exceptions import (
+    BackupEmailAlreadyVerified,
     ReferralCodeNeeded,
     TokenScopeError,
     UserAlreadyVerified,
@@ -137,12 +142,37 @@ class VerifyAccountMutation(
             return cls(errors=MutationErrors.INVALID_TOKEN_VERIFY)
 
 
+class VerifyBackupEmailMutation(
+    SkoleCreateUpdateMutationMixin, SuccessMessageMixin, DjangoFormMutation
+):
+    class Meta:
+        form_class = TokenForm
+
+    @classmethod
+    def perform_mutate(
+        cls, form: TokenForm, info: ResolveInfo
+    ) -> VerifyBackupEmailMutation:
+        token = form.cleaned_data.get("token")
+
+        try:
+            get_user_model().objects.verify_backup_email(token)
+            return cls(success_message=Messages.BACKUP_EMAIL_VERIFIED)
+
+        except BackupEmailAlreadyVerified as e:
+            return cls(errors=to_form_error(e.message))
+
+        except SignatureExpired:
+            return cls(errors=MutationErrors.TOKEN_EXPIRED_VERIFY)
+
+        except (BadSignature, TokenScopeError):
+            return cls(errors=MutationErrors.INVALID_TOKEN_VERIFY)
+
+
 class ResendVerificationEmailMutation(SkoleObjectType, graphene.Mutation):
     """
     Send the verification email again.
 
     Return an error in the following cases:
-    - A user account with the provided email address was not found.
     - An unknown error while sending the email occurred.
     - The user has already verified one's account.
     """
@@ -166,6 +196,35 @@ class ResendVerificationEmailMutation(SkoleObjectType, graphene.Mutation):
             return cls(errors=MutationErrors.EMAIL_ERROR)
         except UserAlreadyVerified:
             return cls(errors=MutationErrors.ALREADY_VERIFIED)
+
+
+class ResendBackupEmailVerificationEmailMutation(SkoleObjectType, graphene.Mutation):
+    """
+    Send the backup email verification email again.
+
+    Return an error in the following cases:
+    - An unknown error while sending the email occurred.
+    - The user has already verified their current backup email.
+    """
+
+    success_message = graphene.String()
+
+    errors = graphene.List(ErrorType, default_value=[])
+
+    @classmethod
+    @login_required
+    def mutate(
+        cls, root: None, info: ResolveInfo
+    ) -> ResendBackupEmailVerificationEmailMutation:
+        user = cast(User, info.context.user)
+
+        try:
+            send_backup_email_verification_email(user)
+            return cls(success_message=Messages.VERIFICATION_EMAIL_SENT)
+        except SMTPException:
+            return cls(errors=MutationErrors.EMAIL_ERROR)
+        except BackupEmailAlreadyVerified as e:
+            return cls(errors=to_form_error(e.message))
 
 
 class SendPasswordResetEmailMutation(
@@ -389,10 +448,24 @@ class UpdateAccountSettingsMutation(
     def perform_mutate(
         cls, form: UpdateAccountSettingsForm, info: ResolveInfo
     ) -> UpdateAccountSettingsMutation:
+        callback = None
         if form.cleaned_data["email"] != form.initial["email"]:
             form.instance.verified = False
+            callback = send_verification_email
+        if (new := form.cleaned_data["backup_email"]) != form.initial["backup_email"]:
+            if new:
+                form.instance.verified_backup_email = False
+                callback = send_backup_email_verification_email
+            else:
+                # If user unset their backup email, we can consider it to be verified.
+                # We also don't want to send a verification email for it.
+                form.instance.verified_backup_email = True
 
-        return super().perform_mutate(form, info)
+        obj = super().perform_mutate(form, info)
+        # We need to first save the form before the instance has the up-to-date emails.
+        if callback:
+            callback(obj.user)
+        return obj
 
 
 class UpdateSelectedBadgeMutation(
@@ -476,8 +549,12 @@ class RegisterFCMTokenMutation(
 class Mutation(SkoleObjectType):
     register = RegisterMutation.Field()
     verify_account = VerifyAccountMutation.Field()
+    verify_backup_email = VerifyBackupEmailMutation.Field()
     use_referral_code = UseReferralCodeMutation.Field()
     resend_verification_email = ResendVerificationEmailMutation.Field()
+    resend_backup_email_verification_email = (
+        ResendBackupEmailVerificationEmailMutation.Field()
+    )
     send_password_reset_email = SendPasswordResetEmailMutation.Field()
     reset_password = ResetPasswordMutation.Field()
     login = LoginMutation.Field()

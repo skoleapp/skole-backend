@@ -17,8 +17,9 @@ class Languages:
 
 
 class TokenAction:
-    PASSWORD_RESET = "password_reset"
     VERIFICATION = "verification"
+    BACKUP_EMAIL_VERIFICATION = "backup_email_verification"
+    PASSWORD_RESET = "password_reset"
 
 
 class Errors:
@@ -27,6 +28,7 @@ class Errors:
     ALREADY_VERIFIED = _("This account has already been verified.")
     AUTH_ERROR = _("Invalid username/email or password.")
     AUTH_REQUIRED = _("This action is only allowed for authenticated users.")
+    BACKUP_EMAIL_ALREADY_VERIFIED = _("Your backup email is already verified.")
     BACKUP_EMAIL_NOT_SAME_AS_EMAIL = _(
         "Your backup email cannot be the same as your primary email."
     )
@@ -95,6 +97,7 @@ class Errors:
 class Messages:
     ACCOUNT_SETTINGS_UPDATED = _("Account settings updated successfully!")
     ACCOUNT_VERIFIED = _("Account verified successfully!")
+    BACKUP_EMAIL_VERIFIED = _("Backup email verified successfully!")
     BADGE_TRACKING_CHANGED = _("Changed the tracked badge successfully!")
     COMMENT_DELETED = _("Comment deleted successfully!")
     COMMENT_UPDATED = _("Comment updated successfully!")
@@ -125,6 +128,7 @@ class Notifications:
     MY_DATA_SUBJECT = "Your data request on Skole"
     RESET_PASSWORD_SUBJECT = "Reset your password on Skole"
     VERIFY_ACCOUNT_SUBJECT = "Verify your account on Skole"
+    VERIFY_BACKUP_EMAIL_SUBJECT = "A backup email was added to your account on Skole"
 
 
 class _MutationErrorsMeta(type):

@@ -1,0 +1,7 @@
+<p>Hello {{ user.username }}!</p>
+
+<p>{{ backup_email }} was added as a backup email to your account. If this was intended, please verify it on the link:</p>
+
+<a href="{{ url }}">{{ url }}</a>
+
+{% include "email/_signature.html" %}

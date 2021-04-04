@@ -58,6 +58,9 @@ class ReferralCode(SkoleModel):
 
     objects = ReferralCodeManager()
 
+    def __str__(self) -> str:
+        return f"{self.code} - Usages: {self.usages}"
+
     def use_code(self, user: User) -> None:
         if user.used_referral_code:
             raise ValidationError(GraphQLErrors.REFERRAL_CODE_ALREADY_SET)

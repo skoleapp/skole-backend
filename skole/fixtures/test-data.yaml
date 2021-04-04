@@ -212,7 +212,6 @@
     bio: ""
     avatar: ""
     verified: True
-    used_referral_code: 1
     is_active: True
     is_staff: False
     is_superuser: False

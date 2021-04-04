@@ -8,6 +8,7 @@ from skole.models import (
     Badge,
     BadgeProgress,
     Comment,
+    ReferralCode,
     Star,
     Thread,
     Vote,
@@ -25,6 +26,7 @@ admin.site.register(Star)
 admin.site.register(Thread)
 admin.site.register(Vote)
 admin.site.register(Activity)
+admin.site.register(ReferralCode)
 
 # Translated models.
 admin.site.register(Badge, TranslatableAdmin)

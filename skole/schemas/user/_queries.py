@@ -29,5 +29,6 @@ class Query(SkoleObjectType):
                 .objects.filter(is_superuser=False, used_referral_code__isnull=False)
                 .get(slug=slug)
             )
+
         except User.DoesNotExist:
             return None

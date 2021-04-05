@@ -17,7 +17,7 @@ from skole.models.badge import Badge
 from skole.models.badge_progress import BadgeProgress
 from skole.models.base import SkoleManager, SkoleModel
 from skole.models.referral_code import ReferralCode
-from skole.utils.constants import Ranks, TokenAction, ValidationErrors, VerboseNames
+from skole.utils.constants import Errors, Ranks, TokenAction, VerboseNames
 from skole.utils.exceptions import ReferralCodeNeeded, UserAlreadyVerified
 from skole.utils.shortcuts import safe_annotation
 from skole.utils.token import get_token_payload
@@ -91,10 +91,8 @@ class User(SkoleModel, AbstractBaseUser, PermissionsMixin):
         VerboseNames.USERNAME,
         max_length=30,
         unique=True,
-        error_messages={"unique": ValidationErrors.USERNAME_TAKEN},
-        validators=[
-            RegexValidator(settings.USERNAME_REGEX, ValidationErrors.INVALID_USERNAME)
-        ],
+        error_messages={"unique": Errors.USERNAME_TAKEN},
+        validators=[RegexValidator(settings.USERNAME_REGEX, Errors.INVALID_USERNAME)],
     )
 
     # The primary email of the user.
@@ -103,7 +101,7 @@ class User(SkoleModel, AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(
         VerboseNames.EMAIL,
         unique=True,
-        error_messages={"unique": ValidationErrors.EMAIL_TAKEN},
+        error_messages={"unique": Errors.EMAIL_TAKEN},
     )
     # The secondary email address of the user.
     # This can be any valid email, and doesn't have to be verified.

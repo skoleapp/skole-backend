@@ -9,7 +9,7 @@ from django.core.exceptions import ValidationError
 from django.db import IntegrityError, models
 
 from skole.models.base import SkoleManager, SkoleModel
-from skole.utils.constants import GraphQLErrors, ValidationErrors
+from skole.utils.constants import Errors
 
 if TYPE_CHECKING:  # pragma: no cover
     from skole.models.user import User
@@ -63,9 +63,9 @@ class ReferralCode(SkoleModel):
 
     def use_code(self, user: User) -> None:
         if user.used_referral_code:
-            raise ValidationError(GraphQLErrors.REFERRAL_CODE_ALREADY_SET)
+            raise ValidationError(Errors.REFERRAL_CODE_ALREADY_SET)
         if self.usages <= 0:
-            raise ValidationError(ValidationErrors.REFERRAL_CODE_NO_USES_LEFT)
+            raise ValidationError(Errors.REFERRAL_CODE_NO_USES_LEFT)
 
         user.used_referral_code = self
         user.save(update_fields=("used_referral_code",))

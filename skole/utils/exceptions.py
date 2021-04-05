@@ -1,6 +1,6 @@
 from typing import ClassVar
 
-from skole.utils.constants import GraphQLErrors
+from skole.utils.constants import Errors
 
 
 class _BaseGraphQLAuthError(Exception):
@@ -11,16 +11,16 @@ class _BaseGraphQLAuthError(Exception):
 
 
 class ReferralCodeNeeded(_BaseGraphQLAuthError):
-    message = GraphQLErrors.REFERRAL_CODE_NEEDED_BEFORE_VERIFY
+    message = Errors.REFERRAL_CODE_NEEDED_BEFORE_VERIFY
 
 
 class UserAlreadyVerified(_BaseGraphQLAuthError):
-    message = GraphQLErrors.ALREADY_VERIFIED
+    message = Errors.ALREADY_VERIFIED
 
 
 class UserNotVerified(_BaseGraphQLAuthError):
-    message = GraphQLErrors.NOT_VERIFIED
+    message = Errors.NOT_VERIFIED
 
 
 class TokenScopeError(_BaseGraphQLAuthError):
-    message = GraphQLErrors.TOKEN_SCOPE_ERROR
+    message = Errors.TOKEN_SCOPE_ERROR

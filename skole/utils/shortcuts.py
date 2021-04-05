@@ -31,11 +31,6 @@ def full_refresh_from_db(instance: M, /) -> M:
     return instance.__class__.objects.get(pk=instance.pk)
 
 
-def format_form_error(error: E, *args: Any, **kwargs: Any) -> E:
-    error[0]["messages"][0] = error[0]["messages"][0].format(*args, **kwargs)
-    return error
-
-
 def safe_annotation(qs: QuerySet[Any], expression: Func) -> Subquery:
     """
     Return a subquery that can be safely used in an `annotate()` call with mixed `Sum`
@@ -88,13 +83,5 @@ def join_queries(
 
 
 def to_form_error(value: str) -> FormError:
-    """
-    Use to add the GraphQL form error structure for an error message.
-
-    Notes:
-        This is cleaner than using a metaclass which inserts this structure to all
-        attributes, since this automatically makes all of the wrapped attributes be of
-        the `FormError` type. With a metaclass the type information cannot be inferred
-        and the attributes would still look to be `str`s without manual casting.
-    """
+    """Use to add the GraphQL mutation form error structure to an error message."""
     return [{"field": "__all__", "messages": [value]}]

@@ -101,7 +101,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Custom validation settings
 USERNAME_MIN_LENGTH = 3
-# Make sure to edit `constants.ValidationErrors.INVALID_USERNAME` if you change this.
+# Make sure to edit `constants.Errors.INVALID_USERNAME` if you change this.
 USERNAME_REGEX = re.compile(r"^[A-Za-z0-9ÅÄÖåäö_]+$")
 
 # Authentication backend settings

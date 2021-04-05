@@ -5,7 +5,7 @@ from django.conf import settings
 from skole.models import Activity
 from skole.tests.helpers import SkoleSchemaTestCase, get_graphql_error
 from skole.types import ID, JsonDict
-from skole.utils.constants import GraphQLErrors
+from skole.utils.constants import Errors
 
 
 class ActivitySchemaTests(SkoleSchemaTestCase):
@@ -148,7 +148,7 @@ class ActivitySchemaTests(SkoleSchemaTestCase):
         # Shouldn't work without auth.
         self.authenticated_user = None
         res = self.query_activities(page=page, page_size=page_size, assert_error=True)
-        assert get_graphql_error(res) == GraphQLErrors.AUTH_REQUIRED
+        assert get_graphql_error(res) == Errors.AUTH_REQUIRED
         assert res["data"] == {"activities": None}
 
     def test_activity_preview(self) -> None:
@@ -158,7 +158,7 @@ class ActivitySchemaTests(SkoleSchemaTestCase):
         # Shouldn't work without auth.
         self.authenticated_user = None
         res = self.query_activity_preview(assert_error=True)
-        assert get_graphql_error(res) == GraphQLErrors.AUTH_REQUIRED
+        assert get_graphql_error(res) == Errors.AUTH_REQUIRED
         assert res["data"] == {"activityPreview": None}
 
     def test_mark_activity_as_read(self) -> None:

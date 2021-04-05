@@ -16,7 +16,7 @@ from django.core.files.base import ContentFile, File
 from django.core.files.storage import default_storage
 
 from skole.forms.base import SkoleModelForm
-from skole.utils.constants import ValidationErrors
+from skole.utils.constants import Errors
 
 logger = logging.getLogger(__name__)
 
@@ -113,7 +113,7 @@ def convert_to_pdf(file: File) -> File:
                 f"status code: {res.status_code}, content: {res.content!r}"
             )
 
-    raise forms.ValidationError(ValidationErrors.COULD_NOT_CONVERT_FILE.format("PDF"))
+    raise forms.ValidationError(Errors.COULD_NOT_CONVERT_FILE.format("PDF"))
 
 
 def _clean_metadata(file: File) -> File:

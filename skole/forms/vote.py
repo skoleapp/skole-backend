@@ -5,7 +5,7 @@ from django import forms
 from skole.forms.base import SkoleModelForm
 from skole.models import Vote
 from skole.types import JsonDict, VotableModel
-from skole.utils.constants import ValidationErrors
+from skole.utils.constants import Errors
 from skole.utils.validators import validate_single_target
 
 
@@ -28,5 +28,5 @@ class CreateVoteForm(SkoleModelForm):
         )
 
         if target.user and target.user == self.request.user:
-            raise forms.ValidationError(ValidationErrors.VOTE_OWN_CONTENT)
+            raise forms.ValidationError(Errors.VOTE_OWN_CONTENT)
         return data

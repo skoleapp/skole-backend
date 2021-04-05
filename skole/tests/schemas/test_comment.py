@@ -13,7 +13,7 @@ from skole.tests.helpers import (
     open_as_file,
 )
 from skole.types import ID, JsonDict
-from skole.utils.constants import GraphQLErrors, Messages, ValidationErrors
+from skole.utils.constants import Errors, Messages
 
 _comment_fields = """
     fragment _commentFields on CommentObjectType {
@@ -220,24 +220,24 @@ class CommentSchemaTests(SkoleSchemaTestCase):
 
         # Can't spoof the comment author.
         res = self.mutate_create_comment(user=3, text=text, thread=2)
-        assert get_form_error(res) == ValidationErrors.INVALID_COMMENT_AUTHOR
+        assert get_form_error(res) == Errors.INVALID_COMMENT_AUTHOR
         assert not res["comment"]
 
         # Can't create a comment with no text and no image.
         res = self.mutate_create_comment(text="", image="", thread=1)
-        assert get_form_error(res) == ValidationErrors.COMMENT_EMPTY
+        assert get_form_error(res) == Errors.COMMENT_EMPTY
         assert not res["comment"]
 
         # Can't create a comment without being verified.
         self.authenticated_user = 3
         res = self.mutate_create_comment(text=text, thread=3)
-        assert get_form_error(res) == GraphQLErrors.VERIFICATION_REQUIRED
+        assert get_form_error(res) == Errors.VERIFICATION_REQUIRED
         assert not res["comment"]
 
         # Can't a comment without logging in
         self.authenticated_user = None
         res = self.mutate_create_comment(text=text, thread=3)
-        assert get_form_error(res) == GraphQLErrors.AUTH_REQUIRED
+        assert get_form_error(res) == Errors.AUTH_REQUIRED
         assert not res["comment"]
 
         # Check that the comment count hasn't changed.
@@ -270,7 +270,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
 
         # Can't update someone else's comment.
         res = self.mutate_update_comment(id=2, text=new_text)
-        assert get_form_error(res) == ValidationErrors.NOT_OWNER
+        assert get_form_error(res) == Errors.NOT_OWNER
 
         # Can't update a comment to have no text and no image.
         res = self.mutate_update_comment(id=1, text="", image="")
@@ -282,13 +282,13 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         user.verified = False
         user.save()
         res = self.mutate_update_comment(id=1, text=new_text)
-        assert get_form_error(res) == GraphQLErrors.VERIFICATION_REQUIRED
+        assert get_form_error(res) == Errors.VERIFICATION_REQUIRED
         assert not res["comment"]
 
         # Can't update a comment when not logged in.
         self.authenticated_user = None
         res = self.mutate_update_comment(id=1, text=new_text)
-        assert get_form_error(res) == GraphQLErrors.AUTH_REQUIRED
+        assert get_form_error(res) == Errors.AUTH_REQUIRED
         assert not res["comment"]
 
     def test_delete_comment(self) -> None:
@@ -304,7 +304,7 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         assert get_graphql_error(res) == "Comment matching query does not exist."
 
         res = self.mutate_delete_comment(id=2)
-        assert get_form_error(res) == ValidationErrors.NOT_OWNER
+        assert get_form_error(res) == Errors.NOT_OWNER
 
         assert Comment.objects.count() == old_count - 1
 

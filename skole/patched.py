@@ -14,7 +14,7 @@ from django.http import HttpResponse
 from graphql_jwt.exceptions import PermissionDenied
 from graphql_jwt.settings import jwt_settings
 
-from skole.utils.constants import GraphQLErrors
+from skole.utils.constants import Errors
 
 logger = logging.getLogger(__name__)
 
@@ -41,7 +41,7 @@ def report_error(
 
         if not settings.DEBUG:  # pragma: no cover
             # Replace the detailed exception message with a more generic one.
-            error.args = (GraphQLErrors.UNSPECIFIED_ERROR,)
+            error.args = (Errors.UNSPECIFIED_ERROR,)
 
     self.errors.append(error)
 

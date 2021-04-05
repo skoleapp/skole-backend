@@ -1,6 +1,6 @@
 from skole.tests.helpers import SkoleSchemaTestCase, get_form_error
 from skole.types import ID, JsonDict
-from skole.utils.constants import ValidationErrors
+from skole.utils.constants import Errors
 
 
 class VoteSchemaTests(SkoleSchemaTestCase):
@@ -71,11 +71,11 @@ class VoteSchemaTests(SkoleSchemaTestCase):
 
         # Can't vote for own content.
         res = self.mutate_vote(status=1, comment=1)
-        assert get_form_error(res) == ValidationErrors.VOTE_OWN_CONTENT
+        assert get_form_error(res) == Errors.VOTE_OWN_CONTENT
 
         # Can't have more than one target.
         res = self.mutate_vote(status=1, comment=1, thread=1)
-        assert get_form_error(res) == ValidationErrors.MUTATION_INVALID_TARGET
+        assert get_form_error(res) == Errors.MUTATION_INVALID_TARGET
 
     def test_vote_thread_ok(self) -> None:
         res = self.mutate_vote(status=1, thread=2)

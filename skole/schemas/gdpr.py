@@ -38,9 +38,9 @@ from skole.models import (
 from skole.overridden import login_required
 from skole.schemas.base import SkoleObjectType
 from skole.types import JsonList, ResolveInfo
-from skole.utils.constants import Messages, MutationErrors, Notifications, VoteConstants
+from skole.utils.constants import Errors, Messages, Notifications, VoteConstants
 from skole.utils.files import override_s3_file_age
-from skole.utils.shortcuts import format_form_error
+from skole.utils.shortcuts import to_form_error
 
 if TYPE_CHECKING:
     # https://stackoverflow.com/a/63520010/9835872
@@ -83,7 +83,7 @@ class MyDataMutation(SkoleObjectType, graphene.Mutation):
         # TODO: this could use fire-and-forget style async execution.
         user = cast(User, info.context.user)
         if remaining := cls.__time_until_can_request_again(user):
-            return cls(errors=format_form_error(MutationErrors.RATE_LIMITED, remaining))
+            return cls(errors=to_form_error(Errors.RATE_LIMITED.format(remaining)))
 
         with translation.override(settings.LANGUAGE_CODE):
             # Everything in EN for consistency.

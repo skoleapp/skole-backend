@@ -62,7 +62,7 @@ class Migration(migrations.Migration):
                         validators=[
                             django.core.validators.RegexValidator(
                                 settings.USERNAME_REGEX,
-                                skole.utils.constants.ValidationErrors.INVALID_USERNAME,
+                                skole.utils.constants.Errors.INVALID_USERNAME,
                             )
                         ],
                     ),

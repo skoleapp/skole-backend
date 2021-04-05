@@ -10,7 +10,7 @@ from skole.forms.base import SkoleForm, SkoleModelForm
 from skole.models import Badge, ReferralCode, User
 from skole.models.attempted_email import AttemptedEmail
 from skole.types import JsonDict
-from skole.utils.constants import ValidationErrors
+from skole.utils.constants import Errors
 from skole.utils.files import clean_file_field
 
 
@@ -32,9 +32,7 @@ class CleanUniqueEmailMixin:
                 attempt, __ = AttemptedEmail.objects.get_or_create(email=email)
 
                 if not attempt.is_whitelisted:
-                    raise forms.ValidationError(
-                        ValidationErrors.EMAIL_DOMAIN_NOT_ALLOWED
-                    )
+                    raise forms.ValidationError(Errors.EMAIL_DOMAIN_NOT_ALLOWED)
 
                 attempt.attempts = F("attempts") + 1
                 attempt.save(update_fields=("attempts",))
@@ -44,7 +42,7 @@ class CleanUniqueEmailMixin:
                 .filter(Q(email__iexact=email) | Q(backup_email__iexact=email))
                 .exists()
             ):
-                raise forms.ValidationError(ValidationErrors.EMAIL_TAKEN)
+                raise forms.ValidationError(Errors.EMAIL_TAKEN)
 
         return email
 
@@ -56,7 +54,7 @@ class CleanUniqueUsernameMixin:
 
         if "username" in self.changed_data:  # type: ignore[attr-defined]
             if get_all_users_except(self.instance).filter(username__iexact=username).exists():  # type: ignore[attr-defined]
-                raise forms.ValidationError(ValidationErrors.USERNAME_TAKEN)
+                raise forms.ValidationError(Errors.USERNAME_TAKEN)
 
         return username
 
@@ -118,24 +116,22 @@ class LoginForm(SkoleModelForm):
         try:
             user = get_user_model().objects.get(query)
         except get_user_model().DoesNotExist:
-            raise forms.ValidationError(ValidationErrors.AUTH_ERROR) from None
+            raise forms.ValidationError(Errors.AUTH_ERROR) from None
         else:
             if not user.is_active:
-                raise forms.ValidationError(ValidationErrors.ACCOUNT_DEACTIVATED)
+                raise forms.ValidationError(Errors.ACCOUNT_DEACTIVATED)
             if not user.used_referral_code:
-                raise forms.ValidationError(
-                    ValidationErrors.REFERRAL_CODE_NEEDED_BEFORE_LOGIN
-                )
+                raise forms.ValidationError(Errors.REFERRAL_CODE_NEEDED_BEFORE_LOGIN)
 
         user = cast(
             Optional[User], authenticate(username=user.username, password=password)
         )
 
         if not user:
-            raise forms.ValidationError(ValidationErrors.AUTH_ERROR)
+            raise forms.ValidationError(Errors.AUTH_ERROR)
 
         if user.is_superuser:
-            raise forms.ValidationError(ValidationErrors.SUPERUSER_LOGIN)
+            raise forms.ValidationError(Errors.SUPERUSER_LOGIN)
 
         self.cleaned_data["user"] = user
         return self.cleaned_data
@@ -182,9 +178,7 @@ class UpdateAccountSettingsForm(CleanUniqueEmailMixin, SkoleModelForm):
             primary_email = self.cleaned_data.get("email") or self.instance.email
 
             if backup_email == primary_email:
-                raise forms.ValidationError(
-                    ValidationErrors.BACKUP_EMAIL_NOT_SAME_AS_EMAIL
-                )
+                raise forms.ValidationError(Errors.BACKUP_EMAIL_NOT_SAME_AS_EMAIL)
 
             if (
                 get_all_users_except(self.instance)
@@ -193,7 +187,7 @@ class UpdateAccountSettingsForm(CleanUniqueEmailMixin, SkoleModelForm):
                 )
                 .exists()
             ):
-                raise forms.ValidationError(ValidationErrors.EMAIL_TAKEN)
+                raise forms.ValidationError(Errors.EMAIL_TAKEN)
 
         return backup_email
 
@@ -224,7 +218,7 @@ class ChangePasswordForm(SkoleModelForm):
         old_password = self.cleaned_data["old_password"]
 
         if not self.instance.check_password(old_password):
-            raise forms.ValidationError(ValidationErrors.INVALID_OLD_PASSWORD)
+            raise forms.ValidationError(Errors.INVALID_OLD_PASSWORD)
 
         return old_password
 
@@ -249,7 +243,7 @@ class DeleteUserForm(SkoleModelForm):
         password = self.cleaned_data["password"]
 
         if not self.instance.check_password(password):
-            raise forms.ValidationError(ValidationErrors.INVALID_PASSWORD)
+            raise forms.ValidationError(Errors.INVALID_PASSWORD)
 
         return password
 
@@ -264,13 +258,13 @@ class ReferralCodeForm(SkoleForm):
         code = self.cleaned_data["code"]
         referral_code = ReferralCode.objects.get_or_none(code=code)
         if not referral_code:
-            raise forms.ValidationError(ValidationErrors.REFERRAL_CODE_INVALID)
+            raise forms.ValidationError(Errors.REFERRAL_CODE_INVALID)
         return referral_code
 
     def clean_email(self) -> str:
         email = self.cleaned_data["email"]
         user = get_user_model().objects.get_or_none(email__iexact=email)
         if not user:
-            raise forms.ValidationError(ValidationErrors.EMAIL_DOES_NOT_EXIST)
+            raise forms.ValidationError(Errors.EMAIL_DOES_NOT_EXIST)
         self.cleaned_data["user"] = user
         return email

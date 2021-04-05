@@ -19,12 +19,7 @@ from skole.tests.helpers import (
 )
 from skole.tests.schemas.test_badge import BadgeSchemaTests
 from skole.types import ID, JsonDict
-from skole.utils.constants import (
-    GraphQLErrors,
-    Messages,
-    MutationErrors,
-    ValidationErrors,
-)
+from skole.utils.constants import Errors, Messages, MutationErrors
 
 # language=GraphQL
 badge_progress_fields = (
@@ -307,23 +302,23 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
 
         # Username taken.
         res = self.mutate_register(username="testuser2")
-        assert ValidationErrors.USERNAME_TAKEN == get_form_error(res)
+        assert Errors.USERNAME_TAKEN == get_form_error(res)
 
         # Username taken with different casing.
         res = self.mutate_register(username="TESTUSER2")
-        assert ValidationErrors.USERNAME_TAKEN == get_form_error(res)
+        assert Errors.USERNAME_TAKEN == get_form_error(res)
 
         # Invalid characters in username.
         res = self.mutate_register(username="@testuser")
-        assert ValidationErrors.INVALID_USERNAME == get_form_error(res)
+        assert Errors.INVALID_USERNAME == get_form_error(res)
 
         # Email taken.
         res = self.mutate_register(email="testuser2@test.test")
-        assert ValidationErrors.EMAIL_TAKEN == get_form_error(res)
+        assert Errors.EMAIL_TAKEN == get_form_error(res)
 
         # Email taken with different casing.
         res = self.mutate_register(email="TESTUSER2@test.test")
-        assert ValidationErrors.EMAIL_TAKEN == get_form_error(res)
+        assert Errors.EMAIL_TAKEN == get_form_error(res)
 
         # Too short username.
         res = self.mutate_register(username="to")
@@ -355,7 +350,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
 
         # Non allowed email domain.
         res = self.mutate_register(email="email@nonallowed.test")
-        assert get_form_error(res) == ValidationErrors.EMAIL_DOMAIN_NOT_ALLOWED
+        assert get_form_error(res) == Errors.EMAIL_DOMAIN_NOT_ALLOWED
 
     def test_use_referral_code_ok(self) -> None:
         email = "newemail@test.test"
@@ -377,11 +372,11 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
 
         # Invalid referral code.
         res = self.mutate_use_referral_code(code="INVALID", email=email)
-        assert get_form_error(res) == ValidationErrors.REFERRAL_CODE_INVALID
+        assert get_form_error(res) == Errors.REFERRAL_CODE_INVALID
 
         # No account for the email.
         res = self.mutate_use_referral_code(code="TEST1", email="invalid@test.test")
-        assert get_form_error(res) == ValidationErrors.EMAIL_DOES_NOT_EXIST
+        assert get_form_error(res) == Errors.EMAIL_DOES_NOT_EXIST
 
         assert len(mail.outbox) == 0  # No verification emails sent.
 
@@ -407,7 +402,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
 
         self.authenticated_user = None
         res = self.mutate_resend_verification_email(assert_error=True)
-        assert get_graphql_error(res) == GraphQLErrors.AUTH_REQUIRED
+        assert get_graphql_error(res) == Errors.AUTH_REQUIRED
 
     def test_resend_verification_email(self) -> None:
         self.authenticated_user = 3  # Not yet verified.
@@ -489,15 +484,15 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
 
         # Invalid username.
         res = self.mutate_login(username_or_email="badusername")
-        assert get_form_error(res) == ValidationErrors.AUTH_ERROR
+        assert get_form_error(res) == Errors.AUTH_ERROR
 
         # Invalid email.
         res = self.mutate_login(username_or_email="bademail@test.test")
-        assert get_form_error(res) == ValidationErrors.AUTH_ERROR
+        assert get_form_error(res) == Errors.AUTH_ERROR
 
         # Invalid password.
         res = self.mutate_login(password="wrongpass")
-        assert get_form_error(res) == ValidationErrors.AUTH_ERROR
+        assert get_form_error(res) == Errors.AUTH_ERROR
 
     def test_register_and_login(self) -> None:
         self.authenticated_user = None
@@ -609,7 +604,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         # Shouldn't work without auth.
         self.authenticated_user = None
         res = self.query_user_me(assert_error=True)
-        assert get_graphql_error(res) == GraphQLErrors.AUTH_REQUIRED
+        assert get_graphql_error(res) == Errors.AUTH_REQUIRED
         assert res["data"] == {"userMe": None}
 
     def test_update_profile(self) -> None:
@@ -653,17 +648,17 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         # Username is already taken.
         res = self.mutate_update_profile(username="testuser3")
         assert len(res["errors"]) == 1
-        assert get_form_error(res) == ValidationErrors.USERNAME_TAKEN
+        assert get_form_error(res) == Errors.USERNAME_TAKEN
         assert res["user"] is None
 
         # Invalid characters in username.
         res = self.mutate_update_profile(username="test-user")
-        assert ValidationErrors.INVALID_USERNAME == get_form_error(res)
+        assert Errors.INVALID_USERNAME == get_form_error(res)
 
         # Same username with different casing is already taken.
         res = self.mutate_update_profile(username="TESTUSER3")
         assert len(res["errors"]) == 1
-        assert get_form_error(res) == ValidationErrors.USERNAME_TAKEN
+        assert get_form_error(res) == Errors.USERNAME_TAKEN
         assert res["user"] is None
 
         # Check that nothing has changed.
@@ -775,28 +770,28 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         # Email is already taken.
         res = self.mutate_update_account_settings(email="admin@test.test")
         assert len(res["errors"]) == 1
-        assert get_form_error(res) == ValidationErrors.EMAIL_TAKEN
+        assert get_form_error(res) == Errors.EMAIL_TAKEN
         assert res["user"] is None
 
         # Same email with different casing is already taken.
         res = self.mutate_update_account_settings(email="ADMIN@test.test")
         assert len(res["errors"]) == 1
-        assert get_form_error(res) == ValidationErrors.EMAIL_TAKEN
+        assert get_form_error(res) == Errors.EMAIL_TAKEN
         assert res["user"] is None
 
         # Non allowed email domain.
         res = self.mutate_update_account_settings(email="email@nonallowed.test")
-        assert get_form_error(res) == ValidationErrors.EMAIL_DOMAIN_NOT_ALLOWED
+        assert get_form_error(res) == Errors.EMAIL_DOMAIN_NOT_ALLOWED
 
         # Backup email cannot be the email of another user.
         res = self.mutate_update_account_settings(backup_email="testuser3@test.test")
-        assert get_form_error(res) == ValidationErrors.EMAIL_TAKEN
+        assert get_form_error(res) == Errors.EMAIL_TAKEN
 
         # Backup email cannot be the same as primary email.
         res = self.mutate_update_account_settings(
             email=current_user.email, backup_email=current_user.email
         )
-        assert get_form_error(res) == ValidationErrors.BACKUP_EMAIL_NOT_SAME_AS_EMAIL
+        assert get_form_error(res) == Errors.BACKUP_EMAIL_NOT_SAME_AS_EMAIL
 
         # Check that nothing has changed.
         assert self.query_user_me() == user_old
@@ -806,7 +801,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
 
         # Test deleting user with wrong password.
         res = self.mutate_delete_user(password="wrongpass")
-        assert get_form_error(res) == ValidationErrors.INVALID_PASSWORD
+        assert get_form_error(res) == Errors.INVALID_PASSWORD
 
         # Test that the user didn't get deleted.
         assert get_user_model().objects.filter(pk=2)
@@ -826,7 +821,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
     def test_change_password(self) -> None:
         # Test that invalid old password fails.
         res = self.mutate_change_password(old_password="badpass")
-        assert get_form_error(res) == ValidationErrors.INVALID_OLD_PASSWORD
+        assert get_form_error(res) == Errors.INVALID_OLD_PASSWORD
 
         # Can't change password to an invalid one:
 

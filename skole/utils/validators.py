@@ -10,7 +10,7 @@ from django.db.models.fields.files import FieldFile
 from django.utils.deconstruct import deconstructible
 
 from skole.types import JsonDict
-from skole.utils.constants import ValidationErrors
+from skole.utils.constants import Errors
 
 T = TypeVar("T")
 
@@ -37,19 +37,19 @@ class ValidateFileSizeAndType:
     def __call__(self, file: FieldFile) -> None:
         # We multiply by 1_000_000 to convert megabytes to bytes.
         if file.size > 1_000_000 * self.limit:
-            raise ValidationError(ValidationErrors.FILE_TOO_LARGE.format(self.limit))
+            raise ValidationError(Errors.FILE_TOO_LARGE.format(self.limit))
 
         # Reading the first 2048 bytes should be enough
         # to determine the file type: https://github.com/ahupp/python-magic#usage
         file_type = magic.from_buffer(file.read(2048), mime=True)
         if file_type not in self.mimes:
             raise ValidationError(
-                ValidationErrors.INVALID_FILE_TYPE.format(self.allowed_types_text)
+                Errors.INVALID_FILE_TYPE.format(self.allowed_types_text)
             )
 
         file_extension = Path(file.name).suffix.lower()
         if file_extension not in mimetypes.guess_all_extensions(file_type):
-            raise ValidationError(ValidationErrors.INVALID_FILE_EXTENSION)
+            raise ValidationError(Errors.INVALID_FILE_EXTENSION)
 
 
 def validate_is_first_inherited(decorated: type[T]) -> type[T]:
@@ -106,5 +106,5 @@ def validate_single_target(data: JsonDict, *keys: str) -> Any:
     """
     found = [value for key in keys if (value := data.get(key)) is not None]
     if len(found) != 1:
-        raise forms.ValidationError(ValidationErrors.MUTATION_INVALID_TARGET)
+        raise forms.ValidationError(Errors.MUTATION_INVALID_TARGET)
     return found[0]

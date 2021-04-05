@@ -4,7 +4,7 @@ from django import forms
 
 from skole.forms.base import SkoleModelForm, SkoleUpdateModelForm
 from skole.models import Comment, User
-from skole.utils.constants import ValidationErrors
+from skole.utils.constants import Errors
 from skole.utils.files import clean_file_field, convert_to_pdf
 
 
@@ -20,7 +20,7 @@ class _BaseCreateUpdateCommentForm(SkoleModelForm):
         cleaned_data = super().clean()
 
         if len(self.files) > 1:
-            raise forms.ValidationError(ValidationErrors.COMMENT_ONE_FILE)
+            raise forms.ValidationError(Errors.COMMENT_ONE_FILE)
 
         if "file" in self.fields:
             cleaned_data["file"] = clean_file_field(
@@ -37,7 +37,7 @@ class _BaseCreateUpdateCommentForm(SkoleModelForm):
             )
 
         if not any(cleaned_data.get(key) for key in ("text", "file", "image")):
-            raise forms.ValidationError(ValidationErrors.COMMENT_EMPTY)
+            raise forms.ValidationError(Errors.COMMENT_EMPTY)
 
         return cleaned_data
 
@@ -62,7 +62,7 @@ class CreateCommentForm(_BaseCreateUpdateCommentForm, SkoleModelForm):
         # Check that the user making the request is the same as the user passed in the form.
         # Only if they match, use the user from the request as the author of the comment.
         if user and self.request.user != user:
-            raise forms.ValidationError(ValidationErrors.INVALID_COMMENT_AUTHOR)
+            raise forms.ValidationError(Errors.INVALID_COMMENT_AUTHOR)
 
         return user
 

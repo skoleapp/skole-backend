@@ -3,7 +3,7 @@ from typing import Any, Optional
 from django import forms
 from django.http import HttpRequest
 
-from skole.utils.constants import ValidationErrors
+from skole.utils.constants import Errors
 
 
 class _SkoleFormMixin:
@@ -32,6 +32,6 @@ class SkoleUpdateModelForm(SkoleModelForm):
 
         user = getattr(self.request, "user", None)
         if not user or self.instance.user != user:
-            raise forms.ValidationError(ValidationErrors.NOT_OWNER)
+            raise forms.ValidationError(Errors.NOT_OWNER)
 
         return data

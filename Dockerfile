@@ -1,4 +1,4 @@
-FROM python:3.9.2-slim-buster@sha256:539ecc873369f39fca6edaf57c75a053d3533a01f837bfaee37de1b99545ecce AS dev
+FROM python:3.9.4-slim-buster@sha256:de9482638c1354f5178efc90431de2a42e863a12bf3df41d7fa30d5c10fe543d as dev
 
 RUN groupadd --gid=10001 user \
     && useradd --gid=user --uid=10000 --create-home user

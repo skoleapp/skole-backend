@@ -177,6 +177,7 @@ class User(SkoleModel, AbstractBaseUser, PermissionsMixin):
         on_delete=models.PROTECT,
         related_name="referred_users",
         null=True,
+        blank=True,
     )
 
     score = models.IntegerField(default=0)

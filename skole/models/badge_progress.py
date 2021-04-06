@@ -26,7 +26,7 @@ class BadgeProgress(SkoleModel):
     )
 
     progress = models.IntegerField(default=0)
-    acquired = models.DateTimeField(default=None, null=True)
+    acquired = models.DateTimeField(default=None, null=True, blank=True)
 
     class Meta:
         unique_together = ("badge", "user")

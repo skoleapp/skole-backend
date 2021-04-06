@@ -32,6 +32,7 @@ class Activity(SkoleModel):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         null=True,
+        blank=True,
         related_name="caused_activities",
     )
 

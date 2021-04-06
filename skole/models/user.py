@@ -6,7 +6,16 @@ from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.core.validators import RegexValidator
 from django.db import models
-from django.db.models import Count, ExpressionWrapper, F, FloatField, QuerySet
+from django.db.models import (
+    Case,
+    Count,
+    ExpressionWrapper,
+    F,
+    FloatField,
+    QuerySet,
+    Value,
+    When,
+)
 from django.db.models.functions import Cast
 from django.utils import timezone
 from fcm_django.models import FCMDevice
@@ -17,7 +26,13 @@ from skole.models.badge import Badge
 from skole.models.badge_progress import BadgeProgress
 from skole.models.base import SkoleManager, SkoleModel
 from skole.models.referral_code import ReferralCode
-from skole.utils.constants import Errors, Ranks, TokenAction, VerboseNames
+from skole.utils.constants import (
+    BADGE_TIER_CHOICES,
+    Errors,
+    Ranks,
+    TokenAction,
+    VerboseNames,
+)
 from skole.utils.exceptions import (
     BackupEmailAlreadyVerified,
     ReferralCodeNeeded,
@@ -264,6 +279,17 @@ class User(SkoleModel, AbstractBaseUser, PermissionsMixin):
 
     def get_acquired_badges(self) -> QuerySet[Badge]:
         """Return all the badges that the user has acquired."""
-        return Badge.objects.filter(
-            badge_progresses__user=self, badge_progresses__acquired__isnull=False
+        return (
+            Badge.objects.filter(
+                badge_progresses__user=self, badge_progresses__acquired__isnull=False
+            )
+            .annotate(
+                ordering=Case(
+                    *(
+                        When(tier=tier, then=Value(i))
+                        for i, (tier, __) in enumerate(BADGE_TIER_CHOICES)
+                    )
+                )
+            )
+            .order_by("ordering", "pk")
         )

@@ -319,7 +319,10 @@ class MyDataMutation(SkoleObjectType, graphene.Mutation):
                 thread__isnull=False, then=Concat(Value("thread "), "thread")
             ),
         }
-        return Case(*(value for key, value in cases.items() if hasattr(model, key)))
+        return Case(
+            *(value for key, value in cases.items() if hasattr(model, key)),
+            output_field=CharField(),
+        )
 
     @staticmethod
     @functools.cache

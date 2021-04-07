@@ -36,7 +36,6 @@ class Errors:
     COMMENT_EMPTY = _("Comment must include either text, an image or a file.")
     COMMENT_ONE_FILE = _("Comment can contain either an image or a file, but not both.")
     COULD_NOT_CONVERT_FILE = _("File could not be converted to {} format.")
-    EMAIL_DOES_NOT_EXIST = _("The email does not belong to an account.")
     EMAIL_DOMAIN_NOT_ALLOWED = _("The email address domain is not allowed.")
     EMAIL_ERROR = _("Error while sending email.")
     EMAIL_TAKEN = _("This email is taken.")
@@ -60,17 +59,18 @@ class Errors:
     NOT_OWNER = _("You are not the owner of this object.")
     NOT_VERIFIED = _("This account is not verified.")
     RATE_LIMITED = _("You can request this next time in {} min.")
-    REFERRAL_CODE_ALREADY_SET = _(
-        "You have already activated your account with a referral code."
+    INVITE_CODE_ALREADY_SET = _(
+        "You have already activated your account with a invite code."
     )
-    REFERRAL_CODE_INVALID = _("The referral code does not seem to be valid.")
-    REFERRAL_CODE_NEEDED_BEFORE_LOGIN = _(
-        "You need to use a referral code before you can log in."
+    INVITE_CODE_INVALID = _("The invite code does not seem to be valid.")
+    INVITE_CODE_NEEDED_BEFORE_LOGIN = _(
+        "You need to use an invite code before you can log in."
     )
-    REFERRAL_CODE_NEEDED_BEFORE_VERIFY = _(
-        "You need to use a referral code before validating your email."
+    INVITE_CODE_NEEDED_BEFORE_VERIFY = _(
+        "You need to use an invite code before validating your email."
     )
-    REFERRAL_CODE_NO_USES_LEFT = _("The referral code does not have any uses left.")
+    INVITE_CODE_NO_USES_LEFT = _("The invite code does not have any uses left.")
+    INVITE_CODE_VERIFIED = _("Verified users cannot use invite codes.")
     REGISTER_EMAIL_ERROR = _(
         "Your account has been registered but we encountered an error while sending "
         "email. You may still log in using your credentials. "
@@ -107,7 +107,7 @@ class Messages:
     PASSWORD_RESET_EMAIL_SENT = _("Password reset link sent successfully!")
     PASSWORD_UPDATED = _("Password updated successfully!")
     PROFILE_UPDATED = _("Profile updated successfully!")
-    REFERRAL_CODE_SUCCESS = _("Successfully used the referral code!")
+    INVITE_CODE_SUCCESS = _("Successfully used the invite code!")
     THREAD_CREATED = _("Thread created successfully!")
     THREAD_DELETED = _("Thread deleted successfully!")
     USER_DELETED = _("Account deleted successfully!")

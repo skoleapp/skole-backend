@@ -6,16 +6,7 @@ from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.core.validators import RegexValidator
 from django.db import models
-from django.db.models import (
-    Case,
-    Count,
-    ExpressionWrapper,
-    F,
-    FloatField,
-    QuerySet,
-    Value,
-    When,
-)
+from django.db.models import Count, ExpressionWrapper, F, FloatField, QuerySet
 from django.db.models.functions import Cast
 from django.utils import timezone
 from fcm_django.models import FCMDevice
@@ -25,17 +16,11 @@ from imagekit.processors import ResizeToFill
 from skole.models.badge import Badge
 from skole.models.badge_progress import BadgeProgress
 from skole.models.base import SkoleManager, SkoleModel
-from skole.models.referral_code import ReferralCode
-from skole.utils.constants import (
-    BADGE_TIER_CHOICES,
-    Errors,
-    Ranks,
-    TokenAction,
-    VerboseNames,
-)
+from skole.models.invite_code import InviteCode
+from skole.utils.constants import Errors, Ranks, TokenAction, VerboseNames
 from skole.utils.exceptions import (
     BackupEmailAlreadyVerified,
-    ReferralCodeNeeded,
+    InviteCodeNeeded,
     UserAlreadyVerified,
 )
 from skole.utils.shortcuts import safe_annotation
@@ -82,14 +67,14 @@ class UserManager(SkoleManager["User"], BaseUserManager["User"]):
 
         user = self.get(**payload)
 
-        if not user.used_referral_code:
-            raise ReferralCodeNeeded
+        if not user.used_invite_code:
+            raise InviteCodeNeeded
 
-        if not user.verified:
+        if user.verified is False:
             user.verified = True
             user.save(update_fields=("verified",))
-            # We now have a fully activated user, let's give them their own referral code.
-            ReferralCode.objects.create_referral_code(user)
+            # We now have a fully activated user, let's give them their own invite code.
+            InviteCode.objects.create_invite_code(user)
         else:
             raise UserAlreadyVerified
 
@@ -172,10 +157,10 @@ class User(SkoleModel, AbstractBaseUser, PermissionsMixin):
         blank=True,
     )
 
-    used_referral_code = models.ForeignKey(
-        "skole.ReferralCode",
+    used_invite_code = models.ForeignKey(
+        "skole.InviteCode",
         on_delete=models.PROTECT,
-        related_name="referred_users",
+        related_name="invited_users",
         null=True,
         blank=True,
     )
@@ -280,17 +265,6 @@ class User(SkoleModel, AbstractBaseUser, PermissionsMixin):
 
     def get_acquired_badges(self) -> QuerySet[Badge]:
         """Return all the badges that the user has acquired."""
-        return (
-            Badge.objects.filter(
-                badge_progresses__user=self, badge_progresses__acquired__isnull=False
-            )
-            .annotate(
-                ordering=Case(
-                    *(
-                        When(tier=tier, then=Value(i))
-                        for i, (tier, __) in enumerate(BADGE_TIER_CHOICES)
-                    )
-                )
-            )
-            .order_by("ordering", "pk")
+        return Badge.objects.filter(
+            badge_progresses__user=self, badge_progresses__acquired__isnull=False
         )

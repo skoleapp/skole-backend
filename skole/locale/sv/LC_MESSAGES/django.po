@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-05 15:07+0000\n"
+"POT-Creation-Date: 2021-04-08 08:27+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Skole\n"
@@ -51,7 +51,7 @@ msgstr "Den här åtgärden är endast tillåten för autentiserade användare."
 
 #: skole/utils/constants.py:31
 msgid "Your backup email is already verified."
-msgstr "Din reserv-e-post har redan verifierats."
+msgstr "Det här kontot har redan verifierats."
 
 #: skole/utils/constants.py:33
 msgid "Your backup email cannot be the same as your primary email."
@@ -74,96 +74,96 @@ msgid "File could not be converted to {} format."
 msgstr "Filen kunde inte konverteras till {}-format"
 
 #: skole/utils/constants.py:39
-msgid "The email does not belong to an account."
-msgstr "E-postmeddelandet tillhör inte ett konto."
-
-#: skole/utils/constants.py:40
 msgid "The email address domain is not allowed."
 msgstr "E-postadressdomänen är inte tillåten."
 
-#: skole/utils/constants.py:41
+#: skole/utils/constants.py:40
 msgid "Error while sending email."
 msgstr "Fel vid sändning av meddelande."
 
-#: skole/utils/constants.py:42
+#: skole/utils/constants.py:41
 msgid "This email is taken."
 msgstr "Den här e-postadressen är upptagen."
 
-#: skole/utils/constants.py:43
+#: skole/utils/constants.py:42
 msgid "File is too large, maximum allowed is {} MB"
 msgstr "Filen är för stor, största tillåtna filstorlek {}MB"
 
-#: skole/utils/constants.py:45
+#: skole/utils/constants.py:44
 msgid "You cannot set someone else to be the author of your comment."
 msgstr "Du kan inte ställa in någon annan som författare till din kommentar."
 
-#: skole/utils/constants.py:47
+#: skole/utils/constants.py:46
 msgid "File extension doesn't match the file type."
 msgstr "Tiedostopääte ja tiedostotyyppi eivät täsmää."
 
-#: skole/utils/constants.py:48
+#: skole/utils/constants.py:47
 msgid "Invalid file type, allowed types are: {}"
 msgstr "Ogiltig filtyp, tillåtna typer är: {}"
 
-#: skole/utils/constants.py:49
+#: skole/utils/constants.py:48
 msgid "Invalid old password."
 msgstr "Ogiltigt gammalt lösenord."
 
-#: skole/utils/constants.py:50
+#: skole/utils/constants.py:49
 msgid "Invalid ordering value."
 msgstr "Ogiltigt sorteringsvärde."
 
-#: skole/utils/constants.py:51
+#: skole/utils/constants.py:50
 msgid "Invalid password."
 msgstr "Felaktigt lösenord."
 
-#: skole/utils/constants.py:53
+#: skole/utils/constants.py:52
 msgid "Invalid token. Please request new password reset link."
 msgstr "Ogiltigt token. Be om ny länk till återställning av lösenord."
 
-#: skole/utils/constants.py:55
+#: skole/utils/constants.py:54
 msgid "Invalid token. Please request new verification link."
 msgstr "Ogiltigt token. Begär ny verifieringslänk."
 
-#: skole/utils/constants.py:57
+#: skole/utils/constants.py:56
 msgid "Usernames can only contain letters, numbers, and underscores."
 msgstr "Användarnamn kan bara innehålla bokstäver, siffror och understreck."
 
-#: skole/utils/constants.py:59
+#: skole/utils/constants.py:58
 msgid "Mutation needs exactly one target."
 msgstr "Mutationen innehåller för många mål."
 
-#: skole/utils/constants.py:60
+#: skole/utils/constants.py:59
 msgid "You are not the owner of this object."
 msgstr "Du är inte ägare av detta objekt."
 
-#: skole/utils/constants.py:61
+#: skole/utils/constants.py:60
 msgid "This account is not verified."
 msgstr "Det här kontot har inte verifierats"
 
-#: skole/utils/constants.py:62
+#: skole/utils/constants.py:61
 msgid "You can request this next time in {} min."
 msgstr "Du kan begära detta igen inom {} min."
 
-#: skole/utils/constants.py:64
-msgid "You have already activated your account with a referral code."
+#: skole/utils/constants.py:63
+msgid "You have already activated your account with a invite code."
 msgstr "Du har redan aktiverat ditt konto med en hänvisningskod."
 
-#: skole/utils/constants.py:66
-msgid "The referral code does not seem to be valid."
+#: skole/utils/constants.py:65
+msgid "The invite code does not seem to be valid."
 msgstr "Hänvisningskoden verkar inte vara giltig."
 
-#: skole/utils/constants.py:68
-msgid "You need to use a referral code before you can log in."
+#: skole/utils/constants.py:67
+msgid "You need to use an invite code before you can log in."
 msgstr "Du måste använda en hänvisningskod innan du kan logga in."
 
-#: skole/utils/constants.py:71
-msgid "You need to use a referral code before validating your email."
+#: skole/utils/constants.py:70
+msgid "You need to use an invite code before validating your email."
 msgstr "Du måste använda en hänvisningskod innan du validerar din e-post."
 
-#: skole/utils/constants.py:73
-msgid "The referral code does not have any uses left."
+#: skole/utils/constants.py:72
+msgid "The invite code does not have any uses left."
 msgstr "Hänvisningskoden har inga användningsområden kvar."
+
+#: skole/utils/constants.py:73
+msgid "Verified users cannot use invite codes."
+msgstr "Verifierade användare kan inte använda inbjudningskoder."
 
 #: skole/utils/constants.py:75
 msgid ""
@@ -228,7 +228,7 @@ msgstr "Kontot har verifierats!"
 
 #: skole/utils/constants.py:100
 msgid "Backup email verified successfully!"
-msgstr "Reserv-e-post verifierad!"
+msgstr "Kontot har verifierats!"
 
 #: skole/utils/constants.py:101
 msgid "Changed the tracked badge successfully!"
@@ -267,7 +267,7 @@ msgid "Profile updated successfully!"
 msgstr "Profilen har uppdaterats!"
 
 #: skole/utils/constants.py:110
-msgid "Successfully used the referral code!"
+msgid "Successfully used the invite code!"
 msgstr "Har använt remisskoden!"
 
 #: skole/utils/constants.py:111

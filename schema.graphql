@@ -155,6 +155,11 @@ type ErrorType {
   messages: [String!]!
 }
 
+type InviteCodeObjectType {
+  code: String!
+  usages: Int!
+}
+
 input LoginMutationInput {
   usernameOrEmail: String!
   password: String!
@@ -165,6 +170,7 @@ type LoginMutationPayload {
   user: UserObjectType
   errors: [ErrorType]
   successMessage: String
+  inviteCodeRequired: Boolean
   clientMutationId: String
 }
 
@@ -195,7 +201,7 @@ type Mutation {
   register(input: RegisterMutationInput!): RegisterMutationPayload
   verifyAccount(input: VerifyAccountMutationInput!): VerifyAccountMutationPayload
   verifyBackupEmail(input: VerifyBackupEmailMutationInput!): VerifyBackupEmailMutationPayload
-  useReferralCode(input: UseReferralCodeMutationInput!): UseReferralCodeMutationPayload
+  useInviteCode(input: UseInviteCodeMutationInput!): UseInviteCodeMutationPayload
   resendVerificationEmail: ResendVerificationEmailMutation
   resendBackupEmailVerificationEmail: ResendBackupEmailVerificationEmailMutation
   sendPasswordResetEmail(input: SendPasswordResetEmailMutationInput!): SendPasswordResetEmailMutationPayload
@@ -262,11 +268,6 @@ type Query {
   thread(slug: String): ThreadObjectType
   activities(page: Int, pageSize: Int): PaginatedActivityObjectType
   activityPreview: [ActivityObjectType]
-}
-
-type ReferralCodeObjectType {
-  code: String!
-  usages: Int!
 }
 
 input RegisterFCMTokenMutationInput {
@@ -436,15 +437,15 @@ type UpdateSelectedBadgeMutationPayload {
   clientMutationId: String
 }
 
-input UseReferralCodeMutationInput {
+input UseInviteCodeMutationInput {
+  usernameOrEmail: String!
   code: String!
-  email: String!
   clientMutationId: String
 }
 
-type UseReferralCodeMutationPayload {
+type UseInviteCodeMutationPayload {
+  usernameOrEmail: String!
   code: String!
-  email: String!
   errors: [ErrorType]
   successMessage: String
   clientMutationId: String
@@ -471,11 +472,10 @@ type UserObjectType {
   threadCommentPushPermission: Boolean
   newBadgePushPermission: Boolean
   badgeProgresses: [BadgeProgressObjectType]
-  referralCodes: [ReferralCodeObjectType]
+  inviteCode: InviteCodeObjectType
   threadCount: Int
   commentCount: Int
   avatarThumbnail: String
-  verifiedBackupEmail: Boolean
   rank: String
   badges: [BadgeObjectType]
   unreadActivityCount: Int

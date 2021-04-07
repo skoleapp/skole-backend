@@ -7,7 +7,7 @@ from django.core.files import File
 from django.db.models import F, Q, QuerySet
 
 from skole.forms.base import SkoleForm, SkoleModelForm
-from skole.models import Badge, ReferralCode, User
+from skole.models import Badge, InviteCode, User
 from skole.models.attempted_email import AttemptedEmail
 from skole.types import JsonDict
 from skole.utils.constants import Errors
@@ -120,8 +120,6 @@ class LoginForm(SkoleModelForm):
         else:
             if not user.is_active:
                 raise forms.ValidationError(Errors.ACCOUNT_DEACTIVATED)
-            if not user.used_referral_code:
-                raise forms.ValidationError(Errors.REFERRAL_CODE_NEEDED_BEFORE_LOGIN)
 
         user = cast(
             Optional[User], authenticate(username=user.username, password=password)
@@ -132,6 +130,11 @@ class LoginForm(SkoleModelForm):
 
         if user.is_superuser:
             raise forms.ValidationError(Errors.SUPERUSER_LOGIN)
+
+        if not user.used_invite_code:
+            raise forms.ValidationError(
+                Errors.INVITE_CODE_NEEDED_BEFORE_LOGIN,
+            )
 
         self.cleaned_data["user"] = user
         return self.cleaned_data
@@ -248,23 +251,34 @@ class DeleteUserForm(SkoleModelForm):
         return password
 
 
-class ReferralCodeForm(SkoleForm):
+class InviteCodeForm(SkoleForm):
+    username_or_email = forms.CharField()
+
     def __init__(self, **kwargs: Any) -> None:
         super().__init__(**kwargs)
-        self.fields["code"] = ReferralCode.formfield("code")
-        self.fields["email"] = get_user_model().formfield("email")
+        self.fields["code"] = InviteCode.formfield("code")
 
-    def clean_code(self) -> ReferralCode:
+    def clean_code(self) -> InviteCode:
         code = self.cleaned_data["code"]
-        referral_code = ReferralCode.objects.get_or_none(code=code)
-        if not referral_code:
-            raise forms.ValidationError(Errors.REFERRAL_CODE_INVALID)
-        return referral_code
+        invite_code = InviteCode.objects.get_or_none(code=code)
+        if not invite_code:
+            raise forms.ValidationError(Errors.INVITE_CODE_INVALID)
+        return invite_code
 
-    def clean_email(self) -> str:
-        email = self.cleaned_data["email"]
-        user = get_user_model().objects.get_or_none(email__iexact=email)
-        if not user:
-            raise forms.ValidationError(Errors.EMAIL_DOES_NOT_EXIST)
+    def clean_username_or_email(self) -> str:
+        username_or_email = self.cleaned_data["username_or_email"]
+
+        if "@" in username_or_email:
+            query = Q(email__iexact=username_or_email) | Q(
+                backup_email__iexact=username_or_email
+            )
+        else:
+            query = Q(username__iexact=username_or_email)
+
+        try:
+            user = get_user_model().objects.get(query)
+        except get_user_model().DoesNotExist:
+            raise forms.ValidationError(Errors.AUTH_ERROR) from None
+
         self.cleaned_data["user"] = user
-        return email
+        return username_or_email

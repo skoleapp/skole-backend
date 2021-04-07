@@ -6,11 +6,11 @@ from django.contrib.auth import get_user_model
 from django.db.models import QuerySet
 from fcm_django.models import FCMDevice
 
-from skole.models import Badge, BadgeProgress, ReferralCode, User
+from skole.models import Badge, BadgeProgress, InviteCode, User
 from skole.schemas.badge import BadgeObjectType
 from skole.schemas.badge_progress import BadgeProgressObjectType
 from skole.schemas.base import SkoleDjangoObjectType
-from skole.schemas.referral_code import ReferralCodeObjectType
+from skole.schemas.invite_code import InviteCodeObjectType
 from skole.types import ResolveInfo
 
 T = TypeVar("T")
@@ -33,9 +33,8 @@ def private_field(func: UserResolver[T]) -> UserResolver[Optional[T]]:
 class UserObjectType(SkoleDjangoObjectType):
     """
     The following fields are private, meaning they are returned only if the user is
-    querying one's own profile: `email`, `backup_email`, `verified`,
-    `verified_backup_email`, `badge_progresses`, `selected_badge_progress`,
-    `referral_codes`, and all `permission` fields.
+    querying one's own profile: `email`, `backup_email`, `verified`, `badge_progresses`,
+    `selected_badge_progress`, `invite_code`, and all `permission` fields.
 
     For instances that are not the user's own user profile, these fields will return a
     `null` value.
@@ -47,11 +46,10 @@ class UserObjectType(SkoleDjangoObjectType):
     comment_count = graphene.Int()
     avatar_thumbnail = graphene.String()
     verified = graphene.Boolean()
-    verified_backup_email = graphene.Boolean()
     rank = graphene.String()
     badges = graphene.List(BadgeObjectType)
     badge_progresses = graphene.List(BadgeProgressObjectType)
-    referral_codes = graphene.List(ReferralCodeObjectType)
+    invite_code = graphene.Field(InviteCodeObjectType)
     unread_activity_count = graphene.Int()
     fcm_token = graphene.String()
     comment_reply_email_permission = graphene.Boolean()
@@ -90,8 +88,8 @@ class UserObjectType(SkoleDjangoObjectType):
             "new_badge_push_permission",
             "badges",
             "badge_progresses",
+            "invite_code",
             "selected_badge_progress",
-            "referral_codes",
         )
 
     @staticmethod
@@ -123,8 +121,8 @@ class UserObjectType(SkoleDjangoObjectType):
 
     @staticmethod
     @private_field
-    def resolve_referral_codes(root: User, info: ResolveInfo) -> QuerySet[ReferralCode]:
-        return root.referral_codes.all()
+    def resolve_invite_code(root: User, info: ResolveInfo) -> Optional[InviteCode]:
+        return InviteCode.objects.get_or_none(user=root)
 
     @staticmethod
     @private_field
@@ -149,11 +147,6 @@ class UserObjectType(SkoleDjangoObjectType):
     @private_field
     def resolve_verified(root: User, info: ResolveInfo) -> bool:
         return root.verified
-
-    @staticmethod
-    @private_field
-    def resolve_verified_backup_email(root: User, info: ResolveInfo) -> bool:
-        return root.verified_backup_email
 
     @staticmethod
     @private_field

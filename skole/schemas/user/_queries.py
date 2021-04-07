@@ -22,11 +22,12 @@ class Query(SkoleObjectType):
 
     @staticmethod
     def resolve_user(root: None, info: ResolveInfo, slug: str = "") -> Optional[User]:
-        """Superusers or users who haven't entered a referral code cannot be queried."""
+        """Superusers or users who haven't entered an invite code cannot be queried."""
+
         try:
             return (
                 get_user_model()
-                .objects.filter(is_superuser=False, used_referral_code__isnull=False)
+                .objects.filter(is_superuser=False, used_invite_code__isnull=False)
                 .get(slug=slug)
             )
 

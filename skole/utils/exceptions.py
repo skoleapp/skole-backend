@@ -18,6 +18,10 @@ class UserAlreadyVerified(_BaseGraphQLAuthError):
     message = Errors.ALREADY_VERIFIED
 
 
+class BackupEmailAlreadyVerified(_BaseGraphQLAuthError):
+    message = Errors.BACKUP_EMAIL_ALREADY_VERIFIED
+
+
 class UserNotVerified(_BaseGraphQLAuthError):
     message = Errors.NOT_VERIFIED
 

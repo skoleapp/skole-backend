@@ -12,7 +12,7 @@ from django.utils.translation import get_language
 from skole.models import Activity, User
 from skole.types import JsonDict
 from skole.utils.constants import Notifications, TokenAction
-from skole.utils.exceptions import UserAlreadyVerified
+from skole.utils.exceptions import BackupEmailAlreadyVerified, UserAlreadyVerified
 from skole.utils.token import get_token
 
 
@@ -46,7 +46,7 @@ def _send_templated_mail(
 
     if recipient_list is None and user is not None:
         recipient_list = [user.email]
-        if user.backup_email:
+        if user.backup_email and user.verified_backup_email:
             recipient_list.append(user.backup_email)
 
     if not recipient_list:
@@ -86,6 +86,25 @@ def send_verification_email(user: User) -> None:
         context=email_context,
         # Don't pass the `user` here since the verification email shouldn't go to the
         # backup email.
+        recipient_list=[user.email],
+    )
+
+
+def send_backup_email_verification_email(user: User) -> None:
+    if user.verified_backup_email:
+        raise BackupEmailAlreadyVerified
+
+    email_context = _get_auth_email_context(
+        user,
+        settings.BACKUP_EMAIL_VERIFICATION_PATH_ON_EMAIL,
+        TokenAction.BACKUP_EMAIL_VERIFICATION,
+    )
+
+    _send_templated_mail(
+        subject=Notifications.VERIFY_BACKUP_EMAIL_SUBJECT,
+        template="email/verify_backup_email.html",
+        context=email_context | {"backup_email": user.backup_email},
+        # The primary email needs to be the one that verifies the backup email.
         recipient_list=[user.email],
     )
 

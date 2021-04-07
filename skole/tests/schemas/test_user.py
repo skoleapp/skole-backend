@@ -1,3 +1,4 @@
+# pylint: disable=too-many-lines
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core import mail
@@ -240,6 +241,14 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
             result="successMessage",
         )
 
+    def mutate_verify_backup_email(self, *, token: str) -> JsonDict:
+        return self.execute_input_mutation(
+            name="verifyBackupEmail",
+            input_type="VerifyBackupEmailMutationInput!",
+            input={"token": token},
+            result="successMessage",
+        )
+
     def mutate_use_referral_code(self, *, code: str, email: str) -> JsonDict:
         return self.execute_input_mutation(
             name="useReferralCode",
@@ -251,6 +260,15 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
     def mutate_resend_verification_email(self, assert_error: bool = False) -> JsonDict:
         return self.execute_non_input_mutation(
             name="resendVerificationEmail",
+            result="successMessage",
+            assert_error=assert_error,
+        )
+
+    def mutate_resend_backup_email_verification_email(
+        self, assert_error: bool = False
+    ) -> JsonDict:
+        return self.execute_non_input_mutation(
+            name="resendBackupEmailVerificationEmail",
             result="successMessage",
             assert_error=assert_error,
         )
@@ -437,6 +455,33 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         res = self.mutate_verify_account(token=get_token_from_email(sent.body))
         assert not res["errors"]
         assert res["successMessage"] == Messages.ACCOUNT_VERIFIED
+
+    def test_verify_backup_email(self) -> None:
+        self.mutate_update_account_settings(backup_email="newbackup@test.test")
+        assert len(mail.outbox) == 1
+        token = get_token_from_email(mail.outbox[0].body)
+        res = self.mutate_verify_backup_email(token=token)
+        assert not res["errors"]
+        assert res["successMessage"] == Messages.BACKUP_EMAIL_VERIFIED
+
+        res = self.mutate_verify_backup_email(token=token)
+        assert res["errors"] == MutationErrors.BACKUP_EMAIL_ALREADY_VERIFIED
+
+    def test_resend_backup_email_verification_email(self) -> None:
+        user = self.get_authenticated_user()
+        user.backup_email = "backup@test.test"
+        user.verified_backup_email = False
+        user.save()
+
+        self.mutate_resend_backup_email_verification_email()
+        self.mutate_resend_backup_email_verification_email()
+        self.mutate_resend_backup_email_verification_email()
+        assert len(mail.outbox) == 3
+        res = self.mutate_verify_backup_email(
+            token=get_token_from_email(mail.outbox[0].body)
+        )
+        assert not res["errors"]
+        assert res["successMessage"] == Messages.BACKUP_EMAIL_VERIFIED
 
     def test_login_ok_with_username(self) -> None:
         self.authenticated_user = None
@@ -747,16 +792,21 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert res["user"]["newBadgePushPermission"]
         assert res["successMessage"] == Messages.ACCOUNT_SETTINGS_UPDATED
 
-        # Changing the backup email shouldn't unverify the user.
+        # Changing the backup email should unverify it and send a verification email.
+        assert len(mail.outbox) == 0
+        current_user.verified_backup_email = True
+        current_user.save()
         new_backup_email = "newbackup@test.test"
         res = self.mutate_update_account_settings(backup_email=new_backup_email)
         assert not res["errors"]
         assert res["user"]["backupEmail"] == new_backup_email
         current_user.refresh_from_db()
+        assert len(mail.outbox) == 1
         assert current_user.verified
+        assert not current_user.verified_backup_email
         assert current_user.backup_email == new_backup_email
 
-        # Changing the email should unverify the user, and lowercase the email.
+        # Changing the email should unverify the user and send a verification email.
         new_mail = "newmail@test.test"
         res = self.mutate_update_account_settings(email="NEWMAIL@test.test")
         assert not res["errors"]
@@ -764,6 +814,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         current_user.refresh_from_db()
         assert not current_user.verified
         assert current_user.email == new_mail
+        assert len(mail.outbox) == 2
 
         user_old = self.query_user_me()
 

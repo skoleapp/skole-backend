@@ -18,7 +18,11 @@ from skole.models.badge_progress import BadgeProgress
 from skole.models.base import SkoleManager, SkoleModel
 from skole.models.referral_code import ReferralCode
 from skole.utils.constants import Errors, Ranks, TokenAction, VerboseNames
-from skole.utils.exceptions import ReferralCodeNeeded, UserAlreadyVerified
+from skole.utils.exceptions import (
+    BackupEmailAlreadyVerified,
+    ReferralCodeNeeded,
+    UserAlreadyVerified,
+)
 from skole.utils.shortcuts import safe_annotation
 from skole.utils.token import get_token_payload
 from skole.utils.validators import ValidateFileSizeAndType
@@ -56,7 +60,7 @@ class UserManager(SkoleManager["User"], BaseUserManager["User"]):
         user.save()
         return user
 
-    def verify_user(self, token: str) -> User:
+    def verify_user(self, token: str) -> None:
         payload = get_token_payload(
             token, TokenAction.VERIFICATION, settings.EXPIRATION_VERIFICATION_TOKEN
         )
@@ -66,14 +70,28 @@ class UserManager(SkoleManager["User"], BaseUserManager["User"]):
         if not user.used_referral_code:
             raise ReferralCodeNeeded
 
-        if user.verified is False:
+        if not user.verified:
             user.verified = True
-            user.save()
+            user.save(update_fields=("verified",))
             # We now have a fully activated user, let's give them their own referral code.
             ReferralCode.objects.create_referral_code(user)
-            return user
         else:
             raise UserAlreadyVerified
+
+    def verify_backup_email(self, token: str) -> None:
+        payload = get_token_payload(
+            token,
+            TokenAction.BACKUP_EMAIL_VERIFICATION,
+            settings.EXPIRATION_VERIFICATION_TOKEN,
+        )
+
+        user = self.get(**payload)
+
+        if not user.verified_backup_email and user.backup_email:
+            user.verified_backup_email = True
+            user.save(update_fields=("verified_backup_email",))
+        else:
+            raise BackupEmailAlreadyVerified
 
 
 class User(SkoleModel, AbstractBaseUser, PermissionsMixin):
@@ -104,8 +122,11 @@ class User(SkoleModel, AbstractBaseUser, PermissionsMixin):
         error_messages={"unique": Errors.EMAIL_TAKEN},
     )
     # The secondary email address of the user.
-    # This can be any valid email, and doesn't have to be verified.
+    # This can be any valid email. It needs to be verified with the primary email.
     backup_email = models.EmailField(blank=True)
+    # Verified by default so that frontend doesn't show the option to verify it
+    # when user's backup email is not yet set.
+    verified_backup_email = models.BooleanField(default=True)
 
     title = models.CharField(max_length=100, blank=True)
     bio = models.TextField(max_length=2000, blank=True)

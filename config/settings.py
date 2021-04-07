@@ -270,6 +270,7 @@ ALLOWED_EMAIL_DOMAINS = {
     "ulapland.fi",
     "tuni.fi",
     "uniarts.fi",
+    "mil.fi",
     "utu.fi",
     *(("test.test",) if DEBUG else ()),
 }

@@ -5,9 +5,11 @@ from parler.admin import TranslatableAdmin
 from skole.models import (
     Activity,
     ActivityType,
+    AttemptedEmail,
     Badge,
     BadgeProgress,
     Comment,
+    DailyVisit,
     ReferralCode,
     Star,
     Thread,
@@ -20,14 +22,16 @@ admin.site.site_header = Admin.SITE_HEADER
 
 # Untranslated models.
 admin.site.register(get_user_model())
+admin.site.register(Activity)
+admin.site.register(AttemptedEmail)
 admin.site.register(BadgeProgress)
 admin.site.register(Comment)
+admin.site.register(DailyVisit)
+admin.site.register(ReferralCode)
 admin.site.register(Star)
 admin.site.register(Thread)
 admin.site.register(Vote)
-admin.site.register(Activity)
-admin.site.register(ReferralCode)
 
 # Translated models.
-admin.site.register(Badge, TranslatableAdmin)
 admin.site.register(ActivityType, TranslatableAdmin)
+admin.site.register(Badge, TranslatableAdmin)

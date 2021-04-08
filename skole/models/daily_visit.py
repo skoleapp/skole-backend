@@ -20,6 +20,7 @@ class DailyVisit(SkoleModel):
         settings.AUTH_USER_MODEL,
         related_name="daily_visits",
         null=True,
+        blank=True,
         # Don't cascade since we don't want to ever lose visitor data.
         on_delete=models.SET_NULL,
     )

@@ -17,7 +17,9 @@ class Badge(TranslatableSkoleModel):
         max_length=100,
         default="",  # To make this compatible with existing data.
     )
-    steps = models.IntegerField(null=True, validators=[MinValueValidator(1)])
+    steps = models.IntegerField(
+        null=True, blank=True, validators=[MinValueValidator(1)]
+    )
     completion_score = models.IntegerField(default=0)
     tier = models.CharField(choices=BADGE_TIER_CHOICES, max_length=20, default="bronze")
 

@@ -28,7 +28,7 @@ class Migration(migrations.Migration):
                 (
                     "usages",
                     models.PositiveIntegerField(
-                        default=settings.REFERRAL_CODE_INITIAL_USAGES
+                        default=settings.INVITE_CODE_INITIAL_USAGES
                     ),
                 ),
                 ("created", models.DateTimeField(auto_now_add=True)),

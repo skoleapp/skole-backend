@@ -252,9 +252,9 @@ MY_DATA_RATE_LIMIT = timedelta(seconds=5) if DEBUG else timedelta(minutes=10)
 #   and deletes all generated `myData` files older than 7 days.
 MY_DATA_FILE_AVAILABLE_FOR = timedelta(days=7)
 
-# Specs of ReferralCodes that are created for new users to share.
-REFERRAL_CODE_LENGTH = 7
-REFERRAL_CODE_INITIAL_USAGES = 2
+# Specs of invite codes that are created for new users to share.
+INVITE_CODE_LENGTH = 7
+INVITE_CODE_INITIAL_USAGES = 2
 
 # Email address domains that can be used to register with.
 ALLOWED_EMAIL_DOMAINS = {
@@ -270,6 +270,7 @@ ALLOWED_EMAIL_DOMAINS = {
     "ulapland.fi",
     "tuni.fi",
     "uniarts.fi",
+    "mil.fi",
     "utu.fi",
     *(("test.test",) if DEBUG else ()),
 }

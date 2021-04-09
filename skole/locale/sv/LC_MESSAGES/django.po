@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-08 08:27+0000\n"
+"POT-Creation-Date: 2021-04-08 21:40+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Skole\n"
@@ -51,7 +51,7 @@ msgstr "Den här åtgärden är endast tillåten för autentiserade användare."
 
 #: skole/utils/constants.py:31
 msgid "Your backup email is already verified."
-msgstr "Det här kontot har redan verifierats."
+msgstr "Din reserv-e-post har redan verifierats."
 
 #: skole/utils/constants.py:33
 msgid "Your backup email cannot be the same as your primary email."
@@ -228,7 +228,7 @@ msgstr "Kontot har verifierats!"
 
 #: skole/utils/constants.py:100
 msgid "Backup email verified successfully!"
-msgstr "Kontot har verifierats!"
+msgstr "Reserv-e-post verifiera!"
 
 #: skole/utils/constants.py:101
 msgid "Changed the tracked badge successfully!"

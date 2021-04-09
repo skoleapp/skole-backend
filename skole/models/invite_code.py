@@ -17,6 +17,11 @@ if TYPE_CHECKING:  # pragma: no cover
 
 class InviteCodeManager(SkoleManager["InviteCode"]):
     def create_invite_code(self, user: User) -> InviteCode:
+        if hasattr(user, "invite_code"):
+            # Shouldn't ever happen in prod, but can happen on dev env when
+            # verifying and unverifying a user multiple times.
+            return user.invite_code
+
         invite_code = self.model(user=user)
         while True:
             invite_code.code = self._generate_code()
@@ -41,8 +46,7 @@ class InviteCode(SkoleModel):
     code = models.CharField(max_length=max(8, settings.INVITE_CODE_LENGTH), unique=True)
 
     # The user that this code was created for and which they use to invite new users.
-    # A user can have more than one code possibly if we later decide to give out new ones.
-    user = models.ForeignKey(
+    user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,
         null=True,

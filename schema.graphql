@@ -476,6 +476,7 @@ type UserObjectType {
   threadCount: Int
   commentCount: Int
   avatarThumbnail: String
+  verifiedBackupEmail: Boolean
   rank: String
   badges: [BadgeObjectType]
   unreadActivityCount: Int

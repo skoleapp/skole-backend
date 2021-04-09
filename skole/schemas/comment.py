@@ -2,7 +2,7 @@ from typing import Literal, Optional
 
 import graphene
 from django.conf import settings
-from django.db.models import QuerySet
+from django.db.models import Q, QuerySet
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 
@@ -15,7 +15,7 @@ from skole.schemas.base import (
     SkoleObjectType,
 )
 from skole.schemas.mixins import PaginationMixin, SuccessMessageMixin, VoteMixin
-from skole.types import ResolveInfo
+from skole.types import ID, ResolveInfo
 from skole.utils.constants import Messages
 from skole.utils.pagination import get_paginator
 
@@ -137,6 +137,7 @@ class Query(SkoleObjectType):
         PaginatedCommentObjectType,
         user=graphene.String(),
         thread=graphene.String(),
+        comment=graphene.ID(),
         ordering=graphene.String(),
         page=graphene.Int(),
         page_size=graphene.Int(),
@@ -148,7 +149,8 @@ class Query(SkoleObjectType):
         root: None,
         info: ResolveInfo,
         user: str = "",
-        thread: str = "",
+        thread: ID = "",
+        comment: str = "",
         ordering: Literal["best", "newest"] = "best",
         page: int = 1,
         page_size: int = settings.DEFAULT_PAGE_SIZE,
@@ -169,8 +171,14 @@ class Query(SkoleObjectType):
         if thread != "":
             qs = qs.filter(thread__slug=thread)
 
+        # Get a top comment that matches the query or one of its reply comments matches the query.
+        # This way, the entire reply thread will be shown if a comment is provided as a parameter.
+        if comment != "":
+            qs = qs.filter(Q(pk=comment) | Q(reply_comments__pk=comment))
+
         if ordering == "best":
             qs = qs.order_by("-score")
+
         elif ordering == "newest":
             qs = qs.order_by("-pk")
 

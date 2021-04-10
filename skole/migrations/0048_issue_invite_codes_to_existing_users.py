@@ -1,6 +1,34 @@
+from __future__ import annotations
+
+import random
+import string
+from typing import TYPE_CHECKING
+
 from django.apps.registry import Apps
-from django.db import migrations
+from django.conf import settings
+from django.db import IntegrityError, migrations
 from django.db.backends.base.schema import BaseDatabaseSchemaEditor
+
+if TYPE_CHECKING:
+    from skole.models import InviteCode, User
+
+
+def create_invite_code(code_model: type[InviteCode], user: User) -> InviteCode:
+    invite_code = code_model(user=user)
+    while True:
+        invite_code.code = _generate_code()
+        try:
+            invite_code.save()
+        except IntegrityError:
+            # The created code was miraculously non-unique.
+            continue
+        return invite_code
+
+
+def _generate_code() -> str:
+    return "".join(
+        random.choices(string.ascii_uppercase, k=settings.INVITE_CODE_LENGTH)
+    )
 
 
 def forwards_func(apps: Apps, schema_editor: BaseDatabaseSchemaEditor) -> None:
@@ -11,7 +39,7 @@ def forwards_func(apps: Apps, schema_editor: BaseDatabaseSchemaEditor) -> None:
     InviteCode = apps.get_model("skole", "InviteCode")
 
     for user in User.objects.filter(invite_code=None, verified=True):
-        InviteCode.objects.create_invite_code(user=user)
+        create_invite_code(code_model=InviteCode, user=user)
 
 
 class Migration(migrations.Migration):

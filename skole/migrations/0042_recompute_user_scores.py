@@ -3,7 +3,7 @@
 from django.apps.registry import Apps
 from django.db import migrations
 from django.db.backends.base.schema import BaseDatabaseSchemaEditor
-from django.db.models import F, QuerySet, Sum, Value
+from django.db.models import QuerySet, Sum, Value
 from django.db.models.functions import Coalesce
 
 from skole.types import VotableModel
@@ -18,31 +18,21 @@ def _sum_votes(qs: QuerySet[VotableModel]) -> int:
     return qs.aggregate(total=Coalesce(Sum("votes__status"), Value(0)))["total"]
 
 
-def _recalculate_scores(
-    apps: Apps, comment_score_delta: int, thread_score_delta: int
-) -> None:
+def _recalculate_scores(apps: Apps, comment_score: int, thread_score: int) -> None:
     User = apps.get_model("skole", "User")
     for user in User.objects.all():
         comment_votes = _sum_votes(user.comments)
         thread_votes = _sum_votes(user.created_threads)
-        user.score = (
-            F("score")
-            + comment_votes * comment_score_delta
-            + thread_votes * thread_score_delta
-        )
+        user.score = comment_votes * comment_score + thread_votes * thread_score
         user.save(update_fields=("score",))
 
 
 def forwards_func(apps: Apps, schema_editor: BaseDatabaseSchemaEditor) -> None:
-    comment_score_delta = COMMENT_MULTIPLIER_NEW - COMMENT_MULTIPLIER_OLD
-    thread_score_delta = THREAD_MULTIPLIER_NEW - THREAD_MULTIPLIER_OLD
-    _recalculate_scores(apps, comment_score_delta, thread_score_delta)
+    _recalculate_scores(apps, COMMENT_MULTIPLIER_NEW, THREAD_MULTIPLIER_NEW)
 
 
 def backwards_func(apps: Apps, schema_editor: BaseDatabaseSchemaEditor) -> None:
-    comment_score_delta = COMMENT_MULTIPLIER_OLD - COMMENT_MULTIPLIER_NEW
-    thread_score_delta = THREAD_MULTIPLIER_OLD - THREAD_MULTIPLIER_NEW
-    _recalculate_scores(apps, comment_score_delta, thread_score_delta)
+    _recalculate_scores(apps, COMMENT_MULTIPLIER_OLD, THREAD_MULTIPLIER_OLD)
 
 
 class Migration(migrations.Migration):

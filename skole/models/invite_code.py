@@ -61,7 +61,7 @@ class InviteCode(SkoleModel):
     objects = InviteCodeManager()
 
     def __str__(self) -> str:
-        return f"{self.code} - Usages: {self.usages}"
+        return f"{self.user} - {self.code} - Usages: {self.usages}"
 
     def use_code(self, user: User) -> None:
         if user.used_invite_code:

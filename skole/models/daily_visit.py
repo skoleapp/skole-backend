@@ -31,3 +31,6 @@ class DailyVisit(SkoleModel):
 
     class Meta:
         unique_together = ("date", "user")
+
+    def __str__(self) -> str:
+        return f"{self.date} - {self.user} - Visits: {self.visits}"

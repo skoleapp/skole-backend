@@ -43,13 +43,10 @@ This document explains the need for every top level dependency the project has.
 | [pytest-cov](https://pypi.org/project/pytest-cov/)       | Calculating test coverage with pytest.          |
 | [pytest-django](https://pypi.org/project/pytest-django/) | Django specific pytest fixtures and a lot more. |
 
-## Debian Packages
+## Run-time Debian Packages
 
 | Dependency                                                                          | Reason                                           |
 | :---------------------------------------------------------------------------------- | :----------------------------------------------- |
-| [curl](https://packages.debian.org/buster/curl)                                     | Download Poetry's install script at build time.  |
-| [gcc](https://packages.debian.org/buster/gcc)                                       | Build the wheels for Pillow and psycopg2.        |
-| [gettext](https://packages.debian.org/buster/gettext)                               | Run Django's makemessages and compilemessages.   |
 | [gir1.2-gdkpixbuf-2.0](https://packages.debian.org/buster/gir1.2-gdkpixbuf-2.0)     | Use mat2 to clean file metadata.                 |
 | [gir1.2-poppler-0.18](https://packages.debian.org/buster/gir1.2-poppler-0.18)       | Use mat2 to clean file metadata.                 |
 | [gir1.2-rsvg-2.0](https://packages.debian.org/buster/gir1.2-rsvg-2.0)               | Use mat2 to clean file metadata.                 |
@@ -61,3 +58,11 @@ This document explains the need for every top level dependency the project has.
 | [postgresql-client](https://packages.debian.org/buster/postgresql-client)           | Use psql through Django's dbshell in production. |
 | [python3-gi-cairo](https://packages.debian.org/buster/python3-gi-cairo)             | Use mat2 to clean file metadata.                 |
 | [python3-mutagen](https://packages.debian.org/buster/python3-mutagen)               | Use mat2 to clean file metadata.                 |
+
+## Build-time Debian Packages
+
+| Dependency                                                                          | Reason                                           |
+| :---------------------------------------------------------------------------------- | :----------------------------------------------- |
+| [curl](https://packages.debian.org/buster/curl)                                     | Download Poetry's install script at build time.  |
+| [gcc](https://packages.debian.org/buster/gcc)                                       | Build the wheels for Pillow and psycopg2.        |
+| [gettext](https://packages.debian.org/buster/gettext)                               | Run Django's makemessages and compilemessages.   |

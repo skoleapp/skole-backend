@@ -149,8 +149,8 @@ class Query(SkoleObjectType):
         root: None,
         info: ResolveInfo,
         user: str = "",
-        thread: ID = "",
-        comment: str = "",
+        thread: str = "",
+        comment: ID = None,
         ordering: Literal["best", "newest"] = "best",
         page: int = 1,
         page_size: int = settings.DEFAULT_PAGE_SIZE,
@@ -173,8 +173,8 @@ class Query(SkoleObjectType):
 
         # Get a top comment that matches the query or one of its reply comments matches the query.
         # This way, the entire reply thread will be shown if a comment is provided as a parameter.
-        if comment != "":
-            qs = qs.filter(Q(pk=comment) | Q(reply_comments__pk=comment))
+        if comment is not None:
+            qs = qs.filter(Q(pk=comment) | Q(reply_comments=comment)).distinct()
 
         if ordering == "best":
             qs = qs.order_by("-score")

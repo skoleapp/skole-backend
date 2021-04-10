@@ -18,6 +18,7 @@ htmlcov/
 
 .vscode
 
+dist/
 static/
 
 # Ignore every media file except these three.

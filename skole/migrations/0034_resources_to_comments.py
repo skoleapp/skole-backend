@@ -14,8 +14,6 @@ def forwards_func(apps: Apps, schema_editor: BaseDatabaseSchemaEditor) -> None:
     Resource = apps.get_model("skole", "Resource")
     Comment = apps.get_model("skole", "Comment")
 
-    # We have very little Resources in the prod db, so these nested loops are just fine.
-
     for resource in Resource.objects.all():
         created_comment = Comment.objects.create(
             text=resource.title,
@@ -28,8 +26,10 @@ def forwards_func(apps: Apps, schema_editor: BaseDatabaseSchemaEditor) -> None:
             pk__in=resource.comments.values("reply_comments")
         ).update(comment=created_comment)
         resource.comments.update(resource=None, comment=created_comment)
+        resource.votes.update(resource=None, comment=created_comment)
+
         # No need to delete the resources now, we'll drop the whole model in the next
-        # migration.
+        # migration. This is also why a backwards function would be useless here.
 
 
 class Migration(migrations.Migration):

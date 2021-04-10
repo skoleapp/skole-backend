@@ -259,7 +259,7 @@ type PaginatedThreadObjectType {
 
 type Query {
   badges: [BadgeObjectType]
-  comments(user: String, thread: String, ordering: String, page: Int, pageSize: Int): PaginatedCommentObjectType
+  comments(user: String, thread: String, comment: ID, ordering: String, page: Int, pageSize: Int): PaginatedCommentObjectType
   userMe: UserObjectType
   user(slug: String): UserObjectType
   sitemap: SitemapObjectType

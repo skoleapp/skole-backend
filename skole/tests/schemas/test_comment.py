@@ -347,3 +347,4 @@ class CommentSchemaTests(SkoleSchemaTestCase):
 
         # TODO: Test thread comments.
         # TODO: Test ordering.
+        # TODO: Test comment query parameter.

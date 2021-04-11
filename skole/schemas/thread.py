@@ -2,7 +2,9 @@ from typing import Literal, Optional, cast
 
 import graphene
 from django.conf import settings
-from django.db.models import F, Q, QuerySet
+from django.contrib.postgres.search import TrigramSimilarity
+from django.db.models import F, QuerySet
+from django.db.models.functions import Greatest
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 
@@ -158,17 +160,23 @@ class Query(SkoleObjectType):
 
         qs: QuerySet[Thread] = Thread.objects.all()
 
-        if search_term != "":
-            qs = qs.filter(Q(title__search=search_term) | Q(text__search=search_term))
-
         if user != "":
             # Just show these chronologically when querying in a user profile.
             qs = qs.filter(user__slug=user).order_by("-pk")
-
-        if ordering == "newest":
+        elif search_term != "":
+            qs = (
+                qs.annotate(
+                    similarity=Greatest(
+                        TrigramSimilarity("title", search_term),
+                        TrigramSimilarity("text", search_term),
+                    )
+                )
+                # Tested that this works quite well as a threshold here.
+                .filter(similarity__gte=0.2).order_by("-similarity")
+            )
+        elif ordering == "newest":
             qs = qs.order_by("-pk")
-
-        else:
+        else:  # "best"
             qs = order_threads_with_secret_algorithm(qs)
 
         return get_paginator(qs, page_size, page, PaginatedThreadObjectType)

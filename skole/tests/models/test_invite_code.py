@@ -7,7 +7,10 @@ from skole.models import InviteCode
 @pytest.mark.django_db
 def test_str() -> None:
     invite_code = InviteCode.objects.get(pk=1)
-    assert str(invite_code) == f"{invite_code.code} - Usages: {invite_code.usages}"
+    assert (
+        str(invite_code)
+        == f"testuser2 - {invite_code.code} - Usages: {invite_code.usages}"
+    )
 
 
 @pytest.mark.django_db

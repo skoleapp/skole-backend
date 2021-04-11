@@ -49,6 +49,10 @@ def create_activity_from_comment(
     # - Owner of the top-level comment.
     user = getattr(thread, "user", None) or getattr(top_level_comment, "user", None)
 
+    # Skip when there's no user to notify.
+    if not user:
+        return
+
     if thread:
         activity_type = ActivityType.objects.get(
             identifier=ActivityTypes.THREAD_COMMENT

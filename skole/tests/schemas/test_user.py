@@ -62,7 +62,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
             commentCount
             created
             modified
-            fcmToken
+            fcmTokens
             commentReplyEmailPermission
             threadCommentEmailPermission
             newBadgeEmailPermission
@@ -589,7 +589,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert user1["threadCount"] == 3
         assert user1["commentCount"] == 14
         assert user1["unreadActivityCount"] == 3
-        assert user1["fcmToken"] is None
+        assert user1["fcmTokens"] == []
         assert len(user1["badges"]) == 1
         assert len(user1["badgeProgresses"]) == 4
         assert user1["badgeProgresses"][0]["badge"]["id"] == "3"
@@ -619,7 +619,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert user2["selectedBadgeProgress"] is None
         assert user2["inviteCode"] is None
         assert user2["unreadActivityCount"] is None
-        assert user2["fcmToken"] is None
+        assert user2["fcmTokens"] is None
         assert user2["email"] is None
         assert user2["verified"] is None
 
@@ -637,7 +637,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert user["threadCount"] == 3
         assert user["commentCount"] == 14
         assert user["unreadActivityCount"] == 3
-        assert user["fcmToken"] is None
+        assert user["fcmTokens"] == []
         assert len(user["badges"]) == 1
         assert user["badges"][0]["name"] == "Staff"
         assert len(user["badgeProgresses"]) == 4

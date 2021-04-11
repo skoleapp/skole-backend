@@ -53,7 +53,7 @@ class UserObjectType(SkoleDjangoObjectType):
     badge_progresses = graphene.List(BadgeProgressObjectType)
     invite_code = graphene.Field(InviteCodeObjectType)
     unread_activity_count = graphene.Int()
-    fcm_token = graphene.String()
+    fcm_tokens = graphene.List(graphene.NonNull(graphene.String))
     comment_reply_email_permission = graphene.Boolean()
     thread_comment_email_permission = graphene.Boolean()
     new_badge_email_permission = graphene.Boolean()
@@ -81,7 +81,6 @@ class UserObjectType(SkoleDjangoObjectType):
             "unread_activity_count",
             "created",
             "modified",
-            "fcm_token",
             "comment_reply_email_permission",
             "thread_comment_email_permission",
             "new_badge_email_permission",
@@ -162,11 +161,10 @@ class UserObjectType(SkoleDjangoObjectType):
 
     @staticmethod
     @private_field
-    def resolve_fcm_token(root: User, info: ResolveInfo) -> Optional[str]:
-        try:
-            return FCMDevice.objects.get(user=info.context.user).registration_id
-        except FCMDevice.DoesNotExist:
-            return None
+    def resolve_fcm_tokens(root: User, info: ResolveInfo) -> list[str]:
+        return FCMDevice.objects.filter(user=info.context.user).values_list(
+            "registration_id", flat=True
+        )
 
     @staticmethod
     @private_field

@@ -3,6 +3,14 @@ name = "skole-backend"
 version = "1.0.0"
 description = "Backend of Skole"
 authors = ["Skole <admin@skoleapp.com>"]
+packages = [
+    { include = "skole" },
+]
+exclude = [
+    "skole/**/*.po",
+    "skole/fixtures/test-data.yaml",
+    "skole/tests/",
+]
 
 [tool.poetry.dependencies]
 python = "^3.9"
@@ -38,6 +46,11 @@ pylint = "2.7.4"
 pytest = "6.2.3"
 pytest-cov = "2.11.1"
 pytest-django = "4.1.0"
+
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
 
 
 [tool.pytest.ini_options]

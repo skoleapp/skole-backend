@@ -1,9 +1,17 @@
+**/.DS_Store
+**/*.mo
+**/*.py[co]
+**/__pycache__
+**/*.md
+
+dist/
+
 .dockerignore
-Dockerfile*
-docker-compose*
+Dockerfile
 
 .git
 .gitignore
+.gitattributes
 
 .idea/
 .vscode/
@@ -12,5 +20,3 @@ docker-compose*
 !.github/check_makemessages.sh
 
 .graphqlconfig
-
-*.md

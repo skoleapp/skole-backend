@@ -23,7 +23,7 @@ django-graphql-jwt = "0.3.1"
 django-imagekit = "4.0.2"
 django-parler = "2.2.0"
 django-s3-storage = "0.13.4"
-fcm-django = "0.3.7"
+fcm-django = "0.3.8"
 graphene-django = "2.15.0"
 gunicorn = "20.1.0"
 mat2 = "0.12.1"
@@ -45,7 +45,7 @@ mypy = "0.812"
 pylint = "2.7.4"
 pytest = "6.2.3"
 pytest-cov = "2.11.1"
-pytest-django = "4.1.0"
+pytest-django = "4.2.0"
 
 
 [build-system]

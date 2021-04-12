@@ -56,6 +56,12 @@ class InviteCode(SkoleModel):
 
     usages = models.PositiveIntegerField(default=settings.INVITE_CODE_INITIAL_USAGES)
 
+    # Do not update this field's value on an object. This is only used for keeping track
+    # of how many invites we have issued in total even if we would edit the setting value.
+    initial_usages = models.PositiveIntegerField(
+        default=settings.INVITE_CODE_INITIAL_USAGES
+    )
+
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 

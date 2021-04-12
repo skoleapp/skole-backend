@@ -191,7 +191,6 @@ class ThreadSchemaTests(SkoleSchemaTestCase):
             res = self.mutate_create_thread(file_data=[("image", image)])
             assert not res["errors"]
             thread = res["thread"]
-            assert thread["id"] == "27"
             assert thread["title"] == "test thread"
             assert thread["user"]["slug"] == "testuser2"
 
@@ -266,12 +265,18 @@ class ThreadSchemaTests(SkoleSchemaTestCase):
         # Search by title.
         res = self.query_threads(search_term="Test Thread 7")
         assert res["objects"][0]["id"] == "7"
-        assert res["count"] == 1
+
+        # Search by partial title.
+        res = self.query_threads(search_term="Thread 7")
+        assert res["objects"][0]["id"] == "7"
+        res = self.query_threads(search_term="est Thread 7")
+        assert res["objects"][0]["id"] == "7"
+        res = self.query_threads(search_term="hread 7")
+        assert res["objects"][0]["id"] == "7"
 
         # Search by text.
         res = self.query_threads(search_term="Test thread 7 text.")
         assert res["objects"][0]["id"] == "7"
-        assert res["count"] == 1
 
         # Test that only threads of the correct user are returned.
 

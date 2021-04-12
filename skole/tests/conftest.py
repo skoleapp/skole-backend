@@ -6,10 +6,10 @@ from collections.abc import Generator
 import django.core.cache
 from django.conf import settings
 from django.core.management import call_command
+from django.db import connection
 from django.test import override_settings
 from pytest import fixture
 
-from skole.tests.helpers import SkoleSchemaTestCase
 from skole.types import Fixture
 
 
@@ -18,9 +18,17 @@ def django_db_setup(  # pylint: disable=redefined-outer-name
     django_db_setup: Fixture,
     django_db_blocker: Fixture,
 ) -> None:
-    """Load test data fixtures for all non-class based tests as well."""
+    """Setup the database and load the test data that is used in all tests."""
+
     with django_db_blocker.unblock():
-        call_command("loaddata", *SkoleSchemaTestCase.fixtures)
+        # Install the Postgres extension that allows to use `TrigramSimilarity` func.
+        with connection.cursor() as cursor:
+            cursor.execute("CREATE EXTENSION IF NOT EXISTS pg_trgm;")
+
+        call_command(
+            "loaddata",
+            ["test-data.yaml", "initial-activity-types.yaml", "initial-badges.yaml"],
+        )
 
 
 @fixture(scope="session", autouse=True)

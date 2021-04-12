@@ -51,8 +51,6 @@ class SkoleSchemaTestCase(TestCase):
             user with this pk is sent with all the requests.
     """
 
-    fixtures = ["test-data.yaml", "initial-activity-types.yaml", "initial-badges.yaml"]
-
     authenticated_user: ID = None
 
     def query(

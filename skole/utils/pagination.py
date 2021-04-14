@@ -10,7 +10,10 @@ T = TypeVar("T", bound=SkoleObjectType)
 
 
 def get_paginator(
-    qs: QuerySet[PaginableModel], page_size: int, page: int, paginated_type: type[T]
+    qs: QuerySet[PaginableModel],
+    page_size: int,
+    page: int,
+    paginated_type: type[T],
 ) -> T:
 
     p = Paginator(qs, page_size)

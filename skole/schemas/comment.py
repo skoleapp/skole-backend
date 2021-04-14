@@ -2,7 +2,7 @@ from typing import Literal, Optional
 
 import graphene
 from django.conf import settings
-from django.db.models import Q, QuerySet
+from django.db.models import QuerySet
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 
@@ -171,18 +171,33 @@ class Query(SkoleObjectType):
         if thread != "":
             qs = qs.filter(thread__slug=thread)
 
-        # Get a top comment that matches the query or one of its reply comments matches the query.
-        # This way, the entire reply thread will be shown if a comment is provided as a parameter.
-        if comment is not None:
-            qs = qs.filter(Q(pk=comment) | Q(reply_comments=comment)).distinct()
-
         if ordering == "best":
             qs = qs.order_by("-score")
 
         elif ordering == "newest":
             qs = qs.order_by("-pk")
 
-        return get_paginator(qs, page_size, page, PaginatedCommentObjectType)
+        paginated_qs = get_paginator(qs, page_size, page, PaginatedCommentObjectType)
+
+        if comment_obj := Comment.objects.get_or_none(pk=comment):
+            # If the comment is a reply comment, find it's top comment.
+            if top_comment := comment_obj.comment:
+                comment_obj = top_comment
+
+            for page_num in range(0, paginated_qs.pages):
+                temp_paginated_qs = get_paginator(
+                    qs, page_size, page_num, PaginatedCommentObjectType
+                )
+
+                # If the comment exists on some of the pages of the paginated queryset, return the paginated results on that page.
+                # Ignore: Pylint doesn't recognize the `objects`-attribute is a list.
+                if (
+                    comment_obj
+                    in temp_paginated_qs.objects  # pylint: disable=unsupported-membership-test
+                ):
+                    return temp_paginated_qs
+
+        return paginated_qs
 
 
 class Mutation(SkoleObjectType):

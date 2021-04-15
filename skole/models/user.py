@@ -17,6 +17,7 @@ from django.db.models import (
     When,
 )
 from django.db.models.functions import Cast
+from django.http import HttpRequest
 from django.utils import timezone
 from fcm_django.models import FCMDevice
 from imagekit.models import ImageSpecField
@@ -203,6 +204,8 @@ class User(SkoleModel, AbstractBaseUser, PermissionsMixin):
         help_text="The time when the user last used the GDPR `myData` query.",
     )
 
+    views = models.PositiveIntegerField(default=0)
+
     objects = UserManager()
 
     USERNAME_FIELD = "username"
@@ -294,3 +297,9 @@ class User(SkoleModel, AbstractBaseUser, PermissionsMixin):
             )
             .order_by("ordering", "pk")
         )
+
+    def increment_views(self, request: HttpRequest) -> None:
+        if request.user != self:
+            # Using `F("views")` + 1 errors in the GraphQL resolver somehow.
+            self.views += 1
+            self.save(update_fields=("views",))

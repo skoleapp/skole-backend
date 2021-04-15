@@ -62,6 +62,7 @@ class ThreadObjectType(VoteMixin, StarMixin, DjangoObjectType):
             "modified",
             "vote",
             "user",
+            "views",
         )
 
     @staticmethod
@@ -205,7 +206,12 @@ class Query(SkoleObjectType):
     def resolve_thread(
         root: None, info: ResolveInfo, slug: str = ""
     ) -> Optional[Thread]:
-        return Thread.objects.get_or_none(slug=slug)
+        try:
+            thread = Thread.objects.get(slug=slug)
+            thread.increment_views(info.context)
+            return thread
+        except Thread.DoesNotExist:
+            return None
 
 
 class Mutation(SkoleObjectType):

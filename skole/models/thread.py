@@ -5,6 +5,7 @@ from django.conf import settings
 from django.db import models
 from django.db.models import Count, QuerySet, Sum, Value
 from django.db.models.functions import Coalesce
+from django.http import HttpRequest
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
 
@@ -69,6 +70,8 @@ class Thread(SkoleModel):
         related_name="created_threads",
     )
 
+    views = models.PositiveIntegerField(default=0)
+
     modified = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 
@@ -81,3 +84,9 @@ class Thread(SkoleModel):
 
     def __str__(self) -> str:
         return f"{self.title}"
+
+    def increment_views(self, request: HttpRequest) -> None:
+        if request.user != self.user:
+            # Using `F("views")` + 1 errors in the GraphQL resolver somehow.
+            self.views += 1
+            self.save(update_fields=("views",))

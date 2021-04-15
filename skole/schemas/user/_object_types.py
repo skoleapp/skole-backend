@@ -79,6 +79,7 @@ class UserObjectType(SkoleDjangoObjectType):
             "comment_count",
             "verified",
             "unread_activity_count",
+            "views",
             "created",
             "modified",
             "comment_reply_email_permission",

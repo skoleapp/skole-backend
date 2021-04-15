@@ -1,6 +1,8 @@
 import pytest
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import AnonymousUser
 from django.core.exceptions import ObjectDoesNotExist
+from django.http import HttpRequest
 from fcm_django.models import FCMDevice
 
 from skole.models import Badge, BadgeProgress, User
@@ -176,3 +178,23 @@ def test_register_fcm_token() -> None:
     user.register_fcm_token(token=token)
     assert FCMDevice.objects.count() == 2
     FCMDevice.objects.get(user=user, registration_id=token)
+
+
+@pytest.mark.django_db
+def test_increment_views() -> None:
+    user = get_user_model().objects.get(pk=2)
+    assert user.views == 0
+
+    request = HttpRequest()
+    request.user = AnonymousUser()
+
+    user.increment_views(request)
+    user.increment_views(request)
+    user.increment_views(request)
+    user.refresh_from_db()
+    assert user.views == 3
+
+    request.user = user
+    user.increment_views(request)
+    user.refresh_from_db()
+    assert user.views == 3

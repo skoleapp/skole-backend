@@ -38,7 +38,7 @@ USER user
 
 ENV PATH="/home/user/.poetry/bin:${PATH}"
 ENV POETRY_VIRTUALENVS_CREATE=0
-ENV POETRY_VERSION=1.1.5
+ENV POETRY_VERSION=1.1.6
 
 RUN curl --silent --show-error \
     https://raw.githubusercontent.com/python-poetry/poetry/7360b09e4ba3c01e1d5dc6eaaf34cb3ff57bc16e/get-poetry.py \

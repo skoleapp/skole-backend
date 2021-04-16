@@ -25,11 +25,12 @@ class Query(SkoleObjectType):
         """Superusers or users who haven't entered an invite code cannot be queried."""
 
         try:
-            return (
+            user = (
                 get_user_model()
                 .objects.filter(is_superuser=False, used_invite_code__isnull=False)
                 .get(slug=slug)
             )
-
+            user.increment_views(info.context)
+            return user
         except User.DoesNotExist:
             return None

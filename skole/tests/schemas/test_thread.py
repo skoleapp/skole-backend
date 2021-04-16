@@ -30,6 +30,7 @@ class ThreadSchemaTests(SkoleSchemaTestCase):
             starred
             starCount
             commentCount
+            views
             created
             modified
             vote {
@@ -330,3 +331,19 @@ class ThreadSchemaTests(SkoleSchemaTestCase):
         assert is_iso_datetime(thread["modified"])
         assert is_iso_datetime(thread["created"])
         assert self.query_thread(slug="not-found") is None
+
+    def test_increment_views(self) -> None:
+        slug = "test-thread-1"
+
+        self.authenticated_user = None
+        self.query_thread(slug=slug)
+        self.query_thread(slug=slug)
+        res = self.query_thread(slug=slug)
+        assert res["views"] == 3
+
+        # Viewing own thread doesn't increment views.
+        self.authenticated_user = 2
+        self.query_thread(slug=slug)
+        self.query_thread(slug=slug)
+        res = self.query_thread(slug=slug)
+        assert res["views"] == 3

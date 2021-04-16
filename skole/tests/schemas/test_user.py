@@ -60,6 +60,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
             unreadActivityCount
             threadCount
             commentCount
+            views
             created
             modified
             fcmTokens
@@ -1036,3 +1037,20 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert res["successMessage"] == Messages.FCM_TOKEN_UPDATED
         assert FCMDevice.objects.count() == 2
         FCMDevice.objects.get(user=user, registration_id=token)
+
+    def test_increment_views(self) -> None:
+        user3 = get_user_model().objects.get(pk=3)
+        assert user3.views == 0
+        self.query_user(slug=user3.slug)
+        self.query_user(slug=user3.slug)
+        self.query_user(slug=user3.slug)
+        user3.refresh_from_db()
+        assert user3.views == 3
+
+        # Viewing own profile doesn't increment views.
+        current_user = self.get_authenticated_user()
+        self.query_user(slug=current_user.slug)
+        self.query_user(slug=current_user.slug)
+        self.query_user(slug=current_user.slug)
+        current_user.refresh_from_db()
+        assert current_user.views == 0

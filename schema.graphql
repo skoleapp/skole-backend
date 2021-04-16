@@ -366,6 +366,7 @@ type ThreadObjectType {
   slug: String
   image: String!
   user: UserObjectType
+  views: Int!
   modified: DateTime!
   created: DateTime!
   starred: Boolean
@@ -471,6 +472,7 @@ type UserObjectType {
   commentReplyPushPermission: Boolean
   threadCommentPushPermission: Boolean
   newBadgePushPermission: Boolean
+  views: Int!
   badgeProgresses: [BadgeProgressObjectType]
   inviteCode: InviteCodeObjectType
   threadCount: Int

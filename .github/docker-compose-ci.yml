@@ -15,12 +15,7 @@ services:
 
   backend-ci:
     container_name: backend-ci
-    build:
-      context: ..
-      dockerfile: Dockerfile
-      target: ci
-      args:
-        install_dev_dependencies: 1
+    image: backend-ci
     environment:
       - DEBUG=1
       - SECRET_KEY=skole

@@ -1,6 +1,10 @@
 name: "CI"
 
-on: pull_request
+on:
+  push:
+    branches:
+      - develop
+  pull_request:
 
 jobs:
   build:
@@ -8,6 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: "Checkout code (pre merge)"
+      if: ${{ github.event_name == 'pull_request' }}
       uses: actions/checkout@v2
       with:
         # Checkout the current commit instead of the commit that would get
@@ -18,6 +23,7 @@ jobs:
         fetch-depth: 0
 
     - name: "Check commits of the PR branch"
+      if: ${{ github.event_name == 'pull_request' }}
       run: ./.github/check_commits.sh
 
     - name: "Checkout code (post merge)"
@@ -59,11 +65,13 @@ jobs:
         mv /tmp/.buildx-cache-new /tmp/.buildx-cache
 
     - name: "Run linters, type-check, and tests"
+      if: ${{ github.event_name == 'pull_request' }}
       run: >
         docker-compose --file .github/docker-compose-ci.yml up --abort-on-container-exit
         && docker cp backend-ci:/home/user/app/coverage.xml .
 
     - name: "Upload coverage to Codecov"
+      if: ${{ github.event_name == 'pull_request' }}
       uses: codecov/codecov-action@v1
       with:
         token: ${{ secrets.CODECOV_TOKEN }}

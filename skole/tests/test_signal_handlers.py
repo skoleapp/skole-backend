@@ -101,7 +101,7 @@ def test_comment_email_notifications() -> None:
     assert sent.from_email == settings.EMAIL_ADDRESS
     assert sent.to == [activity.user.email]
 
-    assert sent.subject == "Community User commented on your thread in Skole"
+    assert sent.subject == "Anonymous Student commented on your thread in Skole"
 
     # Test that email notifications are sent for comment replies.
 
@@ -115,7 +115,7 @@ def test_comment_email_notifications() -> None:
     assert sent.from_email == settings.EMAIL_ADDRESS
     assert sent.to == [activity.user.email]
 
-    assert sent.subject == "Community User replied to your comment in Skole"
+    assert sent.subject == "Anonymous Student replied to your comment in Skole"
 
     # Test that email notifications are not sent without permission.
 

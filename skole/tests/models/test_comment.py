@@ -12,4 +12,4 @@ def test_str() -> None:
     assert str(comment2) == "testuser3: Comment 2 to a thread."
 
     comment22 = Comment.objects.get(pk=22)
-    assert str(comment22) == "Community User: An anonymous comment to a thread."
+    assert str(comment22) == "Anonymous Student: An anonymous comment to a thread."

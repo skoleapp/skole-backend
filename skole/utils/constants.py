@@ -124,7 +124,7 @@ class Notifications:
     BADGE_PUSH_NOTIFICATION_TITLE = "New Badge!"
     COMMENT_EMAIL_NOTIFICATION_SUBJECT = "{} {} in Skole"
     COMMENT_PUSH_NOTIFICATION_TITLE = "New Activity!"
-    COMMUNITY_USER = "Community User"
+    ANONYMOUS_STUDENT = "Anonymous Student"
     MY_DATA_SUBJECT = "Your data request on Skole"
     RESET_PASSWORD_SUBJECT = "Reset your password on Skole"
     VERIFY_ACCOUNT_SUBJECT = "Verify your account on Skole"

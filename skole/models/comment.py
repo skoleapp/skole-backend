@@ -102,7 +102,7 @@ class Comment(SkoleModel):
 
     def __str__(self) -> str:
         """This is only used implicitly in Django admin."""
-        user = self.user.username if self.user else Notifications.COMMUNITY_USER
+        user = self.user.username if self.user else Notifications.ANONYMOUS_STUDENT
 
         if self.text and len(self.text) > 40:
             return f"{user}: {self.text[:40]}..."

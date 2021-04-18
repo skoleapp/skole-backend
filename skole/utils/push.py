@@ -19,7 +19,7 @@ def send_comment_push_notification(activity: Activity) -> None:
     causing_username = (
         activity.causing_user.username
         if activity.causing_user
-        else Notifications.COMMUNITY_USER
+        else Notifications.ANONYMOUS_STUDENT
     )
 
     comment = activity.comment

@@ -128,7 +128,7 @@ def send_comment_email_notification(activity: Activity) -> None:
     causing_username = (
         activity.causing_user.username
         if activity.causing_user
-        else Notifications.COMMUNITY_USER
+        else Notifications.ANONYMOUS_STUDENT
     )
 
     activity_type = activity.activity_type

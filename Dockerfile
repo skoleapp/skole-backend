@@ -1,4 +1,4 @@
-FROM python:3.9.4-slim-buster as base
+FROM python:3.9.4-slim-buster@sha256:de9482638c1354f5178efc90431de2a42e863a12bf3df41d7fa30d5c10fe543d as base
 
 RUN apt-get update \
     && apt-get install --no-install-recommends --assume-yes \
@@ -26,13 +26,12 @@ ENV PYTHONUNBUFFERED=1
 
 FROM base as dev
 
-# The size of this layer doesn't really matter since it won't exist in production.
-
 RUN apt-get update \
     && apt-get install --no-install-recommends --assume-yes \
         curl \
         gcc \
-        gettext
+        gettext \
+    && rm -rf /var/lib/apt/lists/ /var/cache/apt/
 
 USER user
 
@@ -41,15 +40,17 @@ ENV POETRY_VIRTUALENVS_CREATE=0
 ENV POETRY_VERSION=1.1.6
 
 RUN curl --silent --show-error \
-    https://raw.githubusercontent.com/python-poetry/poetry/7360b09e4ba3c01e1d5dc6eaaf34cb3ff57bc16e/get-poetry.py \
-    | python - --no-modify-path
+        https://raw.githubusercontent.com/python-poetry/poetry/7360b09e4ba3c01e1d5dc6eaaf34cb3ff57bc16e/get-poetry.py \
+        | python - --no-modify-path \
+    && find /home/user/.poetry/lib/poetry/_vendor/ -mindepth 1 -maxdepth 1 -not -name py3.9 -type d | xargs rm -rf
 
 COPY --chown=user:user poetry.lock .
 COPY --chown=user:user pyproject.toml .
 
 ARG install_dev_dependencies=0
 
-RUN sh -c "poetry install --no-root "$([ "$install_dev_dependencies" -eq 0 ] && printf -- '--no-dev')""
+RUN sh -c "poetry install --no-root "$([ "$install_dev_dependencies" -eq 0 ] && printf -- '--no-dev')"" \
+    && rm -rf /home/user/.cache/
 
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
 

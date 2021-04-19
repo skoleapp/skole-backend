@@ -4,7 +4,8 @@ import graphene
 from django.conf import settings
 from django.contrib.postgres.search import TrigramSimilarity
 from django.db.models import F, QuerySet
-from django.db.models.functions import Greatest
+from django.db.models.functions import ExtractDay, Greatest
+from django.utils import timezone
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 
@@ -37,7 +38,16 @@ def order_threads_with_secret_algorithm(qs: QuerySet[Thread]) -> QuerySet[Thread
     The ordering formula/value should not be exposed to the frontend.
     """
 
-    return qs.order_by(-(3 * F("score") + 2 * F("comment_count")), "title")
+    # Ignore: Mypy thinks this is faulty but it works fine.
+    today = timezone.now().date()
+    return qs.order_by(
+        -(
+            3 * F("score")
+            + 2 * F("comment_count")
+            - ExtractDay(today - F("created__date")) / 2  # type: ignore[operator]
+        ),
+        "pk",
+    )
 
 
 class ThreadObjectType(VoteMixin, StarMixin, DjangoObjectType):

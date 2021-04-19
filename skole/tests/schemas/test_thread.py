@@ -255,7 +255,6 @@ class ThreadSchemaTests(SkoleSchemaTestCase):
         # Last page.
         page = 7
         res = self.query_threads(page=page, page_size=page_size)
-        assert res["objects"][0]["id"] == "8"
         assert len(res["objects"]) == 2
         assert res["count"] == 26
         assert res["page"] == page

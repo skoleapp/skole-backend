@@ -1,18 +1,22 @@
+import logging
+
 from django.conf import settings
 from fcm_django.models import FCMDevice
+from pyfcm.errors import FCMError
 
 from skole.models import Activity, User
 from skole.types import JsonDict
 from skole.utils.constants import Notifications
 
+logger = logging.getLogger(__name__)
+
 
 def _send_push_notification(user: User, title: str, body: str, data: JsonDict) -> None:
-    try:
-        fcm_device = FCMDevice.objects.get(user=user)
-    except FCMDevice.DoesNotExist:
-        pass
-    else:
-        fcm_device.send_message(title=title, body=body, data=data)
+    for fcm_device in FCMDevice.objects.filter(user=user):
+        try:
+            fcm_device.send_message(title=title, body=body, data=data)
+        except FCMError as e:
+            logger.error(e)
 
 
 def send_comment_push_notification(activity: Activity) -> None:

@@ -137,4 +137,5 @@ def send_activity_notifications(
         if user.new_badge_push_permission:
             send_badge_push_notification(activity=instance)
 
-    logger.warning(f"Invalid activity: {instance!r} with no target.")
+    else:
+        logger.warning(f"Invalid activity: {instance!r} with no target.")

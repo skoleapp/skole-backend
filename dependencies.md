@@ -43,13 +43,17 @@ This document explains the need for every top level dependency the project has.
 | [pytest-cov](https://pypi.org/project/pytest-cov/)       | Calculating test coverage with pytest.          |
 | [pytest-django](https://pypi.org/project/pytest-django/) | Django specific pytest fixtures and a lot more. |
 
-## Run-time Debian Packages
+## Debian Packages
+
+### Run-time Packages
 
 | Dependency                                                                          | Reason                                           |
 | :---------------------------------------------------------------------------------- | :----------------------------------------------- |
+| [ghostscript](https://packages.debian.org/buster/ghostscript)                       | Required for ImageMagick to convert PDFs.        |
 | [gir1.2-gdkpixbuf-2.0](https://packages.debian.org/buster/gir1.2-gdkpixbuf-2.0)     | Use mat2 to clean file metadata.                 |
 | [gir1.2-poppler-0.18](https://packages.debian.org/buster/gir1.2-poppler-0.18)       | Use mat2 to clean file metadata.                 |
 | [gir1.2-rsvg-2.0](https://packages.debian.org/buster/gir1.2-rsvg-2.0)               | Use mat2 to clean file metadata.                 |
+| [imagemagick](https://packages.debian.org/buster/imagemagick)                       | Generate thumbnails from PDFs.                   |
 | [libcairo2-dev](https://packages.debian.org/buster/libcairo2-dev)                   | Build and use mat2 to clean file metadata.       |
 | [libgirepository1.0-dev](https://packages.debian.org/buster/libgirepository1.0-dev) | Build and use mat2 to clean file metadata.       |
 | [libmagic-dev](https://packages.debian.org/buster/libmagic-dev)                     | Guess file types with python-magic.              |
@@ -59,7 +63,7 @@ This document explains the need for every top level dependency the project has.
 | [python3-gi-cairo](https://packages.debian.org/buster/python3-gi-cairo)             | Use mat2 to clean file metadata.                 |
 | [python3-mutagen](https://packages.debian.org/buster/python3-mutagen)               | Use mat2 to clean file metadata.                 |
 
-## Build-time Debian Packages
+### Build-time and Development Packages
 
 | Dependency                                                                          | Reason                                           |
 | :---------------------------------------------------------------------------------- | :----------------------------------------------- |

@@ -50,6 +50,7 @@ type CommentObjectType {
   user: UserObjectType
   text: String!
   file: String!
+  fileThumbnail: String!
   image: String!
   thread: ThreadObjectType
   comment: CommentObjectType

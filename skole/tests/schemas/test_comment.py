@@ -24,6 +24,7 @@ _comment_fields = """
         image
         imageThumbnail
         file
+        fileThumbnail
         score
         replyCount
         isOwn

@@ -4,11 +4,12 @@ import datetime
 import json
 import logging
 import os
+import subprocess
 import tempfile
 from collections.abc import Generator
 from contextlib import contextmanager
 from pathlib import Path
-from typing import Callable, Optional, Union
+from typing import TYPE_CHECKING, Callable, Optional, Union
 
 import libmat2.parser_factory
 import requests
@@ -17,10 +18,12 @@ from django.conf import settings
 from django.core.files.base import ContentFile, File
 from django.core.files.storage import default_storage
 
-from skole.forms.base import SkoleModelForm
 from skole.utils.constants import Errors
 
 logger = logging.getLogger(__name__)
+
+if TYPE_CHECKING:  # pragma: no cover
+    from skole.forms.base import SkoleModelForm
 
 
 def clean_file_field(
@@ -116,6 +119,32 @@ def convert_to_pdf(file: File) -> File:
             )
 
     raise forms.ValidationError(Errors.COULD_NOT_CONVERT_FILE.format("PDF"))
+
+
+def generate_pdf_thumbnail(file: File) -> File:
+    width = settings.THUMBNAIL_WIDTH
+    output_format = "png"
+    # Make sure that this command does NOT contain **any** user input ever!
+    command = (
+        "convert",
+        "-[0]",  # Read the PDF from stdin and take the first page only.
+        "-thumbnail",
+        f"{width}x{width * 2}",
+        "-crop",
+        f"{width}x{width}+0+0",
+        "-alpha",
+        "remove",
+        "-alpha",
+        "off",
+        "-colorspace",
+        "RGB",
+        f"{output_format}:-",  # Output to stdout.
+    )
+    file.seek(0)
+    completed = subprocess.run(
+        command, input=file.read(), capture_output=True, check=True
+    )
+    return ContentFile(completed.stdout, f"{Path(file.name).stem}.{output_format}")
 
 
 def _clean_metadata(file: File) -> File:

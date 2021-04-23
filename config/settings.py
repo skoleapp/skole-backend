@@ -254,6 +254,9 @@ MY_DATA_RATE_LIMIT = timedelta(seconds=5) if DEBUG else timedelta(minutes=10)
 #   and deletes all generated `myData` files older than 7 days.
 MY_DATA_FILE_AVAILABLE_FOR = timedelta(days=7)
 
+# The width and height of an image and file thumbnail (pixels).
+THUMBNAIL_WIDTH = 200
+
 # Specs of invite codes that are created for new users to share.
 INVITE_CODE_LENGTH = 6
 INVITE_CODE_INITIAL_USAGES = 2

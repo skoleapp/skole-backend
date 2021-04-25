@@ -42,7 +42,7 @@ from skole.utils.constants import Errors, Messages, Notifications, VoteConstants
 from skole.utils.files import override_s3_file_age
 from skole.utils.shortcuts import to_form_error
 
-if TYPE_CHECKING:
+if TYPE_CHECKING:  # pragma: no cover
     # https://stackoverflow.com/a/63520010/9835872
     from django.db.models.query import (  # pylint: disable=no-name-in-module
         ValuesQuerySet,

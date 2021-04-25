@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import graphene_django.views
 from django.conf import settings
 from django.test import override_settings

@@ -1,4 +1,6 @@
 """This module contains all the custom type aliases that are used in the app."""
+from __future__ import annotations
+
 from typing import TYPE_CHECKING, Any, Literal, TypedDict, Union
 
 if TYPE_CHECKING:  # pragma: no cover

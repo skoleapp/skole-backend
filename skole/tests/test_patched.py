@@ -10,6 +10,8 @@ the releases of that package and see what has changed in the code. After verifyi
 that the change didn't affect our usage, or after altering our overridden code, the
 checksum in the assertion can be changed to correspond to the new 3rd party code.
 """
+from __future__ import annotations
+
 import graphql.execution.utils
 import graphql_jwt.utils
 from graphene_django.views import GraphQLView

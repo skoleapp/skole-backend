@@ -88,3 +88,5 @@ A quick look at the top-level files and directories excluding Git ignored locati
 
 - Use `@test.test` for all email addresses when testing/developing. This makes their intent very clear
   since `.test` is not a valid TLD. Also, `test.test` has been whitelisted in `settings.ALLOWED_EMAIL_DOMAINS`.
+
+- Use `from __future__ import annotations` in all non-empty source files to guarantee forwards compatibility with [PEP-563](https://www.python.org/dev/peps/pep-0563/).

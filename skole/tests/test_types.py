@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from django.http import HttpRequest
 from graphql import GraphQLField, GraphQLObjectType, GraphQLScalarType, GraphQLSchema
 from graphql.language.ast import OperationDefinition, SelectionSet

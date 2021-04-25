@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from skole.models import InviteCode
 from skole.schemas.base import SkoleDjangoObjectType
 

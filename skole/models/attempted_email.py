@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from django.db import models
 
 from skole.models.base import SkoleModel

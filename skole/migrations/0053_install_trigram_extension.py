@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from django.contrib.postgres.operations import TrigramExtension
 from django.db import migrations
 

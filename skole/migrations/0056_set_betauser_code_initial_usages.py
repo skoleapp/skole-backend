@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from django.apps.registry import Apps
 from django.db import migrations
 from django.db.backends.base.schema import BaseDatabaseSchemaEditor

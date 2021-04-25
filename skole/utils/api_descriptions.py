@@ -7,6 +7,8 @@ Descriptions are also not translated as they are only used for improved develope
 experience and proper API documentation.
 """
 
+from __future__ import annotations
+
 AUTH_REQUIRED = "Only allowed for authenticated users."
 VERIFICATION_REQUIRED = (
     "Only allowed for authenticated users that have verified their accounts."

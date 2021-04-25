@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from skole.models import Badge
 from skole.tests.helpers import SkoleSchemaTestCase
 from skole.types import ID, JsonList

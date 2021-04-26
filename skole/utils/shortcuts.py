@@ -1,18 +1,7 @@
 from collections.abc import Iterable
-from typing import Any, TypeVar
+from typing import TypeVar
 
-from django.db.models import (
-    Case,
-    Func,
-    IntegerField,
-    Model,
-    OuterRef,
-    Q,
-    QuerySet,
-    Subquery,
-    Value,
-    When,
-)
+from django.db.models import Case, IntegerField, Model, Q, QuerySet, Value, When
 
 from skole.types import FormError
 
@@ -29,17 +18,6 @@ def full_refresh_from_db(instance: M, /) -> M:
     `get_queryset` annotations and aggregations.
     """
     return instance.__class__.objects.get(pk=instance.pk)
-
-
-def safe_annotation(qs: QuerySet[Any], expression: Func) -> Subquery:
-    """
-    Return a subquery that can be safely used in an `annotate()` call with mixed `Sum`
-    and `Count` expressions.
-
-    References:
-        https://stackoverflow.com/a/56619484/9835872
-    """
-    return Subquery(qs.annotate(res=expression).filter(pk=OuterRef("pk")).values("res"))
 
 
 def join_queries(

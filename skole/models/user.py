@@ -39,7 +39,6 @@ from skole.utils.exceptions import (
     InviteCodeNeeded,
     UserAlreadyVerified,
 )
-from skole.utils.shortcuts import safe_annotation
 from skole.utils.token import get_token_payload
 from skole.utils.validators import ValidateFileSizeAndType
 
@@ -49,8 +48,8 @@ class UserManager(SkoleManager["User"], BaseUserManager["User"]):
         qs = super().get_queryset()
 
         return qs.annotate(
-            thread_count=safe_annotation(qs, Count("created_threads", distinct=True)),
-            comment_count=safe_annotation(qs, Count("comments", distinct=True)),
+            thread_count=Count("created_threads", distinct=True),
+            comment_count=Count("comments", distinct=True),
         )
 
     def create_user(self, username: str, email: str, password: str) -> User:

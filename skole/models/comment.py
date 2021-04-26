@@ -2,15 +2,13 @@ from __future__ import annotations
 
 from django.conf import settings
 from django.db import models
-from django.db.models import Count, Sum, Value
-from django.db.models.functions import Coalesce
+from django.db.models import Count
 from django.db.models.query import QuerySet
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
 
 from skole.models.base import SkoleManager, SkoleModel
 from skole.utils.constants import Notifications
-from skole.utils.shortcuts import safe_annotation
 from skole.utils.validators import ValidateFileSizeAndType
 
 
@@ -21,8 +19,7 @@ class CommentManager(SkoleManager["Comment"]):
         return qs.order_by(
             "id"  # We always want to get comments in their creation order.
         ).annotate(
-            score=safe_annotation(qs, Coalesce(Sum("votes__status"), Value(0))),
-            reply_count=safe_annotation(qs, Count("reply_comments", distinct=True)),
+            reply_count=Count("reply_comments", distinct=True),
         )
 
 
@@ -92,13 +89,12 @@ class Comment(SkoleModel):
         related_name="reply_comments",
     )
 
+    score = models.IntegerField(default=0)
+
     modified = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 
     objects = CommentManager()
-
-    # This value gets annotated in the manager's get_queryset.
-    score: int
 
     def __str__(self) -> str:
         """This is only used implicitly in Django admin."""
@@ -114,3 +110,8 @@ class Comment(SkoleModel):
             return f"{user}: file comment: {self.pk}"
         else:
             raise ValueError("Invalid comment with neither text, image, nor file.")
+
+    def change_score(self, score: int) -> None:
+        if score:
+            self.score += score  # Can also be a subtraction when `score` is negative.
+            self.save(update_fields=("score",))

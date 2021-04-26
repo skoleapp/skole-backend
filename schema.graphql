@@ -53,10 +53,10 @@ type CommentObjectType {
   image: String!
   thread: ThreadObjectType
   comment: CommentObjectType
+  score: Int
   modified: DateTime!
   created: DateTime!
   replyComments: [CommentObjectType!]!
-  score: Int
   vote: VoteObjectType
   replyCount: Int
   imageThumbnail: String
@@ -366,11 +366,11 @@ type ThreadObjectType {
   slug: String
   image: String!
   user: UserObjectType
+  score: Int
   views: Int!
   modified: DateTime!
   created: DateTime!
   starred: Boolean
-  score: Int
   vote: VoteObjectType
   starCount: Int
   commentCount: Int

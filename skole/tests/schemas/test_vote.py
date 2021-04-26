@@ -1,3 +1,4 @@
+from skole.models import Comment
 from skole.tests.helpers import SkoleSchemaTestCase, get_form_error
 from skole.types import ID, JsonDict
 from skole.utils.constants import Errors
@@ -31,17 +32,26 @@ class VoteSchemaTests(SkoleSchemaTestCase):
         )
 
     def test_vote_comment_ok(self) -> None:
+        user = Comment.objects.get(pk=2).user
+        assert user
+        assert user.score == 100
         res = self.mutate_vote(status=1, comment=2)
         assert not res["errors"]
         assert res["targetScore"] == 1
+        user.refresh_from_db()
+        assert user.score == 110
 
         res = self.mutate_vote(status=-1, comment=2)
         assert not res["errors"]
         assert res["targetScore"] == -1
+        user.refresh_from_db()
+        assert user.score == 90
 
         res = self.mutate_vote(status=-1, comment=2)
         assert not res["errors"]
         assert res["targetScore"] == 0
+        user.refresh_from_db()
+        assert user.score == 100
 
         res = self.mutate_vote(status=1, comment=2)
         assert not res["errors"]

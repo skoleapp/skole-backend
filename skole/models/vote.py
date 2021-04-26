@@ -11,7 +11,6 @@ from skole.models.thread import Thread
 from skole.models.user import User
 from skole.types import VotableModel
 from skole.utils.constants import VoteConstants
-from skole.utils.shortcuts import full_refresh_from_db
 
 
 class VoteManager(SkoleManager["Vote"]):
@@ -22,45 +21,42 @@ class VoteManager(SkoleManager["Vote"]):
 
         if isinstance(target, Comment):
             multiplier = VoteConstants.SCORE_COMMENT_MULTIPLIER
-            vote = self.check_existing_vote(user, status, comment=target)
+            vote, delta = self.check_existing_vote(user, status, comment=target)
         elif isinstance(target, Thread):
             multiplier = VoteConstants.SCORE_THREAD_MULTIPLIER
-            vote = self.check_existing_vote(user, status, thread=target)
+            vote, delta = self.check_existing_vote(user, status, thread=target)
         else:
             raise TypeError(f"Invalid target type for Vote: {type(target)}")
 
         if target.user:
-            target.user.change_score(
-                # Invert the status to revert the affect to the user's score.
-                (status if vote else -status)
-                * multiplier
-            )
+            target.user.change_score(delta * multiplier)
 
-        # Have to query the object again since `score` is an annotation.
-        target = full_refresh_from_db(target)
+        target.change_score(delta)
 
         return vote, target.score
 
     def check_existing_vote(
         self, user: User, status: int, **target: VotableModel
-    ) -> Optional[Vote]:
+    ) -> tuple[Optional[Vote], int]:
         try:
             vote = user.votes.get(**target)
             if vote.status == status:
                 vote.delete()
                 # Already had an upvote, and re-upvoted it -> clear the vote.
-                return None
+                return None, -status
             else:
                 # Had a previous downvote, and are now upvoting it -> change the status.
                 vote.status = status
                 vote.save()
+                delta = 2 * status
         except Vote.DoesNotExist:
             # No previous vote -> create one.
             vote = self.model(**target)
             vote.user = user
             vote.status = status
             vote.save()
-        return vote
+            delta = status
+        return vote, delta
 
 
 class Vote(SkoleModel):

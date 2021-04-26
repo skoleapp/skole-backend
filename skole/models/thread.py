@@ -3,14 +3,12 @@ from __future__ import annotations
 from autoslug import AutoSlugField
 from django.conf import settings
 from django.db import models
-from django.db.models import Count, QuerySet, Sum, Value
-from django.db.models.functions import Coalesce
+from django.db.models import Count, QuerySet
 from django.http import HttpRequest
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
 
 from skole.models.base import SkoleManager, SkoleModel
-from skole.utils.shortcuts import safe_annotation
 from skole.utils.validators import ValidateFileSizeAndType
 
 
@@ -19,13 +17,9 @@ class ThreadManager(SkoleManager["Thread"]):
         qs = super().get_queryset()
 
         return qs.annotate(
-            score=safe_annotation(qs, Coalesce(Sum("votes__status"), Value(0))),
-            star_count=safe_annotation(qs, Count("stars", distinct=True)),
-            comment_count=safe_annotation(
-                qs,
-                Count("comments", distinct=True)
-                + Count("comments__reply_comments", distinct=True),
-            ),
+            star_count=Count("stars", distinct=True),
+            comment_count=Count("comments", distinct=True)
+            + Count("comments__reply_comments", distinct=True),
         )
 
 
@@ -70,6 +64,8 @@ class Thread(SkoleModel):
         related_name="created_threads",
     )
 
+    score = models.IntegerField(default=0)
+
     views = models.PositiveIntegerField(default=0)
 
     modified = models.DateTimeField(auto_now=True)
@@ -78,12 +74,16 @@ class Thread(SkoleModel):
     objects = ThreadManager()
 
     # These values will get annotated in the manager's get_queryset.
-    score: int
     star_count: int
     comment_count: int
 
     def __str__(self) -> str:
         return f"{self.title}"
+
+    def change_score(self, score: int) -> None:
+        if score:
+            self.score += score  # Can also be a subtraction when `score` is negative.
+            self.save(update_fields=("score",))
 
     def increment_views(self, request: HttpRequest) -> None:
         if request.user != self.user:

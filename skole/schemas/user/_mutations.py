@@ -9,7 +9,11 @@ from django.contrib.auth import get_user_model, password_validation, user_logged
 from django.core.exceptions import ValidationError
 from django.core.signing import BadSignature, SignatureExpired
 from django.db.models import Q
-from graphene_django.forms.mutation import DjangoFormMutation, DjangoModelFormMutation
+from graphene_django.forms.mutation import (
+    DjangoFormMutation,
+    DjangoModelFormMutation,
+    _set_errors_flag_to_context,
+)
 from graphene_django.types import ErrorType
 from graphql_jwt import DeleteJSONWebTokenCookie
 from graphql_jwt.decorators import token_auth
@@ -31,7 +35,7 @@ from skole.models import User
 from skole.overridden import login_required
 from skole.schemas.badge_progress import BadgeProgressObjectType
 from skole.schemas.base import SkoleCreateUpdateMutationMixin, SkoleObjectType
-from skole.schemas.mixins import SuccessMessageMixin
+from skole.schemas.mixins import InvalidEmailDomainMixin, SuccessMessageMixin
 from skole.schemas.user._object_types import UserObjectType
 from skole.types import JsonDict, ResolveInfo
 from skole.utils.constants import Errors, Messages, MutationErrors, TokenAction
@@ -51,7 +55,10 @@ from skole.utils.token import get_token_payload, revoke_user_refresh_tokens
 
 
 class RegisterMutation(
-    SkoleCreateUpdateMutationMixin, SuccessMessageMixin, DjangoModelFormMutation
+    SkoleCreateUpdateMutationMixin,
+    SuccessMessageMixin,
+    InvalidEmailDomainMixin,
+    DjangoModelFormMutation,
 ):
     """
     Register a new user.
@@ -66,7 +73,6 @@ class RegisterMutation(
     class Meta:
         form_class = RegisterForm
         exclude_fields = ("id",)
-        return_field_name = "success_message"
 
 
 class UseInviteCodeMutation(SkoleObjectType, SuccessMessageMixin, DjangoFormMutation):
@@ -347,13 +353,14 @@ class LoginMutation(
             )
         else:
             errors = ErrorType.from_errors(form.errors)
+            _set_errors_flag_to_context(info)
 
             # If the form error matches with the `INVITE_CODE_NEEDED_BEFORE_LOGIN`,
             # set an attribute in the payload that tells the frontend to ask the user for the invite code.
-
-            for err in form.errors["__all__"].as_data():
-                if Errors.INVITE_CODE_NEEDED_BEFORE_LOGIN in err.messages:
-                    return cls(errors=errors, invite_code_required=True)
+            if "__all__" in form.errors.keys():
+                for err in form.errors["__all__"].as_data():
+                    if Errors.INVITE_CODE_NEEDED_BEFORE_LOGIN in err.messages:
+                        return cls(errors=errors, invite_code_required=True)
 
             return cls(errors=errors)
 
@@ -431,7 +438,10 @@ class UpdateProfileMutation(
 
 
 class UpdateAccountSettingsMutation(
-    SkoleCreateUpdateMutationMixin, SuccessMessageMixin, DjangoModelFormMutation
+    SkoleCreateUpdateMutationMixin,
+    SuccessMessageMixin,
+    InvalidEmailDomainMixin,
+    DjangoModelFormMutation,
 ):
     """Update private account settings for a user."""
 

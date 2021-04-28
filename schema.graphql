@@ -290,8 +290,10 @@ input RegisterMutationInput {
 }
 
 type RegisterMutationPayload {
-  successMessage: String
+  user: UserObjectType
   errors: [ErrorType]
+  invalidEmailDomain: Boolean
+  successMessage: String
   clientMutationId: String
 }
 
@@ -392,6 +394,7 @@ input UpdateAccountSettingsMutationInput {
 type UpdateAccountSettingsMutationPayload {
   user: UserObjectType
   errors: [ErrorType]
+  invalidEmailDomain: Boolean
   successMessage: String
   clientMutationId: String
 }

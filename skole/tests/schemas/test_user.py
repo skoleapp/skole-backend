@@ -132,7 +132,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
                 "email": email,
                 "password": password,
             },
-            result="successMessage",
+            result="invalidEmailDomain successMessage",
         )
 
     def mutate_login(
@@ -142,7 +142,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
             name="login",
             input_type="LoginMutationInput!",
             input={"usernameOrEmail": username_or_email, "password": password},
-            result="user { ...userFields } successMessage",
+            result="inviteCodeRequired user { ...userFields } successMessage",
             fragment=self.user_fields,
         )
 
@@ -194,7 +194,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
                 "threadCommentPushPermission": thread_comment_push_permission,
                 "newBadgePushPermission": new_badge_push_permission,
             },
-            result="user { ...userFields } successMessage",
+            result="invalidEmailDomain user { ...userFields } successMessage",
             fragment=self.user_fields,
         )
 
@@ -370,6 +370,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         # Non allowed email domain.
         res = self.mutate_register(email="email@nonallowed.test")
         assert get_form_error(res) == Errors.EMAIL_DOMAIN_NOT_ALLOWED
+        assert res["invalidEmailDomain"]
 
     def test_use_invite_code_ok(self) -> None:
         email = "newemail@test.test"
@@ -550,6 +551,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         # Invite code required.
         res = self.mutate_login(username_or_email="testuser5", password="password")
         assert get_form_error(res) == Errors.INVITE_CODE_NEEDED_BEFORE_LOGIN
+        assert res["inviteCodeRequired"]
 
     def test_register_and_login(self) -> None:
         self.authenticated_user = None
@@ -843,6 +845,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         # Non allowed email domain.
         res = self.mutate_update_account_settings(email="email@nonallowed.test")
         assert get_form_error(res) == Errors.EMAIL_DOMAIN_NOT_ALLOWED
+        assert res["invalidEmailDomain"]
 
         # Backup email cannot be the email of another user.
         res = self.mutate_update_account_settings(backup_email="testuser3@test.test")

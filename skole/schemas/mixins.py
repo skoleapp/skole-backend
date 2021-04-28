@@ -3,10 +3,15 @@ from __future__ import annotations
 from typing import Any, ClassVar, Optional
 
 import graphene
-from graphene_django.forms.mutation import DjangoModelFormMutation
+from graphene_django.forms.mutation import (
+    DjangoModelFormMutation,
+    _set_errors_flag_to_context,
+)
+from graphene_django.types import ErrorType
 
 from skole.models import SkoleModel, Vote
-from skole.types import ResolveInfo
+from skole.types import JsonDict, ResolveInfo
+from skole.utils.constants import Errors
 
 
 class SuccessMessageMixin:
@@ -80,3 +85,33 @@ class PaginationMixin:
     has_next = graphene.Boolean()
     has_prev = graphene.Boolean()
     count = graphene.Int()
+
+
+class InvalidEmailDomainMixin:
+    """A mixin that returns an extra boolean field to indicate an invalid email domain
+    usage."""
+
+    invalid_email_domain = graphene.Boolean()
+
+    @classmethod
+    def mutate_and_get_payload(
+        cls, root: None, info: ResolveInfo, **input: JsonDict
+    ) -> DjangoModelFormMutation:
+        # Ignore: Will be defined in subclasses.
+        form = cls.get_form(root, info, **input)  # type: ignore[attr-defined]
+
+        if form.is_valid():
+            # Ignore: Will be defined in subclasses.
+            return cls.perform_mutate(form, info)  # type: ignore[attr-defined]
+        else:
+            errors = ErrorType.from_errors(form.errors)
+            _set_errors_flag_to_context(info)
+
+            if "email" in form.errors.keys():
+                for err in form.errors["email"].as_data():
+                    if Errors.EMAIL_DOMAIN_NOT_ALLOWED in err.messages:
+                        # Ignore: Will be defined in subclasses.
+                        return cls(errors=errors, invalid_email_domain=True)  # type: ignore[call-arg]
+
+            # Ignore: Will be defined in subclasses.
+            return cls(errors=errors)  # type: ignore[call-arg]

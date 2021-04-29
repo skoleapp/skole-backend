@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from .activity import MarkActivityAsReadForm
 from .comment import CreateCommentForm, DeleteCommentForm, UpdateCommentForm
 from .contact import ContactForm

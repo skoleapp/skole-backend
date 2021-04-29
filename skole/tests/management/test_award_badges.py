@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import pytest
 from django.contrib.auth import get_user_model
 from django.core.management import call_command

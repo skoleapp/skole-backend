@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import multiprocessing
 
 bind = "0.0.0.0:8000"

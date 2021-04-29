@@ -4,6 +4,8 @@
 # - Take field validator values from settings.
 # pylint: disable=too-many-lines
 
+from __future__ import annotations
+
 import datetime
 
 import django.core.validators

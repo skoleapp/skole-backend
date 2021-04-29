@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import Any, ClassVar, Generic, TypeVar, cast, get_args
 
 from django.db.models.signals import post_save

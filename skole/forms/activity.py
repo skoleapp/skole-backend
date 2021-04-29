@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from skole.forms.base import SkoleUpdateModelForm
 from skole.models import Activity
 

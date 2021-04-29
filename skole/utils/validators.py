@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import mimetypes
 from collections.abc import Collection
 from pathlib import Path

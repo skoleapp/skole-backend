@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from django.contrib.auth import get_user_model
 
 from skole.tests.helpers import SkoleSchemaTestCase

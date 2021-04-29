@@ -11,7 +11,7 @@ from django.conf import settings
 from django.db import migrations
 from django.db.backends.base.schema import BaseDatabaseSchemaEditor
 
-if TYPE_CHECKING:
+if TYPE_CHECKING:  # pragma: no cover
     from skole.models import SkoleModel
 
 

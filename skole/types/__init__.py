@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from ._aliases import (
     ID,
     AnyJson,

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from django import forms
 
 from skole.forms.base import SkoleForm

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from skole.models import Comment
 from skole.tests.helpers import SkoleSchemaTestCase, get_form_error
 from skole.types import ID, JsonDict

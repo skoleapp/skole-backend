@@ -1,4 +1,6 @@
 """This module contains all the Django and GraphQL middlewares used in the app."""
+from __future__ import annotations
+
 from typing import Any, Callable, Optional, TypeVar
 
 from django.contrib.sessions.middleware import SessionMiddleware

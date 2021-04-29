@@ -35,6 +35,7 @@ class CommentObjectType(VoteMixin, DjangoObjectType):
             "image",
             "image_thumbnail",
             "file",
+            "file_thumbnail",
             "score",
             "reply_count",
             "is_own",
@@ -65,6 +66,10 @@ class CommentObjectType(VoteMixin, DjangoObjectType):
     @staticmethod
     def resolve_file(root: Comment, info: ResolveInfo) -> str:
         return root.file.url if root.file else ""
+
+    @staticmethod
+    def resolve_file_thumbnail(root: Comment, info: ResolveInfo) -> str:
+        return root.get_or_create_file_thumbnail_url()
 
     @staticmethod
     def resolve_image(root: Comment, info: ResolveInfo) -> str:

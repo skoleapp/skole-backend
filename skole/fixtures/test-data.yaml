@@ -455,6 +455,7 @@
   fields:
     text: Comment 1 to a thread.
     file: ""
+    file_thumbnail: ""
     image: uploads/attachments/test_image.png
     thread: 1
     comment: null
@@ -465,7 +466,8 @@
   pk: 2
   fields:
     text: Comment 2 to a thread.
-    file: ""
+    file: uploads/resources/test_file.pdf
+    file_thumbnail: ""
     image: ""
     thread: 1
     comment: null
@@ -477,6 +479,7 @@
   fields:
     text: Comment 3 to a thread.
     file: uploads/resources/test_file.pdf
+    file_thumbnail: ""
     image: ""
     thread: 1
     comment: null
@@ -488,6 +491,7 @@
   fields:
     text: Comment 4 to a thread.
     file: ""
+    file_thumbnail: ""
     image: ""
     thread: 1
     comment: null
@@ -499,6 +503,7 @@
   fields:
     text: Comment 5 to a thread.
     file: ""
+    file_thumbnail: ""
     image: ""
     thread: 1
     comment: null
@@ -510,6 +515,7 @@
   fields:
     text: Comment 6 to a thread.
     file: ""
+    file_thumbnail: ""
     image: ""
     thread: 1
     comment: null
@@ -521,6 +527,7 @@
   fields:
     text: Comment 7 to a thread.
     file: ""
+    file_thumbnail: ""
     image: ""
     thread: 1
     comment: null
@@ -532,6 +539,7 @@
   fields:
     text: Comment 8 to a thread.
     file: ""
+    file_thumbnail: ""
     image: ""
     thread: 1
     comment: null
@@ -543,6 +551,7 @@
   fields:
     text: Reply 1 to a comment.
     file: ""
+    file_thumbnail: ""
     image: ""
     thread: null
     comment: 4
@@ -554,6 +563,7 @@
   fields:
     text: Reply 2 to a comment.
     file: ""
+    file_thumbnail: ""
     image: ""
     thread: null
     comment: 4
@@ -565,6 +575,7 @@
   fields:
     text: Reply 3 to a comment.
     file: ""
+    file_thumbnail: ""
     image: ""
     thread: null
     comment: 4
@@ -576,6 +587,7 @@
   fields:
     text: Reply 4 to a comment.
     file: ""
+    file_thumbnail: ""
     image: ""
     thread: null
     comment: 4
@@ -587,6 +599,7 @@
   fields:
     text: Reply 5 to a comment.
     file: ""
+    file_thumbnail: ""
     image: ""
     thread: null
     comment: 4
@@ -598,6 +611,7 @@
   fields:
     text: Reply 6 to a comment.
     file: ""
+    file_thumbnail: ""
     image: ""
     thread: null
     comment: 4
@@ -609,6 +623,7 @@
   fields:
     text: Reply 7 to a comment.
     file: ""
+    file_thumbnail: ""
     image: ""
     thread: null
     comment: 4
@@ -620,6 +635,7 @@
   fields:
     text: Reply 8 to a comment.
     file: ""
+    file_thumbnail: ""
     image: ""
     thread: null
     comment: 4
@@ -631,6 +647,7 @@
   fields:
     text: Reply 9 to a comment.
     file: ""
+    file_thumbnail: ""
     image: ""
     thread: null
     comment: 4
@@ -642,6 +659,7 @@
   fields:
     text:  Reply 10 to a comment.
     file: ""
+    file_thumbnail: ""
     image: ""
     thread: null
     comment: 4
@@ -653,6 +671,7 @@
   fields:
     text: An anonymous comment to a thread.
     file: ""
+    file_thumbnail: ""
     image: ""
     thread: 2
     comment: null
@@ -664,6 +683,7 @@
   fields:
     text: An anonymous comment to a thread.
     file: ""
+    file_thumbnail: ""
     image: ""
     thread: 3
     comment: null
@@ -675,6 +695,7 @@
   fields:
     text: An anonymous comment to a thread.
     file: ""
+    file_thumbnail: ""
     image: ""
     thread: 4
     comment: null
@@ -686,6 +707,7 @@
   fields:
     text: An anonymous comment to a thread.
     file: ""
+    file_thumbnail: ""
     image: ""
     thread: 5
     comment: null
@@ -697,6 +719,7 @@
   fields:
     text: An anonymous comment to a thread.
     file: ""
+    file_thumbnail: ""
     image: ""
     thread: 6
     comment: null
@@ -708,6 +731,7 @@
   fields:
     text: An anonymous comment to a thread.
     file: ""
+    file_thumbnail: ""
     image: ""
     thread: 7
     comment: null

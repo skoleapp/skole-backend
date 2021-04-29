@@ -9,6 +9,7 @@ from imagekit.processors import ResizeToFill
 
 from skole.models.base import SkoleManager, SkoleModel
 from skole.utils.constants import Notifications
+from skole.utils.files import generate_pdf_thumbnail
 from skole.utils.validators import ValidateFileSizeAndType
 
 
@@ -52,6 +53,10 @@ class Comment(SkoleModel):
             )
         ],
     )
+    file_thumbnail = models.ImageField(
+        upload_to="generated/thumbnails",
+        blank=True,
+    )
 
     image = models.ImageField(
         # This is the old path for the files in S3, will need to move them manually
@@ -68,7 +73,7 @@ class Comment(SkoleModel):
 
     image_thumbnail = ImageSpecField(
         source="image",
-        processors=[ResizeToFill(100, 100)],
+        processors=[ResizeToFill(settings.THUMBNAIL_WIDTH, settings.THUMBNAIL_WIDTH)],
         format="JPEG",
         options={"quality": 60},
     )
@@ -115,3 +120,13 @@ class Comment(SkoleModel):
         if score:
             self.score += score  # Can also be a subtraction when `score` is negative.
             self.save(update_fields=("score",))
+
+    def get_or_create_file_thumbnail_url(self) -> str:
+        if not self.file:
+            return ""
+        if self.file_thumbnail:
+            return self.file_thumbnail.url
+
+        self.file_thumbnail = generate_pdf_thumbnail(self.file)
+        self.save(update_fields=("file_thumbnail",))
+        return self.file_thumbnail.url

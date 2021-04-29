@@ -2,9 +2,11 @@ FROM python:3.9.4-slim-buster@sha256:de9482638c1354f5178efc90431de2a42e863a12bf3
 
 RUN apt-get update \
     && apt-get install --no-install-recommends --assume-yes \
+        ghostscript \
         gir1.2-gdkpixbuf-2.0 \
         gir1.2-poppler-0.18 \
         gir1.2-rsvg-2.0 \
+        imagemagick \
         libcairo2-dev \
         libgirepository1.0-dev \
         libmagic-dev \
@@ -14,6 +16,9 @@ RUN apt-get update \
         python3-gi-cairo \
         python3-mutagen \
     && rm -rf /var/lib/apt/lists/ /var/cache/apt/
+
+# Allow ImageMagick to convert PDFs: https://stackoverflow.com/q/52998331/9835872
+RUN sed --in-place '/rights="none" pattern="PDF"/d' /etc/ImageMagick-6/policy.xml
 
 RUN groupadd --gid=10001 user \
     && useradd --gid=user --uid=10000 --create-home user

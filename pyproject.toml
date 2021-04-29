@@ -2,7 +2,7 @@
 name = "skole-backend"
 version = "1.0.0"
 description = "Backend of Skole"
-authors = ["Skole <admin@skoleapp.com>"]
+authors = ["Skole <dev@skoleapp.com>"]
 packages = [
     { include = "skole" },
 ]

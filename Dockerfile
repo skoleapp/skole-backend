@@ -54,7 +54,7 @@ COPY --chown=user:user pyproject.toml .
 
 ARG install_dev_dependencies=0
 
-RUN sh -c "poetry install --no-root "$([ "$install_dev_dependencies" -eq 0 ] && printf -- '--no-dev')"" \
+RUN sh -c "poetry install --no-root $([ "$install_dev_dependencies" -eq 0 ] && printf -- '--no-dev')" \
     && rm -rf /home/user/.cache/
 
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

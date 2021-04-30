@@ -129,7 +129,7 @@ def generate_pdf_thumbnail(file: File) -> File:
         "convert",
         "-[0]",  # Read the PDF from stdin and take the first page only.
         "-thumbnail",
-        f"{width}x{width * 2}",
+        f"{width}x{width}^",
         "-crop",
         f"{width}x{width}+0+0",
         "-alpha",

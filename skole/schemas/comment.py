@@ -181,7 +181,7 @@ class Query(SkoleObjectType):
         elif thread != "":
             qs = qs.filter(thread__slug=thread)
             if ordering == "best":
-                qs = qs.order_by("-score")
+                qs = qs.order_by("-score", "pk")
             elif ordering == "newest":
                 qs = qs.order_by("-pk")
         else:

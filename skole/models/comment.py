@@ -18,7 +18,7 @@ class CommentManager(SkoleManager["Comment"]):
         qs = super().get_queryset()
 
         return qs.order_by(
-            "id"  # We always want to get comments in their creation order.
+            "pk"  # We always want to get comments in their creation order.
         ).annotate(
             reply_count=Count("reply_comments", distinct=True),
         )

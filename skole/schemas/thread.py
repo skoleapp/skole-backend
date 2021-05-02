@@ -185,7 +185,7 @@ class Query(SkoleObjectType):
                     )
                 )
                 # Tested that this works quite well as a threshold here.
-                .filter(similarity__gte=0.1).order_by("-similarity")
+                .filter(similarity__gte=0.1).order_by("-similarity", "pk")
             )
         elif ordering == "newest":
             qs = qs.order_by("-pk")

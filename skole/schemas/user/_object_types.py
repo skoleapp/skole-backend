@@ -160,7 +160,7 @@ class UserObjectType(SkoleDjangoObjectType):
     @staticmethod
     @private_field
     def resolve_unread_activity_count(root: User, info: ResolveInfo) -> int:
-        return root.activities.filter(read=False).order_by().count()
+        return root.activities.filter(read=False).count()
 
     @staticmethod
     @private_field

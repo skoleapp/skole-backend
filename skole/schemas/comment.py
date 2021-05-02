@@ -165,24 +165,27 @@ class Query(SkoleObjectType):
         """
         Return comments filtered by query params.
 
-        The `search_term` is used to search from comment creator usernames and comment text.
+        Either the `thread` or `user` argument must be passed, otherwise the results
+        will be empty.
 
-        Results are sorted by creation time.
+        If the `thread` is passed the results are sorted according to the `ordering`
+        argument. If the `user` argument is passed the results will always
+        just be sorted by creation time.
         """
 
         qs: QuerySet[Comment] = Comment.objects.all()
 
         if user != "":
-            qs = qs.filter(user__slug=user)
-
-        if thread != "":
+            # Just show these chronologically when querying in a user profile.
+            qs = qs.filter(user__slug=user).order_by("-pk")
+        elif thread != "":
             qs = qs.filter(thread__slug=thread)
-
-        if ordering == "best":
-            qs = qs.order_by("-score")
-
-        elif ordering == "newest":
-            qs = qs.order_by("-pk")
+            if ordering == "best":
+                qs = qs.order_by("-score", "pk")
+            elif ordering == "newest":
+                qs = qs.order_by("-pk")
+        else:
+            qs = qs.none()
 
         paginated_qs = get_paginator(qs, page_size, page, PaginatedCommentObjectType)
 

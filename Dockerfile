@@ -1,4 +1,4 @@
-FROM python:3.9.4-slim-buster@sha256:de9482638c1354f5178efc90431de2a42e863a12bf3df41d7fa30d5c10fe543d as base
+FROM python:3.9.4-slim-buster@sha256:6fd99c1c6bac8abf9952cb797dc409ac92e8fbedd4d080211381a69c213b509b as base
 
 RUN apt-get update \
     && apt-get install --no-install-recommends --assume-yes \

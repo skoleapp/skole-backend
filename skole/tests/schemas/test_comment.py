@@ -324,12 +324,13 @@ class CommentSchemaTests(SkoleSchemaTestCase):
         assert len(res["objects"]) == page_size
 
         for comment in res["objects"]:
-            assert int(comment["user"]["id"]) == self.authenticated_user
+            assert comment["user"]  # No anonymous comments are returned.
+            assert comment["user"]["id"] == "2"
             assert comment["isOwn"] is True
 
-        assert res["count"] == 14
+        assert res["count"] == 13
         assert res["page"] == page
-        assert res["pages"] == 14
+        assert res["pages"] == 13
         assert res["hasNext"] is True
         assert res["hasPrev"] is False
 

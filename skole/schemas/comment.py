@@ -177,7 +177,7 @@ class Query(SkoleObjectType):
 
         if user != "":
             # Just show these chronologically when querying in a user profile.
-            qs = qs.filter(user__slug=user).order_by("-pk")
+            qs = qs.filter(user__slug=user, is_anonymous=False).order_by("-pk")
         elif thread != "":
             qs = qs.filter(thread__slug=thread)
             if ordering == "best":

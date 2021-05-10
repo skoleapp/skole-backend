@@ -15,7 +15,7 @@ exclude = [
 [tool.poetry.dependencies]
 python = "^3.9"
 dj-database-url = "0.5.0"
-django = "3.2"
+django = "3.2.2"
 django-amazon-ses = "4.0.0"
 django-autoslug = "1.9.8"
 django-cors-headers = "3.7.0"
@@ -36,14 +36,14 @@ requests = "2.25.1"
 
 [tool.poetry.dev-dependencies]
 autoflake = "1.4.0"
-black = "21.4b2"
+black = "21.5b0"
 django-stubs = "1.8.0"
 docformatter = "1.4.0"
-flake8 = "3.9.1"
+flake8 = "3.9.2"
 isort = "5.8.0"
 mypy = "0.812"
 pylint = "2.8.2"
-pytest = "6.2.3"
+pytest = "6.2.4"
 pytest-cov = "2.11.1"
 pytest-django = "4.2.0"
 

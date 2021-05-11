@@ -592,7 +592,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert user1["verified"]
         assert user1["rank"] == "Freshman"
         assert user1["threadCount"] == 3
-        assert user1["commentCount"] == 14
+        assert user1["commentCount"] == 13
         assert user1["unreadActivityCount"] == 3
         assert user1["fcmTokens"] == []
         assert len(user1["badges"]) == 1
@@ -607,6 +607,14 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert user1["selectedBadgeProgress"]["steps"] == 1
         assert user1["inviteCode"]["code"] == "TEST1"
         assert user1["inviteCode"]["usages"] == 2
+
+        # Test that anonymous comments are not included in the comment count of the user.
+        user_from_db = get_user_model().objects.get(slug=slug)
+        assert (
+            user_from_db.comments.filter(is_anonymous=False).count()
+            == user1["commentCount"]
+        )
+        assert user_from_db.comments.count() > user1["commentCount"]
 
         # Some other user.
         slug = "testuser3"
@@ -640,7 +648,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert user["verified"]
         assert user["rank"] == "Freshman"
         assert user["threadCount"] == 3
-        assert user["commentCount"] == 14
+        assert user["commentCount"] == 13
         assert user["unreadActivityCount"] == 3
         assert user["fcmTokens"] == []
         assert len(user["badges"]) == 1

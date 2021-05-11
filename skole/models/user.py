@@ -12,6 +12,7 @@ from django.db.models import (
     ExpressionWrapper,
     F,
     FloatField,
+    Q,
     QuerySet,
     Value,
     When,
@@ -49,7 +50,9 @@ class UserManager(SkoleManager["User"], BaseUserManager["User"]):
 
         return qs.annotate(
             thread_count=Count("created_threads", distinct=True),
-            comment_count=Count("comments", distinct=True),
+            comment_count=Count(
+                "comments", filter=Q(comments__is_anonymous=False), distinct=True
+            ),
         )
 
     def create_user(self, username: str, email: str, password: str) -> User:

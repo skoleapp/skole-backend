@@ -81,10 +81,6 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
             selectedBadgeProgress {
                 ...badgeProgressFields
             }
-            inviteCode {
-                code
-                usages
-            }
         }
         """
     )
@@ -144,7 +140,7 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
             name="login",
             input_type="LoginMutationInput!",
             input={"usernameOrEmail": username_or_email, "password": password},
-            result="inviteCodeRequired user { ...userFields } successMessage",
+            result="user { ...userFields } successMessage",
             fragment=self.user_fields,
         )
 
@@ -252,14 +248,6 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
             result="successMessage",
         )
 
-    def mutate_use_invite_code(self, *, code: str, username_or_email: str) -> JsonDict:
-        return self.execute_input_mutation(
-            name="useInviteCode",
-            input_type="UseInviteCodeMutationInput!",
-            input={"code": code, "usernameOrEmail": username_or_email},
-            result="successMessage",
-        )
-
     def mutate_resend_verification_email(self, assert_error: bool = False) -> JsonDict:
         return self.execute_non_input_mutation(
             name="resendVerificationEmail",
@@ -315,8 +303,8 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert user.username == "MYUSERNAME"
         assert user.email == "mail@test.test"
 
-        # No verification email are sent before invite code is used.
-        assert len(mail.outbox) == 0
+        # Verifications email got sent.
+        assert len(mail.outbox) == 3
 
     def test_register_error(self) -> None:
         self.authenticated_user = None
@@ -374,45 +362,9 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert get_form_error(res) == Errors.EMAIL_DOMAIN_NOT_ALLOWED
         assert res["invalidEmailDomain"]
 
-    def test_use_invite_code_ok(self) -> None:
-        email = "newemail@test.test"
-        self.mutate_register(email=email)
-        assert len(mail.outbox) == 0
-
-        res = self.mutate_use_invite_code(code="TEST1", username_or_email=email)
-        assert not res["errors"]
-        assert res["successMessage"] == Messages.INVITE_CODE_SUCCESS
-        assert len(mail.outbox) == 1
-        sent = mail.outbox[0]
-        assert "Verify" in sent.subject
-        assert sent.from_email == settings.EMAIL_ADDRESS
-        assert sent.to == [email]
-
-    def test_use_invite_code_error(self) -> None:
-        email = "newemail@test.test"
-        self.mutate_register(email=email)
-
-        # Invalid invite code.
-        res = self.mutate_use_invite_code(code="INVALID", username_or_email=email)
-        assert get_form_error(res) == Errors.INVITE_CODE_INVALID
-
-        # No account for the email.
-        res = self.mutate_use_invite_code(
-            code="TEST1", username_or_email="invalid@test.test"
-        )
-        assert get_form_error(res) == Errors.AUTH_ERROR
-
-        assert len(mail.outbox) == 0  # No verification emails sent.
-
-        # Verified user.
-        res = self.mutate_use_invite_code(code="TEST1", username_or_email="testuser2")
-        assert get_form_error(res) == Errors.INVITE_CODE_VERIFIED
-        assert len(mail.outbox) == 0  # No verification emails sent.
-
     def test_verify_ok(self) -> None:
         email = "newemail@test.test"
         self.mutate_register(email=email)
-        self.mutate_use_invite_code(code="TEST1", username_or_email=email)
 
         assert len(mail.outbox) == 1
         sent = mail.outbox[0]
@@ -550,11 +502,6 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         res = self.mutate_login(password="wrongpass")
         assert get_form_error(res) == Errors.AUTH_ERROR
 
-        # Invite code required.
-        res = self.mutate_login(username_or_email="testuser5", password="password")
-        assert get_form_error(res) == Errors.INVITE_CODE_NEEDED_BEFORE_LOGIN
-        assert res["inviteCodeRequired"]
-
     def test_register_and_login(self) -> None:
         self.authenticated_user = None
 
@@ -564,8 +511,6 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         res = self.mutate_register(username=username, email=email, password=password)
         assert not res["errors"]
         assert res["successMessage"] == Messages.USER_REGISTERED
-
-        self.mutate_use_invite_code(code="TEST1", username_or_email=email)
 
         # Login with email.
         res = self.mutate_login(username_or_email=email, password=password)
@@ -605,8 +550,6 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         assert user1["selectedBadgeProgress"]["badge"]["name"] == "First Comment"
         assert user1["selectedBadgeProgress"]["progress"] == 0
         assert user1["selectedBadgeProgress"]["steps"] == 1
-        assert user1["inviteCode"]["code"] == "TEST1"
-        assert user1["inviteCode"]["usages"] == 2
 
         # Test that anonymous comments are not included in the comment count of the user.
         user_from_db = get_user_model().objects.get(slug=slug)
@@ -630,7 +573,6 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         # Private fields.
         assert user2["badgeProgresses"] is None
         assert user2["selectedBadgeProgress"] is None
-        assert user2["inviteCode"] is None
         assert user2["unreadActivityCount"] is None
         assert user2["fcmTokens"] is None
         assert user2["email"] is None
@@ -664,9 +606,6 @@ class UserSchemaTests(SkoleSchemaTestCase):  # pylint: disable=too-many-public-m
         user = self.query_user_me()
         assert user["badgeProgresses"][0]["badge"]["name"] == "First Upvote"
         assert user["badgeProgresses"][1]["badge"]["name"] == "First Comment"
-
-        assert user["inviteCode"]["code"] == "TEST1"
-        assert user["inviteCode"]["usages"] == 2
 
         # Shouldn't work without auth.
         self.authenticated_user = None

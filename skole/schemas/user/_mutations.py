@@ -22,7 +22,6 @@ from skole.forms import (
     ChangePasswordForm,
     DeleteUserForm,
     EmailForm,
-    InviteCodeForm,
     LoginForm,
     RegisterForm,
     SetPasswordForm,
@@ -38,7 +37,7 @@ from skole.schemas.base import SkoleCreateUpdateMutationMixin, SkoleObjectType
 from skole.schemas.mixins import InvalidEmailDomainMixin, SuccessMessageMixin
 from skole.schemas.user._object_types import UserObjectType
 from skole.types import JsonDict, ResolveInfo
-from skole.utils.constants import Errors, Messages, MutationErrors, TokenAction
+from skole.utils.constants import Messages, MutationErrors, TokenAction
 from skole.utils.email import (
     send_backup_email_verification_email,
     send_password_reset_email,
@@ -46,7 +45,6 @@ from skole.utils.email import (
 )
 from skole.utils.exceptions import (
     BackupEmailAlreadyVerified,
-    InviteCodeNeeded,
     TokenScopeError,
     UserAlreadyVerified,
 )
@@ -64,8 +62,7 @@ class RegisterMutation(
     Register a new user.
 
     Check if there is an existing user with that email or username. Check that account
-    is not deactivated. By default, set the user's account as unverified. After
-    successful registration, the user is allowed to use an invite code.
+    is not deactivated. By default, set the user's account as unverified.
     """
 
     success_message_value = Messages.USER_REGISTERED
@@ -74,33 +71,10 @@ class RegisterMutation(
         form_class = RegisterForm
         exclude_fields = ("id",)
 
-
-class UseInviteCodeMutation(SkoleObjectType, SuccessMessageMixin, DjangoFormMutation):
-    """
-    Use an invite code and make the user fully registered.
-
-    After successfully entering the invite code, send account verification email.
-    """
-
-    success_message_value = Messages.INVITE_CODE_SUCCESS
-
-    class Meta:
-        form_class = InviteCodeForm
-
     @classmethod
-    def perform_mutate(
-        cls, form: InviteCodeForm, info: ResolveInfo
-    ) -> UseInviteCodeMutation:
-        user = form.cleaned_data["user"]
-        invite_code = form.cleaned_data["code"]
-
-        if user.verified:
-            return cls(errors=MutationErrors.INVITE_CODE_VERIFIED)
-
-        try:
-            invite_code.use_code(user)
-        except ValidationError as e:
-            return cls(errors=to_form_error(e.message))
+    def perform_mutate(cls, form: RegisterForm, info: ResolveInfo) -> RegisterMutation:
+        super().perform_mutate(form, info)
+        user = form.instance
 
         try:
             send_verification_email(user)
@@ -131,9 +105,6 @@ class VerifyAccountMutation(
         try:
             get_user_model().objects.verify_user(token)
             return cls(success_message=Messages.ACCOUNT_VERIFIED)
-
-        except InviteCodeNeeded:
-            return cls(errors=MutationErrors.INVITE_CODE_NEEDED)
 
         except UserAlreadyVerified:
             return cls(errors=MutationErrors.ALREADY_VERIFIED)
@@ -326,7 +297,6 @@ class LoginMutation(
     """
 
     user = graphene.Field(UserObjectType)
-    invite_code_required = graphene.Boolean()
 
     class Meta:
         form_class = LoginForm
@@ -354,14 +324,6 @@ class LoginMutation(
         else:
             errors = ErrorType.from_errors(form.errors)
             _set_errors_flag_to_context(info)
-
-            # If the form error matches with the `INVITE_CODE_NEEDED_BEFORE_LOGIN`,
-            # set an attribute in the payload that tells the frontend to ask the user for the invite code.
-            if "__all__" in form.errors.keys():
-                for err in form.errors["__all__"].as_data():
-                    if Errors.INVITE_CODE_NEEDED_BEFORE_LOGIN in err.messages:
-                        return cls(errors=errors, invite_code_required=True)
-
             return cls(errors=errors)
 
     @classmethod
@@ -569,7 +531,6 @@ class Mutation(SkoleObjectType):
     register = RegisterMutation.Field()
     verify_account = VerifyAccountMutation.Field()
     verify_backup_email = VerifyBackupEmailMutation.Field()
-    use_invite_code = UseInviteCodeMutation.Field()
     resend_verification_email = ResendVerificationEmailMutation.Field()
     resend_backup_email_verification_email = (
         ResendBackupEmailVerificationEmailMutation.Field()

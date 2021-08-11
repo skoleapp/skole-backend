@@ -27,7 +27,6 @@ from imagekit.processors import ResizeToFill
 from skole.models.badge import Badge
 from skole.models.badge_progress import BadgeProgress
 from skole.models.base import SkoleManager, SkoleModel
-from skole.models.invite_code import InviteCode
 from skole.utils.constants import (
     BADGE_TIER_CHOICES,
     Errors,
@@ -35,11 +34,7 @@ from skole.utils.constants import (
     TokenAction,
     VerboseNames,
 )
-from skole.utils.exceptions import (
-    BackupEmailAlreadyVerified,
-    InviteCodeNeeded,
-    UserAlreadyVerified,
-)
+from skole.utils.exceptions import BackupEmailAlreadyVerified, UserAlreadyVerified
 from skole.utils.token import get_token_payload
 from skole.utils.validators import ValidateFileSizeAndType
 
@@ -85,14 +80,9 @@ class UserManager(SkoleManager["User"], BaseUserManager["User"]):
 
         user = self.get(**payload)
 
-        if not user.used_invite_code:
-            raise InviteCodeNeeded
-
         if user.verified is False:
             user.verified = True
             user.save(update_fields=("verified",))
-            # We now have a fully activated user, let's give them their own invite code.
-            InviteCode.objects.create_invite_code(user)
         else:
             raise UserAlreadyVerified
 
@@ -171,14 +161,6 @@ class User(SkoleModel, AbstractBaseUser, PermissionsMixin):
         "skole.BadgeProgress",
         on_delete=models.SET_NULL,
         related_name="users",
-        null=True,
-        blank=True,
-    )
-
-    used_invite_code = models.ForeignKey(
-        "skole.InviteCode",
-        on_delete=models.PROTECT,
-        related_name="invited_users",
         null=True,
         blank=True,
     )

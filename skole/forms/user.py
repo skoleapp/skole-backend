@@ -9,7 +9,7 @@ from django.core.files import File
 from django.db.models import F, Q, QuerySet
 
 from skole.forms.base import SkoleForm, SkoleModelForm
-from skole.models import Badge, InviteCode, User
+from skole.models import Badge, User
 from skole.models.attempted_email import AttemptedEmail
 from skole.types import JsonDict
 from skole.utils.constants import Errors
@@ -133,11 +133,6 @@ class LoginForm(SkoleModelForm):
         if user.is_superuser:
             raise forms.ValidationError(Errors.SUPERUSER_LOGIN)
 
-        if not user.used_invite_code:
-            raise forms.ValidationError(
-                Errors.INVITE_CODE_NEEDED_BEFORE_LOGIN,
-            )
-
         self.cleaned_data["user"] = user
         return self.cleaned_data
 
@@ -251,36 +246,3 @@ class DeleteUserForm(SkoleModelForm):
             raise forms.ValidationError(Errors.INVALID_PASSWORD)
 
         return password
-
-
-class InviteCodeForm(SkoleForm):
-    username_or_email = forms.CharField()
-
-    def __init__(self, **kwargs: Any) -> None:
-        super().__init__(**kwargs)
-        self.fields["code"] = InviteCode.formfield("code")
-
-    def clean_code(self) -> InviteCode:
-        code = self.cleaned_data["code"]
-        invite_code = InviteCode.objects.get_or_none(code=code)
-        if not invite_code:
-            raise forms.ValidationError(Errors.INVITE_CODE_INVALID)
-        return invite_code
-
-    def clean_username_or_email(self) -> str:
-        username_or_email = self.cleaned_data["username_or_email"]
-
-        if "@" in username_or_email:
-            query = Q(email__iexact=username_or_email) | Q(
-                backup_email__iexact=username_or_email
-            )
-        else:
-            query = Q(username__iexact=username_or_email)
-
-        try:
-            user = get_user_model().objects.get(query)
-        except get_user_model().DoesNotExist:
-            raise forms.ValidationError(Errors.AUTH_ERROR) from None
-
-        self.cleaned_data["user"] = user
-        return username_or_email

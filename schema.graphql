@@ -156,11 +156,6 @@ type ErrorType {
   messages: [String!]!
 }
 
-type InviteCodeObjectType {
-  code: String!
-  usages: Int!
-}
-
 input LoginMutationInput {
   usernameOrEmail: String!
   password: String!
@@ -171,7 +166,6 @@ type LoginMutationPayload {
   user: UserObjectType
   errors: [ErrorType]
   successMessage: String
-  inviteCodeRequired: Boolean
   clientMutationId: String
 }
 
@@ -202,7 +196,6 @@ type Mutation {
   register(input: RegisterMutationInput!): RegisterMutationPayload
   verifyAccount(input: VerifyAccountMutationInput!): VerifyAccountMutationPayload
   verifyBackupEmail(input: VerifyBackupEmailMutationInput!): VerifyBackupEmailMutationPayload
-  useInviteCode(input: UseInviteCodeMutationInput!): UseInviteCodeMutationPayload
   resendVerificationEmail: ResendVerificationEmailMutation
   resendBackupEmailVerificationEmail: ResendBackupEmailVerificationEmailMutation
   sendPasswordResetEmail(input: SendPasswordResetEmailMutationInput!): SendPasswordResetEmailMutationPayload
@@ -442,20 +435,6 @@ type UpdateSelectedBadgeMutationPayload {
   clientMutationId: String
 }
 
-input UseInviteCodeMutationInput {
-  usernameOrEmail: String!
-  code: String!
-  clientMutationId: String
-}
-
-type UseInviteCodeMutationPayload {
-  usernameOrEmail: String!
-  code: String!
-  errors: [ErrorType]
-  successMessage: String
-  clientMutationId: String
-}
-
 type UserObjectType {
   id: ID!
   slug: String
@@ -478,7 +457,6 @@ type UserObjectType {
   newBadgePushPermission: Boolean
   views: Int!
   badgeProgresses: [BadgeProgressObjectType]
-  inviteCode: InviteCodeObjectType
   threadCount: Int
   commentCount: Int
   avatarThumbnail: String

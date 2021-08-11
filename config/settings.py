@@ -257,10 +257,6 @@ MY_DATA_FILE_AVAILABLE_FOR = timedelta(days=7)
 # The width and height of an image and file thumbnail (pixels).
 THUMBNAIL_WIDTH = 200
 
-# Specs of invite codes that are created for new users to share.
-INVITE_CODE_LENGTH = 6
-INVITE_CODE_INITIAL_USAGES = 2
-
 # Email address domains that can be used to register with.
 ALLOWED_EMAIL_DOMAINS = {
     "aalto.fi",

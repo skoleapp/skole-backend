@@ -24,14 +24,10 @@ class Query(SkoleObjectType):
 
     @staticmethod
     def resolve_user(root: None, info: ResolveInfo, slug: str = "") -> Optional[User]:
-        """Superusers or users who haven't entered an invite code cannot be queried."""
+        """Superusers cannot be queried."""
 
         try:
-            user = (
-                get_user_model()
-                .objects.filter(is_superuser=False, used_invite_code__isnull=False)
-                .get(slug=slug)
-            )
+            user = get_user_model().objects.filter(is_superuser=False).get(slug=slug)
             user.increment_views(info.context)
             return user
         except User.DoesNotExist:

@@ -12,10 +12,6 @@ class _BaseGraphQLAuthError(Exception):
         super().__init__(self.message)
 
 
-class InviteCodeNeeded(_BaseGraphQLAuthError):
-    message = Errors.INVITE_CODE_NEEDED_BEFORE_VERIFY
-
-
 class UserAlreadyVerified(_BaseGraphQLAuthError):
     message = Errors.ALREADY_VERIFIED
 

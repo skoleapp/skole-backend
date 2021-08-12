@@ -12,7 +12,6 @@ from skole.models import (
     BadgeProgress,
     Comment,
     DailyVisit,
-    InviteCode,
     Star,
     Thread,
     Vote,
@@ -29,7 +28,6 @@ admin.site.register(AttemptedEmail)
 admin.site.register(BadgeProgress)
 admin.site.register(Comment)
 admin.site.register(DailyVisit)
-admin.site.register(InviteCode)
 admin.site.register(Star)
 admin.site.register(Thread)
 admin.site.register(Vote)

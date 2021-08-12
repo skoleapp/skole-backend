@@ -2,7 +2,6 @@
 # Manually edited to take the default value from settings.
 from __future__ import annotations
 
-from django.conf import settings
 from django.db import migrations, models
 
 
@@ -16,8 +15,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="invitecode",
             name="initial_usages",
-            field=models.PositiveIntegerField(
-                default=settings.INVITE_CODE_INITIAL_USAGES
-            ),
+            field=models.PositiveIntegerField(default=2),
         ),
     ]

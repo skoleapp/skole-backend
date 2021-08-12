@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-28 20:55+0000\n"
+"POT-Creation-Date: 2021-08-11 16:54+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Skole\n"
@@ -142,30 +142,6 @@ msgid "You can request this next time in {} min."
 msgstr "Du kan begära detta igen inom {} min."
 
 #: skole/utils/constants.py:65
-msgid "You have already activated your account with a invite code."
-msgstr "Du har redan aktiverat ditt konto med en hänvisningskod."
-
-#: skole/utils/constants.py:67
-msgid "The invite code does not seem to be valid."
-msgstr "Hänvisningskoden verkar inte vara giltig."
-
-#: skole/utils/constants.py:69
-msgid "You need to use an invite code before you can log in."
-msgstr "Du måste använda en hänvisningskod innan du kan logga in."
-
-#: skole/utils/constants.py:72
-msgid "You need to use an invite code before validating your email."
-msgstr "Du måste använda en hänvisningskod innan du validerar din e-post."
-
-#: skole/utils/constants.py:74
-msgid "The invite code does not have any uses left."
-msgstr "Hänvisningskoden har inga användningsområden kvar."
-
-#: skole/utils/constants.py:75
-msgid "Verified users cannot use invite codes."
-msgstr "Verifierade användare kan inte använda inbjudningskoder."
-
-#: skole/utils/constants.py:77
 msgid ""
 "Your account has been registered but we encountered an error while sending "
 "email. You may still log in using your credentials. Please try verifying "
@@ -175,38 +151,38 @@ msgstr ""
 "Du kan fortfarande logga in med dina referenser. Försök verifiera ditt konto "
 "senare."
 
-#: skole/utils/constants.py:81
+#: skole/utils/constants.py:69
 msgid "Cannot log in at this time."
 msgstr "Kan inte logga in just nu."
 
-#: skole/utils/constants.py:83
+#: skole/utils/constants.py:71
 msgid "Token expired. Please request new password reset link."
 msgstr "Token har löpt ut. Be om ny länk för återställning av lösenord."
 
-#: skole/utils/constants.py:85
+#: skole/utils/constants.py:73
 msgid "Token expired. Please request new verification link."
 msgstr "Token har löpt ut. Begär ny verifieringslänk."
 
-#: skole/utils/constants.py:86
+#: skole/utils/constants.py:74
 msgid "This token is not intended for this use."
 msgstr "Detta token är inte avsett för detta bruk."
 
-#: skole/utils/constants.py:87
+#: skole/utils/constants.py:75
 msgid "An error occurred. Trying again might help."
 msgstr "Ett fel uppstod. Men du kan försöka igen."
 
-#: skole/utils/constants.py:88
+#: skole/utils/constants.py:76
 msgid "This username is taken."
 msgstr "Användarnamnet är upptaget."
 
-#: skole/utils/constants.py:90
+#: skole/utils/constants.py:78
 msgid ""
 "User with the provided email was not found. Please check you email address."
 msgstr ""
 "Användare med den medföljande e-postadressen hittades inte. Kontrollera din "
 "e-postadress."
 
-#: skole/utils/constants.py:93
+#: skole/utils/constants.py:81
 msgid ""
 "This action is only allowed for users who have verified their accounts. "
 "Please verify your account."
@@ -214,119 +190,115 @@ msgstr ""
 "Den här åtgärden är endast tillåten för användare som har verifierat sina "
 "konton.Bekräfta ditt konto."
 
-#: skole/utils/constants.py:96
+#: skole/utils/constants.py:84
 msgid "You cannot vote your own content."
 msgstr "Du kan inte rösta på ditt eget innehåll."
 
-#: skole/utils/constants.py:100
+#: skole/utils/constants.py:88
 msgid "Account settings updated successfully!"
 msgstr "Kontoinställningarna har uppdaterats!"
 
-#: skole/utils/constants.py:101
+#: skole/utils/constants.py:89
 msgid "Account verified successfully!"
 msgstr "Kontot har verifierats!"
 
-#: skole/utils/constants.py:102
+#: skole/utils/constants.py:90
 msgid "Backup email verified successfully!"
 msgstr "Reserv-e-post verifiera!"
 
-#: skole/utils/constants.py:103
+#: skole/utils/constants.py:91
 msgid "Changed the tracked badge successfully!"
 msgstr "Ändrade det spårade märket!"
 
-#: skole/utils/constants.py:104
+#: skole/utils/constants.py:92
 msgid "Comment deleted successfully!"
 msgstr "Kommentaren raderad!"
 
-#: skole/utils/constants.py:105
+#: skole/utils/constants.py:93
 msgid "Comment updated successfully!"
 msgstr "Kommentaren har uppdaterats!"
 
-#: skole/utils/constants.py:106
+#: skole/utils/constants.py:94
 msgid "Data request received successfully!"
 msgstr "Dataförfrågan mottagen!"
 
-#: skole/utils/constants.py:107
+#: skole/utils/constants.py:95
 msgid "Logged in successfully!"
 msgstr "Inloggad!"
 
-#: skole/utils/constants.py:108
+#: skole/utils/constants.py:96
 msgid "Message sent successfully."
 msgstr "Meddelandet har skickats."
 
-#: skole/utils/constants.py:109
+#: skole/utils/constants.py:97
 msgid "Password reset link sent successfully!"
 msgstr "Länk till återställning av lösenord har skickats!"
 
-#: skole/utils/constants.py:110
+#: skole/utils/constants.py:98
 msgid "Password updated successfully!"
 msgstr "Lösenordet har uppdaterats!"
 
-#: skole/utils/constants.py:111
+#: skole/utils/constants.py:99
 msgid "Profile updated successfully!"
 msgstr "Profilen har uppdaterats!"
 
-#: skole/utils/constants.py:112
-msgid "Successfully used the invite code!"
-msgstr "Har använt remisskoden!"
-
-#: skole/utils/constants.py:113
+#: skole/utils/constants.py:100
 msgid "Thread created successfully!"
 msgstr "Tråden skapades framgångsrikt!"
 
-#: skole/utils/constants.py:114
+#: skole/utils/constants.py:101
 msgid "Thread deleted successfully!"
 msgstr "Tråden skapades framgångsrikt!"
 
-#: skole/utils/constants.py:115
+#: skole/utils/constants.py:102
 msgid "Account deleted successfully!"
 msgstr "Kontot har tagits bort!"
 
-#: skole/utils/constants.py:116
+#: skole/utils/constants.py:103
 msgid "Registered new user successfully!"
 msgstr "Ny användare registrerad framgångsrikt!"
 
-#: skole/utils/constants.py:117
+#: skole/utils/constants.py:104
 msgid "Verification link sent successfully!"
 msgstr "Verifieringslänken har skickats!"
 
-#: skole/utils/constants.py:174
+#: skole/utils/constants.py:161
 msgid "Freshman"
 msgstr "Gulis"
 
-#: skole/utils/constants.py:175
+#: skole/utils/constants.py:162
 msgid "Tutor"
 msgstr "Handledare"
 
-#: skole/utils/constants.py:176
+#: skole/utils/constants.py:163
 msgid "Mentor"
 msgstr "Mentor"
 
-#: skole/utils/constants.py:177
+#: skole/utils/constants.py:164
 msgid "Bachelor"
 msgstr "Kandidat"
 
-#: skole/utils/constants.py:178
+#: skole/utils/constants.py:165
 msgid "Master"
 msgstr "Magister"
 
-#: skole/utils/constants.py:179
+#: skole/utils/constants.py:166
 msgid "Doctor"
 msgstr "Doktor"
 
-#: skole/utils/constants.py:180
+#: skole/utils/constants.py:167
 msgid "Professor"
 msgstr "Professor"
 
-#: skole/utils/constants.py:192
+#: skole/utils/constants.py:179
 msgid "username"
 msgstr "användarnamn"
 
-#: skole/utils/constants.py:193
+#: skole/utils/constants.py:180
 msgid "email"
 msgstr "e-post"
 
-#: skole/utils/constants.py:197
+#: skole/utils/constants.py:184
 #, python-format
 msgid "The password is too similar to the %(verbose_name)s."
 msgstr "Lösenordet är för likt %(verbose_name)s."

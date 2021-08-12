@@ -2,18 +2,17 @@ from __future__ import annotations
 
 import random
 import string
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from django.apps.registry import Apps
-from django.conf import settings
 from django.db import IntegrityError, migrations
 from django.db.backends.base.schema import BaseDatabaseSchemaEditor
 
 if TYPE_CHECKING:  # pragma: no cover
-    from skole.models import InviteCode, User
+    from skole.models import User
 
 
-def create_invite_code(code_model: type[InviteCode], user: User) -> InviteCode:
+def create_invite_code(code_model: type[Any], user: User) -> Any:
     invite_code = code_model(user=user)
     while True:
         invite_code.code = _generate_code()
@@ -26,9 +25,7 @@ def create_invite_code(code_model: type[InviteCode], user: User) -> InviteCode:
 
 
 def _generate_code() -> str:
-    return "".join(
-        random.choices(string.ascii_uppercase, k=settings.INVITE_CODE_LENGTH)
-    )
+    return "".join(random.choices(string.ascii_uppercase, k=6))
 
 
 def forwards_func(apps: Apps, schema_editor: BaseDatabaseSchemaEditor) -> None:

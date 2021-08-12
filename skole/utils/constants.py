@@ -61,18 +61,6 @@ class Errors:
     NOT_OWNER = _("You are not the owner of this object.")
     NOT_VERIFIED = _("This account is not verified.")
     RATE_LIMITED = _("You can request this next time in {} min.")
-    INVITE_CODE_ALREADY_SET = _(
-        "You have already activated your account with a invite code."
-    )
-    INVITE_CODE_INVALID = _("The invite code does not seem to be valid.")
-    INVITE_CODE_NEEDED_BEFORE_LOGIN = _(
-        "You need to use an invite code before you can log in."
-    )
-    INVITE_CODE_NEEDED_BEFORE_VERIFY = _(
-        "You need to use an invite code before validating your email."
-    )
-    INVITE_CODE_NO_USES_LEFT = _("The invite code does not have any uses left.")
-    INVITE_CODE_VERIFIED = _("Verified users cannot use invite codes.")
     REGISTER_EMAIL_ERROR = _(
         "Your account has been registered but we encountered an error while sending "
         "email. You may still log in using your credentials. "
@@ -109,7 +97,6 @@ class Messages:
     PASSWORD_RESET_EMAIL_SENT = _("Password reset link sent successfully!")
     PASSWORD_UPDATED = _("Password updated successfully!")
     PROFILE_UPDATED = _("Profile updated successfully!")
-    INVITE_CODE_SUCCESS = _("Successfully used the invite code!")
     THREAD_CREATED = _("Thread created successfully!")
     THREAD_DELETED = _("Thread deleted successfully!")
     USER_DELETED = _("Account deleted successfully!")

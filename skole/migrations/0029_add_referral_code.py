@@ -29,9 +29,7 @@ class Migration(migrations.Migration):
                 ("code", models.CharField(max_length=8, unique=True)),
                 (
                     "usages",
-                    models.PositiveIntegerField(
-                        default=settings.INVITE_CODE_INITIAL_USAGES
-                    ),
+                    models.PositiveIntegerField(default=2),
                 ),
                 ("created", models.DateTimeField(auto_now_add=True)),
                 ("modified", models.DateTimeField(auto_now=True)),

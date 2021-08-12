@@ -15,7 +15,6 @@
     bio: ""
     avatar: ""
     verified: True
-    used_invite_code: null
     is_active: True
     is_staff: True
     is_superuser: True
@@ -32,7 +31,6 @@
     bio: ""
     avatar: uploads/avatars/test_avatar.jpg
     verified: True
-    used_invite_code: 1
     is_active: True
     is_staff: False
     is_superuser: False
@@ -50,7 +48,6 @@
     bio: ""
     avatar: ""
     verified: False
-    used_invite_code: 2
     is_active: True
     is_staff: False
     is_superuser: False
@@ -68,7 +65,6 @@
     bio: ""
     avatar: ""
     verified: True
-    used_invite_code: 3
     is_active: True
     is_staff: False
     is_superuser: False
@@ -818,25 +814,3 @@
     user: 2
     acquired: 2021-01-01 12:00:00+00:00
     progress: 0
-
-- model: skole.InviteCode
-  pk: 1
-  fields:
-    code: TEST1
-    user: 2
-    created: 2020-01-01 12:00:00.000000+00:00
-    modified: 2020-01-01 12:00:00.000000+00:00
-- model: skole.InviteCode
-  pk: 2
-  fields:
-    code: TEST2
-    user: 3
-    created: 2020-01-01 12:00:00.000000+00:00
-    modified: 2020-01-01 12:00:00.000000+00:00
-- model: skole.InviteCode
-  pk: 3
-  fields:
-    code: TEST3
-    user: 4
-    created: 2020-01-01 12:00:00.000000+00:00
-    modified: 2020-01-01 12:00:00.000000+00:00

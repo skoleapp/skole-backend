@@ -29,7 +29,7 @@ ENV PATH="/home/user/.local/bin:${PATH}"
 ENV PYTHONUNBUFFERED=1
 
 
-FROM base as dev
+FROM base as build-deps
 
 RUN apt-get update \
     && apt-get install --no-install-recommends --assume-yes \
@@ -38,31 +38,33 @@ RUN apt-get update \
         gettext \
     && rm -rf /var/lib/apt/lists/ /var/cache/apt/
 
-USER user
-
-ENV PATH="/home/user/.poetry/bin:${PATH}"
 ENV POETRY_VIRTUALENVS_CREATE=0
 ENV POETRY_VERSION=1.1.6
+
+
+FROM build-deps as dev
+
+WORKDIR /app
+
+ENV PATH="/root/.poetry/bin:${PATH}"
 
 RUN curl --silent --show-error \
         https://raw.githubusercontent.com/python-poetry/poetry/7360b09e4ba3c01e1d5dc6eaaf34cb3ff57bc16e/get-poetry.py \
         | python - --no-modify-path \
-    && find /home/user/.poetry/lib/poetry/_vendor/ -mindepth 1 -maxdepth 1 -not -name py3.9 -type d | xargs rm -rf
+    && find /root/.poetry/lib/poetry/_vendor/ -mindepth 1 -maxdepth 1 -not -name py3.9 -type d | xargs rm -rf
 
-COPY --chown=user:user poetry.lock .
-COPY --chown=user:user pyproject.toml .
+COPY poetry.lock .
+COPY pyproject.toml .
 
-ARG install_dev_dependencies=0
-
-RUN sh -c "poetry install --no-root $([ "$install_dev_dependencies" -eq 0 ] && printf -- '--no-dev')" \
-    && rm -rf /home/user/.cache/
+RUN poetry install --no-root \
+    && rm -rf /root/.cache/
 
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
 
 
 FROM dev AS ci
 
-COPY --chown=user:user . .
+COPY . .
 
 CMD python manage.py graphql_schema --out=/tmp/compare.graphql && diff schema.graphql /tmp/compare.graphql \
     && ./.github/check_makemessages.sh \
@@ -81,7 +83,24 @@ CMD python manage.py graphql_schema --out=/tmp/compare.graphql && diff schema.gr
     && gunicorn --check-config --config=config/gunicorn_conf.py config.wsgi
 
 
-FROM ci as build
+FROM build-deps as build
+
+USER user
+
+ENV PATH="/home/user/.poetry/bin:${PATH}"
+
+RUN curl --silent --show-error \
+        https://raw.githubusercontent.com/python-poetry/poetry/7360b09e4ba3c01e1d5dc6eaaf34cb3ff57bc16e/get-poetry.py \
+        | python - --no-modify-path \
+    && find /home/user/.poetry/lib/poetry/_vendor/ -mindepth 1 -maxdepth 1 -not -name py3.9 -type d | xargs rm -rf
+
+COPY --chown=user:user poetry.lock .
+COPY --chown=user:user pyproject.toml .
+
+RUN poetry install --no-root --no-dev \
+    && rm -rf /home/user/.cache/
+
+COPY --chown=user:user . .
 
 RUN django-admin compilemessages
 RUN poetry build --format=wheel
@@ -94,10 +113,10 @@ USER user
 
 ENV PYTHONOPTIMIZE=1
 
-# We only need these and nothing more.
-COPY --chown=user:user --from=build /home/user/.local /home/user/.local/
-COPY --chown=user:user config config/
-COPY --chown=user:user manage.py .
+# The production app needs exactly these and nothing more.
+COPY --from=build --chown=user:user /home/user/.local /home/user/.local/
+COPY --from=build --chown=user:user /home/user/app/config config/
+COPY --from=build --chown=user:user /home/user/app/manage.py manage.py
 
 CMD python manage.py collectstatic --noinput \
     && python manage.py migrate \

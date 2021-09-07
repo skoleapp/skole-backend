@@ -48,7 +48,6 @@ jobs:
       with:
         context: .
         target: ci
-        build-args: install_dev_dependencies=1
         tags: backend-ci
         load: true
         cache-from: type=local,src=/tmp/.buildx-cache
@@ -65,7 +64,7 @@ jobs:
       if: ${{ github.event_name == 'pull_request' }}
       run: >
         docker-compose --file .github/docker-compose-ci.yml up --abort-on-container-exit
-        && docker cp backend-ci:/home/user/app/coverage.xml .
+        && docker cp backend-ci:/app/coverage.xml .
 
     - name: "Upload coverage to Codecov"
       if: ${{ github.event_name == 'pull_request' }}
